@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IQ Me</title>
+<style>
+:root{
+  --bg:#efe7d7;
+  --paper:#fffdf8;
+  --ink:#201c17;
+  --muted:#6d6559;
+  --line:#dacdb9;
+  --teal:#0f766e;
+  --rust:#b45309;
+  --gold:#f4d35e;
+  --shadow:0 18px 50px rgba(43,32,21,.12);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--ink);
+  font:16px/1.45 Georgia,"Times New Roman",serif;
+  background:
+    radial-gradient(circle at 10% 10%,#fff8ec 0,transparent 24%),
+    radial-gradient(circle at 90% 90%,#eadcc4 0,transparent 22%),
+    linear-gradient(135deg,#f3ede1,#e7dccb);
+}
+main{max-width:1080px;margin:0 auto;padding:24px 18px 40px}
+.grid{display:grid;gap:16px}
+.hero{grid-template-columns:1.15fr .85fr}
+.two{grid-template-columns:1.08fr .92fr;margin-top:16px}
+.card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:24px;
+  box-shadow:var(--shadow);
+}
+.pad{padding:24px}
+.tag{
+  display:inline-block;
+  padding:7px 12px;
+  border-radius:999px;
+  background:#efe6d3;
+  color:var(--teal);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+}
+h1{
+  margin:14px 0 12px;
+  font-size:clamp(2.6rem,6vw,5rem);
+  line-height:.95;
+}
+h2{margin:0 0 8px;font-size:1.1rem}
+p{margin:0}
+.lead{font-size:1.05rem;max-width:42rem}
+.note{
+  margin-top:18px;
+  padding:14px 15px;
+  border-left:4px solid var(--rust);
+  border-radius:14px;
+  background:#f7f0e3;
+  color:#4a4035;
+}
+.stats{grid-template-columns:repeat(3,1fr);margin:14px 0}
+.mini{
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:rgba(255,255,255,.65);
+}
+.mini b{display:block;font-size:1.45rem}
+.muted{color:var(--muted)}
+.progress{
+  margin-top:14px;
+  height:12px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#ebe1cf;
+  overflow:hidden;
+}
+.bar{
+  width:0;
+  height:100%;
+  background:linear-gradient(90deg,var(--teal),#14b8a6);
+  transition:width .25s ease;
+}
+.tabs,.row{display:flex;gap:10px;flex-wrap:wrap}
+.tabs{margin-bottom:16px}
+button{
+  font:inherit;
+  cursor:pointer;
+  padding:10px 15px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+}
+.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.primary{background:var(--teal);color:#fff;border-color:var(--teal)}
+.q{display:none}
+.q.live{display:block}
+.q h3{margin:4px 0 8px;font-size:1.34rem}
+.choices{display:grid;gap:10px;margin-top:15px}
+.choice{display:flex;gap:12px;padding:13px 14px;align-items:flex-start;border:1px solid var(--line);border-radius:18px;background:#fff;cursor:pointer}
+.choice:hover{border-color:var(--teal)}
+.choice input{margin-top:3px}
+.aside{display:grid;gap:16px;align-content:start}
+.scoregrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+.box{
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#faf5ea;
+}
+.box span{display:block;color:var(--muted);font-size:.92rem}
+.box b{font-size:1.8rem}
+.result{
+  background:linear-gradient(180deg,#153b37,#102826);
+  color:#f8f7f2;
+}
+.pill{
+  display:inline-block;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.12);
+}
+.big{
+  margin:14px 0 8px;
+  font-size:clamp(2.8rem,8vw,5rem);
+  line-height:.95;
+}
+.traits{display:grid;gap:10px;margin-top:16px}
+.trait{display:grid;grid-template-columns:110px 1fr 42px;gap:10px;align-items:center}
+.rail{height:10px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.12)}
+.fill{height:100%;background:var(--gold)}
+ul{margin:10px 0 0;padding-left:18px}
+.foot{margin-top:16px;font-size:.92rem;color:var(--muted)}
+@media (max-width:900px){
+  .hero,.two{grid-template-columns:1fr}
+  .trait{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<main>
+  <section class="grid hero">
+    <article class="card pad">
+      <span class="tag">Entertainment estimate</span>
+      <h1>IQ Me</h1>
+      <p class="lead">A compact multi-test screener inspired by common IQ-style domains: fluid reasoning, verbal reasoning, and working memory. It gives a broad estimate, not a formal diagnosis.</p>
+      <div class="note">Best practice note: real IQ measurement depends on standardized timing, age norms, reliable scoring, and professional interpretation. This page is for self-exploration only.</div>
+    </article>
+    <aside class="card pad">
+      <h2>What is included</h2>
+      <div class="grid stats">
+        <div class="mini"><b>3</b><span>domains</span></div>
+        <div class="mini"><b>12</b><span>items</span></div>
+        <div class="mini"><b>1</b><span>estimate</span></div>
+      </div>
+      <p class="muted">Pattern items are weighted slightly higher to reflect fluid reasoning. The result is normalized into a rough 70 to 145 range.</p>
+      <div class="progress"><div class="bar" id="bar"></div></div>
+      <p class="foot" id="progress">0 of 12 answers recorded.</p>
+    </aside>
+  </section>
+  <section class="grid two">
+    <article class="card pad">
+      <div class="tabs" id="tabs"></div>
+      <div id="questions"></div>
+      <div class="row" style="margin-top:18px"><button id="prev">Previous</button><button class="primary" id="next">Next</button><button id="reset">Reset</button></div>
+      <p class="foot">Recommendation: avoid help, calculators, or long pauses if you want cleaner feedback.</p>
+    </article>
+    <aside class="aside">
+      <section class="card pad">
+        <h2>Section scores</h2>
+        <div class="scoregrid">
+          <div class="box"><span>Pattern</span><b id="sp">0/4</b></div>
+          <div class="box"><span>Verbal</span><b id="sv">0/4</b></div>
+          <div class="box"><span>Memory</span><b id="sm">0/4</b></div>
+          <div class="box"><span>Answered</span><b id="sa">0/12</b></div>
+        </div>
+      </section>
+      <section class="card pad result">
+        <h2>Estimated outcome</h2>
+        <div class="pill" id="band">Complete the tests</div>
+        <div class="big" id="iq">--</div>
+        <p id="summary">Your combined estimate appears after all twelve answers are submitted.</p>
+        <div class="traits">
+          <div class="trait"><span>Reasoning</span><div class="rail"><div class="fill" id="fr" style="width:0%"></div></div><span id="tr">0</span></div>
+          <div class="trait"><span>Verbal</span><div class="rail"><div class="fill" id="fv" style="width:0%"></div></div><span id="tv">0</span></div>
+          <div class="trait"><span>Memory</span><div class="rail"><div class="fill" id="fm" style="width:0%"></div></div><span id="tm">0</span></div>
+        </div>
+      </section>
+      <section class="card pad">
+        <h2>Limits</h2>
+        <ul><li>This is not a clinical test.</li><li>Short tasks reduce reliability.</li><li>Motivation and language affect results.</li></ul>
+      </section>
+    </aside>
+  </section>
+</main>
+<script>
+const tests=[
+["p1","Pattern 1","pattern","2, 6, 12, 20, ?","24|28|30|32",1,"Differences grow by two: +4, +6, +8, then +10."],
+["p2","Pattern 2","pattern","Find the odd one out: triangle, square, circle, cube","triangle|square|circle|cube",3,"Cube is three-dimensional while the others are flat shapes."],
+["p3","Pattern 3","pattern","If all Zors are Mips and no Mips are Tals, what must be true?","Some Zors are Tals|No Zors are Tals|All Tals are Zors|Some Mips are Tals",1,"If every Zor is a Mip and no Mip is a Tal, Zors cannot be Tals."],
+["p4","Pattern 4","pattern","A shape rotates 90 degrees clockwise three times. It ends:","90 degrees clockwise|180 degrees|270 degrees clockwise|unchanged",2,"Three quarter-turns equal 270 degrees clockwise."],
+["v1","Verbal 1","verbal","Book is to reading as fork is to:","drawer|eating|metal|kitchen",1,"The relation is object to its typical use."],
+["v2","Verbal 2","verbal","Pick the closest meaning of concise.","careful|brief|uncertain|ornate",1,"Concise means brief while keeping the point."],
+["v3","Verbal 3","verbal","Bird, feather, mammal, fur. Which pair matches the relation?","bird:fur|mammal:fur|feather:mammal|fur:bird",1,"A mammal has fur just as a bird has feathers."],
+["v4","Verbal 4","verbal","Which word does not belong?","violin|cello|trumpet|harp",2,"Trumpet is a wind instrument; the others are strings."],
+["m1","Memory 1","memory","Remember 7 1 4 9. Which reverse order is correct?","9 4 1 7|9 1 4 7|7 1 4 9|4 9 1 7",0,"Reverse recall flips the original order exactly."],
+["m2","Memory 2","memory","Which is the next pair? AZ, BY, CX, ?","DW|EV|FV|DU",0,"The first letter moves forward, the second backward."],
+["m3","Memory 3","memory","You hear red, blue, green, blue. Which color was second?","red|green|blue|yellow",2,"The second item is blue."],
+["m4","Memory 4","memory","Count backward by 3 from 19 for two steps. Where do you land?","10|12|13|16",2,"19 to 16 to 13."]
+];
+const w={pattern:.4,verbal:.3,memory:.3};
+const state={i:0,a:{}};
+const $=id=>document.getElementById(id);
+const names={pattern:"Fluid reasoning",verbal:"Verbal reasoning",memory:"Working memory"};
+function score(group){
+  const items=tests.filter(t=>t[2]===group);
+  const hit=items.filter(t=>state.a[t[0]]===t[5]).length;
+  return {hit,total:items.length,ratio:hit/items.length};
+}
+function answered(){return Object.keys(state.a).length}
+function estimate(){
+  const p=score("pattern").ratio,v=score("verbal").ratio,m=score("memory").ratio;
+  const iq=Math.round(70+(p*w.pattern+v*w.verbal+m*w.memory)*75);
+  return {iq,p,v,m};
+}
+function band(iq){
+  if(iq<85)return"Developing range";
+  if(iq<100)return"Average band";
+  if(iq<115)return"High average";
+  if(iq<130)return"Advanced";
+  return"Exceptional estimate";
+}
+function extreme(e,dir){
+  return Object.entries({reasoning:e.p,verbal:e.v,memory:e.m}).sort((a,b)=>dir*(a[1]-b[1]))[0][0];
+}
+function renderTabs(){
+  $("tabs").innerHTML="";
+  tests.forEach((t,i)=>{
+    const b=document.createElement("button");
+    b.textContent=t[1];
+    b.className=i===state.i?"on":"";
+    b.onclick=()=>{state.i=i;render()};
+    $("tabs").appendChild(b);
+  });
+}
+function renderQs(){
+  $("questions").innerHTML="";
+  tests.forEach((t,i)=>{
+    const sec=document.createElement("section");
+    sec.className="q"+(i===state.i?" live":"");
+    sec.innerHTML=`<p class="muted">${names[t[2]]} • Item ${i+1} of ${tests.length}</p><h3>${t[3]}</h3><div class="choices"></div><p class="foot" id="x-${t[0]}"></p>`;
+    const box=sec.querySelector(".choices");
+    t[4].split("|").forEach((c,n)=>{
+      const label=document.createElement("label");
+      label.className="choice";
+      label.innerHTML=`<input type="radio" name="${t[0]}" ${state.a[t[0]]===n?"checked":""}><span>${c}</span>`;
+      label.querySelector("input").onchange=()=>{state.a[t[0]]=n;update();renderQs()};
+      box.appendChild(label);
+    });
+    if(state.a[t[0]]!==undefined){
+      const ok=state.a[t[0]]===t[5],msg=sec.querySelector(`#x-${t[0]}`);
+      msg.textContent=(ok?"Correct. ":"Not quite. ")+t[6];
+      msg.style.color=ok?"#166534":"#b45309";
+    }
+    $("questions").appendChild(sec);
+  });
+}
+function paint(id,v){$(id).style.width=Math.round(v*100)+"%";$(id.replace("f","t")).textContent=Math.round(v*100)}
+function update(){
+  const p=score("pattern"),v=score("verbal"),m=score("memory"),done=answered(),e=estimate();
+  $("sp").textContent=`${p.hit}/${p.total}`;
+  $("sv").textContent=`${v.hit}/${v.total}`;
+  $("sm").textContent=`${m.hit}/${m.total}`;
+  $("sa").textContent=`${done}/${tests.length}`;
+  $("bar").style.width=Math.round(done/tests.length*100)+"%";
+  $("progress").textContent=`${done} of ${tests.length} answers recorded.`;
+  paint("fr",e.p);paint("fv",e.v);paint("fm",e.m);
+  if(done===tests.length){
+    $("iq").textContent=e.iq;
+    $("band").textContent=band(e.iq);
+    $("summary").textContent=`Estimated IQ level: ${e.iq}. Strongest area: ${extreme(e,-1)}. Weakest area: ${extreme(e,1)}. Use this as a broad estimate only.`;
+  }else{
+    $("iq").textContent="--";
+    $("band").textContent="Complete the tests";
+    $("summary").textContent="Your combined estimate appears after all twelve answers are submitted.";
+  }
+  renderTabs();
+}
+function render(){
+  renderTabs();renderQs();update();
+}
+$("prev").onclick=()=>{state.i=(state.i+tests.length-1)%tests.length;render()};
+$("next").onclick=()=>{state.i=(state.i+1)%tests.length;render()};
+$("reset").onclick=()=>{
+  state.i=0;
+  state.a={};
+  render();
+};
+render();
+</script>
+</body>
+</html>

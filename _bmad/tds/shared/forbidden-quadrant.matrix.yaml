@@ -1,0 +1,277 @@
+# Forbidden-quadrant matrix — source of truth для L2 enforcement
+# Cross-ref: tds-design.md §4.5 + §11; ADR-0012 (test-author + test-edit-frozen extension, TI-1)
+# Schema: 12 ролей × 11 операций = 132 ячеек
+# Source location в installed projects: _bmad/tds/shared/forbidden-quadrant.matrix.yaml (Class I read-only)
+#
+# Notation values:
+#   allow              — операция разрешена без условий
+#   allow-conditional  — разрешена с дополнительными условиями (см. notes per cell)
+#   read-only          — query/list/show разрешены; mutations deny
+#   deny               — операция запрещена; exit 4 + TDS-ERR:ROLE_SKILL_NOT_AUTHORIZED
+
+schema_version: "1.0"
+
+roles:
+  # Process role-skills (axis A) — 4
+  - id: navigator
+    description: "Orientation only: read state, propose next step. No code-write."
+  - id: engineer
+    description: "Implementation: code-write, story-ops, integrity record."
+  - id: auditor
+    description: "Verification: review-read, integrity verify. No code-write."
+  - id: writer
+    description: "Documentation: README, CHANGELOG, runbooks, ADR; doc-files only."
+
+  # Domain role-skills (axis B) — 6
+  - id: python
+    description: "Python projects (FastAPI, Django, asyncio, pandas)."
+  - id: csharp
+    description: "C# / .NET (ASP.NET Core, EF Core, Blazor)."
+  - id: java
+    description: "JVM (Spring Boot, Hibernate, Kotlin-backend)."
+  - id: frontend
+    description: "Web frontend (React, Vue, Angular) + a11y/quality."
+  - id: ios
+    description: "Swift, SwiftUI, UIKit, Core Data, App Store."
+  - id: android
+    description: "Kotlin, Jetpack Compose, Room, Hilt, Coroutines/Flow."
+
+  # TEA-integration role (axis C) — 1 (ADR-0012, TI-1)
+  - id: test-author
+    description: "Test-author phase via TEA delegation. Writes failing tests from AC; allowed to edit frozen tests; cannot write product code."
+
+  # Catch-all
+  - id: unknown
+    description: "Default fallback when --as=<role> is absent or unrecognized."
+
+operations:
+  - id: orient
+    description: "Read project state, run preflight check (read-only)."
+  - id: review-read
+    description: "Read story-frontmatter, integrity registry, branch-registry."
+  - id: code-write
+    description: "Modify project files outside <output_folder>/_tds/."
+  - id: story-ops
+    description: "tds story update/status/add-finding/add-findings; integrity record для story-files. (Story spec creation делается BMAD-native /bmad-create-story skill'ом, не TDS CLI.)"
+  - id: state-set
+    description: "tds state set <story> <new-state>."
+  - id: integrity-ops
+    description: "tds integrity record/verify/accept/recover."
+  - id: archive-ops
+    description: "tds archive create/list/show/verify (phase finalization)."
+  - id: memory-ops
+    description: "tds memory add/list/show/query/supersede/tag."
+  - id: install-ops
+    description: "/bmad-tds-setup install/upgrade/repair/uninstall (никто из ролей не имеет allow — workflow-skill для setup над матрицей)."
+  - id: key-ops
+    description: "Reserved (post-HMAC-removal в v1; оставлено для совместимости расширений)."
+  - id: test-edit-frozen
+    description: "Modify test files когда story в tests-approved (frozen) state. Permitted only к test-author; specialists must use `tds story unfreeze-tests` to gain temporary access. (ADR-0012, TI-1)"
+
+# Matrix: 12 строк × 11 столбцов. Порядок столбцов — соответствует operations[] выше.
+matrix:
+  navigator:
+    orient: allow
+    review-read: allow
+    code-write: deny
+    story-ops: allow-conditional   # read-only sub-ops only (status check, list)
+    state-set: deny
+    integrity-ops: allow            # verify only, not record
+    archive-ops: deny
+    memory-ops: read-only
+    install-ops: deny
+    key-ops: deny
+    test-edit-frozen: deny
+
+  engineer:
+    orient: allow
+    review-read: allow
+    code-write: allow
+    story-ops: allow
+    state-set: allow
+    integrity-ops: allow
+    archive-ops: allow              # для technical snapshot операций при archive
+    memory-ops: read-only           # auto-injection lessons в Step 2 каждой story
+    install-ops: deny
+    key-ops: deny
+    test-edit-frozen: deny
+
+  auditor:
+    orient: allow
+    review-read: allow
+    code-write: deny
+    story-ops: allow-conditional   # only add-finding (review verdict writeback)
+    state-set: deny
+    integrity-ops: allow
+    archive-ops: deny
+    memory-ops: allow               # главный writer уроков на retro
+    install-ops: deny
+    key-ops: deny
+    test-edit-frozen: deny
+
+  writer:
+    orient: allow
+    review-read: allow
+    code-write: allow-conditional   # only doc-files (*.md, *.rst, *.txt, *.adoc); convention в SKILL.md ## Constraints
+    story-ops: allow-conditional    # only tds.completion_notes field; convention enforced в ## Constraints
+    state-set: deny
+    integrity-ops: allow
+    archive-ops: allow              # для phase-summary.md generation
+    memory-ops: allow               # formulates lesson-text from auditor candidates
+    install-ops: deny
+    key-ops: deny
+    test-edit-frozen: deny
+
+  # Domain specialists (python, csharp, java, frontend, ios, android):
+  #   story-ops = allow — domain specialist делает `tds story update`
+  #   для своей story (mark Tasks done, append completion notes, append
+  #   File List, optionally flip status). Это match'ит v5.2.2 правило
+  #   `--as` = active skill: csharp story → tds story update --as=csharp.
+  #   state-set остаётся deny для domain — глобальный sprint-status
+  #   обновляется через story-ops (tds story update --status=...) или
+  #   через engineer (orchestrator-level state machine: revert-story,
+  #   deliver, etc.).
+  python:
+    orient: allow
+    review-read: allow
+    code-write: allow
+    story-ops: allow
+    state-set: deny
+    integrity-ops: allow
+    archive-ops: deny
+    memory-ops: read-only
+    install-ops: deny
+    key-ops: deny
+    test-edit-frozen: deny
+
+  csharp:
+    orient: allow
+    review-read: allow
+    code-write: allow
+    story-ops: allow
+    state-set: deny
+    integrity-ops: allow
+    archive-ops: deny
+    memory-ops: read-only
+    install-ops: deny
+    key-ops: deny
+    test-edit-frozen: deny
+
+  java:
+    orient: allow
+    review-read: allow
+    code-write: allow
+    story-ops: allow
+    state-set: deny
+    integrity-ops: allow
+    archive-ops: deny
+    memory-ops: read-only
+    install-ops: deny
+    key-ops: deny
+    test-edit-frozen: deny
+
+  frontend:
+    orient: allow
+    review-read: allow
+    code-write: allow
+    story-ops: allow
+    state-set: deny
+    integrity-ops: allow
+    archive-ops: deny
+    memory-ops: read-only
+    install-ops: deny
+    key-ops: deny
+    test-edit-frozen: deny
+
+  ios:
+    orient: allow
+    review-read: allow
+    code-write: allow
+    story-ops: allow
+    state-set: deny
+    integrity-ops: allow
+    archive-ops: deny
+    memory-ops: read-only
+    install-ops: deny
+    key-ops: deny
+    test-edit-frozen: deny
+
+  android:
+    orient: allow
+    review-read: allow
+    code-write: allow
+    story-ops: allow
+    state-set: deny
+    integrity-ops: allow
+    archive-ops: deny
+    memory-ops: read-only
+    install-ops: deny
+    key-ops: deny
+    test-edit-frozen: deny
+
+  # TEA-integration role (axis C) — ADR-0012, TI-1
+  #   code-write = allow-conditional with path-filter convention (test-files
+  #     only — analogous to writer.code-write для doc-files). Convention
+  #     enforced в `bmad-tds-test-author/SKILL.md ## Constraints` + bats
+  #     guard `test-author-test-paths-only.bats` (TI-2 deliverable).
+  #   story-ops = allow-conditional — only tests-* status flips and
+  #     --task-complete для test-tasks; add-finding deny (auditor's job).
+  #   state-set = allow-conditional — only tests-drafting / tests-needs-revision
+  #     / tests-approved targets; other state values deny.
+  #   test-edit-frozen = allow — sole role permitted to edit tests after freeze.
+  test-author:
+    orient: allow
+    review-read: allow
+    code-write: allow-conditional   # path-filter convention: test-files only
+    story-ops: allow-conditional    # only tests-* status flips + task-complete для test-tasks
+    state-set: allow-conditional    # only tests-* state values
+    integrity-ops: allow            # record per test file
+    archive-ops: deny
+    memory-ops: read-only
+    install-ops: deny
+    key-ops: deny
+    test-edit-frozen: allow
+
+  unknown:
+    orient: allow
+    review-read: allow
+    code-write: deny
+    story-ops: deny
+    state-set: deny
+    integrity-ops: deny
+    archive-ops: deny
+    memory-ops: deny  # P0-S5 fail-closed (panel-#2 fix)
+    install-ops: deny
+    key-ops: deny
+    test-edit-frozen: deny
+
+# Conditional notes — детализация для allow-conditional ячеек.
+# Эти notes — guidance для разработчика SKILL.md (`## Constraints` секция);
+# matrix-runtime их не enforce'ит (они про path-filtering / field-filtering, не op-level).
+conditional_notes:
+  navigator.story-ops:
+    note: "Только read-only sub-ops: status check, list. Никаких mutations через story-ops."
+  auditor.story-ops:
+    note: "Только tds story add-finding (review verdict writeback). Update / status mutations — деny. Convention enforced в handlers/story.ts: handler проверяет что sub === 'add-finding' для auditor; иначе возвращает AUTHZ deny."
+  writer.code-write:
+    note: "Path-allowlist: *.md, *.rst, *.txt, *.adoc, README*, CHANGELOG*, файлы под docs/. Code-files (*.py, *.swift, etc.) — out-of-scope, escalate to engineer/domain. Path-filter — convention в SKILL.md ## Constraints, не matrix-enforced."
+    bats_guard: "writer-doc-paths-only.bats (post-fact git diff analysis)"
+  writer.story-ops:
+    note: "Только поле tds.completion_notes в story-frontmatter. Полная story-modify — engineer'у."
+  test-author.code-write:
+    note: "Path-filter convention: test-files only (analogous to writer.code-write doc-files). Test-file detection — heuristic (path contains test/, tests/, __tests__/, *.test.*, *.spec.*, *_test.go, etc.) или explicit list в story-frontmatter `tds.test_files`. Convention enforced в `bmad-tds-test-author/SKILL.md ## Constraints`."
+    bats_guard: "test-author-test-paths-only.bats (post-fact git diff analysis; TI-2 deliverable)"
+  test-author.story-ops:
+    note: "Allowed sub-ops: status flips (только tests-* targets) + --task-complete для test-tasks. add-finding — deny (это auditor's verdict path). Convention enforced в handlers/story.ts: handler проверяет sub-command + target status + task-label scope для test-author."
+  test-author.state-set:
+    note: "Allowed targets: tests-drafting | tests-needs-revision | tests-approved. Прочие state values (in-progress, review, done, etc.) — deny. Convention enforced в handlers/state.ts."
+
+# CI-guards (bats-tests которые проверяют корректность matrix):
+ci_guards:
+  - name: inv-10-forbidden-quadrant
+    description: "Runtime tests: для каждой (role, op) = deny ячейки запускается tds <op> --as=<role> → assert exit=4 + event записан в forbidden-quadrant-events.jsonl"
+    coverage: "100% deny cells (subset of 132 total: 12 ролей × 11 операций) — minimum 1 test per deny"
+
+  - name: inv-10-matrix-sync
+    description: "Consistency: парсит markdown-таблицу из tds-design.md §4.5 через regex; парсит этот yaml через yq; сравнивает 132 cells; fail на первую рассинхронизацию"
+    coverage: "100% cells"

@@ -1,0 +1,5 @@
+{
+  "name": "tds-runtime-bundle",
+  "private": true,
+  "type": "module"
+}

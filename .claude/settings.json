@@ -1,0 +1,44 @@
+{
+  "skillListingBudgetFraction": 0.15,
+  "permissions": {
+    "deny": [
+      "Edit(_bmad/tds/**)",
+      "Write(_bmad/tds/**)",
+      "Edit(_bmad-output/_tds/state-manifest.yaml)",
+      "Write(_bmad-output/_tds/state-manifest.yaml)",
+      "Edit(_bmad-output/_tds/branch-registry.yaml)",
+      "Write(_bmad-output/_tds/branch-registry.yaml)",
+      "Edit(_bmad-output/_tds/memory/lessons.yaml)",
+      "Write(_bmad-output/_tds/memory/lessons.yaml)"
+    ],
+    "allow": [
+      "Bash(tds:*)",
+      "Bash(tds)",
+      "Bash(node _bmad/tds/shared/tds-runtime.bundle.js *)",
+      "Bash(_bmad/tds/bin/tds *)",
+      "Bash(node _bmad/tds/shared/tds-runtime.bundle.js)",
+      "Bash(_bmad/tds/bin/tds)",
+      "Bash(node ./_bmad/tds/shared/tds-runtime.bundle.js *)",
+      "Bash(./_bmad/tds/bin/tds *)",
+      "Bash(node ./_bmad/tds/shared/tds-runtime.bundle.js)",
+      "Bash(./_bmad/tds/bin/tds)",
+      "Bash(python3 _bmad/scripts/resolve_customization.py *)",
+      "Bash(python3 ./_bmad/scripts/resolve_customization.py *)",
+      "Bash(git --version)",
+      "Bash(node --version)",
+      "Bash(python3 --version)",
+      "Bash(shasum -a 256 -c *)",
+      "Bash(node /Users/maksim/git/IQ-ME/_bmad/tds/shared/tds-runtime.bundle.js *)",
+      "Bash(/Users/maksim/git/IQ-ME/_bmad/tds/bin/tds *)",
+      "Bash(node /Users/maksim/git/IQ-ME/_bmad/tds/shared/tds-runtime.bundle.js)",
+      "Bash(/Users/maksim/git/IQ-ME/_bmad/tds/bin/tds)",
+      "Bash(python3 /Users/maksim/git/IQ-ME/_bmad/scripts/resolve_customization.py *)"
+    ],
+    "ask": [
+      "Edit(_bmad-output/implementation-artifacts/sprint-status.yaml)",
+      "Write(_bmad-output/implementation-artifacts/sprint-status.yaml)",
+      "Edit(_bmad/bmm/sprint-status.yaml)",
+      "Write(_bmad/bmm/sprint-status.yaml)"
+    ]
+  }
+}

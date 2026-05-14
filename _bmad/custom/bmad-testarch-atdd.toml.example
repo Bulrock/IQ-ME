@@ -1,0 +1,42 @@
+# bmad-testarch-atdd.toml — TDS-team override example (ADR-0012, TI-7)
+#
+# Shipped как .example шаблон. Чтобы активировать override:
+#   cp _bmad/custom/bmad-testarch-atdd.toml.example \
+#      _bmad/custom/bmad-testarch-atdd.toml
+#   # затем отредактировать .toml под свою команду
+#
+# Что делает этот override:
+#   - Inject'ит TDS testing-standards docs в TEA's `bmad-testarch-atdd`
+#     workflow как persistent additional resources (loaded на каждой
+#     ATDD invocation независимо от того, кто её запустил).
+#   - Force'ит `tea_execution_mode = "auto"` (default; см. ADR-0012 §H
+#     Subagent Edit/Write risk mitigation — fallback к sequential
+#     если runtime probe fail'ит).
+#
+# Все эти keys — sparse override на upstream TEA's defaults. ADD only
+# те поля, которые меняешь; не копируй весь upstream customize.toml.
+
+[workflow]
+# Дополнительные ресурсы, инжектятся в TEA briefing при ATDD invocation.
+# Append-mode: TEA's defaults остаются; эти добавляются.
+additional_resources = [
+    "{project-root}/_bmad/tds/shared/testing-standards/forbidden-patterns.md",
+    "{project-root}/_bmad/tds/shared/testing-standards/coverage-thresholds.md",
+    "{project-root}/_bmad/tds/shared/testing-standards/framework-recipes.md",
+    "{project-root}/_bmad/tds/shared/testing-standards/ac-mapping-rules.md",
+
+    # Per-team additions — раскомментируй и добавь paths к собственным docs.
+    # "{project-root}/docs/testing/team-forbidden-patterns.md",
+    # "{project-root}/docs/testing/team-coverage-thresholds.md",
+]
+
+# TEA execution mode — `auto | agent-team | subagent | sequential`.
+# Default `auto` подразумевает probe chain (agent-team → subagent →
+# sequential fallback). Если runtime отказывает в Edit/Write tools для
+# subagent context — TEA's ATDD halt'нется при file-write.
+# Mitigation: `sequential` deopt — same context, has Edit/Write.
+# tea_execution_mode = "auto"
+
+# Capability probe — TDS-team default true. Disable если runtime probe
+# unreliable и предпочитаешь explicit mode.
+# tea_capability_probe = true
