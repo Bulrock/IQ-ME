@@ -1,0 +1,30 @@
+# bmad-tds-bridge-from-retros customize.toml — defaults
+#
+# Class I — read-only after install. Sparse overrides go to:
+#   {project-root}/_bmad/custom/bmad-tds-bridge-from-retros.toml
+#   {project-root}/_bmad/custom/bmad-tds-bridge-from-retros.user.toml
+#
+[workflow]
+# Workflow-skill — собирает curated pre-epic из накопленных retro-md
+# Bridge Plan секций. User накапливает retros (без обязательной
+# обработки после каждого эпика), потом одной командой собирает один
+# pre-epic.
+
+name = "Bridge from Retros"
+
+description = "Curated pre-epic из накопленного техдолга — aggregate Bridge Plan секций нескольких retros, auditor refinement, user dialog, bulk-apply."
+
+# Append-mode arrays.
+activation_steps_prepend = []
+activation_steps_append = []
+persistent_facts = []
+principles = []
+
+# ─── Default bridge type ───────────────────────────────────────────────
+
+[workflow.defaults]
+# Если YAML-блоки в retros расходятся в `type` (или вообще отсутствует),
+# использовать этот default. Override через --type=<x> CLI flag.
+# Type: scalar (enum)
+# Variants: spike | tech-debt | refactor | infra | dependency-upgrade
+default_type = "tech-debt"

@@ -1,0 +1,205 @@
+# bmad-tds-java customize.toml — defaults
+#
+# Class I — read-only after install. Sparse overrides go to:
+#   {project-root}/_bmad/custom/bmad-tds-java.toml
+#   {project-root}/_bmad/custom/bmad-tds-java.user.toml
+#
+[workflow]
+# Domain role-skill — Java tech-stack guidance (Spring Boot, Spring Data,
+# JUnit 5, Mockito). TDD-driven с Clean Code Java principles.
+
+name = "Java Specialist"
+
+description = "Java (Spring Boot, Spring Data, JUnit 5) implementation specialist with TDD-driven approach and Clean Code Java principles (Bloch / Beck / Martin)."
+
+# ─── Project layout ────────────────────────────────────────────────────
+
+# ─── Activation / facts / principles (TOP-LEVEL, before subsections!) ──
+
+# Append-mode arrays. User overrides ADD to defaults в order.
+activation_steps_prepend = []
+activation_steps_append = []
+persistent_facts = []
+principles = []
+
+[workflow.project_layout]
+# Default project structure.
+# Type: scalar (enum)
+# Default: "hexagonal"
+# Variants:
+#   hexagonal       — ports/adapters split (recommended)
+#   layered         — controller/service/repository
+#   ddd             — bounded contexts, modular monolith
+#   minimal         — single package, ≤5 endpoints (POC)
+default_variant = "hexagonal"
+
+# Base package convention.
+# Type: scalar (template)
+# Default: "com.{org}.{project}"
+# Tokens: {org} {project}
+base_package_template = "com.{org}.{project}"
+
+# Web/HTTP layer subpackage.
+# Type: scalar
+# Default: "web"
+# Common alternatives: web | api | rest | adapter.in.web
+web_layer = "web"
+
+# Domain subpackage.
+# Type: scalar
+# Default: "domain"
+# Common alternatives: domain | core | model
+domain_layer = "domain"
+
+# Infrastructure subpackage.
+# Type: scalar
+# Default: "infrastructure"
+# Common alternatives: infrastructure | adapter.out | persistence
+infrastructure_layer = "infrastructure"
+
+# ─── Tooling ───────────────────────────────────────────────────────────
+
+[workflow.tooling]
+# Build tool.
+# Type: scalar (enum)
+# Default: "gradle-kotlin-dsl"
+# Variants: gradle-kotlin-dsl | gradle-groovy | maven
+build_tool = "gradle-kotlin-dsl"
+
+# JDK version (LTS-aware).
+# Type: scalar (enum)
+# Default: "21"
+# Variants: 17 | 21 | 25
+jdk_version = "21"
+
+# Linter / static analysis.
+# Type: scalar (enum)
+# Default: "spotless+errorprone"
+# Variants:
+#   spotless+errorprone   — recommended
+#   checkstyle+pmd        — legacy
+#   none                  — minimal
+analyzers = "spotless+errorprone"
+
+# Test framework.
+# Type: scalar (enum)
+# Default: "junit5"
+# Variants: junit5 | junit4 (legacy) | testng
+test_framework = "junit5"
+
+# Mocking library.
+# Type: scalar (enum)
+# Default: "mockito"
+# Variants: mockito | mockk (Kotlin) | easymock
+mocking = "mockito"
+
+# Assertion library.
+# Type: scalar (enum)
+# Default: "assertj"
+# Variants: assertj | hamcrest | truth | builtin
+assertions = "assertj"
+
+# ─── Coverage ──────────────────────────────────────────────────────────
+
+[workflow.coverage]
+# Default minimum coverage.
+# Type: scalar (number; 0-100)
+# Default: 80
+default_min = 80
+
+# Security/integrity-critical floor.
+# Type: scalar (number; 0-100)
+# Default: 95
+security_critical_min = 95
+
+# Patterns matching security-critical files.
+# Type: array of scalars
+security_critical_patterns = [
+    "**/auth/**",
+    "**/security/**",
+    "**/crypto/**",
+    "**/jwt/**",
+    "**/oauth/**",
+]
+
+# ─── Test naming ───────────────────────────────────────────────────────
+
+# ─── QA gates extension ───────────────
+
+# Coverage metric — line vs branch.
+# Type: scalar (enum)
+# Default: "branch"
+coverage_metric = "branch"
+
+# Cognitive complexity — gate per new function.
+# Type: scalar (number; 1-50; 0 = disabled)
+# Default: 15
+max_new_function_cognitive_complexity = 15
+
+# Mutation testing minimum score (% killed mutants).
+# Type: scalar (number; 0-100; 0 = disabled)
+# Default: 0 (recommend, not enforce; team enables через override)
+mutation_score_min = 0
+
+# Flaky test rate maximum (failures / total runs over rolling window).
+# Type: scalar (number; 0-1.0; 0 = disabled)
+# Default: 0.02 (2% — Spotify / GitHub Engineering recommended)
+flaky_test_rate_max = 0.02
+
+# Duplication gate (% lines duplicated).
+# Type: scalar (number; 0-100; 0 = disabled)
+# Default: 3 (SonarQube default)
+duplication_pct_max = 3
+
+[workflow.test_naming]
+# Test method naming.
+# Type: scalar (enum)
+# Default: "method_scenario_expected"
+# Variants:
+#   method_scenario_expected      — Bloch / Williams style (recommended)
+#   should_expected_when_scenario  — BDD-style
+#   testMethodName                 — old JUnit 4 style (NOT recommended)
+test_method_pattern = "method_scenario_expected"
+
+# ─── Async patterns ────────────────────────────────────────────────────
+
+[workflow.async_patterns]
+# Recommend Project Loom virtual threads (JDK 21+).
+# Type: scalar (bool)
+# Default: true (если jdk_version >= 21)
+recommend_virtual_threads = true
+
+# Recommend reactive (Reactor / RxJava) для new I/O code.
+# Type: scalar (bool)
+# Default: false (virtual threads предпочитаемее с JDK 21+)
+recommend_reactive = false
+
+# ─── Validation ────────────────────────────────────────────────────────
+
+[workflow.validation]
+# Default boundary validation.
+# Type: scalar (enum)
+# Default: "jakarta-validation"
+# Variants: jakarta-validation | manual | none
+boundary_validation = "jakarta-validation"
+
+# ─── Frameworks ────────────────────────────────────────────────────────
+
+[workflow.frameworks]
+# Web framework.
+# Type: scalar (enum)
+# Default: "spring-boot"
+# Variants: spring-boot | quarkus | micronaut | dropwizard
+new_rest_api = "spring-boot"
+
+# Persistence.
+# Type: scalar (enum)
+# Default: "spring-data-jpa"
+# Variants: spring-data-jpa | jooq | jdbc-template | mybatis
+new_orm = "spring-data-jpa"
+
+# Migration tool.
+# Type: scalar (enum)
+# Default: "flyway"
+# Variants: flyway | liquibase
+migration_tool = "flyway"

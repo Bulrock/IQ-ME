@@ -1,0 +1,104 @@
+# bmad-tds-code-review customize.toml — defaults
+#
+# Class I — read-only after install. Sparse overrides go to:
+#   {project-root}/_bmad/custom/bmad-tds-code-review.toml
+#   {project-root}/_bmad/custom/bmad-tds-code-review.user.toml
+#
+[workflow]
+# Workflow-skill — drives auditor through review of changeset (story / epic /
+# ad-hoc PR). Outputs: review-report.md, code-review-events stream, gate
+# decision (approve / request-changes / halt).
+
+name = "Code Review"
+
+description = "Auditor-driven code review: runs language-specific clean-code checks, security scan, coverage delta, emits review-report.md and gate decision."
+
+# ─── Review depth ──────────────────────────────────────────────────────
+
+# ─── Activation / facts / principles (TOP-LEVEL, before subsections!) ──
+
+# Append-mode arrays. User overrides ADD to defaults в order.
+activation_steps_prepend = []
+activation_steps_append = []
+persistent_facts = []
+principles = []
+
+[workflow.depth]
+# Default depth.
+# Type: scalar (enum)
+# Default: "standard"
+# Variants:
+#   light     — diff-only, style + obvious bugs
+#   standard  — diff + impacted modules, full clean-code checks
+#   deep      — full module audit, architectural fitness, security threat model
+default = "standard"
+
+# Auto-escalate light → standard если diff > N lines.
+# Type: scalar (number; 0-10000; 0 = disabled)
+# Default: 500
+escalate_light_threshold_lines = 500
+
+# Auto-escalate standard → deep если impacted security-critical paths.
+# Type: scalar (bool)
+# Default: true
+escalate_on_security_critical = true
+
+# ─── Gate thresholds ───────────────────────────────────────────────────
+
+[workflow.gate]
+# Coverage delta minimum (percentage points; negative allowed).
+# Type: scalar (number; -100 to 100)
+# Default: 0 (story не должна уменьшать coverage)
+min_coverage_delta = 0
+
+# Maximum allowed cyclomatic complexity для new functions.
+# Type: scalar (number; 1-50)
+# Default: 10
+max_new_function_complexity = 10
+
+# Block merge при detected NEW vulnerability (high or critical).
+# Type: scalar (bool)
+# Default: true
+block_on_new_high_severity = true
+
+# ─── Tools — language-agnostic ─────────────────────────────────────────
+
+# ─── QA gates extension ───────────────
+
+# Coverage metric — line vs branch.
+# Type: scalar (enum)
+# Default: "branch"
+coverage_metric = "branch"
+
+# Cognitive complexity — gate per new function.
+# Type: scalar (number; 1-50; 0 = disabled)
+# Default: 15
+max_new_function_cognitive_complexity = 15
+
+# Mutation testing minimum score (% killed mutants).
+# Type: scalar (number; 0-100; 0 = disabled)
+# Default: 0 (recommend, not enforce; team enables через override)
+mutation_score_min = 0
+
+# Flaky test rate maximum (failures / total runs over rolling window).
+# Type: scalar (number; 0-1.0; 0 = disabled)
+# Default: 0.02 (2% — Spotify / GitHub Engineering recommended)
+flaky_test_rate_max = 0.02
+
+# Duplication gate (% lines duplicated).
+# Type: scalar (number; 0-100; 0 = disabled)
+# Default: 3 (SonarQube default)
+duplication_pct_max = 3
+
+[workflow.tools]
+# Whether code-review skill auto-detects language(s) from diff и delegates
+# к соответствующему domain role-skill (python / java / etc.).
+# Type: scalar (bool)
+# Default: true
+auto_detect_language = true
+
+# Override language detection (force specific role-skill).
+# Type: scalar (enum or empty)
+# Default: "" (use auto-detect)
+# Variants: "" | python | csharp | java | frontend | ios | android
+force_language = ""

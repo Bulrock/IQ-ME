@@ -1,0 +1,174 @@
+# bmad-tds-ios customize.toml — defaults
+#
+# Class I — read-only after install. Sparse overrides go to:
+#   {project-root}/_bmad/custom/bmad-tds-ios.toml
+#   {project-root}/_bmad/custom/bmad-tds-ios.user.toml
+#
+#   (adapted from levabond/iOS-clean-code-skills + Robert Martin Clean Code)
+
+[workflow]
+# Domain role-skill — iOS / Swift tech-stack guidance (Swift 6, SwiftUI,
+# Combine, Swift Concurrency). TDD-driven с Clean Code iOS principles.
+
+name = "iOS Specialist"
+
+description = "iOS (Swift 6, SwiftUI, Swift Concurrency) implementation specialist with TDD-driven approach and Clean Code iOS principles."
+
+# ─── Project layout ────────────────────────────────────────────────────
+
+# ─── Activation / facts / principles (TOP-LEVEL, before subsections!) ──
+
+# Append-mode arrays. User overrides ADD to defaults в order.
+activation_steps_prepend = []
+activation_steps_append = []
+persistent_facts = []
+principles = []
+
+[workflow.project_layout]
+# Default project structure.
+# Type: scalar (enum)
+# Default: "tca"
+# Variants:
+#   tca           — The Composable Architecture (recommended for SwiftUI)
+#   mvvm          — Model-View-ViewModel (still standard for UIKit)
+#   clean         — Clean Architecture (Domain/Data/Presentation)
+#   viper         — VIPER (legacy, large teams)
+#   minimal       — flat structure для small apps / playgrounds
+default_variant = "tca"
+
+# Default UI framework.
+# Type: scalar (enum)
+# Default: "swiftui"
+# Variants: swiftui | uikit | hybrid (SwiftUI + UIHostingController islands)
+ui_framework = "swiftui"
+
+# ─── Tooling ───────────────────────────────────────────────────────────
+
+[workflow.tooling]
+# Swift version.
+# Type: scalar (enum)
+# Default: "6"
+# Variants: 5.9 | 5.10 | 6 | 6.1
+swift_version = "6"
+
+# Project manager.
+# Type: scalar (enum)
+# Default: "spm"
+# Variants:
+#   spm          — Swift Package Manager (recommended)
+#   tuist        — Tuist project generator
+#   xcodegen     — XcodeGen
+#   manual       — handcrafted .xcodeproj (NOT recommended for new projects)
+project_manager = "spm"
+
+# Linter / formatter.
+# Type: scalar (enum)
+# Default: "swiftlint+swiftformat"
+# Variants:
+#   swiftlint+swiftformat   — recommended
+#   swiftlint               — lint only
+#   minimal                 — Xcode warnings only
+analyzers = "swiftlint+swiftformat"
+
+# Test framework.
+# Type: scalar (enum)
+# Default: "swift-testing"
+# Variants:
+#   swift-testing  — modern macro-based (Swift 6+, recommended)
+#   xctest         — classic
+#   quick-nimble   — BDD-style (legacy)
+test_framework = "swift-testing"
+
+# Snapshot testing library.
+# Type: scalar (enum)
+# Default: "swift-snapshot-testing"
+# Variants: swift-snapshot-testing | none
+snapshot_testing = "swift-snapshot-testing"
+
+# ─── Concurrency ───────────────────────────────────────────────────────
+
+[workflow.concurrency]
+# Strict concurrency level.
+# Type: scalar (enum)
+# Default: "complete" (Swift 6 default)
+# Variants: minimal | targeted | complete
+strict_concurrency = "complete"
+
+# Recommend `actor` для shared mutable state.
+# Type: scalar (bool)
+# Default: true
+recommend_actors = true
+
+# Forbid `@unchecked Sendable` без ADR.
+# Type: scalar (bool)
+# Default: true
+forbid_unchecked_sendable = true
+
+# ─── Coverage ──────────────────────────────────────────────────────────
+
+[workflow.coverage]
+# Default minimum coverage.
+# Type: scalar (number; 0-100)
+# Default: 75
+default_min = 75
+
+# Security/integrity-critical floor (Keychain, biometrics, tokens).
+# Type: scalar (number; 0-100)
+# Default: 95
+security_critical_min = 95
+
+# Patterns matching security-critical files.
+# Type: array of scalars
+security_critical_patterns = [
+    "**/Keychain/**",
+    "**/Auth/**",
+    "**/Crypto/**",
+    "**/Biometric*",
+    "**/Token*",
+]
+
+# ─── Test naming ───────────────────────────────────────────────────────
+
+# ─── QA gates extension ───────────────
+
+# Coverage metric — line vs branch.
+# Type: scalar (enum)
+# Default: "branch"
+coverage_metric = "branch"
+
+# Cognitive complexity — gate per new function.
+# Type: scalar (number; 1-50; 0 = disabled)
+# Default: 15
+max_new_function_cognitive_complexity = 15
+
+# Mutation testing minimum score (% killed mutants).
+# Type: scalar (number; 0-100; 0 = disabled)
+# Default: 0 (recommend, not enforce; team enables через override)
+mutation_score_min = 0
+
+# Flaky test rate maximum (failures / total runs over rolling window).
+# Type: scalar (number; 0-1.0; 0 = disabled)
+# Default: 0.02 (2% — Spotify / GitHub Engineering recommended)
+flaky_test_rate_max = 0.02
+
+# Duplication gate (% lines duplicated).
+# Type: scalar (number; 0-100; 0 = disabled)
+# Default: 3 (SonarQube default)
+duplication_pct_max = 3
+
+[workflow.test_naming]
+# Test method naming (для XCTest).
+# Type: scalar (enum)
+# Default: "test_method_scenario_expected"
+# Variants:
+#   test_method_scenario_expected   — recommended
+#   testMethodNameWhenScenario      — Apple sample style
+test_method_pattern = "test_method_scenario_expected"
+
+# Swift Testing tag style (для @Test annotations).
+# Type: scalar (enum)
+# Default: "descriptive-sentence"
+# Variants:
+#   descriptive-sentence   — @Test("returns nil when token expired")
+#   method-scenario        — @Test("loadUser_expiredToken_returnsNil")
+swift_testing_naming = "descriptive-sentence"

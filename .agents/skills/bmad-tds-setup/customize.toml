@@ -1,0 +1,97 @@
+# bmad-tds-setup customize.toml — defaults
+#
+# Class I — read-only after install. Sparse overrides go to:
+#   {project-root}/_bmad/custom/bmad-tds-setup.toml          (team)
+#   {project-root}/_bmad/custom/bmad-tds-setup.user.toml     (personal)
+#
+[workflow]
+# Workflow-skill — bootstraps `<output_folder>/_tds/` runtime layout, registers
+# branch grammar (Variant A registry), seeds telemetry streams.
+
+# Display name — shown в discovery / `bmad help`.
+# Type: scalar
+# Default: "TDS Setup"
+name = "TDS Setup"
+
+# Brief description.
+# Type: scalar
+description = "Bootstraps TDS runtime — creates _tds/ tree, seeds sprint-status.yaml, branch-registry.yaml, telemetry directories. Idempotent; safe to re-run."
+
+# ─── Output folder ─────────────────────────────────────────────────────
+
+# ─── Activation / facts / principles (TOP-LEVEL, before subsections!) ──
+
+# Append-mode arrays. User overrides ADD to defaults в order.
+activation_steps_prepend = []
+activation_steps_append = []
+persistent_facts = []
+principles = []
+
+[workflow.output]
+# Folder name (relative к project-root) для всего TDS runtime state.
+# Type: scalar
+# Default: "_tds"
+# Note: TDS НЕ пишет в `_bmad/` — всё runtime идёт сюда. Если хочешь
+# другое имя (`tds-runtime`, `.tds`, etc.) — override здесь.
+folder_name = "_tds"
+
+# Whether setup creates `<output>/.gitignore` rule recommendations.
+# Type: scalar (bool)
+# Default: true
+emit_gitignore_hint = true
+
+# ─── Branch grammar — Variant A registry ───────────────────────────────
+
+[workflow.branch_grammar]
+# Default branch prefix template для new story branches.
+# Type: scalar
+# Default: "story/{epic-id}/{story-id}-{slug}"
+# Variants:
+#   "story/{epic-id}/{story-id}-{slug}"
+#   "feature/{epic-id}/{story-id}"
+#   "{epic-id}/{story-id}-{slug}"
+default_template = "story/{epic-id}/{story-id}-{slug}"
+
+# Slug max length (characters).
+# Type: scalar (number; 1-100)
+# Default: 40
+slug_max_length = 40
+
+# Forbidden characters в slug (regex character class).
+# Type: scalar
+# Default: "[^a-z0-9-]"
+slug_forbidden_chars = "[^a-z0-9-]"
+
+# ─── Telemetry streams ─────────────────────────────────────────────────
+
+[workflow.telemetry]
+# Enabled streams — список JSONL streams которые setup создаёт under
+# `<output_folder>/_tds/runtime/telemetry/`. Source of truth — §13.1
+# сначала редактировать §13.1, потом этот файл (синхронизация ↔ registry).
+#
+#
+# Type: array of scalars
+# Default: 9 active streams (cleanup 2026-05-05 — выпилены 6 reserved-
+# but-unused имён + sbom-generate; см. src/log/emit.ts header history).
+# Common override: subset для embedded / minimal-runtime projects.
+enabled_streams = [
+    "install-events",            # bmad-tds-setup phase-2 lifecycle
+    "state-transitions",         # CLI core: every `tds state set` / setSprintStatusByKey
+    "preflight-events",          # bmad-tds-setup + bmad-tds-execute-* preflight
+    "integrity-events",          # CLI core: record/verify/accept/recover
+    "forbidden-quadrant-events", # CLI core: every L2 authz deny
+    "archive-events",            # bmad-tds-archive-phase lifecycle
+    "lesson-events",             # bmad-tds-retro lesson lifecycle
+    "bridge-epic-events",        # bmad-tds-retro / bmad-tds-bridge-from-retros / tds epic resolve
+    "review-events",             # bmad-tds-code-review auditor finding writeback
+]
+
+# Whether setup compresses rotated streams (gzip).
+# Type: scalar (bool)
+# Default: true
+compress_rotated = true
+
+# Rotation size threshold (megabytes).
+# Type: scalar (number; 1-1024)
+# Default: 25
+rotate_size_mb = 25

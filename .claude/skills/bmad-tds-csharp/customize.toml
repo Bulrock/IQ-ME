@@ -1,0 +1,205 @@
+# bmad-tds-csharp customize.toml — defaults
+#
+# Class I — read-only after install. Sparse overrides go to:
+#   {project-root}/_bmad/custom/bmad-tds-csharp.toml
+#   {project-root}/_bmad/custom/bmad-tds-csharp.user.toml
+#
+[workflow]
+# Domain role-skill — C# / .NET tech-stack guidance (ASP.NET Core, EF Core,
+# MediatR, FluentValidation). TDD-driven с Clean Code C# principles.
+
+name = "C# / .NET Specialist"
+
+description = "C# / .NET (ASP.NET Core, EF Core, MediatR) implementation specialist with TDD-driven approach and Clean Code C# principles."
+
+# ─── Project layout ────────────────────────────────────────────────────
+
+# ─── Activation / facts / principles (TOP-LEVEL, before subsections!) ──
+
+# Append-mode arrays. User overrides ADD to defaults в order.
+activation_steps_prepend = []
+activation_steps_append = []
+persistent_facts = []
+principles = []
+
+[workflow.project_layout]
+# Default solution variant.
+# Type: scalar (enum)
+# Default: "clean-architecture"
+# Variants:
+#   clean-architecture  — Domain, Application, Infrastructure, Web (recommended)
+#   minimal-api         — single project, ≤5 endpoints (POC)
+#   ddd                 — bounded contexts, modular monolith
+#   vertical-slices     — feature folders (Jimmy Bogard style)
+default_variant = "clean-architecture"
+
+# Web project folder name.
+# Type: scalar
+# Default: "Web"
+# Common alternatives: Web | Api | Host | Server
+web_project = "Web"
+
+# Application/Use-case layer folder name.
+# Type: scalar
+# Default: "Application"
+# Common alternatives: Application | UseCases | Services
+application_project = "Application"
+
+# Domain layer folder name.
+# Type: scalar
+# Default: "Domain"
+# Common alternatives: Domain | Core | Model
+domain_project = "Domain"
+
+# Infrastructure layer folder name.
+# Type: scalar
+# Default: "Infrastructure"
+# Common alternatives: Infrastructure | Persistence | Adapters
+infrastructure_project = "Infrastructure"
+
+# ─── Tooling ───────────────────────────────────────────────────────────
+
+[workflow.tooling]
+# Target framework moniker.
+# Type: scalar (enum)
+# Default: "net9.0"
+# Variants: net8.0 | net9.0 | net10.0 (LTS aware)
+target_framework = "net9.0"
+
+# Code style enforcement.
+# Type: scalar (enum)
+# Default: "editorconfig+roslynator"
+# Variants:
+#   editorconfig+roslynator — recommended (analyzers + style rules)
+#   stylecop                — legacy
+#   minimal                 — only built-in compiler warnings
+analyzers = "editorconfig+roslynator"
+
+# Test framework.
+# Type: scalar (enum)
+# Default: "xunit"
+# Variants: xunit | nunit | mstest
+test_framework = "xunit"
+
+# Mocking library.
+# Type: scalar (enum)
+# Default: "nsubstitute"
+# Variants: nsubstitute | moq | fakeiteasy
+mocking = "nsubstitute"
+
+# Assertion library.
+# Type: scalar (enum)
+# Default: "fluentassertions"
+# Variants: fluentassertions | shouldly | builtin
+assertions = "fluentassertions"
+
+# ─── Coverage ──────────────────────────────────────────────────────────
+
+[workflow.coverage]
+# Default minimum coverage.
+# Type: scalar (number; 0-100)
+# Default: 80
+default_min = 80
+
+# Security/integrity-critical floor.
+# Type: scalar (number; 0-100)
+# Default: 95
+security_critical_min = 95
+
+# Patterns matching security-critical files.
+# Type: array of scalars
+security_critical_patterns = [
+    "**/Auth/**",
+    "**/Crypto/**",
+    "**/Security/**",
+    "**/Identity/**",
+    "**/Jwt/**",
+]
+
+# ─── Test naming ───────────────────────────────────────────────────────
+
+# ─── QA gates extension ───────────────
+
+# Coverage metric — line vs branch.
+# Type: scalar (enum)
+# Default: "branch"
+coverage_metric = "branch"
+
+# Cognitive complexity — gate per new function.
+# Type: scalar (number; 1-50; 0 = disabled)
+# Default: 15
+max_new_function_cognitive_complexity = 15
+
+# Mutation testing minimum score (% killed mutants).
+# Type: scalar (number; 0-100; 0 = disabled)
+# Default: 0 (recommend, not enforce; team enables через override)
+mutation_score_min = 0
+
+# Flaky test rate maximum (failures / total runs over rolling window).
+# Type: scalar (number; 0-1.0; 0 = disabled)
+# Default: 0.02 (2% — Spotify / GitHub Engineering recommended)
+flaky_test_rate_max = 0.02
+
+# Duplication gate (% lines duplicated).
+# Type: scalar (number; 0-100; 0 = disabled)
+# Default: 3 (SonarQube default)
+duplication_pct_max = 3
+
+[workflow.test_naming]
+# Test method naming.
+# Type: scalar (enum)
+# Default: "Method_Scenario_Expected"
+# Variants:
+#   Method_Scenario_Expected     — Roy Osherove style (recommended)
+#   Should_Expected_When_Scenario — BDD-style
+#   GivenWhenThen                 — Gherkin-influenced
+test_method_pattern = "Method_Scenario_Expected"
+
+# Test project suffix.
+# Type: scalar (enum)
+# Default: ".Tests"
+# Variants: .Tests | .UnitTests | .Spec
+test_project_suffix = ".Tests"
+
+# ─── Async patterns ────────────────────────────────────────────────────
+
+[workflow.async_patterns]
+# Enforce ConfigureAwait(false) в library code.
+# Type: scalar (bool)
+# Default: true
+enforce_configure_await_false = true
+
+# Enforce CancellationToken propagation в async methods.
+# Type: scalar (bool)
+# Default: true
+enforce_ct_propagation = true
+
+# ─── Validation ────────────────────────────────────────────────────────
+
+[workflow.validation]
+# Default boundary validation.
+# Type: scalar (enum)
+# Default: "fluentvalidation"
+# Variants: fluentvalidation | dataannotations | manual
+boundary_validation = "fluentvalidation"
+
+# ─── Frameworks ────────────────────────────────────────────────────────
+
+[workflow.frameworks]
+# Web framework.
+# Type: scalar (enum)
+# Default: "aspnetcore"
+# Variants: aspnetcore | minimal-api
+new_rest_api = "aspnetcore"
+
+# ORM.
+# Type: scalar (enum)
+# Default: "ef-core"
+# Variants: ef-core | dapper | linq2db | none
+new_orm = "ef-core"
+
+# Mediator pattern library.
+# Type: scalar (enum)
+# Default: "mediatr"
+# Variants: mediatr | none | custom
+mediator = "mediatr"

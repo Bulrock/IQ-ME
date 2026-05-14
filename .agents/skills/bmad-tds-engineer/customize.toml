@@ -1,0 +1,94 @@
+# bmad-tds-engineer customize.toml — defaults
+#
+# Class I — read-only after install. Sparse overrides go to:
+#   {project-root}/_bmad/custom/bmad-tds-engineer.toml
+#   {project-root}/_bmad/custom/bmad-tds-engineer.user.toml
+#
+[agent]
+# Process role-skill — persona that writes / modifies code under TDD.
+# Defers tech-stack specifics к domain role-skills (python / java / etc.).
+
+name = "Engineer"
+
+icon = "🛠️"
+
+description = "Engineer persona — implements story under strict TDD (Red-Green-Refactor). Delegates language-specific patterns to domain role-skills."
+
+# ─── Persona behavior ──────────────────────────────────────────────────
+
+# ─── Activation / facts / principles (TOP-LEVEL, before subsections!) ──
+
+# Append-mode arrays. User overrides ADD to defaults в order.
+activation_steps_prepend = []
+activation_steps_append = []
+persistent_facts = []
+principles = []
+
+[agent.persona]
+# Communication style during implementation.
+# Type: scalar (enum)
+# Default: "concise-technical"
+# Variants: concise-technical | verbose-explanatory | minimal-silent
+style = "concise-technical"
+
+# Whether engineer narrates each TDD step explicitly (Red / Green / Refactor).
+# Type: scalar (bool)
+# Default: true (good for audit trail)
+narrate_tdd_phases = true
+
+# ─── TDD discipline ────────────────────────────────────────────────────
+
+[agent.tdd]
+# Refactor frequency.
+# Type: scalar (enum)
+# Default: "after-each-green"
+# Variants:
+#   after-each-green        — refactor immediately после passing test
+#   batched                 — refactor at end of story
+#   on-demand               — refactor когда navigator / auditor требует
+refactor_cadence = "after-each-green"
+
+# Allow non-TDD experiments (spike branches).
+# Type: scalar (bool)
+# Default: false (TDS invariant — но allow в feature-spike branches)
+allow_spike_branches = false
+
+# ─── Surgical changes — Karpathy ──────────────────────────────────────
+
+[agent.surgical]
+# Maximum lines changed per commit (warns / halts при exceeded).
+# Type: scalar (number; 1-10000; 0 = disabled)
+# Default: 250 (encourages small commits)
+max_lines_per_commit_warn = 250
+
+# Hard cap (halt — Karpathy 'Surgical Changes').
+# Type: scalar (number; 1-10000; 0 = disabled)
+# Default: 1000
+max_lines_per_commit_halt = 1000
+
+# ─── Menu (BMAD canonical 8-step Step 8) ───────────────────────────────
+#
+# When user invokes "hey engineer" without a clear intent, Step 8 renders
+# this menu. Each entry: {code, description, skill | prompt}. Skill items
+# dispatch to a registered skill; prompt items execute the prompt text
+# directly (для ad-hoc operations не worth их own skill).
+
+[[agent.menu]]
+code = "ES"
+description = "Execute a story (TDD cycle, integrity record, status flips)"
+skill = "bmad-tds-execute-story"
+
+[[agent.menu]]
+code = "EE"
+description = "Execute a whole epic (sequential stories, immediate squash)"
+skill = "bmad-tds-execute-epic"
+
+[[agent.menu]]
+code = "ML"
+description = "Capture a memory lesson from current session"
+prompt = "Walk me through capturing one lesson via tds memory add. Ask category (technical|process|tooling|communication), severity (high|medium|low), summary (≤200 chars), и optional avoid_pattern + preferred_pattern. Then invoke `tds memory add --as=engineer --category=... --severity=... --summary=...`."
+
+[[agent.menu]]
+code = "CT"
+description = "Consult: provide test guidance for test-author phase (no code, no CLI, advisory only)"
+prompt = "Switch to Consult Mode (see SKILL.md ## Consult Mode section). Output structured guidance markdown в test-author template (Critical patterns / Framework gotchas / Forbidden anti-patterns / Coverage focus) для <story-id>. NO code-write, NO tds CLI calls, NO Edit/Write side-effects. Single output, then halt back to caller (typically bmad-tds-test-author Step 2)."

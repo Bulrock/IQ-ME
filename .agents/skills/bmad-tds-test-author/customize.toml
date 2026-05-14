@@ -1,0 +1,78 @@
+# bmad-tds-test-author customize.toml — defaults
+#
+# Class I — read-only after install. Sparse overrides go to:
+#   {project-root}/_bmad/custom/bmad-tds-test-author.toml
+#   {project-root}/_bmad/custom/bmad-tds-test-author.user.toml
+#
+[workflow]
+# Workflow-skill — orchestrates test-author phase end-to-end:
+# specialist consult → ATDD (TEA delegation, clean-context subagent) →
+# integrity record → test-review (TEA delegation, другой clean-context) →
+# verdict routing + retry-loop с cap.
+
+name = "Test Author Phase"
+
+description = "Test-author phase orchestration: ATDD + independent test-review с retry-loop. Delegates BMAD TEA module (bmad-testarch-atdd + bmad-testarch-test-review). Hard dependency на bmad-tea-module."
+
+# Append-mode arrays. User overrides ADD к defaults в order.
+activation_steps_prepend = []
+activation_steps_append = []
+persistent_facts = []
+principles = []
+
+# Per-team additional corp-testing-standards docs (paths absolute или
+# relative project-root). Inject'ятся в TEA briefing (Step 3 + Step 4)
+# вместе с TDS-defaults из payload/shared/testing-standards/.
+# Type: array of strings (paths)
+# Default: empty (only TDS-defaults loaded)
+additional_resources = []
+
+# Retry-loop cap для test-review verdict failures.
+# Type: scalar (integer; 1-5 reasonable range)
+# Default: 2
+# Cap exceeded → halt at tests-needs-revision (user разбирается structurally).
+test_review_max_cycles = 2
+
+# ─── TEA delegation policy ─────────────────────────────────────────────
+
+[workflow.tea]
+# Hard-dependency mode для TEA module presence.
+# Type: scalar (enum)
+# Default: "hard" — fail fast at Step 1 если _bmad/tea/config.yaml missing
+# Variants:
+#   hard      — Step 1 halts с TDS-ERR:DEP_MISSING_TEA_MODULE (recommended)
+#   soft      — warn + skip test-author phase, fall back to legacy TDD-block в specialist
+#               (NOT recommended — ослабляет test-discipline guarantee)
+dependency_mode = "hard"
+
+# Whether to enforce clean-context subagent for ATDD + test-review.
+# Type: scalar (bool)
+# Default: true
+# When false: workflow falls back to single-session execution (unsafe — both
+# phases share context; ослабляет test-author independence).
+enforce_clean_context = true
+
+# Preferred TEA execution mode (forwarded к bmad-testarch-atdd via context).
+# Type: scalar (enum)
+# Default: "auto"
+# Variants:
+#   auto         — TEA's runtime probe picks (agent-team → subagent → sequential)
+#   agent-team   — explicit agent-team mode (requires runtime support)
+#   subagent     — explicit subagent mode
+#   sequential   — explicit single-context (fallback when fork tools lack Edit/Write)
+execution_mode = "auto"
+
+# ─── Specialist consultation policy ────────────────────────────────────
+
+[workflow.consultation]
+# Whether to consult specialist (Step 2) before ATDD invocation.
+# Type: scalar (bool)
+# Default: true
+# When false: skip Step 2; ATDD получает только AC + corp-standards (no
+# stack-specific guidance from specialist's references / decision trees).
+enabled = true
+
+# Fallback role-skill когда story не имеет primary_specialist.
+# Type: scalar (string; must match an active TDS role-skill)
+# Default: "engineer"
+fallback_role_skill = "engineer"

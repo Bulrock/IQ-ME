@@ -1,0 +1,73 @@
+# bmad-tds-retro customize.toml — defaults
+#
+# Class I — read-only after install. Sparse overrides go to:
+#   {project-root}/_bmad/custom/bmad-tds-retro.toml
+#   {project-root}/_bmad/custom/bmad-tds-retro.user.toml
+#
+[workflow]
+# Workflow-skill — runs retro at end of epic / phase. Aggregates events,
+# halts, lessons; produces retro-summary doc; updates lessons.yaml.
+
+name = "Retro"
+
+description = "Epic / phase retrospective — aggregates telemetry, halts, captured lessons; produces retro-summary doc."
+
+# ─── Trigger scope ─────────────────────────────────────────────────────
+
+# ─── Activation / facts / principles (TOP-LEVEL, before subsections!) ──
+
+# Append-mode arrays. User overrides ADD to defaults в order.
+activation_steps_prepend = []
+activation_steps_append = []
+persistent_facts = []
+principles = []
+
+[workflow.scope]
+# Default scope — что retro покрывает.
+# Type: scalar (enum)
+# Default: "epic"
+# Variants: epic | phase | sprint | custom-window
+default = "epic"
+
+# For "custom-window" — default window length.
+# Type: scalar (string ISO 8601 duration)
+# Default: "P14D" (14 days)
+# Examples: P7D | P14D | P1M
+custom_window_duration = "P14D"
+
+# ─── Lessons capture ───────────────────────────────────────────────────
+
+[workflow.lessons]
+# Auto-promote halt events into lessons.yaml entries.
+# Type: scalar (bool)
+# Default: true
+auto_promote_halts = true
+
+# Minimum severity для auto-promotion.
+# Type: scalar (enum)
+# Default: "warn"
+# Variants: info | warn | error | critical
+min_severity = "warn"
+
+# Tag prefix для retro-emitted lessons.
+# Type: scalar
+# Default: "retro:"
+lesson_tag_prefix = "retro:"
+
+# ─── Format ────────────────────────────────────────────────────────────
+
+[workflow.format]
+# Retro summary structure.
+# Type: scalar (enum)
+# Default: "what-went-well-not-well-action"
+# Variants:
+#   what-went-well-not-well-action
+#   start-stop-continue
+#   4-Ls (Liked, Learned, Lacked, Longed-for)
+#   sailboat (Wind, Anchor, Rocks, Island)
+template = "what-went-well-not-well-action"
+
+# Include quantitative metrics (cycle time, halt rate, coverage delta).
+# Type: scalar (bool)
+# Default: true
+include_metrics = true

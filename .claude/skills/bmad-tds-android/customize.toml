@@ -1,0 +1,218 @@
+# bmad-tds-android customize.toml — defaults
+#
+# Class I — read-only after install. Sparse overrides go to:
+#   {project-root}/_bmad/custom/bmad-tds-android.toml
+#   {project-root}/_bmad/custom/bmad-tds-android.user.toml
+#
+[workflow]
+# Domain role-skill — Android / Kotlin tech-stack guidance (Jetpack Compose,
+# Coroutines, Hilt). TDD-driven с Clean Code Android principles.
+
+name = "Android Specialist"
+
+description = "Android (Kotlin, Jetpack Compose, Coroutines, Hilt) implementation specialist with TDD-driven approach and Clean Code Android principles."
+
+# ─── Project layout ────────────────────────────────────────────────────
+
+# ─── Activation / facts / principles (TOP-LEVEL, before subsections!) ──
+
+# Append-mode arrays. User overrides ADD to defaults в order.
+activation_steps_prepend = []
+activation_steps_append = []
+persistent_facts = []
+principles = []
+
+[workflow.project_layout]
+# Default project structure.
+# Type: scalar (enum)
+# Default: "clean-mvvm"
+# Variants:
+#   clean-mvvm    — Clean Architecture + MVVM (recommended)
+#   mvi           — Model-View-Intent (Compose-friendly)
+#   mvp           — legacy
+#   minimal       — flat structure (small apps)
+default_variant = "clean-mvvm"
+
+# Default UI framework.
+# Type: scalar (enum)
+# Default: "compose"
+# Variants:
+#   compose         — Jetpack Compose (recommended)
+#   xml-views       — legacy AndroidX views
+#   hybrid          — Compose + AndroidView interop
+ui_framework = "compose"
+
+# Module structure.
+# Type: scalar (enum)
+# Default: "multi-module"
+# Variants:
+#   multi-module    — :app + :feature-X + :core (recommended for medium+)
+#   single-module   — single :app (small apps / prototypes)
+module_structure = "multi-module"
+
+# ─── Tooling ───────────────────────────────────────────────────────────
+
+[workflow.tooling]
+# Kotlin version.
+# Type: scalar (enum)
+# Default: "2.1"
+# Variants: 1.9 | 2.0 | 2.1
+kotlin_version = "2.1"
+
+# AGP (Android Gradle Plugin) version family.
+# Type: scalar (enum)
+# Default: "8.x"
+# Variants: 8.x | 9.x
+agp_version = "8.x"
+
+# Build tool DSL.
+# Type: scalar (enum)
+# Default: "kotlin-dsl"
+# Variants: kotlin-dsl | groovy
+gradle_dsl = "kotlin-dsl"
+
+# Linter.
+# Type: scalar (enum)
+# Default: "detekt+ktlint"
+# Variants:
+#   detekt+ktlint  — recommended
+#   detekt-only    — minimal
+#   none           — Lint built-in only
+analyzers = "detekt+ktlint"
+
+# DI framework.
+# Type: scalar (enum)
+# Default: "hilt"
+# Variants: hilt | koin | manual
+di = "hilt"
+
+# Test framework.
+# Type: scalar (enum)
+# Default: "junit5"
+# Variants: junit5 | junit4 (legacy) | kotest
+test_framework = "junit5"
+
+# Mocking library.
+# Type: scalar (enum)
+# Default: "mockk"
+# Variants: mockk | mockito-kotlin
+mocking = "mockk"
+
+# Assertion library.
+# Type: scalar (enum)
+# Default: "assertk"
+# Variants: assertk | truth | strikt | kotest-assertions
+assertions = "assertk"
+
+# UI testing.
+# Type: scalar (enum)
+# Default: "compose-test"
+# Variants: compose-test | espresso | maestro
+ui_testing = "compose-test"
+
+# ─── Coroutines / concurrency ──────────────────────────────────────────
+
+[workflow.concurrency]
+# Default dispatcher для I/O.
+# Type: scalar (enum)
+# Default: "Dispatchers.IO"
+# Variants: Dispatchers.IO | Dispatchers.Default | custom-injected
+io_dispatcher = "Dispatchers.IO"
+
+# Enforce structured concurrency (no `GlobalScope`).
+# Type: scalar (bool)
+# Default: true
+forbid_global_scope = true
+
+# Recommend `Flow` over `LiveData` для new reactive streams.
+# Type: scalar (bool)
+# Default: true
+recommend_flow_over_livedata = true
+
+# ─── Coverage ──────────────────────────────────────────────────────────
+
+[workflow.coverage]
+# Default minimum coverage.
+# Type: scalar (number; 0-100)
+# Default: 75
+default_min = 75
+
+# Security/integrity-critical floor.
+# Type: scalar (number; 0-100)
+# Default: 95
+security_critical_min = 95
+
+# Patterns matching security-critical files.
+# Type: array of scalars
+security_critical_patterns = [
+    "**/auth/**",
+    "**/crypto/**",
+    "**/keystore/**",
+    "**/biometric/**",
+    "**/token/**",
+]
+
+# ─── Test naming ───────────────────────────────────────────────────────
+
+# ─── QA gates extension ───────────────
+
+# Coverage metric — line vs branch.
+# Type: scalar (enum)
+# Default: "branch"
+coverage_metric = "branch"
+
+# Cognitive complexity — gate per new function.
+# Type: scalar (number; 1-50; 0 = disabled)
+# Default: 15
+max_new_function_cognitive_complexity = 15
+
+# Mutation testing minimum score (% killed mutants).
+# Type: scalar (number; 0-100; 0 = disabled)
+# Default: 0 (recommend, not enforce; team enables через override)
+mutation_score_min = 0
+
+# Flaky test rate maximum (failures / total runs over rolling window).
+# Type: scalar (number; 0-1.0; 0 = disabled)
+# Default: 0.02 (2% — Spotify / GitHub Engineering recommended)
+flaky_test_rate_max = 0.02
+
+# Duplication gate (% lines duplicated).
+# Type: scalar (number; 0-100; 0 = disabled)
+# Default: 3 (SonarQube default)
+duplication_pct_max = 3
+
+[workflow.test_naming]
+# Test method naming.
+# Type: scalar (enum)
+# Default: "method_scenario_expected"
+# Variants:
+#   method_scenario_expected           — recommended
+#   `method scenario expected`         — backtick spec-style (Kotlin idiom)
+#   should_expected_when_scenario      — BDD-style
+test_method_pattern = "method_scenario_expected"
+
+# Allow backtick-quoted test names с пробелами.
+# Type: scalar (bool)
+# Default: true
+allow_backtick_test_names = true
+
+# ─── Frameworks / libraries ────────────────────────────────────────────
+
+[workflow.frameworks]
+# Networking.
+# Type: scalar (enum)
+# Default: "retrofit-okhttp"
+# Variants: retrofit-okhttp | ktor-client | apollo-graphql
+networking = "retrofit-okhttp"
+
+# Local persistence.
+# Type: scalar (enum)
+# Default: "room"
+# Variants: room | sqldelight | datastore-only
+persistence = "room"
+
+# Image loading.
+# Type: scalar (enum)
+# Default: "coil"
+# Variants: coil | glide | picasso (legacy)
+image_loading = "coil"

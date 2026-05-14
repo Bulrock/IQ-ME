@@ -1,0 +1,87 @@
+# bmad-tds-generate-docs customize.toml — defaults
+#
+# Class I — read-only after install. Sparse overrides go to:
+#   {project-root}/_bmad/custom/bmad-tds-generate-docs.toml
+#   {project-root}/_bmad/custom/bmad-tds-generate-docs.user.toml
+#
+[workflow]
+# Workflow-skill — orchestrates writer to produce / update artefacts:
+# README, CHANGELOG, ADRs, runbooks, tutorials, how-tos, references,
+# explanations, completion notes, PR bodies, retro summaries, lessons.
+
+name = "Generate Docs"
+
+description = "Writer-orchestration workflow — produces or updates documentation artefacts following Diátaxis quadrants and clean-prose principles."
+
+# ─── Output language ───────────────────────────────────────────────────
+
+# ─── Activation / facts / principles (TOP-LEVEL, before subsections!) ──
+
+# Append-mode arrays. User overrides ADD to defaults в order.
+activation_steps_prepend = []
+activation_steps_append = []
+persistent_facts = []
+principles = []
+
+[workflow.language]
+# Communication language (interactive prompts / errors).
+# Type: scalar (enum)
+# Default: "auto" (detect from BMAD's central communication_language)
+# Variants: auto | en | ru | de | fr | es | etc.
+communication = "auto"
+
+# Documentation output language.
+# Type: scalar (enum)
+# Default: "en"
+# Note: many open-source projects ожидают English docs; override на свой
+# native language если проект internal.
+output_default = "en"
+
+# Allow per-document language override через front-matter.
+# Type: scalar (bool)
+# Default: true
+allow_per_doc_override = true
+
+# ─── Diátaxis defaults ─────────────────────────────────────────────────
+
+[workflow.diataxis]
+# Whether writer enforces Diátaxis quadrant routing для каждого нового doc.
+# Type: scalar (bool)
+# Default: true
+enforce_quadrant = true
+
+# Default quadrant если writer не может infer.
+# Type: scalar (enum)
+# Default: "explanation"
+# Variants: tutorial | how-to | reference | explanation
+fallback_quadrant = "explanation"
+
+# ─── Templates ─────────────────────────────────────────────────────────
+
+[workflow.templates]
+# Custom template paths (override built-in writer templates).
+# Type: array of tables (keyed by `doc_type`)
+# Default: empty (use built-in templates)
+# Example user override:
+#   custom = [
+#     { doc_type = "readme", path = "_bmad/custom/bmad-tds-writer-readme.md" },
+#   ]
+custom = []
+
+# ─── Style targets ─────────────────────────────────────────────────────
+
+[workflow.style]
+# Target Flesch reading-ease для public-facing docs (tutorials, READMEs).
+# Type: scalar (number; 0-100)
+# Default: 50
+target_flesch_public = 50
+
+# Target Flesch для technical references.
+# Type: scalar (number; 0-100)
+# Default: 30
+target_flesch_reference = 30
+
+# Average sentence length cap (words).
+# Type: scalar (number; 5-50)
+# Default: 22
+max_avg_sentence_words = 22

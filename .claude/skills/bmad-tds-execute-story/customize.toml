@@ -1,0 +1,91 @@
+# bmad-tds-execute-story customize.toml — defaults
+#
+# Class I — read-only after install. Sparse overrides go to:
+#   {project-root}/_bmad/custom/bmad-tds-execute-story.toml
+#   {project-root}/_bmad/custom/bmad-tds-execute-story.user.toml
+#
+[workflow]
+# Workflow-skill — orchestrates single story execution end-to-end:
+# branch creation → engineer (TDD) → auditor (review) → writer (notes) →
+# sprint-status update → halt-or-merge gate.
+
+name = "Execute Story"
+
+description = "End-to-end orchestration of single TDS story: branch, TDD cycle, review, docs, sprint-status update. Halt-not-rollback on failure."
+
+# ─── Branch policy ─────────────────────────────────────────────────────
+
+# ─── Activation / facts / principles (TOP-LEVEL, before subsections!) ──
+
+# Append-mode arrays. User overrides ADD to defaults в order.
+activation_steps_prepend = []
+activation_steps_append = []
+persistent_facts = []
+principles = []
+
+[workflow.branch_policy]
+# Branching mode.
+# Type: scalar (enum)
+# Default: "per-story"
+# Variants:
+#   per-story  — каждая story получает свою branch (recommended for teams)
+#   trunk      — все stories в trunk-based main (small teams, paired)
+#   per-epic   — одна branch на epic, stories — commits в ней
+mode = "per-story"
+
+# Whether engineer can push to remote во время выполнения story.
+# Type: scalar (bool)
+# Default: false (push only после auditor green-light)
+allow_push_during_execution = false
+
+# Auto-create draft PR при старте story.
+# Type: scalar (bool)
+# Default: true
+auto_draft_pr = true
+
+# ─── TDD policy ────────────────────────────────────────────────────────
+
+[workflow.tdd]
+# TDD enforcement mode.
+# Type: scalar (enum)
+# Default: "strict"
+# Variants:
+#   strict       — Red-Green-Refactor mandatory; no test → no commit
+#   pragmatic    — tests required, но порядок не enforced
+#   advisory     — recommended, не enforced (NOT recommended)
+enforcement = "strict"
+
+# Mandatory minimum coverage delta для story.
+# Type: scalar (number; 0-100)
+# Default: 0 (story должна не уменьшать coverage)
+min_coverage_delta = 0
+
+# ─── Story status lifecycle ────────────────────────────────────────────
+
+[workflow.lifecycle]
+# Allowed transitions для story status (FSM).
+# Type: array of tables (keyed by `from`)
+# Default: standard TDS FSM
+# DO NOT override unless team has alternative state machine documented в ADR.
+transitions = [
+    { from = "ready", to = "in-progress" },
+    { from = "in-progress", to = "review" },
+    { from = "review", to = "done" },
+    { from = "review", to = "in-progress" },  # rejection loop
+    { from = "in-progress", to = "halted" },
+    { from = "review", to = "halted" },
+    { from = "halted", to = "in-progress" },  # recovery
+]
+
+# ─── Halt handling ─────────────────────────────────────────────────────
+
+[workflow.halt]
+# Whether failed test/audit triggers halt-not-rollback.
+# Type: scalar (bool)
+# Default: true (TDS invariant — НЕ overridable в production teams)
+halt_on_failure = true
+
+# Whether halt event automatically appends к lessons.yaml.
+# Type: scalar (bool)
+# Default: true
+auto_lesson_capture = true

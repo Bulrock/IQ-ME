@@ -1,0 +1,196 @@
+# bmad-tds-frontend customize.toml — defaults
+#
+# Class I — read-only after install. Sparse overrides go to:
+#   {project-root}/_bmad/custom/bmad-tds-frontend.toml
+#   {project-root}/_bmad/custom/bmad-tds-frontend.user.toml
+#
+[workflow]
+# Domain role-skill — Frontend tech-stack guidance (TypeScript, React,
+# Vue, Svelte). TDD-driven с Clean Code Frontend principles.
+
+name = "Frontend Specialist"
+
+description = "Frontend (TypeScript, React, Vue, Svelte) implementation specialist with TDD-driven approach and Clean Code Frontend principles."
+
+# ─── Project layout ────────────────────────────────────────────────────
+
+# ─── Activation / facts / principles (TOP-LEVEL, before subsections!) ──
+
+# Append-mode arrays. User overrides ADD to defaults в order.
+activation_steps_prepend = []
+activation_steps_append = []
+persistent_facts = []
+principles = []
+
+[workflow.project_layout]
+# Default framework.
+# Type: scalar (enum)
+# Default: "react"
+# Variants: react | vue | svelte | solid | qwik
+default_framework = "react"
+
+# Default project structure.
+# Type: scalar (enum)
+# Default: "feature-sliced"
+# Variants:
+#   feature-sliced  — feature-sliced design (FSD), recommended for medium+ apps
+#   atomic          — atomic-design (atoms / molecules / organisms)
+#   layered         — components / pages / services / utils
+#   minimal         — flat src/ (small apps, libraries)
+default_variant = "feature-sliced"
+
+# Source folder name.
+# Type: scalar
+# Default: "src"
+src_folder = "src"
+
+# Component test colocation.
+# Type: scalar (enum)
+# Default: "colocated"
+# Variants:
+#   colocated   — Component.tsx + Component.test.tsx side-by-side
+#   __tests__   — separate __tests__/ subfolder
+#   parallel    — parallel tests/ tree mirroring src/
+test_colocation = "colocated"
+
+# ─── Tooling ───────────────────────────────────────────────────────────
+
+[workflow.tooling]
+# Package manager.
+# Type: scalar (enum)
+# Default: "pnpm"
+# Variants: pnpm | npm | yarn | bun
+package_manager = "pnpm"
+
+# TypeScript strict mode.
+# Type: scalar (bool)
+# Default: true (mandatory для new projects)
+typescript_strict = true
+
+# Linter.
+# Type: scalar (enum)
+# Default: "eslint-flat-config"
+# Variants:
+#   eslint-flat-config   — ESLint v9+ flat config (recommended 2026)
+#   eslint-legacy        — old .eslintrc
+#   biome                — Biome (faster, fewer plugins)
+linter = "eslint-flat-config"
+
+# Formatter.
+# Type: scalar (enum)
+# Default: "prettier"
+# Variants: prettier | biome | dprint
+formatter = "prettier"
+
+# Test framework.
+# Type: scalar (enum)
+# Default: "vitest"
+# Variants: vitest | jest | playwright-component
+test_framework = "vitest"
+
+# E2E framework.
+# Type: scalar (enum)
+# Default: "playwright"
+# Variants: playwright | cypress | webdriverio
+e2e_framework = "playwright"
+
+# Component testing library (для unit tests UI).
+# Type: scalar (enum)
+# Default: "testing-library"
+# Variants: testing-library | enzyme (legacy) | playwright-component
+component_testing = "testing-library"
+
+# ─── Coverage ──────────────────────────────────────────────────────────
+
+[workflow.coverage]
+# Default minimum coverage.
+# Type: scalar (number; 0-100)
+# Default: 75 (frontend tends to be lower due к UI-heavy code)
+default_min = 75
+
+# Security/integrity-critical floor (auth, sanitization, tokens).
+# Type: scalar (number; 0-100)
+# Default: 90
+security_critical_min = 90
+
+# Patterns matching security-critical files.
+# Type: array of scalars
+security_critical_patterns = [
+    "**/auth/**",
+    "**/api/**",
+    "**/sanitize/**",
+    "**/csrf/**",
+    "**/csp/**",
+]
+
+# ─── Test naming ───────────────────────────────────────────────────────
+
+# ─── QA gates extension ───────────────
+
+# Coverage metric — line vs branch.
+# Type: scalar (enum)
+# Default: "branch"
+coverage_metric = "branch"
+
+# Cognitive complexity — gate per new function.
+# Type: scalar (number; 1-50; 0 = disabled)
+# Default: 15
+max_new_function_cognitive_complexity = 15
+
+# Mutation testing minimum score (% killed mutants).
+# Type: scalar (number; 0-100; 0 = disabled)
+# Default: 0 (recommend, not enforce; team enables через override)
+mutation_score_min = 0
+
+# Flaky test rate maximum (failures / total runs over rolling window).
+# Type: scalar (number; 0-1.0; 0 = disabled)
+# Default: 0.02 (2% — Spotify / GitHub Engineering recommended)
+flaky_test_rate_max = 0.02
+
+# Duplication gate (% lines duplicated).
+# Type: scalar (number; 0-100; 0 = disabled)
+# Default: 3 (SonarQube default)
+duplication_pct_max = 3
+
+[workflow.test_naming]
+# Test description style (Vitest / Jest describe-it).
+# Type: scalar (enum)
+# Default: "describe-it-with-when"
+# Variants:
+#   describe-it-with-when    — describe('Component', () => { it('does X when Y') })
+#   describe-it-should       — should-style assertions
+#   given-when-then          — Gherkin-influenced
+test_description_style = "describe-it-with-when"
+
+# ─── State management ──────────────────────────────────────────────────
+
+[workflow.state]
+# Default state library (React).
+# Type: scalar (enum)
+# Default: "zustand"
+# Variants: zustand | redux-toolkit | jotai | xstate | context-only
+react_state = "zustand"
+
+# Default data-fetching / server-state.
+# Type: scalar (enum)
+# Default: "tanstack-query"
+# Variants: tanstack-query | swr | rtk-query | apollo
+server_state = "tanstack-query"
+
+# ─── Styling ───────────────────────────────────────────────────────────
+
+[workflow.styling]
+# Default styling approach.
+# Type: scalar (enum)
+# Default: "tailwind"
+# Variants: tailwind | css-modules | styled-components | vanilla-extract | emotion
+approach = "tailwind"
+
+# ─── Build / bundle ────────────────────────────────────────────────────
+
+[workflow.build]
+# Bundler.
+# Type: scalar (enum)
+# Default: "vite"
+# Variants: vite | next | astro | rspack | webpack (legacy)
+bundler = "vite"

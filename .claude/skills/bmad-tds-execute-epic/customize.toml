@@ -1,0 +1,76 @@
+# bmad-tds-execute-epic customize.toml — defaults
+#
+# Class I — read-only after install. Sparse overrides go to:
+#   {project-root}/_bmad/custom/bmad-tds-execute-epic.toml
+#   {project-root}/_bmad/custom/bmad-tds-execute-epic.user.toml
+#
+[workflow]
+# Workflow-skill — orchestrates entire epic: dispatch stories к execute-story,
+# track epic-level progress, finalize epic при all-stories-done.
+
+name = "Execute Epic"
+
+description = "Orchestrates full epic lifecycle: story dispatch, progress aggregation, bridging-epic emission, epic finalization."
+
+# ─── Dispatch policy ───────────────────────────────────────────────────
+
+# ─── Activation / facts / principles (TOP-LEVEL, before subsections!) ──
+
+# Append-mode arrays. User overrides ADD to defaults в order.
+activation_steps_prepend = []
+activation_steps_append = []
+persistent_facts = []
+principles = []
+
+[workflow.dispatch]
+# Stories ordering.
+# Type: scalar (enum)
+# Default: "as-listed" (preserve order из shard-doc)
+# Variants:
+#   as-listed       — story order из BMAD-shard
+#   priority        — sort by `priority` field
+#   dependencies    — topological sort by depends_on
+ordering = "as-listed"
+
+# Concurrency — сколько stories параллельно (advanced).
+# Type: scalar (number; 1-8)
+# Default: 1 (sequential — recommended)
+# Note: parallel execution требует отдельных working trees / agents.
+max_parallel = 1
+
+# Continue-on-failure — продолжать ли epic если одна story halted.
+# Type: scalar (bool)
+# Default: false (halt-on-first-failure — TDS default)
+continue_on_failure = false
+
+# ─── Bridging epic policy ──────────────────────────────────────────────
+
+[workflow.bridging]
+# Auto-emit bridging epic при detected scope creep / missing prerequisite.
+# Type: scalar (bool)
+# Default: true
+auto_emit = true
+
+# Bridging epic ID prefix.
+# Type: scalar
+# Default: "bridge-"
+# Example: bridge-epic-1-2 (means: bridge between epic-1 stories triggered after epic-2 finding)
+id_prefix = "bridge-"
+
+# ─── Finalization gate ─────────────────────────────────────────────────
+
+[workflow.finalization]
+# Required completion criteria для epic.done transition.
+# Type: array of scalars (each is a check name).
+# Default: standard TDS gates
+required_checks = [
+    "all-stories-done",
+    "no-pending-bridges",
+    "code-review-clean",
+    "docs-up-to-date",
+]
+
+# Whether epic finalization auto-runs retro skill.
+# Type: scalar (bool)
+# Default: true
+auto_run_retro = true

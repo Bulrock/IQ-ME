@@ -1,0 +1,235 @@
+# bmad-tds-python customize.toml — defaults
+#
+# This file is the FACTORY DEFAULTS layer (Class I, read-only after install).
+# To override fields for your project: ask `bmad-customize` skill, or manually
+# copy the [section] you want to change into `_bmad/custom/bmad-tds-python.toml`
+# (team, committed) or `_bmad/custom/bmad-tds-python.user.toml` (personal,
+# gitignored).
+#
+# Sparse overrides — DO NOT copy whole file. Only the fields being changed.
+#
+# - bmad-customize SKILL.md (BMAD spec for customization mechanism)
+
+[workflow]
+# Domain role-skill — Python tech-stack guidance.
+# Customizable surface for `bmad-customize` skill discovery.
+
+# Display name — shown в UI listings (bmad help, bmad-customize discovery).
+# Type: scalar
+# Default: "Python Specialist"
+name = "Python Specialist"
+
+# Brief description — for UI listings.
+# Type: scalar
+description = "Python (FastAPI, Django, asyncio, pandas) implementation specialist with TDD-driven approach and Clean Code Python principles."
+
+# ─── Project layout — где что лежит в новом / существующем проекте ─────
+
+# ─── Activation / facts / principles (TOP-LEVEL, before subsections!) ──
+
+# Append-mode arrays. User overrides ADD to defaults в order.
+activation_steps_prepend = []
+activation_steps_append = []
+persistent_facts = []
+principles = []
+
+[workflow.project_layout]
+# What folder name skill proposes for HTTP layer (FastAPI routers, schemas, dependencies).
+# Type: scalar
+# Default: "api"
+# Common alternatives: api | app | http | web | interfaces
+http_layer = "api"
+
+# What folder name skill proposes for business logic / domain layer.
+# Type: scalar
+# Default: "domain"
+# Common alternatives: domain | engine | core | business | services
+domain_layer = "domain"
+
+# What folder name skill proposes for adapters (DB, external HTTP clients).
+# Type: scalar
+# Default: "infrastructure"
+# Common alternatives: infrastructure | infra | adapters | persistence
+infrastructure_layer = "infrastructure"
+
+# What folder name skill proposes for cross-cutting (config, logging, security).
+# Type: scalar
+# Default: "core"
+# Common alternatives: core | shared | common | platform
+core_layer = "core"
+
+# Default project structure variant skill proposes for new projects.
+# Type: scalar (enum)
+# Default: "standard"
+# Variants:
+#   minimal — flat structure, ≤5 endpoints, single concern (POC, library)
+#   standard — 4-layer (api/domain/infrastructure/core), medium service
+#   full-ddd — bounded contexts с bounded-context per folder, large service
+default_variant = "standard"
+
+# Whether skill uses `src/<package>/` layout (PEP 621 + setuptools recommend) или flat layout.
+# Type: scalar (bool)
+# Default: true (recommended; avoids accidental imports from cwd)
+use_src_layout = true
+
+# ─── Tooling defaults ──────────────────────────────────────────────────
+
+[workflow.tooling]
+# Package manager skill proposes для new project / generally recommends.
+# Type: scalar (enum)
+# Default: "uv" (recommended 2026)
+# Variants: uv | poetry | pip-tools | pdm | hatch
+package_manager = "uv"
+
+# Linter / formatter.
+# Type: scalar (enum)
+# Default: "ruff" (recommended 2026 — replaces black + flake8 + isort + ...)
+# Variants: ruff | black + flake8 + isort (separate tools, legacy combination)
+linter = "ruff"
+
+# Type checker.
+# Type: scalar (enum)
+# Default: "mypy"
+# Variants: mypy | pyright | pyre
+type_checker = "mypy"
+
+# Whether mypy strict mode is mandatory.
+# Type: scalar (bool)
+# Default: true
+mypy_strict_mandatory = true
+
+# Test framework.
+# Type: scalar (enum)
+# Default: "pytest"
+# Variants: pytest | unittest (legacy only)
+test_framework = "pytest"
+
+# Property-based testing — recommend `hypothesis` для validation logic / parsers / math?
+# Type: scalar (bool)
+# Default: true (skill recommends adding hypothesis); but it's user choice per project
+recommend_hypothesis = true
+
+# ─── Coverage thresholds ───────────────────────────────────────────────
+
+[workflow.coverage]
+# Default minimum coverage for production code.
+# Type: scalar (number; 0-100)
+# Default: 80
+default_min = 80
+
+# Higher threshold for security/integrity-critical modules (auth, crypto, parsing).
+# Type: scalar (number; 0-100)
+# Default: 95
+security_critical_min = 95
+
+# Patterns matching security-critical files (skill enforces higher threshold).
+# Type: array of scalars
+# Default: includes typical security-related path patterns
+security_critical_patterns = [
+    "**/auth/**",
+    "**/crypto/**",
+    "**/security/**",
+    "**/parsing/**",
+    "**/jwt*",
+    "**/oauth*",
+]
+
+# ─── Test naming convention ────────────────────────────────────────────
+
+# ─── QA gates extension ───────────────
+
+# Coverage metric — line vs branch.
+# Type: scalar (enum)
+# Default: "branch"
+coverage_metric = "branch"
+
+# Cognitive complexity — gate per new function.
+# Type: scalar (number; 1-50; 0 = disabled)
+# Default: 15
+max_new_function_cognitive_complexity = 15
+
+# Mutation testing minimum score (% killed mutants).
+# Type: scalar (number; 0-100; 0 = disabled)
+# Default: 0 (recommend, not enforce; team enables через override)
+mutation_score_min = 0
+
+# Flaky test rate maximum (failures / total runs over rolling window).
+# Type: scalar (number; 0-1.0; 0 = disabled)
+# Default: 0.02 (2% — Spotify / GitHub Engineering recommended)
+flaky_test_rate_max = 0.02
+
+# Duplication gate (% lines duplicated).
+# Type: scalar (number; 0-100; 0 = disabled)
+# Default: 3 (SonarQube default)
+duplication_pct_max = 3
+
+[workflow.test_naming]
+# Test file naming — pytest accepts both `test_*.py` (default) and `*_test.py`.
+# Type: scalar (enum)
+# Default: "test_<module>" (pytest default)
+# Variants: "test_<module>" | "<module>_test"
+test_file_pattern = "test_<module>"
+
+# Test method naming format.
+# Type: scalar (enum)
+# Default: "test_<method>_<scenario>_<expected>" (Clean Code idiom)
+# Variants:
+#   test_<method>_<scenario>_<expected>  — Bloch / Williams style, recommended
+#   should_<expected>_when_<scenario>    — BDD-style
+#   test<MethodName>                      — Java-influenced, NOT recommended
+test_method_pattern = "test_<method>_<scenario>_<expected>"
+
+# ─── Async patterns ────────────────────────────────────────────────────
+
+[workflow.async_patterns]
+# When skill recommends async by default for new I/O-bound code.
+# Type: scalar (bool)
+# Default: true
+recommend_async_for_io = true
+
+# Whether skill enforces `return_exceptions=True` on `asyncio.gather` calls
+# (Tree A code trap из 15-clean-code-python.md).
+# Type: scalar (bool)
+# Default: true
+enforce_gather_return_exceptions = true
+
+# Recommend `TaskGroup` (Python 3.11+) over manual `asyncio.gather` for new code?
+# Type: scalar (bool)
+# Default: true
+recommend_taskgroup = true
+
+# ─── Validation framework defaults ─────────────────────────────────────
+
+[workflow.validation]
+# Default for boundary validation (HTTP body, env vars, config files).
+# Type: scalar (enum)
+# Default: "pydantic-v2"
+# Variants: pydantic-v2 | pydantic-v1 (deprecated) | dataclass | typed-dict + jsonschema
+boundary_validation = "pydantic-v2"
+
+# Default for internal data structures (NOT boundary).
+# Type: scalar (enum)
+# Default: "dataclass" (frozen, slots if perf-critical)
+# Variants: dataclass | attrs | pydantic-v2 (overkill; skill warns)
+internal_data = "dataclass"
+
+# ─── Framework recommendations ─────────────────────────────────────────
+
+[workflow.frameworks]
+# Default web framework for new REST API project.
+# Type: scalar (enum)
+# Default: "fastapi"
+# Variants: fastapi | django | flask | litestar
+new_rest_api = "fastapi"
+
+# Default ORM for new project.
+# Type: scalar (enum)
+# Default: "sqlalchemy-2-async"
+# Variants: sqlalchemy-2-async | sqlalchemy-2-sync | django-orm | dapper-equivalent (jOOQ-like rare)
+new_orm = "sqlalchemy-2-async"
+
+# Default migration tool.
+# Type: scalar (enum)
+# Default: "alembic"
+# Variants: alembic | django-migrations
+migration_tool = "alembic"

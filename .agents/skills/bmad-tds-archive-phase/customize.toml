@@ -1,0 +1,82 @@
+# bmad-tds-archive-phase customize.toml — defaults
+#
+# Class I — read-only after install. Sparse overrides go to:
+#   {project-root}/_bmad/custom/bmad-tds-archive-phase.toml
+#   {project-root}/_bmad/custom/bmad-tds-archive-phase.user.toml
+#
+[workflow]
+# Workflow-skill — finalizes phase: rolls active state into archive manifest,
+# compresses telemetry, updates project-memory (lessons.yaml), seals branch
+# registry entries, emits phase-summary doc.
+
+name = "Archive Phase"
+
+description = "Seals a TDS phase — produces archive manifest, compresses telemetry, updates project-memory, emits phase-summary."
+
+# ─── Archive layout ────────────────────────────────────────────────────
+
+# ─── Activation / facts / principles (TOP-LEVEL, before subsections!) ──
+
+# Append-mode arrays. User overrides ADD to defaults в order.
+activation_steps_prepend = []
+activation_steps_append = []
+persistent_facts = []
+principles = []
+
+[workflow.layout]
+# Archive folder name (under `<output>/archives/`).
+# Type: scalar (template)
+# Default: "phase-{phase-id}-{date}"
+# Tokens: {phase-id} {date} {phase-name}
+folder_template = "phase-{phase-id}-{date}"
+
+# Date format для template substitution.
+# Type: scalar (strftime)
+# Default: "%Y%m%d"
+date_format = "%Y%m%d"
+
+# ─── Compression ───────────────────────────────────────────────────────
+
+[workflow.compression]
+# Compress archived telemetry streams.
+# Type: scalar (bool)
+# Default: true
+enabled = true
+
+# Compression algorithm.
+# Type: scalar (enum)
+# Default: "gzip"
+# Variants: gzip | zstd | none
+algorithm = "gzip"
+
+# ─── Retention ─────────────────────────────────────────────────────────
+
+[workflow.retention]
+# Keep archive folders forever или auto-prune.
+# Type: scalar (enum)
+# Default: "forever"
+# Variants: forever | days | count
+policy = "forever"
+
+# Если policy = "days": сколько days хранить.
+# Type: scalar (number; 1-3650)
+# Default: 365
+keep_days = 365
+
+# Если policy = "count": сколько последних phases keep.
+# Type: scalar (number; 1-1000)
+# Default: 10
+keep_count = 10
+
+# ─── Project memory ────────────────────────────────────────────────────
+
+[workflow.project_memory]
+# Auto-update lessons.yaml при archive.
+# Type: scalar (bool)
+# Default: true
+auto_update_lessons = true
+
+# Auto-emit phase-summary doc.
+# Type: scalar (bool)
+# Default: true
+auto_emit_summary = true

@@ -1,0 +1,193 @@
+# Writer content-pack manifest
+# Local path: _bmad/tds/skills/bmad-tds-writer/references/00-pack-manifest.yaml (Class I read-only after install)
+#
+# Тип pack'а — content (не techstack). Структурирован по типу документа и audience,
+# не по technology stack.
+
+schema_version: "1.0"
+domain: writer
+pack_version: "1.0.0"
+pack_type: content
+applies_to_doc_types:
+  - readme
+  - changelog
+  - adr
+  - runbook
+  - tutorial
+  - how-to
+  - reference
+  - explanation
+  - completion-notes
+  - pr-description
+  - retro-summary
+  - phase-summary
+  - lesson
+last_reviewed: "2026-04-28"
+
+# lazy_routes: writer's SKILL.md ссылается на конкретные fragments через
+# "load reference X.md when topic Y appears". Это Anthropic Level 3 progressive
+# disclosure — Codex compatible.
+lazy_routes:
+  - topic: "diataxis-quadrant-routing"
+    file: "10-diataxis-cheatsheet.md"
+    triggers:
+      - "new doc"
+      - "what kind of doc"
+      - "tutorial vs how-to"
+      - "explanation vs reference"
+      - "Diátaxis"
+
+  - topic: "audience-clarity"
+    file: "20-audience-personas.md"
+    triggers:
+      - "who reads this"
+      - "audience"
+      - "end-user vs developer"
+      - "stakeholder"
+
+  - topic: "voice-tense-style"
+    file: "30-style-guide.md"
+    triggers:
+      - "style"
+      - "voice"
+      - "tense"
+      - "tone"
+      - "list vs prose"
+
+  - topic: "clean-prose-foundations"
+    file: "15-clean-prose-writing.md"
+    triggers:
+      - "Strunk"
+      - "Williams"
+      - "Pinker"
+      - "Zinsser"
+      - "Orwell"
+      - "clean prose"
+      - "buried characters"
+      - "nominalization"
+      - "curse of knowledge"
+      - "old-new"
+      - "cohesion"
+      - "cognitive complexity prose"
+
+  - topic: "readability"
+    file: "40-readability.md"
+    triggers:
+      - "plain language"
+      - "sentence length"
+      - "complex words"
+      - "readability"
+
+  - topic: "readme-template"
+    file: "50-templates/readme.md"
+    triggers:
+      - "README"
+      - "project description"
+      - "quickstart"
+      - "getting started"
+
+  - topic: "changelog-template"
+    file: "50-templates/changelog.md"
+    triggers:
+      - "CHANGELOG"
+      - "release notes"
+      - "version history"
+
+  - topic: "adr-template"
+    file: "50-templates/adr.md"
+    triggers:
+      - "ADR"
+      - "architectural decision"
+      - "trade-off documented"
+      - "context decision consequences"
+
+  - topic: "runbook-template"
+    file: "50-templates/runbook.md"
+    triggers:
+      - "RB-06"
+      - "RB-07"
+      - "RB-08"
+      - "RB-09"
+      - "RB-10"
+      - "halt-not-rollback recovery"
+      - "incident response"
+      - "operational procedure"
+
+  - topic: "tutorial-template"
+    file: "50-templates/tutorial.md"
+    triggers:
+      - "tutorial"
+      - "first steps"
+      - "learn how to"
+
+  - topic: "how-to-template"
+    file: "50-templates/how-to.md"
+    triggers:
+      - "how to"
+      - "recipe"
+      - "specific problem"
+
+  - topic: "reference-template"
+    file: "50-templates/reference.md"
+    triggers:
+      - "API docs"
+      - "schema"
+      - "syntax"
+      - "look up"
+
+  - topic: "explanation-template"
+    file: "50-templates/explanation.md"
+    triggers:
+      - "why"
+      - "background"
+      - "rationale"
+
+  - topic: "story-completion"
+    file: "50-templates/story-completion-notes.md"
+    triggers:
+      - "tds.completion_notes"
+      - "what was done in story"
+      - "story summary"
+
+  - topic: "pr-body"
+    file: "50-templates/pr-description.md"
+    triggers:
+      - "pr body"
+      - "merge request description"
+      - "tds pr create body"
+
+  - topic: "localization"
+    file: "60-localization.md"
+    triggers:
+      - "communication_language"
+      - "document_output_language"
+      - "multilingual"
+      - "i18n"
+
+  - topic: "anti-patterns"
+    file: "70-anti-patterns.md"
+    triggers:
+      - "marketing speak"
+      - "weasel words"
+      - "filler"
+      - "what to avoid"
+
+  - topic: "pre-publish-checklist"
+    file: "99-checklists.md"
+    triggers:
+      - "pre-publish"
+      - "ready to ship"
+      - "checklist"
+
+# upstream_sources (для verification и updates pack content при release):
+upstream_sources:
+  - https://diataxis.fr/                                   # Diátaxis framework canonical
+  - https://keepachangelog.com/en/1.1.0/                   # Keep a Changelog spec
+  - https://adr.github.io/                                 # ADR community templates (Markdown ADR)
+  - https://www.writethedocs.org/                          # writer best practices
+  - https://developers.google.com/style/                   # Google developer documentation style guide
+  - https://docs.microsoft.com/en-us/style-guide/          # Microsoft Writing Style Guide
+
+# pack_compatibility: какие версии TDS-runtime поддерживают этот pack
+pack_compatibility:
+  tds_runtime: ">=1.0.0, <2.0.0"
