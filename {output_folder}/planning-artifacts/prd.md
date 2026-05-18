@@ -1,7 +1,10 @@
 ---
-stepsCompleted: ['step-01-init', 'step-02-discovery', 'step-02b-vision', 'step-02c-executive-summary', 'step-03-success', 'step-04-journeys', 'step-05-domain', 'step-06-innovation', 'step-07-project-type', 'step-08-scoping', 'step-09-functional', 'step-10-nonfunctional', 'step-11-polish', 'step-12-complete']
+stepsCompleted: ['step-01-init', 'step-02-discovery', 'step-02b-vision', 'step-02c-executive-summary', 'step-03-success', 'step-04-journeys', 'step-05-domain', 'step-06-innovation', 'step-07-project-type', 'step-08-scoping', 'step-09-functional', 'step-10-nonfunctional', 'step-11-polish', 'step-12-complete', 'step-e-01-discovery', 'step-e-02-review', 'step-e-03-edit']
 status: 'complete'
 completedAt: '2026-05-14'
+editedAt: '2026-05-15'
+editLog:
+  - { date: '2026-05-15', pass: 'pre-architecture readiness gap closure (B1–B8)', driver: 'implementation-readiness-report-2026-05-15.md' }
 releaseMode: 'single-release'
 mvpPhilosophy: 'experience-mvp'
 inputDocuments:
@@ -44,6 +47,7 @@ carryForwardRegister:
     - 'Epic: Scoring Engine (pure DOM-free module; IRT 2PL EAP; ~250 LOC; golden vectors vs R mirt)'
     - 'Epic: Validity Envelope Documentation (who the instrument is and is not valid for, surfaced in consent)'
     - 'Epic: Prototype Removal (git rm iq-me.html on day one of new architecture)'
+    - 'Note: Epic 0 (Scoring Spec Freeze) absorbs B2 session shape pin, B3 uncertainty formula, B7 mirt reference pin per 2026-05-15 readiness reconciliation'
   nfrCandidates:
     - 'Zero telemetry is also a testability constraint — name it explicitly, including for internal QA'
     - 'Scoring engine: pure module, deterministic, no DOM, published test vectors, ±0.001 logits tolerance'
@@ -56,14 +60,15 @@ carryForwardRegister:
     - 'Russia hosting contingency: mirror strategy (Codeberg / Cloudflare Pages / IPFS) as NFR, not post-launch surprise; relative asset paths from v1'
     - 'Pre-launch gate dependency graph as PRD artifact (ICAR confirmation, psychometrician sign-off, RU/PL native-speaker review, scoring spec freeze, 5×3 testers)'
     - 'Bottom-decile harm-mitigation review gate per language by native-clinical-register translator; no English-only crisis resources'
-  openDecisions:
-    - 'CTT vs IRT-EAP for v1 — party recommended IRT 2PL EAP; lock before epic-definition step'
-    - 'Item delivery: fixed-form vs randomized order (drives PRNG fairness NFR)'
-    - 'Bail-out mid-session: partial score? save-and-resume? discard? (interacts with localStorage-opt-in)'
-    - 'Share/screenshot policy: no share button vs uncertainty-baked-in shareable image'
-    - 'Retake cooldown: soft-block, hard-block, or show prior result (test-retest validity)'
-    - 'Locale-switch mid-session: block or allow (measurement invariance)'
-    - 'Russia mirror: single-origin v1 vs mirror-ready v1 (cost is now-vs-later)'
+  openDecisions: []  # all decisions resolved 2026-05-15; see resolvedDecisions below
+  resolvedDecisions:
+    - 'CTT vs IRT-EAP → IRT 2PL EAP (MVP scope §168; FR14; NFR22) [resolved 2026-05-14 in PRD body]'
+    - 'Item delivery → randomized subset with session-scoped crypto seed + image augmentation (FR7 expanded) [resolved 2026-05-15]'
+    - 'Bail-out mid-session → discard-or-continue, no resume, no silent partial (FR4) [resolved 2026-05-14]'
+    - 'Share/screenshot policy → no share UI, anti-screenshot composition (FR24, FR25) [resolved 2026-05-14]'
+    - 'Retake cooldown → no technical cooldown; FR27 + /methodology/limitations/retest-effects/ explain implications [resolved 2026-05-15]'
+    - 'Locale-switch mid-session → blocked (FR8) [resolved 2026-05-14]'
+    - 'Russia mirror → mirror-ready v1 (NFR17) [resolved 2026-05-14]'
   scopeAdjustments:
     - 'Methodology corpus elevated to first-class artifact (not /docs); methodology page == falsifiability surface'
     - 'Accessibility re-framed: declare validity envelope honestly; visual a11y is table-stakes but NOT measurement-invariance for matrix items'
@@ -113,7 +118,7 @@ A user succeeds with IQ-ME when, in a single uninterrupted session in their nati
 1. **Complete the full test from landing to result without encountering a paywall, signup prompt, ad, or telemetry consent dialog** — measurable as a network-trace check (zero third-party requests; only same-origin GET requests to static assets).
 2. **See a result they can interrogate** — the result page renders the percentile and IQ-scale equivalent side-by-side, a co-equal uncertainty band, a qualitative band label, a per-item-type breakdown, and inline non-dismissible caveats above the score. The user can follow a one-click link from any displayed number to the methodology page that defines it.
 3. **Report the experience as credible** — the launch-gate metric, lifted from the brief: ≥4 of 5 native-speaker testers per language (12 of 15 overall) report on the GitHub Discussions thread that the test felt honest and the result felt credible, with no participant flagging the result-page copy as harmful or culturally off in any of the three languages.
-4. **At the result tails, encounter a designed scene rather than a number.** Bottom-decile testers (P ≤ 25) report the score was delivered with care, the uncertainty band was visible, and at least one path forward existed in their language that was not an English-only link. Top-decile testers (P ≥ 90) report the result did not feel like a credential to screenshot and share without context.
+4. **At the result tails, encounter a designed scene rather than a number.** Bottom-decile testers (P ≤ 10) report the score was delivered with care, the uncertainty band was visible, and at least one path forward existed in their language that was not an English-only link. Top-decile testers (P ≥ 90) report the result did not feel like a credential to screenshot and share without context.
 
 **The "aha" moment for IQ-ME is not the score itself — it is the user clicking from the score to the methodology page and reading, in their own language, the plain-language explanation of what the score does and does not mean.** That click is the conversion event for trust-through-transparency, and the methodology page must reward it.
 
@@ -180,6 +185,28 @@ The v1 launch scope, drawn from the frozen brief and extended with the Party Mod
 - **Deployment posture:** GitHub Pages canonical; relative asset paths throughout; mirror-readiness designed in (Codeberg or Cloudflare Pages as a same-day failover target if Russia access degrades).
 - **CI pipeline:** scoring golden-vector tests, methodology-claims manifest parity lint, translation parity lint, license-provenance test, reading-level lint, zero-network-trace test, Lighthouse perf budget.
 - **Prototype removal:** `iq-me.html` deleted from the repo on day one of the new architecture; commit message names the rationale to deter resurrection.
+
+### Methodology Corpus Inventory (v1)
+
+The corpus comprises 30 pages per locale × 3 locales = 90 authored + translated pages at v1. Page paths are versioned per FR28 / NFR25 under a per-corpus-release policy: every page re-emits at every corpus version tag regardless of content change. Paths shown relative to `/methodology/v<X>.<Y>.<Z>/<lang>/`.
+
+**Constructs (5 pages):** `/constructs/fluid-reasoning/`, `/constructs/matrix-reasoning/`, `/constructs/icar-mr/`, `/constructs/g-factor/`, `/constructs/validity-envelope/`
+
+**Scoring (6 pages):** `/scoring/overview/`, `/scoring/irt-2pl/`, `/scoring/eap/`, `/scoring/uncertainty/` (houses the SEM + norming-sample combination formula per FR15), `/scoring/percentile-to-iq/`, `/scoring/golden-vectors/` (houses the R + mirt + quadpts + seed pin per NFR22)
+
+**Norming (3 pages):** `/norming/sapa-sample/`, `/norming/representativeness/`, `/norming/flynn-effects/`
+
+**Limitations & Caveats (4 pages):** `/limitations/what-this-does-not-measure/` 🔒 (FR36-protected), `/limitations/cultural-variance/`, `/limitations/anti-leakage/`, `/limitations/retest-effects/` (houses the no-cooldown discipline per FR27)
+
+**Ethics (3 pages):** `/ethics/apa-standards/`, `/ethics/non-clinical/`, `/ethics/anti-credentialization/`
+
+**Tail Scenes (2 pages, clinical-register-reviewed per language):** `/tails/bottom-decile/` (links to native-language resource list shipped as separate static asset, not a corpus page), `/tails/top-decile/`
+
+**Provenance (3 pages):** `/provenance/icar-license/`, `/provenance/iq-me-license/`, `/provenance/methodology-claims/`
+
+**Reference (4 pages):** `/reference/glossary/` (NFR30 glossary-first source), `/reference/citation/`, `/reference/changelog/`, `/reference/bibliography/`
+
+**Pages marked 🔒 are FR36-protected** — they cannot be shortened, merged, or removed without explicit changelog entry and reviewer-of-record sign-off. The inventory is the contract that downstream Methodology Corpus epic stories slice against.
 
 ### Growth Features (Post-MVP)
 
@@ -422,7 +449,7 @@ This is a **psychometric-assessment instrument with content-licensed redistribut
 - **Content-Security-Policy: zero third-party.** `Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'` — committed as a static header file (or `<meta http-equiv>` for GitHub Pages where header config is limited). No CDN scripts, no Google Fonts, no third-party analytics, no external image hosting. Verified by Playwright in CI.
 - **Subresource Integrity (SRI):** moot under the strict CSP above (no third-party scripts), but documented as the fallback if any external resource is ever added.
 - **No runtime mutation, no eval, no inline scripts.** Application source loads as ES modules from same origin; no `eval`, no `new Function`, no inline event handlers, no inline `<script>` blocks. Verified by Playwright CSP-violation trace and by repo-level grep in CI.
-- **Cryptographic primitives:** if random item-order selection is used, `crypto.getRandomValues` is the only acceptable source (per Party Mode round 2 / Amelia). `Math.random()` is forbidden in the scoring or item-selection path. The decision between fixed-form vs randomized item order is parked as an open decision; whichever wins, the PRNG constraint stands if randomization is in scope.
+- **Cryptographic primitives:** The session seed (FR7), item-subset selection, item ordering, and image-augmentation parameters all derive from a single 128-bit value drawn from `crypto.getRandomValues()` at session start. `Math.random()` is forbidden in scoring or item-selection code paths (enforced by repo-level grep in CI; see NFR10).
 - **Forking-ethics-as-security.** MIT permits a fork to strip caveats and add ads. The README explicitly *asks* (does not require, cannot require under MIT) forkers to preserve caveats, methodology corpus, and the trust-posture name. The canonical site, DOI, and Zenodo permanence are the only structural defense; honesty is the unfair advantage.
 
 #### Privacy Posture (verifiability)
@@ -761,7 +788,7 @@ The risk register from Steps 5 and 6 enumerates 14 domain risks and 8 innovation
 - **FR4:** Test-takers can bail out of the test mid-session, with an explicit choice between discarding their responses and continuing — no silent partial scoring.
 - **FR5:** Test-takers can take a test without time pressure (no countdowns, no per-item timers, no timing-based scoring penalties).
 - **FR6:** Test-takers can complete a session entirely within the browser, with no server-side state, no network requests beyond same-origin static-asset fetches, and no persistence unless the user explicitly opts in.
-- **FR7:** Test-takers can take a session whose items are drawn from the calibrated ICAR Matrix Reasoning pool; the item subset for a given session is reproducible given the session and not pre-predictable across independent sessions.
+- **FR7:** Test-takers can take a session of **16 items** drawn from the full published ICAR Matrix Reasoning pool. A **128-bit session seed** is generated at session start via `crypto.getRandomValues()` and held in memory only — never persisted to `localStorage`, never written to the URL hash, never bookmarkable across machines. The seed deterministically selects the item subset, item order, and per-item image augmentation. The subset is thus reproducible **within** the same session (e.g., to support FR2 answer revision) but **not pre-predictable across independent sessions and not transferable**. Each drawn item undergoes deterministic **rotation and/or reflection augmentation** of its rendered image — a structural anti-leakage measure (Risk #2, §482) that does not alter the item's psychometric properties. The exact MR pool size and per-item parameter set are frozen in Epic 0 alongside the ICAR-license-confirmation artifact (pre-launch gate #1).
 - **FR8:** Test-takers cannot switch language mid-session once the consent scene is passed; the active locale is locked for the duration of measurement.
 
 ### Consent & Validity Disclosure
@@ -775,7 +802,14 @@ The risk register from Steps 5 and 6 enumerates 14 domain risks and 8 innovation
 ### Score Computation
 
 - **FR14:** The scoring engine can compute, given a response pattern and the ICAR item parameters, an ability estimate (θ) and standard error using IRT 2PL EAP estimation.
-- **FR15:** The scoring engine can express the ability estimate as both a Gf percentile and an IQ-scale equivalent, accompanied by an honest uncertainty band that includes measurement error *and* norming-sample uncertainty.
+- **FR15:** The scoring engine can express the ability estimate as both a Gf percentile and an IQ-scale equivalent, accompanied by an honest uncertainty band computed as a **95% confidence interval** from a total standard error combining measurement error and norming-sample uncertainty in **root-sum-square**:
+
+  ```
+  SE_total = √(SEM² + SE_norming²)
+  displayed band = point estimate ± 1.96 · SE_total
+  ```
+
+  where `SEM` is the per-respondent posterior SE from `mirt::fscores(method="EAP")` and `SE_norming` derives from the ICAR-published standard error of the SAPA norming-sample mean. The band is applied to **both** the percentile and IQ-scale representations and rendered visually co-equal to the point estimates per FR18. The full derivation and parameter sources live on `/methodology/scoring/uncertainty/`.
 - **FR16:** The scoring engine can produce its output deterministically — without network access, without DOM dependencies, and without depending on any global mutable state.
 - **FR17:** The scoring engine can be invoked independently of the user interface, enabling reproducibility, external audit, and golden-vector testing against a reference implementation.
 
@@ -785,12 +819,12 @@ The risk register from Steps 5 and 6 enumerates 14 domain risks and 8 innovation
 - **FR19:** Test-takers can read tail-specific result-page copy — bottom-decile harm-mitigation, mid-band contextualization, or top-decile anti-credentialization — that has been authored and reviewed in their language by a clinical-register native speaker, not translated from English.
 - **FR20:** Test-takers in any percentile range, particularly the bottom decile, can access a curated native-language list of mental-health and crisis-support resources without geolocation, account creation, or any external service request.
 - **FR21:** Test-takers can navigate from any number on the result page (percentile, IQ-scale value, uncertainty band) to the methodology page that defines it, in one click, in the test-taker's active language.
-- **FR22:** Test-takers can see a per-item-type breakdown of their performance on the result page.
+- **FR22:** Test-takers can see a **per-item-difficulty breakdown** of their performance on the result page: drawn ICAR-MR items are partitioned into three difficulty bands (**easy / medium / hard**) by IRT b-parameter terciles within the v1 pool, and the result page shows fraction-correct within each band. The item-difficulty bands are distinct from the qualitative ability band applied to the score itself (a low score with all-hard-items-attempted reads differently than a low score with all-easy-items-missed). The taxonomy and band cutoffs are documented in `/methodology/constructs/icar-mr/` and `/methodology/scoring/overview/`.
 - **FR23:** Test-takers can read an inline, non-dismissible caveat above the score, in their chosen language, that disclaims clinical, educational-placement, employment, and legal-decision applicability.
 - **FR24:** Test-takers in the top decile see a result composition in which the caveat and uncertainty band are visually bound to the score such that producing a clean, decontextualized screenshot of the score requires deliberate editing.
 - **FR25:** Test-takers cannot share their result via any built-in affordance (no share button, no certificate, no badge, no `navigator.share()` call, no auto-generated social-card image).
 - **FR26:** Test-takers can opt in to saving their result to local browser storage; saving never occurs automatically and the first render must work with storage empty.
-- **FR27:** Test-takers can read, on the result page, a per-language explanation of what immediate retesting implies for the score's reliability — the test-retest discipline is on the result page itself, not buried in the methodology corpus.
+- **FR27:** Test-takers can read, on the result page, a per-language explanation of what immediate retesting implies for the score's reliability — the test-retest discipline is on the result page itself, not buried in the methodology corpus. **No technical retake cooldown is enforced**: a static, telemetry-free app cannot reliably enforce one without compromising the trust premise, and honesty about retest practice effects is the discipline. The full explanation lives on `/methodology/limitations/retest-effects/`.
 
 ### Methodology Corpus
 
@@ -841,6 +875,7 @@ The 53 FRs above cover the capability surface revealed by every prior step:
 - **Innovation Patterns** → FR42 (auditable IRT), FR43 (manifest), FR24–FR25 (anti-credentialization), FR28–FR30 (DOI/citation), FR39 (tri-lingual measurement equivalence)
 - **Web App Specifics** → FR31 (hreflang), FR28 (permalinks), FR41 (CSP/network-trace), accessibility coverage in FR10 + FR48
 - **Scoping (MVP must-haves)** → all FRs prefixed by Step 3 MVP items are covered; nice-to-have items (Internet Archive auto-mirror, BibTeX citation format) are encoded as part of FR46 / FR29 with the understanding that the *capability* is in scope and the *automation* is permitted to slip per Step 8
+- **Pre-architecture readiness gaps (2026-05-15)** → FR7 expanded for session shape (B2); FR15 expanded for uncertainty formula (B3); FR22 rewritten for difficulty-band breakdown (B8); FR27 clarified for no-cooldown discipline (B1 #5); Methodology Corpus Inventory subsection inserted under Product Scope (B5); NFR22 pinned reference implementation (B7); NFR25 pinned per-corpus-release versioning (B6); Success Criterion #4 threshold corrected to P≤10 (B4); openDecisions ledger reconciled to empty (B1)
 
 **Capability contract reminder:** any feature not derivable from the FRs above will not exist in the final product unless added explicitly in a future revision of this PRD.
 
@@ -883,10 +918,12 @@ The 53 FRs above cover the capability surface revealed by every prior step:
 These NFRs are the load-bearing trust-premise specifications. They are unique to IQ-ME among free-IQ-test products and gate the project's positioning.
 
 - **NFR21 — Runtime-zero-build invariant.** The deployed production artifact contains no compiled, bundled, minified, or transpiled JS — browsers load source files directly. The only build step is the author-time `make build-methodology` that renders CommonMark methodology source into per-locale HTML; that build output **is** the shipped artifact. CI verifies the deployed JS tree matches the source JS tree byte-for-byte.
-- **NFR22 — Scoring engine golden-vector parity.** The JS scoring engine agrees with R `mirt::fscores(method="EAP")` to within ±0.001 logits on a committed test set of ≥ 1,000 simulated response patterns. CI runs `node --test` against `tests/golden/vectors.json` on every PR; any case failing tolerance fails the build.
+- **NFR22 — Scoring engine golden-vector parity.** The JS scoring engine agrees with the R reference implementation to within ±0.001 logits on a committed test set of ≥ 1,000 simulated response patterns. CI runs `node --test` against `tests/golden/vectors.json` on every PR; any case failing tolerance fails the build.
+
+  **Reference implementation pinning.** Golden vectors are generated under **R 4.4.x + mirt 1.41.x** with `mirt::fscores(method="EAP", quadpts=61, theta_lim=c(-6,6))` and `set.seed(20260514)` for the simulated patterns. Re-generation across mirt or R version bumps requires (a) an explicit `tests/golden/CHANGELOG.md` entry documenting the new pins and any tolerance impact, (b) a `tests/golden/README.md` reproducibility note sufficient for a third party to regenerate the vectors locally, and (c) PR review by the methodology reviewer-of-record. The full derivation, the `set.seed` rationale, and the rerun runbook live on `/methodology/scoring/golden-vectors/`.
 - **NFR23 — Methodology-claims manifest parity.** The scoring engine declares its methodology dependencies in a `METHODOLOGY_CLAIMS` manifest; methodology pages declare their `asserts` in YAML frontmatter; a CI lint blocks any PR where engine declarations and methodology assertions disagree. The lint is a hard gate from v1 (per scoping confirmation).
 - **NFR24 — License-provenance verifiability.** Every shipped item file carries an attribution traceable to its ICAR source; `LICENSES.md` is unmodified between releases except via changelog entries; the written ICAR license confirmation is committed as a verifiable artifact in the repository root. A CI license-provenance test asserts these invariants on every PR.
-- **NFR25 — Citation infrastructure.** Methodology pages carry stable versioned permalinks (`/methodology/v<X>.<Y>.<Z>/<lang>/<path>/`), JSON-LD `ScholarlyArticle` structured data, and `hreflang` declarations; `CITATION.cff` is present at the repository root; Zenodo DOI is minted per tagged release.
+- **NFR25 — Citation infrastructure.** Methodology pages carry stable versioned permalinks (`/methodology/v<X>.<Y>.<Z>/<lang>/<path>/`) under a **per-corpus-release versioning policy**: every page in the corpus is re-emitted under each new corpus version tag, regardless of whether that page's content changed in the release. A citer of `v1.2.0/<lang>/<path>` therefore always resolves to the page as it existed at v1.2.0, even for pages that were byte-identical to v1.1.0. Per-page changelogs are surfaced via `/reference/changelog/`; the canonical citation unit is the **corpus version**, not the page. JSON-LD `ScholarlyArticle` structured data and `hreflang` declarations are present on every page. `CITATION.cff` is present at the repository root; Zenodo DOI is minted per tagged release.
 - **NFR26 — Verification time-to-confidence.** A skeptic with browser DevTools knowledge can verify the zero-third-party-fetch invariant in ≤ 30 seconds; can read the entire scoring engine source (~250 LOC) in ≤ 10 minutes; can run the golden-vector test suite locally in ≤ 5 minutes with only `node` installed. The auditability surface is small by design (Innovation pillars #2 and #5).
 
 ### Content Governance & Translation Equivalence
