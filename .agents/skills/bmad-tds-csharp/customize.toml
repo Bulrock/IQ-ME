@@ -62,9 +62,16 @@ infrastructure_project = "Infrastructure"
 [workflow.tooling]
 # Target framework moniker.
 # Type: scalar (enum)
-# Default: "net9.0"
+# Default: "net10.0" (greenfield projects)
 # Variants: net8.0 | net9.0 | net10.0 (LTS aware)
-target_framework = "net9.0"
+#
+# Greenfield-vs-existing rule (Karpathy #3 Surgical Changes):
+#   - НОВЫЙ проект → используй default net10.0.
+#   - EXISTING проект → match `<TargetFramework>` из существующих .csproj;
+#     не drag'ай legacy на net10.0 в рамках story, если spec этого явно
+#     не требует. Multi-targeting (`<TargetFrameworks>net9.0;net10.0`)
+#     допустим когда нужна постепенная миграция.
+target_framework = "net10.0"
 
 # Code style enforcement.
 # Type: scalar (enum)
@@ -77,9 +84,18 @@ analyzers = "editorconfig+roslynator"
 
 # Test framework.
 # Type: scalar (enum)
-# Default: "xunit"
-# Variants: xunit | nunit | mstest
-test_framework = "xunit"
+# Default: "tunit" (greenfield projects — modern source-generator-based test
+#   framework, faster cold start, async-first lifecycle, AOT-friendly)
+# Variants: tunit | xunit | nunit | mstest
+#
+# Greenfield-vs-existing rule:
+#   - НОВЫЙ test project → используй default `tunit`. References:
+#     https://tunit.dev/
+#   - EXISTING project с принятым test framework (xunit / nunit / mstest)
+#     → match существующий. Не вводи параллельный фреймворк в одной
+#     test-сборке — это нарушение Karpathy #3 (Surgical Changes) и
+#     запутывает test-author phase.
+test_framework = "tunit"
 
 # Mocking library.
 # Type: scalar (enum)

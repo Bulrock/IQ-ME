@@ -136,7 +136,12 @@ Proceed to «Process» section ниже. После завершения — exe
 - **Path B — legacy TDD path** (status was past ready-for-dev when execute-story invoked → Step 4a skipped via status-gate): specialist пишет тесты himself per Red-Green-Refactor below. Это natural fallback для resumed stories, rework cycles, и projects pre-TEA-integration era.
 
 4. **Execute** — TDD cycle:
-   - Red: JUnit 5 + AssertJ test class. `./gradlew test` → red.
+   - Red: JUnit 5 + AssertJ test class. Test invocation gotchas:
+     - **Gradle 9.0 «no tests discovered» trap.** Gradle 9 removed deprecated convention где Test task inherited `testClassesDirs` + `classpath` из 'test' source set. `./gradlew test` на un-migrated projects фейлится «no tests discovered» даже если тесты есть. Source: https://docs.gradle.org/current/userguide/upgrading_major_version_9.html — «`Test` tasks may no longer execute expected tests». Recovery: explicit configure `testClassesDirs` + `classpath` в build.gradle.kts или migrate к test-suites DSL (`testing { suites { val test by getting(JvmTestSuite::class) { useJUnitJupiter() } } }`).
+     - **JUnit 5 platform discovery:** убедись что test task имеет `useJUnitPlatform()` (default в JvmTestSuite DSL; explicit с legacy `tasks.test { useJUnitPlatform() }`). Без него Gradle тихо runner'ит JUnit 4 / Vintage.
+     - **Maven analog:** `mvn test` использует surefire plugin — нужен `maven-surefire-plugin` версия ≥3.0 для JUnit 5 (старые 2.x silent skip'ят Jupiter tests).
+     - **Module-specific run в multi-module project:** `./gradlew :module-name:test` или `./gradlew :module-name:test --tests "FQN"` для конкретного класса/метода. Bare `./gradlew test` иногда запускает root project test task который не находит ни одного теста.
+     `./gradlew :module:test` → red.
    - Green: minimal impl. Constructor injection. Records / sealed classes если applicable (Java 17+).
    - Refactor: simplify; verify Spotless/Checkstyle clean.
    - `tds integrity record` per file-write.

@@ -265,6 +265,10 @@ Process:
 
 - **Integrity record ДО state-set** — invariant. tds integrity record per file-write, then tds state set. Не наоборот (CI-guard inv-integrity-before-state.bats).
 
+- **Никогда `tds integrity record --files=<...state-manifest.yaml>`** (ARCH-07, 2026-05-17). State-manifest содержит entries для всех других A-class файлов; tamper-evidence для самого manifest делегирована git commit hooks. Self-record создаёт recursive mutation loop (запись entry изменяет content → sha → следующий verify fail). На v6.6.9+ CLI throws `TDS-ERR:SELF_TRACK_FORBIDDEN`; legacy projects с stale self-entry → run `tds doctor purge-self-track --as=engineer` (idempotent, atomic).
+
+- **Никогда Edit/Write напрямую на `sprint-status.yaml`** (ARCH-08, 2026-05-17). BMAD-canonical (`_bmad/bmm/sprint-status.yaml`) и canonical impl-artifacts (`_bmad-output/implementation-artifacts/sprint-status.yaml`). Flip через `tds state set --story=<id> --status=<state> --as=<role>` — spawns ruamel.yaml writer (`payload/shared/sprint_status_writer.py`) которая **preserves user comments + BMAD STATUS DEFINITIONS header**. Direct Edit/Write через js YAML lib (eemeli/yaml в bundle, или Claude Edit tool с default writer) silently strips comments → bats CI guard `inv-sprint-status-via-cli-only.bats` flags diff drift на review time. Permission `ask` gate был removed in v6.7.0 потому что operator всегда click-throughs — real enforcement layer = CI guard + integrity sha drift. Just **don't direct-edit**.
+
 - **Scoped commits** — `tds commit --story=<id> -- <paths>`. NO `git add -A` / `git add .` (запрещено в TDS-runtime).
 
 - **Lesson-aware:** Step 2 injects lessons. Step 3 explicit acknowledgement если high-severity matching lesson.

@@ -56,26 +56,24 @@ Proceed to «Process» section ниже. После завершения — exe
 
 ---
 
-## Process — orchestration steps (10)
+## Process — orchestration steps (8)
 
 | # | Step | Что делает |
 |---|------|-----------|
 | 1 | preflight + scope determination | `tds preflight check --action=archive-phase` (canonical PreflightAction enum: `install\|story-execute\|epic-execute\|story-review\|epic-finalize\|archive-phase\|migrate` — см. `src/preflight/check.ts`; нет bash wrappers под `_bmad/tds/scripts/`). Subsequent `tds archive create` requires `--phase=<name>`. Optional: `--epics=<list>` (default — все epics с status=done не в предыдущих архивах). |
 | 2 | guard checks | (a) Все scope.stories status=done; (b) Все scope.branches merged/abandoned (`tds doctor branch-orphans` clean); (c) `tds sync` recent (sync-events ≤ 24h ago — иначе warn). Любое нарушение → exit 5 + clear error + list of in-progress / orphan items. |
-| 3 | snapshot stories | `cp <impl_artifacts>/stories/<phase-files>` → `<output_folder>/_archive/<phase>/stories/`. Bridging epics тоже архивируются. |
-| 4 | snapshot _tds slices | (a) state-manifest entries scope → `_tds-snapshot/state-manifest.yaml`. (b) branch-registry entries scope → `_tds-snapshot/branch-registry.yaml`. (c) llm-manifest, claim-index — filtered by phase scope. (d) Telemetry JSONL filtered by phase-period (gzip per stream): `_tds-snapshot/telemetry/<stream>.<phase>.jsonl.gz`. |
-| 5 | snapshot sprint-status entries | Filter sprint-status.epics[] по scope; write to `<archive>/sprint-status-snapshot.yaml`. |
-| 6 | delegate to writer (phase-summary.md) | Sub-skill invocation, mode=phase-summary. CLI calls use `--as=writer`. Diátaxis: explanation + reference. Sections: что было сделано, ключевые epics, метрики (avg story duration, lessons captured, bridging epics resolved), key ADRs, risks discharged. |
-| 7 | compute sha256 (per-file + manifest_sha256) | Walk archive directory; sha256 каждый file → manifest.integrity.files. Compute manifest_sha256 over content excluding self-field. |
-| 8 | write manifest.yaml | Save `<archive>/manifest.yaml` per archive-manifest.schema.yaml. |
-| 9 | update state-manifest.tds_meta | Append entry to `tds_meta.archived_phases[]` в `<output_folder>/_tds/state-manifest.yaml`. Re-record state-manifest sha256 (since tds_meta changed). |
-| 10 | emit telemetry + final output | `archive-events.jsonl` event=complete. Print: «Archive complete. Source artefacts preserved. Run `tds archive verify <phase>` to confirm, then optionally `rm -rf <output_folder>/{impl_artifacts}/stories/<phase-old-files>` manually.» |
-| 11 | **state-commit sweep** | Финальный workflow shaq — `tds state-commit -m "chore(archive-<phase>): archive phase sweep" --as=engineer`. Sweep аккумулирует ВСЕ archive-create mutations одним aggregate commit: новый `_archive/<phase>/` дерево (manifest, snapshots, telemetry slices), state-manifest.yaml update (archived_phases entry + re-recorded sha256), branch-registry/sprint-status snapshots. Большой commit (десятки файлов) — это OK, archive — fundamentally large mutation. Idempotent + never-throws. | — (CLI) |
+| 3 | delegate to writer (phase-summary.md) | Sub-skill invocation, mode=phase-summary. CLI calls use `--as=writer`. Diátaxis: explanation + reference. Sections: что было сделано, ключевые epics, метрики (avg story duration, lessons captured, bridging epics resolved), key ADRs, risks discharged. Writer записывает файл в staging path (e.g. `_bmad-output/_tds/runtime/archive-staging/<phase>-summary.md`) — он передаётся в Step 4 через `--phase-summary=<path>`. Writer **должен** выполняться ДО `tds archive create`, иначе stub попадёт в manifest и `tds archive verify` будет ругаться. |
+| 4 | run archive create (single atomic CLI call) | `tds archive create --phase=<name> --as=engineer --phase-summary=<writer-summary> [--epics=<list>] [--description=<text>]`. CLI atomically: (a) snapshots stories из `<output_folder>/implementation-artifacts/stories/`; (b) snapshots `_tds/` slices (state-manifest, branch-registry, telemetry streams); (c) snapshots sprint-status; (d) копирует writer-summary как `phase-summary.md`; (e) хэширует все файлы → `manifest.integrity.files`; (f) пишет `manifest.yaml`; (g) appends entry в `state-manifest.yaml.tds_meta.archived_phases[]` (idempotent на phase_name, legacy `string[]` мигрируется автоматически). Никаких ручных `cp`/`sha256sum`/`python -c "yaml.dump"` workaround'ов. |
+| 5 | verify | `tds archive verify --phase=<name>`. Должен вернуть `failed=0` сразу после Step 4. Failure → exit 26 (см. RB-06 Path C). НЕ переходить к Step 6, пока verify не passing — cleanup полагается на manifest integrity. |
+| 6 | cleanup (verify-gated, optional но рекомендуется) | `tds archive cleanup --phase=<name> --dry-run --as=engineer` → preview списка source story files, которые будут удалены. Затем `tds archive cleanup --phase=<name> --confirm --as=engineer` — destructive removal только тех stories, чей source sha совпадает с archived copy. Любая drift между source и archive → atomic abort, ничего не удалено. Archive directory не трогается; Step 5 продолжит passing после cleanup. **Engineer-only** (matrix `archive-cleanup`); writer'у — deny, потому что summary-generation и source-eviction разделены. Если cleanup пропустить — source files останутся на месте, это explicit choice (например, для ручного `git mv` в archive-tree). |
+| 7 | final output | CLI Steps 4+6 уже emit'нули `archive-events.jsonl` events=create + cleanup. Print: «Archive complete: <archivePath>. <N> stories archived; <M> source files removed (или <M> preserved if cleanup skipped).» |
+| 8 | **state-commit sweep** | Финальный workflow shaq — `tds state-commit -m "chore(archive-<phase>): archive phase sweep" --as=engineer`. Sweep аккумулирует ВСЕ archive-create + cleanup mutations одним aggregate commit: новый `_archive/<phase>/` дерево (manifest, snapshots, telemetry slices), `state-manifest.yaml` update (archived_phases entry), branch-registry/sprint-status snapshots, и (если Step 6 выполнялся) удалённые `implementation-artifacts/stories/<phase-files>.md`. Большой commit (десятки файлов) — это OK. Idempotent + never-throws. |
 
 **Restore semantics — read-only:**
 - `tds archive list` — list all archived phases (one line per phase).
-- `tds archive show --phase=<name>` — display manifest + stories list. Реальный flag — `--phase=<name>` (handler требует, см. `src/cli/handlers/archive.ts:127`).
+- `tds archive show --phase=<name>` — display manifest + stories list. Реальный flag — `--phase=<name>` (handler требует, см. `src/cli/handlers/archive.ts`).
 - `tds archive verify --phase=<name>` — re-compute sha256s vs manifest; mismatch → exit 26 (см. [RB-06](../bmad-tds-setup/runbooks/RB-06-doctor-bundle.md) Path C).
+- `tds archive cleanup --phase=<name> {--dry-run | --confirm} --as=engineer` — verify-gated rm source story files (ARCH-04). Никакой default destructive path — обязательный explicit choice between preview и destroy.
 - Чтобы прочитать конкретную archived story — открыть file напрямую: `cat <output_folder>/_archive/<phase>/stories/<story-id>.md` (paths приведены в `manifest.yaml.integrity.files`). Отдельного `tds archive show --story=<id>` flag'а нет.
 - **NO** `archive restore` subcommand — архивы никогда не resurrected как active.
 
@@ -87,18 +85,26 @@ User: «Archive phase v1.0-launch»
 Process:
   [Step 1 preflight] phase_name=v1.0-launch.
   [Step 2 guard] All 24 stories status=done. branch-orphans clean. tds sync 6h ago. OK.
-  [Step 3 snapshot stories] cp 24 story files → _archive/v1.0-launch/stories/.
-  [Step 4 snapshot _tds] state-manifest entries (87), branch-registry (24 branches), llm-manifest filtered, claim-index filtered, telemetry 15 streams gzipped.
-  [Step 5 sprint-status snapshot] 4 epics (epic-1, epic-2, bridge-1-5, epic-3) → sprint-status-snapshot.yaml.
-  [Step 6 writer] sub-skill: writer. CLI calls use --as=writer.
-                  Phase-summary.md generated (Diátaxis explanation+reference):
+  [Step 3 writer] sub-skill: writer, mode=phase-summary. CLI calls use --as=writer.
+                  Phase-summary.md generated (Diátaxis explanation+reference) → 
+                  _bmad-output/_tds/runtime/archive-staging/v1.0-launch-summary.md:
                   «v1.0-launch: 102 days, 24 stories across 4 epics, 8 lessons captured, 1 bridging epic resolved...»
-  [Step 7 sha256] 156 files hashed; manifest_sha256 computed.
-  [Step 8 manifest] manifest.yaml written.
-  [Step 9 tds_meta] archived_phases.append({phase_name: v1.0-launch, archived_at: ts, archive_path: ..., included_epics: [...]}).
-                    state-manifest sha256 re-recorded.
-  [Step 10] archive-events.jsonl event=complete.
-            Output: «Archive complete: _bmad-output/_archive/v1.0-launch/. 24 stories + 156 files snapshot. Source preserved. Run `tds archive verify v1.0-launch` to confirm.»
+  [Step 4 archive create] tds archive create --phase=v1.0-launch --as=engineer \
+                            --phase-summary=_bmad-output/_tds/runtime/archive-staging/v1.0-launch-summary.md \
+                            --epics=epic-1,epic-2,bridge-1-5,epic-3
+                          CLI atomically: snapshots 24 stories из implementation-artifacts/stories/,
+                          _tds slices, sprint-status, копирует writer-summary как phase-summary.md,
+                          хэширует 156 files, пишет manifest.yaml, appends archived_phases entry.
+  [Step 5 verify] tds archive verify --phase=v1.0-launch → failed=0.
+  [Step 6 cleanup] tds archive cleanup --phase=v1.0-launch --dry-run --as=engineer →
+                   «would remove 24 source story file(s); skipped 0».
+                   tds archive cleanup --phase=v1.0-launch --confirm --as=engineer →
+                   «removed 24 source story file(s); skipped 0».
+                   (Если 1 story изменилась после archive — abort, ничего не удалено;
+                   operator решает: либо revert, либо re-archive с новым phase-name.)
+  [Step 7 output] «Archive complete: _bmad-output/_archive/v1.0-launch/. 24 stories + 156 files snapshot.
+                  24 source files removed. tds_meta.archived_phases updated.»
+  [Step 8 sweep] tds state-commit -m "chore(archive-v1.0-launch): archive phase sweep" --as=engineer.
 </example>
 
 <example>
@@ -117,12 +123,12 @@ Process:
 - Respond to user in {communication_language}.
 - Generate deliverables in {document_output_language}.
 
-- **Forbidden-quadrant:** workflow-skill вне matrix. Engineer delegation для technical snapshot operations: `engineer × archive-ops = allow`. Writer delegation для phase-summary: `writer × archive-ops = allow`.
+- **Forbidden-quadrant:** workflow-skill вне matrix. Engineer delegation для technical snapshot operations: `engineer × archive-ops = allow`. Writer delegation для phase-summary: `writer × archive-ops = allow`. Source eviction (`tds archive cleanup`) — `engineer × archive-cleanup = allow` only (ARCH-04); writer'у matrix говорит deny, потому что `rm` source files это разрушительная операция, отдельная от summary generation.
 
 - **Karpathy working principles:**
   1. **Think Before Coding** — Step 2 explicit guard checks. Не «архивируем как-нибудь, разберёмся при verify».
   2. **Simplicity First** — single phase = single archive folder. No incremental archiving (либо весь phase scope, либо ничего).
-  3. **Surgical Changes** — Step 10 critical: source artefacts preserved. NO auto-rm. Operator manually решает после verify.
+  3. **Surgical Changes** — `archive create` НЕ удаляет source. Cleanup — отдельная команда (`tds archive cleanup`), verify-gated, требует explicit `--dry-run`/`--confirm` choice. Любой drift → abort без mutation. Operator имеет одну точку решения «делать cleanup или нет».
   4. **Goal-Driven Execution** — success criterion: archive verifies (`tds archive verify`) + tds_meta updated + writer-summary clear.
 
 - **Read-only restore semantics:** `tds archive` НЕ имеет команды `restore-as-active`. Если operator хочет вернуться к функциональности — это **new story**, не resurrection. Архив для historical reference.

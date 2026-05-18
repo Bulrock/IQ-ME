@@ -7448,14 +7448,18 @@ __export(git_exports, {
   GitError: () => GitError,
   autoCommitTdsState: () => autoCommitTdsState,
   branchExists: () => branchExists,
+  checkout: () => checkout,
   createBranch: () => createBranch,
   currentBranch: () => currentBranch,
   deleteBranch: () => deleteBranch,
+  fetchBranch: () => fetchBranch,
   forceDeleteBranch: () => forceDeleteBranch,
+  isPushDeniedByBranchProtection: () => isPushDeniedByBranchProtection,
   listLocalBranches: () => listLocalBranches,
   pullRebase: () => pullRebase,
   pushForceWithLease: () => pushForceWithLease,
   pushPlain: () => pushPlain,
+  pushWithRebaseRetry: () => pushWithRebaseRetry,
   revertCommit: () => revertCommit,
   scopedCommit: () => scopedCommit,
   squashMerge: () => squashMerge
@@ -7517,8 +7521,56 @@ function listLocalBranches(opts) {
 function pushForceWithLease(branch, opts) {
   run3(["push", "--force-with-lease", "origin", branch], opts);
 }
-function pullRebase(opts) {
-  run3(["pull", "--rebase"], opts);
+function checkout(branch, opts) {
+  run3(["checkout", branch], opts);
+}
+function fetchBranch(branch, opts) {
+  run3(["fetch", "origin", branch], opts);
+}
+function isPushDeniedByBranchProtection(stderr) {
+  const s = stderr.toLowerCase();
+  return s.includes("protected branch") || s.includes("branch protection") || s.includes("gh006") || // GitHub protected branch hook reject
+  s.includes("push declined due to") || // generic Bitbucket / GitHub
+  s.includes("required status check") || s.includes("must be reviewed") || s.includes("required signature");
+}
+function pushWithRebaseRetry(opts) {
+  const attempts = opts.attempts ?? 3;
+  const runOpts = { cwd: opts.cwd };
+  if (opts.env) runOpts.env = opts.env;
+  let lastError = "";
+  for (let i = 1; i <= attempts; i++) {
+    try {
+      run3(["push", "origin", opts.branch], runOpts);
+      return { pushed: true, attempts: i };
+    } catch (err) {
+      if (!(err instanceof GitError)) throw err;
+      lastError = err.stderr;
+      if (isPushDeniedByBranchProtection(err.stderr)) {
+        return {
+          pushed: false,
+          reason: "branch-protection",
+          attempts: i,
+          lastError
+        };
+      }
+      if (i < attempts) {
+        run3(["pull", "--rebase", "origin", opts.branch], runOpts);
+      }
+    }
+  }
+  return {
+    pushed: false,
+    reason: "non-fast-forward-exhausted",
+    attempts,
+    lastError
+  };
+}
+function pullRebase(opts, branch) {
+  if (branch) {
+    run3(["pull", "--rebase", "origin", branch], opts);
+  } else {
+    run3(["pull", "--rebase"], opts);
+  }
 }
 function pushPlain(branch, opts) {
   run3(["push", "--set-upstream", "origin", branch], opts);
@@ -9247,12 +9299,12 @@ var require_adapter = __commonJS({
       return newFs;
     }
     function toPromise(method) {
-      return (...args) => new Promise((resolve6, reject) => {
+      return (...args) => new Promise((resolve7, reject) => {
         args.push((err, result) => {
           if (err) {
             reject(err);
           } else {
-            resolve6(result);
+            resolve7(result);
           }
         });
         method(...args);
@@ -9626,13 +9678,13 @@ var require_lib = __commonJS({
       };
     }
     function serializeActiveFile(absoluteName) {
-      return new Promise((resolve6) => {
+      return new Promise((resolve7) => {
         if (!activeFiles[absoluteName]) {
           activeFiles[absoluteName] = [];
         }
-        activeFiles[absoluteName].push(resolve6);
+        activeFiles[absoluteName].push(resolve7);
         if (activeFiles[absoluteName].length === 1) {
-          resolve6();
+          resolve7();
         }
       });
     }
@@ -9816,7 +9868,7 @@ var require_lib = __commonJS({
 });
 
 // src/state/test-artifacts-required.ts
-import { existsSync as existsSync5, readFileSync as readFileSync4 } from "node:fs";
+import { existsSync as existsSync5, readFileSync as readFileSync5 } from "node:fs";
 function isTestFilePath2(path) {
   return TEST_FILE_PATTERNS.some((re) => re.test(path));
 }
@@ -9824,7 +9876,7 @@ function hasTestAuthorRecords(opts) {
   if (!existsSync5(opts.manifestPath)) return false;
   let doc;
   try {
-    doc = (0, import_yaml3.parse)(readFileSync4(opts.manifestPath, "utf8")) ?? {};
+    doc = (0, import_yaml4.parse)(readFileSync5(opts.manifestPath, "utf8")) ?? {};
   } catch {
     return false;
   }
@@ -9833,11 +9885,11 @@ function hasTestAuthorRecords(opts) {
     (e) => e.recorded_by === "test-author" && e.story_id === opts.storyId && typeof e.file === "string" && isTestFilePath2(e.file)
   );
 }
-var import_yaml3, TEST_FILE_PATTERNS;
+var import_yaml4, TEST_FILE_PATTERNS;
 var init_test_artifacts_required = __esm({
   "src/state/test-artifacts-required.ts"() {
     "use strict";
-    import_yaml3 = __toESM(require_dist(), 1);
+    import_yaml4 = __toESM(require_dist(), 1);
     TEST_FILE_PATTERNS = [
       /(^|\/)__tests__\//,
       /(^|\/)tests?\//,
@@ -9873,7 +9925,12 @@ var init_allowlist = __esm({
     init_test_artifacts_required();
     A_ALLOWLIST = [
       // Exact-path artefacts in the TDS state tree.
-      /^_bmad-output\/_tds\/state-manifest\.yaml$/,
+      // ARCH-07 (2026-05-17): state-manifest.yaml REMOVED from allowlist —
+      // permitting self-track create recursive mutation footgun. Каждый
+      // recordIntegrity на manifest сам инвалидирует self-entry потому что
+      // запись entry изменяет content → sha → следующий verify fail. Manifest
+      // tamper-evidence delegated to git commit hooks. Defense-in-depth:
+      // explicit self-track guard в recordIntegrity (`index.ts`).
       /^_bmad-output\/_tds\/branch-registry\.yaml$/,
       /^_bmad-output\/_tds\/memory\/lessons\.yaml$/,
       // sprint-status-extension — TDS sidecar for bridges + opaque-id parents map
@@ -9899,7 +9956,7 @@ var init_allowlist = __esm({
       file;
       artefactClass;
       constructor(file, artefactClass) {
-        const recovery = artefactClass === "A" ? `Class A allowlist (\xA712.3): _tds/state-manifest|branch-registry|memory/lessons.yaml, _bmad/bmm/sprint-status.yaml, <impl_artifacts>/stories/*.md, <impl_artifacts>/sbom/*.spdx.json, _tds/runtime/llm-manifest/*.json, _tds/runtime/claim-index/*.yaml.` : `Class B allowlist (\xA712.3): _tds/runtime/snapshots/*, _tds/runtime/sbom/aux-*.`;
+        const recovery = artefactClass === "A" ? `Class A allowlist (\xA712.3): _tds/branch-registry|memory/lessons.yaml, _tds/sprint-status-extension.yaml, _bmad/bmm/sprint-status.yaml, <impl_artifacts>/stories/*.md, <impl_artifacts>/sbom/*.spdx.json, _tds/runtime/llm-manifest/*.json, _tds/runtime/claim-index/*.yaml. state-manifest.yaml NOT in allowlist (ARCH-07): manifest tracks everything else, its own tamper-evidence delegated to git commit hooks; self-track \u0441\u043E\u0437\u0434\u0430\u0451\u0442 recursive-mutation loop.` : `Class B allowlist (\xA712.3): _tds/runtime/snapshots/*, _tds/runtime/sbom/aux-*.`;
         super(
           `TDS-ERR:CLASS_NOT_ALLOWED \u2014 path "${file}" not in \xA712.3 class-${artefactClass} allowlist. ${recovery} Production source is delegated to git tamper-evidence (ADR-0014 \xA7B); for migration of legacy entries run \`tds integrity sweep --purge-out-of-spec\`.`
         );
@@ -9917,20 +9974,20 @@ import {
   existsSync as existsSync6,
   mkdirSync as mkdirSync2,
   readdirSync,
-  readFileSync as readFileSync5,
+  readFileSync as readFileSync6,
   statSync as statSync2
 } from "node:fs";
 import { dirname as dirname5, join as join6, relative as relative2, resolve as resolve3 } from "node:path";
 function readManifest(path) {
   if (!existsSync6(path)) return structuredClone(EMPTY_MANIFEST);
-  const raw = readFileSync5(path, "utf8");
-  const parsed = (0, import_yaml4.parse)(raw) ?? structuredClone(EMPTY_MANIFEST);
+  const raw = readFileSync6(path, "utf8");
+  const parsed = (0, import_yaml5.parse)(raw) ?? structuredClone(EMPTY_MANIFEST);
   if (!Array.isArray(parsed.entries)) parsed.entries = [];
   if (parsed.schema_version === void 0) parsed.schema_version = "1.0";
   return parsed;
 }
 async function writeManifest(path, doc) {
-  const yaml = (0, import_yaml4.stringify)(doc, { indent: 2, lineWidth: 0 });
+  const yaml = (0, import_yaml5.stringify)(doc, { indent: 2, lineWidth: 0 });
   mkdirSync2(dirname5(path), { recursive: true });
   const release = await import_proper_lockfile.default.lock(path, {
     retries: { retries: 50, factor: 1, minTimeout: 5, maxTimeout: 50 },
@@ -9944,7 +10001,7 @@ async function writeManifest(path, doc) {
   }
 }
 function sha256OfFile(path) {
-  const buf = readFileSync5(path);
+  const buf = readFileSync6(path);
   return createHash("sha256").update(buf).digest("hex");
 }
 function relPath(projectRoot, file) {
@@ -9967,7 +10024,7 @@ function lookupArchivedSha(archiveRoot, relFile) {
     if (!existsSync6(manifestPath)) continue;
     let doc;
     try {
-      doc = (0, import_yaml4.parse)(readFileSync5(manifestPath, "utf8")) ?? {};
+      doc = (0, import_yaml5.parse)(readFileSync6(manifestPath, "utf8")) ?? {};
     } catch {
       continue;
     }
@@ -9990,6 +10047,14 @@ async function recordIntegrity(opts) {
   }
   for (const f of opts.files) {
     if (!existsSync6(f)) throw new Error(`file missing: ${f}`);
+  }
+  const canonicalManifest = resolve3(opts.manifestPath);
+  for (const f of opts.files) {
+    if (resolve3(f) === canonicalManifest) {
+      throw new Error(
+        `TDS-ERR:SELF_TRACK_FORBIDDEN \u2014 path "${f}" resolves to state-manifest.yaml itself. Manifest tamper-evidence is delegated to git commit hooks; self-record \u0441\u043E\u0437\u0434\u0430\u0451\u0442 recursive-mutation loop (each record changes content \u2192 sha \u2192 next verify fails). Never run \`tds integrity record --files=<state-manifest.yaml>\` (neither manually nor through auto-record wrapper).`
+      );
+    }
   }
   for (const f of opts.files) {
     const rel = relPath(opts.projectRoot, f);
@@ -10182,8 +10247,20 @@ async function verifyIntegrity(opts) {
   const doc = readManifest(opts.manifestPath);
   let verified = 0;
   const failedEntries = [];
+  const canonicalManifest = resolve3(opts.manifestPath);
   for (const e of doc.entries) {
     const abs = join6(opts.projectRoot, e.file);
+    if (resolve3(abs) === canonicalManifest) {
+      await emit({
+        telemetryDir: opts.telemetryDir,
+        stream: "integrity-events",
+        event: {
+          kind: "self-track-skipped",
+          file: e.file
+        }
+      });
+      continue;
+    }
     if (!existsSync6(abs)) {
       failedEntries.push({
         path: e.file,
@@ -10216,13 +10293,47 @@ async function verifyIntegrity(opts) {
   });
   return { verified, failed: failedEntries.length, failedEntries };
 }
-var import_proper_lockfile, import_write_file_atomic, import_yaml4, ARTEFACT_CLASSES, CLASS_SET, EMPTY_MANIFEST;
+async function purgeSelfTrack(opts) {
+  if (!existsSync6(opts.manifestPath)) {
+    return { removed: [], dryRun: opts.dryRun };
+  }
+  const doc = readManifest(opts.manifestPath);
+  const canonicalManifest = resolve3(opts.manifestPath);
+  const removed = [];
+  const kept = [];
+  for (const e of doc.entries) {
+    const abs = join6(opts.projectRoot, e.file);
+    if (resolve3(abs) === canonicalManifest) {
+      removed.push(e.file);
+    } else {
+      kept.push(e);
+    }
+  }
+  if (removed.length === 0) {
+    return { removed: [], dryRun: opts.dryRun };
+  }
+  if (!opts.dryRun) {
+    doc.entries = kept;
+    await writeManifest(opts.manifestPath, doc);
+    await emit({
+      telemetryDir: opts.telemetryDir,
+      stream: "integrity-events",
+      event: {
+        kind: "manifest-self-track-purge",
+        removed_count: removed.length,
+        removed_files: removed
+      }
+    });
+  }
+  return { removed, dryRun: opts.dryRun };
+}
+var import_proper_lockfile, import_write_file_atomic, import_yaml5, ARTEFACT_CLASSES, CLASS_SET, EMPTY_MANIFEST;
 var init_integrity = __esm({
   "src/integrity/index.ts"() {
     "use strict";
     import_proper_lockfile = __toESM(require_proper_lockfile(), 1);
     import_write_file_atomic = __toESM(require_lib(), 1);
-    import_yaml4 = __toESM(require_dist(), 1);
+    import_yaml5 = __toESM(require_dist(), 1);
     init_emit();
     init_allowlist();
     ARTEFACT_CLASSES = ["A", "B"];
@@ -10304,7 +10415,17 @@ var init_model = __esm({
       "in-progress",
       "approved",
       "done",
-      "halted"
+      "halted",
+      /**
+       * BMAD-canonical initial state для retrospective slots (sprint-status
+       * key `epic-N-retrospective`). Не часть regular epic lifecycle —
+       * exits только в `done` (retro выполнен) или `halted` (явно пропущен).
+       * Добавлен 2026-05-15 (ARCH-05): прежде operator был forced на
+       * hand-edit + `tds integrity accept`, обходя state-machine. Теперь
+       * canonical путь — `tds state set --story=epic-N-retrospective
+       * --status=done --as=auditor`.
+       */
+      "optional"
     ];
     EPIC_STATUSES_SET = new Set(EPIC_STATUSES);
     TESTS_STATES = [
@@ -10347,11 +10468,11 @@ __export(bridge_exports, {
 });
 import { spawnSync as spawnSync7 } from "node:child_process";
 import { dirname as dirname6 } from "node:path";
-import { existsSync as existsSync7, mkdirSync as mkdirSync3, readFileSync as readFileSync6 } from "node:fs";
+import { existsSync as existsSync7, mkdirSync as mkdirSync3, readFileSync as readFileSync7 } from "node:fs";
 import { fileURLToPath as fileURLToPath5 } from "node:url";
 function readExtension(path) {
   if (!existsSync7(path)) return structuredClone(EMPTY_EXTENSION);
-  const parsed = (0, import_yaml5.parse)(readFileSync6(path, "utf8")) ?? structuredClone(EMPTY_EXTENSION);
+  const parsed = (0, import_yaml6.parse)(readFileSync7(path, "utf8")) ?? structuredClone(EMPTY_EXTENSION);
   if (!Array.isArray(parsed.bridges)) parsed.bridges = [];
   if (!parsed.schema_version) parsed.schema_version = "1.0";
   if (!parsed.parents || typeof parsed.parents !== "object") {
@@ -10361,7 +10482,7 @@ function readExtension(path) {
 }
 async function writeExtension(path, doc, recordOpts) {
   doc.last_updated = (/* @__PURE__ */ new Date()).toISOString();
-  const yaml = (0, import_yaml5.stringify)(doc, { indent: 2, lineWidth: 0 });
+  const yaml = (0, import_yaml6.stringify)(doc, { indent: 2, lineWidth: 0 });
   mkdirSync3(dirname6(path), { recursive: true });
   const release = await import_proper_lockfile2.default.lock(path, {
     retries: { retries: 50, factor: 1, minTimeout: 5, maxTimeout: 50 },
@@ -10489,13 +10610,13 @@ async function resolveBridge(opts) {
     outcomeRecorded: opts.outcome
   };
 }
-var import_proper_lockfile2, import_write_file_atomic2, import_yaml5, HELPER_PATH, BRIDGE_TYPES, TYPE_SET, EMPTY_EXTENSION;
+var import_proper_lockfile2, import_write_file_atomic2, import_yaml6, HELPER_PATH, BRIDGE_TYPES, TYPE_SET, EMPTY_EXTENSION;
 var init_bridge = __esm({
   "src/epic/bridge.ts"() {
     "use strict";
     import_proper_lockfile2 = __toESM(require_proper_lockfile(), 1);
     import_write_file_atomic2 = __toESM(require_lib(), 1);
-    import_yaml5 = __toESM(require_dist(), 1);
+    import_yaml6 = __toESM(require_dist(), 1);
     init_emit();
     init_helper();
     init_auto_record();
@@ -10529,7 +10650,7 @@ __export(sprint_status_exports, {
   readSprintStatus: () => readSprintStatus,
   slugifyEpicTitle: () => slugifyEpicTitle
 });
-import { existsSync as existsSync8, readFileSync as readFileSync7 } from "node:fs";
+import { existsSync as existsSync8, readFileSync as readFileSync8 } from "node:fs";
 function classify(key2, ctx = EMPTY_CTX) {
   const parentId = ctx.parents.get(key2);
   if (parentId !== void 0) {
@@ -10577,7 +10698,7 @@ function readSprintStatus(opts) {
       unrecognizedKeys: []
     };
   }
-  const parsed = (0, import_yaml6.parse)(readFileSync7(opts.sprintStatusPath, "utf8")) ?? {};
+  const parsed = (0, import_yaml7.parse)(readFileSync8(opts.sprintStatusPath, "utf8")) ?? {};
   const dev = parsed.development_status;
   const entries = [];
   const byKey = /* @__PURE__ */ new Map();
@@ -10637,7 +10758,7 @@ function slugifyEpicTitle(title) {
 }
 function epicTitleFromSprintStatus(sprintStatusPath, epicId) {
   if (!existsSync8(sprintStatusPath)) return null;
-  const lines = readFileSync7(sprintStatusPath, "utf8").split("\n");
+  const lines = readFileSync8(sprintStatusPath, "utf8").split("\n");
   const keyLineRe = new RegExp(
     `^\\s*${epicId.replace(/[-/\\^$*+?.()|[\\]{}]/g, "\\$&")}\\s*:`
   );
@@ -10661,11 +10782,11 @@ function epicTitleFromSprintStatus(sprintStatusPath, epicId) {
   }
   return null;
 }
-var import_yaml6, ACTIVE_STATUSES, EMPTY_CTX;
+var import_yaml7, ACTIVE_STATUSES, EMPTY_CTX;
 var init_sprint_status = __esm({
   "src/state/sprint-status.ts"() {
     "use strict";
-    import_yaml6 = __toESM(require_dist(), 1);
+    import_yaml7 = __toESM(require_dist(), 1);
     init_bridge();
     init_model();
     ACTIVE_STATUSES = /* @__PURE__ */ new Set([
@@ -10700,7 +10821,7 @@ __export(registry_exports, {
   updateStatus: () => updateStatus,
   writeRegistryDoc: () => writeRegistryDoc
 });
-import { existsSync as existsSync11, readFileSync as readFileSync11, mkdirSync as mkdirSync4 } from "node:fs";
+import { existsSync as existsSync11, readFileSync as readFileSync12, mkdirSync as mkdirSync4 } from "node:fs";
 import { dirname as dirname7 } from "node:path";
 function validateBranchName(branch) {
   if (!PREFIX_RE.test(branch)) {
@@ -10731,13 +10852,13 @@ async function writeRegistryDoc(path, doc, recordOpts) {
 }
 function readDoc(path) {
   if (!existsSync11(path)) return structuredClone(EMPTY_DOC);
-  const parsed = (0, import_yaml10.parse)(readFileSync11(path, "utf8")) ?? structuredClone(EMPTY_DOC);
+  const parsed = (0, import_yaml11.parse)(readFileSync12(path, "utf8")) ?? structuredClone(EMPTY_DOC);
   if (!Array.isArray(parsed.branches)) parsed.branches = [];
   if (!parsed.schema_version) parsed.schema_version = "1.0";
   return parsed;
 }
 async function writeDoc(path, doc, recordOpts) {
-  const yaml = (0, import_yaml10.stringify)(doc, { indent: 2, lineWidth: 0 });
+  const yaml = (0, import_yaml11.stringify)(doc, { indent: 2, lineWidth: 0 });
   mkdirSync4(dirname7(path), { recursive: true });
   const release = await import_proper_lockfile4.default.lock(path, {
     retries: { retries: 50, factor: 1, minTimeout: 5, maxTimeout: 50 },
@@ -10761,7 +10882,7 @@ async function writeDoc(path, doc, recordOpts) {
 async function lockedMutateRegistry(path, mutator, recordOpts) {
   mkdirSync4(dirname7(path), { recursive: true });
   if (!existsSync11(path)) {
-    const yaml = (0, import_yaml10.stringify)(EMPTY_DOC, { indent: 2, lineWidth: 0 });
+    const yaml = (0, import_yaml11.stringify)(EMPTY_DOC, { indent: 2, lineWidth: 0 });
     await (0, import_write_file_atomic4.default)(path, yaml, { fsync: true });
   }
   const release = await import_proper_lockfile4.default.lock(path, {
@@ -10772,7 +10893,7 @@ async function lockedMutateRegistry(path, mutator, recordOpts) {
   try {
     const doc = readDoc(path);
     const result = await mutator(doc);
-    const yaml = (0, import_yaml10.stringify)(doc, { indent: 2, lineWidth: 0 });
+    const yaml = (0, import_yaml11.stringify)(doc, { indent: 2, lineWidth: 0 });
     await (0, import_write_file_atomic4.default)(path, yaml, { fsync: true });
     await recordAfterWrite({
       manifestPath: recordOpts.manifestPath,
@@ -10872,13 +10993,13 @@ async function remove(opts) {
     opts.recordOpts
   );
 }
-var import_proper_lockfile4, import_write_file_atomic4, import_yaml10, BRANCH_TYPES, EMPTY_DOC, PREFIX_RE;
+var import_proper_lockfile4, import_write_file_atomic4, import_yaml11, BRANCH_TYPES, EMPTY_DOC, PREFIX_RE;
 var init_registry = __esm({
   "src/branch/registry.ts"() {
     "use strict";
     import_proper_lockfile4 = __toESM(require_proper_lockfile(), 1);
     import_write_file_atomic4 = __toESM(require_lib(), 1);
-    import_yaml10 = __toESM(require_dist(), 1);
+    import_yaml11 = __toESM(require_dist(), 1);
     init_auto_record();
     BRANCH_TYPES = [
       "feature",
@@ -10918,6 +11039,12 @@ function validateTransition(opts) {
     return validateEpicTransition(opts);
   }
   const allowed = TRANSITIONS[opts.from];
+  if (!allowed) {
+    return {
+      allow: false,
+      reason: `Transition ${opts.from} \u2192 ${opts.to} not permitted for kind=story. Story states: ${Object.keys(TRANSITIONS).join(", ")}. Source ${opts.from} unknown (likely epic-only state, e.g. 'optional' \u0434\u043B\u044F retrospective slot).`
+    };
+  }
   if (!allowed.has(opts.to)) {
     return {
       allow: false,
@@ -11009,7 +11136,14 @@ var init_state_machine = __esm({
       // deliver pending». `approved → done` is the delivery flip.
       approved: /* @__PURE__ */ new Set(["done", "halted"]),
       done: /* @__PURE__ */ new Set([]),
-      halted: /* @__PURE__ */ new Set(["in-progress"])
+      halted: /* @__PURE__ */ new Set(["in-progress"]),
+      // ARCH-05 (2026-05-15) — retrospective slot lane. BMAD-canonical
+      // initial state `optional` exits только в `done` (retro выполнен)
+      // или `halted` (явно пропущен). Не сливается с regular lifecycle:
+      // `optional → in-progress|backlog|approved` deny. Role-free
+      // (auditor типично закрывает retro, но engineer/writer могут — это
+      // BMAD canon, role не enforced на retrospective writeback).
+      optional: /* @__PURE__ */ new Set(["done", "halted"])
     };
     SPECIALIST_ROLES3 = new Set(SPECIALIST_ROLES);
     ANY_ROLE_KEY = "*";
@@ -11118,7 +11252,7 @@ __export(story_frontmatter_exports, {
 });
 import {
   existsSync as existsSync14,
-  readFileSync as readFileSync14,
+  readFileSync as readFileSync15,
   writeFileSync
 } from "node:fs";
 function findFenceBoundaries(text) {
@@ -11141,13 +11275,13 @@ function readStoryFrontmatter(path) {
   if (!existsSync14(path)) {
     throw new StoryFrontmatterError(`story file not found: ${path}`);
   }
-  const text = readFileSync14(path, "utf8");
+  const text = readFileSync15(path, "utf8");
   const fence = findFenceBoundaries(text);
   if (!fence) return null;
   const yamlBlock = text.slice(FENCE.length + 1, fence.end - FENCE.length - 2);
   let frontmatter;
   try {
-    frontmatter = (0, import_yaml13.parse)(yamlBlock);
+    frontmatter = (0, import_yaml14.parse)(yamlBlock);
   } catch (err) {
     throw new StoryFrontmatterError(
       `frontmatter at ${path} is not valid YAML: ${err.message}`,
@@ -11162,7 +11296,7 @@ function readStoryFrontmatter(path) {
   };
 }
 function migratePlainStatusToFrontmatter(path) {
-  const text = readFileSync14(path, "utf8");
+  const text = readFileSync15(path, "utf8");
   const statusMatch = text.match(/^Status:\s*(\S+)\s*$/m);
   if (!statusMatch) {
     throw new StoryFrontmatterError(
@@ -11239,7 +11373,7 @@ async function writeStoryFrontmatter(path, update, recordOpts) {
     fm.tds.reviewers = existing;
   }
   const cleanedBody = parsed.body.replace(/^Status:\s*\S+\s*\n?/m, "");
-  const yamlOut = (0, import_yaml13.stringify)(fm, { indent: 2, lineWidth: 0 });
+  const yamlOut = (0, import_yaml14.stringify)(fm, { indent: 2, lineWidth: 0 });
   const newText = `${FENCE}
 ${yamlOut}${FENCE}
 ${cleanedBody}`;
@@ -11266,13 +11400,13 @@ ${cleanedBody}`;
 function storyFrontmatterPath(implArtifactsDir, storyId) {
   return `${implArtifactsDir}/stories/${storyId}.md`;
 }
-var import_proper_lockfile5, import_write_file_atomic5, import_yaml13, StoryFrontmatterError, FENCE;
+var import_proper_lockfile5, import_write_file_atomic5, import_yaml14, StoryFrontmatterError, FENCE;
 var init_story_frontmatter = __esm({
   "src/state/story-frontmatter.ts"() {
     "use strict";
     import_proper_lockfile5 = __toESM(require_proper_lockfile(), 1);
     import_write_file_atomic5 = __toESM(require_lib(), 1);
-    import_yaml13 = __toESM(require_dist(), 1);
+    import_yaml14 = __toESM(require_dist(), 1);
     init_auto_record();
     init_model();
     StoryFrontmatterError = class extends Error {
@@ -11308,7 +11442,7 @@ __export(story_spec_exports, {
   setStatus: () => setStatus,
   writeStorySpec: () => writeStorySpec
 });
-import { readFileSync as readFileSync15, existsSync as existsSync15 } from "node:fs";
+import { readFileSync as readFileSync16, existsSync as existsSync15 } from "node:fs";
 import { dirname as dirname8 } from "node:path";
 function parseStorySpec(content) {
   const m = STATUS_RE.exec(content);
@@ -11319,7 +11453,7 @@ function parseStorySpec(content) {
 }
 function readStorySpec(path) {
   if (!existsSync15(path)) return null;
-  return parseStorySpec(readFileSync15(path, "utf8"));
+  return parseStorySpec(readFileSync16(path, "utf8"));
 }
 function setStatus(spec, newStatus) {
   if (!STATUS_RE.test(spec.body)) return null;
@@ -11706,7 +11840,7 @@ __export(apply_transition_exports, {
   applyStateTransition: () => applyStateTransition
 });
 import { spawnSync as spawnSync8 } from "node:child_process";
-import { readFileSync as readFileSync16, existsSync as existsSync16, accessSync, constants as fsConstants } from "node:fs";
+import { readFileSync as readFileSync17, existsSync as existsSync16, accessSync, constants as fsConstants } from "node:fs";
 import { dirname as dirname9 } from "node:path";
 import { fileURLToPath as fileURLToPath6 } from "node:url";
 function statusVocabularyDeny(opts) {
@@ -11727,7 +11861,7 @@ function readCurrentStatus(sprintPath, storyId) {
   if (!existsSync16(sprintPath)) {
     throw new Error(`sprint-status.yaml not found at ${sprintPath}`);
   }
-  const parsed = (0, import_yaml14.parse)(readFileSync16(sprintPath, "utf8")) ?? {};
+  const parsed = (0, import_yaml15.parse)(readFileSync17(sprintPath, "utf8")) ?? {};
   const dev = parsed.development_status;
   if (!dev || typeof dev !== "object") {
     return { found: false, hasDev: false, value: null };
@@ -11976,11 +12110,11 @@ async function applyStateTransition(opts) {
     ...storyMdSkipped ? { storyMdSkipped } : {}
   };
 }
-var import_yaml14, HELPER_PATH2, StateTransitionDeniedError, LEGACY_STATUS_RECOVERY;
+var import_yaml15, HELPER_PATH2, StateTransitionDeniedError, LEGACY_STATUS_RECOVERY;
 var init_apply_transition = __esm({
   "src/state/apply-transition.ts"() {
     "use strict";
-    import_yaml14 = __toESM(require_dist(), 1);
+    import_yaml15 = __toESM(require_dist(), 1);
     init_emit();
     init_helper();
     init_state_machine();
@@ -12188,8 +12322,9 @@ async function applyVerdict(opts) {
   const flippedStoryIds = reports.filter((r) => r.flipped).map((r) => r.story_id);
   const totalBlockers = reports.reduce((n, r) => n + r.blockerCount, 0);
   const verdict = totalBlockers > 0 ? "changes-requested" : "approved";
+  const nonApprovableStoryIds = reports.filter((r) => r.skipReason === "spec-not-found").map((r) => r.story_id);
   const flippedToApproved = [];
-  if (verdict === "approved") {
+  if (verdict === "approved" && nonApprovableStoryIds.length === 0) {
     const stateManifestPath = join13(opts.tdsStateDir, "state-manifest.yaml");
     for (const report of reports) {
       if (report.statusBefore !== "review") continue;
@@ -12219,7 +12354,7 @@ async function applyVerdict(opts) {
     }
   }
   let epicFlippedToApproved = false;
-  if (verdict === "approved" && opts.scope.kind === "epic") {
+  if (verdict === "approved" && opts.scope.kind === "epic" && nonApprovableStoryIds.length === 0) {
     const epicId = opts.scope.id;
     const epicStatusBefore = sprint.byKey.get(epicId)?.status ?? null;
     if (epicStatusBefore === "in-progress") {
@@ -12287,6 +12422,7 @@ async function applyVerdict(opts) {
     flippedToApproved,
     epicFlippedToApproved,
     totalBlockers,
+    nonApprovableStoryIds,
     sweep
   };
 }
@@ -12304,7 +12440,7 @@ var init_apply_verdict = __esm({
 });
 
 // src/cli/dispatcher.ts
-import { join as pathJoin18 } from "node:path";
+import { join as pathJoin21 } from "node:path";
 
 // src/cli/shared.ts
 import { dirname, resolve as resolvePath } from "node:path";
@@ -12395,6 +12531,11 @@ function formatAuthzDeny(opts) {
   return `forbidden-quadrant: ${opts.role} \xD7 ${opts.op} = deny (${opts.reason})
 `;
 }
+function formatStateMachineDeny(opts) {
+  return `state-machine: ${opts.from} \u2192 ${opts.to} denied as role=${opts.role}
+  reason: ${opts.reason}
+`;
+}
 var PREFLIGHT_SUBCOMMANDS = ["check"];
 var INTEGRITY_SUBCOMMANDS = [
   "record",
@@ -12403,7 +12544,12 @@ var INTEGRITY_SUBCOMMANDS = [
   "recover",
   "sweep"
 ];
-var DOCTOR_SUBCOMMANDS = ["diagnose", "branch-orphans"];
+var DOCTOR_SUBCOMMANDS = [
+  "diagnose",
+  "branch-orphans",
+  "purge-self-track"
+];
+var CATALOG_SUBCOMMANDS = ["verify", "list-skills"];
 var STATE_SUBCOMMANDS = ["get", "set"];
 var MEMORY_SUBCOMMANDS = [
   "add",
@@ -12434,7 +12580,8 @@ var ARCHIVE_SUBCOMMANDS = [
   "create",
   "list",
   "show",
-  "verify"
+  "verify",
+  "cleanup"
 ];
 var STORY_SUBCOMMANDS = [
   "update",
@@ -12462,6 +12609,7 @@ var EPIC_BRIDGE_SUBCOMMANDS = [
   "validate-specs"
 ];
 var REVIEW_SUBCOMMANDS = ["apply-verdict"];
+var WORKFLOW_SUBCOMMANDS = ["status", "history"];
 var TEST_PATH_PATTERNS = [
   /(^|\/)test\//,
   /(^|\/)tests\//,
@@ -12481,7 +12629,7 @@ var SPEC_MATRIX_PATH = true ? resolvePath(__dirname_shared, "forbidden-quadrant.
   __dirname_shared,
   "../../_docs/spec/matrix/forbidden-quadrant.matrix.yaml"
 );
-var USAGE = "usage: tds <subcommand> [args] [--json] [--as=<role>]\n  global flags:\n    --as=<role>    declared role for this invocation (required for any\n                   mutating subcommand; missing \u2192 unknown \u2192 deny)\n    --json         emit JSON envelope (most subcommands)\n  subcommands:\n    version\n    preflight check --action=<install|story-execute|epic-execute|archive-phase|migrate>\n    orient [--scope=full|blockers]\n    doctor diagnose\n    doctor branch-orphans\n    integrity record --files=<path,path,...> [--reason=<text>]\n    integrity verify\n    integrity accept --files=<path,path,...> --reason=<text>\n    integrity recover --strategy=<trust-classI|restore-from-archive|prompt> --reason=<text> [--archive-root=<path>]\n    state get --story=<id>\n    state set --story=<id> --status=<status>\n    state-commit [-m <msg>] [--story=<id>] [--paths=<p1,p2,...>] [--dry-run]\n                                                          (workflow-level sweep \u2014 auto-collects dirty TDS-managed paths via git status,\n                                                           one aggregate commit; skills invoke at end of logical unit of work;\n                                                           idempotent + never-throws; --story sets Story-Id trailer (default chore-tds-internal))\n    memory add --category=<technical|process|tooling|communication> --severity=<high|medium|low> --summary=<text> [--lesson=<text>] [--avoid-pattern=<text>] [--preferred-pattern=<text>] [--tags=<t1,t2>] [--story-refs=<id1,id2>] [--during-retro=<id>]\n    memory list [--category=<x>] [--severity=<x>] [--tags=<t1,t2>] [--status=<active|superseded>] [--limit=<n>]\n    memory show <lesson-id>\n    memory query --story=<id> [--story-tags=<t1,t2>] [--primary-specialist=<role>] [--severity-min=<high|medium|low>] [--top=<n>]\n    memory supersede <old-id> --by=<new-id> --reason=<text>\n    memory tag <lesson-id> [--add=<t1,t2>] [--remove=<t3>]\n    memory candidates [--since=<iso>] [--until=<iso>] [--min-occurrences=<n>]\n    branch start (--story=<id> | --epic=<id>) [--name=<branch>] [--base=<branch>] [--epic=<id>]\n                                                          (story-branch when --story; epic-integration branch when --epic only;\n                                                           --name auto-derives to story/<id> or epic/<slug> when omitted)\n    branch attach (--story=<id> | --epic=<id>) [--branch=<name>] [--base=<branch>] [--notes=<text>]\n                                                          (adopt existing git branch into registry; epic-only mode for epic-integration branches)\n    branch info [--branch=<name>]\n    branch remove --branch=<name> [--delete-local]\n    branch prune [--epic=<id>]                              (bulk-remove status=merged entries; optionally scoped to one epic)\n    branch merge --story=<id> --target=<branch> --message=<text> [--no-delete-source]\n                                                          (squash-merge story_branch \u2192 target; e.g. story \u2192 epic_branch)\n    branch push --safe                                       (force-with-lease only; --safe required)\n    branch sync                                              (git pull --rebase; halt on conflict)\n    commit --story=<id> [--task-id=<id>] -m <msg> -- <path> [<path> ...]\n    pr create --story=<id> --branch=<name> --base=<branch> --title=<text> --body=<text> [--draft]\n    pr update --branch=<name> [--title=<text>] [--body=<text>]\n    pr merge-status --branch=<name>\n    pr merge --branch=<name>                                  (squash; refuses if not mergeable)\n    deliver --epic=<id> --epic-branch=<name> [--default-branch=<name>] --title=<text> --body=<text> [--no-auto-merge] [--poll-timeout=<30m|1h|...>]\n                                                          (atomic: push + PR (idempotent \u043D\u0430 existing) + squash + sprint-status flips + branch cleanup;\n                                                           auto-merge default true; \u043D\u0430 GitLab CI-async \u2014 poll-loop \u043F\u043E\u043A\u0430 merge \u043D\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u0441\u044F, default 30m)\n    sync                                                      (post-merge reconcile registry vs host)\n    revert-story --story=<id> --target=<commit> [--base=<branch>] [--branch-name=<name>]\n    epic bridge list [--blocks=<epic-id>] [--type=<x>] [--status=<backlog|in-progress|done>]\n    epic bridge resolve <bridge-id> --outcome=<text>\n    epic bridge validate-specs --bridge=<bridge-id> [--json]\n                                                          (readiness gate: fails when any bridge story stub still carries TBD AC/Tasks placeholders;\n                                                           exit=2 \u043D\u0430 NOT ready, exit=0 \u043D\u0430 ready; bridge-scoped \u2014 `/bmad-tds-execute-epic <bridge-id>` preflight)\n    epic create-bridge-from-retros --blocks=<epic-id> (--retros=<path1,path2,...> | --all-unprocessed) [--type=<x>] [--dry-run]\n                                                          (curated bridge \u044D\u043F\u0438\u043A \u0438\u0437 \u043D\u0430\u043A\u043E\u043F\u043B\u0435\u043D\u043D\u044B\u0445 `## Bridge Plan` \u0441\u0435\u043A\u0446\u0438\u0439 retro-md'\u043E\u0432; pre-epic flow)\n    review apply-verdict (--epic=<id> | --story=<id>) --as=engineer [--json]\n                                                          (post-auditor: counts unresolved blocker findings across ALL rounds \u2014 excluding entries marked `Resolved:` or `Bridged to:` \u2014 \n                                                           \u2192 flip review\u2192approved when zero, OR review\u2192rework + sweep + emit kind=verdict when \u22651)\n    story update --story=<id> [--status=<x>] [--task-complete=<label>]+ [--subtask-complete=<fragment>]+ [--completion-note=<text>]+ [--file-list-add=<path>]+\n                                                          (mutates spec markdown + optionally flips sprint-status; --task-complete cascades subtasks;\n                                                           --subtask-complete granular for partial completion; --as=<role> required)\n    story status --story=<id>                              (aggregate: spec status + sprint-status + branches + tasks done/total)\n    story status --epic=<id>                               (bulk: per-story records \u043E\u0434\u043D\u043E\u0433\u043E \u044D\u043F\u0438\u043A\u0430 \u043F\u043E\u0434 \u043E\u0434\u043D\u0438\u043C envelope \u2014 single permission match)\n    story add-finding --story=<id> --severity=<blocker|warn|info> --category=<text> --finding=<text> [--suggested-fix=<text>] [--suggested-bridge=<short-desc>] --as=auditor\n                                                          (auditor verdict writeback into spec ## Auditor Findings section; auto round-N increment)\n    story add-findings --findings-file=<path.yaml> --as=auditor\n                                                          (BATCH writeback for whole review session \u2014 array of findings \u0432 YAML, one CLI call \u2192 \u043E\u0434\u0438\u043D permission popup;\n                                                           emits per-finding review-events + aggregate summary event; preferred over per-finding add-finding \u0432 bulk reviews)\n    archive create --phase=<name> --description=<text> [--epics=<id1,id2>]\n    archive list\n    archive show --phase=<name>\n    archive verify --phase=<name>\n    setup install [--profile=full|lite]                       (full bootstrap: drop runtime + host configs + state + hooks; idempotent)\n    setup init [--profile=full|lite]                          (state init + hooks only; advanced/repair use)\n    setup install-shim [--target=<path>]                       (one-time global: write walk-up dispatcher to ~/.local/bin/tds; idempotent)\n    setup resolve-source [--json]                              (read _bmad/_config/manifest.yaml, locate the TDS source bundle \u2014\n                                                                local path or BMAD custom-modules cache; phase-2 bootstrap helper)\n";
+var USAGE = "usage: tds <subcommand> [args] [--json] [--as=<role>]\n  global flags:\n    --as=<role>    declared role for this invocation (required for any\n                   mutating subcommand; missing \u2192 unknown \u2192 deny)\n    --json         emit JSON envelope (most subcommands)\n  subcommands:\n    version\n    preflight check --action=<install|story-execute|epic-execute|archive-phase|migrate>\n    orient [--scope=full|blockers]\n    doctor diagnose\n    doctor branch-orphans\n    doctor purge-self-track [--dry-run] --as=engineer    (ARCH-07: remove legacy state-manifest.yaml self-entry from manifest entries[]; idempotent)\n    integrity record --files=<path,path,...> [--reason=<text>]\n    integrity verify\n    integrity accept --files=<path,path,...> --reason=<text>\n    integrity recover --strategy=<trust-classI|restore-from-archive|prompt> --reason=<text> [--archive-root=<path>]\n    state get --story=<id>\n    state set --story=<id> --status=<status>\n    state-commit [-m <msg>] [--story=<id>] [--paths=<p1,p2,...>] [--dry-run]\n                                                          (workflow-level sweep \u2014 auto-collects dirty TDS-managed paths via git status,\n                                                           one aggregate commit; skills invoke at end of logical unit of work;\n                                                           idempotent + never-throws; --story sets Story-Id trailer (default chore-tds-internal))\n    memory add --category=<technical|process|tooling|communication> --severity=<high|medium|low> --summary=<text> [--lesson=<text>] [--avoid-pattern=<text>] [--preferred-pattern=<text>] [--tags=<t1,t2>] [--story-refs=<id1,id2>] [--during-retro=<id>]\n    memory list [--category=<x>] [--severity=<x>] [--tags=<t1,t2>] [--status=<active|superseded>] [--limit=<n>]\n    memory show <lesson-id>\n    memory query --story=<id> [--story-tags=<t1,t2>] [--primary-specialist=<role>] [--severity-min=<high|medium|low>] [--top=<n>]\n    memory supersede <old-id> --by=<new-id> --reason=<text>\n    memory tag <lesson-id> [--add=<t1,t2>] [--remove=<t3>]\n    memory candidates [--since=<iso>] [--until=<iso>] [--min-occurrences=<n>]\n    branch start (--story=<id> | --epic=<id>) [--name=<branch>] [--base=<branch>] [--epic=<id>]\n                                                          (story-branch when --story; epic-integration branch when --epic only;\n                                                           --name auto-derives to story/<id> or epic/<slug> when omitted)\n    branch attach (--story=<id> | --epic=<id>) [--branch=<name>] [--base=<branch>] [--notes=<text>]\n                                                          (adopt existing git branch into registry; epic-only mode for epic-integration branches)\n    branch info [--branch=<name>]\n    branch remove --branch=<name> [--delete-local]\n    branch prune [--epic=<id>]                              (bulk-remove status=merged entries; optionally scoped to one epic)\n    branch merge --story=<id> --target=<branch> --message=<text> [--no-delete-source]\n                                                          (squash-merge story_branch \u2192 target; e.g. story \u2192 epic_branch)\n    branch push --safe                                       (force-with-lease only; --safe required)\n    branch sync                                              (git pull --rebase; halt on conflict)\n    commit --story=<id> [--task-id=<id>] -m <msg> -- <path> [<path> ...]\n    pr create --story=<id> --branch=<name> --base=<branch> --title=<text> --body=<text> [--draft]\n    pr update --branch=<name> [--title=<text>] [--body=<text>]\n    pr merge-status --branch=<name>\n    pr merge --branch=<name>                                  (squash; refuses if not mergeable)\n    deliver --epic=<id> --epic-branch=<name> [--default-branch=<name>] --title=<text> --body=<text> [--no-auto-merge] [--poll-timeout=<30m|1h|...>]\n                                                          (atomic: push + PR (idempotent \u043D\u0430 existing) + squash + sprint-status flips + branch cleanup;\n                                                           auto-merge default true; \u043D\u0430 GitLab CI-async \u2014 poll-loop \u043F\u043E\u043A\u0430 merge \u043D\u0435 \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u0441\u044F, default 30m)\n    sync                                                      (post-merge reconcile registry vs host)\n    revert-story --story=<id> --target=<commit> [--base=<branch>] [--branch-name=<name>]\n    epic bridge list [--blocks=<epic-id>] [--type=<x>] [--status=<backlog|in-progress|done>]\n    epic bridge resolve <bridge-id> --outcome=<text>\n    epic bridge validate-specs --bridge=<bridge-id> [--json]\n                                                          (readiness gate: fails when any bridge story stub still carries TBD AC/Tasks placeholders;\n                                                           exit=2 \u043D\u0430 NOT ready, exit=0 \u043D\u0430 ready; bridge-scoped \u2014 `/bmad-tds-execute-epic <bridge-id>` preflight)\n    epic create-bridge-from-retros --blocks=<epic-id> (--retros=<path1,path2,...> | --all-unprocessed) [--type=<x>] [--dry-run]\n                                                          (curated bridge \u044D\u043F\u0438\u043A \u0438\u0437 \u043D\u0430\u043A\u043E\u043F\u043B\u0435\u043D\u043D\u044B\u0445 `## Bridge Plan` \u0441\u0435\u043A\u0446\u0438\u0439 retro-md'\u043E\u0432; pre-epic flow)\n    review apply-verdict (--epic=<id> | --story=<id>) --as=engineer [--json]\n                                                          (post-auditor: counts unresolved blocker findings across ALL rounds \u2014 excluding entries marked `Resolved:` or `Bridged to:` \u2014 \n                                                           \u2192 flip review\u2192approved when zero, OR review\u2192rework + sweep + emit kind=verdict when \u22651)\n    story update --story=<id> [--status=<x>] [--task-complete=<label>]+ [--subtask-complete=<fragment>]+ [--completion-note=<text>]+ [--file-list-add=<path>]+\n                                                          (mutates spec markdown + optionally flips sprint-status; --task-complete cascades subtasks;\n                                                           --subtask-complete granular for partial completion; --as=<role> required)\n    story status --story=<id>                              (aggregate: spec status + sprint-status + branches + tasks done/total)\n    story status --epic=<id>                               (bulk: per-story records \u043E\u0434\u043D\u043E\u0433\u043E \u044D\u043F\u0438\u043A\u0430 \u043F\u043E\u0434 \u043E\u0434\u043D\u0438\u043C envelope \u2014 single permission match)\n    story add-finding --story=<id> --severity=<blocker|warn|info> --category=<text> --finding=<text> [--suggested-fix=<text>] [--suggested-bridge=<short-desc>] --as=auditor\n                                                          (auditor verdict writeback into spec ## Auditor Findings section; auto round-N increment)\n    story add-findings --findings-file=<path.yaml> --as=auditor\n                                                          (BATCH writeback for whole review session \u2014 array of findings \u0432 YAML, one CLI call \u2192 \u043E\u0434\u0438\u043D permission popup;\n                                                           emits per-finding review-events + aggregate summary event; preferred over per-finding add-finding \u0432 bulk reviews)\n    archive create --phase=<name> --description=<text> [--epics=<id1,id2>] [--phase-summary=<path>]\n    archive list\n    archive show --phase=<name>\n    archive verify --phase=<name>\n    archive cleanup --phase=<name> {--dry-run | --confirm} --as=engineer\n                                                          (verify-gated rm of source story files; ARCH-04; engineer-only)\n    setup install [--profile=full|lite]                       (full bootstrap: drop runtime + host configs + state + hooks; idempotent)\n    setup init [--profile=full|lite]                          (state init + hooks only; advanced/repair use)\n    setup install-shim [--target=<path>]                       (one-time global: write walk-up dispatcher to ~/.local/bin/tds; idempotent)\n    setup bootstrap-parents [--dry-run]                       (rebuild sprint-status-extension parents map from story frontmatter;\n                                                                idempotent \u2014 escape hatch for legacy migration or auto-record drift)\n    setup resolve-source [--json]                              (read _bmad/_config/manifest.yaml, locate the TDS source bundle \u2014\n                                                                local path or BMAD custom-modules cache; phase-2 bootstrap helper)\n";
 
 // src/version/index.ts
 import { readFileSync } from "node:fs";
@@ -12491,7 +12639,7 @@ var __dirname = dirname2(fileURLToPath2(import.meta.url));
 var repoRoot = resolve(__dirname, "../..");
 function readModuleVersion() {
   if (true) {
-    return "6.5.31";
+    return "6.6.10";
   }
   const pkg = JSON.parse(
     readFileSync(resolve(repoRoot, "package.json"), "utf8")
@@ -12944,9 +13092,23 @@ var GitHubAdapter = class {
   async closePR(prNumber) {
     run(["pr", "close", String(prNumber)], this.ctx);
   }
-  async findPRForBranch(branch) {
+  async findPRForBranch(branch, opts) {
+    const wantsMerged = opts?.states?.includes("merged") ?? false;
+    const wantsOpen = opts?.states?.includes("open") ?? !wantsMerged;
+    const cliState = wantsMerged ? "all" : "open";
     const r = run(
-      ["pr", "list", "--head", branch, "--state", "open", "--json", "number,url", "--limit", "1"],
+      [
+        "pr",
+        "list",
+        "--head",
+        branch,
+        "--state",
+        cliState,
+        "--json",
+        "number,url,state",
+        "--limit",
+        wantsMerged ? "10" : "1"
+      ],
       this.ctx
     );
     let parsed;
@@ -12956,11 +13118,21 @@ var GitHubAdapter = class {
       return null;
     }
     if (!Array.isArray(parsed) || parsed.length === 0) return null;
-    const first = parsed[0];
-    if (typeof first.number !== "number" || typeof first.url !== "string") {
+    const normalise = (raw) => {
+      if (raw === "OPEN") return "open";
+      if (raw === "MERGED") return "merged";
+      return null;
+    };
+    const candidates = parsed.map((p) => ({ p, bucket: normalise(p.state) })).filter(
+      (x) => x.bucket !== null && (x.bucket === "open" ? wantsOpen : wantsMerged)
+    );
+    if (candidates.length === 0) return null;
+    const openMatch = candidates.find((c) => c.bucket === "open");
+    const pick = openMatch ?? candidates[0];
+    if (typeof pick.p.number !== "number" || typeof pick.p.url !== "string") {
       return null;
     }
-    return { number: first.number, url: first.url };
+    return { number: pick.p.number, url: pick.p.url, state: pick.bucket };
   }
 };
 
@@ -13083,11 +13255,12 @@ var GitLabAdapter = class {
   async closePR(prNumber) {
     run2(["mr", "close", String(prNumber), "--yes"], this.ctx);
   }
-  async findPRForBranch(branch) {
-    const r = run2(
-      ["mr", "list", "--source-branch", branch, "-F", "json"],
-      this.ctx
-    );
+  async findPRForBranch(branch, opts) {
+    const wantsMerged = opts?.states?.includes("merged") ?? false;
+    const wantsOpen = opts?.states?.includes("open") ?? !wantsMerged;
+    const args = ["mr", "list", "--source-branch", branch, "-F", "json"];
+    if (wantsMerged) args.push("--all");
+    const r = run2(args, this.ctx);
     let parsed;
     try {
       parsed = JSON.parse(r.stdout);
@@ -13095,11 +13268,21 @@ var GitLabAdapter = class {
       return null;
     }
     if (!Array.isArray(parsed) || parsed.length === 0) return null;
-    const first = parsed[0];
-    if (typeof first.iid !== "number" || typeof first.web_url !== "string") {
+    const normalise = (raw) => {
+      if (raw === "opened") return "open";
+      if (raw === "merged") return "merged";
+      return null;
+    };
+    const candidates = parsed.map((p) => ({ p, bucket: normalise(p.state) })).filter(
+      (x) => x.bucket !== null && (x.bucket === "open" ? wantsOpen : wantsMerged)
+    );
+    if (candidates.length === 0) return null;
+    const openMatch = candidates.find((c) => c.bucket === "open");
+    const pick = openMatch ?? candidates[0];
+    if (typeof pick.p.iid !== "number" || typeof pick.p.web_url !== "string") {
       return null;
     }
-    return { number: first.iid, url: first.web_url };
+    return { number: pick.p.iid, url: pick.p.web_url, state: pick.bucket };
   }
 };
 
@@ -13522,9 +13705,13 @@ async function handleOrient(rest, wantJson) {
   }
 }
 
+// src/cli/handlers/doctor.ts
+import { join as pathJoin } from "node:path";
+
 // src/doctor/diagnose.ts
-import { existsSync as existsSync4 } from "node:fs";
-import { join as join5 } from "node:path";
+var import_yaml3 = __toESM(require_dist(), 1);
+import { existsSync as existsSync4, readFileSync as readFileSync4 } from "node:fs";
+import { join as join5, resolve as resolvePath3 } from "node:path";
 async function diagnose(opts = {}) {
   const paths = await resolveTdsPaths(
     opts.projectRoot !== void 0 ? { projectRoot: opts.projectRoot } : {}
@@ -13536,6 +13723,22 @@ async function diagnose(opts = {}) {
       status: "pass",
       message: paths.stateManifestYaml
     });
+    try {
+      const doc = (0, import_yaml3.parse)(readFileSync4(paths.stateManifestYaml, "utf8"));
+      const canonicalManifest = resolvePath3(paths.stateManifestYaml);
+      const hasSelfEntry = (doc?.entries ?? []).some((e) => {
+        if (!e.file) return false;
+        return resolvePath3(paths.projectRoot, e.file) === canonicalManifest;
+      });
+      if (hasSelfEntry) {
+        checks.push({
+          id: "state-manifest-self-track",
+          status: "warn",
+          message: "state-manifest.yaml content self-track entry found in entries[] (ARCH-07 legacy footgun \u2014 recursive mutation). Recovery: `tds doctor purge-self-track --as=engineer` (idempotent, atomic). Verify already defensively skips self-entry, \u043D\u043E cleanup \u0440\u0435\u043A\u043E\u043C\u0435\u043D\u0434\u0443\u0435\u0442\u0441\u044F \u0434\u043B\u044F clarity."
+        });
+      }
+    } catch {
+    }
   } else {
     checks.push({
       id: "state-manifest",
@@ -13565,12 +13768,12 @@ async function diagnose(opts = {}) {
 
 // src/branch/orphans.ts
 init_git();
-var import_yaml7 = __toESM(require_dist(), 1);
+var import_yaml8 = __toESM(require_dist(), 1);
 init_sprint_status();
-import { readFileSync as readFileSync8, existsSync as existsSync9 } from "node:fs";
+import { readFileSync as readFileSync9, existsSync as existsSync9 } from "node:fs";
 function readRegistryEntries(path) {
   if (!existsSync9(path)) return [];
-  const parsed = (0, import_yaml7.parse)(readFileSync8(path, "utf8")) ?? {};
+  const parsed = (0, import_yaml8.parse)(readFileSync9(path, "utf8")) ?? {};
   return Array.isArray(parsed.branches) ? parsed.branches : [];
 }
 async function diagnoseOrphans(opts) {
@@ -13611,6 +13814,7 @@ async function diagnoseOrphans(opts) {
 }
 
 // src/cli/handlers/doctor.ts
+init_integrity();
 async function handleDoctor(rest, wantJson) {
   const sub = rest[0];
   if (!isMember(DOCTOR_SUBCOMMANDS, sub)) {
@@ -13623,9 +13827,9 @@ supported: diagnose | branch-orphans
     };
   }
   if (sub === "branch-orphans") {
-    let paths;
+    let paths2;
     try {
-      paths = await resolveTdsPaths();
+      paths2 = await resolveTdsPaths();
     } catch (err) {
       return {
         exitCode: EXIT.PRECONDITION,
@@ -13636,9 +13840,9 @@ supported: diagnose | branch-orphans
     }
     try {
       const result = await diagnoseOrphans({
-        registryPath: paths.branchRegistryYaml,
-        projectRoot: paths.projectRoot,
-        sprintStatusPath: paths.sprintStatusYaml
+        registryPath: paths2.branchRegistryYaml,
+        projectRoot: paths2.projectRoot,
+        sprintStatusPath: paths2.sprintStatusYaml
       });
       const totalOrphans = result.orphanInGit.length + result.orphanInRegistry.length + result.storyWithoutBranch.length;
       const exitCode = totalOrphans > 0 ? EXIT.PRECONDITION : EXIT.SUCCESS;
@@ -13678,32 +13882,70 @@ supported: diagnose | branch-orphans
       };
     }
   }
-  return exhaustiveSwitch(sub, "doctor");
+  if (sub !== "purge-self-track") {
+    return exhaustiveSwitch(sub, "doctor");
+  }
+  let paths;
+  try {
+    paths = await resolveTdsPaths();
+  } catch (err) {
+    return {
+      exitCode: EXIT.PRECONDITION,
+      stdout: "",
+      stderr: `${err.message}
+`
+    };
+  }
+  const dryRun = rest.includes("--dry-run");
+  try {
+    const result = await purgeSelfTrack({
+      manifestPath: paths.stateManifestYaml,
+      projectRoot: paths.projectRoot,
+      telemetryDir: pathJoin(paths.runtimeDir, "telemetry"),
+      dryRun
+    });
+    const env = envelope("doctor purge-self-track", EXIT.SUCCESS, result);
+    const verb = result.dryRun ? "would remove" : "removed";
+    return {
+      exitCode: EXIT.SUCCESS,
+      stdout: wantJson ? JSON.stringify(env) : `${verb} ${result.removed.length} self-track entry(ies)` + (result.removed.length > 0 ? `:
+  ${result.removed.join("\n  ")}
+` : " (manifest clean)\n"),
+      stderr: ""
+    };
+  } catch (err) {
+    return {
+      exitCode: EXIT.RUNTIME,
+      stdout: "",
+      stderr: `${err.message}
+`
+    };
+  }
 }
 
 // src/cli/handlers/integrity.ts
-import { join as pathJoin } from "node:path";
+import { join as pathJoin2 } from "node:path";
 init_integrity();
 
 // src/integrity/sweep.ts
 var import_proper_lockfile3 = __toESM(require_proper_lockfile(), 1);
 var import_write_file_atomic3 = __toESM(require_lib(), 1);
-var import_yaml8 = __toESM(require_dist(), 1);
+var import_yaml9 = __toESM(require_dist(), 1);
 init_emit();
 init_allowlist();
-import { existsSync as existsSync10, readFileSync as readFileSync9 } from "node:fs";
+import { existsSync as existsSync10, readFileSync as readFileSync10 } from "node:fs";
 import { createHash as createHash2 } from "node:crypto";
 import { join as join7 } from "node:path";
 function readManifest2(path) {
   if (!existsSync10(path)) return { schema_version: "1.0", entries: [] };
-  const parsed = (0, import_yaml8.parse)(readFileSync9(path, "utf8"));
+  const parsed = (0, import_yaml9.parse)(readFileSync10(path, "utf8"));
   if (!parsed || !Array.isArray(parsed.entries)) {
     return { schema_version: "1.0", entries: [] };
   }
   return parsed;
 }
 async function writeManifestAtomic(path, doc) {
-  const yaml = (0, import_yaml8.stringify)(doc, { indent: 2, lineWidth: 0 });
+  const yaml = (0, import_yaml9.stringify)(doc, { indent: 2, lineWidth: 0 });
   const release = await import_proper_lockfile3.default.lock(path, {
     retries: { retries: 50, factor: 1, minTimeout: 5, maxTimeout: 50 },
     stale: 5e3,
@@ -13717,7 +13959,7 @@ async function writeManifestAtomic(path, doc) {
 }
 function readDoneStories(sprintStatusPath) {
   if (!existsSync10(sprintStatusPath)) return /* @__PURE__ */ new Set();
-  const parsed = (0, import_yaml8.parse)(readFileSync9(sprintStatusPath, "utf8"));
+  const parsed = (0, import_yaml9.parse)(readFileSync10(sprintStatusPath, "utf8"));
   if (!parsed || !parsed.development_status) return /* @__PURE__ */ new Set();
   return new Set(
     Object.entries(parsed.development_status).filter(([_, status]) => status === "done").map(([key2]) => key2)
@@ -13725,7 +13967,7 @@ function readDoneStories(sprintStatusPath) {
 }
 function sha256OfFile2(path) {
   const h = createHash2("sha256");
-  h.update(readFileSync9(path));
+  h.update(readFileSync10(path));
   return h.digest("hex");
 }
 async function sweepIntegrity(opts) {
@@ -13825,9 +14067,9 @@ async function sweepIntegrity(opts) {
 }
 
 // src/authz/check.ts
-var import_yaml9 = __toESM(require_dist(), 1);
+var import_yaml10 = __toESM(require_dist(), 1);
 init_emit();
-import { readFileSync as readFileSync10 } from "node:fs";
+import { readFileSync as readFileSync11 } from "node:fs";
 var ROLES = [
   "navigator",
   "engineer",
@@ -13851,6 +14093,7 @@ var OPERATIONS = [
   "state-set",
   "integrity-ops",
   "archive-ops",
+  "archive-cleanup",
   "memory-ops",
   "install-ops",
   "key-ops",
@@ -13860,8 +14103,8 @@ var OP_SET = new Set(OPERATIONS);
 var cached = null;
 function loadMatrix(matrixPath) {
   if (cached !== null) return cached;
-  const raw = readFileSync10(matrixPath, "utf8");
-  const parsed = (0, import_yaml9.parse)(raw);
+  const raw = readFileSync11(matrixPath, "utf8");
+  const parsed = (0, import_yaml10.parse)(raw);
   if (!parsed?.matrix) {
     throw new Error(`malformed matrix at ${matrixPath}: missing 'matrix' key`);
   }
@@ -13956,11 +14199,11 @@ async function emitDecision(telemetryDir, r, intent) {
 }
 
 // src/authz/pre-impl-status-gate.ts
-var import_yaml11 = __toESM(require_dist(), 1);
+var import_yaml12 = __toESM(require_dist(), 1);
 init_git();
 init_registry();
 init_model();
-import { existsSync as existsSync12, readFileSync as readFileSync12 } from "node:fs";
+import { existsSync as existsSync12, readFileSync as readFileSync13 } from "node:fs";
 var PRE_IMPL_STATUSES2 = new Set(PRE_IMPL_STATUSES);
 var SPECIALIST_ROLES2 = new Set(SPECIALIST_ROLES);
 function checkPreImplStatus(opts) {
@@ -13984,7 +14227,7 @@ function checkPreImplStatus(opts) {
   if (!existsSync12(opts.sprintStatusPath)) return { shouldDeny: false };
   let status = null;
   try {
-    const parsed = (0, import_yaml11.parse)(readFileSync12(opts.sprintStatusPath, "utf8")) ?? {};
+    const parsed = (0, import_yaml12.parse)(readFileSync13(opts.sprintStatusPath, "utf8")) ?? {};
     const v = parsed.development_status?.[storyId];
     status = typeof v === "string" ? v : null;
   } catch {
@@ -14201,7 +14444,7 @@ ${USAGE}`
         stderr: "integrity recover requires --reason=<text> (audit field)\n"
       };
     }
-    const archiveRoot = parseFlag(rest.slice(1), "archive-root") ?? pathJoin(paths.outputFolder, "_archive");
+    const archiveRoot = parseFlag(rest.slice(1), "archive-root") ?? pathJoin2(paths.outputFolder, "_archive");
     try {
       const result = await recoverIntegrity({
         strategy,
@@ -14264,19 +14507,19 @@ ${USAGE}`
 }
 
 // src/cli/handlers/state.ts
-import { join as pathJoin2 } from "node:path";
+import { join as pathJoin3 } from "node:path";
 
 // src/state/get.ts
-var import_yaml12 = __toESM(require_dist(), 1);
-import { readFileSync as readFileSync13, existsSync as existsSync13 } from "node:fs";
+var import_yaml13 = __toESM(require_dist(), 1);
+import { readFileSync as readFileSync14, existsSync as existsSync13 } from "node:fs";
 async function stateGet(opts) {
   if (!existsSync13(opts.sprintStatusPath)) {
     throw new Error(
       `sprint-status.yaml not found at ${opts.sprintStatusPath} (run \`bmad install\` to bootstrap)`
     );
   }
-  const raw = readFileSync13(opts.sprintStatusPath, "utf8");
-  const parsed = (0, import_yaml12.parse)(raw) ?? {};
+  const raw = readFileSync14(opts.sprintStatusPath, "utf8");
+  const parsed = (0, import_yaml13.parse)(raw) ?? {};
   if (!parsed.development_status || typeof parsed.development_status !== "object") {
     throw new Error(
       "sprint-status.yaml is missing the 'development_status' block (BMAD-canonical key)"
@@ -14395,21 +14638,21 @@ var STATE_DISPATCH = {
         })
       };
     }
-    const extensionPath = pathJoin2(
+    const extensionPath = pathJoin3(
       paths.tdsStateDir,
       "sprint-status-extension.yaml"
     );
     const kind = classifyEntityKind(storyId, extensionPath);
     let storyMdPath;
     if (kind !== "epic") {
-      const { existsSync: existsSync31 } = await import("node:fs");
-      const candidate = pathJoin2(
+      const { existsSync: existsSync34 } = await import("node:fs");
+      const candidate = pathJoin3(
         paths.outputFolder,
         "implementation-artifacts",
         "stories",
         `${storyId}.md`
       );
-      if (existsSync31(pathJoin2(paths.outputFolder, "implementation-artifacts", "stories"))) {
+      if (existsSync34(pathJoin3(paths.outputFolder, "implementation-artifacts", "stories"))) {
         storyMdPath = candidate;
       }
     }
@@ -14436,11 +14679,11 @@ var STATE_DISPATCH = {
         return {
           exitCode: EXIT.AUTHZ,
           stdout: "",
-          stderr: formatAuthzDeny({
+          stderr: formatStateMachineDeny({
+            from: err.from,
+            to: err.to,
             role,
-            op: "state-set",
-            reason: err.reason,
-            command: "tds state set"
+            reason: err.reason
           }) + (err.recovery ? `${err.recovery}
 ` : "")
         };
@@ -14485,7 +14728,7 @@ ${USAGE}`
     };
   }
   const role = resolveRole({ cliRole: parseFlag(rest, "as") });
-  const telemetryDir = pathJoin2(paths.runtimeDir, "telemetry");
+  const telemetryDir = pathJoin3(paths.runtimeDir, "telemetry");
   return STATE_DISPATCH[sub]({
     storyId,
     flags: rest.slice(1),
@@ -14499,7 +14742,7 @@ ${USAGE}`
 }
 
 // src/cli/handlers/memory.ts
-import { join as pathJoin3 } from "node:path";
+import { join as pathJoin4 } from "node:path";
 
 // src/memory/crud.ts
 init_emit();
@@ -14507,20 +14750,20 @@ init_emit();
 // src/memory/store.ts
 var import_proper_lockfile7 = __toESM(require_proper_lockfile(), 1);
 var import_write_file_atomic7 = __toESM(require_lib(), 1);
-var import_yaml15 = __toESM(require_dist(), 1);
+var import_yaml16 = __toESM(require_dist(), 1);
 init_auto_record();
-import { existsSync as existsSync17, readFileSync as readFileSync17, mkdirSync as mkdirSync5 } from "node:fs";
+import { existsSync as existsSync17, readFileSync as readFileSync18, mkdirSync as mkdirSync5 } from "node:fs";
 import { dirname as dirname10 } from "node:path";
 var EMPTY_DOC2 = { schema_version: "1.0", lessons: [] };
 function readDoc2(path) {
   if (!existsSync17(path)) return structuredClone(EMPTY_DOC2);
-  const parsed = (0, import_yaml15.parse)(readFileSync17(path, "utf8")) ?? structuredClone(EMPTY_DOC2);
+  const parsed = (0, import_yaml16.parse)(readFileSync18(path, "utf8")) ?? structuredClone(EMPTY_DOC2);
   if (!Array.isArray(parsed.lessons)) parsed.lessons = [];
   if (!parsed.schema_version) parsed.schema_version = "1.0";
   return parsed;
 }
 async function writeDoc2(path, doc, recordOpts) {
-  const yaml = (0, import_yaml15.stringify)(doc, { indent: 2, lineWidth: 0 });
+  const yaml = (0, import_yaml16.stringify)(doc, { indent: 2, lineWidth: 0 });
   mkdirSync5(dirname10(path), { recursive: true });
   const release = await import_proper_lockfile7.default.lock(path, {
     retries: { retries: 50, factor: 1, minTimeout: 5, maxTimeout: 50 },
@@ -14990,11 +15233,11 @@ async function tagLesson(opts) {
 }
 
 // src/memory/candidates.ts
-import { existsSync as existsSync18, readFileSync as readFileSync18 } from "node:fs";
+import { existsSync as existsSync18, readFileSync as readFileSync19 } from "node:fs";
 import { join as join8 } from "node:path";
 function parseStream(path) {
   if (!existsSync18(path)) return [];
-  return readFileSync18(path, "utf8").split("\n").filter((l) => l.length > 0).map((line) => {
+  return readFileSync19(path, "utf8").split("\n").filter((l) => l.length > 0).map((line) => {
     try {
       return JSON.parse(line);
     } catch {
@@ -15124,8 +15367,8 @@ ${USAGE}`
     };
   }
   const role = resolveRole({ cliRole: parseFlag(rest, "as") });
-  const telemetryDir = pathJoin3(paths.runtimeDir, "telemetry");
-  const lessonsPath = pathJoin3(paths.tdsStateDir, "memory", "lessons.yaml");
+  const telemetryDir = pathJoin4(paths.runtimeDir, "telemetry");
+  const lessonsPath = pathJoin4(paths.tdsStateDir, "memory", "lessons.yaml");
   const writeSubs = /* @__PURE__ */ new Set(["add", "supersede", "tag"]);
   const intent = writeSubs.has(sub) ? "write" : "read";
   const decision = await checkRoleSkillOperation({
@@ -15371,7 +15614,7 @@ ${lines.join("\n")}
 }
 
 // src/cli/handlers/branch.ts
-import { join as pathJoin4 } from "node:path";
+import { join as pathJoin5 } from "node:path";
 
 // src/branch/cli.ts
 init_registry();
@@ -15694,6 +15937,9 @@ async function tdsCommit(opts) {
 }
 
 // src/cli/handlers/branch.ts
+init_story_frontmatter();
+init_bridge();
+init_emit();
 async function handleBranch(rest, wantJson) {
   const sub = rest[0];
   if (!isMember(BRANCH_SUBCOMMANDS, sub)) {
@@ -15716,7 +15962,7 @@ ${USAGE}`
     };
   }
   const role = resolveRole({ cliRole: parseFlag(rest, "as") });
-  const telemetryDir = pathJoin4(paths.runtimeDir, "telemetry");
+  const telemetryDir = pathJoin5(paths.runtimeDir, "telemetry");
   const decision = await checkRoleSkillOperation({
     role,
     op: "story-ops",
@@ -15808,7 +16054,7 @@ ${USAGE}`
           }
           if (targetStatus !== null) {
             const { setSprintStatusByKey: setSprintStatusByKey2 } = await Promise.resolve().then(() => (init_set(), set_exports));
-            const storyMdPath = storyId ? pathJoin4(
+            const storyMdPath = storyId ? pathJoin5(
               paths.outputFolder,
               "implementation-artifacts",
               "stories",
@@ -15829,6 +16075,53 @@ ${USAGE}`
             await applyStateTransition2(opts2);
             sprintStatusUpdated = true;
             void setSprintStatusByKey2;
+          }
+        } catch {
+        }
+      }
+      if (storyId) {
+        const storyMdPathForParents = pathJoin5(
+          paths.outputFolder,
+          "implementation-artifacts",
+          "stories",
+          `${storyId}.md`
+        );
+        try {
+          const parsed = readStoryFrontmatter(storyMdPathForParents);
+          const epic = parsed?.frontmatter?.["epic"];
+          if (typeof epic === "string" && epic.length > 0) {
+            const extensionPath = pathJoin5(
+              paths.tdsStateDir,
+              "sprint-status-extension.yaml"
+            );
+            const ext = readExtension(extensionPath);
+            const parents = ext.parents ?? {};
+            ext.parents = parents;
+            const prev = parents[storyId];
+            if (prev !== epic) {
+              parents[storyId] = epic;
+              await writeExtension(extensionPath, ext, {
+                manifestPath: paths.stateManifestYaml,
+                projectRoot: paths.projectRoot,
+                recordedBy: role,
+                telemetryDir,
+                reason: `parents-auto-record (tds branch start --story=${storyId})`
+              });
+              try {
+                await emit({
+                  telemetryDir,
+                  stream: "branch-events",
+                  event: {
+                    kind: "parents-auto-record",
+                    story_id: storyId,
+                    epic_id: epic,
+                    added: prev === void 0,
+                    overwritten: typeof prev === "string" && prev.length > 0
+                  }
+                });
+              } catch {
+              }
+            }
           }
         } catch {
         }
@@ -16020,11 +16313,11 @@ ${USAGE}`
 }
 
 // src/cli/handlers/commit.ts
-import { join as pathJoin5 } from "node:path";
+import { join as pathJoin6 } from "node:path";
 
 // src/authz/frozen-tests-gate.ts
-var import_yaml16 = __toESM(require_dist(), 1);
-import { existsSync as existsSync19, readFileSync as readFileSync19 } from "node:fs";
+var import_yaml17 = __toESM(require_dist(), 1);
+import { existsSync as existsSync19, readFileSync as readFileSync20 } from "node:fs";
 var FROZEN_STATUS = "tests-approved";
 function checkFrozenTestsGate(opts) {
   if (opts.role === "test-author") {
@@ -16035,7 +16328,7 @@ function checkFrozenTestsGate(opts) {
   }
   let raw;
   try {
-    raw = (0, import_yaml16.parse)(readFileSync19(opts.sprintStatusPath, "utf8"));
+    raw = (0, import_yaml17.parse)(readFileSync20(opts.sprintStatusPath, "utf8"));
   } catch {
     return { shouldDeny: false, deniedPaths: [] };
   }
@@ -16111,7 +16404,7 @@ async function handleCommit(rest, wantJson) {
     };
   }
   const role = resolveRole({ cliRole: parseFlag(rest, "as") });
-  const telemetryDir = pathJoin5(resolved.runtimeDir, "telemetry");
+  const telemetryDir = pathJoin6(resolved.runtimeDir, "telemetry");
   const decision = await checkRoleSkillOperation({
     role,
     op: "code-write",
@@ -16199,7 +16492,7 @@ async function handleCommit(rest, wantJson) {
 }
 
 // src/cli/handlers/pr.ts
-import { join as pathJoin6 } from "node:path";
+import { join as pathJoin7 } from "node:path";
 
 // src/branch/pr.ts
 init_registry();
@@ -16381,7 +16674,7 @@ ${USAGE}`
     };
   }
   const role = resolveRole({ cliRole: parseFlag(rest, "as") });
-  const telemetryDir = pathJoin6(paths.runtimeDir, "telemetry");
+  const telemetryDir = pathJoin7(paths.runtimeDir, "telemetry");
   const decision = await checkRoleSkillOperation({
     role,
     op: "story-ops",
@@ -16490,7 +16783,7 @@ ${USAGE}`
       let reviewedByWrittenTo = null;
       let reviewedByError = null;
       if (result.storyId && result.reviewers.length > 0) {
-        const storyMdPath = pathJoin6(
+        const storyMdPath = pathJoin7(
           paths.outputFolder,
           "implementation-artifacts",
           "stories",
@@ -16538,7 +16831,7 @@ ${USAGE}`
 }
 
 // src/cli/handlers/deliver.ts
-import { join as pathJoin7 } from "node:path";
+import { join as pathJoin8 } from "node:path";
 
 // src/branch/deliver.ts
 init_registry();
@@ -16559,6 +16852,12 @@ function validatePreMergeApprovedState(opts) {
     };
   }
   const stories = doc.storiesByEpic.get(opts.epicId) ?? [];
+  if (stories.length === 0 && opts.extensionPath !== void 0) {
+    return {
+      ok: false,
+      reason: `tds deliver: epic '${opts.epicId}' has no in-scope stories in sprint-status (empty scope). Cannot prove approved scope \u2014 push / PR / squash refused. Common causes: (1) extension parents map missing \u2014 run \`tds setup bootstrap-parents\`; (2) sprint-status-extension.yaml truncated / out-of-sync; (3) epic was just created \u0431\u0435\u0437 stories yet. Verify \`<output>/_tds/sprint-status-extension.yaml\` parents map.`
+    };
+  }
   const wrong = [];
   for (const s of stories) {
     if (!APPROVED_OR_DONE.has(s.status)) {
@@ -16581,7 +16880,7 @@ async function emitPrEvent2(telemetryDir, event) {
   }
 }
 function defaultSleep2(ms) {
-  return new Promise((resolve6) => setTimeout(resolve6, ms));
+  return new Promise((resolve7) => setTimeout(resolve7, ms));
 }
 async function pollUntilMerged(args) {
   const start = Date.now();
@@ -16611,6 +16910,133 @@ async function pollUntilMerged(args) {
   throw new Error(
     `merge timeout (${args.timeoutMs}ms) \u0434\u043B\u044F PR #${args.prNumber}: auto-merge \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D \u043D\u0430 host'\u0435, \u043D\u043E CI \u0435\u0449\u0451 running. Run \`tds sync --as=engineer\` \u043F\u043E\u0441\u043B\u0435 \u0442\u043E\u0433\u043E \u043A\u0430\u043A pipeline \u043F\u0440\u043E\u0439\u0434\u0451\u0442 \u2014 flip sprint-status statuses \u043F\u043E\u0434\u0445\u0432\u0430\u0442\u044F\u0442\u0441\u044F \u0447\u0435\u0440\u0435\u0437 post-merge sync.`
   );
+}
+function prepareDefaultBranchForFinalization(args) {
+  const runOpts = { cwd: args.projectRoot };
+  try {
+    const cur = currentBranch(runOpts);
+    if (cur !== args.defaultBranch) {
+      checkout(args.defaultBranch, runOpts);
+    }
+  } catch (err) {
+    return {
+      ok: false,
+      pending: {
+        reason: "checkout-failed",
+        detail: err.message,
+        recovery: `Manual: \`git checkout ${args.defaultBranch}\` then rerun \`tds deliver\` \u0434\u043B\u044F idempotent finalization completion.`
+      }
+    };
+  }
+  try {
+    fetchBranch(args.defaultBranch, runOpts);
+    pullRebase(runOpts, args.defaultBranch);
+  } catch (err) {
+    return {
+      ok: false,
+      pending: {
+        reason: "pull-failed",
+        detail: err.message,
+        recovery: `Manual: \`git pull --rebase origin ${args.defaultBranch}\` then rerun \`tds deliver\` \u2014 resolve conflicts \u0435\u0441\u043B\u0438 \u0435\u0441\u0442\u044C.`
+      }
+    };
+  }
+  return { ok: true };
+}
+async function commitAndPushFinalization(args) {
+  const runOpts = { cwd: args.projectRoot };
+  const commit = autoCommitTdsState({
+    cwd: args.projectRoot,
+    paths: args.paths,
+    message: `chore(${args.epicId}): post-merge state finalization (tds deliver)`,
+    storyId: args.epicId
+  });
+  if (!commit.committed && commit.reason !== "no changes to commit") {
+    return {
+      ok: false,
+      committed: false,
+      pushed: false,
+      pending: {
+        reason: "commit-failed",
+        detail: commit.reason ?? "unknown",
+        recovery: `Manual: \`git add ${args.paths.join(" ")} && git commit\` (resolve pre-commit hook reject if any), then push \u043A ${args.defaultBranch}.`
+      }
+    };
+  }
+  const pushResult = pushWithRebaseRetry({
+    cwd: args.projectRoot,
+    branch: args.defaultBranch
+  });
+  if (!pushResult.pushed) {
+    if (pushResult.reason === "branch-protection") {
+      if (args.finalizationPrAuto) {
+        try {
+          const finBranch = `chore/state-finalization/${args.epicId}`;
+          const currentRef = currentBranch(runOpts);
+          createBranch(finBranch, currentRef, runOpts);
+          pushPlain(finBranch, runOpts);
+          const pr = await args.adapter.createPR({
+            head: finBranch,
+            base: args.defaultBranch,
+            title: `chore(${args.epicId}): post-merge state finalization`,
+            body: `Auto-created by \`tds deliver --finalization-pr=auto\` \u043F\u043E\u0441\u043B\u0435 \u0442\u043E\u0433\u043E, \u043A\u0430\u043A direct push \u043A \`${args.defaultBranch}\` \u0431\u044B\u043B \u043E\u0442\u043A\u043B\u043E\u043D\u0451\u043D branch protection.
+
+Carries post-merge sprint-status flips (stories approved\u2192done + epic approved\u2192done) \u0434\u043B\u044F \`${args.epicId}\`. Merge this PR \u0447\u0442\u043E\u0431\u044B \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C finalization \u2014 \u043F\u043E\u0441\u043B\u0435 \u044D\u0442\u043E\u0433\u043E \`${args.defaultBranch}\` \u043E\u0442\u0440\u0430\u0437\u0438\u0442 actual done state.
+`
+          });
+          checkout(args.defaultBranch, runOpts);
+          return {
+            ok: true,
+            committed: commit.committed,
+            pushed: false,
+            pending: null,
+            finalizationPr: {
+              url: pr.url,
+              number: pr.number,
+              branch: finBranch
+            }
+          };
+        } catch (err) {
+          return {
+            ok: false,
+            committed: commit.committed,
+            pushed: false,
+            pending: {
+              reason: "push-denied-by-protection",
+              detail: `PR fallback failed: ${err.message}`,
+              recovery: `Auto-created finalization branch / PR raised an error. Manually push current sprint-status commit (still on local '${args.defaultBranch}') \u043A a feature branch + open PR.`
+            }
+          };
+        }
+      }
+      return {
+        ok: false,
+        committed: commit.committed,
+        pushed: false,
+        pending: {
+          reason: "push-denied-by-protection",
+          detail: pushResult.lastError,
+          recovery: `Direct push \u043A '${args.defaultBranch}' denied by branch protection. Re-run with \`--finalization-pr=auto\` \u0447\u0442\u043E\u0431\u044B \u0441\u043E\u0437\u0434\u0430\u0442\u044C short-lived finalization PR, \u0438\u043B\u0438 manually open PR \u0441 sprint-status commit \u043D\u0430 feature branch.`
+        }
+      };
+    }
+    return {
+      ok: false,
+      committed: commit.committed,
+      pushed: false,
+      pending: {
+        reason: "push-non-fast-forward-exhausted",
+        detail: pushResult.lastError,
+        recovery: `Push \u043A '${args.defaultBranch}' exhausted retries (${pushResult.attempts}). Manual: \`git pull --rebase origin ${args.defaultBranch} && git push origin ${args.defaultBranch}\` then verify deliver complete.`
+      }
+    };
+  }
+  return {
+    ok: true,
+    committed: commit.committed,
+    pushed: true,
+    pending: null
+  };
 }
 async function tdsDeliver(opts) {
   const autoMerge = opts.autoMerge ?? true;
@@ -16646,33 +17072,58 @@ async function tdsDeliver(opts) {
         throw new Error(validation.reason);
       }
     }
-    pushPlain(opts.epicBranch, { cwd: opts.projectRoot });
     let prNumber;
     let prUrl;
     let prReused = false;
-    const existing = await adapter.findPRForBranch(opts.epicBranch);
+    const existing = await adapter.findPRForBranch(opts.epicBranch, {
+      states: ["open", "merged"]
+    });
     if (existing) {
-      prNumber = existing.number;
-      prUrl = existing.url;
-      prReused = true;
-    } else {
-      const created = await adapter.createPR({
-        head: opts.epicBranch,
-        base: opts.defaultBranch,
-        title: opts.title,
-        body: opts.body
-      });
-      prNumber = created.number;
-      prUrl = created.url;
-      await emitPrEvent2(opts.telemetryDir, {
-        kind: "pr-create",
-        pr_number: prNumber,
-        branch: opts.epicBranch,
-        base: opts.defaultBranch,
-        host_id: adapter.id
-      });
+      const probeStatus = await adapter.getStatus(existing.number);
+      if (probeStatus.state === "merged" && probeStatus.mergeCommitSha) {
+        prNumber = existing.number;
+        prUrl = existing.url;
+        prReused = true;
+        merged = true;
+        mergeCommitSha = probeStatus.mergeCommitSha;
+        await emitPrEvent2(opts.telemetryDir, {
+          kind: "deliver-resumed",
+          epic_id: opts.epicId,
+          pr_number: prNumber,
+          merge_commit_sha: probeStatus.mergeCommitSha,
+          pr_was_reused: true,
+          host_id: adapter.id
+        });
+      }
     }
-    if (autoMerge) {
+    if (!merged) {
+      pushPlain(opts.epicBranch, { cwd: opts.projectRoot });
+      if (existing) {
+        prNumber = existing.number;
+        prUrl = existing.url;
+        prReused = true;
+      } else {
+        const created = await adapter.createPR({
+          head: opts.epicBranch,
+          base: opts.defaultBranch,
+          title: opts.title,
+          body: opts.body
+        });
+        prNumber = created.number;
+        prUrl = created.url;
+        await emitPrEvent2(opts.telemetryDir, {
+          kind: "pr-create",
+          pr_number: prNumber,
+          branch: opts.epicBranch,
+          base: opts.defaultBranch,
+          host_id: adapter.id
+        });
+      }
+    } else {
+      prNumber = prNumber;
+      prUrl = prUrl;
+    }
+    if (autoMerge && !merged) {
       const status = await adapter.getStatus(prNumber);
       if (status.state === "merged" && status.mergeCommitSha) {
         merged = true;
@@ -16731,23 +17182,46 @@ async function tdsDeliver(opts) {
         }
       }
     }
-    let branchDeletedLocal = false;
-    if (merged) {
-      if (branchExists(opts.epicBranch, { cwd: opts.projectRoot })) {
-        try {
-          deleteBranch(opts.epicBranch, { cwd: opts.projectRoot });
-          branchDeletedLocal = true;
-        } catch {
-        }
-      } else {
-        branchDeletedLocal = true;
-      }
-    }
     const stories = await findByEpic({
       registryPath: opts.registryPath,
       epicId: opts.epicId
     });
     let storiesTransitioned = 0;
+    const sprintStatusFlips = [];
+    const storyFlipsFailed = [];
+    let epicFlipFailed = null;
+    let finalization = {
+      ok: true,
+      committed: false,
+      pushed: false,
+      pending: null
+    };
+    let prepareOk = false;
+    if (merged && opts.sprintStatusPath) {
+      const prepare = prepareDefaultBranchForFinalization({
+        projectRoot: opts.projectRoot,
+        defaultBranch: opts.defaultBranch
+      });
+      if (!prepare.ok) {
+        finalization = {
+          ok: false,
+          committed: false,
+          pushed: false,
+          pending: prepare.pending
+        };
+        await emitPrEvent2(opts.telemetryDir, {
+          kind: "finalization-end",
+          epic_id: opts.epicId,
+          ok: false,
+          committed: false,
+          pushed: false,
+          pending_reason: prepare.pending.reason,
+          finalization_pr_number: null
+        });
+      } else {
+        prepareOk = true;
+      }
+    }
     if (merged) {
       const now = (/* @__PURE__ */ new Date()).toISOString();
       for (const s of stories) {
@@ -16767,59 +17241,93 @@ async function tdsDeliver(opts) {
           storiesTransitioned++;
         }
       }
-      const epicEntry = stories.find((s) => s.branch === opts.epicBranch);
-      if (!epicEntry) {
-      }
     }
-    const sprintStatusFlips = [];
-    const storyFlipsFailed = [];
-    let epicFlipFailed = null;
-    if (merged && opts.sprintStatusPath && opts.telemetryDir) {
-      const triggeredBy = opts.triggeredBy ?? "engineer";
-      for (const s of stories) {
-        if (!s.story_id) continue;
+    if (merged && opts.sprintStatusPath && prepareOk) {
+      if (opts.telemetryDir) {
+        const triggeredBy = opts.triggeredBy ?? "engineer";
+        for (const s of stories) {
+          if (!s.story_id) continue;
+          try {
+            await setSprintStatusByKey({
+              sprintStatusPath: opts.sprintStatusPath,
+              storyId: s.story_id,
+              newStatus: "done",
+              telemetryDir: opts.telemetryDir,
+              triggeredBy,
+              viaCommand: "tds deliver (post-merge)",
+              stateManifestPath: opts.manifestPath,
+              projectRoot: opts.projectRoot
+            });
+            sprintStatusFlips.push({ key: s.story_id, before: null, after: "done" });
+          } catch (err) {
+            const message = err.message;
+            storyFlipsFailed.push({ storyId: s.story_id, error: message });
+            sprintStatusFlips.push({
+              key: s.story_id,
+              before: null,
+              after: `flip failed: ${message}`
+            });
+          }
+        }
         try {
           await setSprintStatusByKey({
             sprintStatusPath: opts.sprintStatusPath,
-            storyId: s.story_id,
+            storyId: opts.epicId,
             newStatus: "done",
             telemetryDir: opts.telemetryDir,
             triggeredBy,
-            viaCommand: "tds deliver (post-merge)"
+            viaCommand: "tds deliver (post-merge)",
+            kind: "epic",
+            stateManifestPath: opts.manifestPath,
+            projectRoot: opts.projectRoot
           });
-          sprintStatusFlips.push({ key: s.story_id, before: null, after: "done" });
+          sprintStatusFlips.push({ key: opts.epicId, before: null, after: "done" });
         } catch (err) {
           const message = err.message;
-          storyFlipsFailed.push({ storyId: s.story_id, error: message });
+          epicFlipFailed = { error: message };
           sprintStatusFlips.push({
-            key: s.story_id,
+            key: opts.epicId,
             before: null,
             after: `flip failed: ${message}`
           });
         }
       }
-      try {
-        await setSprintStatusByKey({
-          sprintStatusPath: opts.sprintStatusPath,
-          storyId: opts.epicId,
-          newStatus: "done",
-          telemetryDir: opts.telemetryDir,
-          triggeredBy,
-          viaCommand: "tds deliver (post-merge)",
-          kind: "epic"
-        });
-        sprintStatusFlips.push({ key: opts.epicId, before: null, after: "done" });
-      } catch (err) {
-        const message = err.message;
-        epicFlipFailed = { error: message };
-        sprintStatusFlips.push({
-          key: opts.epicId,
-          before: null,
-          after: `flip failed: ${message}`
-        });
-      }
+      const finalizationPaths = [
+        opts.sprintStatusPath,
+        opts.manifestPath,
+        opts.registryPath
+      ];
+      finalization = await commitAndPushFinalization({
+        projectRoot: opts.projectRoot,
+        defaultBranch: opts.defaultBranch,
+        paths: finalizationPaths,
+        epicId: opts.epicId,
+        finalizationPrAuto: opts.finalizationPrAuto ?? false,
+        adapter
+      });
+      await emitPrEvent2(opts.telemetryDir, {
+        kind: "finalization-end",
+        epic_id: opts.epicId,
+        ok: finalization.ok,
+        committed: finalization.committed,
+        pushed: finalization.pushed,
+        pending_reason: finalization.pending?.reason ?? null,
+        finalization_pr_number: finalization.finalizationPr?.number ?? null
+      });
     }
     const partialFailure = storyFlipsFailed.length > 0 || epicFlipFailed !== null ? { storyFlipsFailed, epicFlipFailed } : null;
+    let branchDeletedLocal = false;
+    if (merged && finalization.ok) {
+      if (branchExists(opts.epicBranch, { cwd: opts.projectRoot })) {
+        try {
+          deleteBranch(opts.epicBranch, { cwd: opts.projectRoot });
+          branchDeletedLocal = true;
+        } catch {
+        }
+      } else {
+        branchDeletedLocal = true;
+      }
+    }
     await emitPrEvent2(opts.telemetryDir, {
       kind: "deliver-end",
       epic_id: opts.epicId,
@@ -16828,6 +17336,13 @@ async function tdsDeliver(opts) {
       duration_ms: Date.now() - deliverStart,
       stories_transitioned: storiesTransitioned
     });
+    const finalizationOnDefaultBranch = {
+      ok: finalization.ok,
+      committed: finalization.committed,
+      pushed: finalization.pushed,
+      pending: finalization.pending,
+      ...finalization.finalizationPr ? { finalizationPr: finalization.finalizationPr } : {}
+    };
     return {
       epicId: opts.epicId,
       epicBranch: opts.epicBranch,
@@ -16839,7 +17354,8 @@ async function tdsDeliver(opts) {
       storiesTransitioned,
       sprintStatusFlips,
       partialFailure,
-      branchDeletedLocal
+      branchDeletedLocal,
+      finalizationOnDefaultBranch
     };
   } catch (err) {
     await emitPrEvent2(opts.telemetryDir, {
@@ -16870,6 +17386,7 @@ async function handleDeliver(rest, wantJson) {
   }
   const autoMerge = !rest.includes("--no-auto-merge");
   const pollTimeoutMs = parseDuration(parseFlag(rest, "poll-timeout")) ?? 30 * 60 * 1e3;
+  const finalizationPrAuto = parseFlag(rest, "finalization-pr") === "auto";
   let paths;
   try {
     paths = await resolveTdsPaths();
@@ -16878,7 +17395,7 @@ async function handleDeliver(rest, wantJson) {
 ` };
   }
   const role = resolveRole({ cliRole: parseFlag(rest, "as") });
-  const telemetryDir = pathJoin7(paths.runtimeDir, "telemetry");
+  const telemetryDir = pathJoin8(paths.runtimeDir, "telemetry");
   const decision = await checkRoleSkillOperation({
     role,
     op: "state-set",
@@ -16908,12 +17425,13 @@ async function handleDeliver(rest, wantJson) {
       body,
       autoMerge,
       sprintStatusPath: paths.sprintStatusYaml,
-      extensionPath: pathJoin7(paths.tdsStateDir, "sprint-status-extension.yaml"),
+      extensionPath: pathJoin8(paths.tdsStateDir, "sprint-status-extension.yaml"),
       telemetryDir,
       triggeredBy: role,
       pollTimeoutMs,
       manifestPath: paths.stateManifestYaml,
       recordedBy: role,
+      finalizationPrAuto,
       onPollTick: ({ elapsedMs, prNumber }) => {
         const elapsedMin = Math.floor(elapsedMs / 6e4);
         const elapsedSec = Math.floor(elapsedMs % 6e4 / 1e3);
@@ -16924,18 +17442,27 @@ async function handleDeliver(rest, wantJson) {
         );
       }
     });
-    const exitCode = result.partialFailure !== null ? EXIT.RUNTIME : EXIT.SUCCESS;
+    const finalizationFailed = !result.finalizationOnDefaultBranch.ok && result.finalizationOnDefaultBranch.pending !== null;
+    const exitCode = result.partialFailure !== null || finalizationFailed ? EXIT.RUNTIME : EXIT.SUCCESS;
     const env = envelope("deliver", exitCode, result);
     const flipsLine = result.sprintStatusFlips.length > 0 ? `; flipped ${result.sprintStatusFlips.length} sprint-status keys` : "";
     const partialLine = result.partialFailure !== null ? ` [PARTIAL-DELIVER: ${result.partialFailure.storyFlipsFailed.length} story flip(s)` + (result.partialFailure.epicFlipFailed !== null ? " + epic flip" : "") + ` failed after merge \u2014 re-run \`tds deliver\` to resume]` : "";
-    const stderrLine = result.partialFailure !== null ? `tds deliver: PARTIAL-DELIVER after merge \u2014 flips remaining:
+    const finalizationPr = result.finalizationOnDefaultBranch.finalizationPr;
+    const finalizationLine = finalizationPr ? ` [FINALIZATION-PR: ${finalizationPr.url} (branch ${finalizationPr.branch}) \u2014 merge it \u0447\u0442\u043E\u0431\u044B \u0437\u0430\u0432\u0435\u0440\u0448\u0438\u0442\u044C state finalization]` : finalizationFailed ? ` [FINALIZATION-PENDING: ${result.finalizationOnDefaultBranch.pending.reason} \u2014 see stderr]` : "";
+    const partialStderr = result.partialFailure !== null ? `tds deliver: PARTIAL-DELIVER after merge \u2014 flips remaining:
 ` + result.partialFailure.storyFlipsFailed.map((f) => `  story ${f.storyId}: ${f.error}`).join("\n") + (result.partialFailure.epicFlipFailed !== null ? `
   epic ${result.epicId}: ${result.partialFailure.epicFlipFailed.error}` : "") + `
 Recovery: re-run \`tds deliver --epic=${result.epicId} ...\` (host-already-merged short-circuit resumes flips).
 ` : "";
+    const finalizationStderr = finalizationFailed ? `tds deliver: FINALIZATION-PENDING on default branch '${defaultBranch}':
+  reason: ${result.finalizationOnDefaultBranch.pending.reason}
+  detail: ${result.finalizationOnDefaultBranch.pending.detail}
+  recovery: ${result.finalizationOnDefaultBranch.pending.recovery}
+` : "";
+    const stderrLine = partialStderr + finalizationStderr;
     return {
       exitCode,
-      stdout: wantJson ? JSON.stringify(env) : `epic ${result.epicId}: PR ${result.prUrl}${result.prReused ? " [reused]" : ""}` + (result.merged ? ` (merged: ${result.mergeCommitSha?.slice(0, 12)}\u2026, stories=${result.storiesTransitioned}${flipsLine}${result.branchDeletedLocal ? ", local branch deleted" : ""})${partialLine}
+      stdout: wantJson ? JSON.stringify(env) : `epic ${result.epicId}: PR ${result.prUrl}${result.prReused ? " [reused]" : ""}` + (result.merged ? ` (merged: ${result.mergeCommitSha?.slice(0, 12)}\u2026, stories=${result.storiesTransitioned}${flipsLine}${result.branchDeletedLocal ? ", local branch deleted" : ""})${partialLine}${finalizationLine}
 ` : ` [PR opened, auto-merge=false \u2014 run \`tds sync\` after host-merge]
 `),
       stderr: stderrLine
@@ -16949,18 +17476,18 @@ Recovery: re-run \`tds deliver --epic=${result.epicId} ...\` (host-already-merge
 }
 
 // src/cli/handlers/sync.ts
-import { join as pathJoin8 } from "node:path";
+import { join as pathJoin9 } from "node:path";
 
 // src/branch/sync.ts
 init_registry();
-var import_yaml17 = __toESM(require_dist(), 1);
+var import_yaml18 = __toESM(require_dist(), 1);
 init_emit();
 init_apply_transition();
-import { readFileSync as readFileSync20, existsSync as existsSync20 } from "node:fs";
+import { readFileSync as readFileSync21, existsSync as existsSync20 } from "node:fs";
 import { join as join9 } from "node:path";
 function readAllActive(path) {
   if (!existsSync20(path)) return [];
-  const parsed = (0, import_yaml17.parse)(readFileSync20(path, "utf8")) ?? {};
+  const parsed = (0, import_yaml18.parse)(readFileSync21(path, "utf8")) ?? {};
   return (parsed.branches ?? []).filter((b) => b.status === "active");
 }
 async function tdsSync(opts) {
@@ -16981,7 +17508,7 @@ async function tdsSync(opts) {
       continue;
     }
     const status = await adapter.getStatus(entry.pr_number);
-    const looksMerged = /^merged$/i.test(status.ciState) || /merged/i.test(status.blockedBy ?? "");
+    const looksMerged = status.state === "merged" && Boolean(status.mergeCommitSha);
     if (looksMerged) {
       await updateStatus({
         registryPath: opts.registryPath,
@@ -17031,7 +17558,7 @@ async function tdsSync(opts) {
 function readStatus(sprintStatusPath, storyId) {
   if (!existsSync20(sprintStatusPath)) return null;
   try {
-    const parsed = (0, import_yaml17.parse)(readFileSync20(sprintStatusPath, "utf8")) ?? {};
+    const parsed = (0, import_yaml18.parse)(readFileSync21(sprintStatusPath, "utf8")) ?? {};
     const v = parsed.development_status?.[storyId];
     return typeof v === "string" ? v : null;
   } catch {
@@ -17087,7 +17614,7 @@ async function flipStoryApprovedToDone(args) {
       sprintStatusPath: opts.sprintStatusPath,
       storyId,
       newStatus: "done",
-      role: "engineer",
+      role: opts.recordedBy,
       kind: "story",
       viaCommand: "tds sync",
       ...opts.telemetryDir ? { telemetryDir: opts.telemetryDir } : {},
@@ -17130,27 +17657,15 @@ async function handleSync(rest, wantJson) {
 ` };
   }
   const role = resolveRole({ cliRole: parseFlag(rest, "as") });
-  const telemetryDir = pathJoin8(paths.runtimeDir, "telemetry");
-  const decision = await checkRoleSkillOperation({
-    role,
-    op: "story-ops",
-    telemetryDir,
-    matrixPath: SPEC_MATRIX_PATH
-  });
-  if (decision.decision === "deny") {
-    return {
-      exitCode: EXIT.AUTHZ,
-      stdout: "",
-      stderr: formatAuthzDeny({
-        role,
-        op: "story-ops",
-        reason: decision.reason,
-        command: "tds sync"
-      })
-    };
+  if (role !== "engineer") {
+    const stderr = role === "unknown" ? `tds sync requires --as=engineer (missing flag \u2192 role 'unknown'). Sync flips approved \u2192 done after host merge; only engineer owns delivery.
+` : `tds sync requires --as=engineer; got --as=${role}. Sync flips approved \u2192 done after host merge; only engineer owns delivery.
+`;
+    return { exitCode: EXIT.AUTHZ, stdout: "", stderr };
   }
+  const telemetryDir = pathJoin9(paths.runtimeDir, "telemetry");
   try {
-    const storiesDir = pathJoin8(
+    const storiesDir = pathJoin9(
       paths.outputFolder,
       "implementation-artifacts",
       "stories"
@@ -17185,7 +17700,7 @@ async function handleSync(rest, wantJson) {
 }
 
 // src/cli/handlers/revert.ts
-import { join as pathJoin9 } from "node:path";
+import { join as pathJoin10 } from "node:path";
 
 // src/branch/revert.ts
 init_registry();
@@ -17256,7 +17771,7 @@ async function handleRevertStory(rest, wantJson) {
 ` };
   }
   const role = resolveRole({ cliRole: parseFlag(rest, "as") });
-  const telemetryDir = pathJoin9(paths.runtimeDir, "telemetry");
+  const telemetryDir = pathJoin10(paths.runtimeDir, "telemetry");
   const decision = await checkRoleSkillOperation({
     role,
     op: "code-write",
@@ -17300,16 +17815,16 @@ async function handleRevertStory(rest, wantJson) {
 }
 
 // src/cli/handlers/epic.ts
-import { join as pathJoin10 } from "node:path";
+import { join as pathJoin11 } from "node:path";
 init_bridge();
 
 // src/epic/bridge-from-retros.ts
-var import_yaml18 = __toESM(require_dist(), 1);
+var import_yaml19 = __toESM(require_dist(), 1);
 init_emit();
 init_bridge();
 init_story_spec();
 import {
-  readFileSync as readFileSync21,
+  readFileSync as readFileSync22,
   existsSync as existsSync21,
   readdirSync as readdirSync2,
   appendFileSync,
@@ -17333,7 +17848,7 @@ function parseRetroDoc(retroPath) {
   if (!existsSync21(retroPath)) {
     throw new BridgeFromRetrosError(`retro doc not found: ${retroPath}`);
   }
-  const body = readFileSync21(retroPath, "utf8");
+  const body = readFileSync22(retroPath, "utf8");
   const result = {
     retroPath,
     candidates: []
@@ -17362,7 +17877,7 @@ function parseRetroDoc(retroPath) {
   }
   let parsed;
   try {
-    parsed = (0, import_yaml18.parse)(yamlMatch[1]);
+    parsed = (0, import_yaml19.parse)(yamlMatch[1]);
   } catch (err) {
     throw new BridgeFromRetrosError(
       `${basename(retroPath)}: YAML parse failed in Bridge Plan: ${err.message}`
@@ -17682,7 +18197,7 @@ async function createBridgeFromRetros(opts) {
           );
           continue;
         }
-        const body = readFileSync21(specPath, "utf8");
+        const body = readFileSync22(specPath, "utf8");
         const spec = parseStorySpec(body);
         const updated = markFindingBridged(
           spec,
@@ -17760,7 +18275,7 @@ async function createBridgeFromRetros(opts) {
 
 // src/epic/bridge-spec-readiness.ts
 init_bridge();
-import { existsSync as existsSync22, readFileSync as readFileSync22 } from "node:fs";
+import { existsSync as existsSync22, readFileSync as readFileSync23 } from "node:fs";
 import { join as join11 } from "node:path";
 var TBD_AC_RE = /_\(TBD\s*[—-]\s*fill\s+before\s+execute/i;
 var TBD_TASKS_RE = /_\(TBD\s*[—-]\s*break\s+down\s+before\s+execute/i;
@@ -17808,7 +18323,7 @@ function validateStorySpec(args) {
       warnings
     };
   }
-  const body = readFileSync22(args.specPath, "utf8");
+  const body = readFileSync23(args.specPath, "utf8");
   const acSection = extractSection(body, SECTION_HEADINGS.ac);
   if (acSection === null) {
     failures.push("missing `## Acceptance Criteria` heading");
@@ -17899,9 +18414,9 @@ ${USAGE}`
 ` };
   }
   const role = resolveRole({ cliRole: parseFlag(rest, "as") });
-  const telemetryDir = pathJoin10(paths.runtimeDir, "telemetry");
+  const telemetryDir = pathJoin11(paths.runtimeDir, "telemetry");
   const sprintStatusPath = paths.sprintStatusYaml;
-  const extensionPath = pathJoin10(paths.tdsStateDir, "sprint-status-extension.yaml");
+  const extensionPath = pathJoin11(paths.tdsStateDir, "sprint-status-extension.yaml");
   if (sub === "create-bridge-from-retros") {
     const decision2 = await checkRoleSkillOperation({
       role,
@@ -17943,7 +18458,7 @@ ${USAGE}`
     if (retrosFlag) {
       retroPaths = retrosFlag.split(",").map((s) => s.trim()).filter((s) => s.length > 0);
     } else {
-      const retrosDir = pathJoin10(
+      const retrosDir = pathJoin11(
         paths.outputFolder,
         "implementation-artifacts",
         "retros"
@@ -17960,7 +18475,7 @@ ${USAGE}`
     }
     const typeFlag = parseFlag(flags2, "type");
     const dryRun = flags2.includes("--dry-run");
-    const storiesDir = pathJoin10(
+    const storiesDir = pathJoin11(
       paths.outputFolder,
       "implementation-artifacts",
       "stories"
@@ -18042,7 +18557,7 @@ ${USAGE}`
         stderr: "epic bridge validate-specs requires --bridge=<bridge-id>\n"
       };
     }
-    const storiesDir = pathJoin10(
+    const storiesDir = pathJoin11(
       paths.outputFolder,
       "implementation-artifacts",
       "stories"
@@ -18138,24 +18653,25 @@ ${USAGE}`
 }
 
 // src/cli/handlers/archive.ts
-import { join as pathJoin11 } from "node:path";
+import { join as pathJoin12 } from "node:path";
 
 // src/archive/index.ts
 var import_proper_lockfile8 = __toESM(require_proper_lockfile(), 1);
 var import_write_file_atomic8 = __toESM(require_lib(), 1);
-var import_yaml19 = __toESM(require_dist(), 1);
+var import_yaml20 = __toESM(require_dist(), 1);
 init_emit();
 import { createHash as createHash3 } from "node:crypto";
 import {
   copyFileSync,
   existsSync as existsSync23,
   mkdirSync as mkdirSync7,
-  readFileSync as readFileSync23,
+  readFileSync as readFileSync24,
   readdirSync as readdirSync3,
   statSync as statSync3,
+  unlinkSync,
   writeFileSync as writeFileSync3
 } from "node:fs";
-import { join as join12 } from "node:path";
+import { join as join12, relative as relative3 } from "node:path";
 function sha256Bytes(buf) {
   return createHash3("sha256").update(buf).digest("hex");
 }
@@ -18170,7 +18686,7 @@ async function archiveCreate(opts) {
   const fileSha256 = {};
   const recordSha = (relPath2, abs) => {
     if (existsSync23(abs)) {
-      fileSha256[relPath2] = sha256Bytes(readFileSync23(abs));
+      fileSha256[relPath2] = sha256Bytes(readFileSync24(abs));
     }
   };
   const storiesDst = join12(archivePath, "stories");
@@ -18210,7 +18726,7 @@ async function archiveCreate(opts) {
     copyFileSync(src, dst);
     recordSha(`_tds-snapshot/telemetry/${streamId}.jsonl`, dst);
     telemetryCount++;
-    const lines = readFileSync23(dst, "utf8").split("\n").filter(Boolean);
+    const lines = readFileSync24(dst, "utf8").split("\n").filter(Boolean);
     telemetryEvents += lines.length;
   }
   if (existsSync23(opts.sprintStatusPath)) {
@@ -18219,7 +18735,15 @@ async function archiveCreate(opts) {
     recordSha("sprint-status-snapshot.yaml", dst);
   }
   const summaryPath = join12(archivePath, "phase-summary.md");
-  const summaryStub = `# Phase ${opts.phaseName} \u2014 summary
+  if (opts.phaseSummaryPath !== void 0) {
+    if (!existsSync23(opts.phaseSummaryPath)) {
+      throw new Error(
+        `--phase-summary: file not found at ${opts.phaseSummaryPath}`
+      );
+    }
+    copyFileSync(opts.phaseSummaryPath, summaryPath);
+  } else {
+    const summaryStub = `# Phase ${opts.phaseName} \u2014 summary
 
 _Description:_ ${opts.description}
 
@@ -18229,19 +18753,20 @@ Stories archived: ${storiesCount}.
 
 _(This file is a stub \u2014 replace with the writer-generated Di\xE1taxis explanation + reference summary.)_
 `;
-  writeFileSync3(summaryPath, summaryStub);
+    writeFileSync3(summaryPath, summaryStub);
+  }
   recordSha("phase-summary.md", summaryPath);
   let integrityEntries = 0;
   if (fileSha256["_tds-snapshot/state-manifest.yaml"]) {
-    const sm = (0, import_yaml19.parse)(
-      readFileSync23(join12(tdsSnapshotDir, "state-manifest.yaml"), "utf8")
+    const sm = (0, import_yaml20.parse)(
+      readFileSync24(join12(tdsSnapshotDir, "state-manifest.yaml"), "utf8")
     );
     integrityEntries = Array.isArray(sm?.entries) ? sm.entries.length : 0;
   }
   let branchesArchived = 0;
   if (fileSha256["_tds-snapshot/branch-registry.yaml"]) {
-    const br = (0, import_yaml19.parse)(
-      readFileSync23(join12(tdsSnapshotDir, "branch-registry.yaml"), "utf8")
+    const br = (0, import_yaml20.parse)(
+      readFileSync24(join12(tdsSnapshotDir, "branch-registry.yaml"), "utf8")
     );
     branchesArchived = Array.isArray(br?.branches) ? br.branches.length : 0;
   }
@@ -18286,7 +18811,7 @@ _(This file is a stub \u2014 replace with the writer-generated Di\xE1taxis expla
     phase_summary_path: "phase-summary.md",
     restore_policy: "read-only"
   };
-  const placeholderYaml = (0, import_yaml19.stringify)(manifestNoSelfSha, { indent: 2, lineWidth: 0 });
+  const placeholderYaml = (0, import_yaml20.stringify)(manifestNoSelfSha, { indent: 2, lineWidth: 0 });
   const manifestSha = sha256Bytes(Buffer.from(placeholderYaml, "utf8"));
   const finalManifest = {
     ...manifestNoSelfSha,
@@ -18301,12 +18826,21 @@ _(This file is a stub \u2014 replace with the writer-generated Di\xE1taxis expla
   try {
     await (0, import_write_file_atomic8.default)(
       manifestPath,
-      (0, import_yaml19.stringify)(finalManifest, { indent: 2, lineWidth: 0 }),
+      (0, import_yaml20.stringify)(finalManifest, { indent: 2, lineWidth: 0 }),
       { fsync: true }
     );
   } finally {
     await release();
   }
+  await appendArchivedPhase({
+    stateManifestPath: opts.stateManifestPath,
+    entry: {
+      phase_name: opts.phaseName,
+      archived_at: archivedAt,
+      archive_path: opts.projectRoot !== void 0 ? relative3(opts.projectRoot, archivePath) : archivePath,
+      included_epics: opts.epicIds ?? []
+    }
+  });
   await emit({
     telemetryDir: opts.telemetryDir,
     stream: "archive-events",
@@ -18324,13 +18858,57 @@ _(This file is a stub \u2014 replace with the writer-generated Di\xE1taxis expla
     contents: finalManifest.contents
   };
 }
+async function appendArchivedPhase(opts) {
+  const { stateManifestPath, entry } = opts;
+  if (!existsSync23(stateManifestPath)) {
+    return;
+  }
+  const release = await import_proper_lockfile8.default.lock(stateManifestPath, {
+    retries: { retries: 50, factor: 1, minTimeout: 5, maxTimeout: 50 },
+    stale: 5e3,
+    realpath: false
+  });
+  try {
+    const raw = readFileSync24(stateManifestPath, "utf8");
+    const doc = (0, import_yaml20.parse)(raw) ?? {};
+    if (typeof doc !== "object" || doc === null) return;
+    if (doc.schema_version === void 0) doc.schema_version = "1.0";
+    if (!doc.tds_meta || typeof doc.tds_meta !== "object") doc.tds_meta = {};
+    if (!Array.isArray(doc.entries)) doc.entries = [];
+    const legacy = doc.tds_meta.archived_phases;
+    const migrated = Array.isArray(legacy) ? legacy.map(
+      (p) => typeof p === "string" ? {
+        phase_name: p,
+        archived_at: "",
+        archive_path: "",
+        included_epics: []
+      } : p
+    ) : [];
+    const existingIdx = migrated.findIndex(
+      (p) => p.phase_name === entry.phase_name
+    );
+    if (existingIdx >= 0) {
+      migrated[existingIdx] = entry;
+    } else {
+      migrated.push(entry);
+    }
+    doc.tds_meta.archived_phases = migrated;
+    await (0, import_write_file_atomic8.default)(
+      stateManifestPath,
+      (0, import_yaml20.stringify)(doc, { indent: 2, lineWidth: 0 }),
+      { fsync: true }
+    );
+  } finally {
+    await release();
+  }
+}
 async function archiveList(opts) {
   if (!existsSync23(opts.archiveRoot)) return { phases: [] };
   const phases = [];
   for (const entry of readdirSync3(opts.archiveRoot)) {
     const manifestPath = join12(opts.archiveRoot, entry, "manifest.yaml");
     if (!existsSync23(manifestPath)) continue;
-    const m = (0, import_yaml19.parse)(readFileSync23(manifestPath, "utf8"));
+    const m = (0, import_yaml20.parse)(readFileSync24(manifestPath, "utf8"));
     phases.push({
       name: m.phase.name,
       archivedAt: m.phase.archived_at,
@@ -18345,7 +18923,7 @@ async function archiveShow(opts) {
   if (!existsSync23(manifestPath)) {
     throw new Error(`archive not found: ${opts.phaseName} (no manifest at ${manifestPath})`);
   }
-  return (0, import_yaml19.parse)(readFileSync23(manifestPath, "utf8"));
+  return (0, import_yaml20.parse)(readFileSync24(manifestPath, "utf8"));
 }
 async function archiveVerify(opts) {
   const archivePath = join12(opts.archiveRoot, opts.phaseName);
@@ -18353,7 +18931,7 @@ async function archiveVerify(opts) {
   if (!existsSync23(manifestPath)) {
     throw new Error(`archive not found: ${opts.phaseName}`);
   }
-  const manifest = (0, import_yaml19.parse)(readFileSync23(manifestPath, "utf8"));
+  const manifest = (0, import_yaml20.parse)(readFileSync24(manifestPath, "utf8"));
   let verified = 0;
   const failed = [];
   for (const [relPath2, expectedSha] of Object.entries(manifest.integrity.files)) {
@@ -18366,7 +18944,7 @@ async function archiveVerify(opts) {
       });
       continue;
     }
-    const actual = sha256Bytes(readFileSync23(abs));
+    const actual = sha256Bytes(readFileSync24(abs));
     if (actual === expectedSha) {
       verified++;
     } else {
@@ -18378,6 +18956,82 @@ async function archiveVerify(opts) {
     }
   }
   return { phaseName: opts.phaseName, verified, failed };
+}
+async function archiveCleanup(opts) {
+  const archivePath = join12(opts.archiveRoot, opts.phaseName);
+  const manifestPath = join12(archivePath, "manifest.yaml");
+  if (!existsSync23(manifestPath)) {
+    throw new Error(`archive not found: ${opts.phaseName}`);
+  }
+  const verify = await archiveVerify({
+    archiveRoot: opts.archiveRoot,
+    phaseName: opts.phaseName
+  });
+  if (verify.failed.length > 0) {
+    throw new Error(
+      `archive verify failed for ${opts.phaseName}: ${verify.failed.length} file(s) with integrity drift. Run \`tds archive verify --phase=${opts.phaseName}\` for details. Cleanup aborted \u2014 no source files were touched.`
+    );
+  }
+  const manifest = (0, import_yaml20.parse)(readFileSync24(manifestPath, "utf8"));
+  const candidates = [];
+  for (const [relPath2, expectedSha] of Object.entries(manifest.integrity.files)) {
+    if (!relPath2.startsWith("stories/") || !relPath2.endsWith(".md")) continue;
+    const name = relPath2.slice("stories/".length);
+    candidates.push({ name, expectedSha });
+  }
+  const matched = [];
+  const skipped = [];
+  const drifted = [];
+  for (const { name, expectedSha } of candidates) {
+    const sourcePath = join12(opts.storiesDir, name);
+    if (!existsSync23(sourcePath)) {
+      skipped.push({ file: name, reason: "missing-source" });
+      continue;
+    }
+    const actualSha = sha256Bytes(readFileSync24(sourcePath));
+    if (actualSha !== expectedSha) {
+      drifted.push({
+        file: name,
+        reason: "sha-mismatch",
+        expectedSha256: expectedSha,
+        actualSha256: actualSha
+      });
+      continue;
+    }
+    matched.push(name);
+  }
+  if (drifted.length > 0) {
+    const list = drifted.map((d) => `  - ${d.file}`).join("\n");
+    throw new Error(
+      `archive cleanup aborted: ${drifted.length} source story file(s) have drifted (sha mismatch vs. archived copy) for phase ${opts.phaseName}:
+${list}
+Nothing was deleted. Either revert the edits or re-archive with the current contents.`
+    );
+  }
+  if (!opts.dryRun) {
+    for (const name of matched) {
+      unlinkSync(join12(opts.storiesDir, name));
+    }
+  }
+  await emit({
+    telemetryDir: opts.telemetryDir,
+    stream: "archive-events",
+    event: {
+      kind: "cleanup",
+      phase_name: opts.phaseName,
+      dry_run: opts.dryRun,
+      removed_count: matched.length,
+      skipped_count: skipped.length,
+      removed_files: matched,
+      skipped_files: skipped
+    }
+  });
+  return {
+    phaseName: opts.phaseName,
+    dryRun: opts.dryRun,
+    removed: matched,
+    skipped
+  };
 }
 
 // src/cli/handlers/archive.ts
@@ -18400,8 +19054,8 @@ ${USAGE}`
 ` };
   }
   const role = resolveRole({ cliRole: parseFlag(rest, "as") });
-  const telemetryDir = pathJoin11(paths.runtimeDir, "telemetry");
-  const archiveRoot = pathJoin11(paths.outputFolder, "_archive");
+  const telemetryDir = pathJoin12(paths.runtimeDir, "telemetry");
+  const archiveRoot = pathJoin12(paths.outputFolder, "_archive");
   const flags = rest.slice(1);
   if (sub === "create") {
     const decision = await checkRoleSkillOperation({
@@ -18422,9 +19076,9 @@ ${USAGE}`
         })
       };
     }
-    const phase2 = parseFlag(flags, "phase");
+    const phase = parseFlag(flags, "phase");
     const description = parseFlag(flags, "description") ?? "";
-    if (!phase2) {
+    if (!phase) {
       return {
         exitCode: EXIT.USAGE,
         stdout: "",
@@ -18432,8 +19086,13 @@ ${USAGE}`
       };
     }
     const epicsRaw = parseFlag(flags, "epics");
+    const phaseSummaryPath = parseFlag(flags, "phase-summary");
     try {
-      const storiesDir = pathJoin11(paths.outputFolder, "stories");
+      const storiesDir = pathJoin12(
+        paths.outputFolder,
+        "implementation-artifacts",
+        "stories"
+      );
       const sprintStatusPath = paths.sprintStatusYaml;
       const result = await archiveCreate({
         archiveRoot,
@@ -18443,10 +19102,12 @@ ${USAGE}`
         sprintStatusPath,
         telemetryDir,
         telemetryStreams: [...STREAM_IDS],
-        phaseName: phase2,
+        phaseName: phase,
         description,
         archivedBy: role,
-        ...epicsRaw !== void 0 ? { epicIds: epicsRaw.split(",") } : {}
+        projectRoot: paths.projectRoot,
+        ...epicsRaw !== void 0 ? { epicIds: epicsRaw.split(",") } : {},
+        ...phaseSummaryPath !== void 0 ? { phaseSummaryPath } : {}
       });
       const env = envelope("archive create", EXIT.SUCCESS, result);
       return {
@@ -18471,8 +19132,8 @@ ${USAGE}`
     };
   }
   if (sub === "show") {
-    const phase2 = parseFlag(flags, "phase");
-    if (!phase2) {
+    const phase = parseFlag(flags, "phase");
+    if (!phase) {
       return {
         exitCode: EXIT.USAGE,
         stdout: "",
@@ -18480,7 +19141,7 @@ ${USAGE}`
       };
     }
     try {
-      const m = await archiveShow({ archiveRoot, phaseName: phase2 });
+      const m = await archiveShow({ archiveRoot, phaseName: phase });
       const env = envelope("archive show", EXIT.SUCCESS, m);
       return {
         exitCode: EXIT.SUCCESS,
@@ -18493,24 +19154,93 @@ ${USAGE}`
 ` };
     }
   }
-  if (sub !== "verify") {
+  if (sub === "verify") {
+    const phase = parseFlag(flags, "phase");
+    if (!phase) {
+      return {
+        exitCode: EXIT.USAGE,
+        stdout: "",
+        stderr: "archive verify requires --phase=<name>\n"
+      };
+    }
+    try {
+      const r = await archiveVerify({ archiveRoot, phaseName: phase });
+      const exitCode = r.failed.length === 0 ? EXIT.SUCCESS : EXIT.RECONCILE_DRIFT;
+      const env = envelope("archive verify", exitCode, r);
+      return {
+        exitCode,
+        stdout: wantJson ? JSON.stringify({ ...env, exit_code: exitCode }) : `${phase}: verified=${r.verified} failed=${r.failed.length}
+`,
+        stderr: ""
+      };
+    } catch (err) {
+      return { exitCode: EXIT.RUNTIME, stdout: "", stderr: `${err.message}
+` };
+    }
+  }
+  if (sub !== "cleanup") {
     return exhaustiveSwitch(sub, "archive");
   }
-  const phase = parseFlag(flags, "phase");
-  if (!phase) {
+  const cleanupDecision = await checkRoleSkillOperation({
+    role,
+    op: "archive-cleanup",
+    telemetryDir,
+    matrixPath: SPEC_MATRIX_PATH
+  });
+  if (cleanupDecision.decision === "deny") {
+    return {
+      exitCode: EXIT.AUTHZ,
+      stdout: "",
+      stderr: formatAuthzDeny({
+        role,
+        op: "archive-cleanup",
+        reason: cleanupDecision.reason,
+        command: "tds archive cleanup"
+      })
+    };
+  }
+  const cleanupPhase = parseFlag(flags, "phase");
+  if (!cleanupPhase) {
     return {
       exitCode: EXIT.USAGE,
       stdout: "",
-      stderr: "archive verify requires --phase=<name>\n"
+      stderr: "archive cleanup requires --phase=<name>\n"
+    };
+  }
+  const wantDryRun = flags.includes("--dry-run");
+  const wantConfirm = flags.includes("--confirm");
+  if (wantDryRun && wantConfirm) {
+    return {
+      exitCode: EXIT.USAGE,
+      stdout: "",
+      stderr: "archive cleanup: --dry-run and --confirm are mutually exclusive\n"
+    };
+  }
+  if (!wantDryRun && !wantConfirm) {
+    return {
+      exitCode: EXIT.USAGE,
+      stdout: "",
+      stderr: "archive cleanup requires --dry-run (preview) or --confirm (destructive). Default is preview-only \u2014 no destructive default.\n"
     };
   }
   try {
-    const r = await archiveVerify({ archiveRoot, phaseName: phase });
-    const exitCode = r.failed.length === 0 ? EXIT.SUCCESS : EXIT.RECONCILE_DRIFT;
-    const env = envelope("archive verify", exitCode, r);
+    const storiesDir = pathJoin12(
+      paths.outputFolder,
+      "implementation-artifacts",
+      "stories"
+    );
+    const result = await archiveCleanup({
+      archiveRoot,
+      storiesDir,
+      telemetryDir,
+      phaseName: cleanupPhase,
+      dryRun: wantDryRun
+    });
+    const env = envelope("archive cleanup", EXIT.SUCCESS, result);
+    const verb = result.dryRun ? "would remove" : "removed";
     return {
-      exitCode,
-      stdout: wantJson ? JSON.stringify({ ...env, exit_code: exitCode }) : `${phase}: verified=${r.verified} failed=${r.failed.length}
+      exitCode: EXIT.SUCCESS,
+      stdout: wantJson ? JSON.stringify(env) : `${result.phaseName}: ${verb} ${result.removed.length} source story file(s); skipped ${result.skipped.length}
 `,
       stderr: ""
     };
@@ -18521,10 +19251,10 @@ ${USAGE}`
 }
 
 // src/cli/handlers/story.ts
-import { join as pathJoin14 } from "node:path";
+import { join as pathJoin15 } from "node:path";
 
 // src/cli/handlers/story-update.ts
-import { join as pathJoin12 } from "node:path";
+import { join as pathJoin13 } from "node:path";
 init_model();
 async function handleStoryUpdate(opts) {
   const { role, storyId, flags, paths, telemetryDir, wantJson } = opts;
@@ -18561,7 +19291,7 @@ async function handleStoryUpdate(opts) {
       };
     }
   }
-  const specPath = pathJoin12(
+  const specPath = pathJoin13(
     paths.outputFolder,
     "implementation-artifacts",
     "stories",
@@ -18611,8 +19341,8 @@ async function handleStoryUpdate(opts) {
         })
       };
     }
-    const { readFileSync: readFileSync29, existsSync: existsSync31 } = await import("node:fs");
-    if (!existsSync31(selfReviewFromPath)) {
+    const { readFileSync: readFileSync34, existsSync: existsSync34 } = await import("node:fs");
+    if (!existsSync34(selfReviewFromPath)) {
       return {
         exitCode: EXIT.USAGE,
         stdout: "",
@@ -18620,7 +19350,7 @@ async function handleStoryUpdate(opts) {
 `
       };
     }
-    selfReviewBody = readFileSync29(selfReviewFromPath, "utf8");
+    selfReviewBody = readFileSync34(selfReviewFromPath, "utf8");
   }
   if (newStatus === void 0 && taskCompleteFlags.length === 0 && subtaskCompleteFlags.length === 0 && taskDeferFlags.length === 0 && completionNoteFlags.length === 0 && fileListFlags.length === 0 && selfReviewBody === null) {
     return {
@@ -18632,9 +19362,9 @@ async function handleStoryUpdate(opts) {
   if (newStatus !== void 0) {
     const { validateTransition: validateTransition2 } = await Promise.resolve().then(() => (init_state_machine(), state_machine_exports));
     const { readSprintStatus: readSprintStatus2 } = await Promise.resolve().then(() => (init_sprint_status(), sprint_status_exports));
-    const { existsSync: existsSync31 } = await import("node:fs");
+    const { existsSync: existsSync34 } = await import("node:fs");
     let currentStatus = null;
-    if (existsSync31(paths.sprintStatusYaml)) {
+    if (existsSync34(paths.sprintStatusYaml)) {
       try {
         const doc = readSprintStatus2({ sprintStatusPath: paths.sprintStatusYaml });
         currentStatus = doc.byKey.get(storyId)?.status ?? null;
@@ -18841,7 +19571,7 @@ Recovery: re-run \`tds story update --story=${storyId} --status=${newStatus} --a
 }
 
 // src/cli/handlers/story-findings.ts
-import { join as pathJoin13 } from "node:path";
+import { join as pathJoin14 } from "node:path";
 init_model();
 async function handleStoryAddFinding(opts) {
   const { role, storyId, flags, paths, telemetryDir, wantJson } = opts;
@@ -18893,7 +19623,7 @@ async function handleStoryAddFinding(opts) {
   const severity = severityRaw;
   const suggestedFix = parseFlag(flags, "suggested-fix");
   const suggestedBridge = parseFlag(flags, "suggested-bridge");
-  const specPath = pathJoin13(
+  const specPath = pathJoin14(
     paths.outputFolder,
     "implementation-artifacts",
     "stories",
@@ -19023,7 +19753,7 @@ async function handleStoryResolveFinding(opts) {
 `
     };
   }
-  const specPath = pathJoin13(
+  const specPath = pathJoin14(
     paths.outputFolder,
     "implementation-artifacts",
     "stories",
@@ -19154,7 +19884,7 @@ ${USAGE}`
     };
   }
   const role = resolveRole({ cliRole: parseFlag(rest, "as") });
-  const telemetryDir = pathJoin14(paths.runtimeDir, "telemetry");
+  const telemetryDir = pathJoin15(paths.runtimeDir, "telemetry");
   if (sub === "add-findings") {
     return await handleAddFindingsBatch({
       role,
@@ -19194,7 +19924,7 @@ ${USAGE}`
     const { readStorySpec: readStorySpec3 } = await Promise.resolve().then(() => (init_story_spec(), story_spec_exports));
     const { readSprintStatus: readSprintStatus3 } = await Promise.resolve().then(() => (init_sprint_status(), sprint_status_exports));
     const { findByStory: findByStory3 } = await Promise.resolve().then(() => (init_registry(), registry_exports));
-    const extensionPath = pathJoin14(
+    const extensionPath = pathJoin15(
       paths.tdsStateDir,
       "sprint-status-extension.yaml"
     );
@@ -19278,7 +20008,7 @@ ${USAGE}`
   const { readStorySpec: readStorySpec2 } = await Promise.resolve().then(() => (init_story_spec(), story_spec_exports));
   const { readSprintStatus: readSprintStatus2 } = await Promise.resolve().then(() => (init_sprint_status(), sprint_status_exports));
   const { findByStory: findByStory2 } = await Promise.resolve().then(() => (init_registry(), registry_exports));
-  const specPath = pathJoin14(
+  const specPath = pathJoin15(
     paths.outputFolder,
     "implementation-artifacts",
     "stories",
@@ -19481,8 +20211,8 @@ async function handleAddFindingsBatch(opts) {
       stderr: "story add-findings requires --findings-file=<path.yaml>\n"
     };
   }
-  const { existsSync: existsSync31, readFileSync: readFileSync29 } = await import("node:fs");
-  if (!existsSync31(findingsFile)) {
+  const { existsSync: existsSync34, readFileSync: readFileSync34 } = await import("node:fs");
+  if (!existsSync34(findingsFile)) {
     return {
       exitCode: EXIT.PRECONDITION,
       stdout: "",
@@ -19490,10 +20220,10 @@ async function handleAddFindingsBatch(opts) {
 `
     };
   }
-  const { parse: parseYaml24 } = await Promise.resolve().then(() => __toESM(require_dist(), 1));
+  const { parse: parseYaml26 } = await Promise.resolve().then(() => __toESM(require_dist(), 1));
   let parsed;
   try {
-    parsed = parseYaml24(readFileSync29(findingsFile, "utf8"));
+    parsed = parseYaml26(readFileSync34(findingsFile, "utf8"));
   } catch (err) {
     return {
       exitCode: EXIT.USAGE,
@@ -19543,7 +20273,7 @@ async function handleAddFindingsBatch(opts) {
       });
       continue;
     }
-    const specPath = pathJoin14(
+    const specPath = pathJoin15(
       paths.outputFolder,
       "implementation-artifacts",
       "stories",
@@ -19603,7 +20333,7 @@ async function handleAddFindingsBatch(opts) {
   const autoCommitsByStory = {};
   const perStory = /* @__PURE__ */ new Map();
   for (const w of written) {
-    const specPath = pathJoin14(
+    const specPath = pathJoin15(
       paths.outputFolder,
       "implementation-artifacts",
       "stories",
@@ -19645,7 +20375,7 @@ async function handleAddFindingsBatch(opts) {
       } else {
         const { readExtension: readExtension2 } = await Promise.resolve().then(() => (init_bridge(), bridge_exports));
         const ext = readExtension2(
-          pathJoin14(paths.tdsStateDir, "sprint-status-extension.yaml")
+          pathJoin15(paths.tdsStateDir, "sprint-status-extension.yaml")
         );
         const epicIds = /* @__PURE__ */ new Set();
         for (const sid of writtenStoryIds) {
@@ -19664,11 +20394,11 @@ async function handleAddFindingsBatch(opts) {
           scope,
           projectRoot: paths.projectRoot,
           sprintStatusPath: paths.sprintStatusYaml,
-          extensionPath: pathJoin14(
+          extensionPath: pathJoin15(
             paths.tdsStateDir,
             "sprint-status-extension.yaml"
           ),
-          storiesDir: pathJoin14(
+          storiesDir: pathJoin15(
             paths.outputFolder,
             "implementation-artifacts",
             "stories"
@@ -19711,7 +20441,7 @@ async function handleAddFindingsBatch(opts) {
     } else {
       const { readExtension: readExtension2 } = await Promise.resolve().then(() => (init_bridge(), bridge_exports));
       const ext = readExtension2(
-        pathJoin14(paths.tdsStateDir, "sprint-status-extension.yaml")
+        pathJoin15(paths.tdsStateDir, "sprint-status-extension.yaml")
       );
       const epicIds = /* @__PURE__ */ new Set();
       for (const sid of writtenStoryIds) {
@@ -19783,7 +20513,7 @@ async function handleStoryReset(opts) {
     };
   }
   const { applyStateTransition: applyStateTransition2, StateTransitionDeniedError: StateTransitionDeniedError2 } = await Promise.resolve().then(() => (init_apply_transition(), apply_transition_exports));
-  const storyMdPath = pathJoin14(
+  const storyMdPath = pathJoin15(
     paths.outputFolder,
     "implementation-artifacts",
     "stories",
@@ -19838,7 +20568,7 @@ async function handleStoryReset(opts) {
   }
 }
 async function analyzeSingleStoryStatus(opts) {
-  const specPath = pathJoin14(
+  const specPath = pathJoin15(
     opts.paths.outputFolder,
     "implementation-artifacts",
     "stories",
@@ -19877,18 +20607,18 @@ async function analyzeSingleStoryStatus(opts) {
 
 // src/cli/handlers/setup.ts
 import { existsSync as existsSync30 } from "node:fs";
-import { join as pathJoin15, dirname as pathDirname } from "node:path";
+import { join as pathJoin16, dirname as pathDirname } from "node:path";
 
 // src/setup/init.ts
 var import_proper_lockfile9 = __toESM(require_proper_lockfile(), 1);
 var import_write_file_atomic9 = __toESM(require_lib(), 1);
-var import_yaml20 = __toESM(require_dist(), 1);
+var import_yaml21 = __toESM(require_dist(), 1);
 init_emit();
 import {
   chmodSync,
   existsSync as existsSync25,
   mkdirSync as mkdirSync8,
-  readFileSync as readFileSync24,
+  readFileSync as readFileSync25,
   writeFileSync as writeFileSync4
 } from "node:fs";
 import { dirname as dirname12, join as join14 } from "node:path";
@@ -19991,7 +20721,7 @@ function detectInstalledBy() {
 }
 async function writeYamlAtomic(path, doc) {
   mkdirSync8(dirname12(path), { recursive: true });
-  const yaml = (0, import_yaml20.stringify)(doc, { indent: 2, lineWidth: 0 });
+  const yaml = (0, import_yaml21.stringify)(doc, { indent: 2, lineWidth: 0 });
   if (!existsSync25(path)) {
     writeFileSync4(path, "");
   }
@@ -20008,7 +20738,7 @@ async function writeYamlAtomic(path, doc) {
 }
 function isValidStateManifest(raw) {
   try {
-    const doc = (0, import_yaml20.parse)(raw);
+    const doc = (0, import_yaml21.parse)(raw);
     return doc.schema_version === "1.0" && Array.isArray(doc.entries);
   } catch {
     return false;
@@ -20016,7 +20746,7 @@ function isValidStateManifest(raw) {
 }
 function isValidBranchRegistry(raw) {
   try {
-    const doc = (0, import_yaml20.parse)(raw);
+    const doc = (0, import_yaml21.parse)(raw);
     return doc.schema_version === "1.0" && Array.isArray(doc.branches);
   } catch {
     return false;
@@ -20024,7 +20754,7 @@ function isValidBranchRegistry(raw) {
 }
 function isValidLessons(raw) {
   try {
-    const doc = (0, import_yaml20.parse)(raw);
+    const doc = (0, import_yaml21.parse)(raw);
     return doc.schema_version === "1.0" && Array.isArray(doc.lessons);
   } catch {
     return false;
@@ -20043,7 +20773,7 @@ async function setupInit(opts) {
   const filesCreated = [];
   const filesPreserved = [];
   if (existsSync25(opts.stateManifestYaml)) {
-    const existing = readFileSync24(opts.stateManifestYaml, "utf8");
+    const existing = readFileSync25(opts.stateManifestYaml, "utf8");
     if (isValidStateManifest(existing)) {
       filesPreserved.push(opts.stateManifestYaml);
     } else {
@@ -20067,7 +20797,7 @@ async function setupInit(opts) {
     filesCreated.push(opts.stateManifestYaml);
   }
   if (existsSync25(opts.branchRegistryYaml)) {
-    const existing = readFileSync24(opts.branchRegistryYaml, "utf8");
+    const existing = readFileSync25(opts.branchRegistryYaml, "utf8");
     if (isValidBranchRegistry(existing)) {
       filesPreserved.push(opts.branchRegistryYaml);
     } else {
@@ -20085,7 +20815,7 @@ async function setupInit(opts) {
   }
   const lessonsPath = `${opts.tdsStateDir}/memory/lessons.yaml`;
   if (existsSync25(lessonsPath)) {
-    const existing = readFileSync24(lessonsPath, "utf8");
+    const existing = readFileSync25(lessonsPath, "utf8");
     if (isValidLessons(existing)) {
       filesPreserved.push(lessonsPath);
     } else {
@@ -20145,13 +20875,13 @@ async function setupInit(opts) {
 }
 
 // src/setup/install.ts
-var import_yaml21 = __toESM(require_dist(), 1);
+var import_yaml22 = __toESM(require_dist(), 1);
 var import_write_file_atomic10 = __toESM(require_lib(), 1);
 import {
   chmodSync as chmodSync2,
   existsSync as existsSync26,
   mkdirSync as mkdirSync9,
-  readFileSync as readFileSync25,
+  readFileSync as readFileSync26,
   readdirSync as readdirSync4,
   statSync as statSync4,
   writeFileSync as writeFileSync5
@@ -20174,7 +20904,7 @@ function copyTreeFiltered(src, dst, filter, recorded) {
       copyTreeFiltered(srcPath, dstPath, filter, recorded);
     } else if (entry.isFile()) {
       if (!filter(entry.name)) continue;
-      const bytes = readFileSync25(srcPath);
+      const bytes = readFileSync26(srcPath);
       writeFileSync5(dstPath, bytes);
       recorded.push(dstPath);
     }
@@ -20192,7 +20922,7 @@ function verifyPayloadIntegrity(sourceRoot, targetRoot) {
   }
   let parsed;
   try {
-    parsed = (0, import_yaml21.parse)(readFileSync25(sourceModuleYaml, "utf8")) ?? {};
+    parsed = (0, import_yaml22.parse)(readFileSync26(sourceModuleYaml, "utf8")) ?? {};
   } catch (err) {
     throw new Error(
       `TDS-ERR:PAYLOAD_INTEGRITY_FAILED: ${sourceModuleYaml} is not valid YAML: ${err.message}`
@@ -20215,7 +20945,7 @@ function verifyPayloadIntegrity(sourceRoot, targetRoot) {
       failures.push(`${relPath2}: missing from installed payload`);
       continue;
     }
-    const actual = sha256Hex(readFileSync25(targetFile));
+    const actual = sha256Hex(readFileSync26(targetFile));
     if (actual !== expectedHash) {
       failures.push(
         `${relPath2}: sha256 mismatch (expected ${expectedHash.slice(0, 16)}\u2026, actual ${actual.slice(0, 16)}\u2026)`
@@ -20259,12 +20989,7 @@ var TDS_DENY_PATTERNS = [
   // те через CLI atomically + telemetry. Free-form prose edits — Read +
   // Edit OK. Legacy rule cleaning — см. TDS_LEGACY_DENY_TO_REMOVE.
 ];
-var TDS_ASK_PATTERNS = [
-  "Edit(_bmad-output/implementation-artifacts/sprint-status.yaml)",
-  "Write(_bmad-output/implementation-artifacts/sprint-status.yaml)",
-  "Edit(_bmad/bmm/sprint-status.yaml)",
-  "Write(_bmad/bmm/sprint-status.yaml)"
-];
+var TDS_ASK_PATTERNS = [];
 var TDS_LEGACY_DENY_TO_REMOVE = [
   // v6.0.49+: overly-aggressive. См. TDS_DENY_PATTERNS comment block выше.
   "Edit(_bmad-output/implementation-artifacts/stories/**)",
@@ -20272,6 +20997,15 @@ var TDS_LEGACY_DENY_TO_REMOVE = [
   // Removing legacy deny entries из existing settings.json чтобы не
   // оставались параллельно с new ask entries — иначе deny wins, ask
   // не has effect.
+  "Edit(_bmad-output/implementation-artifacts/sprint-status.yaml)",
+  "Write(_bmad-output/implementation-artifacts/sprint-status.yaml)",
+  "Edit(_bmad/bmm/sprint-status.yaml)",
+  "Write(_bmad/bmm/sprint-status.yaml)"
+];
+var TDS_LEGACY_ASK_TO_REMOVE = [
+  // sprint-status ask entries (shipped 2026-05-12..2026-05-16). Permission
+  // gate не functioned как real enforcement; replaced with CI guard +
+  // integrity sha drift + SKILL.md anti-pattern note.
   "Edit(_bmad-output/implementation-artifacts/sprint-status.yaml)",
   "Write(_bmad-output/implementation-artifacts/sprint-status.yaml)",
   "Edit(_bmad/bmm/sprint-status.yaml)",
@@ -20349,7 +21083,7 @@ function patchGitignore(projectRoot) {
   const path = join15(projectRoot, ".gitignore");
   let body = "";
   if (existsSync26(path)) {
-    body = readFileSync25(path, "utf8");
+    body = readFileSync26(path, "utf8");
     if (body.includes(GITIGNORE_BLOCK_HEADER)) {
       return null;
     }
@@ -20387,7 +21121,7 @@ function writeClaudeSettings(projectRoot) {
   let existing = {};
   if (existsSync26(path)) {
     try {
-      existing = JSON.parse(readFileSync25(path, "utf8"));
+      existing = JSON.parse(readFileSync26(path, "utf8"));
     } catch {
       existing = {};
     }
@@ -20396,6 +21130,9 @@ function writeClaudeSettings(projectRoot) {
   const existingDenyFiltered = Array.isArray(existing.permissions?.deny) ? existing.permissions.deny.filter(
     (v) => typeof v !== "string" || !TDS_LEGACY_DENY_TO_REMOVE.includes(v)
   ) : existing.permissions?.deny;
+  const existingAskFiltered = Array.isArray(existing.permissions?.ask) ? existing.permissions.ask.filter(
+    (v) => typeof v !== "string" || !TDS_LEGACY_ASK_TO_REMOVE.includes(v)
+  ) : existing.permissions?.ask;
   const merged = {
     ...existing,
     skillListingBudgetFraction: typeof existing.skillListingBudgetFraction === "number" ? existing.skillListingBudgetFraction : 0.15,
@@ -20403,7 +21140,7 @@ function writeClaudeSettings(projectRoot) {
       ...existing.permissions ?? {},
       deny: mergeStringArray(existingDenyFiltered, TDS_DENY_PATTERNS),
       allow: mergeStringArray(existing.permissions?.allow, allowPatterns),
-      ask: mergeStringArray(existing.permissions?.ask, TDS_ASK_PATTERNS)
+      ask: mergeStringArray(existingAskFiltered, TDS_ASK_PATTERNS)
     }
   };
   import_write_file_atomic10.default.sync(path, `${JSON.stringify(merged, null, 2)}
@@ -20495,8 +21232,8 @@ async function setupInstall(opts) {
         `TDS-ERR:DEP_MISSING_TEA_MODULE: BMAD manifest not found (${manifestPath} missing). Either BMAD itself is not installed in this project, \u0438\u043B\u0438 _bmad/_config/manifest.yaml was removed manually. Run: bmad install (BMAD bootstrap) + bmad install bmad-tea-module.`
       );
     }
-    const manifestRaw = readFileSync25(manifestPath, "utf8");
-    const manifestDoc = (0, import_yaml21.parse)(manifestRaw);
+    const manifestRaw = readFileSync26(manifestPath, "utf8");
+    const manifestDoc = (0, import_yaml22.parse)(manifestRaw);
     const modules = manifestDoc?.modules ?? [];
     const hasTea = modules.some(
       (m) => typeof m === "object" && m !== null && m.name === "tea"
@@ -20580,7 +21317,7 @@ import {
   chmodSync as chmodSync3,
   existsSync as existsSync27,
   mkdirSync as mkdirSync10,
-  readFileSync as readFileSync26,
+  readFileSync as readFileSync27,
   statSync as statSync5
 } from "node:fs";
 import { homedir } from "node:os";
@@ -20630,7 +21367,7 @@ async function installShim(opts = {}) {
       `tds-shim template not found at ${templatePath} \u2014 bundle layout broken`
     );
   }
-  const templateBody = readFileSync26(templatePath, "utf8");
+  const templateBody = readFileSync27(templatePath, "utf8");
   const installedVersion = parseShimVersion(templateBody);
   if (installedVersion === null) {
     throw new Error(
@@ -20644,7 +21381,7 @@ async function installShim(opts = {}) {
   let existingVersion = null;
   let existingBody = null;
   if (existsSync27(target)) {
-    existingBody = readFileSync26(target, "utf8");
+    existingBody = readFileSync27(target, "utf8");
     const parsed = parseShimVersion(existingBody);
     existingVersion = parsed ?? 0;
   }
@@ -20677,8 +21414,8 @@ async function installShim(opts = {}) {
 }
 
 // src/setup/resolve-source.ts
-var import_yaml22 = __toESM(require_dist(), 1);
-import { existsSync as existsSync28, readFileSync as readFileSync27 } from "node:fs";
+var import_yaml23 = __toESM(require_dist(), 1);
+import { existsSync as existsSync28, readFileSync as readFileSync28 } from "node:fs";
 import { homedir as homedir2 } from "node:os";
 import { join as join17 } from "node:path";
 var BUNDLE_REL = join17("shared", "tds-runtime.bundle.js");
@@ -20690,8 +21427,8 @@ async function resolveSource(opts) {
       `TDS-ERR:PRECONDITION: BMAD manifest.yaml not found at ${manifestPath}. Run \`bmad install --custom-source <path-or-url>\` first to register the TDS module, then retry \`/bmad-tds-setup install\`.`
     );
   }
-  const raw = readFileSync27(manifestPath, "utf8");
-  const doc = (0, import_yaml22.parse)(raw) ?? {};
+  const raw = readFileSync28(manifestPath, "utf8");
+  const doc = (0, import_yaml23.parse)(raw) ?? {};
   const modules = Array.isArray(doc.modules) ? doc.modules : [];
   const tds = modules.find(
     (m) => typeof m === "object" && m !== null && m.name === "tds"
@@ -20758,10 +21495,10 @@ function parseRepoUrlCacheKey(url) {
 }
 
 // src/epic/bootstrap-parents.ts
-var import_yaml23 = __toESM(require_dist(), 1);
+var import_yaml24 = __toESM(require_dist(), 1);
 init_story_frontmatter();
 init_bridge();
-import { readdirSync as readdirSync5, existsSync as existsSync29, readFileSync as readFileSync28 } from "node:fs";
+import { readdirSync as readdirSync5, existsSync as existsSync29, readFileSync as readFileSync29 } from "node:fs";
 import { join as join18 } from "node:path";
 async function bootstrapParents(opts) {
   if (!existsSync29(opts.storiesDir)) {
@@ -20833,7 +21570,7 @@ async function bootstrapParents(opts) {
 function readSprintStatusKeys(sprintStatusPath) {
   if (!sprintStatusPath || !existsSync29(sprintStatusPath)) return null;
   try {
-    const parsed = (0, import_yaml23.parse)(readFileSync28(sprintStatusPath, "utf8"));
+    const parsed = (0, import_yaml24.parse)(readFileSync29(sprintStatusPath, "utf8"));
     const dev = parsed?.development_status;
     if (!dev || typeof dev !== "object") return null;
     return new Set(Object.keys(dev));
@@ -20937,12 +21674,12 @@ ${USAGE}`
 `
       };
     }
-    const storiesDir = pathJoin15(
+    const storiesDir = pathJoin16(
       bpPaths.outputFolder,
       "implementation-artifacts",
       "stories"
     );
-    const extensionPath = pathJoin15(
+    const extensionPath = pathJoin16(
       bpPaths.tdsStateDir,
       "sprint-status-extension.yaml"
     );
@@ -20956,7 +21693,7 @@ ${USAGE}`
         manifestPath: bpPaths.stateManifestYaml,
         projectRoot: bpPaths.projectRoot,
         recordedBy: "setup",
-        telemetryDir: pathJoin15(bpPaths.runtimeDir, "telemetry")
+        telemetryDir: pathJoin16(bpPaths.runtimeDir, "telemetry")
       });
       const env = envelope("setup bootstrap-parents", EXIT.SUCCESS, result);
       const human = `bootstrap-parents: ${dryRun ? "(dry-run) " : ""}added=${result.added.length}, skipped=${result.skipped.length}
@@ -20998,7 +21735,7 @@ ${USAGE}`
 `
     };
   }
-  const telemetryDir = pathJoin15(paths.runtimeDir, "telemetry");
+  const telemetryDir = pathJoin16(paths.runtimeDir, "telemetry");
   if (sub === "install") {
     try {
       const result = await setupInstall({
@@ -21099,7 +21836,7 @@ via absolute paths will continue to prompt for permission.
 function findBmadProjectRoot(start) {
   let dir = start;
   for (let i = 0; i < 64; i++) {
-    if (existsSync30(pathJoin15(dir, "_bmad"))) return dir;
+    if (existsSync30(pathJoin16(dir, "_bmad"))) return dir;
     const parent = pathDirname(dir);
     if (parent === dir) return null;
     dir = parent;
@@ -21108,7 +21845,7 @@ function findBmadProjectRoot(start) {
 }
 
 // src/cli/handlers/review.ts
-import { join as pathJoin16 } from "node:path";
+import { join as pathJoin17 } from "node:path";
 init_apply_verdict();
 async function handleReview(rest, wantJson) {
   const sub = rest[0];
@@ -21143,7 +21880,7 @@ ${USAGE}`
     };
   }
   const role = resolveRole({ cliRole: parseFlag(rest, "as") });
-  const telemetryDir = pathJoin16(paths.runtimeDir, "telemetry");
+  const telemetryDir = pathJoin17(paths.runtimeDir, "telemetry");
   const decision = await checkRoleSkillOperation({
     role,
     op: "state-set",
@@ -21162,7 +21899,7 @@ ${USAGE}`
       })
     };
   }
-  const storiesDir = pathJoin16(
+  const storiesDir = pathJoin17(
     paths.outputFolder,
     "implementation-artifacts",
     "stories"
@@ -21173,19 +21910,23 @@ ${USAGE}`
       scope,
       projectRoot: paths.projectRoot,
       sprintStatusPath: paths.sprintStatusYaml,
-      extensionPath: pathJoin16(paths.tdsStateDir, "sprint-status-extension.yaml"),
+      extensionPath: pathJoin17(paths.tdsStateDir, "sprint-status-extension.yaml"),
       storiesDir,
       tdsStateDir: paths.tdsStateDir,
       outputFolder: paths.outputFolder,
       telemetryDir,
       triggeredBy: role
     });
-    const env = envelope("review apply-verdict", EXIT.SUCCESS, result);
+    const exitCode = result.nonApprovableStoryIds.length > 0 ? EXIT.RUNTIME : EXIT.SUCCESS;
+    const env = envelope("review apply-verdict", exitCode, result);
     const human = buildVerdictHuman(result, scope);
+    const stderr = result.nonApprovableStoryIds.length > 0 ? `tds review apply-verdict: NON-APPROVABLE scope \u2014 missing spec(s) for ${result.nonApprovableStoryIds.length} story(s): ${result.nonApprovableStoryIds.join(", ")}.
+Recovery: author missing spec(s) (\`/bmad-create-story <id>\`) then re-run \`tds review apply-verdict --${scope.kind}=${scope.id}\`. No flips to 'approved' happened \u2014 story-level and epic-level approved transitions blocked while review evidence missing.
+` : "";
     return {
-      exitCode: EXIT.SUCCESS,
+      exitCode,
       stdout: wantJson ? JSON.stringify(env) : human,
-      stderr: ""
+      stderr
     };
   } catch (err) {
     return {
@@ -21197,21 +21938,22 @@ ${USAGE}`
   }
 }
 function buildVerdictHuman(result, scope) {
+  const naMarker = result.nonApprovableStoryIds.length > 0 ? ` [NON-APPROVABLE: ${result.nonApprovableStoryIds.length} missing spec(s): ${result.nonApprovableStoryIds.join(", ")} \u2014 see stderr]` : "";
   if (result.verdict === "changes-requested") {
-    return `verdict: changes-requested \u2014 ${result.flippedStoryIds.length}/${result.perStory.length} stories flipped to rework: ${result.flippedStoryIds.join(", ")}.
+    return `verdict: changes-requested \u2014 ${result.flippedStoryIds.length}/${result.perStory.length} stories flipped to rework: ${result.flippedStoryIds.join(", ")}.${naMarker}
 Resolve: /bmad-tds-execute-${scope.kind} ${scope.id}.
 `;
   }
   const approved = result.flippedToApproved.length;
   const total = result.perStory.length;
   const epicFlip = scope.kind === "epic" ? ` epic ${scope.id} approved: ${result.epicFlippedToApproved ? "yes" : "no (idempotent)"};` : "";
-  return `verdict: approved \u2014 no unresolved blockers across ${total} story(s); ${approved} story(s) flipped review \u2192 approved${approved === total ? "" : ` (${total - approved} already at approved \u2014 idempotent)`}.${epicFlip}
+  return `verdict: approved \u2014 no unresolved blockers across ${total} story(s); ${approved} story(s) flipped review \u2192 approved${approved === total ? "" : ` (${total - approved} already at approved \u2014 idempotent)`}.${epicFlip}${naMarker}
 Next: /bmad-tds-code-review proceeds to deliver (Mode 2) or sync (Mode 1) for approved \u2192 done.
 `;
 }
 
 // src/cli/handlers/state-commit.ts
-import { join as pathJoin17 } from "node:path";
+import { join as pathJoin18 } from "node:path";
 init_commit_sweep();
 init_emit();
 async function handleStateCommit(rest, wantJson) {
@@ -21227,7 +21969,7 @@ async function handleStateCommit(rest, wantJson) {
     };
   }
   const role = resolveRole({ cliRole: parseFlag(rest, "as") });
-  const telemetryDir = pathJoin17(paths.runtimeDir, "telemetry");
+  const telemetryDir = pathJoin18(paths.runtimeDir, "telemetry");
   if (role === "unknown") {
     return {
       exitCode: EXIT.AUTHZ,
@@ -21293,6 +22035,558 @@ async function handleStateCommit(rest, wantJson) {
   };
 }
 
+// src/cli/handlers/catalog.ts
+import { join as pathJoin19, resolve as resolve6 } from "node:path";
+import { dirname as dirname15 } from "node:path";
+import { existsSync as existsSync32 } from "node:fs";
+import { fileURLToPath as fileURLToPath9 } from "node:url";
+
+// src/catalog/inventory.ts
+import { existsSync as existsSync31, readdirSync as readdirSync6, statSync as statSync6 } from "node:fs";
+import { join as join19 } from "node:path";
+function scanSkillDirs(payloadRoot) {
+  const workflows = scanDirForSkills(join19(payloadRoot, "workflows"));
+  const roleSkills = scanDirForSkills(join19(payloadRoot, "role-skills"));
+  const allPaths = /* @__PURE__ */ new Set();
+  for (const w of workflows) allPaths.add(`payload/workflows/${w}`);
+  for (const r of roleSkills) allPaths.add(`payload/role-skills/${r}`);
+  return {
+    workflows,
+    roleSkills,
+    allPaths,
+    count: {
+      workflows: workflows.size,
+      roleSkills: roleSkills.size,
+      total: workflows.size + roleSkills.size
+    }
+  };
+}
+function scanDirForSkills(dir) {
+  if (!existsSync31(dir)) return /* @__PURE__ */ new Set();
+  const result = /* @__PURE__ */ new Set();
+  for (const entry of readdirSync6(dir)) {
+    if (entry.startsWith("_")) continue;
+    const entryPath = join19(dir, entry);
+    if (!statSync6(entryPath).isDirectory()) continue;
+    if (!existsSync31(join19(entryPath, "SKILL.md"))) continue;
+    result.add(entry);
+  }
+  return result;
+}
+
+// src/catalog/verify-tds-design.ts
+import { readFileSync as readFileSync30 } from "node:fs";
+var COUNT_RE = /(?<![§.\p{L}\p{N}_])(\d+)\s+(SKILL\.md|skill-папок)(?![\p{L}\p{N}_])/gu;
+function verifyTdsDesignCounts(tdsDesignPath, inventory) {
+  const content = readFileSync30(tdsDesignPath, "utf8");
+  const lines = content.split("\n");
+  const expected = inventory.count.total;
+  const drifts = [];
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const lineRe = new RegExp(COUNT_RE.source, "gu");
+    let m;
+    while ((m = lineRe.exec(line)) !== null) {
+      const actual = Number.parseInt(m[1], 10);
+      if (actual !== expected) {
+        drifts.push({
+          line: i + 1,
+          // 1-based for grep/editor parity
+          context: line.trim().slice(0, 100),
+          expected,
+          actual,
+          suggestedFix: `Update tds-design.md L${i + 1}: \xAB${m[0]}\xBB \u2192 \xAB${expected} ${m[2]}\xBB. Inventory has ${expected} skills (${inventory.count.workflows} workflows + ${inventory.count.roleSkills} role-skills); \u044D\u0442\u043E\u0442 mention says ${actual}. Edit the line OR add/remove a skill directory.`
+        });
+      }
+    }
+  }
+  return { ok: drifts.length === 0, drifts };
+}
+function formatDriftReport(result) {
+  if (result.ok) return "";
+  const header = `tds-design.md skill count drift \u2014 ${result.drifts.length} mention(s) out of sync:
+`;
+  const body = result.drifts.map((d) => `  L${d.line}: expected ${d.expected}, got ${d.actual} \u2014 ${d.context}
+    fix: ${d.suggestedFix}`).join("\n");
+  return header + body + "\n";
+}
+
+// src/catalog/verify-marketplace.ts
+import { readFileSync as readFileSync31 } from "node:fs";
+function verifyMarketplace(marketplacePath, inventory) {
+  let json;
+  try {
+    json = JSON.parse(readFileSync31(marketplacePath, "utf8"));
+  } catch (err) {
+    return {
+      ok: false,
+      drift: null,
+      structuralError: `marketplace.json parse failure: ${err.message}`
+    };
+  }
+  if (typeof json !== "object" || json === null) {
+    return {
+      ok: false,
+      drift: null,
+      structuralError: "marketplace.json root must be an object"
+    };
+  }
+  const plugins = json.plugins;
+  if (!Array.isArray(plugins) || plugins.length === 0) {
+    return {
+      ok: false,
+      drift: null,
+      structuralError: "marketplace.json plugins[] missing or empty"
+    };
+  }
+  const firstPlugin = plugins[0];
+  if (typeof firstPlugin !== "object" || firstPlugin === null) {
+    return {
+      ok: false,
+      drift: null,
+      structuralError: "marketplace.json plugins[0] must be an object"
+    };
+  }
+  const skills = firstPlugin.skills;
+  if (!Array.isArray(skills)) {
+    return {
+      ok: false,
+      drift: null,
+      structuralError: "marketplace.json plugins[0].skills[] must be an array"
+    };
+  }
+  const declared = /* @__PURE__ */ new Set();
+  for (const entry of skills) {
+    if (typeof entry !== "string") continue;
+    declared.add(entry.replace(/^\.\//, ""));
+  }
+  const missing = [...inventory.allPaths].filter((p) => !declared.has(p)).sort();
+  const extra = [...declared].filter((p) => !inventory.allPaths.has(p)).sort();
+  if (missing.length === 0 && extra.length === 0) {
+    return { ok: true, drift: null, structuralError: null };
+  }
+  const fixLines = [];
+  if (missing.length > 0) {
+    fixLines.push(
+      `Add to .claude-plugin/marketplace.json plugins[0].skills[]:`,
+      ...missing.map((p) => `  "./${p}",`)
+    );
+  }
+  if (extra.length > 0) {
+    fixLines.push(
+      `Remove from .claude-plugin/marketplace.json plugins[0].skills[]:`,
+      ...extra.map((p) => `  "./${p}"`),
+      `(\u0438\u043B\u0438 add payload/<...> dirs \u0435\u0441\u043B\u0438 skill \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043B\u044C\u043D\u043E ships).`
+    );
+  }
+  return {
+    ok: false,
+    drift: { missing, extra, suggestedFix: fixLines.join("\n") },
+    structuralError: null
+  };
+}
+function formatMarketplaceReport(r) {
+  if (r.ok) return "";
+  if (r.structuralError) {
+    return `marketplace.json structural error: ${r.structuralError}
+`;
+  }
+  if (!r.drift) return "";
+  const lines = [`marketplace.json skills[] drift detected:`];
+  if (r.drift.missing.length > 0) {
+    lines.push(`  missing (${r.drift.missing.length}):`);
+    for (const p of r.drift.missing) lines.push(`    - ${p}`);
+  }
+  if (r.drift.extra.length > 0) {
+    lines.push(`  extra (${r.drift.extra.length}):`);
+    for (const p of r.drift.extra) lines.push(`    - ${p}`);
+  }
+  lines.push("");
+  lines.push(`Suggested fix:`);
+  lines.push(r.drift.suggestedFix);
+  return lines.join("\n") + "\n";
+}
+
+// src/catalog/verify-module-yaml.ts
+var import_yaml25 = __toESM(require_dist(), 1);
+import { readFileSync as readFileSync32 } from "node:fs";
+function verifyModuleYaml(moduleYamlPath, inventory) {
+  let yamlDoc;
+  try {
+    yamlDoc = (0, import_yaml25.parse)(readFileSync32(moduleYamlPath, "utf8"));
+  } catch (err) {
+    return {
+      ok: false,
+      drifts: [],
+      structuralError: `module.yaml parse failure: ${err.message}`
+    };
+  }
+  if (typeof yamlDoc !== "object" || yamlDoc === null) {
+    return {
+      ok: false,
+      drifts: [],
+      structuralError: "module.yaml root must be a mapping"
+    };
+  }
+  const agents = yamlDoc.agents;
+  if (agents === void 0) {
+    return { ok: true, drifts: [], structuralError: null };
+  }
+  if (!Array.isArray(agents)) {
+    return {
+      ok: false,
+      drifts: [],
+      structuralError: "module.yaml agents must be an array if present"
+    };
+  }
+  const drifts = [];
+  for (const entry of agents) {
+    if (typeof entry !== "object" || entry === null) continue;
+    const code = entry.code;
+    if (typeof code !== "string") continue;
+    const expectedDir = `bmad-tds-${code}`;
+    if (!inventory.roleSkills.has(expectedDir)) {
+      drifts.push({
+        agentCode: code,
+        expectedDir,
+        suggestedFix: `module.yaml has agents entry \u0441 code="${code}" but payload/role-skills/${expectedDir}/ missing. Either create role-skill dir + SKILL.md, OR remove this agent entry \u0438\u0437 module.yaml.`
+      });
+    }
+  }
+  return {
+    ok: drifts.length === 0,
+    drifts,
+    structuralError: null
+  };
+}
+function formatModuleYamlReport(r) {
+  if (r.ok) return "";
+  if (r.structuralError) {
+    return `module.yaml structural error: ${r.structuralError}
+`;
+  }
+  const lines = [`module.yaml agents[] drift \u2014 ${r.drifts.length} orphaned agent(s):`];
+  for (const d of r.drifts) {
+    lines.push(`  - agent code "${d.agentCode}" \u2192 expected dir "${d.expectedDir}" missing`);
+    lines.push(`    fix: ${d.suggestedFix}`);
+  }
+  return lines.join("\n") + "\n";
+}
+
+// src/cli/handlers/catalog.ts
+var CHECK_NAMES = ["tds-design", "marketplace", "module-yaml", "all"];
+function resolveModuleRoots() {
+  const here = dirname15(fileURLToPath9(import.meta.url));
+  const bundledPayload = resolve6(here, "..");
+  if (existsSync32(pathJoin19(bundledPayload, "module.yaml")) && existsSync32(pathJoin19(bundledPayload, "workflows"))) {
+    const candidateRepo = resolve6(bundledPayload, "..");
+    const hasSourceDocs = existsSync32(pathJoin19(candidateRepo, "_docs", "spec", "tds-design.md")) && existsSync32(pathJoin19(candidateRepo, ".claude-plugin", "marketplace.json"));
+    return {
+      payloadRoot: bundledPayload,
+      repoRoot: hasSourceDocs ? candidateRepo : null
+    };
+  }
+  const sourceRepo = resolve6(here, "..", "..", "..");
+  return {
+    payloadRoot: pathJoin19(sourceRepo, "payload"),
+    repoRoot: sourceRepo
+  };
+}
+async function handleCatalog(rest, wantJson) {
+  const sub = rest[0];
+  if (!isMember(CATALOG_SUBCOMMANDS, sub)) {
+    return {
+      exitCode: EXIT.USAGE,
+      stdout: "",
+      stderr: `unknown catalog subcommand: ${sub ?? ""}
+supported: ${CATALOG_SUBCOMMANDS.join(" | ")}
+`
+    };
+  }
+  const { payloadRoot, repoRoot: repoRoot2 } = resolveModuleRoots();
+  const moduleYamlPath = pathJoin19(payloadRoot, "module.yaml");
+  const tdsDesignPath = repoRoot2 ? pathJoin19(repoRoot2, "_docs", "spec", "tds-design.md") : null;
+  const marketplacePath = repoRoot2 ? pathJoin19(repoRoot2, ".claude-plugin", "marketplace.json") : null;
+  if (sub === "list-skills") {
+    const inventory = scanSkillDirs(payloadRoot);
+    const human = `workflows (${inventory.count.workflows}):
+` + [...inventory.workflows].sort().map((s) => `  - ${s}`).join("\n") + `
+
+role-skills (${inventory.count.roleSkills}):
+` + [...inventory.roleSkills].sort().map((s) => `  - ${s}`).join("\n") + `
+
+total: ${inventory.count.total}
+`;
+    const env = envelope("catalog list-skills", EXIT.SUCCESS, {
+      workflows: [...inventory.workflows].sort(),
+      roleSkills: [...inventory.roleSkills].sort(),
+      count: inventory.count
+    });
+    return {
+      exitCode: EXIT.SUCCESS,
+      stdout: wantJson ? JSON.stringify(env) : human,
+      stderr: ""
+    };
+  }
+  if (sub === "verify") {
+    const checkFlag = parseFlag(rest, "check") ?? "all";
+    if (!CHECK_NAMES.includes(checkFlag)) {
+      return {
+        exitCode: EXIT.USAGE,
+        stdout: "",
+        stderr: `unknown --check value: ${checkFlag}
+supported: ${CHECK_NAMES.join(" | ")}
+`
+      };
+    }
+    const inventory = scanSkillDirs(payloadRoot);
+    const result = { ok: true, skipped: [] };
+    const runAll = checkFlag === "all";
+    const stderrParts = [];
+    if (runAll || checkFlag === "tds-design") {
+      if (tdsDesignPath && existsSync32(tdsDesignPath)) {
+        result.tdsDesign = verifyTdsDesignCounts(tdsDesignPath, inventory);
+        if (!result.tdsDesign.ok) {
+          result.ok = false;
+          stderrParts.push(formatDriftReport(result.tdsDesign));
+        }
+      } else {
+        result.skipped.push({
+          check: "tds-design",
+          reason: "_docs/spec/tds-design.md not found \u2014 source-only check, skipped \u0432 shipped/installed runtime (expected). Run from module repo checkout \u0434\u043B\u044F full verify."
+        });
+      }
+    }
+    if (runAll || checkFlag === "marketplace") {
+      if (marketplacePath && existsSync32(marketplacePath)) {
+        result.marketplace = verifyMarketplace(marketplacePath, inventory);
+        if (!result.marketplace.ok) {
+          result.ok = false;
+          stderrParts.push(formatMarketplaceReport(result.marketplace));
+        }
+      } else {
+        result.skipped.push({
+          check: "marketplace",
+          reason: ".claude-plugin/marketplace.json not found \u2014 source-only check, skipped \u0432 shipped/installed runtime (expected)."
+        });
+      }
+    }
+    if (runAll || checkFlag === "module-yaml") {
+      result.moduleYaml = verifyModuleYaml(moduleYamlPath, inventory);
+      if (!result.moduleYaml.ok) {
+        result.ok = false;
+        stderrParts.push(formatModuleYamlReport(result.moduleYaml));
+      }
+    }
+    const exitCode = result.ok ? EXIT.SUCCESS : EXIT.PRECONDITION;
+    const env = envelope("catalog verify", exitCode, result);
+    const skippedHint = result.skipped.length > 0 ? ` (skipped: ${result.skipped.map((s) => s.check).join(", ")})` : "";
+    const human = result.ok ? `catalog verify: ok (inventory=${inventory.count.total}; all checks pass)${skippedHint}.
+` : `catalog verify: DRIFT detected \u2014 see stderr.
+`;
+    return {
+      exitCode,
+      stdout: wantJson ? JSON.stringify(env) : human,
+      stderr: stderrParts.join("")
+    };
+  }
+  return exhaustiveSwitch(sub, "catalog");
+}
+
+// src/cli/handlers/workflow.ts
+import { join as pathJoin20 } from "node:path";
+
+// src/workflow-query/aggregate.ts
+import { existsSync as existsSync33, readFileSync as readFileSync33 } from "node:fs";
+import { join as join20 } from "node:path";
+var CORRELATED_STREAMS = [
+  "state-transitions",
+  "branch-events",
+  "pr-events",
+  "review-events",
+  "integrity-events",
+  "bridge-epic-events",
+  "archive-events",
+  "forbidden-quadrant-events"
+];
+function loadEvents(telemetryDir, filter) {
+  const events = [];
+  for (const stream of CORRELATED_STREAMS) {
+    const path = join20(telemetryDir, `${stream}.jsonl`);
+    if (!existsSync33(path)) continue;
+    const raw = readFileSync33(path, "utf8");
+    for (const line of raw.split("\n")) {
+      if (line.length === 0) continue;
+      let parsed;
+      try {
+        parsed = JSON.parse(line);
+      } catch {
+        continue;
+      }
+      if (!isTelemetryEvent(parsed)) continue;
+      if (matchesFilter(parsed.event, filter)) {
+        events.push(parsed);
+      }
+    }
+  }
+  events.sort((a, b) => a.ts < b.ts ? -1 : a.ts > b.ts ? 1 : a.seq - b.seq);
+  return events;
+}
+function isTelemetryEvent(x) {
+  if (typeof x !== "object" || x === null) return false;
+  const v = x;
+  return typeof v.stream === "string" && typeof v.ts === "string" && typeof v.seq === "number" && typeof v.event === "object" && v.event !== null;
+}
+function matchesFilter(eventPayload, filter) {
+  if (filter.storyId !== void 0) {
+    const sid = eventPayload["story_id"] ?? eventPayload["storyId"];
+    if (sid === filter.storyId) return true;
+  }
+  if (filter.epicId !== void 0) {
+    const eid = eventPayload["epic_id"] ?? eventPayload["epicId"];
+    if (eid === filter.epicId) return true;
+  }
+  return false;
+}
+function readCurrentStatus2(sprintStatusPath, key2) {
+  if (!existsSync33(sprintStatusPath)) return null;
+  try {
+    const content = readFileSync33(sprintStatusPath, "utf8");
+    const escaped = key2.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const re = new RegExp(`^\\s\\s${escaped}:\\s*(\\S+)`, "m");
+    const m = content.match(re);
+    return m?.[1] ?? null;
+  } catch {
+    return null;
+  }
+}
+function aggregateWorkflow(args) {
+  const key2 = args.filter.storyId ?? args.filter.epicId ?? "";
+  const events = loadEvents(args.telemetryDir, args.filter);
+  const currentStatus = args.sprintStatusPath && key2 ? readCurrentStatus2(args.sprintStatusPath, key2) : null;
+  return { filter: args.filter, events, currentStatus, key: key2 };
+}
+
+// src/cli/handlers/workflow.ts
+async function handleWorkflow(rest, wantJson) {
+  const sub = rest[0];
+  if (!isMember(WORKFLOW_SUBCOMMANDS, sub)) {
+    return {
+      exitCode: EXIT.USAGE,
+      stdout: "",
+      stderr: `unknown workflow subcommand: ${sub ?? ""}
+supported: ${WORKFLOW_SUBCOMMANDS.join(" | ")}
+`
+    };
+  }
+  const storyId = parseFlag(rest, "story");
+  const epicId = parseFlag(rest, "epic");
+  if (storyId === void 0 === (epicId === void 0)) {
+    return {
+      exitCode: EXIT.USAGE,
+      stdout: "",
+      stderr: `tds workflow ${sub} requires exactly one of --story=<id> or --epic=<id>
+`
+    };
+  }
+  let paths;
+  try {
+    paths = await resolveTdsPaths();
+  } catch (err) {
+    return {
+      exitCode: EXIT.PRECONDITION,
+      stdout: "",
+      stderr: `${err.message}
+`
+    };
+  }
+  const telemetryDir = pathJoin20(paths.runtimeDir, "telemetry");
+  const filter = storyId !== void 0 ? { storyId } : { epicId };
+  const snap = aggregateWorkflow({
+    telemetryDir,
+    sprintStatusPath: paths.sprintStatusYaml,
+    filter
+  });
+  if (sub === "status") return renderStatus(snap, wantJson);
+  if (sub === "history") return renderHistory(snap, rest, wantJson);
+  return exhaustiveSwitch(sub, "workflow");
+}
+function renderStatus(snap, wantJson) {
+  const lastN = snap.events.slice(-5);
+  const lastEvents = lastN.map((e) => ({
+    ts: e.ts,
+    stream: e.stream,
+    kind: typeof e.event["kind"] === "string" ? e.event["kind"] : "(unknown)"
+  }));
+  const result = {
+    key: snap.key,
+    filter: snap.filter,
+    currentStatus: snap.currentStatus,
+    eventCount: snap.events.length,
+    lastEvents
+  };
+  const env = envelope("workflow status", EXIT.SUCCESS, result);
+  const human = buildStatusHuman(snap, lastEvents);
+  return {
+    exitCode: EXIT.SUCCESS,
+    stdout: wantJson ? JSON.stringify(env) : human,
+    stderr: ""
+  };
+}
+function buildStatusHuman(snap, lastEvents) {
+  const status = snap.currentStatus ?? "(unknown \u2014 key not in sprint-status)";
+  const header = `${snap.key}: status=${status}, ${snap.events.length} event(s) recorded.
+`;
+  if (lastEvents.length === 0) {
+    return header + `No correlated events yet.
+`;
+  }
+  const lines = lastEvents.map(
+    (e) => `  ${e.ts}  [${e.stream}] ${e.kind}`
+  );
+  return header + `Last ${lastEvents.length} event(s):
+` + lines.join("\n") + "\n";
+}
+function renderHistory(snap, rest, wantJson) {
+  const limitRaw = parseFlag(rest, "limit");
+  const limit = limitRaw !== void 0 ? Number.parseInt(limitRaw, 10) : 50;
+  if (!Number.isFinite(limit) || limit <= 0) {
+    return {
+      exitCode: EXIT.USAGE,
+      stdout: "",
+      stderr: `invalid --limit value: ${limitRaw}; must be positive integer
+`
+    };
+  }
+  const trimmed = snap.events.length > limit ? snap.events.slice(-limit) : snap.events;
+  const result = {
+    key: snap.key,
+    filter: snap.filter,
+    eventCount: snap.events.length,
+    returned: trimmed.length,
+    events: trimmed.map((e) => ({
+      ts: e.ts,
+      stream: e.stream,
+      seq: e.seq,
+      kind: typeof e.event["kind"] === "string" ? e.event["kind"] : "(unknown)",
+      payload: e.event
+    }))
+  };
+  const env = envelope("workflow history", EXIT.SUCCESS, result);
+  const human = `${snap.key}: ${snap.events.length} total event(s) (returning ${trimmed.length} most recent).
+` + trimmed.map((e) => {
+    const kind = typeof e.event["kind"] === "string" ? e.event["kind"] : "(unknown)";
+    return `  ${e.ts}  [${e.stream}#${e.seq}] ${kind}`;
+  }).join("\n") + (trimmed.length > 0 ? "\n" : "") + (snap.events.length > limit ? `(${snap.events.length - limit} older event(s) hidden \u2014 re-run with --limit=${snap.events.length})
+` : "");
+  const exitCode = EXIT.SUCCESS;
+  return {
+    exitCode,
+    stdout: wantJson ? JSON.stringify(env) : human,
+    stderr: ""
+  };
+}
+
 // src/cli/dispatcher.ts
 init_emit();
 async function emitCliEvent(telemetryDir, event) {
@@ -21345,7 +22639,7 @@ async function resolveTelemetryDir(opts) {
   if (opts.telemetryDir !== void 0) return opts.telemetryDir;
   try {
     const paths = await resolveTdsPaths();
-    return pathJoin18(paths.runtimeDir, "telemetry");
+    return pathJoin21(paths.runtimeDir, "telemetry");
   } catch {
     return void 0;
   }
@@ -21458,6 +22752,12 @@ async function dispatch(argv, opts = {}) {
         break;
       case "review":
         result = await handleReview(rest, wantJson);
+        break;
+      case "catalog":
+        result = await handleCatalog(rest, wantJson);
+        break;
+      case "workflow":
+        result = await handleWorkflow(rest, wantJson);
         break;
       default:
         result = {
