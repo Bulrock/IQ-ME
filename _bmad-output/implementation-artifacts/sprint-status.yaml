@@ -1,0 +1,147 @@
+# generated: 2026-05-18
+# last_updated: 2026-05-18
+# project: IQ-ME
+# project_key: NOKEY
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Epic Status Transitions:
+#   - backlog → in-progress: Automatically when first story is created (via create-story)
+#   - in-progress → done: Manually when all stories reach 'done' status
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review (via Dev's code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when first story is created
+# - Stories can be worked in parallel if team capacity allows
+# - Developer typically creates next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+
+generated: 2026-05-18
+last_updated: 2026-05-18
+project: IQ-ME
+project_key: NOKEY
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts
+
+development_status:
+  epic-1: backlog
+  1-1-bootstrap-repo-skeleton-makefile: backlog
+  1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners: backlog
+  1-3-commit-icar-confirmation-pdf-slot-with-visible-fallback-copy: backlog
+  1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md: backlog
+  1-5-commit-budgets-json-lint-cognitive-load-budget-mjs: backlog
+  1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs: backlog
+  1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1: backlog
+  1-8-ship-deterministic-build-harness-ready-for-epic-2-s-golden-vectors: backlog
+  1-9-eslint-config-no-restricted-paths-docs-domain-map-md: backlog
+  1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts: backlog
+  epic-1-retrospective: optional
+  epic-2: backlog
+  2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test: backlog
+  2-2-implement-quadrature-js-likelihood-js-pure-math-primitives: backlog
+  2-3-implement-eap-js-eap-estimation: backlog
+  2-4-implement-se-js-standard-error-from-posterior-variance: backlog
+  2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade: backlog
+  2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10: backlog
+  2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring: backlog
+  2-7-populate-methodology_claims-json-activate-lint-claims-manifest: backlog
+  epic-2-retrospective: optional
+  epic-3: backlog
+  3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url: backlog
+  3-2-implement-state-js-contract-test: backlog
+  3-3-implement-landing-consent-scene-en: backlog
+  3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed: backlog
+  3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint: backlog
+  3-6-author-3-en-methodology-stub-pages-the-click-targets: backlog
+  3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice: backlog
+  3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording: backlog
+  epic-3-retrospective: optional
+  epic-4: backlog
+  4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit: backlog
+  4-2-byte-stable-build-assertion-golden-html-snapshots: backlog
+  4-3-lint-frontmatter-lint-claims-manifest-strict-graduation: backlog
+  4-4-lint-glossary-lint-reading-level-en: backlog
+  4-5-lint-license-provenance: backlog
+  4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template: backlog
+  4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub: backlog
+  4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment: backlog
+  epic-4-retrospective: optional
+  epic-5: backlog
+  5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset: backlog
+  5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint: backlog
+  5-3-constructs-4-remaining-limitations-3-remaining: backlog
+  5-4-scoring-4-remaining-norming-3: backlog
+  5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining: backlog
+  5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd: backlog
+  5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows: backlog
+  epic-5-retrospective: optional
+  epic-6: backlog
+  6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion: backlog
+  6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile: backlog
+  6-3-mid-session-bail-out-with-discard-continue-choice: backlog
+  6-4-chrome-components-chrome-header-chrome-footer-theme-toggle: backlog
+  6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list: backlog
+  6-6-top-decile-tear-edge-overlay-cropping-fuzzer: backlog
+  6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page: backlog
+  epic-6-retrospective: optional
+  epic-7: backlog
+  7-1-i18n-harness-locale-loading-language-switcher: backlog
+  7-2-locale-switch-blocker-hint-fr8-enforcement: backlog
+  7-3-full-ru-methodology-corpus-translation-30-pages: backlog
+  7-4-full-pl-methodology-corpus-translation-30-pages: backlog
+  7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis: backlog
+  7-5b-lint-translation-parity-full-coverage-graduation: backlog
+  7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders: backlog
+  7-7-ru-pl-crisis-resource-lists-hreflang-declarations: backlog
+  7-8-codeowners-branch-protection-config-artifact-for-dual-approval: backlog
+  epic-7-retrospective: optional
+  epic-8: backlog
+  8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment: backlog
+  8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v: backlog
+  8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing: backlog
+  8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification: backlog
+  8-5-full-playwright-trust-verification-suite-consolidation: backlog
+  8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs: backlog
+  8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle: backlog
+  8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path: backlog
+  epic-8-retrospective: optional
+  epic-9a: backlog
+  9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log: backlog
+  9a-2-icar-confirmation-arrival-licenses-md-reconciliation-slot-fulfillment: backlog
+  epic-9a-retrospective: optional
+  epic-9b: backlog
+  9b-1-psychometrician-recruitment-scoring-spec-methodology-corpus-result-page-sign-off: backlog
+  epic-9b-retrospective: optional
+  epic-9c: backlog
+  9c-1-ru-clinical-register-translator-recruitment-tail-scene-methodology-corpus-sign-off: backlog
+  epic-9c-retrospective: optional
+  epic-9d: backlog
+  9d-1-pl-clinical-register-translator-recruitment-initial-engagement: backlog
+  9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields: backlog
+  epic-9d-retrospective: optional
+  epic-9e: backlog
+  9e-1-native-speaker-tester-recruitment-credibility-validation-iteration-loop: backlog
+  epic-9e-retrospective: optional
+  epic-10: backlog
+  10-1-pre-launch-readiness-checklist-final-smoke-test: backlog
+  10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification: backlog
+  10-3-48-hour-post-launch-monitoring-window: backlog
+  epic-10-retrospective: optional
