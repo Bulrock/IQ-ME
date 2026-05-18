@@ -5,4 +5,10 @@ tds_meta:
   installed_at: 2026-05-14T18:16:29.340Z
   installed_by: maksim
   archived_phases: []
-entries: []
+entries:
+  - artefact_class: A
+    file: _bmad-output/_tds/branch-registry.yaml
+    sha256: f2693872d7267043db12b0cf4d7f21b0b6ff8f2d02950ea1b3bfa8e169b2d42c
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-18T20:42:53.457Z
+    recorded_by: engineer

@@ -1,2 +1,13 @@
 schema_version: "1.0"
-branches: []
+branches:
+  - branch: epic/1
+    story_id: null
+    epic_id: epic-1
+    base_branch: main
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-18T20:42:53.443Z
