@@ -8,7 +8,29 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: f2693872d7267043db12b0cf4d7f21b0b6ff8f2d02950ea1b3bfa8e169b2d42c
+    sha256: d5a1d1c240aeac80d12b8e08042da9c7fb4a60a15d8345faab969fdf863dbcc0
     canonical_form: raw-bytes
-    recorded_at: 2026-05-18T20:42:53.457Z
+    recorded_at: 2026-05-18T21:05:56.461Z
     recorded_by: engineer
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/sprint-status.yaml
+    sha256: f42bb124867d81194d3631fcc72eb836ec7fc10daaaa8e65fc4fd3da4898f456
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-18T21:16:37.777Z
+    recorded_by: engineer
+    story_id: 1-1-bootstrap-repo-skeleton-makefile
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
+    sha256: fbf3924b00f73153538b321016f62daac1f2a2099e57156790c044b016e6f24b
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-18T21:16:37.797Z
+    recorded_by: engineer
+    story_id: 1-1-bootstrap-repo-skeleton-makefile
+  - artefact_class: A
+    file: tests/scaffold/makefile.test.mjs
+    sha256: 371a6a93f86ab82509c77a6a17128d4f8dc5187edd2c06c51c5401ec56363160
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-18T21:09:57.535Z
+    recorded_by: test-author
+    story_id: 1-1-bootstrap-repo-skeleton-makefile
+    notes: story-1-1 frozen failing tests
