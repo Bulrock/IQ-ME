@@ -14,11 +14,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 79b8c54b2eb93a23df1881904da4d1eaf2488d0490551bbfc53c6db9c4c723c4
+    sha256: 1a45e0bddf8612b1457feb49fd35fb1691250f2ea9bb17fff62be96337a12fe2
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:42:27.594Z
+    recorded_at: 2026-05-19T14:44:29.015Z
     recorded_by: engineer
-    story_id: 2-4-implement-se-js-standard-error-from-posterior-variance
+    story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -292,3 +292,10 @@ entries:
     recorded_at: 2026-05-19T14:41:00.293Z
     recorded_by: test-author
     story_id: 2-4-implement-se-js-standard-error-from-posterior-variance
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade.md
+    sha256: cc6858fda749f146e8fea8d02b3a2bfa38865b56e46a7472f1a707351b6f39c7
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T14:44:29.044Z
+    recorded_by: engineer
+    story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
