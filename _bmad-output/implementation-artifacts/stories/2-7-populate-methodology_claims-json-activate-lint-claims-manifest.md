@@ -275,3 +275,21 @@ Modified:
 - `.github/workflows/pr-checks.yml` (comment updated: `lint-claims-manifest` activates in Story 4.3, not Epic 2)
 
 **Story 2.7 closes out Epic 2.** All 9 stories (2-1 through 2-7) are in `status=review`, squashed into `epic/2`. Ready for `/bmad-tds-code-review --epic=epic-2` Mode 2 final approve + `tds deliver` squash to main.
+
+## Auditor Findings (round-1)
+
+### [info] `claim-id` for the golden-vector parity claim is
+`golden-vector-parity-0001-logits` (digit-string) rather than the
+epic-narrative form `golden-vector-parity-0.001-logits` (decimal-dot).
+Schema regex `^[a-z][a-z0-9-]*$` (frozen Story 1.4 deliverable) forbids
+dots; transformation honors schema integrity over narrative literalism.
+Decision documented in Story 2-7 self-review #1. Epic 5's eventual
+methodology page `golden-vectors.md` will assert the digit-string form.
+
+
+- **Category:** claim-id-deviation
+- **Suggested bridge:** `None — this is a settled naming decision. Future epics asserting this
+claim in their methodology pages' `asserts:` frontmatter must use the
+digit-string form. Lint-claims-manifest in strict mode (Story 4.3) will
+enforce this consistency.
+`
