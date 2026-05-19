@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 4db347a0df0b70e50adcd1249fc89749e00740d694a6cc17b2cd441ce6fbba64
+    sha256: df34fe6ae914ed23a66d9ea29a1f4b996b4fc1ad7a7a091e0020e59a111d5b4d
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:03:48.366Z
+    recorded_at: 2026-05-19T23:30:52.346Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 270a1f064997c8169e5497e98ca08ee3e7b9fd852d7828a1cc4d149778b287bf
+    sha256: 2969d4c14759e0a95977535dcc619dda04f9a7f037841ec731c7aad1a0d98e75
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:25:48.815Z
+    recorded_at: 2026-05-19T23:36:52.409Z
     recorded_by: engineer
-    story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
+    story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -651,3 +651,10 @@ entries:
     recorded_by: test-author
     story_id: 3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording
     notes: "Story 3-8 scaffold test asserting documentation scaffold contract: 5 files exist + per-user template has 4 verbatim hypothesis questions + protocol documents ≥3-of-N threshold + summary template links to Epic 4 gate + local-build doc documents corpus-v0.1.0 tag step"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit.md
+    sha256: 4e382263a08c52d7d812036c5ccbcbc353922868ea8e75bb59a1070fe8149234
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T23:36:52.446Z
+    recorded_by: engineer
+    story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
