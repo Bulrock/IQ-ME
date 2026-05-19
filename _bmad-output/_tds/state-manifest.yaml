@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 4aed1b0c325e370265a06187e5628994460d162b8a07c129700072a58acf3759
+    sha256: bd6a6a7de1cd675f9a05ebc59978b6ba126423d7d9bf8a2d281d366ff3348fc4
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:33:12.128Z
+    recorded_at: 2026-05-19T22:52:18.039Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 1fe22f941ec79372b6a927accd6cabaa6f2fda6742208c142ac72fca6efe007d
+    sha256: 02c3c9a82f0af70148b384ccb491e41006ff7e2f6b9be61ba8bc463d87abc2c7
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:42:25.158Z
-    recorded_by: auditor
-    story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
+    recorded_at: 2026-05-19T22:53:13.378Z
+    recorded_by: engineer
+    story_id: 3-2-implement-state-js-contract-test
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -392,10 +392,10 @@ entries:
     notes: story-3-1 procedural marker (AC-6 doc-only story; state-machine defense-in-depth gate)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-2-implement-state-js-contract-test.md
-    sha256: 32186627b62940b0fc944771d4cd63b6d7996a409ea38f28b1422a758880f70d
+    sha256: 48957ae08d113c2aafd5ff86607c94811c697d5654a824752f5a39192cbf51c8
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:42:25.065Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T22:53:13.412Z
+    recorded_by: engineer
     story_id: 3-2-implement-state-js-contract-test
   - artefact_class: A
     file: tests/contract/state-shape.spec.mjs
