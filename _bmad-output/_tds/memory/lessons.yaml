@@ -194,3 +194,22 @@ lessons:
     severity: low
     status: active
     superseded_by: null
+  - id: lesson-2026-05-19-008
+    created_at: 2026-05-19T13:46:45.207Z
+    created_by: writer
+    story_refs:
+      - bridge-1-2-1-add-tds-story-unfreeze
+    category: process
+    tags:
+      - bridge
+      - upstream
+      - bmad-tds-module
+      - deferred
+      - b1
+    summary: bridge-1-2-1 unfreeze-tests is a SUPERSET of upstream TI-2 unfreeze-tests (c91ccb6); local bmad-tds-module commit 194bc31 deferred — needs separate clean PR onto origin/main
+    lesson: "2026-05-19: attempted to commit + push + tag bridge-1-2-1's unfreeze-tests CLI to upstream bmad-tds-module per epic-1 retro. Found: (1) local bmad-tds-module working tree was 30+ commits BEHIND origin/main (which had advanced to v6.6.15 since IQ-ME's last sync); (2) upstream main already shipped a SIMPLER unfreeze-tests via TI-2 (commit c91ccb6, kind='unfreeze-tests' event, no --files, no per-file window, no forward-transition blocker, no integrity close-action); (3) bridge-1-2-1 is strictly the superset (adds --files, per-file windows, forward-blocker, close-action, kind='unfreeze' new event preserving v1 back-compat). Local commit 194bc31 landed on local bmad-tds-module main but cannot fast-forward push because of TI-2 + 29 other intermediate commits touching state.ts/integrity.ts/story.ts/shared.ts. Authoring the upstream PR properly = additive feature on top of TI-2 (open-windows table + forward-blocker + close-action as a tier-2 affordance layered onto existing kind='unfreeze-tests'). IQ-ME continues running the locally-built superset bundle (shipped 2026-05-19 via PR #2/036f1e5); no urgency to roll back. Whenever the upstream PR lands, IQ-ME re-installs and bundles re-anchor to a real released version."
+    avoid_pattern: rebase 1 dirty commit onto 30 upstream commits with overlapping file touches; assume your locally-built bundle is the upstream-current implementation
+    preferred_pattern: check origin/main divergence BEFORE bundle-building local TDS work for downstream install; if upstream already shipped a related feature, author the enhancement as an additive PR off origin/main HEAD, not a divergent fork
+    severity: medium
+    status: active
+    superseded_by: null

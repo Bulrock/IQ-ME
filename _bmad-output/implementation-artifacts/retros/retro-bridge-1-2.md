@@ -111,6 +111,15 @@ candidates:
 - **TDS orchestration:** consider adding `tds integrity verify` as automatic pre-step in retro orchestrator's final sweep, gating on failed=0 (or explicit user-confirmed defer). Source: L3.
 - **Phase-2 archival owner:** when bridge-1-2 is included in phase archive, capture both retro-epic-1.md and retro-bridge-1-2.md together — the bridge is the realization of retro-epic-1.md's bridge plan, and the two docs read in sequence.
 
+## Bridge Plan execution log (2026-05-19, post-retro)
+
+- **B4 — Ratify epic-1 retro drift.** No-op. `tds integrity verify` was clean (28/0 failed) by retro time — drift had already been ratified during bridge-1-2 merge work.
+- **B2 — Dogfood unfreeze-tests on own TS-strict warning.** Done in upstream bmad-tds-module working tree (file isn't really frozen in IQ-ME, just audit-trail-recorded). Fix at [bridge-1-2-1-unfreeze-tests.test.ts:492](https://github.com/procksha/bmad-tds-module/blob/main/src/cli/__tests__/bridge-1-2-1-unfreeze-tests.test.ts#L492) — non-null assertion guarded by `toHaveLength(1)`. `pnpm typecheck` now exit=0; full vitest suite 1340/1340.
+- **B1 — Upstream commit + push + release tag + re-pin.** DEFERRED. Local commit landed as `bmad-tds-module/main` 194bc31 BUT upstream `origin/main` had advanced 30+ commits (now at v6.6.15) and already ships a simpler `unfreeze-tests` from commit c91ccb6 (TI-2: `--story --reason --as=<specialist>` only, no `--files`, no per-file windows, no forward-transition blocker, no close-action contract). Bridge-1-2-1 is the strict superset and conflicts with TI-2 across state.ts/integrity.ts/story.ts/shared.ts. Safe path is a separate clean PR off origin/main authoring the per-file/window/blocker layer as additive on top of TI-2, not a force-rebase of the local divergent fork. See [lesson-2026-05-19-008](../../_tds/memory/lessons.yaml). IQ-ME continues running its locally-built superset bundle (shipped 2026-05-19 via PR #2/036f1e5); no rollback urgency.
+- **B3 — Pin halted-bypass forward-blocker contract via dedicated test.** Punted to the same upstream PR as B1 (would land in the same test file).
+
+Net effect: B4+B2 cleared; B1+B3 are properly contextualized as a single follow-up upstream PR.
+
 ## References
 
 - Bridge story: [_bmad-output/implementation-artifacts/stories/bridge-1-2-1-add-tds-story-unfreeze.md](../stories/bridge-1-2-1-add-tds-story-unfreeze.md)
