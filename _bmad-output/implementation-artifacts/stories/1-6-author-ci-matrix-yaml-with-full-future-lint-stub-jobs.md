@@ -1,7 +1,7 @@
 ---
 id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
 title: "Story 1.6: Author CI matrix YAML with full future-lint stub jobs"
-status: in-progress
+status: review
 ---
 
 # Story 1.6: Author CI matrix YAML with full future-lint stub jobs
@@ -190,6 +190,7 @@ Each fixture under `tests/fixtures/lint-negative-assertions/<lint-name>/` contai
 
 - 37 frozen tests pass; full suite 85/85. CI matrix with 28 jobs (8 Epic-1-active, 20 stubbed with Activates-in comments). 6 negative-assertion lints + lint-trust-artifacts implemented, all stdlib-only (NFR33). release.yml + scheduled.yml stubs include inline-comment orchestration plans.
 - rework round-1: ratified cross-story frozen-test edit (network-trace addition by story-1-7) via tds integrity record. No code change. integrity verify --story=1-6-... now 25/26 (remaining 1 is 1-7's playwright-network-trace.test.mjs, handled in 1-7 dispatch).
+- rework round-1 finding resolved: re-recorded tests/scaffold/ci-matrix.test.mjs integrity (cross-story edit ratification per auditor finding 1-6 round-1#1). No code change. tds integrity verify --story=1-6 now 25/25 for this story's files (remaining drift is 1-7's playwright-network-trace.test.mjs, handled in 1-7 dispatch).
 
 ### File List
 
