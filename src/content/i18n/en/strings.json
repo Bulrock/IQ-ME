@@ -26,5 +26,18 @@
     "nextButton": "Next",
     "submitButton": "Submit",
     "fetchErrorMessage": "Could not load the item set. Try reloading."
+  },
+  "result": {
+    "scoreHeading": "Your result",
+    "prerevealHeading": "Your result is ready.",
+    "prerevealSubcopy": "It is one estimate with a range around it.",
+    "showMeButton": "Show me",
+    "notYetButton": "Not yet",
+    "caveat": "This screener is not a clinical assessment, not a credential, not an educational-placement tool, and not a basis for employment or legal decisions.",
+    "percentileAriaTemplate": "Your percentile, {N}.",
+    "anchorAriaTemplate": "Your IQ-scale equivalent, {N}.",
+    "bandAriaTemplate": "Uncertainty band, 95 percent confidence.",
+    "bandTemplate": "±{N}",
+    "fetchErrorMessage": "Could not load the item set. Try reloading."
   }
 }

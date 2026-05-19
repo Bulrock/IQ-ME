@@ -63,6 +63,9 @@
     "Liberation Mono",
     monospace;
 
+  /* ─── UX-DR3 — Font weights (Story 3.5 introducer) ──────────────── */
+  --font-weight-regular: 400;
+
   /* ─── UX-DR3 — Line heights ──────────────────────────────────────── */
   --line-height-tight: 1.15;   /* score triplet, large headings */
   --line-height-base:  1.5;    /* body */

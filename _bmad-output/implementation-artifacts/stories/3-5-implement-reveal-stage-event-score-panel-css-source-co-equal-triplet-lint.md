@@ -1,7 +1,7 @@
 ---
 id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
 title: "Story 3.5: Implement reveal-stage event + score-panel + CSS-source co-equal triplet lint"
-status: ready-for-dev
+status: review
 ---
 
 # Story 3.5: Implement reveal-stage event + score-panel + CSS-source co-equal triplet lint
@@ -199,62 +199,62 @@ This is **Epic 3's result scene** — Stories 3-1/3-2/3-3/3-4 landed the contrac
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Implement `src/assessment/reveal-stage.js` (AC-1)**
-  - [ ] 1.1 Module skeleton with `firedStages` Set + per-session declared-order array `["anchor", "handoff"]`.
-  - [ ] 1.2 `dispatchStage(stage)`: validate enum membership → throw `RangeError` on miss; validate order against `firedStages` → throw on out-of-order / repeat; construct `CustomEvent` with `bubbles: true, composed: false, detail: { stage, t: performance.now() }`; dispatch on `document`; record in `firedStages`.
-  - [ ] 1.3 Export `resetRevealStage()` that clears `firedStages`.
-  - [ ] 1.4 Source-grep self-check.
+- [x] **Task 1: Implement `src/assessment/reveal-stage.js` (AC-1)**
+  - [x] 1.1 Module skeleton with `firedStages` Set + per-session declared-order array `["anchor", "handoff"]`.
+  - [x] 1.2 `dispatchStage(stage)`: validate enum membership → throw `RangeError` on miss; validate order against `firedStages` → throw on out-of-order / repeat; construct `CustomEvent` with `bubbles: true, composed: false, detail: { stage, t: performance.now() }`; dispatch on `document`; record in `firedStages`.
+  - [x] 1.3 Export `resetRevealStage()` that clears `firedStages`.
+  - [x] 1.4 Source-grep self-check.
 
-- [ ] **Task 2: Implement `src/assessment/result.js` (AC-2)**
-  - [ ] 2.1 `render(rootEl, strings)`: fetch `/src/items/item-parameters.json`; on success, compute `scoreSession({ responses: state.getState().responses, itemParameters: pool.items, normingStats: { se_norming: 0 } })`. On failure, call `renderErrorFallback`.
-  - [ ] 2.2 Render pre-reveal beat DOM with `data-reveal-stage="anchor"`; dispatch `revealStage.dispatchStage("anchor")` AFTER the DOM is mounted.
-  - [ ] 2.3 Wire "Show me" click → transition to handoff: rewrite `.result-scene` inner DOM to the score panel; set `data-reveal-stage="handoff"`; dispatch `revealStage.dispatchStage("handoff")`; re-attach triplet click + keydown listeners.
-  - [ ] 2.4 Wire "Not yet" click → no-op DOM-wise; listener exists for unmount cleanup symmetry.
-  - [ ] 2.5 Score-panel DOM construction: caveat (role=note, ARIA template substitutions for triplet ARIA labels, `data-methodology-target` per the three paths), triplet (`.score-panel__percentile` / `.score-panel__anchor` / `.score-panel__band` in that order).
-  - [ ] 2.6 Triplet click handler: read `data-methodology-target`; compose `/methodology/${CORPUS_VERSION}/${locale}/${path}/`; call `window.location.assign(url)`.
-  - [ ] 2.7 Triplet keydown handler: on `key === "Enter"`, call the same composer.
-  - [ ] 2.8 `unmount(rootEl)`: remove all click + keydown listeners; clear `rootEl.innerHTML`; call `revealStage.resetRevealStage()`.
-  - [ ] 2.9 Source-grep self-check.
+- [x] **Task 2: Implement `src/assessment/result.js` (AC-2)**
+  - [x] 2.1 `render(rootEl, strings)`: fetch `/src/items/item-parameters.json`; on success, compute `scoreSession({ responses: state.getState().responses, itemParameters: pool.items, normingStats: { se_norming: 0 } })`. On failure, call `renderErrorFallback`.
+  - [x] 2.2 Render pre-reveal beat DOM with `data-reveal-stage="anchor"`; dispatch `revealStage.dispatchStage("anchor")` AFTER the DOM is mounted.
+  - [x] 2.3 Wire "Show me" click → transition to handoff: rewrite `.result-scene` inner DOM to the score panel; set `data-reveal-stage="handoff"`; dispatch `revealStage.dispatchStage("handoff")`; re-attach triplet click + keydown listeners.
+  - [x] 2.4 Wire "Not yet" click → no-op DOM-wise; listener exists for unmount cleanup symmetry.
+  - [x] 2.5 Score-panel DOM construction: caveat (role=note, ARIA template substitutions for triplet ARIA labels, `data-methodology-target` per the three paths), triplet (`.score-panel__percentile` / `.score-panel__anchor` / `.score-panel__band` in that order).
+  - [x] 2.6 Triplet click handler: read `data-methodology-target`; compose `/methodology/${CORPUS_VERSION}/${locale}/${path}/`; call `window.location.assign(url)`.
+  - [x] 2.7 Triplet keydown handler: on `key === "Enter"`, call the same composer.
+  - [x] 2.8 `unmount(rootEl)`: remove all click + keydown listeners; clear `rootEl.innerHTML`; call `revealStage.resetRevealStage()`.
+  - [x] 2.9 Source-grep self-check.
 
-- [ ] **Task 3: Wire routing.js to register `#/result` → result (AC-3)**
-  - [ ] 3.1 Add `import * as result from "./result.js"` to `src/assessment/routing.js`.
-  - [ ] 3.2 Extend `ROUTES` table with `"#/result": result`.
-  - [ ] 3.3 Run existing 8 routing unit tests (AC-13); confirm 100% pass.
+- [x] **Task 3: Wire routing.js to register `#/result` → result (AC-3)**
+  - [x] 3.1 Add `import * as result from "./result.js"` to `src/assessment/routing.js`.
+  - [x] 3.2 Extend `ROUTES` table with `"#/result": result`.
+  - [x] 3.3 Run existing 8 routing unit tests (AC-13); confirm 100% pass.
 
-- [ ] **Task 4: Extend EN strings.json with `result` namespace (AC-5)**
-  - [ ] 4.1 Add 11 new keys under `result` namespace (`scoreHeading`, `prerevealHeading`, `prerevealSubcopy`, `showMeButton`, `notYetButton`, `caveat`, `percentileAriaTemplate`, `anchorAriaTemplate`, `bandAriaTemplate`, `bandTemplate`, `fetchErrorMessage`).
-  - [ ] 4.2 Validate JSON parses.
-  - [ ] 4.3 Update routing.js `getStrings()` to surface the new namespace to result.js's render.
+- [x] **Task 4: Extend EN strings.json with `result` namespace (AC-5)**
+  - [x] 4.1 Add 11 new keys under `result` namespace (`scoreHeading`, `prerevealHeading`, `prerevealSubcopy`, `showMeButton`, `notYetButton`, `caveat`, `percentileAriaTemplate`, `anchorAriaTemplate`, `bandAriaTemplate`, `bandTemplate`, `fetchErrorMessage`).
+  - [x] 4.2 Validate JSON parses.
+  - [x] 4.3 Update routing.js `getStrings()` to surface the new namespace to result.js's render.
 
-- [ ] **Task 5: Author `src/css/components/score-panel.css` (AC-6)**
-  - [ ] 5.1 Triplet rule with combined `font-size: var(--font-size-600); font-weight: var(--font-weight-regular); font-family: var(--font-family-sans);` (single rule, three selectors).
-  - [ ] 5.2 `.score-panel__triplet` flex container + spacing.
-  - [ ] 5.3 `.score-panel__caveat[role="note"]` styling with `var(--font-size-100)` + margin-block-end.
-  - [ ] 5.4 `.score-panel` block styling per UX spec line 1383.
-  - [ ] 5.5 `.score-panel__tear-edge { display: none; }` reserved-slot placeholder.
-  - [ ] 5.6 Self-check: no literal hex / px / font-family.
-  - [ ] 5.7 Update `src/index.html` to add the new component CSS link (alphabetical position after `progress-indicator.css`).
+- [x] **Task 5: Author `src/css/components/score-panel.css` (AC-6)**
+  - [x] 5.1 Triplet rule with combined `font-size: var(--font-size-600); font-weight: var(--font-weight-regular); font-family: var(--font-family-sans);` (single rule, three selectors).
+  - [x] 5.2 `.score-panel__triplet` flex container + spacing.
+  - [x] 5.3 `.score-panel__caveat[role="note"]` styling with `var(--font-size-100)` + margin-block-end.
+  - [x] 5.4 `.score-panel` block styling per UX spec line 1383.
+  - [x] 5.5 `.score-panel__tear-edge { display: none; }` reserved-slot placeholder.
+  - [x] 5.6 Self-check: no literal hex / px / font-family.
+  - [x] 5.7 Update `src/index.html` to add the new component CSS link (alphabetical position after `progress-indicator.css`).
 
-- [ ] **Task 6: Author `tools/lint-css-source-co-equal.mjs` (AC-7)**
-  - [ ] 6.1 Hand-rolled CSS tokenizer (block/rule/declaration extraction).
-  - [ ] 6.2 Selector-list parser; identify rules touching any of the three triplet selectors.
-  - [ ] 6.3 Effective-declaration computation (last-write-wins) for `font-size` / `font-weight` / `font-family`.
-  - [ ] 6.4 Parity check; exit 0 / 1 + BREACH messages.
-  - [ ] 6.5 Wire into `Makefile` `lint:` target.
-  - [ ] 6.6 Verify `make lint` exits 0 with the new lint passing.
+- [x] **Task 6: Author `tools/lint-css-source-co-equal.mjs` (AC-7)**
+  - [x] 6.1 Hand-rolled CSS tokenizer (block/rule/declaration extraction).
+  - [x] 6.2 Selector-list parser; identify rules touching any of the three triplet selectors.
+  - [x] 6.3 Effective-declaration computation (last-write-wins) for `font-size` / `font-weight` / `font-family`.
+  - [x] 6.4 Parity check; exit 0 / 1 + BREACH messages.
+  - [x] 6.5 Wire into `Makefile` `lint:` target.
+  - [x] 6.6 Verify `make lint` exits 0 with the new lint passing.
 
-- [ ] **Task 7: Author unit + contract tests (AC-8 through AC-11)**
-  - [ ] 7.1 `tests/unit/reveal-stage.test.mjs` — 10 tests (AC-8.1 through AC-8.10).
-  - [ ] 7.2 `tests/unit/result.test.mjs` — 15 tests (AC-9.1 through AC-9.15).
-  - [ ] 7.3 `tests/unit/lint-css-source-co-equal.test.mjs` + `tests/fixtures/lint-css-source-co-equal/` — 5 tests (AC-10.1 through AC-10.5).
-  - [ ] 7.4 `tests/contract/reveal-stage-event-contract.spec.mjs` — 5 tests (AC-11.1 through AC-11.5).
+- [x] **Task 7: Author unit + contract tests (AC-8 through AC-11)**
+  - [x] 7.1 `tests/unit/reveal-stage.test.mjs` — 10 tests (AC-8.1 through AC-8.10).
+  - [x] 7.2 `tests/unit/result.test.mjs` — 15 tests (AC-9.1 through AC-9.15).
+  - [x] 7.3 `tests/unit/lint-css-source-co-equal.test.mjs` + `tests/fixtures/lint-css-source-co-equal/` — 5 tests (AC-10.1 through AC-10.5).
+  - [x] 7.4 `tests/contract/reveal-stage-event-contract.spec.mjs` — 5 tests (AC-11.1 through AC-11.5).
 
-- [ ] **Task 8: Verify (AC-12, AC-13)**
-  - [ ] 8.1 `make test` — exit 0; ≥ 404 pass; 0 fail.
-  - [ ] 8.2 `make test-contract` — exit 0; ≥ 25 pass.
-  - [ ] 8.3 `make lint` — exit 0; 11 lints green.
-  - [ ] 8.4 Confirm `app-modules-bytes` budget ≤ 30720.
-  - [ ] 8.5 Stories 3-3 + 3-4 unit + contract tests all stay green.
+- [x] **Task 8: Verify (AC-12, AC-13)**
+  - [x] 8.1 `make test` — exit 0; ≥ 404 pass; 0 fail.
+  - [x] 8.2 `make test-contract` — exit 0; ≥ 25 pass.
+  - [x] 8.3 `make lint` — exit 0; 11 lints green.
+  - [x] 8.4 Confirm `app-modules-bytes` budget ≤ 30720.
+  - [x] 8.5 Stories 3-3 + 3-4 unit + contract tests all stay green.
 
 ## Dev Notes
 
@@ -419,6 +419,80 @@ This is **Epic 3's result scene** — Stories 3-1/3-2/3-3/3-4 landed the contrac
 
 ### Completion Notes List
 
+- All 8 tasks complete. 35 new tests green (10 reveal-stage + 15 result + 5 lint + 5 contract). app-modules-bytes 30715/30720 (5 bytes free; aggressive slim per spec impl-note 14). --font-weight-regular added to primitives.css with tokens snapshot regen.
+- All 8 tasks complete; 35 new tests green; lint exit 0 (11 green); app-modules-bytes 30715/30720 (5 bytes free)
+
 ### File List
 
+- src/assessment/reveal-stage.js
+- src/assessment/result.js
+- src/css/components/score-panel.css
+- tools/lint-css-source-co-equal.mjs
+- src/assessment/routing.js
+- src/content/i18n/en/strings.json
+- src/index.html
+- Makefile
+- src/css/primitives.css
+- tests/snapshots/tokens.hash.json
+- tests/unit/reveal-stage.test.mjs
+- tests/unit/result.test.mjs
+- tests/unit/lint-css-source-co-equal.test.mjs
+- tests/contract/reveal-stage-event-contract.spec.mjs
+- tests/fixtures/lint-css-source-co-equal/parity-ok.css
+- tests/fixtures/lint-css-source-co-equal/font-size-divergent.css
+- tests/fixtures/lint-css-source-co-equal/font-weight-divergent.css
+- tests/fixtures/lint-css-source-co-equal/font-family-divergent.css
+- tests/fixtures/lint-css-source-co-equal/missing-declaration.css
+
 ## Specialist Self-Review
+
+**Decisions made:**
+
+1. **Triplet click + keydown handlers attached per-element after Show-me transition** — per Decision 4 in spec (lines 293-296) + AC-9.12 post-unmount no-op requirement. Event-delegation on `.score-panel__triplet` was the obvious alternative but would still respond when only the parent listener detached, breaking AC-9.12's observable post-unmount silence. The two `addEventListener` calls per triplet element (click + keydown) plus an iterator-friendly `m.ls` listener registry made unmount provably clean.
+
+2. **`m` (module-level mount state) holds only `{ ls: [] }`** — collapsed from earlier `{ rootEl, listeners }` shape after the Show-me transition path stopped needing the original rootEl reference (the `root` closure variable in `listenBeat` suffices). Single-letter naming was driven by Karpathy #2 simplicity *under hard byte-budget pressure* (see Decision 6).
+
+3. **`bandTemplate` uses `F()` (template substitution) for `±{N}`** — the AC-5 string is `"±{N}"`, which means the impl must run the `{N}` substitution through the localizable template channel rather than hard-coding `"±"` + number. Keeps Epic 7 (RU/PL) free to localize the symbol if any locale needs `"±N"` without the symbol, or `"+/- N"`, etc.
+
+**Alternatives considered:**
+
+1. **Score-panel as a separate module `score-panel.js`** (spec impl-note 14 escape hatch). Initial impl was a single result.js of 5798 bytes (well over the available 3843-byte headroom). I chose aggressive in-file slimdown over module split because (a) the architecture (line 1074) names `result.js` as a single file by intent, (b) the file fits the brain end-to-end at ~85 LOC compact, (c) extracting score-panel.js adds module-overhead (import + 2 export decls + import line) for marginal LOC gain.
+
+2. **Event delegation on `.score-panel__triplet`** — rejected per Decision 4 above.
+
+3. **Hardcoded ARIA strings for triplet elements instead of template-fmt** — would save ~120 bytes (no `F()` calls in panel rendering for ARIA labels), but breaks i18n: AC-9.11 templates contain `{N}` for percentile/anchor substitution. Hardcoded would force every locale's translator to also know to substitute `{N}` outside the i18n bundle.
+
+4. **`Object.defineProperty` for the `m.ls` push pattern** — explored briefly to avoid `el && el.addEventListener` null-guarding in `on(el, type, fn)`. Net was longer.
+
+**Framework gotchas avoided:**
+
+- **`performance.now()` only in reveal-stage.js, not result.js** — AC-9.15 forbids `performance.now` in result.js. The dispatcher in reveal-stage.js is the only sanctioned timestamp source.
+- **`window.location.assign(url)` as a function call, not property reassignment** — tests stub `window.location.assign` via `Object.defineProperty` per main.test.mjs precedent. Reassigning `window.location.hash = ...` would have worked for navigation in browsers but would have bypassed the test's URL capture.
+- **`fetch` failure path renders `renderErrorFallback`** — mirrors item-runner.js Story 3-4 pattern. AC-9 tests don't exercise the error path explicitly but the contract holds.
+- **`document.addEventListener` is on `document` (not `window`)** — per the ADR; AC-11.1 explicitly tests against `document.dispatchEvent`.
+- **Per-session `firedStages` Set reset on every render + unmount** — AC-9.13's "render again after unmount succeeds" works because both `render()` and `unmount()` call `rs.resetRevealStage()`.
+
+**Areas of uncertainty:**
+
+1. **Byte-budget headroom is now 5 bytes** (30715/30720). This is functional but knife-edge. Any new `src/assessment/*.js` byte in Epic 4+ will breach. Auditor should consider whether this story should bump the budget limit (NFR32 was sized for a v1 minimal SPA; we're already at 99.98% of capacity). Alternatively: extract a shared `_html-escape.js` utility (factor `esc()` out of 5 modules; net savings ~250 bytes after import-line overhead).
+
+2. **`responses.map((x) => x.response)` shape conversion** — AC-2 wording says "Convert to the shape `scoreSession` expects" but doesn't pin the helper's location. The conversion lives inline in result.js's render. If Epic 5 introduces a 2nd consumer of `scoreSession` from a state-shaped responses array, factor into state.js as `getState().scoredResponses` (or similar).
+
+3. **Spec AC-2 vs AC-9.4 DOM-order tension flagged by test-author** — test-author chose AC-9.4 (percentile, anchor, band) as the DOM contract. My impl follows AC-9.4. If the auditor reads the AC-2 CSS-rule grouping (anchor, percentile, band) as DOM-intent, this would be a re-implement. Recommendation: bridge the ambiguity in a follow-up doc edit, NOT a story re-do.
+
+4. **`CV = "v0.1.0"` hard-code** — per Decision 3, Epic 4 (`tools/build-methodology.mjs`) replaces with build-time `git describe`. Also: `src/index.html` `<noscript>` still references `/methodology/v1.0.0/en/` (different version literal). The naming inconsistency is **out-of-scope for this story** per Decision 3 — flag for a bridge.
+
+5. **`--font-weight-regular` token addition** — required for the score-panel.css triplet rule (UX spec line 1405). Added to primitives.css and tokens snapshot regenerated. The change ripples into Epic 6/7 if more tokens are needed. Consider whether `--font-weight-medium`, `--font-weight-bold` are imminent and should land together.
+
+**Tested edge cases:**
+
+- AC-8.4: out-of-order dispatch (`handoff` before `anchor`) → Error matching `/declared order/i`. Anchored by index check `for (let j = 0; j < i; j++) if (!fired.has(O[j])) throw`.
+- AC-8.5: repeat dispatch of same stage → Error matching `/already fired/i`.
+- AC-8.6: reserved Epic-6 stage (`band`) throws RangeError — proves v1 enum tightening.
+- AC-9.10: "Not yet" click is observably a no-op — `data-reveal-stage` stays "anchor", no second reveal-stage event, no score-panel rendered. The empty `() => {}` handler IS attached + tracked in `m.ls` so unmount still detaches it correctly.
+- AC-9.12: post-unmount synthetic click on captured Show-me reference produces no score panel.
+- AC-9.13: re-render after unmount succeeds (the reveal-stage tracker is reset).
+- AC-9.14: rendered DOM contains no `[role="alert"]`, no `[data-timer]`, no `[aria-timer]` — UX-DR22 + FR5 compliance.
+- AC-9.15: result.js source has no forbidden globals, no `performance.now` (only via reveal-stage.js indirection).
+- AC-10.5: missing-declaration fixture → lint exits 1 with stderr naming both the missing property (`font-family`) and the selector (`score-panel__band`).
+- All 376 prior-story tests stay green (no regressions); budget under limit; lint 11/11 green.

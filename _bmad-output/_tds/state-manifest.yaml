@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: f781198f2364df6f6a5cd0302f929df18c35fcccb8aa15516b2bcb196a4ee229
+    sha256: 562b1299a0d90152ec6e78f32f285353d70c76f2facd240511ead2e2a980b3f4
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T20:57:26.372Z
+    recorded_at: 2026-05-19T21:14:11.473Z
     recorded_by: frontend
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 9b52f8eadeabc5479c60bef1093b08bcdc87b4f6bebddae7a3b3c52fa30b4c33
+    sha256: 4407c56ea2149def99da524f13f32e7c0e55ec2a6c1b7698ba2d9987249ee1e2
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T20:56:44.684Z
+    recorded_at: 2026-05-19T21:45:27.172Z
     recorded_by: frontend
-    story_id: 3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed
+    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -503,3 +503,82 @@ entries:
     recorded_at: 2026-05-19T20:34:47.602Z
     recorded_by: test-author
     story_id: 3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint.md
+    sha256: 8d3a4840aca30ca051b2a70740590678eacd77bfaf5a8d432cbe0ba39a828f07
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T21:45:27.207Z
+    recorded_by: frontend
+    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
+  - artefact_class: A
+    file: tests/unit/reveal-stage.test.mjs
+    sha256: 16578d90e8face4760fb5d04d1a642509d7e893c688d094bcb5882a058e1cde9
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T21:27:32.499Z
+    recorded_by: test-author
+    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
+    notes: story 3-5 red-phase tests authored via ATDD; AC-8/9/10/11
+  - artefact_class: A
+    file: tests/unit/result.test.mjs
+    sha256: b613aba9831bb98b0d95d3c17b3737b9afe24cf7682743ffad225be0ba6758c5
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T21:27:32.499Z
+    recorded_by: test-author
+    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
+    notes: story 3-5 red-phase tests authored via ATDD; AC-8/9/10/11
+  - artefact_class: A
+    file: tests/unit/lint-css-source-co-equal.test.mjs
+    sha256: a628b2d44b17a31e8ba67b9087742512b5612d9402a4850cb34f4838a18b08a5
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T21:27:32.500Z
+    recorded_by: test-author
+    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
+    notes: story 3-5 red-phase tests authored via ATDD; AC-8/9/10/11
+  - artefact_class: A
+    file: tests/contract/reveal-stage-event-contract.spec.mjs
+    sha256: 53c8d046f17afa9c3e3dbbb7801a81499d73a9338c64ce83d98639b62620ba15
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T21:27:32.500Z
+    recorded_by: test-author
+    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
+    notes: story 3-5 red-phase tests authored via ATDD; AC-8/9/10/11
+  - artefact_class: A
+    file: tests/fixtures/lint-css-source-co-equal/parity-ok.css
+    sha256: 0b24dcec2a1de3008264657fd404f8ca40a3ed4d0329011db8933cd6582fd27f
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T21:27:37.786Z
+    recorded_by: test-author
+    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
+    notes: story 3-5 test fixtures for lint-css-source-co-equal
+  - artefact_class: A
+    file: tests/fixtures/lint-css-source-co-equal/font-size-divergent.css
+    sha256: e4a6a3bb5d9ef3ef850769d76a94568b7d641c3b0dbaf9727d0966cc3810d26b
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T21:27:37.786Z
+    recorded_by: test-author
+    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
+    notes: story 3-5 test fixtures for lint-css-source-co-equal
+  - artefact_class: A
+    file: tests/fixtures/lint-css-source-co-equal/font-weight-divergent.css
+    sha256: 70c51c867808722605e8f2476f5528d9cd945efd586c85dd4f6e37674fd4772b
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T21:27:37.787Z
+    recorded_by: test-author
+    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
+    notes: story 3-5 test fixtures for lint-css-source-co-equal
+  - artefact_class: A
+    file: tests/fixtures/lint-css-source-co-equal/font-family-divergent.css
+    sha256: 08f6a909939f14e08ca6e32515faa426708573f2c20aa28b37d48fefa6756d06
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T21:27:37.787Z
+    recorded_by: test-author
+    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
+    notes: story 3-5 test fixtures for lint-css-source-co-equal
+  - artefact_class: A
+    file: tests/fixtures/lint-css-source-co-equal/missing-declaration.css
+    sha256: 920706bdf1cdcfde67dc4d82c778278517b8b38da2cb94b7b084ed68dce5a38d
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T21:27:37.787Z
+    recorded_by: test-author
+    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
+    notes: story 3-5 test fixtures for lint-css-source-co-equal

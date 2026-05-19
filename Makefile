@@ -30,6 +30,7 @@ lint: ## run all registered lints (negative assertions + budget + trust artifact
 	node tools/lint-no-external-font.mjs
 	node tools/lint-no-localStorage-without-consent.mjs
 	node tools/lint-claims-manifest.mjs
+	node tools/lint-css-source-co-equal.mjs
 	npx --yes eslint@^9.16.0 --max-warnings 0 .
 
 build: build-methodology ## alias to build-methodology + emit determinism marker (NFR17 prep)

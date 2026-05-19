@@ -7,6 +7,7 @@
 import * as landing from "./landing.js";
 import * as consent from "./consent.js";
 import * as itemRunner from "./item-runner.js";
+import * as result from "./result.js";
 import * as localeLoader from "./i18n/locale-loader.js";
 
 const ROUTES = {
@@ -14,6 +15,7 @@ const ROUTES = {
   "#/": landing,
   "#/consent": consent,
   "#/test": itemRunner,
+  "#/result": result,
 };
 
 let started = false;
@@ -21,28 +23,21 @@ let activeScene = null;
 let activeHash = null;
 let hashChangeHandler = null;
 
+const NS = {
+  landing: ["headline", "intro", "startTestButton", "methodologyLink"],
+  consent: ["headline", "measuresWhat", "validityEnvelope", "visuospatialDisclosure", "continueButton", "notToday"],
+  chrome: ["titleAppDefault", "appName", "errorFallbackMessage"],
+  result: ["scoreHeading", "prerevealHeading", "prerevealSubcopy", "showMeButton", "notYetButton", "caveat", "percentileAriaTemplate", "anchorAriaTemplate", "bandAriaTemplate", "bandTemplate", "fetchErrorMessage"],
+};
+
 function getStrings() {
-  return {
-    landing: {
-      headline: localeLoader.get("landing.headline"),
-      intro: localeLoader.get("landing.intro"),
-      startTestButton: localeLoader.get("landing.startTestButton"),
-      methodologyLink: localeLoader.get("landing.methodologyLink"),
-    },
-    consent: {
-      headline: localeLoader.get("consent.headline"),
-      measuresWhat: localeLoader.get("consent.measuresWhat"),
-      validityEnvelope: localeLoader.get("consent.validityEnvelope"),
-      visuospatialDisclosure: localeLoader.get("consent.visuospatialDisclosure"),
-      continueButton: localeLoader.get("consent.continueButton"),
-      notToday: localeLoader.get("consent.notToday"),
-    },
-    chrome: {
-      titleAppDefault: localeLoader.get("chrome.titleAppDefault"),
-      appName: localeLoader.get("chrome.appName"),
-      errorFallbackMessage: localeLoader.get("chrome.errorFallbackMessage"),
-    },
-  };
+  const out = {};
+  for (const [ns, keys] of Object.entries(NS)) {
+    const obj = {};
+    for (const k of keys) obj[k] = localeLoader.get(ns + "." + k);
+    out[ns] = obj;
+  }
+  return out;
 }
 
 function resolveScene(hash) {

@@ -1,0 +1,36 @@
+/* src/css/components/score-panel.css
+ *
+ * Story 3.5 AC-6 — score-panel: co-equal triplet typography (UX-DR3) + caveat
+ * + tear-edge slot reservation (Epic 6). Lint tools/lint-css-source-co-equal.mjs
+ * asserts triplet parity at the source (Murat tier 1).
+ */
+
+.score-panel {
+  padding: var(--space-5);
+  background-color: var(--color-surface-elevated);
+}
+
+.score-panel__caveat[role="note"] {
+  font-size: var(--font-size-100);
+  margin-block-end: var(--space-5);
+}
+
+.score-panel__triplet {
+  display: flex;
+  gap: var(--space-5);
+  align-items: baseline;
+  justify-content: center;
+}
+
+.score-panel__anchor,
+.score-panel__percentile,
+.score-panel__band {
+  font-size: var(--font-size-600);
+  font-weight: var(--font-weight-regular);
+  font-family: var(--font-family-sans);
+}
+
+/* Epic 6 tear-edge composition slot — reserved, currently unused */
+.score-panel__tear-edge {
+  display: none;
+}
