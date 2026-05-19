@@ -1,7 +1,7 @@
 ---
 id: 3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url
 title: "Story 3.1: Author the three contract ADRs (state shape, reveal-stage event, methodology-handoff URL)"
-status: review
+status: approved
 ---
 
 # Story 3.1: Author the three contract ADRs (state shape, reveal-stage event, methodology-handoff URL)
