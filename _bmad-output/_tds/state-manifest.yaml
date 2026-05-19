@@ -36,9 +36,9 @@ entries:
     notes: story-1-1 frozen failing tests
   - artefact_class: A
     file: _bmad-output/_tds/memory/lessons.yaml
-    sha256: 88af9815ae9350f3188fb474559c78b24d25bd4852e308fde51f9e9592b1b585
+    sha256: c7df0d0b86e8608673d7ef0e9e84eeb9f4c761c9a49387c051f1bd9aa6813bf2
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:41:45.730Z
+    recorded_at: 2026-05-19T13:22:51.156Z
     recorded_by: writer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners.md

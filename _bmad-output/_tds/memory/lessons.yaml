@@ -138,3 +138,59 @@ lessons:
     severity: medium
     status: active
     superseded_by: null
+  - id: lesson-2026-05-19-005
+    created_at: 2026-05-19T13:22:12.612Z
+    created_by: writer
+    story_refs: []
+    category: process
+    tags:
+      - auditor
+      - review-loop
+      - convergence
+      - retro
+      - bridge
+    summary: Auditor review-loop on info-only findings should converge after round 1; re-emit identical findings 8× rounds (4 unique × 2 replays) signals missing 'approved-with-deferred' exit
+    lesson: "Bridge-1-2 went through 8 auditor rounds; rounds 5-8 were byte-identical replays of rounds 1-4. All findings severity=info, none blocked merge. Pattern indicates auditor lacked a 'approved-with-deferred-findings' verdict path and kept re-emitting. When all unique findings are info-level and acknowledged, the next verdict should be 'approved-with-deferred' (envelope already supports it per bmad-tds-auditor SKILL.md), not another review round. Verifiable: count distinct vs total auditor findings per story spec; ratio > 1.5x signals review-loop non-convergence."
+    avoid_pattern: re-emit identical auditor findings round after round when severity=info and impl is shipped; verdict stays 'changes-requested' across multiple rounds without any new findings
+    preferred_pattern: after round 1 of all-info findings + specialist ack, auditor returns verdict='approved-with-deferred' with findings array unchanged; orchestrator merges with deferred-findings list attached to PR body
+    severity: medium
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-19-006
+    created_at: 2026-05-19T13:22:24.873Z
+    created_by: writer
+    story_refs: []
+    category: process
+    tags:
+      - bridge
+      - cross-repo
+      - bundle
+      - upstream
+      - scope
+    summary: Cross-repo CLI bridges (upstream impl + downstream bundle install) must scope 'upstream commit + release + downstream re-pin' explicitly, or downstream regresses on next bmad install
+    lesson: "Bridge-1-2-1 implemented unfreeze-tests in upstream bmad-tds-module (TypeScript) and installed the rebuilt bundle in IQ-ME (story branch). Bridge spec did not include upstream commit/push/release/re-pin as in-scope acceptance criteria. Result: upstream tree carries 8 uncommitted modifications + 2 untracked files; next 'bmad install' against upstream main would overwrite the IQ-ME bundle with an older version missing the feature, silently regressing. Verifiable: any bridge spec touching  MUST contain either (a) AC pinning upstream commit SHA + module version pin in , or (b) explicit follow-up bridge ticket for upstream commit + release + downstream re-pin."
+    avoid_pattern: bridge spec lists only downstream bundle drop; upstream commit + release + re-pin treated as 'out of scope, user handles separately'
+    preferred_pattern: bridge spec covering bundle-distributed CLI ships AC 'upstream commit SHA <sha> tagged as <version>; manifest.yaml pinned to <version>'; OR splits into bridge-Nx + bridge-Nx+1 with explicit dependency
+    severity: medium
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-19-007
+    created_during: bridge-1-2
+    created_at: 2026-05-19T13:22:51.140Z
+    created_by: writer
+    story_refs:
+      - bridge-1-2-1-add-tds-story-unfreeze
+    category: tooling
+    tags:
+      - integrity
+      - retro
+      - preflight
+      - drift
+      - ratification
+    summary: Retro that edits story specs post-epic-merge silently drifts tds integrity; future preflight gates trip until ratified — retro should self-verify before sprint-status flip
+    lesson: "Epic-1 retrospective post-edited stories/1-6 and stories/1-7 specs after their integrity was recorded; bridge-1-2 auditor round-4 confirmed 'failed=2' on those paths. Drift is non-blocking for the touching retro but trips preflight check on the very NEXT story's PR create or epic-execute. Verifiable: retro orchestrator (workflow step 5/6) should call 'tds integrity verify' before final state-commit; on failed=N>0 prompt user 'ratify retro post-edits as: tds integrity record --as=engineer --story=<retro-key> --files=... --notes=\"retro post-edit ratification\"' or document explicit defer. Generic across all retro scopes."
+    avoid_pattern: retro edits story specs (to add lessons cross-link, fix typo, etc.) without re-ratifying integrity; auditor in next-cycle preflight discovers the drift
+    preferred_pattern: retro Step 5/6 includes 'tds integrity verify' check; if failed>0 then prompt for ratification via 'tds integrity record --as=engineer --story=<retro-key> --files=...' before final sweep
+    severity: low
+    status: active
+    superseded_by: null
