@@ -8,15 +8,15 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: f1a1010c14db681f6156aef6dcc6606f5a7ff22e94842966ec8b044f9ccd040e
+    sha256: 0b8beef1c7ce34d22cdf76249d2fa39d6c7a5acdba5c6e8ef6401db72db2ae4f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T09:01:24.551Z
+    recorded_at: 2026-05-19T09:23:48.440Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: e10218dd802dfd278bd4c0c6836148998e99efd719d7cf6979ec32c485547a69
+    sha256: f9bfd8197ccc6453e4566c683ba640594edc6d9e68f96b4de9bd74a37a473de7
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T09:18:42.467Z
+    recorded_at: 2026-05-19T09:23:42.492Z
     recorded_by: engineer
     story_id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
   - artefact_class: A
@@ -87,8 +87,16 @@ entries:
     notes: story-1-4 frozen tests
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-5-commit-budgets-json-lint-cognitive-load-budget-mjs.md
-    sha256: 115c0f9b9481fea0f0dcb0eb19c95e2126ea43a825d7ea0026a9eb3e4de4db43
+    sha256: 36f0167960aa4d5e71304b0b4e482ba2ec665bb3b7b16cc08f5e36b51d9b428a
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T09:18:42.490Z
+    recorded_at: 2026-05-19T09:23:42.514Z
     recorded_by: engineer
     story_id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
+  - artefact_class: A
+    file: tests/scaffold/cognitive-load-budget.test.mjs
+    sha256: 7ff895e991d777faa15a3e8d18f3eebebf135ee49366939b7774d88b78cf43b5
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T09:21:30.203Z
+    recorded_by: test-author
+    story_id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
+    notes: story-1-5 frozen failing tests
