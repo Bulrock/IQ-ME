@@ -58,10 +58,12 @@ for (i in seq_along(smoke)) {
   )
   colnames(placeholder_data) <- paste0("Item_", seq_len(n_items))
 
-  mod <- mirt(placeholder_data, 1, itemtype = "2PL", verbose = FALSE)
-  pars <- mod2values(mod)
+  # Get parameter template WITHOUT estimating (pars="values" short-circuits the
+  # EM fit). The previous approach called mirt() to fit, then mod2values(); that
+  # fails on small item-banks (n_items=1 gives 1 DoF for 2 free params).
+  pars <- mirt(placeholder_data, 1, itemtype = "2PL", pars = "values")
 
-  # Override the model parameters with our pinned a, b values.
+  # Override the model parameters with our pinned a, b values, mark all fixed.
   for (j in seq_len(n_items)) {
     pars[pars$item == paste0("Item_", j) & pars$name == "a1", "value"] <- a_vec[j]
     pars[pars$item == paste0("Item_", j) & pars$name == "d", "value"] <- d_vec[j]
