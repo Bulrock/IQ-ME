@@ -7,7 +7,8 @@ bridges:
     outcome_required: []
     stories:
       - bridge-1-2-1-add-tds-story-unfreeze
-    status: backlog
+    status: done
+    outcome: merged in 036f1e5; tds story unfreeze-tests CLI affordance shipped
 parents:
   1-1-bootstrap-repo-skeleton-makefile: epic-1
   1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts: epic-1
@@ -20,5 +21,13 @@ parents:
   1-8-ship-deterministic-build-harness-ready-for-epic-2-s-golden-vectors: epic-1
   1-9-eslint-config-no-restricted-paths-docs-domain-map-md: epic-1
   bridge-1-2-1-add-tds-story-unfreeze: bridge-1-2
-last_updated: 2026-05-19T10:48:14.918Z
+  2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test: epic-2
+  2-2-implement-quadrature-js-likelihood-js-pure-math-primitives: epic-2
+  2-3-implement-eap-js-eap-estimation: epic-2
+  2-4-implement-se-js-standard-error-from-posterior-variance: epic-2
+  2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade: epic-2
+  2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10: epic-2
+  2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring: epic-2
+  2-7-populate-methodology_claims-json-activate-lint-claims-manifest: epic-2
+last_updated: 2026-05-19T15:39:26.284Z
 generated_by: bmad-tds-bridge-from-retros

@@ -1,0 +1,59 @@
+{
+  "version": "1.0.0",
+  "claims": [
+    {
+      "claim-id": "irt-2pl-model",
+      "engine-source": "src/scoring/irt/likelihood.js",
+      "methodology-path": "src/content/methodology/en/scoring/irt-2pl.md",
+      "value-or-formula": "P(correct | theta, a, b) = 1 / (1 + exp(-a(theta - b)))"
+    },
+    {
+      "claim-id": "eap-estimation-method",
+      "engine-source": "src/scoring/irt/eap.js",
+      "methodology-path": "src/content/methodology/en/scoring/eap.md",
+      "value-or-formula": "theta_EAP = sum_i nodes[i] * L(nodes[i] | r) * weights[i] / sum_i L(nodes[i] | r) * weights[i]"
+    },
+    {
+      "claim-id": "quadpts-61",
+      "engine-source": "src/scoring/irt/quadrature.js",
+      "methodology-path": "src/content/methodology/en/scoring/eap.md",
+      "value-or-formula": "quadpts = 61"
+    },
+    {
+      "claim-id": "theta-lim-pm-6",
+      "engine-source": "src/scoring/irt/quadrature.js",
+      "methodology-path": "src/content/methodology/en/scoring/eap.md",
+      "value-or-formula": "theta_lim = [-6, 6]"
+    },
+    {
+      "claim-id": "prior-standard-normal",
+      "engine-source": "src/scoring/irt/quadrature.js",
+      "methodology-path": "src/content/methodology/en/scoring/eap.md",
+      "value-or-formula": "weights[i] = phi(nodes[i]) / sum_j phi(nodes[j]), phi = N(0, 1) PDF"
+    },
+    {
+      "claim-id": "percentile-from-standard-normal-cdf",
+      "engine-source": "src/scoring/irt/index.js",
+      "methodology-path": "src/content/methodology/en/scoring/percentile-to-iq.md",
+      "value-or-formula": "percentile = 100 * Phi(theta), Phi = N(0, 1) CDF (Abramowitz & Stegun 7.1.26)"
+    },
+    {
+      "claim-id": "iq-scale-mean-100-sd-15",
+      "engine-source": "src/scoring/irt/index.js",
+      "methodology-path": "src/content/methodology/en/scoring/percentile-to-iq.md",
+      "value-or-formula": "iqScale = round(100 + 15 * theta)"
+    },
+    {
+      "claim-id": "se-total-rss",
+      "engine-source": "src/scoring/irt/se.js",
+      "methodology-path": "src/content/methodology/en/scoring/uncertainty.md",
+      "value-or-formula": "SE_total = sqrt(SEM^2 + SE_norming^2)"
+    },
+    {
+      "claim-id": "golden-vector-parity-0001-logits",
+      "engine-source": "src/scoring/irt/index.js",
+      "methodology-path": "src/content/methodology/en/scoring/golden-vectors.md",
+      "value-or-formula": "|theta_js - theta_r_mirt| <= 0.001 over >=1000 patterns, R 4.4.x + mirt 1.41.x + set.seed(20260514)"
+    }
+  ]
+}

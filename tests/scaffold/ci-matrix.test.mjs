@@ -61,6 +61,8 @@ const EPIC_1_ACTIVE = new Set([
   "lint-cognitive-load-budget",
   // network-trace becomes active in Story 1.7.
   "network-trace",
+  // golden-vector-parity activated in Story 2.6b (full-set parity test).
+  "golden-vector-parity",
 ]);
 
 function loadPrChecks() {

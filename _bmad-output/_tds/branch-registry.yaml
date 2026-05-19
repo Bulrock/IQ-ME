@@ -143,3 +143,102 @@ branches:
     last_synced_at: 2026-05-19T11:25:18.186Z
     notes: ""
     created_at: 2026-05-19T10:53:43.809Z
+  - branch: epic/2
+    story_id: null
+    epic_id: epic-2
+    base_branch: main
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-19T14:05:35.721Z
+  - branch: story/2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test
+    story_id: 2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test
+    epic_id: null
+    base_branch: epic/2
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T14:15:37.519Z
+    notes: ""
+    created_at: 2026-05-19T14:06:38.630Z
+  - branch: story/2-2-implement-quadrature-js-likelihood-js-pure-math-primitives
+    story_id: 2-2-implement-quadrature-js-likelihood-js-pure-math-primitives
+    epic_id: null
+    base_branch: epic/2
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T14:21:27.111Z
+    notes: ""
+    created_at: 2026-05-19T14:18:29.381Z
+  - branch: story/2-3-implement-eap-js-eap-estimation
+    story_id: 2-3-implement-eap-js-eap-estimation
+    epic_id: null
+    base_branch: epic/2
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T14:37:49.341Z
+    notes: ""
+    created_at: 2026-05-19T14:31:47.566Z
+  - branch: story/2-4-implement-se-js-standard-error-from-posterior-variance
+    story_id: 2-4-implement-se-js-standard-error-from-posterior-variance
+    epic_id: null
+    base_branch: epic/2
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T14:42:35.524Z
+    notes: ""
+    created_at: 2026-05-19T14:40:06.923Z
+  - branch: story/2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
+    story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
+    epic_id: null
+    base_branch: epic/2
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T14:54:31.238Z
+    notes: ""
+    created_at: 2026-05-19T14:44:35.062Z
+  - branch: story/2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
+    story_id: 2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
+    epic_id: null
+    base_branch: epic/2
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T15:02:10.142Z
+    notes: ""
+    created_at: 2026-05-19T14:57:18.218Z
+  - branch: story/2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
+    story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
+    epic_id: null
+    base_branch: epic/2
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T15:11:10.657Z
+    notes: ""
+    created_at: 2026-05-19T15:03:56.775Z
+  - branch: story/2-7-populate-methodology_claims-json-activate-lint-claims-manifest
+    story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
+    epic_id: null
+    base_branch: epic/2
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T15:18:05.035Z
+    notes: ""
+    created_at: 2026-05-19T15:13:03.889Z

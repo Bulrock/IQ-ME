@@ -1,0 +1,81 @@
+name: golden-regen
+
+# Stories 2.6a + 2.6b — R-in-CI parity audit harness.
+#
+# Modes:
+#   smoke  — n=6 patterns (tests/golden/vectors-smoke.json); fast.
+#   full   — n≥1000 patterns (tests/golden/vectors.json); slow.
+#
+# Triggers:
+#   workflow_dispatch (manual UI run) with `mode` input
+#   pull_request labeled with `regen-goldens` (always runs smoke mode)
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Audit mode (smoke | full)'
+        required: true
+        default: 'smoke'
+        type: choice
+        options:
+          - smoke
+          - full
+  pull_request:
+    types: [labeled]
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' && github.event.label.name == 'regen-goldens')
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ github.event.inputs.mode == 'full' && 30 || 15 }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup R 4.4.x
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.4'
+
+      - name: Install mirt 1.41.x (cached)
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            mirt@1.41
+            jsonlite
+          cache-version: r-4.4-mirt-1.41
+
+      - name: Determine mode
+        id: mode
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "mode=smoke" >> "$GITHUB_OUTPUT"
+          else
+            echo "mode=${{ github.event.inputs.mode }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Regenerate R output (${{ steps.mode.outputs.mode }})
+        run: Rscript tests/golden/regenerate.R --${{ steps.mode.outputs.mode }}
+
+      - name: Run parity audit (${{ steps.mode.outputs.mode }})
+        run: node tests/golden/parity-audit.mjs --${{ steps.mode.outputs.mode }}
+
+      - name: Upload R output artifact (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r-output-${{ steps.mode.outputs.mode }}
+          path: tests/golden/r-output-${{ steps.mode.outputs.mode }}.json
+          if-no-files-found: warn

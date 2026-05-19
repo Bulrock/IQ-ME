@@ -1,0 +1,57 @@
+[
+  {
+    "responses": [1, 1, 1],
+    "itemParameters": [
+      { "a": 1.0, "b": 0.0 },
+      { "a": 1.0, "b": 0.0 },
+      { "a": 1.0, "b": 0.0 }
+    ],
+    "expectedTheta": 0.922944,
+    "expectedSE": 0.800375
+  },
+  {
+    "responses": [0, 0, 0],
+    "itemParameters": [
+      { "a": 1.0, "b": 0.0 },
+      { "a": 1.0, "b": 0.0 },
+      { "a": 1.0, "b": 0.0 }
+    ],
+    "expectedTheta": -0.922944,
+    "expectedSE": 0.800375
+  },
+  {
+    "responses": [1],
+    "itemParameters": [
+      { "a": 1.0, "b": 0.0 }
+    ],
+    "expectedTheta": 0.413242,
+    "expectedSE": 0.910621
+  },
+  {
+    "responses": [0],
+    "itemParameters": [
+      { "a": 1.0, "b": 0.0 }
+    ],
+    "expectedTheta": -0.413242,
+    "expectedSE": 0.910621
+  },
+  {
+    "responses": [1, 1, 0, 0],
+    "itemParameters": [
+      { "a": 1.0, "b": -1.0 },
+      { "a": 1.0, "b": -0.5 },
+      { "a": 1.0, "b": 0.5 },
+      { "a": 1.0, "b": 1.0 }
+    ],
+    "expectedTheta": 0.0,
+    "expectedSE": 0.746226
+  },
+  {
+    "responses": [1],
+    "itemParameters": [
+      { "a": 2.5, "b": 2.0 }
+    ],
+    "expectedTheta": 1.617902,
+    "expectedSE": 0.725399
+  }
+]
