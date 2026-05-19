@@ -14,11 +14,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: ce3f8b605811fdc1e918a3a33f96fb83636e08ce8cc2d3570e7e68fc73baa615
+    sha256: 9c83d72fa7325f331e0c171dc284a5c07a1b182a60a7e2088ee2d0eae55d148c
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:06:17.284Z
-    recorded_by: auditor
-    story_id: 1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1
+    recorded_at: 2026-05-19T10:15:21.231Z
+    recorded_by: engineer
+    story_id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: fbf3924b00f73153538b321016f62daac1f2a2099e57156790c044b016e6f24b
@@ -102,19 +102,18 @@ entries:
     notes: story-1-5 frozen failing tests
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
-    sha256: 4263aa7b3e32b2e3c25cc42c8e3aff027cd137706ec4ef24c45bffdd21377b92
+    sha256: d8caf1ec18cda260c16eaf21829b9c79b65db088fc8b4dcbb0e87b1fd2c4227d
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:06:17.203Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T10:15:21.255Z
+    recorded_by: engineer
     story_id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: 67500c46f1f1648412951285a8bf4a8b30e9666ddc8fa490e44e33d9559231bc
+    sha256: a2df4be7495a999053d9b795bd11f9b194306321c60e773afe25ecb6f4499b4b
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T09:27:08.900Z
-    recorded_by: test-author
-    story_id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
-    notes: story-1-6 frozen failing tests
+    recorded_at: 2026-05-19T10:13:15.644Z
+    recorded_by: engineer
+    notes: "post-impl edit by story-1-7 specialist: added network-trace to EPIC_1_ACTIVE (per auditor finding round-1, ratification of cross-story frozen-test edit)"
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: a9bb6d72aa3e9fed7ea49b8c83dffffcb085c0a9fbe80b8144d14aa893ccac1f
