@@ -293,3 +293,15 @@ This is the **first implementation story of Epic 3** — Story 3.1 authored the 
 - `getState()` snapshot is deep-frozen (top-level + nested mutation attempts all throw).
 - Schema-helper negative-validates: bad-seed-pattern, bad-locale, missing-required, additional-property, negative-currentItem, bad-response-enum.
 - `resetState` returns module to empty-init shape.
+
+## Auditor Findings (round-1)
+
+### [blocker] `tds integrity verify --as=auditor` returns exit=26 with 3 failed entries. One is in-scope to epic-3:
+`tests/scaffold/story-3-1-marker.test.mjs` is registered (recorded_by=test-author, story 3-1, sha256 b1da14...) but actual sha256 is `<missing>` — file does not exist on disk. The file was authored by story 3-1 as a state-machine defense-in-depth marker (3-1 Specialist Self-Review §Areas of uncertainty #1) AND deleted by story 3-2 Task 5.1 ("Story 3.2 deletes that marker"). However the registry cleanup (`tds integrity remove --path=tests/scaffold/story-3-1-marker.test.mjs --as=engineer` or equivalent) was never performed. Per Decision Tree A3/A4 — missing/drifted integrity record on in-scope changeset = blocker. The deletion is intentional and documented; the gap is a state-manifest book-keeping miss that `tds deliver` pre-merge validation will (correctly) refuse.
+
+
+- **Category:** integrity / registry drift
+- **Suggested fix:** Recommended: remove the stale registry entry for `tests/scaffold/story-3-1-marker.test.mjs` (single-line edit in `_bmad-output/_tds/state-manifest.yaml` under the `integrity:` array, OR use the official CLI if a remove subcommand exists — quick check with `tds integrity --help`). Re-run `tds integrity verify --as=auditor` to confirm `failed=2` (the remaining two are pre-existing epic-2 / external bridge entries, out of scope for epic-3). Attribute the registry cleanup to story 3-2 since 3-2 is the author of the deletion. Commit through `tds state-commit -m "chore(3-2): drop stale integrity record for deleted story-3-1 marker"`.
+
+- **Suggested bridge:** `"Add an integrity-registry sweep step to execute-story or to test-author-phase-completion that removes records for files no longer present on disk, OR a CI gate that calls `tds integrity verify` and surfaces failures earlier (currently only surfaced at `tds deliver` time which is far too late in the workflow)."
+`
