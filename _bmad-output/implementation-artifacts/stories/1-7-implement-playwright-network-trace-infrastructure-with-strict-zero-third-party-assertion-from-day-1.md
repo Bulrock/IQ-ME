@@ -186,3 +186,4 @@ Rationale: a green `integrity verify` is the merge precondition the TDS contract
 - **Suggested bridge:** `Bridge candidate for epic-1 retro: introduce `tds story unfreeze-tests --story=<id>` CLI (currently missing per memory `feedback_tds_state_machine_quirks.md`). The Edit + manual re-register pattern is friction-hostile and the lack of CLI affordance is what made specialists silently drift integrity during 1-7 impl. Time-box: 1 day.
 `
 - **Resolved:** `manual`
+- **Bridged to:** `bridge-1-2-1-add-tds-story-unfreeze`

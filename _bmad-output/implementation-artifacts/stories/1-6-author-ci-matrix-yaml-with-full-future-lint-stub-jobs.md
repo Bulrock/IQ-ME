@@ -247,3 +247,4 @@ Reason for re-record vs revert: the edit is semantically correct — `network-tr
 - **Suggested bridge:** `Same bridge as the 1-7 finding: `tds story unfreeze-tests` CLI to make cross-story / post-impl test contract evolution legible. Currently the only path is Edit + manual re-register, and the manual step gets skipped — exactly the failure mode observed here.
 `
 - **Resolved:** `manual`
+- **Bridged to:** `bridge-1-2-1-add-tds-story-unfreeze`

@@ -14,11 +14,10 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 274771f9afb1ca91eed2a25b045584da4e5639a7b7d9e467b553e901bc1d6013
+    sha256: 7b2c5bf1b14624bc308b45da70a2bbc80a20cf67bc6bb000f1fee24c075fdb5b
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:43:08.002Z
+    recorded_at: 2026-05-19T10:48:14.906Z
     recorded_by: engineer
-    story_id: epic-1-retrospective
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -191,7 +190,7 @@ entries:
     notes: story-1-10 frozen failing tests
   - artefact_class: A
     file: _bmad-output/_tds/sprint-status-extension.yaml
-    sha256: 8f152c451846b36b8ae34493f869a83e5b261a9fd3e94320ebb0fcd314c74919
+    sha256: 091f762a6acf515cf6682ae1ed7ec078e0ae6a30f9e59a5b969202dec000901f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:06:11.011Z
-    recorded_by: setup
+    recorded_at: 2026-05-19T10:48:14.927Z
+    recorded_by: engineer

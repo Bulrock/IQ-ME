@@ -31,7 +31,7 @@
 
 ```yaml
 proposed_at: 2026-05-19
-type: tooling
+type: tech-debt
 candidates:
   - title: Add `tds story unfreeze-tests --story=<id>` CLI affordance
     justification: |
@@ -70,3 +70,5 @@ candidates:
 - Integrity manifest: [_bmad-output/_tds/state-manifest.yaml](../../_tds/state-manifest.yaml)
 - Branch registry: [_bmad-output/_tds/branch-registry.yaml](../../_tds/branch-registry.yaml)
 - Epic merge commit: 941d466 (PR #1, squash → main)
+
+## Applied to bridge: bridge-1-2 @ 2026-05-19T10:48:14.938Z

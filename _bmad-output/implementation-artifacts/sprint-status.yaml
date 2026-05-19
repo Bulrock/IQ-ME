@@ -54,6 +54,10 @@ development_status:
   1-9-eslint-config-no-restricted-paths-docs-domain-map-md: done
   1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts: done
   epic-1-retrospective: done
+
+  # Bridge 1→2: 1 story from 1 retro
+  bridge-1-2: backlog
+  bridge-1-2-1-add-tds-story-unfreeze: backlog # Add `tds story unfreeze-tests --story=<id>` CLI affordance
   epic-2: backlog
   2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test: backlog
   2-2-implement-quadrature-js-likelihood-js-pure-math-primitives: backlog
