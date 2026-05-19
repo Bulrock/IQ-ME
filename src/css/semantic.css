@@ -1,0 +1,64 @@
+/* src/css/semantic.css
+ *
+ * Story 1.10 — UX-DR1 two-layer architecture, semantic layer. Maps role-named
+ * tokens (e.g. --color-text-body) to primitives. This is the contract
+ * components consume; components NEVER reference primitives directly.
+ *
+ * UX-DR6 — dark mode is a separately-designed palette (not auto-inverted).
+ * Declared via BOTH [data-theme="dark"] (explicit opt-in) AND
+ * @media (prefers-color-scheme: dark) :root:not([data-theme="light"]) (system pref).
+ */
+
+:root {
+  /* Text colors */
+  --color-text-body:           var(--color-neutral-900);
+  --color-text-muted:          var(--color-neutral-600);
+  --color-text-link:           var(--color-accent-500);
+  --color-text-link-hover:     var(--color-accent-300);
+  --color-text-link-active:    var(--color-accent-700);
+  --color-text-link-disabled:  var(--color-neutral-400);
+  --color-text-attention-body: var(--color-attention-700);
+
+  /* Surfaces */
+  --color-surface-base:        var(--color-neutral-0);
+  --color-surface-elevated:    var(--color-neutral-50);
+  --color-surface-attention:   var(--color-attention-300);
+
+  /* Rules / dividers */
+  --color-rule-divider:        var(--color-neutral-200);
+  --color-rule-strong:         var(--color-neutral-400);
+
+  /* Focus ring */
+  --color-focus-ring:          var(--color-accent-500);
+
+  /* Semantic spacing tokens */
+  --space-prose-paragraph-gap: var(--space-4);
+  --space-section-gap:         var(--space-7);
+  --space-page-padding-y:      var(--space-8);
+  --space-masthead-to-lede:    var(--space-5);
+  --space-score-triplet-gap:   var(--space-5);
+  --space-tail-scene-top:      var(--space-6);
+  --space-trail-step-gap:      var(--space-3);
+}
+
+/* ─── UX-DR6 — Dark mode (explicit opt-in) ───────────────────────────── */
+[data-theme="dark"] {
+  --color-text-body:        var(--color-neutral-100);
+  --color-text-muted:       var(--color-neutral-400);
+  --color-surface-base:     var(--color-neutral-900);
+  --color-surface-elevated: var(--color-neutral-800);
+  --color-rule-divider:     var(--color-neutral-700);
+  --color-text-link:        var(--color-accent-300);
+}
+
+/* ─── UX-DR6 — Dark mode (system pref, when no explicit light opt-out) ─── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-text-body:        var(--color-neutral-100);
+    --color-text-muted:       var(--color-neutral-400);
+    --color-surface-base:     var(--color-neutral-900);
+    --color-surface-elevated: var(--color-neutral-800);
+    --color-rule-divider:     var(--color-neutral-700);
+    --color-text-link:        var(--color-accent-300);
+  }
+}

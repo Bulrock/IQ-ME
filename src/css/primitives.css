@@ -1,0 +1,85 @@
+/* src/css/primitives.css
+ *
+ * Story 1.10 — UX-DR1 two-layer architecture, primitives layer. Pure values;
+ * no semantic meaning. Components NEVER reference primitives directly; they
+ * reference semantic tokens in semantic.css.
+ *
+ * Values match the UX spec's pinned palette / scales (v1 starting palette).
+ */
+
+:root {
+  /* ─── UX-DR2 — Color primitives ──────────────────────────────────── */
+
+  /* Cool neutral scale (scientific-instrument register; 12 steps) */
+  --color-neutral-0:    #ffffff;
+  --color-neutral-50:   #f6f7f8;
+  --color-neutral-100:  #ecedef;
+  --color-neutral-200:  #d6d9dc;
+  --color-neutral-300:  #b3b8be;
+  --color-neutral-400:  #8a929c;
+  --color-neutral-500:  #6a7280;
+  --color-neutral-600:  #50575f;
+  --color-neutral-700:  #383d44;
+  --color-neutral-800:  #232830;
+  --color-neutral-900:  #131820;
+  --color-neutral-1000: #0a0d12;
+
+  /* Accent (muted deep ink-blue; interactive affordance ONLY) */
+  --color-accent-300:   #6d84a8;
+  --color-accent-500:   #2f4a78;
+  --color-accent-700:   #1e2e4a;
+
+  /* Attention (muted amber; honest cue, NOT alarm) */
+  --color-attention-300: #d6b06c;
+  --color-attention-500: #a87925;
+  --color-attention-700: #6e4c10;
+
+  /* ─── UX-DR3 — Type scale (Major Third ratio, anchored at 16px body) ─── */
+  --font-size-100: 0.8rem;     /* 12.8px — citations, fine print */
+  --font-size-200: 1rem;       /* 16px — body, default */
+  --font-size-300: 1.25rem;    /* 20px — h6, lede, methodology-page lede */
+  --font-size-400: 1.5625rem;  /* 25px — h5, qualitative band label */
+  --font-size-500: 1.953rem;   /* 31.25px — h4 */
+  --font-size-600: 2.441rem;   /* 39px — h3, score-anchor triplet */
+  --font-size-700: 3.052rem;   /* 49px — h2, methodology masthead title */
+  --font-size-800: 3.815rem;   /* 61px — h1, landing-page hero (sparingly) */
+
+  /* ─── UX-DR3 — Font families (system stack only; NFR21/NFR33) ──── */
+  --font-family-sans:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI Variable Text",
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    system-ui,
+    sans-serif;
+  --font-family-mono:
+    ui-monospace,
+    "SF Mono",
+    Menlo,
+    Consolas,
+    "Liberation Mono",
+    monospace;
+
+  /* ─── UX-DR3 — Line heights ──────────────────────────────────────── */
+  --line-height-tight: 1.15;   /* score triplet, large headings */
+  --line-height-base:  1.5;    /* body */
+  --line-height-prose: 1.65;   /* methodology corpus long-form */
+
+  /* ─── UX-DR4 — Spacing scale (8px base) ──────────────────────────── */
+  --space-1: 0.25rem;  /* 4px — within-component micro-gap */
+  --space-2: 0.5rem;   /* 8px — within-component standard gap */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px — between-paragraph, between-radio */
+  --space-5: 1.5rem;   /* 24px — between-section minor */
+  --space-6: 2rem;     /* 32px — between-section */
+  --space-7: 3rem;     /* 48px — between-section major */
+  --space-8: 4rem;     /* 64px — page padding top/bottom mobile */
+  --space-9: 6rem;     /* 96px — page padding desktop, hero margins */
+}
+
+/* ─── UX-DR5 — Responsive breakpoints (@custom-media) ──────────────── */
+@custom-media --bp-tablet  (min-width: 600px);
+@custom-media --bp-desktop (min-width: 1024px);
