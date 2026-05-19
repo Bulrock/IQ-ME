@@ -1,7 +1,7 @@
 ---
 id: 3-2-implement-state-js-contract-test
 title: "Story 3.2: Implement state.js + contract test"
-status: ready-for-dev
+status: review
 ---
 
 # Story 3.2: Implement state.js + contract test
@@ -76,51 +76,51 @@ This is the **first implementation story of Epic 3** — Story 3.1 authored the 
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Implement `src/assessment/state.js` (AC-1, AC-2, AC-7)**
-  - [ ] 1.1 Create `src/assessment/state.js` with module-scope private state matching schema shape.
-  - [ ] 1.2 Implement `getState()` returning a deep-frozen snapshot.
-  - [ ] 1.3 Implement `resetState()` returning module to initial-empty shape.
-  - [ ] 1.4 Implement `setSeed(seed)` with `^[0-9a-f]{32}$` validation; throw `TypeError` on shape miss.
-  - [ ] 1.5 Implement `setLocale(locale)` with enum guard; throw `RangeError` on miss.
-  - [ ] 1.6 Implement `setItem(itemIndex)` with integer ≥ 0 guard.
-  - [ ] 1.7 Implement `recordResponse(itemIndex, response)` with overwrite-in-place semantics and `0|1` enum guard.
-  - [ ] 1.8 Confirm only named exports (no default, no `module.exports`, no globals).
-  - [ ] 1.9 Confirm zero forbidden patterns in shipped code: `grep -E '(Math\.random|console\.(log|info|debug)|eval\(|new Function|window\.iqme)' src/assessment/state.js` returns no matches.
-  - [ ] 1.10 Confirm LF / UTF-8 / no BOM: `file src/assessment/state.js` shows ASCII or UTF-8; `xxd src/assessment/state.js | tail -1` shows trailing `0a`.
+- [x] **Task 1: Implement `src/assessment/state.js` (AC-1, AC-2, AC-7)**
+  - [x] 1.1 Create `src/assessment/state.js` with module-scope private state matching schema shape.
+  - [x] 1.2 Implement `getState()` returning a deep-frozen snapshot.
+  - [x] 1.3 Implement `resetState()` returning module to initial-empty shape.
+  - [x] 1.4 Implement `setSeed(seed)` with `^[0-9a-f]{32}$` validation; throw `TypeError` on shape miss.
+  - [x] 1.5 Implement `setLocale(locale)` with enum guard; throw `RangeError` on miss.
+  - [x] 1.6 Implement `setItem(itemIndex)` with integer ≥ 0 guard.
+  - [x] 1.7 Implement `recordResponse(itemIndex, response)` with overwrite-in-place semantics and `0|1` enum guard.
+  - [x] 1.8 Confirm only named exports (no default, no `module.exports`, no globals).
+  - [x] 1.9 Confirm zero forbidden patterns in shipped code: `grep -E '(Math\.random|console\.(log|info|debug)|eval\(|new Function|window\.iqme)' src/assessment/state.js` returns no matches.
+  - [x] 1.10 Confirm LF / UTF-8 / no BOM: `file src/assessment/state.js` shows ASCII or UTF-8; `xxd src/assessment/state.js | tail -1` shows trailing `0a`.
 
-- [ ] **Task 2: Implement schema-check helper (AC-3)**
-  - [ ] 2.1 Create `tests/contract/_state-schema-check.mjs` (underscore-prefixed; not a spec file).
-  - [ ] 2.2 Implement a focused validator covering only the schema keywords used by `state.schema.json`: `type` (with object/array/integer/string), `required`, `additionalProperties: false`, `enum`, `pattern`, `minimum`, `items`.
-  - [ ] 2.3 Top-of-file comment documents: "Subset JSON-Schema validator scoped to `state.schema.json` v1. Not a general-purpose validator. See Story 3.2 Dev Notes Decision #1 for rationale."
-  - [ ] 2.4 Export a single `validateState(state, schema)` function returning `{ valid: boolean, errors: string[] }`.
+- [x] **Task 2: Implement schema-check helper (AC-3)**
+  - [x] 2.1 Create `tests/contract/_state-schema-check.mjs` (underscore-prefixed; not a spec file).
+  - [x] 2.2 Implement a focused validator covering only the schema keywords used by `state.schema.json`: `type` (with object/array/integer/string), `required`, `additionalProperties: false`, `enum`, `pattern`, `minimum`, `items`.
+  - [x] 2.3 Top-of-file comment documents: "Subset JSON-Schema validator scoped to `state.schema.json` v1. Not a general-purpose validator. See Story 3.2 Dev Notes Decision #1 for rationale."
+  - [x] 2.4 Export a single `validateState(state, schema)` function returning `{ valid: boolean, errors: string[] }`.
 
-- [ ] **Task 3: Implement `tests/contract/state-shape.spec.mjs` (AC-3, AC-4, AC-6)**
-  - [ ] 3.1 Create the spec file using `node:test` + `node:assert/strict` (matching `tokens.spec.mjs` precedent).
-  - [ ] 3.2 Install `globalThis.localStorage` + `globalThis.sessionStorage` stubs at top of file; track `setItem` call counts.
-  - [ ] 3.3 `test('state.js init shape')` — fresh import → schema-valid init state.
-  - [ ] 3.4 `test('setSeed accepts 32-char hex; rejects non-hex')` — positive + negative branches.
-  - [ ] 3.5 `test('setLocale accepts en|ru|pl; rejects others')`.
-  - [ ] 3.6 `test('setItem accepts non-negative integers; rejects negatives + non-integers')`.
-  - [ ] 3.7 `test('full 16-item lifecycle yields schema-valid final state')` — drives init → seed → 16 × (setItem + recordResponse) → schema validation passes; localStorage/sessionStorage stubs were never invoked.
-  - [ ] 3.8 `test('recordResponse overwrites existing entry')` — revision case from epic narrative line 1039.
-  - [ ] 3.9 `test('schema rejects malformed states')` — feeds 3–4 deliberately invalid shapes to the validator and asserts `valid === false` with a non-empty `errors` array.
+- [x] **Task 3: Implement `tests/contract/state-shape.spec.mjs` (AC-3, AC-4, AC-6)**
+  - [x] 3.1 Create the spec file using `node:test` + `node:assert/strict` (matching `tokens.spec.mjs` precedent).
+  - [x] 3.2 Install `globalThis.localStorage` + `globalThis.sessionStorage` stubs at top of file; track `setItem` call counts.
+  - [x] 3.3 `test('state.js init shape')` — fresh import → schema-valid init state.
+  - [x] 3.4 `test('setSeed accepts 32-char hex; rejects non-hex')` — positive + negative branches.
+  - [x] 3.5 `test('setLocale accepts en|ru|pl; rejects others')`.
+  - [x] 3.6 `test('setItem accepts non-negative integers; rejects negatives + non-integers')`.
+  - [x] 3.7 `test('full 16-item lifecycle yields schema-valid final state')` — drives init → seed → 16 × (setItem + recordResponse) → schema validation passes; localStorage/sessionStorage stubs were never invoked.
+  - [x] 3.8 `test('recordResponse overwrites existing entry')` — revision case from epic narrative line 1039.
+  - [x] 3.9 `test('schema rejects malformed states')` — feeds 3–4 deliberately invalid shapes to the validator and asserts `valid === false` with a non-empty `errors` array.
 
-- [ ] **Task 4: Flip `state-shape-contract` job in `pr-checks.yml` (AC-5)**
-  - [ ] 4.1 Remove `if: false` from the `state-shape-contract` job.
-  - [ ] 4.2 Replace stub `run: echo "stub — Activates in Epic 3 (Story 3.1)"` with real steps: `actions/checkout@v4`, `actions/setup-node@v4` (pin matching minor with rest of workflow), `node --test tests/contract/state-shape.spec.mjs`.
-  - [ ] 4.3 Confirm `name: state-shape-contract` stays unchanged so branch-protection required-check identifier is stable.
-  - [ ] 4.4 Validate workflow YAML parses (`node -e "require('js-yaml')..."` not vendored; instead use Python: `python3 -c "import yaml; yaml.safe_load(open('.github/workflows/pr-checks.yml'))"` — exits 0).
+- [x] **Task 4: Flip `state-shape-contract` job in `pr-checks.yml` (AC-5)**
+  - [x] 4.1 Remove `if: false` from the `state-shape-contract` job.
+  - [x] 4.2 Replace stub `run: echo "stub — Activates in Epic 3 (Story 3.1)"` with real steps: `actions/checkout@v4`, `actions/setup-node@v4` (pin matching minor with rest of workflow), `node --test tests/contract/state-shape.spec.mjs`.
+  - [x] 4.3 Confirm `name: state-shape-contract` stays unchanged so branch-protection required-check identifier is stable.
+  - [x] 4.4 Validate workflow YAML parses (`node -e "require('js-yaml')..."` not vendored; instead use Python: `python3 -c "import yaml; yaml.safe_load(open('.github/workflows/pr-checks.yml'))"` — exits 0).
 
-- [ ] **Task 5: Remove Story 3.1 marker, verify test count delta (AC-6)**
-  - [ ] 5.1 Delete `tests/scaffold/story-3-1-marker.test.mjs`.
-  - [ ] 5.2 Run `make test` — baseline was `pass=297 todo=1` end-of-3.1; after this story, expect `pass=297+N todo=0` where N is the spec block count.
-  - [ ] 5.3 Confirm no existing `pass` test regressed (the 297 baseline holds).
+- [x] **Task 5: Remove Story 3.1 marker, verify test count delta (AC-6)**
+  - [x] 5.1 Delete `tests/scaffold/story-3-1-marker.test.mjs`.
+  - [x] 5.2 Run `make test` — baseline was `pass=297 todo=1` end-of-3.1; after this story, expect `pass=297+N todo=0` where N is the spec block count.
+  - [x] 5.3 Confirm no existing `pass` test regressed (the 297 baseline holds).
 
-- [ ] **Task 6: Verify lint + integrity (AC-6, AC-7)**
-  - [ ] 6.1 Run `make lint` — exit 0; output unchanged from end-of-3.1 baseline modulo `state-shape.spec.mjs` being newly indexed by `lint-no-share` / `lint-no-role-alert` (those globs include `tests/**`; should pass since the spec uses neither).
-  - [ ] 6.2 Confirm `grep -E '(Math\.random|console\.(log|info|debug)|eval\(|new Function|window\.iqme|localStorage|sessionStorage)' src/assessment/state.js` returns no matches (the shipped module is storage-free; the spec installs stubs only).
-  - [ ] 6.3 Confirm no remote `$ref` is introduced anywhere (`grep '\$ref' src/assessment/state.schema.json tests/contract/state-shape.spec.mjs tests/contract/_state-schema-check.mjs` returns no remote URLs).
-  - [ ] 6.4 Confirm all new files have LF / UTF-8 / no BOM / trailing newline.
+- [x] **Task 6: Verify lint + integrity (AC-6, AC-7)**
+  - [x] 6.1 Run `make lint` — exit 0; output unchanged from end-of-3.1 baseline modulo `state-shape.spec.mjs` being newly indexed by `lint-no-share` / `lint-no-role-alert` (those globs include `tests/**`; should pass since the spec uses neither).
+  - [x] 6.2 Confirm `grep -E '(Math\.random|console\.(log|info|debug)|eval\(|new Function|window\.iqme|localStorage|sessionStorage)' src/assessment/state.js` returns no matches (the shipped module is storage-free; the spec installs stubs only).
+  - [x] 6.3 Confirm no remote `$ref` is introduced anywhere (`grep '\$ref' src/assessment/state.schema.json tests/contract/state-shape.spec.mjs tests/contract/_state-schema-check.mjs` returns no remote URLs).
+  - [x] 6.4 Confirm all new files have LF / UTF-8 / no BOM / trailing newline.
 
 ## Dev Notes
 
@@ -234,4 +234,62 @@ This is the **first implementation story of Epic 3** — Story 3.1 authored the 
 
 ### Completion Notes List
 
+- state.js module + 15-test contract spec shipped; schema-check helper avoids vendoring ajv (Decision 1); make test 312 pass / 0 fail; make lint exit 0 (claim-manifest WARNs unchanged); state-shape-contract CI job flipped to active; Story 3.1 marker removed
+
 ### File List
+
+- src/assessment/state.js
+- tests/contract/state-shape.spec.mjs
+- tests/contract/_state-schema-check.mjs
+- .github/workflows/pr-checks.yml
+
+## Specialist Self-Review
+
+**Decisions made:**
+
+1. **In-test schema validator (`tests/contract/_state-schema-check.mjs`) instead of vendored `ajv`.** The repo has no `package.json` / `node_modules` and no `vendor/` for JS dev-deps at end-of-Epic-2. Vendoring `ajv` (~50KB + supply-chain audit) for one schema with seven keyword types is over-investment relative to the FR41 zero-third-party discipline. The helper is scope-limited (covers exactly `type|required|additionalProperties|enum|pattern|minimum|items`) and documented at the top of the file as not general-purpose. Forward path: Epics 4/5 revisit vendoring if more schemas land.
+
+2. **Lazy `startedAt` init via `touchStartedAt()` guard.** Schema requires `startedAt ≥ 0` (integer); empty-init state needs to be schema-valid. Setting `startedAt: 0` at module load keeps the schema happy without pinning a fake wall-clock. The first call to any mutator bumps it to `Date.now()`. This avoids both "pin a fake timestamp at module load" and "schema-invalid until first mutator" pitfalls. `Date.now()` here is correct per Story 3.1 ADR (`startedAt` is serialization-timestamp; `t:` in event payload uses `performance.now()` — distinct sources by design).
+
+3. **Deep-freeze via depth-first walk through snapshot.** `getState()` returns a fresh snapshot (not a reference to module state) and `Object.freeze`s it recursively (walks each response entry too). This is the only way to make "callers cannot mutate via the returned reference" enforceable at runtime — shallow freeze would still let callers `state.responses.push(...)` and silently break the invariant. Tests verify this with 3 mutation attempts (top-level field, array push, nested entry field) each expected to throw.
+
+**Alternatives considered:**
+
+1. **Vendor `ajv` as a single bundled file** — rejected per Decision 1 above. Reconsider when ≥3 schemas exist.
+
+2. **Use `JSON.parse` round-trip for snapshot immutability** instead of deep-freeze — rejected: round-trip via JSON drops object identity but allows callers to mutate the result silently. `Object.freeze` produces noisy `TypeError` on mutation attempts, which is the loud-failure mode the contract wants.
+
+3. **Implement `setSeed` as accepting `Uint8Array(16)` directly** — rejected: epic narrative and schema both speak in hex strings. Hex is the canonical wire form for the seed; the producer (Story 3.4 `crypto.getRandomValues`) is responsible for converting bytes to hex before calling `setSeed`. Keeps the storage module storage-shape-pure.
+
+4. **Linear scan O(16) for `recordResponse` revision** — accepted (vs maintaining an `itemIndex → arrayIndex` map). 16 entries means linear scan is faster than the map overhead; map would add complexity without benefit.
+
+**Framework gotchas avoided:**
+
+1. **`Object.freeze` shallowness.** `Object.freeze({...state, responses: [...state.responses]})` would freeze the new top-level but still allow `state.responses[0].response = 999`. The `deepFreeze` helper walks every level. Verified by test "getState() returns a deep-frozen snapshot".
+
+2. **`response: 0` vs `response: false` confusion.** Schema enum is `[0, 1]` integers. Tests assert `0|1` accepted and `false|true|"0"` rejected — JS coercion would otherwise let `false === 0` pass silently. The guard uses strict `!==` comparison (`response !== 0 && response !== 1`).
+
+3. **Module-scope state leak across tests.** `node:test` runs all tests in declaration order in one process; module-scope mutations persist. The spec uses `beforeEach(() => { resetState(); })` so each test starts from a known fresh state. Otherwise the third test would see leftovers from the second.
+
+4. **Storage stub timing.** Stubs MUST be installed in `globalThis` BEFORE `import` of `state.js`. The spec uses dynamic `await import(...)` after the stub installs to guarantee ordering — even though `state.js` doesn't reference storage globals, this is defense-in-depth: a future maintainer who accidentally adds `localStorage.getItem(...)` to `state.js` will trip the stub immediately rather than hit `ReferenceError` in Node.
+
+**Areas of uncertainty:**
+
+1. **`Date.now()` in `touchStartedAt()` — eslint posture.** Architecture line 912 enforcement list forbids `Date.now` in shipped code. Story 3.1's ADR clarifies that `startedAt` is a serialization timestamp that legitimately uses `Date.now()` (distinct from `performance.now()` in event payloads). When eslint is wired strictly (Story 1.9 baseline; current state assumed lax for this rule), an inline `// eslint-disable-next-line no-restricted-syntax` may be needed at the `state.startedAt = Date.now()` line. Currently not added — defer to first eslint dispatch that flags it; this is a one-line additive change. Documented here so auditor / future maintainer doesn't view the omission as oversight.
+
+2. **Test count delta.** Story 3.1 baseline was `pass=297 todo=1`. After this story: `pass=312 todo=0`. Delta: +15 pass, -1 todo. The 15 new tests are the spec block count; the -1 is the deleted marker. Net `tests` count +14 (298 → 312). All 297 existing tests remain passing — verified by full `make test` exit=0 without regressions.
+
+3. **`if: false` removal in `pr-checks.yml`.** The flip is straightforward (remove conditional, add real steps). YAML parsed cleanly via ruamel.yaml. CI dispatch outcome is the validation — first PR off this branch will exercise the job for real. Per lesson-2026-05-19-009 (deferred-validation hotfix pattern), this is the predicted hotfix-risk area. Mitigation: the `make test` invocation locally is equivalent to what CI runs (`node --test tests/contract/state-shape.spec.mjs`), so a green local run is high-confidence green CI run modulo runner-environment quirks.
+
+**Tested edge cases:**
+
+- Init shape validates against schema (positive case).
+- `setSeed` rejects: uppercase hex, wrong-length (31, 33), non-string types, `null`.
+- `setLocale` rejects: outside-enum (`"de"`), case-variant (`"EN"`), empty string, `null`.
+- `setItem` rejects: negative, float, string, `null`.
+- `recordResponse` rejects: response ∉ {0,1}, negative itemIndex, float itemIndex, string itemIndex.
+- Full 16-item lifecycle: schema-valid final state, zero localStorage/sessionStorage writes (counted via stubs).
+- Revision overwrites in place (length unchanged after revising existing entry).
+- `getState()` snapshot is deep-frozen (top-level + nested mutation attempts all throw).
+- Schema-helper negative-validates: bad-seed-pattern, bad-locale, missing-required, additional-property, negative-currentItem, bad-response-enum.
+- `resetState` returns module to empty-init shape.

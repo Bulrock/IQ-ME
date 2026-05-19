@@ -183,10 +183,12 @@ jobs:
   state-shape-contract:
     name: state-shape-contract
     runs-on: ubuntu-latest
-    # Activates in Epic 3
-    if: false
     steps:
-      - run: echo "stub — Activates in Epic 3 (Story 3.1)"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node --test tests/contract/state-shape.spec.mjs
 
   lint-frontmatter:
     name: lint-frontmatter
