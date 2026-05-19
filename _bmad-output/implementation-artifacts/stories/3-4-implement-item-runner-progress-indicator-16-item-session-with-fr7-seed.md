@@ -1,7 +1,7 @@
 ---
 id: 3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed
 title: "Story 3.4: Implement item-runner + progress-indicator (16-item session with FR7 seed)"
-status: approved
+status: done
 ---
 
 # Story 3.4: Implement item-runner + progress-indicator (16-item session with FR7 seed)

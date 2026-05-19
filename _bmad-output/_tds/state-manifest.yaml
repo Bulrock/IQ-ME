@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 16be59f1676056032ca7975c62b9fd48d2b78af6f540ba7bc048547a925f57e0
+    sha256: 4db347a0df0b70e50adcd1249fc89749e00740d694a6cc17b2cd441ce6fbba64
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:57:24.218Z
+    recorded_at: 2026-05-19T23:03:48.366Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 6aa42821f4a4b08d32ac8df8451e1fe65cc209c21d3a021b67512e0bdcb408a4
+    sha256: e6b15462cefaa466bac22ffc26f391663e587676d289e73fce5daccaa375c645
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:03:30.707Z
-    recorded_by: auditor
-    story_id: epic-3
+    recorded_at: 2026-05-19T23:09:02.650Z
+    recorded_by: engineer
+    story_id: 3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -377,10 +377,10 @@ entries:
     story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url.md
-    sha256: 4e8068e8930cf6093799aad59560cfffebf931dd250366ad3a80fa7f9b2bc6d7
+    sha256: 6e4f0dbf019c1e7bf500dea1096f407ce90f2b3dcdee5df9e3a82a4d2c3eb298
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:03:29.888Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T23:09:01.050Z
+    recorded_by: engineer
     story_id: 3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url
   - artefact_class: A
     file: tests/scaffold/story-3-1-marker.test.mjs
@@ -392,10 +392,10 @@ entries:
     notes: story-3-1 procedural marker (AC-6 doc-only story; state-machine defense-in-depth gate)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-2-implement-state-js-contract-test.md
-    sha256: 29386e97ca077cf27ce157bdb32d08af9a44022164d73b4eba29e72c5ed43fbd
+    sha256: 4ecf8609917c90221ae821513e935c7a2321dc9b79c4d8cfd40492cffe58b811
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:03:29.993Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T23:09:01.264Z
+    recorded_by: engineer
     story_id: 3-2-implement-state-js-contract-test
   - artefact_class: A
     file: tests/contract/state-shape.spec.mjs
@@ -415,10 +415,10 @@ entries:
     notes: story-3-2 frozen failing tests
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-3-implement-landing-consent-scene-en.md
-    sha256: bd5ef11a03c01704cef74242a0d30523b63a9b5e29999b25c8abb430c36a4802
+    sha256: e87ce08db00f708292d10b3fb64dee315dc3ae7ecf9db4137aba1ffe61819acd
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:03:30.095Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T23:09:01.484Z
+    recorded_by: engineer
     story_id: 3-3-implement-landing-consent-scene-en
   - artefact_class: A
     file: tests/unit/main.test.mjs
@@ -470,10 +470,10 @@ entries:
     notes: "test-author phase: failing red tests for story 3-3 landing+consent"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed.md
-    sha256: 87ccb4f5de68b141e9ebd72558e29167d86c1ca2d626e5389aab4d76374f9a67
+    sha256: 1ba7396c8e1be0c127c0652e84d20263242086aed3b2b5718b62695597dde5bf
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:03:30.195Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T23:09:01.707Z
+    recorded_by: engineer
     story_id: 3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed
   - artefact_class: A
     file: tests/unit/item-prng.test.mjs
@@ -505,10 +505,10 @@ entries:
     story_id: 3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint.md
-    sha256: 1ea8f4337e3cbefd993a6f5b462d84c94104a93e430697b3013bf08f3b46c9df
+    sha256: 60736229f7deb6482e1bd09cbb6313d41c9bc39a4d02511f64480c95dcbbbc1b
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:03:30.294Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T23:09:01.954Z
+    recorded_by: engineer
     story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
   - artefact_class: A
     file: tests/unit/reveal-stage.test.mjs
@@ -584,10 +584,10 @@ entries:
     notes: story 3-5 test fixtures for lint-css-source-co-equal
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-6-author-3-en-methodology-stub-pages-the-click-targets.md
-    sha256: acb4e3c227ea26c72c4a3af63f5778d3fd2a37c4de2d4f95183b324af82339c0
+    sha256: ac447b385bdf09ef7f4bc48e17f99ac638f5c2511dc13c17c0d63b03698d1c63
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:03:30.396Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T23:09:02.222Z
+    recorded_by: engineer
     story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
   - artefact_class: A
     file: tests/unit/build-methodology.test.mjs
@@ -607,10 +607,10 @@ entries:
     notes: "Round-1 rework: refactored to per-test mkdtempSync + IQME_BUILD_METHODOLOGY_OUT env to eliminate race with tests/unit/dev-server.test.mjs over shared dist/. 5/5 parallel races pass; full suite 438/438."
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice.md
-    sha256: ee89bfa021d231810d0ffdf15a5519f8101fe73b33f1e2120c42b3024e1ac3d7
+    sha256: a3346633f70cf90bf0194ba5f940cabf2935921c259181a3214442759857ad65
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:03:30.497Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T23:09:02.449Z
+    recorded_by: engineer
     story_id: 3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice
   - artefact_class: A
     file: tests/unit/dev-server.test.mjs
@@ -638,10 +638,10 @@ entries:
     notes: "Story 3-7 test-author phase: 7 unit tests for tools/dev-server.mjs programmatic API + 7 unit tests for src/assessment/test-hook.js gate + delegation surface + 1 Playwright full-slice spec driving the live SPA via window.__IQME_TEST__"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording.md
-    sha256: 465281500798680479384124e7b89457dc8eb2999c621bcc0f5d937af1eb09bd
+    sha256: d09f7b200633cd4b0a451f84b799f9169564ae879d26215e4929907ff4afe0e9
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:03:30.618Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T23:09:02.681Z
+    recorded_by: engineer
     story_id: 3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording
   - artefact_class: A
     file: tests/scaffold/story-3-8-evidence-scaffold.test.mjs

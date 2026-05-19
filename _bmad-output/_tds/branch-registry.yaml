@@ -247,10 +247,10 @@ branches:
     epic_id: epic-3
     base_branch: main
     created_by: tds-branch-start
-    status: active
+    status: merged
     pr_url: null
     pr_number: null
-    last_synced_at: null
+    last_synced_at: 2026-05-19T23:03:48.337Z
     notes: ""
     created_at: 2026-05-19T16:47:18.593Z
   - branch: story/3-1-contract-adrs

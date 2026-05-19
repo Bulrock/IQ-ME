@@ -1,7 +1,7 @@
 ---
 id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
 title: "Story 3.5: Implement reveal-stage event + score-panel + CSS-source co-equal triplet lint"
-status: approved
+status: done
 ---
 
 # Story 3.5: Implement reveal-stage event + score-panel + CSS-source co-equal triplet lint

@@ -1,7 +1,7 @@
 ---
 id: 3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording
 title: "Story 3.8: Aha-click hallway test — 3-5 outside-team comprehension recording"
-status: approved
+status: done
 ---
 
 # Story 3.8: Aha-click hallway test — 3-5 outside-team comprehension recording

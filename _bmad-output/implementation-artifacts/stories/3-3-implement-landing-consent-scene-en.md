@@ -1,7 +1,7 @@
 ---
 id: 3-3-implement-landing-consent-scene-en
 title: "Story 3.3: Implement landing + consent-scene (EN)"
-status: approved
+status: done
 ---
 
 # Story 3.3: Implement landing + consent-scene (EN)
