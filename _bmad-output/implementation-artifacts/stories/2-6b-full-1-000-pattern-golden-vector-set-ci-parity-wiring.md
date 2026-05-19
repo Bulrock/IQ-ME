@@ -301,3 +301,26 @@ Modified:
 - `tests/golden/README.md` (full-set section + invocation docs)
 - `tests/golden/CHANGELOG.md` (v2.0 + v2.1-placeholder entries)
 - `tests/scaffold/ci-matrix.test.mjs` (EPIC_1_ACTIVE += golden-vector-parity; ratified via unfreeze)
+
+## Auditor Findings (round-1)
+
+### [info] Full-set (1000-entry) parity claim is self-circular until first
+`golden-regen --mode=full` dispatch. `tests/golden/vectors.json` is
+JS-engine-generated via `tools/generate-full-vectors.mjs` (Mulberry32,
+seed 20260514); `parity-full.test.mjs` passes by construction in 21ms.
+PR-check `golden-vector-parity` job is activated and guards against
+JS-engine regressions, but does NOT validate against R mirt. SHA256 of
+`vectors.json` (a8b2653a...) is recorded in CHANGELOG v2.0 for
+third-party reproducibility. v2.1 entry is placeholder pending first
+R-side dispatch outcome.
+
+
+- **Category:** deferred-validation
+- **Suggested bridge:** `Post-merge follow-up paired with the 2-6a smoke-set dispatch: same R
+runner can also exercise `--mode=full` (30-min job timeout already in
+workflow). Update CHANGELOG v2.1 entry with measured drifts. If
+Large-Divergence: bridge story to investigate quadrature method choice
+(linear-grid + φ-weights vs true Gauss-Hermite roots+weights). The
+full-set is the load-bearing audit since the smoke set is too small to
+surface systematic methodology drift.
+`
