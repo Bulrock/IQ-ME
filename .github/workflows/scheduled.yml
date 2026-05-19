@@ -1,0 +1,28 @@
+name: Scheduled Checks
+
+# Activates in Epic 8.
+#
+# Purpose: continuous mirror parity + archival health verification.
+#   - Compare GH Pages primary vs Cloudflare Pages mirror — byte-identical
+#     artifact assertion (NFR17). If divergent → open labeled GitHub Issue
+#     (label: "mirror-divergence") routed to CODEOWNERS for maintainer
+#     attention. Failure to address within 7 days = mirror-failover trigger.
+#   - Probe Zenodo DOI resolves + Internet Archive snapshot reachability.
+#     Failure routes to a labeled GitHub Issue (label: "archival-health")
+#     rather than paging — outlast-the-maintainer property (NFR35) means
+#     archival drift is recorded for posterity, not silently fixed.
+#
+# Failure → labeled GitHub Issue routing replaces traditional Slack/PagerDuty
+# alerting (NFR8 — zero IP-based logging; NFR35 — no host-account-binding
+# runtime dependencies).
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # daily at 06:00 UTC
+
+jobs:
+  scheduled-check:
+    name: scheduled-check
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Activates in Epic 8"

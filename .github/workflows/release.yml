@@ -1,0 +1,28 @@
+name: Release
+
+# Activates in Epic 8.
+#
+# Orchestration plan (decoupled tag namespaces):
+#   - app-v*    — triggers SPA + scoring engine release (e.g. app-v1.0.0).
+#                 Builds dist/spa/, mints DOI for app, publishes to GitHub Pages
+#                 primary + Cloudflare Pages mirror; byte-identical artifact
+#                 verification per NFR17.
+#   - corpus-v* — triggers methodology corpus re-emit (e.g. corpus-v1.0.0).
+#                 Builds dist/methodology/, mints separate DOI for corpus,
+#                 archives to Zenodo + Internet Archive + Software Heritage.
+#
+# Mirror cutover: both namespaces emit to GH Pages + Cloudflare Pages; mirror
+# parity is verified by the scheduled workflow (see scheduled.yml).
+
+on:
+  push:
+    tags:
+      - "app-v*"
+      - "corpus-v*"
+
+jobs:
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Activates in Epic 8"

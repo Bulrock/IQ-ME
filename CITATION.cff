@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you cite IQ-ME, please use the metadata below. The DOI field is empty at v0.0.1 and is populated by the Epic 8 release.yml workflow at the first per-corpus-release tag."
+title: "IQ-ME — auditable, public, no-signup matrix-reasoning self-assessment"
+abstract: "A runtime-zero-build vanilla-JS web app that delivers a short (16-item, ~12-minute) ICAR-derived matrix-reasoning self-assessment with auditable IRT scoring, a validity-envelope methodology corpus, and zero telemetry. Designed for the skeptic, the Wikipedia editor, and the over-anxious lay test-taker. See README.md for the no-telemetry / no-signup / source-on-GitHub posture."
+authors:
+  - name: "IQ-ME maintainers"
+    affiliation: "(unaffiliated)"
+version: 0.0.1
+date-released: "2026-05-18"
+license: MIT
+license-url: "https://github.com/Bulrock/IQ-ME/blob/main/LICENSES.md"
+repository-code: "https://github.com/Bulrock/IQ-ME"
+url: "https://github.com/Bulrock/IQ-ME"
+type: software
+keywords:
+  - psychometrics
+  - IRT
+  - item-response-theory
+  - matrix-reasoning
+  - ICAR
+  - self-assessment
+  - auditable
+  - zero-telemetry
+doi: ""

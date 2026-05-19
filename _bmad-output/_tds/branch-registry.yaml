@@ -1,2 +1,123 @@
 schema_version: "1.0"
-branches: []
+branches:
+  - branch: epic/1
+    story_id: null
+    epic_id: epic-1
+    base_branch: main
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-18T20:42:53.443Z
+  - branch: story/1-1-bootstrap-repo-skeleton-makefile
+    story_id: 1-1-bootstrap-repo-skeleton-makefile
+    epic_id: null
+    base_branch: epic/1
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-18T21:17:01.749Z
+    notes: ""
+    created_at: 2026-05-18T21:05:56.449Z
+  - branch: story/1-2-trust-artifacts
+    story_id: 1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners
+    epic_id: null
+    base_branch: epic/1
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T07:35:17.360Z
+    notes: ""
+    created_at: 2026-05-18T21:20:43.004Z
+  - branch: story/1-3-icar-slot
+    story_id: 1-3-commit-icar-confirmation-pdf-slot-with-visible-fallback-copy
+    epic_id: null
+    base_branch: epic/1
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T08:09:21.366Z
+    notes: ""
+    created_at: 2026-05-19T07:36:13.873Z
+  - branch: story/1-4-corpus-schema
+    story_id: 1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md
+    epic_id: null
+    base_branch: epic/1
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T09:01:24.534Z
+    notes: ""
+    created_at: 2026-05-19T08:10:09.656Z
+  - branch: story/1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
+    story_id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
+    epic_id: null
+    base_branch: epic/1
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T09:23:48.425Z
+    notes: ""
+    created_at: 2026-05-19T09:19:51.108Z
+  - branch: story/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
+    story_id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
+    epic_id: null
+    base_branch: epic/1
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T09:31:34.204Z
+    notes: ""
+    created_at: 2026-05-19T09:25:52.694Z
+  - branch: story/1-7-network-trace
+    story_id: 1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1
+    epic_id: null
+    base_branch: epic/1
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T09:38:14.501Z
+    notes: ""
+    created_at: 2026-05-19T09:33:05.931Z
+  - branch: story/1-8-determinism
+    story_id: 1-8-ship-deterministic-build-harness-ready-for-epic-2-s-golden-vectors
+    epic_id: null
+    base_branch: epic/1
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T09:41:59.328Z
+    notes: ""
+    created_at: 2026-05-19T09:39:21.453Z
+  - branch: story/1-9-eslint
+    story_id: 1-9-eslint-config-no-restricted-paths-docs-domain-map-md
+    epic_id: null
+    base_branch: epic/1
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T09:46:18.526Z
+    notes: ""
+    created_at: 2026-05-19T09:43:13.649Z
+  - branch: story/1-10-design-system
+    story_id: 1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts
+    epic_id: null
+    base_branch: epic/1
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T09:51:35.895Z
+    notes: ""
+    created_at: 2026-05-19T09:47:44.803Z

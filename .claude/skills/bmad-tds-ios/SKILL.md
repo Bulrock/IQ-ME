@@ -129,10 +129,22 @@ Proceed to «Process» section ниже. После завершения — exe
 - **Path B — legacy TDD path** (status was past ready-for-dev when execute-story invoked → Step 4a skipped via status-gate): specialist пишет тесты himself per Red-Green-Refactor below. Это natural fallback для resumed stories, rework cycles, и projects pre-TEA-integration era.
 
 4. **Execute** — TDD cycle:
-   - Red: XCTest unit tests (ViewModelTests, ServiceTests). UI tests если applicable. xcodebuild test → red.
+   - Red: failing tests — Swift Testing (greenfield, requires Swift 6.2+: `@Test`, `#expect`, `#require`, structs (NOT `XCTestCase` subclass)) или XCTest (existing project — match convention). UI tests если applicable. Test invocation depends on project layout:
+     - **SwiftPM package (Package.swift):** `swift test` (или `swift test --filter SuiteName.testName`). No required args.
+     - **Xcode project / workspace:** `xcodebuild test` **обязательно требует** `-scheme <SchemeName>` AND `-destination 'platform=iOS Simulator,name=iPhone 15'` (или подобное) AND `-project <name>.xcodeproj` ИЛИ `-workspace <name>.xcworkspace`. Bare `xcodebuild test` без этих flags даёт cryptic «Unable to find a destination matching the provided destination specifier» / «no schemes». Запоминай scheme + simulator name из проекта на Step 2 (Read state).
+     - **Common stumble (live-observed):** agent выполняет `xcodebuild test` без args, получает «error: The project named XYZ does not contain a scheme» и зацикливается. Всегда передавай scheme + destination explicit.
+     - **Coverage:** add `-enableCodeCoverage YES` + `-resultBundlePath ./TestResults`. После `xcrun xccov view --report TestResults.xcresult`.
    - Green: minimal impl. Swift 6 strict concurrency: explicit `Sendable` / `@MainActor` / Actor. SwiftUI: @Observable (iOS 17+) preferred over ObservableObject.
    - Refactor: extract если duplication; verify SwiftLint clean.
    - `tds integrity record` per file.
+
+   **Swift Testing common LLM mistakes (verified via https://github.com/twostraws/swift-testing-agent-skill — Swift 6.2+):**
+   - НЕ inherit `XCTestCase` — Swift Testing uses plain `struct` с `@Test func ...`. Setup — `init()`, teardown — `deinit`.
+   - НЕ force-unwrap (`!`) в тестах — используй `try #require(optional)` для safe unwrap.
+   - НЕ `#expect(!boolean)` — defeats macro expansion. Используй `#expect(boolean == false)`.
+   - НЕ defaulting к XCTest patterns by reflex когда story говорит swift-testing.
+   - `.serialized` only когда tests реально share mutable state (default — parallel).
+   - `.timeLimit(.minutes(1))` — units literal, не Duration. `.minutes(1)`, не `.seconds(60)`.
 
 5. **Verify** — `xcodebuild test`, SwiftLint, snapshot tests if UI. **Compose `/tmp/self-review-<story>.md`:** включает (Decisions made / Alternatives considered / Framework gotchas avoided — weak/strong reference cycles, MainActor / async-context boundaries, `@StateObject` vs `@ObservedObject`, App Lifecycle hooks, etc. / Areas of uncertainty / Tested edge cases) **plus** explicit clean-code review pass per `references/20-clean-code-review-checklist.md` (load only когда story changes Swift production code или tests; skip для docs-only / asset-only stories). Checklist's six categories (naming / function shape / side effects / error handling / state ownership / tests) emit findings classified: critical (hard — block flip к review), warning (advisory), suggestion (advisory), positive (explicit good-choice notes). Append findings к `Clean-code review pass` section в self-review file. Atomic finalize: `tds story update --as=ios --story=<id> --status=review --task-complete="..." --completion-note="..." --file-list-add=<path> --self-review-from=/tmp/self-review-<story>.md`. Output summary с App Store implications если applicable (privacy disclosure, entitlements changes). **⚠️ Anti-pattern:** не делай `--completion-note="See /tmp/self-review-<X>.md"` без `--self-review-from=` в той же команде — tmp file ephemeral, reference dies, auditor flags `missing-self-review-evidence` каждый round. `--self-review-from=` materialises content в `## Specialist Self-Review` spec section.
 
@@ -218,7 +230,9 @@ Process:
     Lessons applied: explicit Task cancellation в .task modifier; Keychain SecAccessControl proper.
   [Execute TDD]
     Red: LoginViewModelTests — 4 scenarios (valid login, invalid password, network error, token stored). Mock AuthService.
-         xcodebuild test → 4 fail.
+         Swift Testing structs (project на Swift 6.2 + Xcode project, не SwiftPM):
+         xcodebuild test -scheme MyAppTests -destination 'platform=iOS Simulator,name=iPhone 15' -project MyApp.xcodeproj
+         → 4 fail.
     Green: LoginViewModel.swift:
               @MainActor @Observable
               final class LoginViewModel {

@@ -14,9 +14,10 @@
 | `efcore.md`         | Change tracking, migrations, query plan diagnostics    | deferred (overlap с `../30-ef-core-operational-patterns.md`) |
 | `blazor.md`         | Server vs WebAssembly, render modes, state containers  | deferred |
 | `mediatr.md`        | Command/query separation, pipeline behaviours          | deferred |
-| `xunit.md`          | Theory data, fixtures, async test patterns             | deferred |
+| `xunit.md`          | Theory data, fixtures, async test patterns             | deferred (existing-project case; greenfield default → TUnit) |
 | `serilog.md`        | Structured logging, sinks, correlation                 | deferred |
 | **`opentelemetry.md`** | ActivitySource registration, ResourceBuilder, kill-switch symmetry, deterministic Activity tests, W3C traceparent | **landed (v6.5.0 PR-6)** |
+| **`tunit.md`**         | Greenfield default test framework: MTP mode opt-in via global.json, `dotnet test --project` flag-based syntax (.NET 10), `[Test]`/`[Arguments]`/`[Before(Test)]` patterns, parallel-by-default, FluentAssertions interop | **landed (v6.6.8)** |
 
 ## Why deferred
 

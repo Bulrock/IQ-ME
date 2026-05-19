@@ -1,0 +1,44 @@
+{
+  "scoring-irt-lines": {
+    "domain": "src/scoring/irt/**/*.js",
+    "metric": "lines",
+    "limit": 250,
+    "rationale": "NFR32 — scoring engine cognitive-load cap (~250 LOC). Solo-dev must be able to mind the whole auditable scoring engine end-to-end."
+  },
+  "css-components-lines": {
+    "domain": "src/css/components/**/*.css",
+    "metric": "lines",
+    "limit": 1500,
+    "rationale": "NFR32 — total CSS body across components (~1500 LOC). Beyond this, design-system complexity exceeds solo-dev review budget."
+  },
+  "app-modules-bytes": {
+    "domain": "src/assessment/**/*.js",
+    "metric": "bytes",
+    "limit": 30720,
+    "rationale": "NFR32 — assessment SPA modules budget (~30 KB raw). Aligned with NFR21 vanilla-ES2022 + NFR33 zero-runtime-dep posture."
+  },
+  "i18n-harness-bytes": {
+    "domain": "src/assessment/i18n/**/*.js",
+    "metric": "bytes",
+    "limit": 15360,
+    "rationale": "NFR32 — i18n harness footprint (~15 KB raw). Locale loader is a runtime harness in Domain A; budget kept tight per NFR33."
+  },
+  "methodology-pages-en": {
+    "domain": "src/content/methodology/en/**/*.md",
+    "metric": "files",
+    "limit": 30,
+    "rationale": "NFR32 — EN methodology corpus page count (~30/locale). Larger corpora drift outside per-corpus-release review capacity."
+  },
+  "methodology-pages-ru": {
+    "domain": "src/content/methodology/ru/**/*.md",
+    "metric": "files",
+    "limit": 30,
+    "rationale": "NFR32 — RU methodology corpus page count (~30/locale). Mirrors EN budget; activates when Epic 7 lands RU content."
+  },
+  "methodology-pages-pl": {
+    "domain": "src/content/methodology/pl/**/*.md",
+    "metric": "files",
+    "limit": 30,
+    "rationale": "NFR32 — PL methodology corpus page count (~30/locale). Mirrors EN budget; activates when Epic 7 lands PL content."
+  }
+}

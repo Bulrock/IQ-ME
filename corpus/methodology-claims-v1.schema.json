@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Bulrock/IQ-ME/corpus/methodology-claims-v1.schema.json",
+  "title": "METHODOLOGY_CLAIMS.json contract, v1",
+  "description": "Cross-references engine-side numeric claims (eap.js, quadrature.js, etc.) with methodology-corpus pages that document them. The lint-claims-manifest.mjs script (Story 4.3) asserts every engine-side claim has a corresponding methodology page that `asserts:` it, and vice-versa (NFR23, FR43).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "claims"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Schema/contract version. v1 = this file."
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim-id", "engine-source", "methodology-path", "value-or-formula"],
+        "properties": {
+          "claim-id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "engine-source": { "type": "string", "pattern": "^src/scoring/.+\\.js$" },
+          "methodology-path": { "type": "string", "pattern": "^src/content/methodology/[a-z]{2}/.+\\.md$" },
+          "value-or-formula": { "type": "string", "minLength": 1 },
+          "since-corpus-version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim-id", "engine-source", "methodology-path", "value-or-formula"],
+      "properties": {
+        "claim-id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "Stable kebab-case identifier (e.g. `eap-shrinkage`, `quadrature-bounds`, `posterior-variance-floor`)."
+        },
+        "engine-source": {
+          "type": "string",
+          "pattern": "^src/scoring/.+\\.js$",
+          "description": "Path to the JS file implementing the claim (e.g. `src/scoring/irt/eap.js`)."
+        },
+        "methodology-path": {
+          "type": "string",
+          "pattern": "^src/content/methodology/[a-z]{2}/.+\\.md$",
+          "description": "Path to the methodology page that declares the matching `asserts:` entry in its frontmatter."
+        },
+        "value-or-formula": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Either a numeric literal (e.g. `1.6`) or a textual formula reference (e.g. `theta_lim = 4.0`) that the methodology page must restate verbatim or with a permitted paraphrase."
+        },
+        "since-corpus-version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "description": "Optional. First corpus release containing this claim."
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # Forbidden-quadrant matrix — source of truth для L2 enforcement
 # Cross-ref: tds-design.md §4.5 + §11; ADR-0012 (test-author + test-edit-frozen extension, TI-1)
-# Schema: 12 ролей × 11 операций = 132 ячеек
+# Schema: 12 ролей × 12 операций = 144 ячеек (archive-cleanup added — ARCH-04)
 # Source location в installed projects: _bmad/tds/shared/forbidden-quadrant.matrix.yaml (Class I read-only)
 #
 # Notation values:
@@ -59,6 +59,8 @@ operations:
     description: "tds integrity record/verify/accept/recover."
   - id: archive-ops
     description: "tds archive create/list/show/verify (phase finalization)."
+  - id: archive-cleanup
+    description: "tds archive cleanup --phase=<name> (destructive removal of source story files after verify-gated sha-match — ARCH-04). engineer-only by design; writer's archive-ops grants summary-generation, NOT source rm."
   - id: memory-ops
     description: "tds memory add/list/show/query/supersede/tag."
   - id: install-ops
@@ -68,7 +70,8 @@ operations:
   - id: test-edit-frozen
     description: "Modify test files когда story в tests-approved (frozen) state. Permitted only к test-author; specialists must use `tds story unfreeze-tests` to gain temporary access. (ADR-0012, TI-1)"
 
-# Matrix: 12 строк × 11 столбцов. Порядок столбцов — соответствует operations[] выше.
+# Matrix: 12 строк × 12 столбцов = 144 ячеек.
+# Порядок столбцов — соответствует operations[] выше.
 matrix:
   navigator:
     orient: allow
@@ -78,6 +81,7 @@ matrix:
     state-set: deny
     integrity-ops: allow            # verify only, not record
     archive-ops: deny
+    archive-cleanup: deny
     memory-ops: read-only
     install-ops: deny
     key-ops: deny
@@ -91,6 +95,7 @@ matrix:
     state-set: allow
     integrity-ops: allow
     archive-ops: allow              # для technical snapshot операций при archive
+    archive-cleanup: allow          # ARCH-04: engineer-only destructive cleanup post-verify
     memory-ops: read-only           # auto-injection lessons в Step 2 каждой story
     install-ops: deny
     key-ops: deny
@@ -104,6 +109,7 @@ matrix:
     state-set: deny
     integrity-ops: allow
     archive-ops: deny
+    archive-cleanup: deny
     memory-ops: allow               # главный writer уроков на retro
     install-ops: deny
     key-ops: deny
@@ -117,6 +123,7 @@ matrix:
     state-set: deny
     integrity-ops: allow
     archive-ops: allow              # для phase-summary.md generation
+    archive-cleanup: deny           # ARCH-04: writer пишет summary, НЕ удаляет source files
     memory-ops: allow               # formulates lesson-text from auditor candidates
     install-ops: deny
     key-ops: deny
@@ -139,6 +146,7 @@ matrix:
     state-set: deny
     integrity-ops: allow
     archive-ops: deny
+    archive-cleanup: deny
     memory-ops: read-only
     install-ops: deny
     key-ops: deny
@@ -152,6 +160,7 @@ matrix:
     state-set: deny
     integrity-ops: allow
     archive-ops: deny
+    archive-cleanup: deny
     memory-ops: read-only
     install-ops: deny
     key-ops: deny
@@ -165,6 +174,7 @@ matrix:
     state-set: deny
     integrity-ops: allow
     archive-ops: deny
+    archive-cleanup: deny
     memory-ops: read-only
     install-ops: deny
     key-ops: deny
@@ -178,6 +188,7 @@ matrix:
     state-set: deny
     integrity-ops: allow
     archive-ops: deny
+    archive-cleanup: deny
     memory-ops: read-only
     install-ops: deny
     key-ops: deny
@@ -191,6 +202,7 @@ matrix:
     state-set: deny
     integrity-ops: allow
     archive-ops: deny
+    archive-cleanup: deny
     memory-ops: read-only
     install-ops: deny
     key-ops: deny
@@ -204,6 +216,7 @@ matrix:
     state-set: deny
     integrity-ops: allow
     archive-ops: deny
+    archive-cleanup: deny
     memory-ops: read-only
     install-ops: deny
     key-ops: deny
@@ -227,6 +240,7 @@ matrix:
     state-set: allow-conditional    # only tests-* state values
     integrity-ops: allow            # record per test file
     archive-ops: deny
+    archive-cleanup: deny
     memory-ops: read-only
     install-ops: deny
     key-ops: deny
@@ -240,6 +254,7 @@ matrix:
     state-set: deny
     integrity-ops: deny
     archive-ops: deny
+    archive-cleanup: deny
     memory-ops: deny  # P0-S5 fail-closed (panel-#2 fix)
     install-ops: deny
     key-ops: deny

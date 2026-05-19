@@ -34,11 +34,6 @@
       "Bash(/Users/maksim/git/IQ-ME/_bmad/tds/bin/tds)",
       "Bash(python3 /Users/maksim/git/IQ-ME/_bmad/scripts/resolve_customization.py *)"
     ],
-    "ask": [
-      "Edit(_bmad-output/implementation-artifacts/sprint-status.yaml)",
-      "Write(_bmad-output/implementation-artifacts/sprint-status.yaml)",
-      "Edit(_bmad/bmm/sprint-status.yaml)",
-      "Write(_bmad/bmm/sprint-status.yaml)"
-    ]
+    "ask": []
   }
 }

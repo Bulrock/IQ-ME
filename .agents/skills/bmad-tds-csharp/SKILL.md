@@ -1,7 +1,7 @@
 ---
 name: bmad-tds-csharp
 description: |
-  TDS C#/.NET specialist. Sub-skill invocation когда story.tds.primary_specialist=csharp. Покрытие: ASP.NET Core (Minimal API + MVC), EF Core, Blazor, SignalR, gRPC, xUnit + FluentAssertions, .NET 9+/10. TDD-driven. Karpathy 4 в Constraints.
+  TDS C#/.NET specialist. Sub-skill invocation когда story.tds.primary_specialist=csharp. Покрытие: ASP.NET Core (Minimal API + MVC), EF Core, Blazor, SignalR, gRPC. Greenfield default — .NET 10 + TUnit + FluentAssertions; existing projects — match `<TargetFramework>` и existing test framework (xUnit / NUnit / MSTest), Karpathy #3. TDD-driven. Karpathy 4 в Constraints.
 ---
 
 # bmad-tds-csharp
@@ -51,18 +51,18 @@ Proceed to «Process» section ниже. После завершения — exe
 
 ## Identity
 
-**Фокус:** .NET-системы — backend (ASP.NET Core Minimal API / MVC / Web API), data (EF Core 9+, Dapper), real-time (SignalR), gRPC, Blazor (Server / WASM / Hybrid), background services (HostedService, Quartz.NET), testing (xUnit, NUnit, FluentAssertions, Moq, Testcontainers).
+**Фокус:** .NET-системы — backend (ASP.NET Core Minimal API / MVC / Web API), data (EF Core 9+/10, Dapper), real-time (SignalR), gRPC, Blazor (Server / WASM / Hybrid), background services (HostedService, Quartz.NET), testing (**greenfield TUnit + FluentAssertions**; existing projects — xUnit / NUnit / MSTest по convention).
 
 **Линза:** «Что произойдёт под нагрузкой? Какие async-paths блокируют ThreadPool? Где hidden allocations (boxing, async state machines)? Memory pressure?» Native AOT compatibility — где возможно.
 
 **Покрытие:**
-- Web frameworks: ASP.NET Core 9+/10 — Minimal API (recommended new projects), MVC, Razor Pages, Blazor Server / WASM / United (.NET 9+).
+- Web frameworks: ASP.NET Core 10 (greenfield default), 9 / 8 (existing) — Minimal API (recommended new projects), MVC, Razor Pages, Blazor Server / WASM / United (.NET 9+).
 - Async: Task / ValueTask, IAsyncEnumerable, async streams, CancellationToken propagation, ConfigureAwait(false) в lib code.
 - Data: EF Core 9+ (LINQ → SQL, change tracking, migrations), Dapper для perf-critical queries, FluentMigrator для DB-first.
 - DI: built-in Microsoft.Extensions.DependencyInjection; lifetime scopes (Singleton / Scoped / Transient); options pattern (IOptions / IOptionsSnapshot / IOptionsMonitor).
 - Real-time: SignalR (hubs, streams, scaling via Redis backplane).
-- Testing: xUnit (preferred 2026+) с FluentAssertions; Moq / NSubstitute; WebApplicationFactory для integration; Testcontainers для DB tests.
-- Build: Central Package Management (Directory.Packages.props), `dotnet` CLI 9+.
+- Testing: **TUnit** (greenfield default — source-generator-based, async-first lifecycle, AOT-friendly; https://tunit.dev/) с FluentAssertions. Existing projects — xUnit / NUnit / MSTest, который уже принят в .csproj test-сборках (Karpathy #3). Mocking: NSubstitute (default) / Moq. Integration: WebApplicationFactory + Testcontainers для DB.
+- Build: Central Package Management (Directory.Packages.props), `dotnet` CLI 10+ (greenfield) / 9+ (existing).
 
 **Границы:**
 - НЕ для frontend SPA (Blazor — да; React/Vue → frontend role-skill).
@@ -100,13 +100,31 @@ Proceed to «Process» section ниже. После завершения — exe
 **C#-specific guidance items** (illustrative — adapt по AC + spec context):
 
 - **Critical patterns:**
-  - xUnit `[Fact]` / `[Theory]` + `[InlineData]` / `[MemberData]` для parameterised; `IClassFixture<T>` для shared expensive setup.
-  - Async tests `async Task` (NOT `async void`); `await Task.WhenAll(...)` для parallel assertions.
-  - Test naming: `MethodUnderTest_Scenario_Expected` (PascalCase). FluentAssertions `should().Be(...)` more readable than xUnit's `Assert.Equal`.
+  - **TUnit (greenfield)** `[Test]` + `[Arguments(...)]` для parameterised; `[ClassDataSource<T>]` / `[InstanceDataSource]` для shared expensive setup. **xUnit (existing projects)** `[Fact]` / `[Theory]` + `[InlineData]` / `[MemberData]` для parameterised; `IClassFixture<T>` для shared expensive setup. NUnit / MSTest аналогично — match существующий стиль.
+  - Async tests `async Task` (NOT `async void`); `await Task.WhenAll(...)` для parallel assertions. (TUnit async-first lifecycle: hooks `[Before]` / `[After]` всегда async-aware, нет sync/async dual API ловушки xUnit'а.)
+  - Test naming: `MethodUnderTest_Scenario_Expected` (PascalCase). FluentAssertions `.Should().Be(...)` more readable than `Assert.Equal` / `Assert.That`.
+  - **`dotnet test` invocation на .NET 10 (MTP mode) — CRITICAL syntax change.** TUnit использует Microsoft.Testing.Platform (MTP); .NET 10 SDK ввёл native MTP runner mode, который **меняет синтаксис arguments** vs legacy VSTest:
+    - **Opt-in (обязателен для .NET 10 greenfield):** в `global.json` (repo root):
+      ```json
+      { "test": { "runner": "Microsoft.Testing.Platform" } }
+      ```
+    - **VSTest mode (legacy, .NET 8/9 SDK):** project путь — **positional**, флаги после `--`:
+      ```bash
+      dotnet test path/to/Tests.csproj -c Release -- --coverage --report-trx
+      ```
+    - **MTP mode (.NET 10 SDK + opt-in):** project путь — **explicit flag `--project`** (или `--solution`/`--test-modules`), `--` separator БОЛЬШЕ НЕ НУЖЕН:
+      ```bash
+      dotnet test --project path/to/Tests.csproj -c Release --coverage --report-trx
+      # OR
+      dotnet test --solution MyApp.sln -c Release --coverage --report-trx
+      ```
+    - **Common agent-stumble:** запуск `dotnet test path/to/Tests.csproj` в MTP mode → СНГ syntax не парсится, error «unknown switch / unexpected argument». Всегда передавай project file через `--project=<csproj>` или `--solution=<sln>` на .NET 10. Из source-of-truth: https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-dotnet-test#mtp-mode-of-dotnet-test
+    - **Coverage extension package:** `--coverage` / `--report-trx` приходят из `Microsoft.Testing.Extensions.CodeCoverage` (built-in) + `Microsoft.Testing.Extensions.TrxReport` — добавляй PackageReference в test-project'е.
+    - **MTP v2 не fallback'ится на VSTest** на .NET 10. global.json opt-in обязателен; без него — error / undefined behavior. Для existing projects на .NET 9 с xUnit / NUnit / MSTest: НЕ нужен opt-in, legacy `dotnet test <csproj> -- ...` syntax продолжает работать.
 - **Framework gotchas:**
-  - `ConfigureAwait(false)` в lib code; default `ConfigureAwait(true)` в tests OK (xUnit's no-sync-context).
+  - `ConfigureAwait(false)` в lib code; в тестах: TUnit/xUnit оба без default sync context — `ConfigureAwait(true)` безопасен. NUnit `[SingleThreaded]` / MSTest async-context — внимательно к sync context'у.
   - EF Core `UseInMemoryDatabase` поведение ≠ real provider (no transactions, no FK enforcement, no concurrency tokens) — false-positive tests.
-  - Disposal pattern: `IAsyncDisposable` для fixtures с async cleanup; xUnit calls `DisposeAsync` automatically только если fixture implements it.
+  - Disposal pattern: `IAsyncDisposable` для fixtures с async cleanup. **TUnit** native async hooks; **xUnit** calls `DisposeAsync` automatically только если fixture implements it.
 - **Forbidden anti-patterns** (test-side):
   - `Task.Wait()` / `.Result` — deadlocks в sync context; always `await`.
   - Shared `static` state between tests (parallelism breaks; `[Collection]` attribute can serialise but is escape hatch).
@@ -122,13 +140,14 @@ Proceed to «Process» section ниже. После завершения — exe
 
 1. **Frame** — story AC, file_list. Karpathy #1 surface assumptions (sync vs async, controller vs Minimal API, EF Core vs Dapper).
 
-2. **Read state** — orient + memory. Read existing solution (`.sln`), framework version (`<TargetFramework>`), DI conventions, test setup. Lazy-load techstack-pack.
+2. **Read state** — orient + memory. Read existing solution (`.sln`), framework version (`<TargetFramework>` в `.csproj` / `Directory.Build.props`), DI conventions, test setup (existing test framework — TUnit / xUnit / NUnit / MSTest? — определяется по PackageReference в test-сборке). Lazy-load techstack-pack.
+   - **Greenfield-vs-existing decision (Karpathy #3):** если проект **новый** (нет существующих .csproj с TargetFramework) → используй `{workflow.tooling.target_framework}` (default `net10.0`) + `{workflow.tooling.test_framework}` (default `tunit`). Если проект **existing** — **match** существующие `<TargetFramework>` и test framework, даже если они не совпадают с defaults (legacy `net9.0` + xUnit допустим, не drag'ай на net10/TUnit в рамках story если spec не требует миграции). Multi-targeting (`<TargetFrameworks>net9.0;net10.0`) — отдельная story.
 
 3. **Plan** — Karpathy + C# Clean Code:
    - Forbidden-quadrant: csharp × code-write = allow.
    - **Karpathy #2 Simplicity:** не Mediator pattern если controller достаточен. Не AutoMapper если manual mapping понятнее. Не abstraction слой если single-use.
    - **Karpathy #3 Surgical:** только story.file_list[].
-   - **Karpathy #4 TDD:** xUnit failing tests first.
+   - **Karpathy #4 TDD:** failing tests first. Test framework — TUnit для greenfield (default), match existing для projects с принятым xUnit / NUnit / MSTest (см. Step 2 greenfield-vs-existing decision).
    - **Clean Code C#** (см. `references/15-clean-code-csharp.md`): naming PascalCase + Async-suffix; method ≤20 lines; ≤2 args (3+ → record); sealed by default; records для DTO, class для service; exceptions over null; constructor DI; `ConfigureAwait(false)` в lib; cognitive complexity ≤15.
    - **DI integration gate (engineer-level, cross-language)** — если story adds `services.AddSingleton`/`AddScoped`/`AddTransient`, middleware, hosted service, interceptor, factory binding — load `payload/role-skills/bmad-tds-engineer/references/20-di-integration-gate.md`: registered-AND-invoked pair + integration test exercising production code path. .NET specifics (constructor DI, `WebApplicationFactory<T>` для integration scenarios) layer на top.
    - **AC-to-assert discipline (load `references/20-dotnet-integration-review-checklist.md`)** — only когда story implements AC fields в public API response, service contract result, или middleware-mutated payload. Reference covers: each AC field gets explicit assertion (not broad-success-only), AC-1:1-table-mapping pattern, side-effect AC items (DB rows / events / queues) via integration test.
@@ -142,7 +161,10 @@ Proceed to «Process» section ниже. После завершения — exe
 - **Path B — legacy TDD path** (status was past ready-for-dev when execute-story invoked → Step 4a skipped via status-gate): specialist пишет тесты himself per Red-Green-Refactor below. Это natural fallback для resumed stories, rework cycles, и projects pre-TEA-integration era.
 
 4. **Execute** — TDD cycle:
-   - Red: xUnit + FluentAssertions test class. `dotnet test` → red.
+   - Red: failing test class в проектном test framework (TUnit для greenfield — `[Test]` + `[Arguments]`; xUnit/NUnit/MSTest для existing — match существующий стиль) + FluentAssertions. Запуск:
+     - **.NET 10 + TUnit (MTP mode, greenfield default):** `dotnet test --project tests/<TestProject>.csproj -c Debug` (path через `--project`, не positional — см. Critical patterns).
+     - **.NET 9 + xUnit (existing, VSTest mode):** `dotnet test tests/<TestProject>.csproj -c Debug` (path positional; для extension flags `-- --coverage ...`).
+     Должен → red.
    - Green: minimal impl. Nullable reference types enabled (`<Nullable>enable</Nullable>`). Async/await proper.
    - Refactor: simplify; verify analyzers (TreatWarningsAsErrors).
    - `tds integrity record` per file-write.
@@ -153,7 +175,7 @@ Proceed to «Process» section ниже. После завершения — exe
 
 ### Tree A: Minimal API vs MVC Controllers vs Razor Pages
 
-- **A1: New REST API project, .NET 9+?** → Minimal API. Less ceremony, AOT-compatible, OpenAPI auto-gen.
+- **A1: New REST API project (greenfield)?** → .NET 10 + Minimal API + TUnit test project. Less ceremony, AOT-compatible, OpenAPI auto-gen. Greenfield setup REQUIRES `global.json` MTP opt-in (см. Critical patterns) — без него `dotnet test --project=...` фейлится. Existing project с принятым .NET 9 + xUnit — match convention (см. Step 2); legacy VSTest mode не требует opt-in.
 - **A2: Existing MVC codebase + new endpoint?** → controller (Karpathy #3 match style).
 - **A3: Server-rendered web + forms?** → Razor Pages (PageModel + cshtml).
 - **A4: Real-time + UI?** → Blazor Server (low latency) или WASM (offline-capable).
@@ -212,7 +234,7 @@ Process:
     Tree A: Minimal API (new endpoint, .NET 9 project). Tree B: EF Core (model-driven).
     Karpathy #2: ActionResult<OrderResponse> typed; не IActionResult.
     Karpathy #3: 3 files в file_list. Не модифицирую existing OrdersService (separate story если refactor нужен).
-    Karpathy #4: xUnit + WebApplicationFactory integration tests, 4 scenarios covering AC.
+    Karpathy #4: existing project = .NET 9 + xUnit (match convention; не drag'аем на TUnit в рамках story) + WebApplicationFactory integration tests, 4 scenarios covering AC. (Если бы greenfield — TUnit `[Test]` + WebApplicationFactory.)
     Apply lesson: include .Include() для navigation properties (avoid N+1).
   [Execute TDD]
     Red: tests/OrdersTests.cs — 4 tests via WebApplicationFactory. dotnet test → 4 fail.
@@ -246,9 +268,9 @@ Process:
   1. **Think Before Coding** — Minimal API vs MVC, EF vs Dapper — explicit decisions.
   2. **Simplicity First** — no Mediator/AutoMapper/abstractions if single-use.
   3. **Surgical Changes** — story.file_list[] only.
-  4. **Goal-Driven Execution (TDD)** — xUnit failing tests-first; coverage ≥80% / ≥95% critical.
+  4. **Goal-Driven Execution (TDD)** — failing tests-first; TUnit (greenfield) / xUnit | NUnit | MSTest (existing project, match convention). Coverage ≥80% / ≥95% critical.
 
-- **TDD MANDATORY** — xUnit. Failing test commits ДО impl commits.
+- **TDD MANDATORY** — Failing test commits ДО impl commits. Greenfield = TUnit; existing = match project's test framework (Karpathy #3 Surgical Changes — не вводи параллельный framework в одной test-сборке).
 - **Nullable reference types ENABLED** — `<Nullable>enable</Nullable>` в .csproj. No silent `null` references.
 - **TreatWarningsAsErrors** — clean build mandatory.
 - **`ConfigureAwait(false)` в library code.** ASP.NET 9+ no longer requires (synchronization context removed), но ConfigureAwait — habit для cross-version libs.
@@ -259,4 +281,5 @@ Process:
 - **`references/20-dotnet-integration-review-checklist.md`** — AC-to-assert discipline; each AC field explicit assertion, side-effect coverage. Lazy-loaded на public-API / contract-implementing stories.
 - **`references/30-ef-core-operational-patterns.md`** — NoTracking default + `.AsTracking()` for writes, `ExecuteUpdateAsync` hot-path, migration rollback schema fidelity. Lazy-loaded на EF-Core-touching stories.
 - **`references/60-security-and-logging-invariants.md`** — OWASP-backed: no raw secrets/PII в logs, shared `Mask` utility, timing-safe comparison, SSRF guard, opaque correlation-ID error responses, arch-test pragmatism. Lazy-loaded на logging / sensitive-handling / crypto-comparison / URL-construction stories.
+- **`references/50-frameworks/tunit.md`** — TUnit (greenfield default test framework): `dotnet test` MTP mode syntax change на .NET 10 SDK (`global.json` opt-in + `--project=<csproj>` flag-based vs legacy positional), `[Test]` / `[Arguments]` / `[Before(Test)]` patterns, parallel-by-default discipline, FluentAssertions interop. Lazy-load когда story создаёт новый .NET 10 test project ИЛИ когда agent уперся в «unknown argument» от `dotnet test`.
 - `references/recommended-allow-snippet.md` — copy-paste'able allow patterns для `.claude/settings.local.json` (dotnet build/test/run/ef + test binaries) чтобы reduce permission prompts на typical dev-cycle commands.

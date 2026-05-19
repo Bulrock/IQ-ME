@@ -5,4 +5,193 @@ tds_meta:
   installed_at: 2026-05-14T18:16:29.340Z
   installed_by: maksim
   archived_phases: []
-entries: []
+entries:
+  - artefact_class: A
+    file: _bmad-output/_tds/branch-registry.yaml
+    sha256: 3998aa2b56506b99704c228a76118e945681ed5621978ebcb41938750746a341
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T09:51:35.914Z
+    recorded_by: engineer
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/sprint-status.yaml
+    sha256: 69ad3ad32f27442f09d0dafdb67909adbbad2f7dd203f9c7b8a78d0c1fef3dfa
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T10:27:56.901Z
+    recorded_by: auditor
+    story_id: epic-1
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
+    sha256: e93f4c9e9cbe33ed6a072d1153a6c1ff475ee091d38bf23e95564ba065db5b8c
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T10:27:55.965Z
+    recorded_by: auditor
+    story_id: 1-1-bootstrap-repo-skeleton-makefile
+  - artefact_class: A
+    file: tests/scaffold/makefile.test.mjs
+    sha256: 371a6a93f86ab82509c77a6a17128d4f8dc5187edd2c06c51c5401ec56363160
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-18T21:09:57.535Z
+    recorded_by: test-author
+    story_id: 1-1-bootstrap-repo-skeleton-makefile
+    notes: story-1-1 frozen failing tests
+  - artefact_class: A
+    file: _bmad-output/_tds/memory/lessons.yaml
+    sha256: a6f5fb1a9d91d5c8bf2e0b6c195fa9a9a45494f520a736f9beb8e35727dcb289
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-18T21:20:23.596Z
+    recorded_by: auditor
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners.md
+    sha256: 57bbe2eb1ffabca1ebf1308c2ccc1e71766c953c306257a80d4bedab5c6fa970
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T10:27:56.061Z
+    recorded_by: auditor
+    story_id: 1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners
+  - artefact_class: A
+    file: tests/scaffold/trust-artifacts.test.mjs
+    sha256: ab889c611d6e92d7f68b5c6b2d6c3609213b49eee6b94cd181ba16d1feac92cd
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-18T21:22:33.070Z
+    recorded_by: test-author
+    story_id: 1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners
+    notes: story-1-2 frozen tests
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/1-3-commit-icar-confirmation-pdf-slot-with-visible-fallback-copy.md
+    sha256: 792a5e9d06c206f53dfa82274963eaf835733f9e5b894b052f14414bd6a19864
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T10:27:56.152Z
+    recorded_by: auditor
+    story_id: 1-3-commit-icar-confirmation-pdf-slot-with-visible-fallback-copy
+  - artefact_class: A
+    file: tests/scaffold/icar-slot.test.mjs
+    sha256: 61d4a01f8e68408e671692f0010a5e8fa9052a6d245123b7b99409044b135598
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T07:43:00.670Z
+    recorded_by: test-author
+    story_id: 1-3-commit-icar-confirmation-pdf-slot-with-visible-fallback-copy
+    notes: story-1-3 frozen tests
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md.md
+    sha256: 3d16ae45856f3ccee63b44a5fd14b028b4462269fcb3075e06d8c0cd0f9f2671
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T10:27:56.244Z
+    recorded_by: auditor
+    story_id: 1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md
+  - artefact_class: A
+    file: tests/scaffold/corpus-schema.test.mjs
+    sha256: cf3e0be1b77c99053b2269aad99239f02da75c4897fb553f963f7406458ac97b
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T08:13:42.157Z
+    recorded_by: test-author
+    story_id: 1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md
+    notes: story-1-4 frozen tests
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/1-5-commit-budgets-json-lint-cognitive-load-budget-mjs.md
+    sha256: 6adf25f6d7b39e71be6755c4c2a22b7b85637d942b36f5ae8dc546ac5461d915
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T10:27:56.335Z
+    recorded_by: auditor
+    story_id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
+  - artefact_class: A
+    file: tests/scaffold/cognitive-load-budget.test.mjs
+    sha256: 7ff895e991d777faa15a3e8d18f3eebebf135ee49366939b7774d88b78cf43b5
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T09:21:30.203Z
+    recorded_by: test-author
+    story_id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
+    notes: story-1-5 frozen failing tests
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
+    sha256: 0ea310dfa645e1720289d5f1a9ec00e0d379a9ea8249225821616f48cb0bfe91
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T10:27:56.426Z
+    recorded_by: auditor
+    story_id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
+  - artefact_class: A
+    file: tests/scaffold/ci-matrix.test.mjs
+    sha256: a2df4be7495a999053d9b795bd11f9b194306321c60e773afe25ecb6f4499b4b
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T10:13:15.644Z
+    recorded_by: engineer
+    notes: "post-impl edit by story-1-7 specialist: added network-trace to EPIC_1_ACTIVE (per auditor finding round-1, ratification of cross-story frozen-test edit)"
+  - artefact_class: A
+    file: tests/scaffold/negative-assertion-lints.test.mjs
+    sha256: a9bb6d72aa3e9fed7ea49b8c83dffffcb085c0a9fbe80b8144d14aa893ccac1f
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T09:27:08.901Z
+    recorded_by: test-author
+    story_id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
+    notes: story-1-6 frozen failing tests
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1.md
+    sha256: 30657451b03b973d009cb96ddbd63f247133695196307215ba36cd05c9176211
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T10:27:56.557Z
+    recorded_by: auditor
+    story_id: 1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1
+  - artefact_class: A
+    file: tests/scaffold/playwright-network-trace.test.mjs
+    sha256: 24d53777acf0b079407416934d4c644fb950da3ff828b8d4a6ec3ad2be837400
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T10:16:11.316Z
+    recorded_by: engineer
+    notes: "post-impl test bug-fix per Specialist Self-Review §4: AC-2 regex didn't span newlines, AC-5 20-line scan window bled into next job's if:false; engineer ratifies post-impl edits (auditor finding round-1)"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/1-8-ship-deterministic-build-harness-ready-for-epic-2-s-golden-vectors.md
+    sha256: fad60e3c164d6a55da57d0fee17ad81557aad4f379b15fa623b1a74a7b49ca56
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T10:27:56.648Z
+    recorded_by: auditor
+    story_id: 1-8-ship-deterministic-build-harness-ready-for-epic-2-s-golden-vectors
+  - artefact_class: A
+    file: tests/scaffold/determinism-harness.test.mjs
+    sha256: d14f840417d6f4a6865edd1a016a3266e56cc01635159b678e2bb85c3ebc0707
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T09:40:13.775Z
+    recorded_by: test-author
+    story_id: 1-8-ship-deterministic-build-harness-ready-for-epic-2-s-golden-vectors
+    notes: story-1-8 frozen failing tests
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/1-9-eslint-config-no-restricted-paths-docs-domain-map-md.md
+    sha256: d52f3327eae9a35d92cd753583765965252a480ba9ff3238f3c2f169e2428b71
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T10:27:56.738Z
+    recorded_by: auditor
+    story_id: 1-9-eslint-config-no-restricted-paths-docs-domain-map-md
+  - artefact_class: A
+    file: tests/scaffold/eslint-config.test.mjs
+    sha256: 91ad7556902286af16df87cd08c2dcc1f0ac07f71b8eafbd72ee57139bdff865
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T09:43:58.929Z
+    recorded_by: test-author
+    story_id: 1-9-eslint-config-no-restricted-paths-docs-domain-map-md
+    notes: story-1-9 frozen failing tests
+  - artefact_class: A
+    file: tests/scaffold/domain-map.test.mjs
+    sha256: 763f2f02a9cf85c2e9205b6a72d595c92ce18e3953445b6ed9975eced285ca77
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T09:43:58.929Z
+    recorded_by: test-author
+    story_id: 1-9-eslint-config-no-restricted-paths-docs-domain-map-md
+    notes: story-1-9 frozen failing tests
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts.md
+    sha256: 49a1aef2c7483eddbfd09220892a50aff3da33c74bbc2be5e61591b23c024e3f
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T10:27:56.828Z
+    recorded_by: auditor
+    story_id: 1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts
+  - artefact_class: A
+    file: tests/scaffold/design-system.test.mjs
+    sha256: 92c271535c2eddf3fdfa1ec846508992296b3772c67c792fc5a95aecc43c0c5d
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T09:48:43.982Z
+    recorded_by: test-author
+    story_id: 1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts
+    notes: story-1-10 frozen failing tests
+  - artefact_class: A
+    file: _bmad-output/_tds/sprint-status-extension.yaml
+    sha256: 8f152c451846b36b8ae34493f869a83e5b261a9fd3e94320ebb0fcd314c74919
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T10:06:11.011Z
+    recorded_by: setup

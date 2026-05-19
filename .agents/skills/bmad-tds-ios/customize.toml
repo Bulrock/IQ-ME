@@ -47,9 +47,14 @@ ui_framework = "swiftui"
 [workflow.tooling]
 # Swift version.
 # Type: scalar (enum)
-# Default: "6"
-# Variants: 5.9 | 5.10 | 6 | 6.1
-swift_version = "6"
+# Default: "6.2" (greenfield — required для Swift Testing new APIs: exit
+#   tests via #expect(processExitsWith:), attachments, raw identifiers)
+# Variants: 5.9 | 5.10 | 6 | 6.1 | 6.2
+#
+# Greenfield-vs-existing rule (Karpathy #3): existing projects на ≤6.1 —
+# match `swift-tools-version:` в Package.swift / Xcode build settings;
+# не bump'ай в рамках обычной story.
+swift_version = "6.2"
 
 # Project manager.
 # Type: scalar (enum)
