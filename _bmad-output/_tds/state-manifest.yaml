@@ -8,16 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 0ab4dc921f94409ace59cee65bed0ecaff3bbd07c429181ae69fd778422f2c75
+    sha256: 3d661b71708805a0b5060237c9a1e855e15b28cde9cff8074a33477cfdd16115
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:05:35.742Z
+    recorded_at: 2026-05-19T14:06:38.647Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: a922d1928645d3f19ec8cbbf2888fff3aa21ccd70be336d17f2747a8c721db9a
+    sha256: f11126e2e7255caf67e4bec7a165d8287a2855d835f39c4e9145e70d204adfc0
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:05:13.745Z
+    recorded_at: 2026-05-19T14:14:58.916Z
     recorded_by: engineer
+    story_id: 2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -209,3 +210,34 @@ entries:
     recorded_by: test-author
     story_id: bridge-1-2-1-add-tds-story-unfreeze
     notes: test-author red-phase scaffold for bridge-1-2-1
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test.md
+    sha256: aa2a562aafed863e9916691d1514154f4ed95146f51f696f78e33427d62f7674
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T14:14:58.945Z
+    recorded_by: engineer
+    story_id: 2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test
+  - artefact_class: A
+    file: tests/unit/scoring/irt/parity.test.mjs
+    sha256: 7caa343994bb0c73d764d3bd3eaff2f22fd96a99c4839205bed38a4496014162
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T14:08:47.687Z
+    recorded_by: test-author
+    story_id: 2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test
+    notes: "test-author phase: red parity + green scaffold + hand-fixture"
+  - artefact_class: A
+    file: tests/scaffold/scoring-irt-scaffold.test.mjs
+    sha256: 990275671901b5ddd97836f0ac7760c28b112ea89e5f91438e70e6b2ff88454a
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T14:08:47.687Z
+    recorded_by: test-author
+    story_id: 2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test
+    notes: "test-author phase: red parity + green scaffold + hand-fixture"
+  - artefact_class: A
+    file: tests/golden/vectors-smoke.json
+    sha256: a3e1912cde30e4631080ee7000a1cf34b5aa32e276c14b119aa7c7731a3e5562
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T14:08:47.687Z
+    recorded_by: test-author
+    story_id: 2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test
+    notes: "test-author phase: red parity + green scaffold + hand-fixture"

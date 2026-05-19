@@ -11,8 +11,8 @@ help: ## list documented Make targets
 	@grep -hE '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) \
 	  | awk -F':.*## ' '{printf "%-20s %s\n", $$1, $$2}'
 
-test: ## run node --test against tests/scaffold + tests/unit + tests/contract (Playwright excluded)
-	node --test 'tests/scaffold/**/*.test.mjs' 'tests/contract/**/*.spec.mjs'
+test: ## run node --test against tests/scaffold + tests/contract + tests/unit (Playwright excluded)
+	node --test 'tests/scaffold/**/*.test.mjs' 'tests/contract/**/*.spec.mjs' 'tests/unit/**/*.test.mjs'
 
 test-network-trace: ## run Playwright network-trace spec (downloads chromium on first run)
 	npx --yes playwright test tests/playwright/network-trace.spec.mjs
