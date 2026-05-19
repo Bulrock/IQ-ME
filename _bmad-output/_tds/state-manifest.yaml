@@ -8,15 +8,15 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 0dd8df2730400236e52b2e7d7c08a4b06dfa4d1d3a506a83db73372e1c5d7b23
+    sha256: 7659acf5ce7e4855a84f4992e1c5142682f79b5e4078a0886654c6bd06c51b57
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:02:10.165Z
+    recorded_at: 2026-05-19T15:03:56.792Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 5b399d38805cab8f4b1647da259cae0c3a1e9f6c9327b891643163d1ffb574e6
+    sha256: 152ae51b22a23ba3557d604d94b691710d56ea921c5e5ad6fcca4842f7c22d58
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:03:56.371Z
+    recorded_at: 2026-05-19T15:11:03.670Z
     recorded_by: engineer
     story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
   - artefact_class: A
@@ -109,11 +109,11 @@ entries:
     story_id: epic-1-retrospective
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: a2df4be7495a999053d9b795bd11f9b194306321c60e773afe25ecb6f4499b4b
+    sha256: 483fbcccb2acc1ef727894f6a271d2a46bc47cf9574fc90b255a437909782517
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:13:15.644Z
+    recorded_at: 2026-05-19T15:09:35.807Z
     recorded_by: engineer
-    notes: "post-impl edit by story-1-7 specialist: added network-trace to EPIC_1_ACTIVE (per auditor finding round-1, ratification of cross-story frozen-test edit)"
+    story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: a9bb6d72aa3e9fed7ea49b8c83dffffcb085c0a9fbe80b8144d14aa893ccac1f
@@ -321,22 +321,36 @@ entries:
     story_id: 2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
   - artefact_class: A
     file: tests/golden/parity-audit.mjs
-    sha256: 97595fbc9f33bd127cd5d025f6cfa55d86073c1bd2392f2f07705b7d84b329af
+    sha256: ca51cfed29bedb9783fa1ba6ad88fb105953d79e71a454332832b5f079887645
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:00:31.277Z
+    recorded_at: 2026-05-19T15:06:08.818Z
     recorded_by: engineer
-    story_id: 2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
+    story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
   - artefact_class: A
     file: tests/golden/regenerate.R
-    sha256: b04a7ec02f1de27660ed078f960e85a65a2917234daad0d51b17987f96cc1252
+    sha256: f3b6cba42c08b29df9716418a193424beca8c9167f0f0ea0503c8e479fac9a37
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:00:31.409Z
+    recorded_at: 2026-05-19T15:06:08.943Z
     recorded_by: engineer
-    story_id: 2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
+    story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring.md
-    sha256: 71cf36e5444cfdd63f974b2f3632f7f3e6a0913721b5e6a143d92eced8ba8864
+    sha256: 9a6e20011a7bd340a94653609458edaff220391f0a47011d5b50bf33fef1d00f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:03:56.403Z
+    recorded_at: 2026-05-19T15:11:03.693Z
+    recorded_by: engineer
+    story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
+  - artefact_class: A
+    file: tests/unit/scoring/irt/parity-full.test.mjs
+    sha256: 39af0300861fe6580a1b9756a057c85bc55dfb2ed9e30146f6335a063841ee79
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T15:04:35.461Z
+    recorded_by: test-author
+    story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
+  - artefact_class: A
+    file: tests/golden/vectors.json
+    sha256: a8b2653a82b9c3c121b6f4cd4d374375afc5df3ac10cda7b37f2564252d89f92
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T15:08:12.711Z
     recorded_by: engineer
     story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring

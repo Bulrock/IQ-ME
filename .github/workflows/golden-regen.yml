@@ -1,17 +1,26 @@
 name: golden-regen
 
-# Story 2.6a — R-in-CI harness for parity audit.
+# Stories 2.6a + 2.6b — R-in-CI parity audit harness.
 #
-# Manually-dispatchable workflow that installs R 4.4.x + mirt 1.41.x with the
-# pinned seed (20260514), runs `tests/golden/regenerate.R --smoke` to produce
-# R-derived θ + SE for the smoke fixture's 6 patterns, then runs
-# `node tests/golden/parity-audit.mjs` which compares against the JS-engine-
-# derived `vectors-smoke.json` at ±0.001 logits tolerance.
+# Modes:
+#   smoke  — n=6 patterns (tests/golden/vectors-smoke.json); fast.
+#   full   — n≥1000 patterns (tests/golden/vectors.json); slow.
 #
-# Also fires on a `regen-goldens` label-trigger for ad-hoc PR audits.
+# Triggers:
+#   workflow_dispatch (manual UI run) with `mode` input
+#   pull_request labeled with `regen-goldens` (always runs smoke mode)
 
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Audit mode (smoke | full)'
+        required: true
+        default: 'smoke'
+        type: choice
+        options:
+          - smoke
+          - full
   pull_request:
     types: [labeled]
 
@@ -24,7 +33,7 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'pull_request' && github.event.label.name == 'regen-goldens')
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: ${{ github.event.inputs.mode == 'full' && 30 || 15 }}
 
     steps:
       - name: Checkout
@@ -48,16 +57,25 @@ jobs:
             jsonlite
           cache-version: r-4.4-mirt-1.41
 
-      - name: Regenerate R smoke output
-        run: Rscript tests/golden/regenerate.R --smoke
+      - name: Determine mode
+        id: mode
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "mode=smoke" >> "$GITHUB_OUTPUT"
+          else
+            echo "mode=${{ github.event.inputs.mode }}" >> "$GITHUB_OUTPUT"
+          fi
 
-      - name: Run parity audit
-        run: node tests/golden/parity-audit.mjs
+      - name: Regenerate R output (${{ steps.mode.outputs.mode }})
+        run: Rscript tests/golden/regenerate.R --${{ steps.mode.outputs.mode }}
+
+      - name: Run parity audit (${{ steps.mode.outputs.mode }})
+        run: node tests/golden/parity-audit.mjs --${{ steps.mode.outputs.mode }}
 
       - name: Upload R output artifact (always)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: r-output-smoke
-          path: tests/golden/r-output-smoke.json
+          name: r-output-${{ steps.mode.outputs.mode }}
+          path: tests/golden/r-output-${{ steps.mode.outputs.mode }}.json
           if-no-files-found: warn

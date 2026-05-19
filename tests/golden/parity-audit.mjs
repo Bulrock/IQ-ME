@@ -8,24 +8,36 @@ import { readFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 
 const CWD = process.cwd();
-const SMOKE_PATH = resolve(CWD, "tests/golden/vectors-smoke.json");
-const R_OUTPUT_PATH = resolve(CWD, "tests/golden/r-output-smoke.json");
+const mode = process.argv.includes("--full") ? "full" : "smoke";
+const JS_PATH = resolve(
+  CWD,
+  mode === "smoke"
+    ? "tests/golden/vectors-smoke.json"
+    : "tests/golden/vectors.json",
+);
+const R_OUTPUT_PATH = resolve(
+  CWD,
+  mode === "smoke"
+    ? "tests/golden/r-output-smoke.json"
+    : "tests/golden/r-output-full.json",
+);
 const TOLERANCE = 0.001;
 
 if (!existsSync(R_OUTPUT_PATH)) {
+  const rFile = mode === "smoke" ? "r-output-smoke.json" : "r-output-full.json";
   process.stderr.write(
-    `parity-audit: r-output-smoke.json not found at ${R_OUTPUT_PATH}.\n` +
-      `Run \`Rscript tests/golden/regenerate.R --smoke\` first.\n`,
+    `parity-audit: ${rFile} not found at ${R_OUTPUT_PATH}.\n` +
+      `Run \`Rscript tests/golden/regenerate.R --${mode}\` first.\n`,
   );
   process.exit(1);
 }
 
-const smoke = JSON.parse(readFileSync(SMOKE_PATH, "utf8"));
+const smoke = JSON.parse(readFileSync(JS_PATH, "utf8"));
 const rOutput = JSON.parse(readFileSync(R_OUTPUT_PATH, "utf8"));
 
 if (smoke.length !== rOutput.length) {
   process.stderr.write(
-    `parity-audit: entry count mismatch — vectors-smoke.json has ${smoke.length}, r-output-smoke.json has ${rOutput.length}.\n`,
+    `parity-audit: entry count mismatch — ${JS_PATH} has ${smoke.length}, ${R_OUTPUT_PATH} has ${rOutput.length}.\n`,
   );
   process.exit(1);
 }

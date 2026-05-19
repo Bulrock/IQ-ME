@@ -39,13 +39,42 @@ Story 2.6a lands `.github/workflows/golden-regen.yml` + `tests/golden/regenerate
 
 **The v1.0 stamp lands when the first CI dispatch completes**, not when Story 2.6a merges.
 
-## v2.0 — (pending Story 2.6b) — Full ≥1000-pattern golden set
+## v2.0 — 2026-05-19 — Story 2.6b: Full ≥1000-pattern golden set (JS-derived)
 
-Story 2.6b will expand `vectors-smoke.json` (or replace with `vectors-full.json` of equivalent shape) to ≥1,000 R-mirt-generated patterns. CHANGELOG entry will record:
+Story 2.6b landed:
+- `tools/generate-full-vectors.mjs` — deterministic Mulberry32 PRNG (seed `20260514`) generating 1000 random response patterns.
+- `tests/golden/vectors.json` — committed 1000-entry fixture, sorted by SHA256(entry) for byte-stable diffs.
+- `tests/unit/scoring/irt/parity-full.test.mjs` — iterates all 1000 entries, asserts ±0.001 logits parity, completes in ≤21ms (well under NFR26's 5s budget).
+- `pr-checks.yml` `golden-vector-parity` job activated — runs `parity-full.test.mjs` on every PR.
+- `regenerate.R --full` + `parity-audit.mjs --full` + `golden-regen.yml` mode-switch landed for the R-side audit.
 
-- Generation seed + R/mirt versions + quadrature pins.
-- Pattern distribution (item-count histogram, discrimination/difficulty coverage).
-- SHA256 hash of the regenerated file for reproducibility.
+**Generation parameters:**
+- Seed: 20260514 (Mulberry32, 32-bit)
+- Pattern count: 1000
+- Response length distribution: uniform [1, 16]
+- Item parameter `a`: uniform [0.5, 2.5], rounded to 3 decimals
+- Item parameter `b`: uniform [-3, 3], rounded to 3 decimals
+- Response distribution: random binary (uniform [0, 1])
+- `expectedTheta` / `expectedSE`: computed via `scoreSession` from the JS engine; 6-decimal precision.
+
+**SHA256 of `tests/golden/vectors.json` (this version):**
+```
+a8b2653a82b9c3c121b6f4cd4d374375afc5df3ac10cda7b37f2564252d89f92
+```
+
+Reproduce locally: `node tools/generate-full-vectors.mjs --out=tests/golden/vectors.json && shasum -a 256 tests/golden/vectors.json` should print the same hash. If the hash differs, either:
+- The JS engine changed (`src/scoring/irt/*.js` diff since 2026-05-19).
+- The generator's PRNG or distribution parameters changed.
+- Node's `Math.imul` or floating-point produced different results (extremely unlikely cross-platform on a modern Node 22.x runtime).
+
+**Status:** JS-engine-derived, NOT yet third-party-validated. The PR-check `golden-vector-parity` guards against JS-engine regressions; R-mirt parity validation for the full set is deferred to the first post-merge `golden-regen --mode=full` dispatch.
+
+## v2.1 — (pending first `golden-regen --mode=full` dispatch) — R-mirt validation of full set
+
+Same outcome categories as v1.0:
+- **Match:** v2.0 fixture confirmed; full-set parity claim third-party-validated.
+- **Small drift:** document specifics; consider if a regen with adjusted quadrature is warranted.
+- **Large drift:** bridge story for methodology investigation per spec line 153 audit-win pattern.
 
 ## Reproducibility
 

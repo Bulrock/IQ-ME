@@ -22,17 +22,15 @@ set.seed(20260514)
 args <- commandArgs(trailingOnly = TRUE)
 mode <- if (length(args) >= 1) args[1] else "--smoke"
 
-if (mode == "--full") {
-  cat("regenerate.R --full: not yet implemented; see Story 2.6b.\n")
-  quit(status = 0)
-}
-
-if (mode != "--smoke") {
+if (mode != "--smoke" && mode != "--full") {
   cat(sprintf("regenerate.R: unknown mode '%s'. Use --smoke or --full.\n", mode), file = stderr())
   quit(status = 1)
 }
 
-smoke <- fromJSON("tests/golden/vectors-smoke.json", simplifyVector = FALSE)
+input_path <- if (mode == "--smoke") "tests/golden/vectors-smoke.json" else "tests/golden/vectors.json"
+output_path <- if (mode == "--smoke") "tests/golden/r-output-smoke.json" else "tests/golden/r-output-full.json"
+
+smoke <- fromJSON(input_path, simplifyVector = FALSE)
 
 results <- vector("list", length(smoke))
 
@@ -102,10 +100,10 @@ for (i in seq_along(smoke)) {
 
 write_json(
   results,
-  "tests/golden/r-output-smoke.json",
+  output_path,
   auto_unbox = TRUE,
   pretty = TRUE,
   digits = 6,
 )
 
-cat(sprintf("regenerate.R --smoke: wrote %d entries to tests/golden/r-output-smoke.json\n", length(results)))
+cat(sprintf("regenerate.R %s: wrote %d entries to %s\n", mode, length(results), output_path))

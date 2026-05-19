@@ -6,11 +6,13 @@ This directory holds the IRT 2PL EAP θ + SE reference values that anchor the pa
 
 | File | Source | Purpose |
 |---|---|---|
-| `vectors-smoke.json` | JS engine (Story 2.5) | The smoke-set fixture. 6 hand-picked response patterns. The "expected" side of the parity test. |
-| `r-output-smoke.json` | R mirt (Story 2.6a CI) | R-derived θ + SE for the same 6 patterns. The "actual" side of the parity test. Generated on demand by the `golden-regen` workflow. |
-| `regenerate.R` | R script | Generates `r-output-smoke.json` from `vectors-smoke.json` using `mirt::fscores(method="EAP", quadpts=61, theta_lim=c(-6,6))` with `set.seed(20260514)`. |
-| `parity-audit.mjs` | Node script | Compares `vectors-smoke.json` (JS) vs `r-output-smoke.json` (R) at ±0.001 logits tolerance. Exits non-zero on divergence. |
-| `CHANGELOG.md` | Markdown log | Audit history of `vectors-smoke.json` value evolution (placeholder → JS regen → R audit). |
+| `vectors-smoke.json` | JS engine (Story 2.5) | Smoke-set fixture. 6 hand-picked response patterns. |
+| `vectors.json` | JS engine (Story 2.6b) | Full-set fixture. ≥1000 deterministic random patterns. |
+| `r-output-smoke.json` | R mirt (CI smoke mode) | R-derived θ + SE for the 6 smoke patterns. |
+| `r-output-full.json` | R mirt (CI full mode) | R-derived θ + SE for ≥1000 full patterns. |
+| `regenerate.R` | R script | Generates `r-output-{smoke,full}.json` from the corresponding JS fixture. Modes: `--smoke`, `--full`. |
+| `parity-audit.mjs` | Node script | Compares JS vs R at ±0.001 logits tolerance. Modes: `--smoke` (default), `--full`. |
+| `CHANGELOG.md` | Markdown log | Audit history of fixture evolution (placeholder → JS regen → full set → R audits). |
 
 ## Pinned versions (NFR22)
 
@@ -23,14 +25,34 @@ This directory holds the IRT 2PL EAP θ + SE reference values that anchor the pa
 
 Requires R 4.4.x + mirt 1.41.x + Node 22.x installed.
 
+### Smoke mode (n=6, fast)
+
 ```bash
 Rscript tests/golden/regenerate.R --smoke
-node tests/golden/parity-audit.mjs
+node tests/golden/parity-audit.mjs --smoke   # --smoke is default
 ```
 
-Pass → audit prints `parity-audit: ok (6 entries; max θ drift X; max SE drift Y)` to stdout, exit 0.
+### Full mode (n≥1000, slow)
+
+```bash
+Rscript tests/golden/regenerate.R --full
+node tests/golden/parity-audit.mjs --full
+```
+
+Pass → audit prints `parity-audit: ok (N entries; max θ drift X; max SE drift Y)` to stdout, exit 0.
 
 Fail → per-entry drift report to stderr, exit 1.
+
+## Regenerating the JS-derived fixtures
+
+If the JS scoring engine intentionally changes (rare — quadrature method change, prior swap, etc.), regenerate the fixtures locally:
+
+```bash
+node tools/generate-full-vectors.mjs --out=tests/golden/vectors.json
+# vectors-smoke.json is hand-picked patterns; see CHANGELOG for regen procedure.
+```
+
+Then re-run `golden-regen` workflow → CI captures the new R-side audit values. Record the new SHA256 in `CHANGELOG.md`.
 
 ## How to run via CI
 

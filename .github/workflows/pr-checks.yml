@@ -119,10 +119,14 @@ jobs:
   golden-vector-parity:
     name: golden-vector-parity
     runs-on: ubuntu-latest
-    # Activates in Epic 2
-    if: false
+    # Activated in Epic 2 (Story 2.6b)
     steps:
-      - run: echo "stub — Activates in Epic 2 (Story 2.6a/2.6b)"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Full-set parity (n≥1000)
+        run: node --test tests/unit/scoring/irt/parity-full.test.mjs
 
   network-trace:
     name: network-trace

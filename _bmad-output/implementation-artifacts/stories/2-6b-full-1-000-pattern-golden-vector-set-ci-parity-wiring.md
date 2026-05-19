@@ -1,7 +1,7 @@
 ---
 id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
 title: "Story 2.6b: Full ≥1,000-pattern golden vector set + CI parity wiring"
-status: ready-for-dev
+status: review
 ---
 
 # Story 2.6b: Full ≥1,000-pattern golden vector set + CI parity wiring
@@ -86,50 +86,50 @@ This is the seventh story of Epic 2. Story 2.6a landed the R-in-CI harness for t
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Author `tools/generate-full-vectors.mjs`** (AC: 2)
-  - [ ] Pure Node.js generator with seeded PRNG (Mulberry32 with seed 20260514).
-  - [ ] Iterate 1000 random patterns: response length ∈ {1..16}; item params `a ~ U[0.5, 2.5]`, `b ~ U[-3, 3]`; responses random binary.
-  - [ ] For each pattern: invoke `scoreSession` from `src/scoring/irt/index.js` to compute `expectedTheta` + `expectedSE`.
-  - [ ] Round to 6 decimals.
-  - [ ] Sort entries by SHA256 of `JSON.stringify(entry)` for byte-stable output.
-  - [ ] Write to stdout (or `--out=<path>` if provided).
+- [x] **Task 1 — Author `tools/generate-full-vectors.mjs`** (AC: 2)
+  - [x] Pure Node.js generator with seeded PRNG (Mulberry32 with seed 20260514).
+  - [x] Iterate 1000 random patterns: response length ∈ {1..16}; item params `a ~ U[0.5, 2.5]`, `b ~ U[-3, 3]`; responses random binary.
+  - [x] For each pattern: invoke `scoreSession` from `src/scoring/irt/index.js` to compute `expectedTheta` + `expectedSE`.
+  - [x] Round to 6 decimals.
+  - [x] Sort entries by SHA256 of `JSON.stringify(entry)` for byte-stable output.
+  - [x] Write to stdout (or `--out=<path>` if provided).
 
-- [ ] **Task 2 — Generate `tests/golden/vectors.json`** (AC: 1)
-  - [ ] Run `node tools/generate-full-vectors.mjs > tests/golden/vectors.json`.
-  - [ ] Verify ≥1000 entries; valid JSON; 6-decimal precision.
-  - [ ] Record SHA256 hash for CHANGELOG v2.0 entry.
+- [x] **Task 2 — Generate `tests/golden/vectors.json`** (AC: 1)
+  - [x] Run `node tools/generate-full-vectors.mjs > tests/golden/vectors.json`.
+  - [x] Verify ≥1000 entries; valid JSON; 6-decimal precision.
+  - [x] Record SHA256 hash for CHANGELOG v2.0 entry.
 
-- [ ] **Task 3 — Author `tests/unit/scoring/irt/parity-full.test.mjs`** (AC: 3)
-  - [ ] Loads `vectors.json`; iterates all entries with sub-tests.
-  - [ ] Asserts ±0.001 logits tolerance per entry.
-  - [ ] Verifies total runtime <5s (use `t.diagnostic` to print timing).
+- [x] **Task 3 — Author `tests/unit/scoring/irt/parity-full.test.mjs`** (AC: 3)
+  - [x] Loads `vectors.json`; iterates all entries with sub-tests.
+  - [x] Asserts ±0.001 logits tolerance per entry.
+  - [x] Verifies total runtime <5s (use `t.diagnostic` to print timing).
 
-- [ ] **Task 4 — Extend `regenerate.R` `--full` mode** (AC: 5)
-  - [ ] Replace the deferred-stub branch with a full impl mirroring `--smoke`.
-  - [ ] Loop over all entries in `vectors.json`.
-  - [ ] Write to `tests/golden/r-output-full.json`.
+- [x] **Task 4 — Extend `regenerate.R` `--full` mode** (AC: 5)
+  - [x] Replace the deferred-stub branch with a full impl mirroring `--smoke`.
+  - [x] Loop over all entries in `vectors.json`.
+  - [x] Write to `tests/golden/r-output-full.json`.
 
-- [ ] **Task 5 — Extend `parity-audit.mjs` `--full` mode** (AC: 7)
-  - [ ] Add CLI arg parsing for `--full` vs `--smoke` (default `--smoke`).
-  - [ ] Branch file paths based on mode.
+- [x] **Task 5 — Extend `parity-audit.mjs` `--full` mode** (AC: 7)
+  - [x] Add CLI arg parsing for `--full` vs `--smoke` (default `--smoke`).
+  - [x] Branch file paths based on mode.
 
-- [ ] **Task 6 — Extend `.github/workflows/golden-regen.yml`** (AC: 6)
-  - [ ] Add `workflow_dispatch.inputs.mode` (`smoke` | `full`, default `smoke`).
-  - [ ] Pass mode to `regenerate.R` + `parity-audit.mjs`.
-  - [ ] Conditional `timeout-minutes` (15 for smoke, 30 for full).
+- [x] **Task 6 — Extend `.github/workflows/golden-regen.yml`** (AC: 6)
+  - [x] Add `workflow_dispatch.inputs.mode` (`smoke` | `full`, default `smoke`).
+  - [x] Pass mode to `regenerate.R` + `parity-audit.mjs`.
+  - [x] Conditional `timeout-minutes` (15 for smoke, 30 for full).
 
-- [ ] **Task 7 — Wire `pr-checks.yml` to run `parity-full.test.mjs`** (AC: 4)
-  - [ ] Locate existing `pr-checks.yml`; add a step running `node --test tests/unit/scoring/irt/parity-full.test.mjs` after the existing `make test` invocation.
-  - [ ] Verify step is unconditional (no label gate); runs on every PR.
+- [x] **Task 7 — Wire `pr-checks.yml` to run `parity-full.test.mjs`** (AC: 4)
+  - [x] Locate existing `pr-checks.yml`; add a step running `node --test tests/unit/scoring/irt/parity-full.test.mjs` after the existing `make test` invocation.
+  - [x] Verify step is unconditional (no label gate); runs on every PR.
 
-- [ ] **Task 8 — Update `tests/golden/README.md` + `CHANGELOG.md`** (AC: 8)
-  - [ ] README: add "Full set" section + invocation docs + SHA256 record.
-  - [ ] CHANGELOG v2.0 entry.
+- [x] **Task 8 — Update `tests/golden/README.md` + `CHANGELOG.md`** (AC: 8)
+  - [x] README: add "Full set" section + invocation docs + SHA256 record.
+  - [x] CHANGELOG v2.0 entry.
 
-- [ ] **Task 9 — Run full local pipeline** (AC: 9, 10)
-  - [ ] `make lint` → 0.
-  - [ ] `make test` → 0 (existing 283 + 1 new `parity-full.test.mjs` parent test with 1000+ subtests).
-  - [ ] Verify runtime <5s for `parity-full.test.mjs` alone.
+- [x] **Task 9 — Run full local pipeline** (AC: 9, 10)
+  - [x] `make lint` → 0.
+  - [x] `make test` → 0 (existing 283 + 1 new `parity-full.test.mjs` parent test with 1000+ subtests).
+  - [x] Verify runtime <5s for `parity-full.test.mjs` alone.
 
 ## Dev Notes
 
@@ -206,6 +206,98 @@ R + mirt install on every PR is ~5 min of CI time + cache invalidation churn. Th
 
 ### Completion Notes List
 
+- Story 2-6b finalized: 1000-entry JS-derived vectors.json (SHA256 a8b2653a...) + parity-full.test.mjs (21ms / 1000 entries / 0.0 max drift) + pr-checks.yml golden-vector-parity job activated + regenerate.R/parity-audit.mjs --full mode + golden-regen.yml mode input. make test 284/284 pass. ci-matrix.test.mjs ratified via unfreeze-tests for EPIC_1_ACTIVE update.
+- Ready for code-review (cumulative-epic Mode 2).
+
 ### File List
 
+- tools/generate-full-vectors.mjs
+- tests/golden/vectors.json
+- tests/unit/scoring/irt/parity-full.test.mjs
+- tests/golden/regenerate.R
+- tests/golden/parity-audit.mjs
+- .github/workflows/golden-regen.yml
+- .github/workflows/pr-checks.yml
+- tests/golden/README.md
+- tests/golden/CHANGELOG.md
+- tests/scaffold/ci-matrix.test.mjs
+
 ## Specialist Self-Review
+
+**Decisions made:**
+
+1. **JS-derived fixture, R-audited post-merge** — same pattern as Story 2-5 + 2-6a. The 1000-entry `tests/golden/vectors.json` is generated by `tools/generate-full-vectors.mjs` using the JS scoring engine; the PR-check `parity-full.test.mjs` guards against JS regressions; R-mirt third-party validation runs via `golden-regen.yml --mode=full` on manual dispatch (deferred to post-merge).
+
+2. **Mulberry32 PRNG with seed 20260514** for deterministic pattern generation. 32-bit state, period 2^32; sufficient for 1000 × 16 × 2 = 32k draws. Node's `Math.imul` is cross-platform stable on modern runtimes. SHA256 of `vectors.json` recorded in CHANGELOG v2.0 entry for third-party reproducibility verification.
+
+3. **Pattern distribution: lengths 1–16, `a ~ U[0.5, 2.5]`, `b ~ U[-3, 3]`** — matches ICAR-MR session length (FR7) + calibration parameter ranges. Item parameters rounded to 3 decimals (cleaner JSON diffs without sacrificing precision). Response patterns random binary.
+
+4. **Activate `golden-vector-parity` job in `pr-checks.yml` per Murat's fixture-architecture-first pattern.** Stub job from Story 1.6 was waiting for Epic 2 activation; flipped `if: false` → removed, added the actual `node --test parity-full.test.mjs` step. Matches the architecture comment in pr-checks.yml: "Subsequent epics activate a stub by flipping `if: false` → removing the gate; they never add a new job."
+
+5. **`workflow_dispatch.inputs.mode`** for golden-regen.yml — explicit choice between `smoke` (n=6, ~15min) and `full` (n=1000, ~30min). Label-triggered PR runs always use `smoke` mode to keep PR audit fast. Default is `smoke` to make accidental full-dispatch unlikely.
+
+6. **Test runtime 21ms for 1000 entries** — well under NFR26's 5s budget. The `t.diagnostic` line in `parity-full.test.mjs` prints the actual timing for visibility.
+
+**Alternatives considered:**
+
+- *Crypto-secure PRNG (e.g., `crypto.randomInt`) seeded from a 128-bit hex string.* Considered for "more rigorous" determinism. Rejected — Mulberry32 is well-documented, easily reproducible in other languages (third party can re-derive in R/Python if needed), and the seeded-PRNG security model isn't relevant for test fixtures.
+
+- *Generate the fixture INSIDE the test runner at startup (no committed `vectors.json`).* Rejected — that makes the fixture invisible to git diff, breaks the "audit-by-third-party" claim (third party can't inspect what we're testing against without running the test), and removes the SHA256-pin reproducibility check.
+
+- *Separate `tests/golden/r-output-full.json` integrity tracking.* Considered class-A registering the R-output file pre-emptively, but it doesn't exist until first CI dispatch — premature. Auditor will record on first dispatch via CI-side `tds integrity record` if needed; for now the file is untracked but produced by deterministic R script (own audit trail via mirt's package hash).
+
+- *Split into 2-6b + 2-6c (fixture vs CI wiring).* Considered for finer-grain stories, but the two are tightly coupled — committing `vectors.json` without the PR-check that consumes it is half-done. One story preserves the atomic "PR-check guard lands" deliverable.
+
+**Framework gotchas avoided:**
+
+- *Mulberry32 numerical stability across Node versions* — `Math.imul` is IEEE-754 standardized; same input → same output across Node 18, 20, 22.
+- *JSON sort order via SHA256 of `JSON.stringify(entry)`* — `JSON.stringify` key ordering is stable per spec for plain objects (insertion order), so hashing is deterministic; sort is `localeCompare` on hex strings (stable string comparison).
+- *No `process.exit()` race conditions in generator* — `writeFileSync` is synchronous; exit happens after flush.
+- *YAML conditional `timeout-minutes`* — used GitHub Actions expression syntax `${{ X && A || B }}` (ternary equivalent) since direct ternary isn't available; tested expression patterns against actions docs.
+- *Story 1.6's frozen `EPIC_1_ACTIVE` Set required unfreeze* — properly ratified via `tds story unfreeze-tests` + `tds integrity record` per memory-lesson 2026-05-19-001.
+
+**Areas of uncertainty:**
+
+1. **First `--mode=full` CI dispatch outcome.** Same uncertainty as 2-6a's smoke audit: R mirt might produce systematically different values than our JS impl if its actual quadrature method diverges from "linear θ + standard-normal density weights". Outcome captured in CHANGELOG v2.1 (placeholder pending).
+
+2. **Vectors.json size (~245KB).** Comfortable; well under any practical git-repo limit. PR diff visibility may be reduced for reviewers due to size — that's a tradeoff for the "third-party can inspect what's being tested" benefit.
+
+3. **`pr-checks.yml` golden-vector-parity job has no caching of node_modules.** The test only uses `node:test` + `node:assert/strict` + reads `tests/golden/vectors.json` — no third-party deps, no install step. Trade is ~1s saved on cache check vs ~5s spent on full setup-node action. Acceptable.
+
+4. **`set.seed` parity between Mulberry32 (Node) and R's RNG (mirt's `fscores` internals).** They're DIFFERENT seeded PRNGs — the seed `20260514` doesn't produce the same sequence in both. But this is fine: the R script doesn't sample patterns; it just scores the pre-committed patterns from `vectors.json`. mirt's internal RNG (for quadrature node generation or numerical convergence) is set by `set.seed(20260514)` at the top of `regenerate.R`, which gives R-side reproducibility independently of how the patterns themselves were generated.
+
+**Tested edge cases:**
+
+- All 284 tests pass (`make test` exit 0); +1 from 283 baseline (the new `parity-full.test.mjs` parent test).
+- `parity-full.test.mjs` iterates 1000 entries in 21ms; max θ drift 0.0, max SE drift 0.0 (by construction since fixture is JS-generated).
+- All prior frozen tests still green including `parity.test.mjs` (smoke set).
+- `make lint` clean.
+- `node tools/lint-cognitive-load-budget.mjs` clean — generator is in `tools/` (separate budget); `parity-full.test.mjs` is test code (not counted in scoring-irt-lines).
+- ESLint clean on all new JS files.
+- `tests/scaffold/ci-matrix.test.mjs` AC-1 (28 jobs declared) + AC-3 (deferred jobs) + AC-2 (active jobs no `if: false`) all pass after Story 1.6 frozen `EPIC_1_ACTIVE` set updated + ratified via unfreeze-tests.
+
+**Frozen-test ratification trail:**
+
+1. `tests/scaffold/ci-matrix.test.mjs` — owned by Story 1.6; needed to add `golden-vector-parity` to `EPIC_1_ACTIVE` set on activation. Re-recorded under story=2-6b, then unfrozen, edited, re-recorded (closed window). Documented in memory-lesson 2026-05-19-001 pattern.
+
+2. `tests/golden/parity-audit.mjs` — owned by Story 2-6a (this story 2-6b extends with `--full` mode). Re-recorded integrity in 2-6b context (additive change, not destructive — `--smoke` mode unchanged).
+
+3. `tests/golden/regenerate.R` — same pattern; 2-6b adds `--full` mode that 2-6a left as deferred-stub.
+
+This is the **intended** use of cross-story integrity record + unfreeze: a later story extends a prior story's deliverable with explicit ratification trail. Mode 2 auditor will see the chain in `lesson-events.jsonl` and trace the additive evolution.
+
+**Files added/modified:**
+
+New:
+- `tools/generate-full-vectors.mjs` (deterministic fixture generator)
+- `tests/golden/vectors.json` (1000-entry JS-derived fixture, SHA256 a8b2653a...)
+- `tests/unit/scoring/irt/parity-full.test.mjs` (PR-check full parity assertion)
+
+Modified:
+- `tests/golden/regenerate.R` (`--full` mode impl, replaces deferred stub)
+- `tests/golden/parity-audit.mjs` (`--full` flag + file-path branching)
+- `.github/workflows/golden-regen.yml` (mode input + conditional timeout)
+- `.github/workflows/pr-checks.yml` (golden-vector-parity job activated)
+- `tests/golden/README.md` (full-set section + invocation docs)
+- `tests/golden/CHANGELOG.md` (v2.0 + v2.1-placeholder entries)
+- `tests/scaffold/ci-matrix.test.mjs` (EPIC_1_ACTIVE += golden-vector-parity; ratified via unfreeze)
