@@ -143,3 +143,14 @@ branches:
     last_synced_at: 2026-05-19T11:25:18.186Z
     notes: ""
     created_at: 2026-05-19T10:53:43.809Z
+  - branch: epic/2
+    story_id: null
+    epic_id: epic-2
+    base_branch: main
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-19T14:05:35.721Z
