@@ -246,3 +246,16 @@ Each fixture under `tests/fixtures/lint-negative-assertions/<lint-name>/` contai
 - `make lint` chains all 8 active lints + exits 0, surfaces the budget-lint OK lines.
 - All 28 jobs present in `pr-checks.yml` (regex-asserted); 8 Epic-1-active have no `if: false`; 20 deferred have `if: false` + Activates-in comment.
 - `release.yml` + `scheduled.yml` contain "Activates in Epic 8" + the documented inline-comment orchestration plans (app-v*/corpus-v* namespaces + labeled-Issue routing).
+
+## Auditor Findings (round-1)
+
+### [blocker] Frozen test `tests/scaffold/ci-matrix.test.mjs` (recorded_by=test-author, story-1-6, sha256 67500c46...59231bc) was modified by story-1-7 specialist (commit 2ea50ea) to add `"network-trace"` to the `EPIC_1_ACTIVE` set (2-line addition at line 60-62). Current actual sha256=a2df4be7...f4499b4b. `tds integrity verify --as=auditor` flags this entry. This is a **cross-story frozen-test edit**: story-1-7 impl modified story-1-6's frozen contract. Disclosed in story-1-7 `## Specialist Self-Review → Decisions made #4` ("Story 1.6's ci-matrix.test.mjs needed an update: it hardcoded EPIC_1_ACTIVE with 8 jobs, but Story 1.7 activates network-trace (the 9th). Added it.") but no integrity re-registration. Attribution lives under story-1-6 because that's where the registry entry sits and where the test contract semantically belongs — the recommended fix re-records under story-1-6 with engineer attribution.
+
+
+- **Category:** integrity-drift
+- **Suggested fix:** Covered by the companion finding on story-1-7. Single `tds integrity record --as=engineer --file=tests/scaffold/ci-matrix.test.mjs --story=1-6-... --notes="post-impl edit by story-1-7 specialist: added network-trace to EPIC_1_ACTIVE"` step.
+
+Reason for re-record vs revert: the edit is semantically correct — `network-trace` IS active in epic-1 after story-1-7 (the workflow file has `if: false` removed; pr-checks.yml network-trace job is unconditional). Reverting the test would break Tree A7 (test/contract drift from CI reality). The right fix is ratification of the cross-story edit through engineer re-record.
+
+- **Suggested bridge:** `Same bridge as the 1-7 finding: `tds story unfreeze-tests` CLI to make cross-story / post-impl test contract evolution legible. Currently the only path is Edit + manual re-register, and the manual step gets skipped — exactly the failure mode observed here.
+`
