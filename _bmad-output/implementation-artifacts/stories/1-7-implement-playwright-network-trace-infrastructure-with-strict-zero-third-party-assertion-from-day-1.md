@@ -1,7 +1,7 @@
 ---
 id: 1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1
 title: "Story 1.7: Implement Playwright network-trace infrastructure with STRICT zero-third-party assertion from day 1"
-status: rework
+status: in-progress
 ---
 
 # Story 1.7: Playwright network-trace infrastructure
@@ -203,3 +203,4 @@ Rationale: a green `integrity verify` is the merge precondition the TDS contract
 
 - **Suggested bridge:** `Bridge candidate for epic-1 retro: introduce `tds story unfreeze-tests --story=<id>` CLI (currently missing per memory `feedback_tds_state_machine_quirks.md`). The Edit + manual re-register pattern is friction-hostile and the lack of CLI affordance is what made specialists silently drift integrity during 1-7 impl. Time-box: 1 day.
 `
+- **Resolved:** `manual`
