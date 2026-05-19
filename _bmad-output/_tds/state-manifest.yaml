@@ -14,11 +14,10 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 690e0513e7851842d9de8e2a6fb917bfe49c5fe8e66e9168e6283c1999c630d8
+    sha256: a922d1928645d3f19ec8cbbf2888fff3aa21ccd70be336d17f2747a8c721db9a
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T11:54:06.226Z
-    recorded_by: auditor
-    story_id: bridge-1-2
+    recorded_at: 2026-05-19T14:05:13.745Z
+    recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -191,9 +190,9 @@ entries:
     notes: story-1-10 frozen failing tests
   - artefact_class: A
     file: _bmad-output/_tds/sprint-status-extension.yaml
-    sha256: 091f762a6acf515cf6682ae1ed7ec078e0ae6a30f9e59a5b969202dec000901f
+    sha256: 1c19bf127d8f992859ea02ac41d08ae9d9ec58145afb3ae16f3100cd64be444c
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:48:14.927Z
+    recorded_at: 2026-05-19T14:05:13.634Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-1-2-1-add-tds-story-unfreeze.md
