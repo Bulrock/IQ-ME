@@ -102,11 +102,11 @@ entries:
     notes: story-1-5 frozen failing tests
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
-    sha256: 881a3ac65ce2da0fe302735bc5dc657c75a9b659b271646f3db17d14a907515a
+    sha256: b200206425a1a3882b9d3243385bb218f872fe03f7e0147d83a871185b8d16a8
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:32:37.634Z
+    recorded_at: 2026-05-19T12:55:42.690Z
     recorded_by: engineer
-    story_id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
+    story_id: epic-1-retrospective
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
     sha256: a2df4be7495a999053d9b795bd11f9b194306321c60e773afe25ecb6f4499b4b
@@ -124,11 +124,11 @@ entries:
     notes: story-1-6 frozen failing tests
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1.md
-    sha256: a38d1c51bd0b122cee5787085833597c833490bdd26ebea693c9c1e5491f24a0
+    sha256: c5f9f206279ad74fca275ad7660f80098efdc4aceee8cfe2815b202be80d7439
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:32:37.844Z
+    recorded_at: 2026-05-19T12:55:42.690Z
     recorded_by: engineer
-    story_id: 1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1
+    story_id: epic-1-retrospective
   - artefact_class: A
     file: tests/scaffold/playwright-network-trace.test.mjs
     sha256: 24d53777acf0b079407416934d4c644fb950da3ff828b8d4a6ec3ad2be837400
