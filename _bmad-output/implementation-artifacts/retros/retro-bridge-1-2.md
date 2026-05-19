@@ -129,3 +129,7 @@ Net effect: B4+B2 cleared; B1+B3 are properly contextualized as a single follow-
 - Branch registry: [_bmad-output/_tds/branch-registry.yaml](../../_tds/branch-registry.yaml)
 - Bridge merge commit: 036f1e5 (PR #2, squash → main)
 - Upstream impl repo (uncommitted at retro time): /Users/maksim/git/bmad-tds-module/
+
+## Applied to bridge: none-iq-me-noop @ 2026-05-19T13:35:00Z
+
+Resolved in-retro per «Bridge Plan execution log» section above: B4 was a no-op (drift already clean), B2 was fixed inline in upstream working tree, B1+B3 are reframed as a single bmad-tds-module upstream PR (out-of-tree for IQ-ME). No IQ-ME bridge stories created. This marker exists so `/bmad-tds-bridge-from-retros` scan does not re-pick up this retro on future invocations. Tracking of the upstream PR lives in [lesson-2026-05-19-008](../../_tds/memory/lessons.yaml).
