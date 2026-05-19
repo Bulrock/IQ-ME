@@ -489,3 +489,15 @@ Claude Opus 4.7 (claude-opus-4-7) via Claude Code, orchestrator role: bmad-tds-e
 - AC-8.7: `.txt` + `.json` siblings in the source tree skipped by walker. ✓
 - AC-8.8: source-grep self-check (no Math.random / Date.now / setTimeout / localStorage / non-stdlib imports). ✓
 - All 419 prior-story tests stay green; budget under limit; lint 11/11 green.
+
+## Auditor Findings (round-1)
+
+### [blocker] `tests/scaffold/build-methodology-output.test.mjs` shares the `dist/` directory with `tests/unit/dev-server.test.mjs:91` (`AC-8.5: GET methodology stub page`) and unconditionally calls `rmSync(DIST, { recursive: true, force: true })` in both setup (line 33) and the `finally` block (line 54). Under default node:test file-parallelism this races: the build-methodology test wipes `dist/` while the dev-server test (or a subsequent build-methodology invocation) is reading it. Reproducible: 3 of 4 sequential `make test` runs failed with `ERR_ASSERTION: expected output at /Users/maksim/git/IQ-ME/dist/methodology/v0.1.0/en/scoring/percentile-to-iq/index.html`. Per Decision Tree A7 (existing tests broken / flakiness > 2% — observed ~75%) this is a blocker before epic-3 squashes into main, because CI will inherit the same flakiness and start failing pr-checks on unrelated PRs.
+
+
+- **Category:** test-quality / flakiness
+- **Suggested fix:** Recommended: isolate the build-methodology test's output directory by using a per-test temp dir (e.g. `mkdtempSync(join(tmpdir(), "iqme-build-meth-"))`) and passing it to `build-methodology.mjs` via an env var (`BUILD_METHODOLOGY_OUT`) or CLI flag. Symmetrically gate `dev-server.test.mjs:91` against the shared `dist/` (read-only, no rm) — it already `t.skip()` if absent, which is correct behavior. Net: no test ever rm's the shared `dist/` directory.
+Alternative: serialize the offending tests with `test.before`/`test.after` orchestration into a single suite that locks the dist directory. Simpler but less isolating.
+
+- **Suggested bridge:** `"Adopt per-test temp dirs for any dist-touching test (and any future test that mutates a shared sibling-test artefact). One-paragraph convention note added to docs/local-build-instructions.md or a new docs/test-isolation.md."
+`
