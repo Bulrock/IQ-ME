@@ -1,7 +1,7 @@
 ---
 id: 1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1
 title: "Story 1.7: Implement Playwright network-trace infrastructure with STRICT zero-third-party assertion from day 1"
-status: in-progress
+status: review
 ---
 
 # Story 1.7: Playwright network-trace infrastructure
@@ -132,6 +132,7 @@ The acceptance test in `tests/scaffold/playwright-network-trace.test.mjs` must n
 ### Completion Notes List
 
 - 21 frozen tests + 2 follow-up test bug fixes; full scaffold 106/106. Task 6 (package.json) not authored — npx --yes handles dev-deps per NFR33.
+- rework round-1 finding resolved: re-recorded tests/scaffold/playwright-network-trace.test.mjs integrity as engineer (ratification of post-impl test bug-fixes per auditor finding 1-7 round-1#1). Project-wide integrity verify now 26/26.
 
 ### File List
 
@@ -145,46 +146,27 @@ The acceptance test in `tests/scaffold/playwright-network-trace.test.mjs` must n
 
 **Decisions made:**
 
-1. **`file://` baseline rather than dev-server-on-localhost.** Story 1.7 ships the infrastructure; Epic 3 ships the SPA. A localhost dev server is premature for Epic 1. Playwright loads `tests/fixtures/network-trace-baseline.html` via `pathToFileURL().href`. The strict rule for `file://`: zero `http(s)://` requests. When Epic 3 lands the SPA, `IQME_NETWORK_TRACE_TARGET=http://localhost:8080` switches to same-origin mode; the spec runs unchanged.
-
-2. **Local `node --test` does NOT invoke Playwright.** AC-7 asserts structural correctness only; CI does the real work. Rationale: Playwright's chromium binary is ~300MB; downloading it on every developer's first `make test` would be friction-hostile (NFR32 cognitive-load applies to tooling too). `make test-network-trace` is the opt-in for local runs.
-
-3. **No `package.json` added.** `npx --yes playwright …` fetches on demand and caches under `~/.npm`. CI hits a cold cache once per runner; local devs cache once. The Story 1.1 master tree mentions `package.json` but doesn't require it for Story 1.7.
-
-4. **Test bug fixes via engineer Edit, not test-author retry-loop.** Two AC tests had structural bugs that surfaced only against real impl:
-   - AC-2 regex didn't span newlines (`expect(...)` spans lines in the spec).
-   - AC-5 20-line scan window bled into the next job's `if: false`.
-   Fixed both via Edit. Per workflow guidance, frozen-test edits via Edit are permissible when test bugs surface against impl that satisfies AC semantically — the alternative is a full test-author retry, which the FSM here doesn't support cleanly (no `tds story unfreeze-tests`).
-   Additionally, **Story 1.6's `ci-matrix.test.mjs` needed an update**: it hardcoded `EPIC_1_ACTIVE` with 8 jobs, but Story 1.7 activates `network-trace` (the 9th). Added it.
+1. **Re-record only, no code change.** Auditor finding (round-1, blocker, integrity-drift) on `tests/scaffold/playwright-network-trace.test.mjs` was about two honestly-disclosed post-impl test bug-fixes (AC-2 regex newline span, AC-5 20-line scan window bleed) where the integrity record was never re-registered. Auditor explicitly recommended ratification via `tds integrity record --as=engineer` — that's the entire fix. Tests preserve frozen contract semantics; only SHA256 of the bug-fix edits is being recorded.
+2. **Skipped fresh story_branch.** Same reasoning as 1-6 rework: the fix is a metadata mutation (state-manifest.yaml), not new code. Spinning a `story/1-7-rework` branch for a single CLI call would be ceremonial. Done directly on `epic/1` via Phase 1 auto-commit + final state-commit sweep.
+3. **Project-wide integrity verified 26/26.** After the companion 1-6 re-record (`tests/scaffold/ci-matrix.test.mjs`) and this 1-7 re-record (`playwright-network-trace.test.mjs`), `tds integrity verify` returns `verified=26, failed=0` — the merge precondition the TDS contract enforces is satisfied.
 
 **Alternatives considered:**
 
-- *Embed Playwright in `node --test` via direct API rather than `npx playwright test`* — Playwright's test runner is the supported entry point. Calling the Playwright API from `node --test` would lose test discovery + reporter integration. Stuck with `npx`.
-- *Use Puppeteer instead of Playwright* — Puppeteer is single-browser (chromium only). Playwright supports chromium + firefox + webkit; AC-5 only requires chromium for CI cost reasons, but the spec is portable to webkit/firefox without changes if a future PR widens coverage.
-- *Add a `same-origin only` rule for the baseline* — `file://` doesn't have a meaningful "host" in HTTP terms. The cleanest invariant for the baseline is **zero http(s) requests at all**; the same-origin variant kicks in only when the target is `http(s)://`.
+- *Revert post-impl test bug-fixes + re-freeze under test-author* — would restore the documented-bug regex/scan-window issues. Test logic is correct as-is; reverting breaks Tree A7 contract/CI parity.
+- *Bridge story for `tds story unfreeze-tests` CLI affordance* — flagged by auditor as the wider remedy (matches `feedback_tds_state_machine_quirks.md` memory). Out of scope here; belongs in epic-1 retro per auditor's own recommendation (spec line: "that bridge belongs in epic-1 retro, not as an epic-merge blocker").
 
 **Framework gotchas avoided:**
 
-- `new URL("file:///path/to/file.html").host` is empty string, not the file path. Same-origin logic for `file://` is meaningless; the spec branches on `TARGET.startsWith("file://")`.
-- `page.waitForLoadState("networkidle")` — without this, async fetches that fire after `load` could escape capture. The baseline has no script tags, so this is belt-and-suspenders, but the Epic-3 SPA will have async modules.
-- The forbidden-domain check uses `host === bad || host.endsWith("." + bad)` so subdomain leaks (e.g. `analytics.googletagmanager.com`) are still caught.
-- Removed `http://localhost` from the baseline HTML comment because the structural test (AC-4 "no external resource references") had a strict `/https?:\/\//` regex that caught even in-comment URLs.
+- The auditor finding lists 4 concrete steps; steps 1-2 are the `tds integrity record` calls (both files, attributed engineer); step 3 is the verify (now clean); step 4 is the state-commit (Step 8 in the workflow handles this). Followed verbatim.
 
 **Areas of uncertainty:**
 
-- The CI job uses `--with-deps chromium` which installs system libs. On ubuntu-latest this is well-supported but takes ~2 min on cold cache. If runner minutes become a concern, switch to `chromium-headless-shell` (smaller). Out of scope for v1.
-- The forbidden-domain list is hand-curated. A future PR may move it to a separate JSON file so non-spec code can grep against the same canonical list (e.g. the `lint-no-analytics-script` lint could load it). YAGNI for v1.
-- The `FORBIDDEN_DOMAINS` overlaps with `lint-no-external-font` and `lint-no-analytics-script` from Story 1.6 — defense in depth (source-time + runtime), but the two lists could drift. Out of scope; flag for retro.
+- None on the mechanical fix. The wider concern — that `Edit + manual re-register` pattern remains friction-hostile and continues to invite silent drift — is the bridge proposal flagged by the auditor and properly belongs in epic-1 retro. Not addressed here.
 
 **Tested edge cases:**
 
-- All 21 frozen tests pass (after two test bug fixes); full scaffold suite 106/106.
-- Spec parses + imports from `@playwright/test`.
-- `FORBIDDEN_DOMAINS` literal contains all 11 required hosts.
-- Baseline fixture has no `https?://`, no `src="//"`, no `href="//"`, no `@import url`.
-- pr-checks.yml `network-trace` job has no `if: false`, has `actions/setup-node@v4`, has `npx playwright install --with-deps chromium`, has `npx playwright test tests/playwright/network-trace.spec.mjs`.
-- Makefile declares `test-network-trace` target with `## self-doc` comment.
-- Did NOT run real Playwright locally (consistent with the structural-only AC-7 decision); CI will exercise the real assertion.
+- `tests/scaffold/playwright-network-trace.test.mjs` → 21/21 pass after re-record.
+- `tds integrity verify` project-wide → `verified=26, failed=0`.
 
 ## Auditor Findings (round-1)
 
