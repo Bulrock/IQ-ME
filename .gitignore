@@ -2,3 +2,5 @@
 # === TDS runtime artifacts (auto-managed by `tds setup install`) ===
 _bmad-output/_tds/runtime/
 # === end TDS block ===
+
+dist/
