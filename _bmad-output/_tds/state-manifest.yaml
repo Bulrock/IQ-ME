@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: d045a6b7c6153bf9d2bfc490c87dc8e72b27d2ace96efa340a6b491d4a77209d
+    sha256: 8f8ae095d5283762c7aa177874a005caa5463f80b60d959647bcca54790e8428
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:18:05.060Z
+    recorded_at: 2026-05-19T16:47:18.617Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 2f6ba270d455378f649ed4a158127b8ceb83f1a10c4522a67588a82633076027
+    sha256: 5b0ddcd76b1229c40cfc9495dd4d98f2c7e9ac879196e6df97d5bfc4f75d2e10
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:39:31.254Z
-    recorded_by: auditor
-    story_id: epic-2
+    recorded_at: 2026-05-19T16:51:39.122Z
+    recorded_by: engineer
+    story_id: 3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -375,3 +375,10 @@ entries:
     recorded_at: 2026-05-19T15:14:28.798Z
     recorded_by: test-author
     story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url.md
+    sha256: 0078ee042e34f0684119c6f60d18d831cdecc2a346154991edf6c504c66b4482
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T16:51:39.161Z
+    recorded_by: engineer
+    story_id: 3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url
