@@ -113,10 +113,13 @@ jobs:
   network-trace:
     name: network-trace
     runs-on: ubuntu-latest
-    # Activates in Story 1.7
-    if: false
     steps:
-      - run: echo "stub — Activates in Story 1.7"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: npx --yes playwright test tests/playwright/network-trace.spec.mjs
 
   lint-css-link-order:
     name: lint-css-link-order

@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-19 1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1: ready-for-dev'
+last_updated: '2026-05-19 1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -49,7 +49,7 @@ development_status:
   1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md: review
   1-5-commit-budgets-json-lint-cognitive-load-budget-mjs: review
   1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs: review
-  1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1: ready-for-dev
+  1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1: review
   1-8-ship-deterministic-build-harness-ready-for-epic-2-s-golden-vectors: backlog
   1-9-eslint-config-no-restricted-paths-docs-domain-map-md: backlog
   1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts: backlog

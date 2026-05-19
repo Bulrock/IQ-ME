@@ -59,6 +59,8 @@ const EPIC_1_ACTIVE = new Set([
   "lint-no-external-font",
   "lint-no-localStorage-without-consent",
   "lint-cognitive-load-budget",
+  // network-trace becomes active in Story 1.7.
+  "network-trace",
 ]);
 
 function loadPrChecks() {

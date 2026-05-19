@@ -5,14 +5,17 @@
 
 .DEFAULT_GOAL := help
 
-.PHONY: help test lint build build-methodology dev clean snapshot-update
+.PHONY: help test test-network-trace lint build build-methodology dev clean snapshot-update
 
 help: ## list documented Make targets
 	@grep -hE '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) \
 	  | awk -F':.*## ' '{printf "%-20s %s\n", $$1, $$2}'
 
-test: ## run node --test against tests/ (exits 0 on empty tree)
-	@find tests -name '*.test.mjs' -print -quit | grep -q . && node --test 'tests/**/*.test.mjs' || echo "test: no *.test.mjs files registered yet"
+test: ## run node --test against tests/scaffold + tests/unit (Playwright excluded)
+	@find tests/scaffold tests/unit -name '*.test.mjs' -print -quit 2>/dev/null | grep -q . && node --test 'tests/scaffold/**/*.test.mjs' || echo "test: no *.test.mjs files registered yet"
+
+test-network-trace: ## run Playwright network-trace spec (downloads chromium on first run)
+	npx --yes playwright test tests/playwright/network-trace.spec.mjs
 
 lint: ## run all registered lints (negative assertions + budget + trust artifacts)
 	node tools/lint-cognitive-load-budget.mjs

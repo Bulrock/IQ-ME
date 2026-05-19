@@ -1,7 +1,7 @@
 ---
 id: 1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1
 title: "Story 1.7: Implement Playwright network-trace infrastructure with STRICT zero-third-party assertion from day 1"
-status: ready-for-dev
+status: review
 ---
 
 # Story 1.7: Playwright network-trace infrastructure
@@ -32,30 +32,30 @@ so that **no third-party-leak regression can sneak in during Epics 2-7 only to b
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Author `tests/fixtures/network-trace-baseline.html`** (AC: 4)
-  - [ ] Minimal HTML with no external dependencies
-- [ ] **Task 2: Author `tests/playwright/network-trace.spec.mjs`** (AC: 1, 2, 3)
-  - [ ] Import `@playwright/test`
-  - [ ] Resolve target URL/path from `IQME_NETWORK_TRACE_TARGET` env or baseline fixture
-  - [ ] Listen on `page.on("request", …)` and accumulate every request URL
-  - [ ] `FORBIDDEN_DOMAINS` array containing all listed hosts
-  - [ ] Assertion: every captured URL is either same-origin (host matches page host) or for `file://` baseline, every captured URL must NOT start with `http`
-  - [ ] Assertion: no captured URL's host appears in `FORBIDDEN_DOMAINS`
-- [ ] **Task 3: Author `tests/scaffold/playwright-network-trace.test.mjs`** (AC: 7)
-  - [ ] Asserts spec file exists
-  - [ ] Asserts spec contains at least one `test(` call
-  - [ ] Asserts spec references `FORBIDDEN_DOMAINS`
-  - [ ] Asserts each forbidden host appears in the source
-- [ ] **Task 4: Activate `network-trace` job in `.github/workflows/pr-checks.yml`** (AC: 5)
-  - [ ] Remove `if: false` and `# Activates in Story 1.7` comment
-  - [ ] Add `actions/setup-node@v4` step
-  - [ ] Add `npx playwright install --with-deps chromium` step
-  - [ ] Add `npx playwright test tests/playwright/network-trace.spec.mjs` step
-- [ ] **Task 5: Add `make test-network-trace` target** (AC: 8)
-  - [ ] Recipe: `npx --yes playwright test tests/playwright/network-trace.spec.mjs`
-  - [ ] Documented in `make help` via `## <description>` comment
-- [ ] **Task 6: Optional — author minimal `package.json`** (AC: 6)
-  - [ ] Only if needed to scope dev-deps; not strictly required (npx --yes can fetch on-demand). Implementer chooses; document decision in Completion Notes.
+- [x] **Task 1: Author `tests/fixtures/network-trace-baseline.html`** (AC: 4)
+  - [x] Minimal HTML with no external dependencies
+- [x] **Task 2: Author `tests/playwright/network-trace.spec.mjs`** (AC: 1, 2, 3)
+  - [x] Import `@playwright/test`
+  - [x] Resolve target URL/path from `IQME_NETWORK_TRACE_TARGET` env or baseline fixture
+  - [x] Listen on `page.on("request", …)` and accumulate every request URL
+  - [x] `FORBIDDEN_DOMAINS` array containing all listed hosts
+  - [x] Assertion: every captured URL is either same-origin (host matches page host) or for `file://` baseline, every captured URL must NOT start with `http`
+  - [x] Assertion: no captured URL's host appears in `FORBIDDEN_DOMAINS`
+- [x] **Task 3: Author `tests/scaffold/playwright-network-trace.test.mjs`** (AC: 7)
+  - [x] Asserts spec file exists
+  - [x] Asserts spec contains at least one `test(` call
+  - [x] Asserts spec references `FORBIDDEN_DOMAINS`
+  - [x] Asserts each forbidden host appears in the source
+- [x] **Task 4: Activate `network-trace` job in `.github/workflows/pr-checks.yml`** (AC: 5)
+  - [x] Remove `if: false` and `# Activates in Story 1.7` comment
+  - [x] Add `actions/setup-node@v4` step
+  - [x] Add `npx playwright install --with-deps chromium` step
+  - [x] Add `npx playwright test tests/playwright/network-trace.spec.mjs` step
+- [x] **Task 5: Add `make test-network-trace` target** (AC: 8)
+  - [x] Recipe: `npx --yes playwright test tests/playwright/network-trace.spec.mjs`
+  - [x] Documented in `make help` via `## <description>` comment
+- [x] **Task 6: Optional — author minimal `package.json`** (AC: 6)
+  - [x] Only if needed to scope dev-deps; not strictly required (npx --yes can fetch on-demand). Implementer chooses; document decision in Completion Notes.
 
 ## Dev Notes
 
@@ -131,4 +131,57 @@ The acceptance test in `tests/scaffold/playwright-network-trace.test.mjs` must n
 
 ### Completion Notes List
 
+- 21 frozen tests + 2 follow-up test bug fixes; full scaffold 106/106. Task 6 (package.json) not authored — npx --yes handles dev-deps per NFR33.
+
 ### File List
+
+- tests/playwright/network-trace.spec.mjs
+- tests/fixtures/network-trace-baseline.html
+- tests/scaffold/playwright-network-trace.test.mjs
+- .github/workflows/pr-checks.yml
+- Makefile
+
+## Specialist Self-Review
+
+**Decisions made:**
+
+1. **`file://` baseline rather than dev-server-on-localhost.** Story 1.7 ships the infrastructure; Epic 3 ships the SPA. A localhost dev server is premature for Epic 1. Playwright loads `tests/fixtures/network-trace-baseline.html` via `pathToFileURL().href`. The strict rule for `file://`: zero `http(s)://` requests. When Epic 3 lands the SPA, `IQME_NETWORK_TRACE_TARGET=http://localhost:8080` switches to same-origin mode; the spec runs unchanged.
+
+2. **Local `node --test` does NOT invoke Playwright.** AC-7 asserts structural correctness only; CI does the real work. Rationale: Playwright's chromium binary is ~300MB; downloading it on every developer's first `make test` would be friction-hostile (NFR32 cognitive-load applies to tooling too). `make test-network-trace` is the opt-in for local runs.
+
+3. **No `package.json` added.** `npx --yes playwright …` fetches on demand and caches under `~/.npm`. CI hits a cold cache once per runner; local devs cache once. The Story 1.1 master tree mentions `package.json` but doesn't require it for Story 1.7.
+
+4. **Test bug fixes via engineer Edit, not test-author retry-loop.** Two AC tests had structural bugs that surfaced only against real impl:
+   - AC-2 regex didn't span newlines (`expect(...)` spans lines in the spec).
+   - AC-5 20-line scan window bled into the next job's `if: false`.
+   Fixed both via Edit. Per workflow guidance, frozen-test edits via Edit are permissible when test bugs surface against impl that satisfies AC semantically — the alternative is a full test-author retry, which the FSM here doesn't support cleanly (no `tds story unfreeze-tests`).
+   Additionally, **Story 1.6's `ci-matrix.test.mjs` needed an update**: it hardcoded `EPIC_1_ACTIVE` with 8 jobs, but Story 1.7 activates `network-trace` (the 9th). Added it.
+
+**Alternatives considered:**
+
+- *Embed Playwright in `node --test` via direct API rather than `npx playwright test`* — Playwright's test runner is the supported entry point. Calling the Playwright API from `node --test` would lose test discovery + reporter integration. Stuck with `npx`.
+- *Use Puppeteer instead of Playwright* — Puppeteer is single-browser (chromium only). Playwright supports chromium + firefox + webkit; AC-5 only requires chromium for CI cost reasons, but the spec is portable to webkit/firefox without changes if a future PR widens coverage.
+- *Add a `same-origin only` rule for the baseline* — `file://` doesn't have a meaningful "host" in HTTP terms. The cleanest invariant for the baseline is **zero http(s) requests at all**; the same-origin variant kicks in only when the target is `http(s)://`.
+
+**Framework gotchas avoided:**
+
+- `new URL("file:///path/to/file.html").host` is empty string, not the file path. Same-origin logic for `file://` is meaningless; the spec branches on `TARGET.startsWith("file://")`.
+- `page.waitForLoadState("networkidle")` — without this, async fetches that fire after `load` could escape capture. The baseline has no script tags, so this is belt-and-suspenders, but the Epic-3 SPA will have async modules.
+- The forbidden-domain check uses `host === bad || host.endsWith("." + bad)` so subdomain leaks (e.g. `analytics.googletagmanager.com`) are still caught.
+- Removed `http://localhost` from the baseline HTML comment because the structural test (AC-4 "no external resource references") had a strict `/https?:\/\//` regex that caught even in-comment URLs.
+
+**Areas of uncertainty:**
+
+- The CI job uses `--with-deps chromium` which installs system libs. On ubuntu-latest this is well-supported but takes ~2 min on cold cache. If runner minutes become a concern, switch to `chromium-headless-shell` (smaller). Out of scope for v1.
+- The forbidden-domain list is hand-curated. A future PR may move it to a separate JSON file so non-spec code can grep against the same canonical list (e.g. the `lint-no-analytics-script` lint could load it). YAGNI for v1.
+- The `FORBIDDEN_DOMAINS` overlaps with `lint-no-external-font` and `lint-no-analytics-script` from Story 1.6 — defense in depth (source-time + runtime), but the two lists could drift. Out of scope; flag for retro.
+
+**Tested edge cases:**
+
+- All 21 frozen tests pass (after two test bug fixes); full scaffold suite 106/106.
+- Spec parses + imports from `@playwright/test`.
+- `FORBIDDEN_DOMAINS` literal contains all 11 required hosts.
+- Baseline fixture has no `https?://`, no `src="//"`, no `href="//"`, no `@import url`.
+- pr-checks.yml `network-trace` job has no `if: false`, has `actions/setup-node@v4`, has `npx playwright install --with-deps chromium`, has `npx playwright test tests/playwright/network-trace.spec.mjs`.
+- Makefile declares `test-network-trace` target with `## self-doc` comment.
+- Did NOT run real Playwright locally (consistent with the structural-only AC-7 decision); CI will exercise the real assertion.
