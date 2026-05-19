@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-19 2-7-populate-methodology_claims-json-activate-lint-claims-manifest: ready-for-dev'
+last_updated: '2026-05-19 2-7-populate-methodology_claims-json-activate-lint-claims-manifest: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -66,7 +66,7 @@ development_status:
   2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade: review
   2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10: review
   2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring: review
-  2-7-populate-methodology_claims-json-activate-lint-claims-manifest: ready-for-dev
+  2-7-populate-methodology_claims-json-activate-lint-claims-manifest: review
   epic-2-retrospective: optional
   epic-3: backlog
   3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url: backlog

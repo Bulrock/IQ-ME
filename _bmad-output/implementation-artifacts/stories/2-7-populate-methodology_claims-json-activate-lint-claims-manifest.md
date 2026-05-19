@@ -1,7 +1,7 @@
 ---
 id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
 title: "Story 2.7: Populate METHODOLOGY_CLAIMS.json + activate lint-claims-manifest"
-status: ready-for-dev
+status: review
 ---
 
 # Story 2.7: Populate METHODOLOGY_CLAIMS.json + activate lint-claims-manifest
@@ -80,41 +80,41 @@ This is the final story of Epic 2 — closes out the scoring-engine + claims-man
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Author `METHODOLOGY_CLAIMS.json`** (AC: 1)
-  - [ ] Create `METHODOLOGY_CLAIMS.json` at repo root with the 9 claims listed in AC-1.
-  - [ ] `version: "1.0.0"`, JSON-valid, 2-space indent, trailing newline.
-  - [ ] Each claim has all 4 required fields per schema; methodology-path conforms to the `src/content/methodology/[a-z]{2}/.+\.md` pattern.
+- [x] **Task 1 — Author `METHODOLOGY_CLAIMS.json`** (AC: 1)
+  - [x] Create `METHODOLOGY_CLAIMS.json` at repo root with the 9 claims listed in AC-1.
+  - [x] `version: "1.0.0"`, JSON-valid, 2-space indent, trailing newline.
+  - [x] Each claim has all 4 required fields per schema; methodology-path conforms to the `src/content/methodology/[a-z]{2}/.+\.md` pattern.
 
-- [ ] **Task 2 — Author `tools/lint-claims-manifest.mjs`** (AC: 2, 3)
-  - [ ] Pure Node.js, no third-party deps (NFR33).
-  - [ ] CLI args: `--strict` (default off) + `--manifest=<path>` (default `METHODOLOGY_CLAIMS.json`).
-  - [ ] Load + schema-validate the manifest (basic structure check).
-  - [ ] For each claim: existsSync on engine-source → ERROR if missing (always exits 1, regardless of mode; missing engine source is a hard failure).
-  - [ ] For each claim: existsSync on methodology-path → in warn-mode emit warn to stderr, continue; in strict-mode emit error to stderr, set exit code 1.
-  - [ ] For each claim with present methodology page: read frontmatter `asserts:` field; verify it contains the claim-id; warn/error per mode.
-  - [ ] Final exit 0 in warn-mode (unless engine-source missing); strict-mode exits 1 if any methodology-path / asserts-missing issues.
+- [x] **Task 2 — Author `tools/lint-claims-manifest.mjs`** (AC: 2, 3)
+  - [x] Pure Node.js, no third-party deps (NFR33).
+  - [x] CLI args: `--strict` (default off) + `--manifest=<path>` (default `METHODOLOGY_CLAIMS.json`).
+  - [x] Load + schema-validate the manifest (basic structure check).
+  - [x] For each claim: existsSync on engine-source → ERROR if missing (always exits 1, regardless of mode; missing engine source is a hard failure).
+  - [x] For each claim: existsSync on methodology-path → in warn-mode emit warn to stderr, continue; in strict-mode emit error to stderr, set exit code 1.
+  - [x] For each claim with present methodology page: read frontmatter `asserts:` field; verify it contains the claim-id; warn/error per mode.
+  - [x] Final exit 0 in warn-mode (unless engine-source missing); strict-mode exits 1 if any methodology-path / asserts-missing issues.
 
-- [ ] **Task 3 — Author `tests/unit/tools/lint-claims-manifest.test.mjs`** (AC: 4)
-  - [ ] 4 AC-4 sub-tests as spawnSync-based shell-out tests.
-  - [ ] Use temp dirs for mock methodology pages.
+- [x] **Task 3 — Author `tests/unit/tools/lint-claims-manifest.test.mjs`** (AC: 4)
+  - [x] 4 AC-4 sub-tests as spawnSync-based shell-out tests.
+  - [x] Use temp dirs for mock methodology pages.
 
-- [ ] **Task 4 — Author `tests/unit/methodology-claims/schema.test.mjs`** (AC: 5)
-  - [ ] Load + parse `METHODOLOGY_CLAIMS.json`.
-  - [ ] Manual schema validation against pattern from `corpus/methodology-claims-v1.schema.json`.
-  - [ ] Verify all 9 claims exist with required fields + correct patterns.
+- [x] **Task 4 — Author `tests/unit/methodology-claims/schema.test.mjs`** (AC: 5)
+  - [x] Load + parse `METHODOLOGY_CLAIMS.json`.
+  - [x] Manual schema validation against pattern from `corpus/methodology-claims-v1.schema.json`.
+  - [x] Verify all 9 claims exist with required fields + correct patterns.
 
-- [ ] **Task 5 — Add lint-claims-manifest to Makefile lint target** (AC: 7)
-  - [ ] Add `node tools/lint-claims-manifest.mjs` line to `lint` target (warn-mode, no `--strict`).
-  - [ ] Preserve ordering with other linters.
+- [x] **Task 5 — Add lint-claims-manifest to Makefile lint target** (AC: 7)
+  - [x] Add `node tools/lint-claims-manifest.mjs` line to `lint` target (warn-mode, no `--strict`).
+  - [x] Preserve ordering with other linters.
 
-- [ ] **Task 6 — Verify pr-checks.yml `lint-claims-manifest` job remains deferred** (AC: 3)
-  - [ ] Confirm `if: false` + `# Activates in Epic 2 (Story 2.7)` comment is now updated to `# Activates in Story 4.3` (since 2.7 deliberately does NOT flip).
-  - [ ] Comment-only change; the job remains stubbed.
+- [x] **Task 6 — Verify pr-checks.yml `lint-claims-manifest` job remains deferred** (AC: 3)
+  - [x] Confirm `if: false` + `# Activates in Epic 2 (Story 2.7)` comment is now updated to `# Activates in Story 4.3` (since 2.7 deliberately does NOT flip).
+  - [x] Comment-only change; the job remains stubbed.
 
-- [ ] **Task 7 — Run full local pipeline** (AC: 6, 8)
-  - [ ] `make lint` → 0 (with 9 warnings on stderr from lint-claims-manifest).
-  - [ ] `make test` → 0 (existing 284 + new tests).
-  - [ ] No scoring-irt budget changes (new code in `tools/`, `tests/unit/tools/`).
+- [x] **Task 7 — Run full local pipeline** (AC: 6, 8)
+  - [x] `make lint` → 0 (with 9 warnings on stderr from lint-claims-manifest).
+  - [x] `make test` → 0 (existing 284 + new tests).
+  - [x] No scoring-irt budget changes (new code in `tools/`, `tests/unit/tools/`).
 
 ## Dev Notes
 
@@ -182,6 +182,96 @@ If the implementation moves between files later, the JSON manifest must be updat
 
 ### Completion Notes List
 
+- Story 2-7 finalized: METHODOLOGY_CLAIMS.json with 9 engine claims + lint-claims-manifest.mjs warn-mode + 13 unit tests. make test 297/297 pass. Strict-mode graduation deferred to Story 4.3 per spec. claim-id 'golden-vector-parity-0001-logits' (transformed from 0.001 form to honor schema regex).
+- Ready for code-review (cumulative-epic Mode 2). Closes Epic 2.
+
 ### File List
 
+- METHODOLOGY_CLAIMS.json
+- tools/lint-claims-manifest.mjs
+- tests/unit/methodology-claims/schema.test.mjs
+- tests/unit/tools/lint-claims-manifest.test.mjs
+- Makefile
+- .github/workflows/pr-checks.yml
+
 ## Specialist Self-Review
+
+**Decisions made:**
+
+1. **claim-id `golden-vector-parity-0001-logits`, not `0.001-logits`.** Schema regex `^[a-z][a-z0-9-]*$` doesn't allow dots. The original epic-narrative line 915 had `golden-vector-parity-0.001-logits` which would fail schema validation. Transformed to `0001-logits` to honor the frozen schema contract (Story 1.4 deliverable). Epic 5's eventual `golden-vectors.md` methodology page will assert this same form.
+
+2. **Warn-mode lint by default.** Per spec line 921 + 924–926, Story 2.7 explicitly does NOT flip to `--strict`. The lint accepts `--strict` flag but defaults to warn. Makefile invocation uses warn-mode. pr-checks.yml `lint-claims-manifest` job remains `if: false` with the comment updated from "Epic 2" to "Story 4.3 (--strict mode after methodology pages land in Epic 5)."
+
+3. **Methodology-path patterns reference English-only paths.** All 9 claims use `src/content/methodology/en/<topic>/<page>.md`. Epic 7 will extend to ru/pl with the lint enforcing per-language `asserts:` frontmatter when those pages exist.
+
+4. **Engine-source missing is ALWAYS a hard ERROR.** Per spec AC-2: if a claim references `src/scoring/irt/foo.js` and that file doesn't exist, the lint exits 1 regardless of mode. This guards against renames that orphan the manifest.
+
+5. **YAML frontmatter parser is regex-based (not a YAML lib).** Pure JS per NFR33. The asserts-detection regex matches inline-array form `asserts: [a, b]` and continues until next top-level key. Good enough for the simple format methodology pages will use; can be replaced with a proper YAML parser in a follow-up if needed.
+
+6. **`combinedSE` mapped to `se-total-rss` claim.** D3 names the engine-side function `combinedSE` (FR15 RSS combiner). The methodology page will document `SE_total = √(SEM² + SE_norming²)` under the claim-id `se-total-rss`. The naming asymmetry (function `combinedSE` vs claim `se-total-rss`) is intentional — the claim names the math relationship, not the JS function.
+
+**Alternatives considered:**
+
+- *Add `lint-claims-manifest` to pr-checks.yml in warn-mode now, flip to strict in Story 4.3.* Rejected per spec line 924-926 (Murat's duplicate-gate-trap finding): two activation points → confusion about which is canonical. Story 4.3 is the single activation event; Story 2.7 just lands the tool.
+
+- *Use AJV or a third-party JSON-schema validator.* Rejected for NFR33 (zero runtime deps). Manual regex validation against the schema patterns is sufficient — 4 simple patterns + required-field check. Less than 50 lines of validation logic.
+
+- *Keep `claim-id: golden-vector-parity-0.001-logits` and update the schema to allow dots.* Rejected — schema is frozen (Story 1.4 deliverable, class-A). Modifying it now would invalidate the integrity-record audit trail and trigger a cascade of test updates. Cleaner to honor the constraint and adapt the claim-id.
+
+- *Include methodology-page asserts checking only when pages exist (skip silently if missing).* The implementation does this: missing pages emit WARN; pages without asserts emit WARN. This separates "page not yet created" (Epic 5 pending) from "page exists but methodology contract violated" (will be a real CI failure in Story 4.3 strict mode).
+
+**Framework gotchas avoided:**
+
+- *YAML frontmatter regex must not be greedy across multiple `---` boundaries.* Used non-greedy `\n([\s\S]*?)\n---\n` to match only the first frontmatter block.
+- *spawnSync(node, args)* in unit tests with `encoding: 'utf8'` and explicit `cwd` parameter — controlled temp-dir invocation prevents cross-test pollution.
+- *`existsSync` synchronous* — fine for one-shot CLI tool; not in a hot loop.
+- *Exit-code semantics in CLI tool* — hard fail (exit 1) separate from soft warn (exit 0) via two boolean flags; final exit decision after all claims processed.
+
+**Areas of uncertainty:**
+
+1. **Schema's methodology-path regex may need a 3rd-letter variant for some future locale.** Pattern `[a-z]{2}` doesn't allow `zh-CN`-style locale tags. Spec uses 2-letter ISO 639-1, which is sufficient for `en`/`ru`/`pl` (Epic 7). If future expansion needs sub-locales, the schema (and methodology directory structure) would need an explicit update.
+
+2. **Some claims map to the same methodology-path** (`eap.md` has 4 claims: `eap-estimation-method`, `quadpts-61`, `theta-lim-pm-6`, `prior-standard-normal`; `percentile-to-iq.md` has 2). The lint's per-claim check will run multiple iterations over the same file when it exists, each verifying the frontmatter contains the specific claim-id. Correct behavior, slightly redundant reads. Acceptable for n=9 claims; could be optimized to per-page reading if scale grows.
+
+3. **`combinedSE` engine-source is `se.js`** — but `index.js` also re-exports it. The claim ties to where the function is DEFINED, not where it's PUBLICLY EXPORTED. This is a judgment call; auditor may want to revisit if the convention should be "exported-from" vs "defined-in".
+
+**Tested edge cases:**
+
+- 8 schema validation tests in `tests/unit/methodology-claims/schema.test.mjs` all pass green:
+  - Manifest exists at repo root
+  - Valid JSON
+  - Top-level shape (version + claims[])
+  - Version is "1.0.0"
+  - At least 9 claims
+  - Every claim has required fields with correct patterns
+  - All 9 required claim IDs present
+  - Every engine-source file exists on disk
+
+- 5 lint-claims-manifest tests in `tests/unit/tools/lint-claims-manifest.test.mjs` all pass green:
+  - warn-mode exits 0 against real manifest (9 warnings, exit 0)
+  - --strict exits 1 when methodology pages missing
+  - Claim with matching methodology page emits no warning
+  - Broken JSON exits 1
+  - Missing manifest exits 1
+
+- `make test`: 297/297 pass (+13 from 284 baseline).
+- `make lint`: clean, with 9 warnings from lint-claims-manifest (warnings ≠ errors).
+- ESLint clean.
+
+**Frozen-test ratification trail:**
+
+- `tests/unit/methodology-claims/schema.test.mjs` unfrozen + edited + re-recorded: updated `REQUIRED_CLAIM_IDS` to use `golden-vector-parity-0001-logits` (schema-compliant) instead of `0.001-logits` (epic-narrative). Documented in unfreeze reason + closed via `tds integrity record`.
+
+**Files added/modified:**
+
+New:
+- `METHODOLOGY_CLAIMS.json` (at repo root, 9 engine claims)
+- `tools/lint-claims-manifest.mjs` (warn-mode by default; `--strict` flag for Story 4.3)
+- `tests/unit/methodology-claims/schema.test.mjs` (8 schema validation tests)
+- `tests/unit/tools/lint-claims-manifest.test.mjs` (5 lint behavior tests)
+
+Modified:
+- `Makefile` (lint target runs lint-claims-manifest in warn-mode)
+- `.github/workflows/pr-checks.yml` (comment updated: `lint-claims-manifest` activates in Story 4.3, not Epic 2)
+
+**Story 2.7 closes out Epic 2.** All 9 stories (2-1 through 2-7) are in `status=review`, squashed into `epic/2`. Ready for `/bmad-tds-code-review --epic=epic-2` Mode 2 final approve + `tds deliver` squash to main.

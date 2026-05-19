@@ -8,15 +8,15 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: d125c4d0c28daed29f8f0ea191232259fe0cb080485703306629a124de161be2
+    sha256: 636d8e067fca809128f92965c5d8ea546b65e903d2e0c8bd7101b3292ed2b99d
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:11:10.679Z
+    recorded_at: 2026-05-19T15:13:03.905Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: ee93fd889dc785f374ec5cd76dc76ac9a4ef8d850d8a2c712fcb5b88d64ea712
+    sha256: 20c1bb69f7bf4603a6b0863279f7ed6faf16fe43db444435f18f1f3ae51025ba
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:13:03.479Z
+    recorded_at: 2026-05-19T15:17:57.356Z
     recorded_by: engineer
     story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
   - artefact_class: A
@@ -356,8 +356,22 @@ entries:
     story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-7-populate-methodology_claims-json-activate-lint-claims-manifest.md
-    sha256: eed30776269d2301cfab7825d191b80bf65c78fbd90f39163f70896dbb71ad64
+    sha256: 9d9b36296084932696103e8f5c43d7f8ab20b696a7d2824b4a86c3240ad01362
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:13:03.509Z
+    recorded_at: 2026-05-19T15:17:57.463Z
     recorded_by: engineer
+    story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
+  - artefact_class: A
+    file: tests/unit/methodology-claims/schema.test.mjs
+    sha256: db41b4fce903adc226480254a6d95a85012019a7f4b432b12573e1bbf1fc0c4d
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T15:15:57.010Z
+    recorded_by: engineer
+    story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
+  - artefact_class: A
+    file: tests/unit/tools/lint-claims-manifest.test.mjs
+    sha256: 9cec8d95cc3acc2241dfd8e15a9c3f8d3da4a6969dacafa574a829a729033cb9
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T15:14:28.798Z
+    recorded_by: test-author
     story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
