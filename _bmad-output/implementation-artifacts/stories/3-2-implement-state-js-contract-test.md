@@ -285,3 +285,28 @@ This is the **first implementation story of Epic 3** — Story 3.1 authored the 
 
 - **Resolved (round-1, 2026-05-20):** Removed the 8-line entry for `tests/scaffold/story-3-1-marker.test.mjs` from `_bmad-output/_tds/state-manifest.yaml` (no `tds integrity remove` CLI exists; direct YAML edit is the only path). `tds integrity verify --as=auditor` now returns `failed=3` (was 4): the remaining three are pre-existing out-of-scope drift entries (`../bmad-tds-module/.../bridge-1-2-1-unfreeze-tests.test.ts` external repo; `tests/golden/regenerate.R` epic-2; `_bmad-output/implementation-artifacts/stories/3-5-...md` post-record spec drift) — not in epic-3 changeset.
 - **Bridged to:** suggested bridge (CLI affordance `tds integrity remove` / sweep step / CI gate) deferred to next epic retro for materialization.
+
+## Auditor Findings (round-2)
+
+### [info] Post-`tds story add-finding` writeback mutates the spec-md byte content
+but the subsequent `chore(tds): state sweep` commits did not re-record
+the updated sha256 for the spec-md integrity entry — `tds integrity
+verify` reports `_bmad-output/.../3-5-...md` as drifted (actual
+`d199...` ≠ recorded `8d3a...`) even though every relevant change-set
+has been state-swept. Same gap surfaces any time auditor records a
+finding: the sweep run that follows must re-record the mutated spec
+file or `integrity verify` carries permanent false-positive noise.
+Not a 3-2-specific defect — attributed here only because 3-2's
+round-1 resolution note already documents the out-of-scope drift
+inventory and is the natural anchor.
+
+
+- **Category:** tooling / integrity sweep
+- **Suggested bridge:** `Tighten `tds state-commit` / state-sweep handler so any story-md whose
+bytes changed since last integrity record is re-recorded automatically
+before commit. Without this, every code-review round produces stale
+integrity entries that downstream operators must manually triage.
+Candidate scope: 1 handler change in bmad-tds-module + regression test
+that asserts post-add-finding sweep restores `integrity verify` to
+`failed=N-1` not `failed=N`.
+`
