@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-19 3-6-author-3-en-methodology-stub-pages-the-click-targets: review'
+last_updated: '2026-05-19 3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -75,7 +75,7 @@ development_status:
   3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed: review
   3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint: review
   3-6-author-3-en-methodology-stub-pages-the-click-targets: review
-  3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice: backlog
+  3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice: review
   3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording: backlog
   epic-3-retrospective: optional
   epic-4: backlog

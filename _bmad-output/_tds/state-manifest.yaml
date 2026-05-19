@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 304a949253d564959f3910af40ca5813b8b5c4751ca4a26b8f67d8c00c74129c
+    sha256: bccdd4d40a38cbcbac1817f1cd299c2534d421db23f9506d6fa7389bcea6c63c
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:03:29.403Z
+    recorded_at: 2026-05-19T22:16:33.597Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 1dca57f56453e31de5002d18005a29dbf57000b6c95dd5eb0dd7a92e6c2724da
+    sha256: 115fa68c8b4fda06baf43e8b05f7d3ccc07a0ddd84525aa173b6f818fb8b9da0
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:11:45.754Z
+    recorded_at: 2026-05-19T22:25:33.725Z
     recorded_by: engineer
-    story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
+    story_id: 3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -605,3 +605,34 @@ entries:
     recorded_by: test-author
     story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
     notes: "Story 3-6 test-author phase: 8 unit tests (AC-8) + 1 scaffold integration smoke (AC-9) for tools/build-methodology.mjs interim renderer; failing red phase confirmed before impl, then green confirmed after impl"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice.md
+    sha256: e7853c67c3d47313d2d326cad12fe6d7352bf1b8c873b8a4ccd28798f2fe4266
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T22:25:33.762Z
+    recorded_by: engineer
+    story_id: 3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice
+  - artefact_class: A
+    file: tests/unit/dev-server.test.mjs
+    sha256: 1d9a7bd3d3380fd19c6bf6a9f8abe3654927128bcc3f03e92413c3a1e5fbb02e
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T22:25:31.507Z
+    recorded_by: test-author
+    story_id: 3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice
+    notes: "Story 3-7 test-author phase: 7 unit tests for tools/dev-server.mjs programmatic API + 7 unit tests for src/assessment/test-hook.js gate + delegation surface + 1 Playwright full-slice spec driving the live SPA via window.__IQME_TEST__"
+  - artefact_class: A
+    file: tests/unit/test-hook.test.mjs
+    sha256: 5564b1e25e79eb5df3ad30bbb7fcd18770adb371f8f9d91a1fcfdac31d6539e5
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T22:25:31.507Z
+    recorded_by: test-author
+    story_id: 3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice
+    notes: "Story 3-7 test-author phase: 7 unit tests for tools/dev-server.mjs programmatic API + 7 unit tests for src/assessment/test-hook.js gate + delegation surface + 1 Playwright full-slice spec driving the live SPA via window.__IQME_TEST__"
+  - artefact_class: A
+    file: tests/playwright/full-slice.spec.mjs
+    sha256: 83d416c10c25d19528562b4a44e19d3f566035674868acb797d2c0edfdfd3612
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T22:25:31.508Z
+    recorded_by: test-author
+    story_id: 3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice
+    notes: "Story 3-7 test-author phase: 7 unit tests for tools/dev-server.mjs programmatic API + 7 unit tests for src/assessment/test-hook.js gate + delegation surface + 1 Playwright full-slice spec driving the live SPA via window.__IQME_TEST__"

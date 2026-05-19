@@ -7,6 +7,7 @@
 import * as localeLoader from "./i18n/locale-loader.js";
 import * as routing from "./routing.js";
 import { renderErrorFallback } from "./error-fallback.js";
+import "./test-hook.js";
 
 let inFlight = null;
 
@@ -24,9 +25,7 @@ async function bootstrap() {
   try {
     await localeLoader.load("en");
     routing.start();
-    // Ensure #app is populated even if router was already started in a prior
-    // boot attempt (idempotent guard in routing.start() can otherwise skip
-    // re-render for the unchanged hash).
+    // Re-render if router was started in a prior boot (idempotent-guard hop).
     const appEl = document.getElementById("app");
     if (appEl && (!appEl.innerHTML || appEl.innerHTML.length === 0)) {
       routing.navigate(routing.getCurrentRoute().replace(/^#?\/?/, "") || "");
