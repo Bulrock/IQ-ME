@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-19 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade: ready-for-dev'
+last_updated: '2026-05-19 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -63,7 +63,7 @@ development_status:
   2-2-implement-quadrature-js-likelihood-js-pure-math-primitives: review
   2-3-implement-eap-js-eap-estimation: review
   2-4-implement-se-js-standard-error-from-posterior-variance: review
-  2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade: ready-for-dev
+  2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade: review
   2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10: backlog
   2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring: backlog
   2-7-populate-methodology_claims-json-activate-lint-claims-manifest: backlog

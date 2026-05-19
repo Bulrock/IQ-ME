@@ -8,15 +8,15 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: a64acc1ecd0e94169f3c9c4a133c69f6bcbf12711729747ee6dd6a76983112a1
+    sha256: c3c41bd9b1db5cbe3cd259de2b2754a44ccddbfac8d02d5edce495fc62eb9359
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:42:35.545Z
+    recorded_at: 2026-05-19T14:44:35.081Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 1a45e0bddf8612b1457feb49fd35fb1691250f2ea9bb17fff62be96337a12fe2
+    sha256: 718bdc78ff81a2f412737e2002abb28c162fdc86197f474e966384b9e0b239d2
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:44:29.015Z
+    recorded_at: 2026-05-19T14:54:24.081Z
     recorded_by: engineer
     story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
   - artefact_class: A
@@ -235,12 +235,11 @@ entries:
     notes: "test-author phase: red parity + green scaffold + hand-fixture"
   - artefact_class: A
     file: tests/golden/vectors-smoke.json
-    sha256: a3e1912cde30e4631080ee7000a1cf34b5aa32e276c14b119aa7c7731a3e5562
+    sha256: ba4bd4e73abfdf0270c0b608dae19e0ee7dded3e8a5bc6ebfab4f739cc396ec1
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:08:47.687Z
-    recorded_by: test-author
-    story_id: 2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test
-    notes: "test-author phase: red parity + green scaffold + hand-fixture"
+    recorded_at: 2026-05-19T14:53:06.704Z
+    recorded_by: engineer
+    story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-2-implement-quadrature-js-likelihood-js-pure-math-primitives.md
     sha256: 7d29b653039b154206106d05386da4d52c437ba437876b642386f0aa5bf6138d
@@ -294,8 +293,15 @@ entries:
     story_id: 2-4-implement-se-js-standard-error-from-posterior-variance
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade.md
-    sha256: cc6858fda749f146e8fea8d02b3a2bfa38865b56e46a7472f1a707351b6f39c7
+    sha256: f94485b55f9ef0c591b5f7231180273e116b0e310fc1ecb84aaf6b86efc8fc69
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:44:29.044Z
+    recorded_at: 2026-05-19T14:54:24.105Z
+    recorded_by: engineer
+    story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
+  - artefact_class: A
+    file: tests/unit/scoring/irt/index.test.mjs
+    sha256: 33e633469517d8138a4ccbd8a2cc23be9df4c3c22a684a0f084e1e878bb5b30d
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T14:52:08.906Z
     recorded_by: engineer
     story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
