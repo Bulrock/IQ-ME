@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-19 1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md: review'
+last_updated: '2026-05-19 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs: ready-for-dev'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -47,7 +47,7 @@ development_status:
   1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners: review
   1-3-commit-icar-confirmation-pdf-slot-with-visible-fallback-copy: review
   1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md: review
-  1-5-commit-budgets-json-lint-cognitive-load-budget-mjs: backlog
+  1-5-commit-budgets-json-lint-cognitive-load-budget-mjs: ready-for-dev
   1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs: backlog
   1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1: backlog
   1-8-ship-deterministic-build-harness-ready-for-epic-2-s-golden-vectors: backlog
