@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: a36b306cf78321e4d497fece6647d6dfc0944085bce1ce1f4ed30c5fbdb58768
+    sha256: 6acc3330699afba3c367e6dd404334c5b9485a65085b4b5a29e5f461587d187c
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T09:31:34.221Z
+    recorded_at: 2026-05-19T09:38:14.518Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 9bff8c80e5ead12cf2da456d26a1d3351c1553ca25692279e579ac511db6fa68
+    sha256: 443261037097f8f86423abe08f8e26e528559d546c48fca2e7b88e43119eebf2
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T09:31:28.350Z
+    recorded_at: 2026-05-19T09:38:08.190Z
     recorded_by: engineer
-    story_id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
+    story_id: 1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: fbf3924b00f73153538b321016f62daac1f2a2099e57156790c044b016e6f24b
@@ -123,3 +123,18 @@ entries:
     recorded_by: test-author
     story_id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
     notes: story-1-6 frozen failing tests
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1.md
+    sha256: f5309bf5af819ca4b8fbacd037c36a7946df02d4b35c6e39fd5e53ab63c10eb1
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T09:38:08.214Z
+    recorded_by: engineer
+    story_id: 1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1
+  - artefact_class: A
+    file: tests/scaffold/playwright-network-trace.test.mjs
+    sha256: 10563d04e340d89bbcbb050627d9007d3d1739bbb59b2ddb265aa179bcc14d6e
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T09:34:02.770Z
+    recorded_by: test-author
+    story_id: 1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1
+    notes: story-1-7 frozen failing tests
