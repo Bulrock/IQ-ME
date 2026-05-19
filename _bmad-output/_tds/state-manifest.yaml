@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 0ea7ed8c7a93fd9d4783d3d2fbb5c245962d7a485f73acd84ddb0c26275db94d
+    sha256: 4f849cb46671439148b38c827325444193f4b9de2fcaad3957aa08aeeef620dc
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:15:37.543Z
+    recorded_at: 2026-05-19T14:18:29.399Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: f11126e2e7255caf67e4bec7a165d8287a2855d835f39c4e9145e70d204adfc0
+    sha256: 8bdaa0c95b8c5611de4fe457896a356b28c42a117eb5bae3a172d88f5498d946
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:14:58.916Z
+    recorded_at: 2026-05-19T14:21:20.781Z
     recorded_by: engineer
-    story_id: 2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test
+    story_id: 2-2-implement-quadrature-js-likelihood-js-pure-math-primitives
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -241,3 +241,26 @@ entries:
     recorded_by: test-author
     story_id: 2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test
     notes: "test-author phase: red parity + green scaffold + hand-fixture"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/2-2-implement-quadrature-js-likelihood-js-pure-math-primitives.md
+    sha256: 7d29b653039b154206106d05386da4d52c437ba437876b642386f0aa5bf6138d
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T14:21:20.807Z
+    recorded_by: engineer
+    story_id: 2-2-implement-quadrature-js-likelihood-js-pure-math-primitives
+  - artefact_class: A
+    file: tests/unit/scoring/irt/quadrature.test.mjs
+    sha256: 47c6ce696c84c10c9b8c59277889eb6a0947943008cfa51f4f060b7823969606
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T14:19:20.698Z
+    recorded_by: test-author
+    story_id: 2-2-implement-quadrature-js-likelihood-js-pure-math-primitives
+    notes: "test-author phase: 2-2 unit tests for quadrature + likelihood primitives"
+  - artefact_class: A
+    file: tests/unit/scoring/irt/likelihood.test.mjs
+    sha256: 7bd833e7174fabb49e4ef7d7a18694649fb15d65aedbc333e7d25e852a40eb2b
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T14:19:20.698Z
+    recorded_by: test-author
+    story_id: 2-2-implement-quadrature-js-likelihood-js-pure-math-primitives
+    notes: "test-author phase: 2-2 unit tests for quadrature + likelihood primitives"
