@@ -14,11 +14,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 12225a693c796267f2ae48a5784892ceeed05fa2f593bec729f0d3f8e8b84243
+    sha256: 274771f9afb1ca91eed2a25b045584da4e5639a7b7d9e467b553e901bc1d6013
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:32:38.436Z
+    recorded_at: 2026-05-19T10:43:08.002Z
     recorded_by: engineer
-    story_id: 1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts
+    story_id: epic-1-retrospective
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -36,10 +36,10 @@ entries:
     notes: story-1-1 frozen failing tests
   - artefact_class: A
     file: _bmad-output/_tds/memory/lessons.yaml
-    sha256: a6f5fb1a9d91d5c8bf2e0b6c195fa9a9a45494f520a736f9beb8e35727dcb289
+    sha256: 88af9815ae9350f3188fb474559c78b24d25bd4852e308fde51f9e9592b1b585
     canonical_form: raw-bytes
-    recorded_at: 2026-05-18T21:20:23.596Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T10:41:45.730Z
+    recorded_by: writer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners.md
     sha256: a19c34449eed4a1a0c2b6c2999f05e1da8af998e85a999ac031762509bb12808

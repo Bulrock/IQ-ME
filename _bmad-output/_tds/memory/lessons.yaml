@@ -45,3 +45,96 @@ lessons:
     severity: medium
     status: active
     superseded_by: null
+  - id: lesson-2026-05-19-001
+    created_during: epic-1
+    created_at: 2026-05-19T10:41:11.713Z
+    created_by: writer
+    story_refs:
+      - 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
+      - 1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1
+    category: tooling
+    tags:
+      - tds-cli
+      - integrity
+      - frozen-tests
+      - test-author
+      - engineer
+    summary: Cross-story or post-impl edits to frozen tests silently drift tds integrity; re-register via 'tds integrity record --as=engineer' is required and easy to skip
+    lesson: Once a test is frozen (test-author phase) any subsequent edit MUST be ratified by 'tds integrity record --as=engineer --file=<path> --story=<id> --notes=<text>'. Without re-register, 'tds integrity verify' fails the epic-merge gate. Friction is real (no 'tds story unfreeze-tests' CLI yet) so the slip happens silently; epic-1 caught it twice (story-1-6 ci-matrix.test.mjs, story-1-7 playwright-network-trace.test.mjs).
+    avoid_pattern: Edit frozen test file during impl phase, commit, move on; integrity verify left failing for downstream auditor to find
+    preferred_pattern: After any Edit to a path with artefact_class=A in state-manifest.yaml, immediately run 'tds integrity record --as=engineer --file=<path> --story=<id> --notes=...' BEFORE state-commit; or skip Edit and revert
+    severity: high
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-19-002
+    created_during: epic-1
+    created_at: 2026-05-19T10:41:24.268Z
+    created_by: writer
+    story_refs:
+      - 1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners
+      - 1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md
+      - 1-9-eslint-config-no-restricted-paths-docs-domain-map-md
+    category: process
+    tags:
+      - tds
+      - test-author
+      - frozen-tests
+      - regex
+      - prose
+      - acceptance-tests
+    summary: Frozen-test regex assertions on prose force unnatural workarounds when too narrow; prefer structural or semantic checks over keyword/regex matching on prose bodies
+    lesson: "When a frozen acceptance test asserts prose patterns via regex, common failure modes during impl are: keyword forms differ ('zero-telemetry' vs 'no-telemetry'), section-extraction regex breaks on incidental chars (JS \\Z literal-z vs end-of-string), or angle-brackets in code spans trip HTML-tag detectors. Specialist responses are unnatural prose contortions (deliberate misspellings, reordering sentences to dodge a literal char). Test-author phase should favor structural assertions (heading exists; section has N lines; JSON parses; AST has node) over keyword grep on prose bodies."
+    avoid_pattern: "frozen test: assertEqual(/zero[-\\s]?telemetry/.test(content), true) on README body"
+    preferred_pattern: "frozen test: assert heading 'Telemetry' present + section body length >= N; or extract 'telemetry posture' frontmatter field and assert enum value"
+    severity: medium
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-19-003
+    created_during: epic-1
+    created_at: 2026-05-19T10:41:35.013Z
+    created_by: writer
+    story_refs:
+      - 1-1-bootstrap-repo-skeleton-makefile
+      - 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
+      - 1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1
+      - 1-9-eslint-config-no-restricted-paths-docs-domain-map-md
+    category: tooling
+    tags:
+      - nfr33
+      - zero-deps
+      - package-json
+      - npx
+      - esm
+      - mjs
+    summary: "package.json deferral works in IQ-ME under NFR33: npx --yes for one-shot dev tools + .mjs extension for ESM keeps the repo dependency-free; introduce package.json only when scale demands"
+    lesson: "Epic-1 demonstrated that a frontend/Node project can defer package.json indefinitely if (a) dev tooling is invoked via 'npx --yes <pkg>@<pin>' instead of devDependencies, (b) every JS file uses '.mjs' so ESM mode is forced without 'type:module' declaration, (c) all tests use node:test + node:assert/strict (no jest/vitest dep). Decision criteria for introducing package.json: bundler/test-runner needs node-resolution at scale, multiple devs find cold-cache 'npx --yes' too slow in CI, or a tool genuinely cannot be invoked without a local node_modules. Until then, the absence is a positive trust signal for the skeptic audit."
+    avoid_pattern: add package.json with devDependencies just to formalize tooling, on the assumption it's standard hygiene
+    preferred_pattern: invoke dev tools via 'npx --yes eslint@^9.16.0', use .mjs everywhere, postpone package.json until concrete tooling demand emerges
+    severity: low
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-19-004
+    created_during: epic-1
+    created_at: 2026-05-19T10:41:45.714Z
+    created_by: writer
+    story_refs:
+      - 1-1-bootstrap-repo-skeleton-makefile
+      - 1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners
+      - 1-3-commit-icar-confirmation-pdf-slot-with-visible-fallback-copy
+      - 1-8-ship-deterministic-build-harness-ready-for-epic-2-s-golden-vectors
+      - 1-9-eslint-config-no-restricted-paths-docs-domain-map-md
+      - 1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts
+    category: process
+    tags:
+      - retro
+      - self-review
+      - process
+      - bmad
+      - aggregation
+    summary: Specialist Self-Review 'Areas of uncertainty' sections accumulate retro-relevant items; harvest them deliberately during retro aggregation rather than treating as in-story afterthought
+    lesson: "Across epic-1 every story's 'Specialist Self-Review > Areas of uncertainty' surfaced concrete follow-ups (relax test-8 regex to allow re-spelling 'anti-credentialization'; relink ICAR-CONFIRMATION.pdf for dist/ in Epic 4; add lint for dynamic-import boundary; extend spacing scale to --space-12; etc). These are not blocking the current story but ARE the natural input for retros + bridge planning. Retro Step 1 'aggregate' should grep these sections specifically alongside ## Auditor Findings; many useful bridge candidates live ONLY here, never in findings."
+    avoid_pattern: "retro aggregation reads only ## Auditor Findings; ignores 'Areas of uncertainty' sections of self-reviews"
+    preferred_pattern: "retro aggregation reads: ## Auditor Findings + ## Specialist Self-Review > Areas of uncertainty + ## Completion Notes; cross-reference recurring themes across stories"
+    severity: medium
+    status: active
+    superseded_by: null
