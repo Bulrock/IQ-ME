@@ -92,6 +92,20 @@ jobs:
           node-version: "22"
       - run: node tools/lint-cognitive-load-budget.mjs
 
+  # 29th-job exception: eslint is foundational (mechanizes the five-domain
+  # boundary model per Story 1.9) and orthogonal to the 28 lint/spec jobs
+  # listed in Story 1.6's job set. Any further job additions still go through
+  # the "no new jobs after Epic 1" discipline.
+  eslint:
+    name: eslint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes eslint@^9.16.0 --max-warnings 0 .
+
   # ─── Deferred lints (stubbed until responsible epic lands them) ──────
 
   lint-claims-manifest:

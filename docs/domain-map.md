@@ -1,0 +1,116 @@
+# Domain Map
+
+Single source of truth for the five-domain boundary model the project's
+architecture pins. `eslint.config.mjs` mechanizes these zones via
+`no-restricted-imports`; this document is the human-readable contract that
+ESLint **mechanizes**.
+
+> Pattern: if a path isn't listed here, it doesn't have a domain — and you
+> probably shouldn't be adding it. Domain assignment is a deliberate
+> decision, not an emergent property.
+
+## Domain A — SPA
+
+Runtime SPA — everything the browser loads at `iq-me.org`.
+
+| Path | Notes |
+|------|-------|
+| `src/assessment/**` | Main SPA bundle entry point; state, routing, scenes |
+| `src/assessment/i18n/**` | Locale loader (runtime harness — Domain A, not Domain C) |
+| `src/items/**` | Item bank loaders (loaded by Domain A, owned data is Domain C) |
+| `src/css/**` | Stylesheet imports (NOT scripts — but the CSS bundle is part of the SPA artifact) |
+| `src/index.html` | SPA entry point |
+
+**Allowed imports:** Domain B (scoring), Domain C (content as data).
+**Forbidden imports:** Domain D (tools), Domain E (tests).
+
+## Domain B — Scoring Engine
+
+Auditable IRT scoring — pure math, no app coupling.
+
+| Path | Notes |
+|------|-------|
+| `src/scoring/irt/**` | EAP, likelihood, quadrature, standard-error primitives |
+| `src/scoring/irt/METHODOLOGY_CLAIMS.json` | Claims manifest (NFR23) |
+
+**Allowed imports:** none (pure-math invariant).
+**Forbidden imports:** Domain A, C, D, E.
+
+## Domain C — Content
+
+Static markdown + locale data. Imported by Domain A as runtime data; built by
+Domain D into `dist/`.
+
+| Path | Notes |
+|------|-------|
+| `src/content/methodology/**` | Methodology corpus (EN, RU, PL) — markdown |
+| `src/content/i18n/**` | Locale data — JSON |
+| `src/content/glossary/**` | Glossary entries |
+| `src/content/trails/**` | Reading trail definitions |
+| `src/content/crisis-resources/**` | Per-locale crisis resource lists |
+| `src/content/diagrams/**` | SVG/PNG diagrams |
+| `corpus/**` | Corpus schema files (frontmatter, markdown subset, claims schema) |
+
+**Allowed imports:** none from JS perspective (mostly static files).
+**Forbidden imports:** Domain A, B, D (when any JS lives here).
+
+## Domain D — Tools
+
+Build-time and lint-time tooling. Runs author-side, never reaches the
+browser.
+
+| Path | Notes |
+|------|-------|
+| `tools/**` | Lint scripts, build scripts, determinism harness |
+| `Makefile` | Build orchestration |
+| `eslint.config.mjs` | This module's enforcement config |
+
+**Allowed imports:** any domain (build tools have legitimate cross-domain
+read access — e.g. `lint-claims-manifest.mjs` reads Domain B's
+`METHODOLOGY_CLAIMS.json`).
+**Forbidden imports:** none.
+
+## Domain E — Test Fixtures
+
+All tests and fixture data.
+
+| Path | Notes |
+|------|-------|
+| `tests/scaffold/**` | Story acceptance tests (Epic 1 scaffolding) |
+| `tests/unit/**` | Pure-function unit tests |
+| `tests/playwright/**` | Playwright network-trace + byte-stable specs |
+| `tests/golden/**` | Golden-vector parity fixtures (Epic 2) |
+| `tests/snapshots/**` | Snapshot fixtures (Epic 4) |
+| `tests/perf/**` | Memory budget + Lighthouse perf tests (Epic 6) |
+| `tests/a11y/**` | axe-core / pa11y harnesses (Epic 6) |
+| `tests/fixtures/**` | Lint-trigger fixtures, baseline pages |
+
+**Allowed imports:** any domain (tests need cross-domain access for
+fixtures and assertions).
+**Forbidden imports:** none.
+
+## Codified Exceptions
+
+There is **one codified exception** to the otherwise-strict zone model:
+
+- **D → E write via `make snapshot-update`.** Story 1.10's `tokens.spec.mjs`
+  expects a committed `tests/snapshots/tokens.hash.json`; regenerating that
+  file is a deliberate, target-gated action — `make snapshot-update`. The
+  `tools/snapshot-update.mjs` script writes into `tests/snapshots/`, which is
+  domain E. This crosses the D→E boundary as a **write**, not an import, so
+  ESLint doesn't see it.
+
+Any new exception requires (a) an architecture ADR justifying it; (b) a
+documented `make` target so the exception is locally observable; (c) an
+update to this file.
+
+## Build-target conventions
+
+Build artifacts go to `dist/`. The `clean` target removes `dist/`. The
+`build` target writes `dist/.build-determinism-check.json` (Story 1.8).
+
+## See also
+
+- [eslint.config.mjs](../eslint.config.mjs) — the mechanization
+- [Makefile](../Makefile) — target conventions
+- Architecture five-domain section — [architecture.md](../_bmad-output/planning-artifacts/architecture.md)
