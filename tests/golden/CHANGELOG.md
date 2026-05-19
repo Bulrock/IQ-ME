@@ -1,6 +1,6 @@
 # Golden vectors changelog
 
-Audit-trail for `tests/golden/vectors-smoke.json` and (post-2.6a CI dispatch) `tests/golden/r-output-smoke.json`.
+Audit-trail for `tests/golden/vectors-smoke.json`, `tests/golden/vectors.json`, and their R-mirt counterparts `tests/golden/r-output-smoke.json` / `tests/golden/r-output-full.json` (produced by the `golden-regen` CI workflow).
 
 ## v0.1 — 2026-05-19 — Story 2.1: hand-authored placeholders
 
@@ -27,17 +27,21 @@ Story 2.5 also unfroze + ratified `tests/unit/scoring/irt/index.test.mjs` AC-7.4
 
 **v0.2 status:** self-consistent, NOT third-party-validated. The parity claim "JS engine validated against R mirt to ±0.001 logits" is NOT yet anchored — it requires Story 2.6a's R-in-CI audit.
 
-## v1.0 — (pending Story 2.6a first CI dispatch) — R-mirt parity validation
+## v1.0 — 2026-05-19 — R-mirt parity validation (smoke set)
 
-Story 2.6a lands `.github/workflows/golden-regen.yml` + `tests/golden/regenerate.R` + `tests/golden/parity-audit.mjs`. The first CI dispatch will produce `tests/golden/r-output-smoke.json` (R mirt 1.41.x output for the same 6 patterns) and run `parity-audit.mjs` against `vectors-smoke.json`.
+**Outcome: MATCH.** Validated against R mirt 1.41.x on 2026-05-19, max θ drift 0.000000, max SE drift 0.000000 (6 decimal places of agreement on all 6 smoke entries), `set.seed(20260514)`, R 4.4.3 on Ubuntu 24.04 runner. v0.2 JS-engine fixture third-party-validated.
 
-**Outcomes** (this entry updated by a follow-up commit after first dispatch):
+**Provenance:**
+- First dispatch ([run 26109361027](https://github.com/Bulrock/IQ-ME/actions/runs/26109361027)) failed at the R regen step: `Too few degrees of freedom. There are only 1 degrees of freedom but 2 parameters were freely estimated.` Diagnosis: `tests/golden/regenerate.R` called `mirt()` once just to extract a parameter template via `mod2values()`, which triggered an EM fit. Smoke entries 2/3/5 (`nItems=1`) gave 1 DoF for 2 free 2PL params.
+- Hotfix PR #5 (commit 4b0f51c) replaced the initial fit with `mirt(..., pars="values")` which returns the parameter data frame without estimation.
+- Validation dispatch from main ([run 26110362511](https://github.com/Bulrock/IQ-ME/actions/runs/26110362511)) succeeded with bit-perfect parity.
 
-- **Match (max drift ≤ 1e-3 logits):** v0.2 fixture confirmed by R mirt 1.41.x. Parity claim third-party-validated. Record: `validated against R mirt 1.41.x on <date>, max θ drift X, max SE drift Y, set.seed(20260514)`.
-- **Small divergence (1e-3 < max drift ≤ 1e-2):** likely 6-decimal rounding or minor grid-method nuance. Document specifics; defer resolution to Story 2.6b's full 1000-pattern set (will surface whether systematic).
-- **Large divergence (max drift > 1e-2):** material methodology difference. Story 2.1 spec line 153 anticipated this as an audit-win. File a bridge story to investigate quadrature method choice (linear-grid + φ-weights vs true Gauss-Hermite roots+weights).
+**SHA256 of `r-output-smoke.json` (uploaded artifact):**
+```
+ff62bd5d98330c5fd2f8ebbb9985bca746035a13d765a857f46c029add0b3458
+```
 
-**The v1.0 stamp lands when the first CI dispatch completes**, not when Story 2.6a merges.
+Reproduce: `Rscript tests/golden/regenerate.R --smoke && shasum -a 256 tests/golden/r-output-smoke.json` on R 4.4.x + mirt 1.41.x should print the same hash.
 
 ## v2.0 — 2026-05-19 — Story 2.6b: Full ≥1000-pattern golden set (JS-derived)
 
@@ -69,12 +73,20 @@ Reproduce locally: `node tools/generate-full-vectors.mjs --out=tests/golden/vect
 
 **Status:** JS-engine-derived, NOT yet third-party-validated. The PR-check `golden-vector-parity` guards against JS-engine regressions; R-mirt parity validation for the full set is deferred to the first post-merge `golden-regen --mode=full` dispatch.
 
-## v2.1 — (pending first `golden-regen --mode=full` dispatch) — R-mirt validation of full set
+## v2.1 — 2026-05-19 — R-mirt validation of full set
 
-Same outcome categories as v1.0:
-- **Match:** v2.0 fixture confirmed; full-set parity claim third-party-validated.
-- **Small drift:** document specifics; consider if a regen with adjusted quadrature is warranted.
-- **Large drift:** bridge story for methodology investigation per spec line 153 audit-win pattern.
+**Outcome: MATCH.** Validated against R mirt 1.41.x on 2026-05-19, max θ drift 0.000000, max SE drift 0.000000 (6 decimal places of agreement on all 1000 full-set entries), `set.seed(20260514)`, R 4.4.3 on Ubuntu 24.04 runner. v2.0 JS-engine fixture third-party-validated.
+
+**Provenance:** Dispatched from main concurrently with the v1.0 smoke run ([run 26110365788](https://github.com/Bulrock/IQ-ME/actions/runs/26110365788)). Same hotfix (PR #5 / commit 4b0f51c) that fixed the smoke DoF error applied — the 1000-pattern set includes patterns of length 1 sampled from uniform [1, 16], so the same fix was required for full to succeed.
+
+**SHA256 of `r-output-full.json` (uploaded artifact):**
+```
+fc1c43d0622818c78d51420c6afe2e216c687bbc75765ef4bb114db5229cc720
+```
+
+Reproduce: `Rscript tests/golden/regenerate.R --full && shasum -a 256 tests/golden/r-output-full.json` on R 4.4.x + mirt 1.41.x should print the same hash.
+
+**Notes for future maintainers:** bit-perfect 6-decimal parity across 1000 randomized patterns is stronger than the ±0.001 logits claim in earlier docs. The actual JS-engine vs R-mirt 1.41.x agreement is at floating-point precision after the 6-decimal rounding applied by both sides. If a future regen produces drift > 0, investigate immediately — the expected baseline is identity, not approximate match.
 
 ## Reproducibility
 
