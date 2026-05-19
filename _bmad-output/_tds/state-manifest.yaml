@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 3eccd26ebb7d7fdda6e889defe74642dbe74777e40972fb554d946f1042f5019
+    sha256: 2f9c7846a0c9035b28cd9cf440758b56a2afd3ef1e6fb406805222f77730013b
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:53:35.001Z
+    recorded_at: 2026-05-19T22:54:39.175Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 02c3c9a82f0af70148b384ccb491e41006ff7e2f6b9be61ba8bc463d87abc2c7
+    sha256: 9d8224c7db7d2abc43dfad588717a14d8c4e9c34164d430926919846afbee356
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:53:13.378Z
+    recorded_at: 2026-05-19T22:57:09.774Z
     recorded_by: engineer
-    story_id: 3-2-implement-state-js-contract-test
+    story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -584,10 +584,10 @@ entries:
     notes: story 3-5 test fixtures for lint-css-source-co-equal
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-6-author-3-en-methodology-stub-pages-the-click-targets.md
-    sha256: 658c76e12067bee290a6c5c319355d6d1b152e9b4977913638d1f653181edbb1
+    sha256: 17126b66b67cb09a0d839d0eccef15190ad8f773e513d3de3f1e7b8fbdb51647
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:42:25.185Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T22:57:09.805Z
+    recorded_by: engineer
     story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
   - artefact_class: A
     file: tests/unit/build-methodology.test.mjs
@@ -599,12 +599,12 @@ entries:
     notes: "Story 3-6 test-author phase: 8 unit tests (AC-8) + 1 scaffold integration smoke (AC-9) for tools/build-methodology.mjs interim renderer; failing red phase confirmed before impl, then green confirmed after impl"
   - artefact_class: A
     file: tests/scaffold/build-methodology-output.test.mjs
-    sha256: fab158a927418b02b0a1386b24100a98de0b1dc0cde1bf4a34cab9d57158f8e5
+    sha256: f714f6715da9068f31d5c0b6f2a022d89cff3ff5543d60f6c805229bc497ddb2
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:09:19.654Z
-    recorded_by: test-author
+    recorded_at: 2026-05-19T22:56:03.422Z
+    recorded_by: engineer
     story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
-    notes: "Story 3-6 test-author phase: 8 unit tests (AC-8) + 1 scaffold integration smoke (AC-9) for tools/build-methodology.mjs interim renderer; failing red phase confirmed before impl, then green confirmed after impl"
+    notes: "Round-1 rework: refactored to per-test mkdtempSync + IQME_BUILD_METHODOLOGY_OUT env to eliminate race with tests/unit/dev-server.test.mjs over shared dist/. 5/5 parallel races pass; full suite 438/438."
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice.md
     sha256: e7853c67c3d47313d2d326cad12fe6d7352bf1b8c873b8a4ccd28798f2fe4266

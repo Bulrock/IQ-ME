@@ -352,3 +352,14 @@ branches:
     last_synced_at: 2026-05-19T22:53:34.967Z
     notes: ""
     created_at: 2026-05-19T22:52:18.011Z
+  - branch: story/3-6-rework-test-isolation
+    story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
+    epic_id: null
+    base_branch: epic/3
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-19T22:54:39.150Z

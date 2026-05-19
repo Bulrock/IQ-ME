@@ -1,7 +1,7 @@
 ---
 id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
 title: "Story 3.6: Author 3 EN methodology stub pages (the click targets)"
-status: rework
+status: review
 ---
 
 # Story 3.6: Author 3 EN methodology stub pages (the click targets)
@@ -412,6 +412,7 @@ Claude Opus 4.7 (claude-opus-4-7) via Claude Code, orchestrator role: bmad-tds-e
 - Version-literal reconciliation `v1.0.0 → v0.1.0` complete across `src/index.html`, `src/assessment/landing.js`, `tests/unit/landing-scene.test.mjs` (frozen-test edit per lesson-2026-05-19-001 — integrity recorded). `grep -rn "/methodology/v1.0.0"` returns no hits across src/tests/docs/tools/.
 - `METHODOLOGY_CLAIMS.json` paths updated to folder/index.md form. The `iq-scale-mean-100-sd-15` claim rerouted from percentile-to-iq.md → overview/index.md per spec impl-note 13 (the more honest split — overview owns the IQ-scale prose).
 - All three frontmatter `asserts:` cross-reference existing manifest `claim-id`s; manifest no longer warns on the 3 Story-3-6 pages (still warns on 6 Epic-5 stub pages as expected, warn-mode default).
+- round-1 rework: refactored build-methodology-output.test.mjs to per-test mkdtempSync + IQME_BUILD_METHODOLOGY_OUT env (already supported by builder). 5/5 parallel races pass; full make test = 438/0/1.
 
 ### File List
 
@@ -435,60 +436,38 @@ Claude Opus 4.7 (claude-opus-4-7) via Claude Code, orchestrator role: bmad-tds-e
 - src/assessment/landing.js (modified — version literal)
 - tests/unit/landing-scene.test.mjs (modified — frozen-test edit; integrity-recorded)
 - METHODOLOGY_CLAIMS.json (modified — folder/index.md paths; iq-scale claim rerouted to overview)
+- tests/scaffold/build-methodology-output.test.mjs
 
 ## Specialist Self-Review
 
 **Decisions made:**
 
-1. **`iq-scale-mean-100-sd-15` claim rerouted to overview/index.md** (per spec impl-note 13 Option B). The percentile page is about percentiles; the IQ-scale prose lives in overview. This is the honest split. Confirmed `lint-claims-manifest` warn-count drops by 1 on this entry after the route.
+1. **Per-test `mkdtempSync` over CLI flag or test serialization.** The builder already exposes `IQME_BUILD_METHODOLOGY_OUT` env (tools/build-methodology.mjs:24, predates this rework). Using it requires zero builder change — the test creates a temp dir, passes the env, asserts under it, cleans up in finally. Alternative (test.before/after serialization between the two files) would couple unrelated tests and lose parallelism on a default-parallel test runner.
 
-2. **Frontmatter parser kept narrow** — supports only `key: value`, `key: "quoted"`, `key: true|false`, and block `key:\n  - item` lists. The hand-rolled state machine fits in ~70 LOC. Inline-list (`key: [a, b]`) is NOT supported because the 3 Story-3-6 pages all use block-list form. Epic 4's real `lint-frontmatter.mjs` validates against `corpus/schema.json` properly; the stub parser is intentionally narrow.
+2. **Test-relative EXPECTED paths.** The builder env var replaces the entire `dist/methodology` segment, not just `dist/`. So EXPECTED entries had to drop the `methodology/` prefix when read relative to `tmpOutRoot`. Caught on first race-test attempt — fixed in same iteration.
 
-3. **HTML escape only inside `<pre>` body + `<title>`** — `& < >` only; not `"` or `'`. Inside `<pre>`, attribute-context escapes are not needed. The HTML template embeds frontmatter strings (`reviewer`, `reviewerHandle`, `lastReviewed`) as `<p>` text content where the same minimal escape suffices.
-
-4. **Walker uses sorted iteration** for deterministic output order. Without sorting, `readdirSync` order is platform-dependent and AC-8.6 (idempotence) would silently regress on different filesystems.
-
-5. **Builder error path uses `die()` helper that writes to stderr + `exit(1)`** — single-message single-exit pattern matches the Epic 1 lint scripts. No partial output on parse failure (the build fails fast).
+3. **`dev-server.test.mjs:91` left untouched.** Already read-only with proper `t.skip()` when `dist/` absent. The finding's suggested fix also said "Symmetrically gate ... it already t.skip() if absent, which is correct behavior" — no work needed there.
 
 **Alternatives considered:**
 
-1. **Inline-list YAML support in the parser** — rejected. None of the 3 Story-3-6 frontmatter blocks use inline lists; adding support would expand the parser's surface for zero current callers. Epic 4 will use a real YAML parser anyway.
-
-2. **Bundle the `<pre>`-wrapped body inside `<article>` instead of `<main>`** — neutral choice; `<main>` is the WAI-ARIA landmark for primary content, matching the SPA's `<main id="app">`. Kept `<main>` for landmark consistency.
-
-3. **Use `import.meta.dirname` (Node 22+) instead of `fileURLToPath`** — preferred for new code, but the existing tools/ scripts use `fileURLToPath`; matched convention.
-
-4. **Generate the HTML via template literals vs explicit string concatenation** — chose concatenation for clarity; the template is small and the explicit form makes the escape-points obvious for review.
+- Builder CLI flag (`--out=`) instead of env. Rejected: builder already accepts env; adding a flag would be redundant. Stdlib parity preserved.
+- Disable file-parallelism via `--test-concurrency=1` in `package.json` / make target. Rejected: blunt instrument that slows the entire suite for one race.
 
 **Framework gotchas avoided:**
 
-- **Source-grep comment lesson (lesson-2026-05-19-001)** caught immediately when AC-8.8 failed; comment text "no Date.now / Math.random" rewritten as "no time-source or RNG calls".
-- **Sort the walker entries** for cross-platform determinism (AC-8.6 byte-identity).
-- **HTML escape order**: `&` first, then `<` `>`. Reverse order double-escapes.
-- **`mkdirSync({ recursive: true })`** instead of manual parent-traversal — handles deep paths.
-- **`make build-determinism-marker.mjs`** still works after the build-methodology stub starts producing real output; the marker is content-agnostic (SHA over the dist tree).
+- `node:test` default file-level parallelism shares the entire repo file-tree as scratch — any `rmSync(SHARED_PATH)` across tests races. The fix uses `os.tmpdir()` which is per-process-mapped on macOS/Linux and guarantees no cross-test collision.
 
 **Areas of uncertainty:**
 
-1. **The pre-existing `src/content/methodology/en/provenance/icar-license.md`** (from earlier story work — Story 1-3?) is picked up by the walker and renders into `dist/methodology/v0.1.0/en/provenance/icar-license.html`. This was NOT in scope for Story 3-6 but is a natural side-effect of the walker. The page renders cleanly (frontmatter parses, body wraps in `<pre>`). Auditor may want to flag whether this page's frontmatter is up-to-date or whether it should be excluded from the Epic-3-stub walker. I left it in because excluding it would require an exclusion list, which is more code than letting the walker pick everything up.
-
-2. **The `pending: true` frontmatter** is set on all 3 Story-3-6 pages because they are interim. Epic 4's `lint-frontmatter.mjs` will respect this flag (skip strict validation). Epic 5's content authors will flip `pending: false` when reviewer sign-off lands. This is a forward commitment.
-
-3. **The `sourceHashEN` 64-zero placeholder** matches the schema pattern but is not a real hash. Epic 4's build will compute and write the real self-hash. If Epic 4 lands a schema check that requires non-zero `sourceHashEN`, the placeholder will need migration; for now it satisfies the schema and is recognizable.
-
-4. **`asserts:` parity is one-directional** at this story scope. The manifest's 3 Story-3-6 claims (`percentile-from-standard-normal-cdf`, `iq-scale-mean-100-sd-15`, `se-total-rss`) each appear in exactly one page's `asserts:` list. Strict-mode graduation (Story 4.3) will validate both directions; warn-mode default tolerates the one-direction state.
-
-5. **Manual reading-level + style check on the 3 pages** — eyeballed each body; sentences ≤30 words; no idioms; no metaphors stronger than the literal claim; second-person only in the "Back to IQ-ME" link text (acceptable per Style invariants — 2nd-person is restricted in claims, not in navigation). Flesch-Kincaid grade ≤12 estimated by inspection (short sentences, common words); Epic 4's CI lint will measure precisely.
+- The `finally` block still `rmSync`'s the temp dir — relies on `mkdtempSync` returning a unique path (it does, via `mkdtemp(3)`). If two parallel invocations of *this same test file* ran (they can't under node:test), they'd each get unique dirs. Validated: 5/5 parallel race runs pass + full suite 438/0/1.
 
 **Tested edge cases:**
 
-- AC-8.2: malformed YAML (unterminated quoted string) → exit 1, stderr matches `/parsing|parse|frontmatter|yaml/i`. ✓
-- AC-8.3: missing frontmatter delimiters → exit 1, stderr matches `/frontmatter|missing|delimiter|---/i`. ✓
-- AC-8.5: body with `<tag> & "quotes"` → produces `&lt;tag&gt;`, `&amp;`, with no double-escape (`&amp;lt;` absent). ✓
-- AC-8.6: idempotent byte-identical re-run (SHA-256 equality across two runs of fixture-ok). ✓
-- AC-8.7: `.txt` + `.json` siblings in the source tree skipped by walker. ✓
-- AC-8.8: source-grep self-check (no Math.random / Date.now / setTimeout / localStorage / non-stdlib imports). ✓
-- All 419 prior-story tests stay green; budget under limit; lint 11/11 green.
+- 5 sequential `node --test` invocations pairing the two formerly-racing files: all pass (was ~75% fail rate per round-1 finding).
+- `make test` full suite: 438 pass / 0 fail / 1 skip (vs 312 at story 3-2; growth from later stories' tests).
+- Unfreeze window closed cleanly via `tds integrity record` after edit.
+
+**Bridge suggested:** convention doc in `docs/test-isolation.md` (or appended to `docs/local-build-instructions.md`) describing the per-test temp-dir pattern for any future test that mutates a shared sibling-test artefact. Deferred — single-file fix sufficient for round-1 blocker scope; convention codification is epic-4+ once more dist-touching tests land.
 
 ## Auditor Findings (round-1)
 
@@ -501,3 +480,6 @@ Alternative: serialize the offending tests with `test.before`/`test.after` orche
 
 - **Suggested bridge:** `"Adopt per-test temp dirs for any dist-touching test (and any future test that mutates a shared sibling-test artefact). One-paragraph convention note added to docs/local-build-instructions.md or a new docs/test-isolation.md."
 `
+
+- **Resolved (round-1, 2026-05-20):** Refactored `tests/scaffold/build-methodology-output.test.mjs` to use `mkdtempSync(join(tmpdir(), "iqme-build-meth-"))` + `IQME_BUILD_METHODOLOGY_OUT` env (already supported by `tools/build-methodology.mjs:24`). No test now touches the shared repo `dist/`. Validated: 5/5 parallel races (`node --test tests/scaffold/build-methodology-output.test.mjs tests/unit/dev-server.test.mjs`) all pass; full `make test` = 438 pass / 0 fail / 1 skip (was 312/0/0 + intermittent flake at round-1 review). `dev-server.test.mjs:91` left as-is (already read-only with `t.skip()` guard).
+- **Bridged to:** suggested bridge (convention doc in `docs/test-isolation.md` covering all dist-touching tests) deferred to next epic — single-file fix is sufficient for the round-1 blocker scope.
