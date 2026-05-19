@@ -14,11 +14,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 774fac63d5e430b6b51b3e6898b8cfe56af0562b13feb5ac08b361150ec31d42
+    sha256: 5b399d38805cab8f4b1647da259cae0c3a1e9f6c9327b891643163d1ffb574e6
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:02:02.164Z
+    recorded_at: 2026-05-19T15:03:56.371Z
     recorded_by: engineer
-    story_id: 2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
+    story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -333,3 +333,10 @@ entries:
     recorded_at: 2026-05-19T15:00:31.409Z
     recorded_by: engineer
     story_id: 2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring.md
+    sha256: 71cf36e5444cfdd63f974b2f3632f7f3e6a0913721b5e6a143d92eced8ba8864
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T15:03:56.403Z
+    recorded_by: engineer
+    story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
