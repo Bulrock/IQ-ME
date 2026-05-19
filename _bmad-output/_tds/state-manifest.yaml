@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 0b8beef1c7ce34d22cdf76249d2fa39d6c7a5acdba5c6e8ef6401db72db2ae4f
+    sha256: a36b306cf78321e4d497fece6647d6dfc0944085bce1ce1f4ed30c5fbdb58768
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T09:23:48.440Z
+    recorded_at: 2026-05-19T09:31:34.221Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: f9bfd8197ccc6453e4566c683ba640594edc6d9e68f96b4de9bd74a37a473de7
+    sha256: 9bff8c80e5ead12cf2da456d26a1d3351c1553ca25692279e579ac511db6fa68
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T09:23:42.492Z
+    recorded_at: 2026-05-19T09:31:28.350Z
     recorded_by: engineer
-    story_id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
+    story_id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: fbf3924b00f73153538b321016f62daac1f2a2099e57156790c044b016e6f24b
@@ -100,3 +100,26 @@ entries:
     recorded_by: test-author
     story_id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
     notes: story-1-5 frozen failing tests
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
+    sha256: 925451b3345961759c3554be8453f46c72c34486041d3a6c08bb818b3e201793
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T09:31:28.484Z
+    recorded_by: engineer
+    story_id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
+  - artefact_class: A
+    file: tests/scaffold/ci-matrix.test.mjs
+    sha256: 67500c46f1f1648412951285a8bf4a8b30e9666ddc8fa490e44e33d9559231bc
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T09:27:08.900Z
+    recorded_by: test-author
+    story_id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
+    notes: story-1-6 frozen failing tests
+  - artefact_class: A
+    file: tests/scaffold/negative-assertion-lints.test.mjs
+    sha256: a9bb6d72aa3e9fed7ea49b8c83dffffcb085c0a9fbe80b8144d14aa893ccac1f
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T09:27:08.901Z
+    recorded_by: test-author
+    story_id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
+    notes: story-1-6 frozen failing tests
