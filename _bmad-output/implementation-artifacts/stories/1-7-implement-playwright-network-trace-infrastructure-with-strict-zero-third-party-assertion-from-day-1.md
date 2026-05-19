@@ -1,7 +1,7 @@
 ---
 id: 1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1
 title: "Story 1.7: Implement Playwright network-trace infrastructure with STRICT zero-third-party assertion from day 1"
-status: approved
+status: done
 ---
 
 # Story 1.7: Playwright network-trace infrastructure

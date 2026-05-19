@@ -1,7 +1,7 @@
 ---
 id: 1-8-ship-deterministic-build-harness-ready-for-epic-2-s-golden-vectors
 title: "Story 1.8: Ship deterministic-build harness ready for Epic 2's golden vectors"
-status: approved
+status: done
 ---
 
 # Story 1.8: Deterministic-build harness
