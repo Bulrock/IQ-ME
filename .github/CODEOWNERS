@@ -1,0 +1,30 @@
+# IQ-ME — per-language reviewer-of-record discipline (FR49, NFR29).
+#
+# Branch protection (configured in Epic 7) will require BOTH a maintainer
+# review AND the per-language reviewer-of-record review before merging any
+# non-EN content-key change. At v0.0.1 the per-language reviewers are
+# placeholders pending Gate 9c (RU) and Gate 9d (PL) outreach close.
+#
+# Format reminder: <pattern> <owner1> <owner2> ...
+# `@TBD-*` handles are intentionally NOT real GitHub usernames — they
+# fail CODEOWNERS resolution, which is the signal to the future
+# lint-trust-artifacts.mjs (Story 1.6 / 1.9) that the reviewer-of-record
+# is still un-resolved. Do NOT replace these with real handles until the
+# corresponding Gate (9c/9d) is documented as closed in CHANGELOG.md.
+
+# Default: project maintainers own the repo.
+* @Bulrock
+
+# Russian methodology corpus + i18n strings — pending Gate 9c reviewer.
+src/content/methodology/ru/**     @TBD-ru-reviewer
+src/content/i18n/ru/**            @TBD-ru-reviewer
+src/content/glossary/ru.json      @TBD-ru-reviewer
+src/content/trails/ru.json        @TBD-ru-reviewer
+src/content/crisis-resources/ru.json @TBD-ru-reviewer
+
+# Polish methodology corpus + i18n strings — pending Gate 9d reviewer.
+src/content/methodology/pl/**     @TBD-pl-reviewer
+src/content/i18n/pl/**            @TBD-pl-reviewer
+src/content/glossary/pl.json      @TBD-pl-reviewer
+src/content/trails/pl.json        @TBD-pl-reviewer
+src/content/crisis-resources/pl.json @TBD-pl-reviewer

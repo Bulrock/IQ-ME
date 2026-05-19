@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: d5a1d1c240aeac80d12b8e08042da9c7fb4a60a15d8345faab969fdf863dbcc0
+    sha256: 28cf03e28dbf5984e1a3d4a6d257af9e8f29997c955d4de5bc92d88edf0912c1
     canonical_form: raw-bytes
-    recorded_at: 2026-05-18T21:05:56.461Z
+    recorded_at: 2026-05-18T21:20:43.016Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: f42bb124867d81194d3631fcc72eb836ec7fc10daaaa8e65fc4fd3da4898f456
+    sha256: 3f27bfbea05d05b750fc6f0f8379f6637ab9179229de8aaa5893931b2dcb1f89
     canonical_form: raw-bytes
-    recorded_at: 2026-05-18T21:16:37.777Z
+    recorded_at: 2026-05-19T07:35:07.216Z
     recorded_by: engineer
-    story_id: 1-1-bootstrap-repo-skeleton-makefile
+    story_id: 1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: fbf3924b00f73153538b321016f62daac1f2a2099e57156790c044b016e6f24b
@@ -34,3 +34,24 @@ entries:
     recorded_by: test-author
     story_id: 1-1-bootstrap-repo-skeleton-makefile
     notes: story-1-1 frozen failing tests
+  - artefact_class: A
+    file: _bmad-output/_tds/memory/lessons.yaml
+    sha256: a6f5fb1a9d91d5c8bf2e0b6c195fa9a9a45494f520a736f9beb8e35727dcb289
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-18T21:20:23.596Z
+    recorded_by: auditor
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners.md
+    sha256: 02881b49f3a4c001ce53c821b6c5d19ee95aeb50be7f3f938a8ddedd8bd25c33
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T07:35:07.236Z
+    recorded_by: engineer
+    story_id: 1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners
+  - artefact_class: A
+    file: tests/scaffold/trust-artifacts.test.mjs
+    sha256: ab889c611d6e92d7f68b5c6b2d6c3609213b49eee6b94cd181ba16d1feac92cd
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-18T21:22:33.070Z
+    recorded_by: test-author
+    story_id: 1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners
+    notes: story-1-2 frozen tests

@@ -1,2 +1,47 @@
 schema_version: "1.0"
-lessons: []
+lessons:
+  - id: lesson-2026-05-18-001
+    created_at: 2026-05-18T21:20:07.205Z
+    created_by: auditor
+    story_refs:
+      - 1-1-bootstrap-repo-skeleton-makefile
+    category: tooling
+    tags:
+      - tds-cli
+      - python
+      - macos
+    summary: tds CLI requires Python ≥3.10 + ruamel.yaml; prefix PATH=/opt/homebrew/bin:$PATH on macOS where /usr/bin/python3 is 3.9
+    avoid_pattern: "_bmad/tds/bin/tds <subcommand> # picks up system python3 3.9, ModuleNotFoundError: ruamel"
+    preferred_pattern: PATH=/opt/homebrew/bin:$PATH _bmad/tds/bin/tds <subcommand>
+    severity: high
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-18-002
+    created_at: 2026-05-18T21:20:16.345Z
+    created_by: auditor
+    story_refs:
+      - 1-1-bootstrap-repo-skeleton-makefile
+    category: process
+    tags:
+      - bmad
+      - story-spec
+      - paths
+    summary: BMAD-create-story writes spec to <impl_artifacts>/<story-id>.md; tds CLI expects <impl_artifacts>/stories/<story-id>.md — move after create
+    preferred_pattern: mkdir -p _bmad-output/implementation-artifacts/stories && git mv ...id.md stories/...id.md
+    severity: medium
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-18-003
+    created_at: 2026-05-18T21:20:23.586Z
+    created_by: auditor
+    story_refs: []
+    category: technical
+    tags:
+      - tds-cli
+      - story-update
+    summary: "--task-complete='Task N: ...' with backticks in label fails to match; use unique prefix without backticks"
+    avoid_pattern: "--task-complete='Task 3: Author the `Makefile`'   # backticks break match"
+    preferred_pattern: "--task-complete='Task 3: Author the'   # partial-prefix match"
+    severity: medium
+    status: active
+    superseded_by: null
