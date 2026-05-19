@@ -27,7 +27,8 @@ lint: ## run all registered lints (negative assertions + budget + trust artifact
 	node tools/lint-no-external-font.mjs
 	node tools/lint-no-localStorage-without-consent.mjs
 
-build: build-methodology ## alias to build-methodology (runtime-zero-build per NFR21)
+build: build-methodology ## alias to build-methodology + emit determinism marker (NFR17 prep)
+	node tools/build-determinism-marker.mjs
 
 build-methodology: ## render src/content/methodology/**.md to dist/methodology/ (Epic 4 lands tools/build-methodology.mjs)
 	@echo "build-methodology: no corpus content to render (Epic 4 lands tools/build-methodology.mjs)"

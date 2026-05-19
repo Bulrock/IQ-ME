@@ -1,7 +1,7 @@
 ---
 id: 1-8-ship-deterministic-build-harness-ready-for-epic-2-s-golden-vectors
 title: "Story 1.8: Ship deterministic-build harness ready for Epic 2's golden vectors"
-status: ready-for-dev
+status: review
 ---
 
 # Story 1.8: Deterministic-build harness
@@ -43,19 +43,19 @@ so that **Epic 2 can land golden-vector regeneration with a known-good determini
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Author `tools/determinism-harness.mjs`** (AC: 1, 3, 4, 5)
-  - [ ] Export `DETERMINISM` constant object with all required keys
-  - [ ] Export `sortedReaddir(dir)` — wraps `fs.readdirSync` + sort
-  - [ ] Export `frozenStat(path)` — returns `{ size, mtime: FROZEN_TIMESTAMP_ISO, mode }`
-  - [ ] Export `hashTree(rootDir)` — recursive SHA-256
-  - [ ] Default-export `DETERMINISM`
-- [ ] **Task 2: Modify `make build` target to write determinism marker** (AC: 2)
-  - [ ] After `build-methodology` runs (currently a no-op echo), invoke `node tools/build-determinism-marker.mjs`
-  - [ ] OR write the marker directly via a small inline `node -e '…'` recipe — but prefer a tools/ script for clarity
-  - [ ] Create `tools/build-determinism-marker.mjs` that calls `hashTree("dist")` + writes `dist/.build-determinism-check.json`
-- [ ] **Task 3: Author `tests/playwright/byte-stable.spec.mjs` stub** (AC: 6)
-- [ ] **Task 4: Author acceptance tests** (AC: 7)
-  - [ ] `tests/scaffold/determinism-harness.test.mjs`
+- [x] **Task 1: Author `tools/determinism-harness.mjs`** (AC: 1, 3, 4, 5)
+  - [x] Export `DETERMINISM` constant object with all required keys
+  - [x] Export `sortedReaddir(dir)` — wraps `fs.readdirSync` + sort
+  - [x] Export `frozenStat(path)` — returns `{ size, mtime: FROZEN_TIMESTAMP_ISO, mode }`
+  - [x] Export `hashTree(rootDir)` — recursive SHA-256
+  - [x] Default-export `DETERMINISM`
+- [x] **Task 2: Modify `make build` target to write determinism marker** (AC: 2)
+  - [x] After `build-methodology` runs (currently a no-op echo), invoke `node tools/build-determinism-marker.mjs`
+  - [x] OR write the marker directly via a small inline `node -e '…'` recipe — but prefer a tools/ script for clarity
+  - [x] Create `tools/build-determinism-marker.mjs` that calls `hashTree("dist")` + writes `dist/.build-determinism-check.json`
+- [x] **Task 3: Author `tests/playwright/byte-stable.spec.mjs` stub** (AC: 6)
+- [x] **Task 4: Author acceptance tests** (AC: 7)
+  - [x] `tests/scaffold/determinism-harness.test.mjs`
 
 ## Dev Notes
 
@@ -140,4 +140,53 @@ Architecture pins these for Epic 2's mirt 1.41.x golden-vector regeneration ([ar
 
 ### Completion Notes List
 
+- 17 frozen tests pass; full scaffold 123/123. Determinism harness exports DETERMINISM constants + sortedReaddir/frozenStat/hashTree utilities (stdlib-only NFR33). make build emits dist/.build-determinism-check.json; two clean builds yield byte-identical marker (empty-tree sha256 e3b0c44...). byte-stable.spec.mjs stub references DETERMINISM, fixme'd until Epic 4.
+
 ### File List
+
+- tools/determinism-harness.mjs
+- tools/build-determinism-marker.mjs
+- tests/playwright/byte-stable.spec.mjs
+- tests/scaffold/determinism-harness.test.mjs
+- Makefile
+
+## Specialist Self-Review
+
+**Decisions made:**
+
+1. **`hashTree` uses content bytes, not mtimes, in the SHA-256 input.** mtimes vary across checkouts (and across clean builds — even Git restores files with current mtimes), so including them would defeat determinism. The `frozen_epoch: 0` in the marker JSON is the **declarative** contract; the hash itself is content-based. Documented in implementation comment.
+
+2. **Empty-tree sentinel is the empty-string SHA-256 (`e3b0c4…`).** Sorted-readdir of an empty dir returns `[]`; the hash sees no `update()` calls; `createHash("sha256").digest("hex")` equals the well-known constant. Documented this in both the harness comment AND the story spec Dev Notes so future stories can reference it without re-derivation.
+
+3. **`R_THETA_LIM` is an array, not a tuple-like object.** Architecture pins it as `c(-6, 6)` in R syntax — that's a length-2 numeric vector. JavaScript array `[-6, 6]` is the natural representation; `Object.freeze` prevents accidental mutation. Test uses `deepEqual` to compare.
+
+4. **`make build` chains to `tools/build-determinism-marker.mjs` rather than inline `node -e`.** Story spec gave implementer the choice; the dedicated script wins on readability (the inline form would need quoting gymnastics) and on Makefile recipe-allowlist compliance (Story 1.1 test requires recipes to start with `node`, `make`, `npx --yes`, or `vendor/`; `node tools/...` is the clean form).
+
+**Alternatives considered:**
+
+- *Include mtimes in the hash, frozen via `utimesSync`* — would let `hashTree` self-validate "all mtimes already frozen". Adds I/O cost + complexity. The simpler "content only" hash is sufficient for Epic 2's golden-vector parity and Epic 4's byte-stable assertion.
+- *Use BLAKE3 instead of SHA-256* — BLAKE3 is faster but is not in Node stdlib; would require a vendored dep. SHA-256 is universally available and "fast enough" for tree sizes ≤ a few MB.
+- *Export `DETERMINISM` as a class with frozen properties* — `Object.freeze({...})` is simpler and doesn't pull in class-instance metaphor when none is needed.
+- *Default-export the utility functions instead of `DETERMINISM`* — the constants are the more frequently-imported surface; default-export the constants. Utility functions are named-export only.
+
+**Framework gotchas avoided:**
+
+- `readdirSync` returns entries in fs-dependent order on macOS APFS vs Linux ext4 vs Windows NTFS. `sortedReaddir` wraps + sorts so the hash is portable across hosts. CI on ubuntu-latest will produce the same hash as a macOS dev machine.
+- The dist-marker test relies on `make build` working — first time the test ran, the `dist/` dir didn't exist; `mkdirSync(DIST, { recursive: true })` in the marker script handles this.
+- The marker JSON ends with `"\n"` (a trailing newline) so editors don't introduce drift; `JSON.stringify(...) + "\n"`. Byte-identical determinism across runs verified.
+- `Object.freeze` on nested arrays/objects is shallow. `R_THETA_LIM` is `Object.freeze([-6, 6])` to freeze the inner array too. If a consumer tries `DETERMINISM.R_THETA_LIM[0] = 99`, it silently no-ops in non-strict mode and throws in strict mode (modules are strict by default).
+
+**Areas of uncertainty:**
+
+- `harness_version: "1.0.0"` is hardcoded. If the harness semantics change in Epic 4 (e.g. switching to BLAKE3, including symlinks), bump this. A future PR may want to read the version from a `package.json` or a dedicated `version.mjs`. For now, hardcoded — keeps things simple.
+- `HASH_LOCALE: "C.UTF-8"` is **declarative**, not enforced. Node's crypto API doesn't consume `LC_ALL`. If Epic 2's R bridge or Epic 4's snapshot tooling actually depends on locale (e.g. `sort -u` on a string list), it must set `LC_ALL=C.UTF-8` explicitly. Documented in the harness comment.
+- The `byte-stable.spec.mjs` stub uses `test.fixme` — Playwright will report it as "expected to fail; ok". When Epic 4 lands the real impl, remove the `fixme` and add the actual assertion body.
+
+**Tested edge cases:**
+
+- All 17 frozen tests pass; full scaffold suite 123/123.
+- `hashTree(emptyDir)` twice returns the same hash, equal to documented empty-tree sentinel.
+- `make clean && make build` twice produces byte-identical `dist/.build-determinism-check.json` — the marker JSON is identical character-by-character.
+- All named exports + default export accessible via dynamic `import()`.
+- `DETERMINISM` is frozen — attempted mutation throws in strict mode (modules are strict).
+- `byte-stable.spec.mjs` stub parses + references `DETERMINISM` + mentions Epic 4 deferral.
