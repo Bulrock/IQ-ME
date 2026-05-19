@@ -14,11 +14,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 152ae51b22a23ba3557d604d94b691710d56ea921c5e5ad6fcca4842f7c22d58
+    sha256: ee93fd889dc785f374ec5cd76dc76ac9a4ef8d850d8a2c712fcb5b88d64ea712
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:11:03.670Z
+    recorded_at: 2026-05-19T15:13:03.479Z
     recorded_by: engineer
-    story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
+    story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -354,3 +354,10 @@ entries:
     recorded_at: 2026-05-19T15:08:12.711Z
     recorded_by: engineer
     story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/2-7-populate-methodology_claims-json-activate-lint-claims-manifest.md
+    sha256: eed30776269d2301cfab7825d191b80bf65c78fbd90f39163f70896dbb71ad64
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T15:13:03.509Z
+    recorded_by: engineer
+    story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
