@@ -1,7 +1,7 @@
 // src/assessment/landing.js
 //
 // Story 3.3 AC-4 — EN-only landing scene with "Start the test" CTA and a
-// "Read the methodology" link to /methodology/v1.0.0/en/.
+// "Read the methodology" link to /methodology/v0.1.0/en/.
 
 import * as routing from "./routing.js";
 
@@ -28,7 +28,7 @@ export function render(rootEl, strings) {
       '<p class="landing__paragraph">' + intro + '</p>' +
       '<div class="landing__cta-group">' +
         '<button type="button" id="start-test-btn" class="landing__start-btn">' + startLabel + '</button>' +
-        '<a class="landing__methodology-link" href="/methodology/v1.0.0/en/">' + methodLabel + '</a>' +
+        '<a class="landing__methodology-link" href="/methodology/v0.1.0/en/">' + methodLabel + '</a>' +
       '</div>' +
     '</section>';
   startBtn = rootEl.querySelector("#start-test-btn");

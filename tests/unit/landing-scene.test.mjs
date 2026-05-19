@@ -16,7 +16,7 @@
 //         <button id="start-test-btn" class="landing__start-btn" type="button">
 //           {landing.startTestButton}
 //         </button>
-//         <a class="landing__methodology-link" href="/methodology/v1.0.0/en/">
+//         <a class="landing__methodology-link" href="/methodology/v0.1.0/en/">
 //           {landing.methodologyLink}
 //         </a>
 //       </div>
@@ -120,14 +120,14 @@ test("AC-4.5: render writes #start-test-btn inside .landing__cta-group with land
   assert.equal(btn.textContent, "__H_START__", "button textContent must come from i18n landing.startTestButton");
 });
 
-test("AC-4.6: render writes methodology link with exact href='/methodology/v1.0.0/en/' inside .landing__cta-group", () => {
+test("AC-4.6: render writes methodology link with exact href='/methodology/v0.1.0/en/' inside .landing__cta-group", () => {
   assert.equal(importError, null);
   const root = makeRootEl({ id: "app" });
   landing.render(root, STRINGS);
   const a = root.querySelector(".landing__methodology-link");
   assert.ok(a, "a.landing__methodology-link must exist");
   assert.equal(a.tag, "a");
-  assert.equal(a.attrs.href, "/methodology/v1.0.0/en/", "methodology URL is hard contract (ADR Story 3-1)");
+  assert.equal(a.attrs.href, "/methodology/v0.1.0/en/", "methodology URL is hard contract (ADR Story 3-1)");
   assert.equal(a.textContent, "__H_METHOD__", "link textContent must come from i18n landing.methodologyLink");
   // Structural: must live inside .landing__cta-group.
   const aInCta = root.querySelector(".landing__cta-group .landing__methodology-link");

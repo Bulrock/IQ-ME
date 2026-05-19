@@ -36,8 +36,8 @@ lint: ## run all registered lints (negative assertions + budget + trust artifact
 build: build-methodology ## alias to build-methodology + emit determinism marker (NFR17 prep)
 	node tools/build-determinism-marker.mjs
 
-build-methodology: ## render src/content/methodology/**.md to dist/methodology/ (Epic 4 lands tools/build-methodology.mjs)
-	@echo "build-methodology: no corpus content to render (Epic 4 lands tools/build-methodology.mjs)"
+build-methodology: ## render src/content/methodology/**.md to dist/methodology/ (Epic 3 interim stub; Epic 4 lands the full renderer)
+	node tools/build-methodology.mjs
 
 dev: ## start live-reload static server for corpus authoring (Epic 4 lands tools/dev-server.mjs)
 	@echo "dev: live-reload harness not yet implemented (Epic 4 lands tools/dev-server.mjs)"

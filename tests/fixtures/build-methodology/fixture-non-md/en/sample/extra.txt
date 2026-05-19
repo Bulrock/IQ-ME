@@ -1,0 +1,1 @@
+A non-markdown asset that should be skipped by the walker.

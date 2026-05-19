@@ -34,19 +34,19 @@
     {
       "claim-id": "percentile-from-standard-normal-cdf",
       "engine-source": "src/scoring/irt/index.js",
-      "methodology-path": "src/content/methodology/en/scoring/percentile-to-iq.md",
+      "methodology-path": "src/content/methodology/en/scoring/percentile-to-iq/index.md",
       "value-or-formula": "percentile = 100 * Phi(theta), Phi = N(0, 1) CDF (Abramowitz & Stegun 7.1.26)"
     },
     {
       "claim-id": "iq-scale-mean-100-sd-15",
       "engine-source": "src/scoring/irt/index.js",
-      "methodology-path": "src/content/methodology/en/scoring/percentile-to-iq.md",
+      "methodology-path": "src/content/methodology/en/scoring/overview/index.md",
       "value-or-formula": "iqScale = round(100 + 15 * theta)"
     },
     {
       "claim-id": "se-total-rss",
       "engine-source": "src/scoring/irt/se.js",
-      "methodology-path": "src/content/methodology/en/scoring/uncertainty.md",
+      "methodology-path": "src/content/methodology/en/scoring/uncertainty/index.md",
       "value-or-formula": "SE_total = sqrt(SEM^2 + SE_norming^2)"
     },
     {
