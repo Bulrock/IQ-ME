@@ -8,9 +8,9 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: c3c41bd9b1db5cbe3cd259de2b2754a44ccddbfac8d02d5edce495fc62eb9359
+    sha256: 509fc2b3f5329824c8515b7a2cce4b3bccb48cf9d1f404fd6fb41e8de285c484
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:44:35.081Z
+    recorded_at: 2026-05-19T14:54:31.257Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
