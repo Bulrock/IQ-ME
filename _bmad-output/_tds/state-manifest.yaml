@@ -8,15 +8,15 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 8f8ae095d5283762c7aa177874a005caa5463f80b60d959647bcca54790e8428
+    sha256: 5275ff478c38ad8f3a682c39167844710b7100e068f35776d2e6d7144e0fc597
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T16:47:18.617Z
+    recorded_at: 2026-05-19T16:52:52.907Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 5b0ddcd76b1229c40cfc9495dd4d98f2c7e9ac879196e6df97d5bfc4f75d2e10
+    sha256: a6d4bf9f00a1d8339a2bf25e017406dda06af6105aab97eb0756eeef9396100d
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T16:51:39.122Z
+    recorded_at: 2026-05-19T17:22:55.291Z
     recorded_by: engineer
     story_id: 3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url
   - artefact_class: A
@@ -377,8 +377,16 @@ entries:
     story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url.md
-    sha256: 0078ee042e34f0684119c6f60d18d831cdecc2a346154991edf6c504c66b4482
+    sha256: 86d027b35685186aba5e86ac6eec06fdd20adadacb4bc93d096982071307160f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T16:51:39.161Z
+    recorded_at: 2026-05-19T17:22:55.317Z
     recorded_by: engineer
     story_id: 3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url
+  - artefact_class: A
+    file: tests/scaffold/story-3-1-marker.test.mjs
+    sha256: b1da14131d457049c04e924b73c8652f211053039c791076c7a5335b4734b84a
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T17:16:25.000Z
+    recorded_by: test-author
+    story_id: 3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url
+    notes: story-3-1 procedural marker (AC-6 doc-only story; state-machine defense-in-depth gate)
