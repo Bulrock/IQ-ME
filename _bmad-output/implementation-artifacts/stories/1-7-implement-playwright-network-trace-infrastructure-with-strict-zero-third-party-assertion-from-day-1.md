@@ -185,3 +185,21 @@ The acceptance test in `tests/scaffold/playwright-network-trace.test.mjs` must n
 - pr-checks.yml `network-trace` job has no `if: false`, has `actions/setup-node@v4`, has `npx playwright install --with-deps chromium`, has `npx playwright test tests/playwright/network-trace.spec.mjs`.
 - Makefile declares `test-network-trace` target with `## self-doc` comment.
 - Did NOT run real Playwright locally (consistent with the structural-only AC-7 decision); CI will exercise the real assertion.
+
+## Auditor Findings (round-1)
+
+### [blocker] Frozen test `tests/scaffold/playwright-network-trace.test.mjs` (recorded_by=test-author, story-1-7, sha256 10563d04...c14d6e) was modified post-freeze during the 1-7 specialist phase. Current actual sha256=24d53777...837400. `tds integrity verify --as=auditor` exits 26 with this entry in `failedEntries`. The drift is honestly disclosed in `## Specialist Self-Review → Decisions made #4`: "Two AC tests had structural bugs that surfaced only against real impl: AC-2 regex didn't span newlines, AC-5 20-line scan window bled into the next job's `if: false`. Fixed both via Edit." — but the integrity record was never re-registered. This is the load-bearing audit-trail invariant of TDS; a drift detection cannot be merged silently regardless of intent. The drift conceals a frozen-test contract violation from any future `tds integrity verify` consumer (CI gate, downstream audit, retro forensics).
+
+
+- **Category:** integrity-drift
+- **Suggested fix:** Recommended: re-register the test files' integrity records to match current SHA256, attributed to engineer (not test-author, since the test-author freeze is preserved historically in the registry's `recorded_at` timeline — current re-record is the "engineer ratified the post-impl test bug-fix"). Concrete steps:
+
+1. `tds integrity record --as=engineer --file=tests/scaffold/playwright-network-trace.test.mjs --story=1-7-... --notes="post-impl test bug-fix per Specialist Self-Review §4"`
+2. `tds integrity record --as=engineer --file=tests/scaffold/ci-matrix.test.mjs --story=1-6-... --notes="post-impl test bug-fix per story-1-7 Specialist Self-Review §4 (cross-story edit: added network-trace to EPIC_1_ACTIVE)"`
+3. Re-run `tds integrity verify --as=auditor` → verified=25, failed=0.
+4. Commit the state-manifest update via `tds state-commit --as=engineer -m "fix(1-7): re-register integrity for two frozen tests edited during impl"`.
+
+Rationale: a green `integrity verify` is the merge precondition the TDS contract enforces. The fix is mechanical — no code change. Alternative (creating a bridge story to formalize an `unfreeze-tests` CLI) is the wider tech-debt remedy already flagged in memory `feedback_tds_state_machine_quirks.md`; that bridge belongs in epic-1 retro, not as an epic-merge blocker.
+
+- **Suggested bridge:** `Bridge candidate for epic-1 retro: introduce `tds story unfreeze-tests --story=<id>` CLI (currently missing per memory `feedback_tds_state_machine_quirks.md`). The Edit + manual re-register pattern is friction-hostile and the lack of CLI affordance is what made specialists silently drift integrity during 1-7 impl. Time-box: 1 day.
+`
