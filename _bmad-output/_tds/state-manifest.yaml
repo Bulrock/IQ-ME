@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: be0cd900056ef86c9513f6c373234231da6836bc2fe89fbb13ff8215fb7671a7
+    sha256: 17f439026296381c4b2c80c7765bd49d85fb5024c2b6ce7fb78ea2ab82d603fc
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T17:23:57.061Z
+    recorded_at: 2026-05-19T17:50:46.061Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: a6d4bf9f00a1d8339a2bf25e017406dda06af6105aab97eb0756eeef9396100d
+    sha256: a6511b4828c5661de09d2bf9564b8f801098285a3082922a38f2cbdf9feb2551
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T17:22:55.291Z
+    recorded_at: 2026-05-19T17:50:39.926Z
     recorded_by: engineer
-    story_id: 3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url
+    story_id: 3-2-implement-state-js-contract-test
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -390,3 +390,26 @@ entries:
     recorded_by: test-author
     story_id: 3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url
     notes: story-3-1 procedural marker (AC-6 doc-only story; state-machine defense-in-depth gate)
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/3-2-implement-state-js-contract-test.md
+    sha256: 04870e9d9c567085edf2e4714dfafeddd75c2d11d918a8c92e9a4993b51ebd2c
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T17:50:39.954Z
+    recorded_by: engineer
+    story_id: 3-2-implement-state-js-contract-test
+  - artefact_class: A
+    file: tests/contract/state-shape.spec.mjs
+    sha256: ae654246cb53fe2b9362d4d8555730226081a99a06f2b1ec89d0a129fcfac2ee
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T17:46:23.670Z
+    recorded_by: test-author
+    story_id: 3-2-implement-state-js-contract-test
+    notes: story-3-2 frozen failing tests
+  - artefact_class: A
+    file: tests/contract/_state-schema-check.mjs
+    sha256: 4d97c16e7b0a8f7a09f4a35de231ac2fde6d7fea48cac5bcd192acb8c47a3aab
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T17:46:23.670Z
+    recorded_by: test-author
+    story_id: 3-2-implement-state-js-contract-test
+    notes: story-3-2 frozen failing tests
