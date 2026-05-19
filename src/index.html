@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IQ-ME — a fluid-reasoning screener</title>
+<link rel="stylesheet" href="/src/css/reset.css">
+<link rel="stylesheet" href="/src/css/primitives.css">
+<link rel="stylesheet" href="/src/css/semantic.css">
+<link rel="stylesheet" href="/src/css/base.css">
+<link rel="stylesheet" href="/src/css/components/chrome-header.css">
+<link rel="stylesheet" href="/src/css/components/consent-scene.css">
+<link rel="stylesheet" href="/src/css/components/landing.css">
+<link rel="stylesheet" href="/src/css/utilities.css">
+</head>
+<body>
+<header class="chrome-header"><span class="chrome-header__name">IQ-ME</span></header>
+<main id="app" role="main"></main>
+<div id="fallback" style="display:none">
+<article lang="en">
+<p>IQ-ME needs a modern browser that supports JavaScript modules. Please upgrade to a recent version of <a href="https://www.google.com/chrome/">Chrome</a>, <a href="https://www.mozilla.org/firefox/">Firefox</a>, <a href="https://www.apple.com/safari/">Safari</a>, or <a href="https://browser.yandex.com/">Yandex Browser</a>. The methodology corpus is available at <a href="/methodology/v1.0.0/en/">/methodology/v1.0.0/en/</a> without JavaScript.</p>
+</article>
+</div>
+<script nomodule>document.getElementById('fallback').style.display='block';document.getElementById('app').style.display='none';</script>
+<noscript>
+<article lang="en">
+<p>IQ-ME requires JavaScript. Please enable JavaScript and reload, or read the methodology corpus at <a href="/methodology/v1.0.0/en/">/methodology/v1.0.0/en/</a>.</p>
+</article>
+</noscript>
+<script type="module" src="/src/assessment/main.js"></script>
+</body>
+</html>

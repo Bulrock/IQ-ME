@@ -1,7 +1,7 @@
 ---
 id: 3-3-implement-landing-consent-scene-en
 title: "Story 3.3: Implement landing + consent-scene (EN)"
-status: ready-for-dev
+status: review
 ---
 
 # Story 3.3: Implement landing + consent-scene (EN)
@@ -159,79 +159,79 @@ This is **Epic 3's first UI story** — Story 3.1 froze the contract artifacts (
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Create `src/index.html` SPA shell (AC-1)**
-  - [ ] 1.1 Write `<!doctype html>` document with `<html lang="en">`, `<meta charset="utf-8">`, viewport meta, `<title>` literal (i18n key swap happens via `locale-loader.js` in later stories).
-  - [ ] 1.2 Emit the parallel `<link rel="stylesheet">` chain in declared cascade order: reset → primitives → semantic → base → components alphabetical (chrome-header, consent-scene, landing) → utilities.
-  - [ ] 1.3 Add `<header class="chrome-header">` shell (project name only at v1).
-  - [ ] 1.4 Add `<main id="app" role="main">` mount point + `<div id="fallback" style="display:none">` with one EN article (~3 sentences) + 4 browser-upgrade links + methodology corpus link.
-  - [ ] 1.5 Add `<script nomodule>` fallback toggle (single line, no inline JS otherwise) + `<noscript>` mirror of the fallback content.
-  - [ ] 1.6 Add `<script type="module" src="/src/assessment/main.js"></script>` at end-of-body.
-  - [ ] 1.7 Verify file is LF / UTF-8 / no BOM / trailing newline.
+- [x] **Task 1: Create `src/index.html` SPA shell (AC-1)**
+  - [x] 1.1 Write `<!doctype html>` document with `<html lang="en">`, `<meta charset="utf-8">`, viewport meta, `<title>` literal (i18n key swap happens via `locale-loader.js` in later stories).
+  - [x] 1.2 Emit the parallel `<link rel="stylesheet">` chain in declared cascade order: reset → primitives → semantic → base → components alphabetical (chrome-header, consent-scene, landing) → utilities.
+  - [x] 1.3 Add `<header class="chrome-header">` shell (project name only at v1).
+  - [x] 1.4 Add `<main id="app" role="main">` mount point + `<div id="fallback" style="display:none">` with one EN article (~3 sentences) + 4 browser-upgrade links + methodology corpus link.
+  - [x] 1.5 Add `<script nomodule>` fallback toggle (single line, no inline JS otherwise) + `<noscript>` mirror of the fallback content.
+  - [x] 1.6 Add `<script type="module" src="/src/assessment/main.js"></script>` at end-of-body.
+  - [x] 1.7 Verify file is LF / UTF-8 / no BOM / trailing newline.
 
-- [ ] **Task 2: Implement `src/assessment/main.js` bootstrap (AC-2)**
-  - [ ] 2.1 Add `export async function start()` — idempotent via module-level `started` flag.
-  - [ ] 2.2 In `start()`: `await localeLoader.load('en')` (or fall back to bare-keys on resolved-empty per AC-6); then `routing.start()`.
-  - [ ] 2.3 Wrap entire body in `try/catch`; on catch, `renderErrorFallback(document.getElementById('app'), localeStrings)`.
-  - [ ] 2.4 At module bottom: `if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();` — common case (end-of-body script tag) is the else branch.
-  - [ ] 2.5 Verify no `Math.random`, no `Date.now`, no `localStorage`, no `sessionStorage`, no `navigator.share`, no `console.log` in this file (grep self-check).
+- [x] **Task 2: Implement `src/assessment/main.js` bootstrap (AC-2)**
+  - [x] 2.1 Add `export async function start()` — idempotent via module-level `started` flag.
+  - [x] 2.2 In `start()`: `await localeLoader.load('en')` (or fall back to bare-keys on resolved-empty per AC-6); then `routing.start()`.
+  - [x] 2.3 Wrap entire body in `try/catch`; on catch, `renderErrorFallback(document.getElementById('app'), localeStrings)`.
+  - [x] 2.4 At module bottom: `if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();` — common case (end-of-body script tag) is the else branch.
+  - [x] 2.5 Verify no `Math.random`, no `Date.now`, no `localStorage`, no `sessionStorage`, no `navigator.share`, no `console.log` in this file (grep self-check).
 
-- [ ] **Task 3: Implement `src/assessment/routing.js` (AC-3)**
-  - [ ] 3.1 Module-level route table: `{ '': landingScene, '#/': landingScene, '#/consent': consentScene }`. Other routes fall back to landing.
-  - [ ] 3.2 `export function start()`: idempotent; attaches `window.addEventListener('hashchange', onHashChange)`, then calls `onHashChange()` once to render the initial scene.
-  - [ ] 3.3 `export function navigate(route)`: sets `window.location.hash = '#/' + route.replace(/^#?\/?/, '')`. (e.g., `navigate('consent')` → `#/consent`.)
-  - [ ] 3.4 `export function getCurrentRoute()`: returns the lowercase hash (`window.location.hash`).
-  - [ ] 3.5 `onHashChange()`: looks up the scene for the current hash, calls `previousScene.unmount?.()` if present, then `currentScene.render(appEl, localeStrings)`, then dispatches `new CustomEvent('iqme:route-change', { bubbles: true, composed: false, detail: { route: currentHash } })` on `document`.
+- [x] **Task 3: Implement `src/assessment/routing.js` (AC-3)**
+  - [x] 3.1 Module-level route table: `{ '': landingScene, '#/': landingScene, '#/consent': consentScene }`. Other routes fall back to landing.
+  - [x] 3.2 `export function start()`: idempotent; attaches `window.addEventListener('hashchange', onHashChange)`, then calls `onHashChange()` once to render the initial scene.
+  - [x] 3.3 `export function navigate(route)`: sets `window.location.hash = '#/' + route.replace(/^#?\/?/, '')`. (e.g., `navigate('consent')` → `#/consent`.)
+  - [x] 3.4 `export function getCurrentRoute()`: returns the lowercase hash (`window.location.hash`).
+  - [x] 3.5 `onHashChange()`: looks up the scene for the current hash, calls `previousScene.unmount?.()` if present, then `currentScene.render(appEl, localeStrings)`, then dispatches `new CustomEvent('iqme:route-change', { bubbles: true, composed: false, detail: { route: currentHash } })` on `document`.
 
-- [ ] **Task 4: Implement `src/assessment/landing.js` (AC-4)**
-  - [ ] 4.1 `export function render(rootEl, strings)`: write the section HTML via `rootEl.innerHTML = ...` (template literal) or via `document.createElement` chains — both acceptable; the template-literal approach is shorter for static markup.
-  - [ ] 4.2 After write, `rootEl.querySelector('#start-test-btn').addEventListener('click', () => routing.navigate('consent'))`.
-  - [ ] 4.3 `export function unmount()`: remove the click listener (use a named handler reference), clear `rootEl.innerHTML`.
-  - [ ] 4.4 Grep self-check: no `localStorage`, no `sessionStorage`, no `navigator.share`, no `role="alert"`, no `Math.random`, no `Date.now`, no `console.log`.
+- [x] **Task 4: Implement `src/assessment/landing.js` (AC-4)**
+  - [x] 4.1 `export function render(rootEl, strings)`: write the section HTML via `rootEl.innerHTML = ...` (template literal) or via `document.createElement` chains — both acceptable; the template-literal approach is shorter for static markup.
+  - [x] 4.2 After write, `rootEl.querySelector('#start-test-btn').addEventListener('click', () => routing.navigate('consent'))`.
+  - [x] 4.3 `export function unmount()`: remove the click listener (use a named handler reference), clear `rootEl.innerHTML`.
+  - [x] 4.4 Grep self-check: no `localStorage`, no `sessionStorage`, no `navigator.share`, no `role="alert"`, no `Math.random`, no `Date.now`, no `console.log`.
 
-- [ ] **Task 5: Implement `src/assessment/consent.js` (AC-5)**
-  - [ ] 5.1 `export function render(rootEl, strings)`: write section HTML (validity envelope + dwell-gated Continue + "Not today" link) including the sentinel `<div class="consent-scene__envelope-end" tabindex="-1">`.
-  - [ ] 5.2 Install `IntersectionObserver` observing the sentinel; on `entry.isIntersecting && entry.intersectionRatio === 1.0`, flip `#continue-btn[aria-disabled]` to `"false"` AND cancel the dwell-timer.
-  - [ ] 5.3 Install `setTimeout(flipGate, 5000)`; `flipGate()` flips `aria-disabled` to `"false"` AND disconnects the IntersectionObserver.
-  - [ ] 5.4 Attach `click` listener on `#continue-btn`: if `aria-disabled === 'true'`, no-op; else `routing.navigate('test')`.
-  - [ ] 5.5 Attach `click` listener on `#not-today-link`: call `state.resetState()` from `../assessment/state.js`, then let the native `<a href="#/">` navigation fire (do NOT `preventDefault` — the hashchange will route to landing).
-  - [ ] 5.6 `export function unmount()`: `IntersectionObserver.disconnect()`, `clearTimeout(dwellTimer)`, remove the two click listeners.
-  - [ ] 5.7 Grep self-check: same negatives as landing.js (Task 4.4).
+- [x] **Task 5: Implement `src/assessment/consent.js` (AC-5)**
+  - [x] 5.1 `export function render(rootEl, strings)`: write section HTML (validity envelope + dwell-gated Continue + "Not today" link) including the sentinel `<div class="consent-scene__envelope-end" tabindex="-1">`.
+  - [x] 5.2 Install `IntersectionObserver` observing the sentinel; on `entry.isIntersecting && entry.intersectionRatio === 1.0`, flip `#continue-btn[aria-disabled]` to `"false"` AND cancel the dwell-timer.
+  - [x] 5.3 Install `setTimeout(flipGate, 5000)`; `flipGate()` flips `aria-disabled` to `"false"` AND disconnects the IntersectionObserver.
+  - [x] 5.4 Attach `click` listener on `#continue-btn`: if `aria-disabled === 'true'`, no-op; else `routing.navigate('test')`.
+  - [x] 5.5 Attach `click` listener on `#not-today-link`: call `state.resetState()` from `../assessment/state.js`, then let the native `<a href="#/">` navigation fire (do NOT `preventDefault` — the hashchange will route to landing).
+  - [x] 5.6 `export function unmount()`: `IntersectionObserver.disconnect()`, `clearTimeout(dwellTimer)`, remove the two click listeners.
+  - [x] 5.7 Grep self-check: same negatives as landing.js (Task 4.4).
 
-- [ ] **Task 6: Implement `src/assessment/i18n/locale-loader.js` (AC-6)**
-  - [ ] 6.1 Module-level `currentLocale = null`, `strings = new Map()`.
-  - [ ] 6.2 `export async function load(localeCode)`: `fetch('/src/content/i18n/' + localeCode + '/strings.json')`, parse JSON, store in `strings`, set `currentLocale = localeCode`, return the parsed namespace object. On error: if `localeCode !== 'en'`, retry once with `'en'`; else resolve with `{}` (empty bundle).
-  - [ ] 6.3 `export function get(key)`: split on `'.'`, walk the current-locale's namespace; if undefined, walk the `'en'` cache (if not the current locale); if still undefined, return the bare `key` literal.
-  - [ ] 6.4 `export function getCurrentLocale()`: return `currentLocale`.
-  - [ ] 6.5 Grep self-check: no `localStorage`, no `sessionStorage`.
+- [x] **Task 6: Implement `src/assessment/i18n/locale-loader.js` (AC-6)**
+  - [x] 6.1 Module-level `currentLocale = null`, `strings = new Map()`.
+  - [x] 6.2 `export async function load(localeCode)`: `fetch('/src/content/i18n/' + localeCode + '/strings.json')`, parse JSON, store in `strings`, set `currentLocale = localeCode`, return the parsed namespace object. On error: if `localeCode !== 'en'`, retry once with `'en'`; else resolve with `{}` (empty bundle).
+  - [x] 6.3 `export function get(key)`: split on `'.'`, walk the current-locale's namespace; if undefined, walk the `'en'` cache (if not the current locale); if still undefined, return the bare `key` literal.
+  - [x] 6.4 `export function getCurrentLocale()`: return `currentLocale`.
+  - [x] 6.5 Grep self-check: no `localStorage`, no `sessionStorage`.
 
-- [ ] **Task 7: Author `src/content/i18n/en/strings.json` (AC-7)**
-  - [ ] 7.1 Create file with the 3 namespaces (`chrome`, `landing`, `consent`) and the 13 keys listed in AC-7. EN copy as specified there.
-  - [ ] 7.2 Validate via `python3 -c "import json; json.load(open('src/content/i18n/en/strings.json'))"` exits 0.
-  - [ ] 7.3 LF / UTF-8 / no BOM / trailing newline.
+- [x] **Task 7: Author `src/content/i18n/en/strings.json` (AC-7)**
+  - [x] 7.1 Create file with the 3 namespaces (`chrome`, `landing`, `consent`) and the 13 keys listed in AC-7. EN copy as specified there.
+  - [x] 7.2 Validate via `python3 -c "import json; json.load(open('src/content/i18n/en/strings.json'))"` exits 0.
+  - [x] 7.3 LF / UTF-8 / no BOM / trailing newline.
 
-- [ ] **Task 8: Implement `src/assessment/error-fallback.js` (AC-8)**
-  - [ ] 8.1 `export function renderErrorFallback(rootEl, strings)`: write a `<section role="status">` (NOT `role="alert"`) with the chrome.errorFallbackMessage + a Reload link.
-  - [ ] 8.2 No imports beyond standard (no Date, no Math.random, no storage).
+- [x] **Task 8: Implement `src/assessment/error-fallback.js` (AC-8)**
+  - [x] 8.1 `export function renderErrorFallback(rootEl, strings)`: write a `<section role="status">` (NOT `role="alert"`) with the chrome.errorFallbackMessage + a Reload link.
+  - [x] 8.2 No imports beyond standard (no Date, no Math.random, no storage).
 
-- [ ] **Task 9: Author `src/css/components/{landing,consent-scene,chrome-header}.css` (AC-9)**
-  - [ ] 9.1 `landing.css` (~80 LOC max) — `.landing` layout + `.landing__paragraph` typography + `.landing__cta-group` flex + `.landing__start-btn` button styling (semantic tokens only) + `.landing__methodology-link` link styling.
-  - [ ] 9.2 `consent-scene.css` (~100 LOC max) — `.consent-scene` layout + `.consent-scene__envelope` blockquote-like emphasis + `.consent-scene__continue-btn` button styling with `[aria-disabled="true"]` muted state + `.consent-scene__envelope-end` visually-hidden sentinel.
-  - [ ] 9.3 `chrome-header.css` (~50 LOC max) — `.chrome-header` row layout, project name typography, semantic background/foreground.
-  - [ ] 9.4 No literal hex / px / font-family in any of the three files — semantic tokens only. Grep self-check: `grep -E '#[0-9a-fA-F]{3,6}\b|\b[0-9]+px\b|font-family:[^v]' src/css/components/{landing,consent-scene,chrome-header}.css` returns no matches (except token-name references — `var(--*)` is allowed).
+- [x] **Task 9: Author `src/css/components/{landing,consent-scene,chrome-header}.css` (AC-9)**
+  - [x] 9.1 `landing.css` (~80 LOC max) — `.landing` layout + `.landing__paragraph` typography + `.landing__cta-group` flex + `.landing__start-btn` button styling (semantic tokens only) + `.landing__methodology-link` link styling.
+  - [x] 9.2 `consent-scene.css` (~100 LOC max) — `.consent-scene` layout + `.consent-scene__envelope` blockquote-like emphasis + `.consent-scene__continue-btn` button styling with `[aria-disabled="true"]` muted state + `.consent-scene__envelope-end` visually-hidden sentinel.
+  - [x] 9.3 `chrome-header.css` (~50 LOC max) — `.chrome-header` row layout, project name typography, semantic background/foreground.
+  - [x] 9.4 No literal hex / px / font-family in any of the three files — semantic tokens only. Grep self-check: `grep -E '#[0-9a-fA-F]{3,6}\b|\b[0-9]+px\b|font-family:[^v]' src/css/components/{landing,consent-scene,chrome-header}.css` returns no matches (except token-name references — `var(--*)` is allowed).
 
-- [ ] **Task 10: Author `tests/unit/{landing-scene,consent-scene,locale-loader,routing}.test.mjs` (AC-10)**
-  - [ ] 10.1 `landing-scene.test.mjs` — install minimal `document` / `window` stubs at file top BEFORE dynamic import; assert render → DOM shape contains the start-button + methodology link + headline; assert start-button click invokes routing.navigate('consent') (mock routing module via dynamic-import override).
-  - [ ] 10.2 `consent-scene.test.mjs` — install `IntersectionObserver` stub + `node:test`-mock-timers; assert aria-disabled flips after 5s tick; assert aria-disabled flips after IO entry fires; assert "Not today" calls state.resetState.
-  - [ ] 10.3 `locale-loader.test.mjs` — stub `globalThis.fetch` to return the EN strings.json content; assert `load('en')` resolves with the expected namespace shape; assert `get('consent.continueButton')` returns the EN string; assert `get('garbage.key')` returns `'garbage.key'`.
-  - [ ] 10.4 `routing.test.mjs` — stub `window`, `document`, and the route handlers; assert `start()` idempotency, `navigate('consent')` hash mutation, `getCurrentRoute()` parsing, unknown-hash fallback.
+- [x] **Task 10: Author `tests/unit/{landing-scene,consent-scene,locale-loader,routing}.test.mjs` (AC-10)**
+  - [x] 10.1 `landing-scene.test.mjs` — install minimal `document` / `window` stubs at file top BEFORE dynamic import; assert render → DOM shape contains the start-button + methodology link + headline; assert start-button click invokes routing.navigate('consent') (mock routing module via dynamic-import override).
+  - [x] 10.2 `consent-scene.test.mjs` — install `IntersectionObserver` stub + `node:test`-mock-timers; assert aria-disabled flips after 5s tick; assert aria-disabled flips after IO entry fires; assert "Not today" calls state.resetState.
+  - [x] 10.3 `locale-loader.test.mjs` — stub `globalThis.fetch` to return the EN strings.json content; assert `load('en')` resolves with the expected namespace shape; assert `get('consent.continueButton')` returns the EN string; assert `get('garbage.key')` returns `'garbage.key'`.
+  - [x] 10.4 `routing.test.mjs` — stub `window`, `document`, and the route handlers; assert `start()` idempotency, `navigate('consent')` hash mutation, `getCurrentRoute()` parsing, unknown-hash fallback.
 
-- [ ] **Task 11: Verify `make test` + `make lint` + contract test count (AC-10, AC-11, AC-12)**
-  - [ ] 11.1 Run `make test` — exit 0; `pass` count = end-of-3-2 baseline (`312`) + at least 8 new tests (target ≥ `320`); `todo=0`.
-  - [ ] 11.2 Run `make test-contract` — exit 0; pass count unchanged from end-of-3-2 (contract suite is not modified).
-  - [ ] 11.3 Run `make lint` — exit 0; `lint-no-cookie-banner` passes against the new SPA modules + CSS + HTML (no false-positive on the consent-scene copy).
-  - [ ] 11.4 Run `node tools/lint-no-share.mjs` and `node tools/lint-no-role-alert.mjs` standalone to triple-verify (these are part of `make lint` but worth a direct run for this story's defense-in-depth — same exit 0 expected).
-  - [ ] 11.5 Spot-check `src/index.html` parses as HTML via `python3 -c "from html.parser import HTMLParser; p=HTMLParser(); p.feed(open('src/index.html').read())"` — no exception.
-  - [ ] 11.6 Spot-check `src/content/i18n/en/strings.json` parses as JSON — done in Task 7.2.
+- [x] **Task 11: Verify `make test` + `make lint` + contract test count (AC-10, AC-11, AC-12)**
+  - [x] 11.1 Run `make test` — exit 0; `pass` count = end-of-3-2 baseline (`312`) + at least 8 new tests (target ≥ `320`); `todo=0`.
+  - [x] 11.2 Run `make test-contract` — exit 0; pass count unchanged from end-of-3-2 (contract suite is not modified).
+  - [x] 11.3 Run `make lint` — exit 0; `lint-no-cookie-banner` passes against the new SPA modules + CSS + HTML (no false-positive on the consent-scene copy).
+  - [x] 11.4 Run `node tools/lint-no-share.mjs` and `node tools/lint-no-role-alert.mjs` standalone to triple-verify (these are part of `make lint` but worth a direct run for this story's defense-in-depth — same exit 0 expected).
+  - [x] 11.5 Spot-check `src/index.html` parses as HTML via `python3 -c "from html.parser import HTMLParser; p=HTMLParser(); p.feed(open('src/index.html').read())"` — no exception.
+  - [x] 11.6 Spot-check `src/content/i18n/en/strings.json` parses as JSON — done in Task 7.2.
 
 ## Dev Notes
 
@@ -395,8 +395,68 @@ This is **Epic 3's first UI story** — Story 3.1 froze the contract artifacts (
 
 ### Completion Notes List
 
+- JS modules + EN i18n bundle landed; all 8 frozen unit tests green (43 → 0 failures); contract suite unchanged (16 pass); make lint exit 0.
+- HTML shell + 3 component CSS files landed. 355 tests pass (+43 from baseline 312), 0 fail; contract suite 16 pass; make lint exit 0; standalone lint-no-share/lint-no-role-alert/lint-no-cookie-banner clean. Story 3-3 impl phase complete.
+- Story 3-3 review-ready: 11 tasks complete, 8 unit-test files (37 frozen tests) green, lint chain clean, contract suite intact, full suite 355 pass / 0 fail (was 312/43).
+
 ### File List
+
+- src/assessment/main.js
+- src/assessment/routing.js
+- src/assessment/landing.js
+- src/assessment/consent.js
+- src/assessment/i18n/locale-loader.js
+- src/assessment/error-fallback.js
+- src/content/i18n/en/strings.json
+- src/index.html
+- src/css/components/landing.css
+- src/css/components/consent-scene.css
+- src/css/components/chrome-header.css
 
 ## Specialist Self-Review
 
-(populated by execute-story)
+**Decisions made:**
+
+1. **Module-level `inFlight` promise (not `started` boolean) for `main.js` idempotency.** The frozen test `AC-2.3` clears `#app` then re-invokes `start()` against a now-throwing `fetch` responder; a hard `started=true` flag would block the re-attempt and leave `#app` empty (NFR20 violation). Coalescing only while a bootstrap is *in flight* keeps the practical idempotency contract (concurrent callers see one bootstrap) without locking out a legitimate retry path. Production callers still hit `start()` exactly once via `DOMContentLoaded`, so this is observable only in test/dev hot-reload.
+
+2. **Routing `start()` re-renders when `hash !== activeHash`, idempotent otherwise.** AC-3.3 requires "second `start()` does not double-register listener or re-dispatch initial-render", while AC-3.7 changes `window.location.hash` then calls `start()` and expects a route-change to fire. The split is `started && hash === activeHash` → no-op; `started && hash !== activeHash` → re-render. AC-3.3 stays green because the hash never changes between its two calls.
+
+3. **`locale-loader.load()` clears `cache.delete('en')` on EN-fetch failure.** AC-6.6 expects that after `load('en')` against a 500 responder, subsequent `get('landing.headline')` returns the bare-key literal — the architecture-line-836 "highly-visible failure" mode. Without the cache-delete, EN strings from a prior successful `load('en')` would survive and `get()` would return the cached string, masking the failure. The cache-delete makes the failure observable as the architecture intends.
+
+4. **Routing always renders after `navigate()` (does not rely on synchronous `hashchange`).** Node test stubs do not dispatch `hashchange` synchronously after `window.location.hash =`, and a real browser fires it asynchronously after the current task. Direct `renderRoute(newHash)` after the hash mutation satisfies AC-3.5 (`navigate('consent')` dispatches `iqme:route-change` with `detail.route='#/consent'`) without depending on event-loop ordering. Duplicate dispatch via the hashchange listener is prevented by the `hash === activeHash` guard.
+
+**Alternatives considered:**
+
+- *Make `start()` strictly idempotent and require callers to `stop()` first.* Adds an export not in the AC contract and breaks AC-2.3 which doesn't call any teardown between attempts.
+- *Mock `routing.navigate` in `landing.js`/`consent.js` via dependency injection.* The frozen `landing-scene.test.mjs:AC-4.9` and `consent-scene.test.mjs:AC-5.9` deliberately observe `window.location.hash` mutation — they want the real wiring chain `landing → routing → window.location`. Direct import-based wiring is what the tests check.
+- *Implement scenes as classes / closures.* The named-export module-level state (`continueBtn`, `dwellTimer`, `observer`) is the simplest shape that satisfies AC-5.11 "unmount() removes both click listeners" — the references survive between render and unmount as long as render/unmount are called as a pair, which the router enforces.
+
+**Framework gotchas avoided:**
+
+- `localStorage`/`sessionStorage`/`Math.random`/`Date.now`/`console.log` strings forbidden in the `lint-no-localStorage-without-consent` + per-file `AC-*.7/8/12/4` source-greps. Wrote a comment about "forbidden globals" that included the word `localStorage`; the regex `\blocalStorage\b` matched the comment and failed `AC-6.7`. Removed the comment.
+- `role="alert"` substring in the `error-fallback.js` header comment tripped `lint-no-role-alert.mjs` (`/role\s*=\s*["']alert["']/`). Reworded the comment.
+- `font-family: inherit;` in component CSS tripped the spec's CSS self-check regex `font-family:[^v]` (which expects the next char to be `v` for `var(--*)`). Removed the line; buttons inherit `font-family` from `<body>` by default.
+- `escapeText()` helpers on all i18n strings written into `innerHTML`. The strings come from `localeLoader.get()` which currently sources from a vetted JSON bundle, but defense-in-depth against future copy that contains `<` or `&`.
+- `<a href="#/" id="not-today-link">` — the AC-5 spec explicitly says "do NOT `preventDefault` — the hashchange will route to landing". The click listener calls `state.resetState()` and lets the native hash navigation fire. AC-5.10 verifies `defaultPrevented === false`.
+
+**Areas of uncertainty:**
+
+- **Hash navigation in jsdom.** My `routing.navigate()` calls `renderRoute()` directly after mutating `window.location.hash` to avoid relying on the browser's async `hashchange` dispatch. In a real browser, this means `navigate()` triggers two renders (once from the direct call, once from the hashchange event) — but the second is guarded out by `hash === activeHash`. I have not exercised this in a real browser; Playwright e2e (Story 3-7) will catch any drift. *Auditor should focus here.*
+- **`__pycache__` directory** under `_bmad/tds/shared/__pycache__/` was created during this session by transitive Python execution; not gitignored. Did not stage it. May need a `.gitignore` rule in a future story.
+- **`role="status"` on the error-fallback `<section>`.** `role="status"` is an ARIA live region (polite by default) that announces additions. This is the right semantic for "something went wrong, here's a fallback" per WAI-ARIA. The lint forbids only `role="alert"`. Not certain whether the future `lint-no-role-status` would object — none exists currently.
+- **The `__H_*` / `__C_*` sentinel strings** in test files prove that text content flows from the i18n bundle (not hardcoded in JS). My escapeText() runs on these too — `__H_HEADLINE__` is ASCII-safe so escape is a no-op. Confirmed via local test run.
+
+**Tested edge cases:**
+
+- AC-2.3: fetch throws → bootstrap catches → fallback renders (NFR20). Verified.
+- AC-3.7: unknown hash `#/garbage` → falls back to landing without throwing → route-change dispatches. Verified.
+- AC-5.6 / AC-5.7: IO-fire path AND timer-flip path both flip the gate AND disconnect IO AND cancel the other timer. Verified both directions.
+- AC-5.8 / AC-5.9: click before flip = no nav; click after flip = `#/test`. Verified.
+- AC-5.10: Not-today click calls `state.resetState()` AND lets native nav fire (`defaultPrevented === false`). Verified via state.js public API observation.
+- AC-5.11: unmount disconnects IO + cancels timer + removes both click listeners; post-unmount clicks neither navigate nor reset state. Verified.
+- AC-6.5: `load('ru')` with RU fetch 404 → retries with EN → `getCurrentLocale() === 'en'`. Verified.
+- AC-6.6: `load('en')` with EN fetch 500 → resolves with `{}` AND `get('landing.headline')` returns `'landing.headline'` literal. Verified (required the cache-delete fix).
+- `make lint` exit 0 against full src/ tree (13 scanned files including new HTML + 6 JS modules + 3 CSS + EN strings.json).
+- `make test-contract` exit 0 with pass count unchanged from end-of-3-2 (16 pass).
+- HTML parses via `python3 html.parser` (AC-11.5). Verified.
+- JSON parses (AC-11.6). Verified.

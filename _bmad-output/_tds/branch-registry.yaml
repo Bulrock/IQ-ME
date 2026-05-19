@@ -275,3 +275,14 @@ branches:
     last_synced_at: 2026-05-19T17:50:46.035Z
     notes: ""
     created_at: 2026-05-19T17:44:23.277Z
+  - branch: story/3-3-implement-landing-consent-scene-en
+    story_id: 3-3-implement-landing-consent-scene-en
+    epic_id: null
+    base_branch: epic/3
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-19T18:13:06.813Z

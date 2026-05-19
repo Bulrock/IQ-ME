@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 17f439026296381c4b2c80c7765bd49d85fb5024c2b6ce7fb78ea2ab82d603fc
+    sha256: 298211cdbd6c644ba733ae2ed91baf9b7b2587d0c990a6c08aab7eda323911a2
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T17:50:46.061Z
+    recorded_at: 2026-05-19T18:13:06.833Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: a6511b4828c5661de09d2bf9564b8f801098285a3082922a38f2cbdf9feb2551
+    sha256: 64e53848936d2690bb48b5e1395f8f5b13c3b72a2c61538340ec6d9e6e560e0d
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T17:50:39.926Z
-    recorded_by: engineer
-    story_id: 3-2-implement-state-js-contract-test
+    recorded_at: 2026-05-19T20:11:50.676Z
+    recorded_by: frontend
+    story_id: 3-3-implement-landing-consent-scene-en
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -413,3 +413,58 @@ entries:
     recorded_by: test-author
     story_id: 3-2-implement-state-js-contract-test
     notes: story-3-2 frozen failing tests
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/3-3-implement-landing-consent-scene-en.md
+    sha256: f46a6a001ac49f55b5371c20f932135e5c34c12278be16df72d064f6e281a72b
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T20:11:50.704Z
+    recorded_by: frontend
+    story_id: 3-3-implement-landing-consent-scene-en
+  - artefact_class: A
+    file: tests/unit/main.test.mjs
+    sha256: 96decad6de937f756104f118797bff1503ec859b1119cf1338c7beaae01384e5
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T19:53:04.374Z
+    recorded_by: test-author
+    story_id: 3-3-implement-landing-consent-scene-en
+    notes: "test-author phase: failing red tests for story 3-3 landing+consent"
+  - artefact_class: A
+    file: tests/unit/routing.test.mjs
+    sha256: 1b8dcea5205fa16edcd622ed2e37cd6a5dd9ff27061d04d21dba22dfe9c2a27a
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T19:53:04.374Z
+    recorded_by: test-author
+    story_id: 3-3-implement-landing-consent-scene-en
+    notes: "test-author phase: failing red tests for story 3-3 landing+consent"
+  - artefact_class: A
+    file: tests/unit/landing-scene.test.mjs
+    sha256: 13110dabcc120f12e682bbbce76e65b14b966122a937ad5d82a0741dd08808fb
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T19:53:04.374Z
+    recorded_by: test-author
+    story_id: 3-3-implement-landing-consent-scene-en
+    notes: "test-author phase: failing red tests for story 3-3 landing+consent"
+  - artefact_class: A
+    file: tests/unit/consent-scene.test.mjs
+    sha256: a4510f3b57cdf455951dac6f752db9561fb170a4f2b080d60fd49892f2d5043c
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T19:53:04.374Z
+    recorded_by: test-author
+    story_id: 3-3-implement-landing-consent-scene-en
+    notes: "test-author phase: failing red tests for story 3-3 landing+consent"
+  - artefact_class: A
+    file: tests/unit/locale-loader.test.mjs
+    sha256: 7b541cc78b500c8d573372ee9a0b64193d217d8c257cff0548d54d3cadcbe36a
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T19:53:04.374Z
+    recorded_by: test-author
+    story_id: 3-3-implement-landing-consent-scene-en
+    notes: "test-author phase: failing red tests for story 3-3 landing+consent"
+  - artefact_class: A
+    file: tests/unit/_dom-stub.mjs
+    sha256: 3e44fc044e0b76f4c862288e43365c7302c6703ee090482a44e698e5ab8ae623
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T19:53:04.373Z
+    recorded_by: test-author
+    story_id: 3-3-implement-landing-consent-scene-en
+    notes: "test-author phase: failing red tests for story 3-3 landing+consent"

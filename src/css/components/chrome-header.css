@@ -1,0 +1,21 @@
+/* src/css/components/chrome-header.css
+ *
+ * Story 3.3 AC-9 — minimal chrome-header. Project name only at v1;
+ * Story 7-1 adds the language switcher. Semantic tokens only.
+ */
+
+.chrome-header {
+  display: flex;
+  align-items: center;
+  padding-block: var(--space-3);
+  padding-inline: var(--space-5);
+  color: var(--color-text-body);
+  background-color: var(--color-surface-elevated);
+  border-block-end: var(--space-1) solid var(--color-rule-divider);
+}
+
+.chrome-header__name {
+  font-size: var(--font-size-400);
+  line-height: var(--line-height-tight);
+  font-weight: 700;
+}

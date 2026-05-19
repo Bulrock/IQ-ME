@@ -1,0 +1,21 @@
+{
+  "chrome": {
+    "titleAppDefault": "IQ-ME — a fluid-reasoning screener",
+    "appName": "IQ-ME",
+    "errorFallbackMessage": "Something went wrong loading the page. Try reloading."
+  },
+  "landing": {
+    "headline": "IQ-ME",
+    "intro": "IQ-ME is a fluid-reasoning screener that uses 16 visual matrix-reasoning items (ICAR-MR), takes about 25 minutes, runs entirely in your browser, and stores nothing on a server. It is not a clinical assessment, a credential, or a placement test — it is one calibrated screen of one narrow ability.",
+    "startTestButton": "Start the test",
+    "methodologyLink": "Read the methodology"
+  },
+  "consent": {
+    "headline": "Before you begin",
+    "measuresWhat": "This instrument measures fluid reasoning — your ability to identify visual-spatial patterns under no time pressure. It does not measure verbal reasoning, processing speed, working memory in isolation, or any clinical condition.",
+    "validityEnvelope": "IQ-ME is valid as a screener for fluid reasoning in adults who can complete a 16-item visual session unimpaired by acute distress, sleep deprivation, or substances. It is not valid as a diagnostic, as a measure under time pressure, or as a stand-in for a multi-domain IQ battery.",
+    "visuospatialDisclosure": "The matrix items are visual by construction. Screen-reader users cannot take this test equivalently — there is no synthetic alt-text that captures the patterns honestly. We disclose this rather than pretend otherwise.",
+    "continueButton": "Continue",
+    "notToday": "Not today"
+  }
+}
