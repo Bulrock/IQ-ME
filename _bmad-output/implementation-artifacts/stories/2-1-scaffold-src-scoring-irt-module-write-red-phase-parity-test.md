@@ -343,3 +343,21 @@ If you need to mutate any frozen test (none expected for 2.1), use `tds story un
 - *Makefile glob recipe extension* — scaffold test asserts `tests/unit/` substring present in Makefile (cosmetic in `## help` strings would also satisfy, but actual recipe was edited).
 
 **Defer recommendation:** AC-6 wall-clock interpretation should be addressed in retro or follow-up bridge if auditor flags it as out-of-spirit; my interpretation favored "failure-path sub-second" which matches NFR26's intent (time-to-confidence, not target completion time).
+
+## Auditor Findings (round-1)
+
+### [info] `tds integrity verify` reports 1 failure on
+`../bmad-tds-module/src/cli/__tests__/bridge-1-2-1-unfreeze-tests.test.ts`
+— a sibling-repo path registered during the bridge-1-2-1 work, drifted
+since (sha256 mismatch). Pre-existing; not introduced by epic-2. All 50
+in-repo IQ-ME integrity entries pass. Honestly disclosed in Story 2-1
+self-review Areas of uncertainty #2.
+
+
+- **Category:** integrity-cross-repo
+- **Suggested bridge:** `Cross-repo integrity entries are an anti-pattern from the bridge-1-2-1
+affordance (which spanned IQ-ME + bmad-tds-module). Consider scrubbing
+`../bmad-tds-module/*` paths from IQ-ME's state-manifest during a
+future bridge or as a TDS hygiene story — each repo should own its own
+integrity registry only. Low priority; doesn't affect epic-2 verdict.
+`
