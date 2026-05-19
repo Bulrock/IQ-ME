@@ -1,7 +1,7 @@
 ---
 id: 2-2-implement-quadrature-js-likelihood-js-pure-math-primitives
 title: "Story 2.2: Implement quadrature.js + likelihood.js (pure math primitives)"
-status: approved
+status: done
 ---
 
 # Story 2.2: Implement quadrature.js + likelihood.js (pure math primitives)

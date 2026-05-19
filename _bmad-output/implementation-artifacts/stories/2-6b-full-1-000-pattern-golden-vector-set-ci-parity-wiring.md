@@ -1,7 +1,7 @@
 ---
 id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
 title: "Story 2.6b: Full ≥1,000-pattern golden vector set + CI parity wiring"
-status: approved
+status: done
 ---
 
 # Story 2.6b: Full ≥1,000-pattern golden vector set + CI parity wiring

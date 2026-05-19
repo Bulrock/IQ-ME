@@ -1,7 +1,7 @@
 ---
 id: 2-4-implement-se-js-standard-error-from-posterior-variance
 title: "Story 2.4: Implement se.js (standard error from posterior variance)"
-status: approved
+status: done
 ---
 
 # Story 2.4: Implement se.js (standard error from posterior variance)

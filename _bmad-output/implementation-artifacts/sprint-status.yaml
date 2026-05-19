@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-19 3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording: done'
+last_updated: '2026-05-19 2-7-populate-methodology_claims-json-activate-lint-claims-manifest: done'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system

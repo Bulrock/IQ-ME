@@ -1,7 +1,7 @@
 ---
 id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
 title: "Story 2.5: Public API in src/scoring/irt/index.js (scoreSession facade)"
-status: approved
+status: done
 ---
 
 # Story 2.5: Public API in src/scoring/irt/index.js (scoreSession facade)

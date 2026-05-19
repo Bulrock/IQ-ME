@@ -14,11 +14,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: e6b15462cefaa466bac22ffc26f391663e587676d289e73fce5daccaa375c645
+    sha256: 270a1f064997c8169e5497e98ca08ee3e7b9fd852d7828a1cc4d149778b287bf
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:09:02.650Z
+    recorded_at: 2026-05-19T23:25:48.815Z
     recorded_by: engineer
-    story_id: 3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording
+    story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -212,10 +212,10 @@ entries:
     notes: test-author red-phase scaffold for bridge-1-2-1
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test.md
-    sha256: 8b5a15c4a90c42ec20f08243e771bbfd6f704d1ed292e2135bcb3a20dd5c77f3
+    sha256: 92314cf23f680f00b66c289411a1c8dd65e7282480394da253e4295518f4e8fa
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:39:30.485Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T23:25:34.565Z
+    recorded_by: engineer
     story_id: 2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test
   - artefact_class: A
     file: tests/unit/scoring/irt/parity.test.mjs
@@ -242,10 +242,10 @@ entries:
     story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-2-implement-quadrature-js-likelihood-js-pure-math-primitives.md
-    sha256: 5fca43bd41c8c9a2711974d5434a28da04b4f82b112acf6b13d76eaef221e75a
+    sha256: 9ba9a9491777a3858827279bcc022944ff652dcde030827c94a3b58e5d2697e3
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:39:30.586Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T23:25:47.565Z
+    recorded_by: engineer
     story_id: 2-2-implement-quadrature-js-likelihood-js-pure-math-primitives
   - artefact_class: A
     file: tests/unit/scoring/irt/quadrature.test.mjs
@@ -265,10 +265,10 @@ entries:
     notes: "test-author phase: 2-2 unit tests for quadrature + likelihood primitives"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-3-implement-eap-js-eap-estimation.md
-    sha256: 1591d95044b9ffff67a6647b958f5de11210c36b542f366d212eb838b28a91d9
+    sha256: abac75ec31a7577732529fb95662b5bf01b743bccfb2d6f6d35cb63179d1fa3d
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:39:30.691Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T23:25:47.794Z
+    recorded_by: engineer
     story_id: 2-3-implement-eap-js-eap-estimation
   - artefact_class: A
     file: tests/unit/scoring/irt/eap.test.mjs
@@ -279,10 +279,10 @@ entries:
     story_id: 2-3-implement-eap-js-eap-estimation
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-4-implement-se-js-standard-error-from-posterior-variance.md
-    sha256: 9b8b329bfbb77276281db25d87b3fe51006543c5edf433f3b12b0549d6484625
+    sha256: 790782bf1ce9c60e13caf94263ffc32eeae627c11e843875f0861f93a4839f22
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:39:30.800Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T23:25:48.014Z
+    recorded_by: engineer
     story_id: 2-4-implement-se-js-standard-error-from-posterior-variance
   - artefact_class: A
     file: tests/unit/scoring/irt/se.test.mjs
@@ -293,10 +293,10 @@ entries:
     story_id: 2-4-implement-se-js-standard-error-from-posterior-variance
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade.md
-    sha256: dbd8b7852ae84ad664202ca2529e24d3605aeca9ee9f1b3fe8208ab9e960e09c
+    sha256: c52f4b74d3781c0d4934d10789c7744e3a0ae26901cb038d2d18a2d40ce6bbf6
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:39:30.900Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T23:25:48.223Z
+    recorded_by: engineer
     story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
   - artefact_class: A
     file: tests/unit/scoring/irt/index.test.mjs
@@ -307,10 +307,10 @@ entries:
     story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10.md
-    sha256: f2e2678bb8b33bd58b1a181329eeff795f2eb6dca48bb5eca47df0e1def15e44
+    sha256: 7432182ae89d9fcb81300cc54f10621c2ed005f739021cc5d2725d0d5f8ccc21
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:39:31.000Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T23:25:48.430Z
+    recorded_by: engineer
     story_id: 2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
   - artefact_class: A
     file: tests/unit/golden/parity-audit.test.mjs
@@ -335,10 +335,10 @@ entries:
     story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring.md
-    sha256: cf0794415d49d6f9b16875cfc933348b884ec876bd92a7eabc68cc6e889b437f
+    sha256: b9c9f1ab162cc4bac0d2b6d26ed81b9ecb53869cbeba2d8513707d719dcff7c2
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:39:31.091Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T23:25:48.635Z
+    recorded_by: engineer
     story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
   - artefact_class: A
     file: tests/unit/scoring/irt/parity-full.test.mjs
@@ -356,10 +356,10 @@ entries:
     story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-7-populate-methodology_claims-json-activate-lint-claims-manifest.md
-    sha256: f32bd773b45244e1b07a6ef8a7997a4fd106ec620ff4fae24d8e31d5ecb4160e
+    sha256: 69776b349cab700578ceb5a8ee9e8908e9ede9e222ff067df31e13848876de67
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:39:31.180Z
-    recorded_by: auditor
+    recorded_at: 2026-05-19T23:25:48.848Z
+    recorded_by: engineer
     story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
   - artefact_class: A
     file: tests/unit/methodology-claims/schema.test.mjs
