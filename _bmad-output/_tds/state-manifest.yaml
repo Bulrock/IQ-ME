@@ -14,11 +14,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: a4f005747055f68beb70d882df248b2163809b9b9afa531c773adc678c068426
+    sha256: 9f47086418b5784676cc178a4ce82c54d9306032c51a471aeee7fc23a2acd2e9
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:37:36.135Z
+    recorded_at: 2026-05-19T14:39:57.233Z
     recorded_by: engineer
-    story_id: 2-3-implement-eap-js-eap-estimation
+    story_id: 2-4-implement-se-js-standard-error-from-posterior-variance
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -278,3 +278,10 @@ entries:
     recorded_at: 2026-05-19T14:33:16.224Z
     recorded_by: test-author
     story_id: 2-3-implement-eap-js-eap-estimation
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/2-4-implement-se-js-standard-error-from-posterior-variance.md
+    sha256: 7444984e913d06204adb380bcd784215f406d506d05ee2fd5dc9d2978340ad74
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T14:39:57.259Z
+    recorded_by: engineer
+    story_id: 2-4-implement-se-js-standard-error-from-posterior-variance
