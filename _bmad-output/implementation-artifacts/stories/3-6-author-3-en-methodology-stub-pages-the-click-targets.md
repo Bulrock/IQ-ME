@@ -1,7 +1,7 @@
 ---
 id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
 title: "Story 3.6: Author 3 EN methodology stub pages (the click targets)"
-status: review
+status: rework
 ---
 
 # Story 3.6: Author 3 EN methodology stub pages (the click targets)

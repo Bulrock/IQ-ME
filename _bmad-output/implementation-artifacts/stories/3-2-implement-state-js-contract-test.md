@@ -1,7 +1,7 @@
 ---
 id: 3-2-implement-state-js-contract-test
 title: "Story 3.2: Implement state.js + contract test"
-status: review
+status: rework
 ---
 
 # Story 3.2: Implement state.js + contract test

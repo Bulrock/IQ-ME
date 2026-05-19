@@ -14,11 +14,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 7a04d396105d617443d2b43a78a0caff6cd771b45355bc0d9b42e1bfa933106e
+    sha256: 1fe22f941ec79372b6a927accd6cabaa6f2fda6742208c142ac72fca6efe007d
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:32:51.646Z
-    recorded_by: engineer
-    story_id: 3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording
+    recorded_at: 2026-05-19T22:42:25.158Z
+    recorded_by: auditor
+    story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -191,9 +191,9 @@ entries:
     notes: story-1-10 frozen failing tests
   - artefact_class: A
     file: _bmad-output/_tds/sprint-status-extension.yaml
-    sha256: a3f8905d48d4d6a79f553c537893ff7f460031e131adc6652a195cc867ef6ad7
+    sha256: 5f60c21497054618cf418934d46bd6235c4608249e700ced53bcddf37f926223
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:39:26.305Z
+    recorded_at: 2026-05-19T22:42:21.205Z
     recorded_by: setup
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-1-2-1-add-tds-story-unfreeze.md
@@ -392,10 +392,10 @@ entries:
     notes: story-3-1 procedural marker (AC-6 doc-only story; state-machine defense-in-depth gate)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-2-implement-state-js-contract-test.md
-    sha256: 04870e9d9c567085edf2e4714dfafeddd75c2d11d918a8c92e9a4993b51ebd2c
+    sha256: 32186627b62940b0fc944771d4cd63b6d7996a409ea38f28b1422a758880f70d
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T17:50:39.954Z
-    recorded_by: engineer
+    recorded_at: 2026-05-19T22:42:25.065Z
+    recorded_by: auditor
     story_id: 3-2-implement-state-js-contract-test
   - artefact_class: A
     file: tests/contract/state-shape.spec.mjs
@@ -584,10 +584,10 @@ entries:
     notes: story 3-5 test fixtures for lint-css-source-co-equal
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-6-author-3-en-methodology-stub-pages-the-click-targets.md
-    sha256: 6857213ad620616f7d25f152236b37b6c9fc5a986140975133bfc130ecf18a0d
+    sha256: 658c76e12067bee290a6c5c319355d6d1b152e9b4977913638d1f653181edbb1
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:11:45.785Z
-    recorded_by: engineer
+    recorded_at: 2026-05-19T22:42:25.185Z
+    recorded_by: auditor
     story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
   - artefact_class: A
     file: tests/unit/build-methodology.test.mjs
