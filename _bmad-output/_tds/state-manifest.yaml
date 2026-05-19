@@ -14,11 +14,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 718bdc78ff81a2f412737e2002abb28c162fdc86197f474e966384b9e0b239d2
+    sha256: 7eab0b12f3d62a15354ef631827bf62a4496bd356ce31bbab4aefa4d8bdaba70
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:54:24.081Z
+    recorded_at: 2026-05-19T14:57:17.818Z
     recorded_by: engineer
-    story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
+    story_id: 2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -305,3 +305,10 @@ entries:
     recorded_at: 2026-05-19T14:52:08.906Z
     recorded_by: engineer
     story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10.md
+    sha256: 236764b8357d93cd4ff5b8ff1630ca17753b9fa5d1e869d30e6ec2ee52702349
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T14:57:17.850Z
+    recorded_by: engineer
+    story_id: 2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
