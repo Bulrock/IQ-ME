@@ -1,7 +1,7 @@
 ---
 id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
 title: "Story 1.5: Commit BUDGETS.json + lint-cognitive-load-budget.mjs"
-status: ready-for-dev
+status: review
 ---
 
 # Story 1.5: Commit BUDGETS.json + lint-cognitive-load-budget.mjs
@@ -31,35 +31,35 @@ so that **any future PR that materially exceeds a budget (e.g. scoring engine LO
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Author `BUDGETS.json`** (AC: 1, 2, 3)
-  - [ ] All six NFR32 budgets present with correct shape
-  - [ ] RU and PL methodology-page budgets included with same `30` limit
-  - [ ] Every entry's `rationale` references its binding NFR ID literally
-- [ ] **Task 2: Implement `tools/lint-cognitive-load-budget.mjs`** (AC: 4, 5, 6, 7)
-  - [ ] Reads `BUDGETS.json` from repo root
-  - [ ] For each entry, computes `current` value per `metric`:
+- [x] **Task 1: Author `BUDGETS.json`** (AC: 1, 2, 3)
+  - [x] All six NFR32 budgets present with correct shape
+  - [x] RU and PL methodology-page budgets included with same `30` limit
+  - [x] Every entry's `rationale` references its binding NFR ID literally
+- [x] **Task 2: Implement `tools/lint-cognitive-load-budget.mjs`** (AC: 4, 5, 6, 7)
+  - [x] Reads `BUDGETS.json` from repo root
+  - [x] For each entry, computes `current` value per `metric`:
     - `lines` — sum of non-empty, non-comment-only lines across all files matching `domain` glob
     - `bytes` — sum of file sizes in bytes
     - `files` — count of matching files
-  - [ ] On empty tree, every `current` reads as `0`, exit `0`, emit `OK …` per entry to stdout
-  - [ ] Override-injection path: env var `IQME_BUDGET_OVERRIDE_<BUDGET_ID>` is parsed as integer and added to `current` (or replaces it — implementer's choice, just document)
-  - [ ] Breach path: exit `1`, stderr `BREACH …` line + rationale text
-  - [ ] Stdlib-only — no `import` outside `node:` namespace
-- [ ] **Task 3: Update `Makefile` `lint` target** (AC: 8)
-  - [ ] Replace the placeholder `echo` with `node tools/lint-cognitive-load-budget.mjs`
-  - [ ] If future-proofing, wrap in a `lint-budgets` recipe and add to `lint`'s deps — but a single direct invocation is also acceptable for this story (Stories 1.6/1.9 will likely add more lint chains; YAGNI applies here)
-  - [ ] `make lint` exits 0 on the current tree
-- [ ] **Task 4: Author and pass acceptance tests** verifying ACs 1-8
-  - [ ] Tests live at `tests/scaffold/cognitive-load-budget.test.mjs`
-  - [ ] Use `node --test` (matches existing `tests/scaffold/*.test.mjs` pattern)
-  - [ ] AC-1: parses `BUDGETS.json`, asserts every entry has the required keys with correct types
-  - [ ] AC-2: asserts the six (plus RU/PL) named budgets are present with the exact NFR32 limits
-  - [ ] AC-3: regex grep on each `rationale` for `/NFR3[2-5]/`
-  - [ ] AC-4: `execFileSync('node', ['tools/lint-cognitive-load-budget.mjs'])` exits 0; stdout contains one `OK <id>` line per budget
-  - [ ] AC-5: re-run with `IQME_BUDGET_OVERRIDE_SCORING_IRT_LINES=5000` (or equivalent), asserts exit 1, stderr contains `BREACH`, contains rationale text
-  - [ ] AC-6: file content grep — every `import` line starts with `from "node:`
-  - [ ] AC-7: implicit — if AC-6 passes, no network is possible (verified by stdlib-only invariant)
-  - [ ] AC-8: `execFileSync('make', ['lint'])` exits 0; output includes evidence of the budget lint running (e.g. an `OK` line)
+  - [x] On empty tree, every `current` reads as `0`, exit `0`, emit `OK …` per entry to stdout
+  - [x] Override-injection path: env var `IQME_BUDGET_OVERRIDE_<BUDGET_ID>` is parsed as integer and added to `current` (or replaces it — implementer's choice, just document)
+  - [x] Breach path: exit `1`, stderr `BREACH …` line + rationale text
+  - [x] Stdlib-only — no `import` outside `node:` namespace
+- [x] **Task 3: Update `Makefile` `lint` target** (AC: 8)
+  - [x] Replace the placeholder `echo` with `node tools/lint-cognitive-load-budget.mjs`
+  - [x] If future-proofing, wrap in a `lint-budgets` recipe and add to `lint`'s deps — but a single direct invocation is also acceptable for this story (Stories 1.6/1.9 will likely add more lint chains; YAGNI applies here)
+  - [x] `make lint` exits 0 on the current tree
+- [x] **Task 4: Author and pass acceptance tests** verifying ACs 1-8
+  - [x] Tests live at `tests/scaffold/cognitive-load-budget.test.mjs`
+  - [x] Use `node --test` (matches existing `tests/scaffold/*.test.mjs` pattern)
+  - [x] AC-1: parses `BUDGETS.json`, asserts every entry has the required keys with correct types
+  - [x] AC-2: asserts the six (plus RU/PL) named budgets are present with the exact NFR32 limits
+  - [x] AC-3: regex grep on each `rationale` for `/NFR3[2-5]/`
+  - [x] AC-4: `execFileSync('node', ['tools/lint-cognitive-load-budget.mjs'])` exits 0; stdout contains one `OK <id>` line per budget
+  - [x] AC-5: re-run with `IQME_BUDGET_OVERRIDE_SCORING_IRT_LINES=5000` (or equivalent), asserts exit 1, stderr contains `BREACH`, contains rationale text
+  - [x] AC-6: file content grep — every `import` line starts with `from "node:`
+  - [x] AC-7: implicit — if AC-6 passes, no network is possible (verified by stdlib-only invariant)
+  - [x] AC-8: `execFileSync('make', ['lint'])` exits 0; output includes evidence of the budget lint running (e.g. an `OK` line)
 
 ## Dev Notes
 
@@ -140,4 +140,48 @@ BREACH scoring-irt-lines: 3000/250 lines
 
 ### Completion Notes List
 
+- 13 frozen tests pass; full suite 48/48. Implemented BUDGETS.json (7 NFR32 budgets), tools/lint-cognitive-load-budget.mjs (stdlib-only, NFR33), Makefile lint wiring. Env-override IQME_BUDGET_OVERRIDE_<ID> drives the breach test.
+
 ### File List
+
+- BUDGETS.json
+- tools/lint-cognitive-load-budget.mjs
+- Makefile
+- tests/scaffold/cognitive-load-budget.test.mjs
+
+## Specialist Self-Review
+
+**Decisions made:**
+
+1. **Limit numbers track NFR32 (`250/1500/30/30 KB/15 KB`), not the architecture-table ceilings (`300/1700/35`).** Day-1 enforcement starts at the tighter number per NFR32 verbatim; any ceiling-vs-target debate is deferred to a future PR. Documented in story Dev Notes for visibility.
+
+2. **Glob-based `domain`, not directory paths.** Each entry's `domain` is a glob (`src/scoring/irt/**/*.js`). On the empty tree, glob simply matches zero files → `current = 0` → exit 0. A bare directory path would require an `existsSync` guard. Node 22 `fs.globSync` is stdlib (NFR33 OK).
+
+3. **Env-override replaces `current` (does not add to it).** `IQME_BUDGET_OVERRIDE_<ID>=3000` makes the lint see `current=3000` regardless of filesystem state. This matches the "hypothetical future PR adds a 3000-LOC dependency" framing in AC-5 and keeps the breach-test deterministic.
+
+**Alternatives considered:**
+
+- *Use `globby` or `glob` npm package* — would add a runtime/dev dependency. NFR33 forbids runtime deps; using stdlib `node:fs.globSync` (stable in Node 22) keeps the script zero-dep. Confirmed working in the project's Node 22.22.2.
+- *Compute lines with a comment-stripping AST parser* — strictly more honest, but adds significant complexity and a dep. Chose simple `trim()`-based line counting (skip blank + single-line `//`); block comments count as lines. Documented in implementation comments. The budget is a coarse signal, not a precise metric.
+- *Make `BUDGETS.json` itself integrity-recorded* — `tds integrity record` rejected `BUDGETS.json` with `TDS-ERR:CLASS_NOT_ALLOWED` (production source is git-tracked per §12.3 + ADR-0014 §B). Correct: only the frozen test file `tests/scaffold/cognitive-load-budget.test.mjs` got an integrity record. Production source tamper-evidence is delegated to git.
+
+**Framework gotchas avoided:**
+
+- `node:fs.globSync` returns paths relative to `cwd` (the option), not absolute. Mapped them through `resolve(REPO_ROOT, p)` before passing to `statSync` / `readFileSync` so the script works from any cwd.
+- `execFileSync` throws on non-zero exit; that would break test AC-5 (which expects exit 1). Used `spawnSync` in tests for the breach path so the test can read `r.status` directly.
+- `Number.parseInt("abc")` returns `NaN`, not throws. Guarded with `Number.isNaN(n) || n < 0` before accepting an env override value; invalid values are ignored (warned to stderr) rather than crashing.
+- The lint test regex must escape hyphens in budget IDs when embedded in a `RegExp`. `id.replace(/-/g, "\\-")` makes the dynamic match robust.
+
+**Areas of uncertainty:**
+
+- The `i18n-harness-bytes` budget uses `src/assessment/i18n/**/*.js` — but architecture also references `src/content/i18n/<lang>/...` directories. The 15 KB cap in NFR32 specifically refers to the **runtime i18n harness** (Domain A locale-loader.js + locale-switch.js), not translated content strings. Kept the glob narrow to `src/assessment/i18n/`. Future PR may need to add a separate budget for translated content size if NFR32 is interpreted differently — leave that to retro.
+- The `methodology-pages-en` budget now reads `1/30` because Story 1.3 already shipped `src/content/methodology/en/provenance/icar-license.md` (the ICAR-confirmation stub). Honest count; no test brittleness — AC-4 asserts `OK <id>: \d+/\d+ files`, not specifically `0/30`.
+- Block-comment-aware line counting was rejected as YAGNI. If methodology-page or CSS files end up with large block comments that distort the budget, a follow-up story can introduce a parser-based counter.
+
+**Tested edge cases:**
+
+- All 13 frozen tests pass; full suite 48/48 — no regression (was 35/35 before this story).
+- Lint exits 0 on the current tree (one real methodology page counted honestly).
+- Breach simulation via `IQME_BUDGET_OVERRIDE_SCORING_IRT_LINES=3000` produces exit 1, `BREACH scoring-irt-lines: 3000/250 lines` on stderr, rationale text on stderr.
+- AC-6 regex confirms every `import` and dynamic-`import()` spec begins with `node:`.
+- `make lint` exits 0 and surfaces the `OK <id>:` lines (AC-8 dual assertion).

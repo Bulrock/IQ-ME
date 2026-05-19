@@ -14,8 +14,8 @@ help: ## list documented Make targets
 test: ## run node --test against tests/ (exits 0 on empty tree)
 	@find tests -name '*.test.mjs' -print -quit | grep -q . && node --test 'tests/**/*.test.mjs' || echo "test: no *.test.mjs files registered yet"
 
-lint: ## run all registered lints (no-op until Stories 1.5, 1.6, 1.9)
-	@echo "lint: no rules registered yet (Stories 1.5, 1.6, 1.9 land lint scripts)"
+lint: ## run all registered lints (Stories 1.6, 1.9 will append more)
+	node tools/lint-cognitive-load-budget.mjs
 
 build: build-methodology ## alias to build-methodology (runtime-zero-build per NFR21)
 
