@@ -5,10 +5,10 @@ branches:
     epic_id: epic-1
     base_branch: main
     created_by: tds-branch-start
-    status: active
+    status: merged
     pr_url: null
     pr_number: null
-    last_synced_at: null
+    last_synced_at: 2026-05-19T10:31:44.708Z
     notes: ""
     created_at: 2026-05-18T20:42:53.443Z
   - branch: story/1-1-bootstrap-repo-skeleton-makefile
