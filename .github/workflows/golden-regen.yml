@@ -1,0 +1,63 @@
+name: golden-regen
+
+# Story 2.6a — R-in-CI harness for parity audit.
+#
+# Manually-dispatchable workflow that installs R 4.4.x + mirt 1.41.x with the
+# pinned seed (20260514), runs `tests/golden/regenerate.R --smoke` to produce
+# R-derived θ + SE for the smoke fixture's 6 patterns, then runs
+# `node tests/golden/parity-audit.mjs` which compares against the JS-engine-
+# derived `vectors-smoke.json` at ±0.001 logits tolerance.
+#
+# Also fires on a `regen-goldens` label-trigger for ad-hoc PR audits.
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [labeled]
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request' && github.event.label.name == 'regen-goldens')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup R 4.4.x
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.4'
+
+      - name: Install mirt 1.41.x (cached)
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            mirt@1.41
+            jsonlite
+          cache-version: r-4.4-mirt-1.41
+
+      - name: Regenerate R smoke output
+        run: Rscript tests/golden/regenerate.R --smoke
+
+      - name: Run parity audit
+        run: node tests/golden/parity-audit.mjs
+
+      - name: Upload R output artifact (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r-output-smoke
+          path: tests/golden/r-output-smoke.json
+          if-no-files-found: warn

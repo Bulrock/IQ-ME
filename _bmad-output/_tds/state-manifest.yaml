@@ -8,15 +8,15 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 509fc2b3f5329824c8515b7a2cce4b3bccb48cf9d1f404fd6fb41e8de285c484
+    sha256: 44efc6410e838d2abcdf0f5c7629fb0d2b03bb5e42903ab89cd7636dfd730f0f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:54:31.257Z
+    recorded_at: 2026-05-19T14:57:18.239Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 7eab0b12f3d62a15354ef631827bf62a4496bd356ce31bbab4aefa4d8bdaba70
+    sha256: 774fac63d5e430b6b51b3e6898b8cfe56af0562b13feb5ac08b361150ec31d42
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:57:17.818Z
+    recorded_at: 2026-05-19T15:02:02.164Z
     recorded_by: engineer
     story_id: 2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
   - artefact_class: A
@@ -307,8 +307,29 @@ entries:
     story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10.md
-    sha256: 236764b8357d93cd4ff5b8ff1630ca17753b9fa5d1e869d30e6ec2ee52702349
+    sha256: faac852821777cb767e954367208c00e706da1a678dcd9a24ecc0722500b0a3b
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:57:17.850Z
+    recorded_at: 2026-05-19T15:02:02.189Z
+    recorded_by: engineer
+    story_id: 2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
+  - artefact_class: A
+    file: tests/unit/golden/parity-audit.test.mjs
+    sha256: c0867731ebcbd928bf1d349a293f364c93f58ec488e4765f960ffa79f2673657
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T14:58:04.578Z
+    recorded_by: test-author
+    story_id: 2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
+  - artefact_class: A
+    file: tests/golden/parity-audit.mjs
+    sha256: 97595fbc9f33bd127cd5d025f6cfa55d86073c1bd2392f2f07705b7d84b329af
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T15:00:31.277Z
+    recorded_by: engineer
+    story_id: 2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
+  - artefact_class: A
+    file: tests/golden/regenerate.R
+    sha256: b04a7ec02f1de27660ed078f960e85a65a2917234daad0d51b17987f96cc1252
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T15:00:31.409Z
     recorded_by: engineer
     story_id: 2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
