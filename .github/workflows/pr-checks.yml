@@ -1,0 +1,255 @@
+name: PR Checks
+
+# Murat's fixture-architecture-first applied to CI:
+# every future-lint exists as a stub job from end-of-Epic-1. Subsequent epics
+# activate a stub by flipping `if: false` → removing the gate; they never add
+# a new job. The `# Activates in Epic <N>` comment routes responsibility.
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ─── Epic-1-active lints (run on every PR) ───────────────────────────
+
+  lint-trust-artifacts:
+    name: lint-trust-artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-trust-artifacts.mjs
+
+  lint-no-role-alert:
+    name: lint-no-role-alert
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-no-role-alert.mjs
+
+  lint-no-share:
+    name: lint-no-share
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-no-share.mjs
+
+  lint-no-cookie-banner:
+    name: lint-no-cookie-banner
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-no-cookie-banner.mjs
+
+  lint-no-analytics-script:
+    name: lint-no-analytics-script
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-no-analytics-script.mjs
+
+  lint-no-external-font:
+    name: lint-no-external-font
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-no-external-font.mjs
+
+  lint-no-localStorage-without-consent:
+    name: lint-no-localStorage-without-consent
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-no-localStorage-without-consent.mjs
+
+  lint-cognitive-load-budget:
+    name: lint-cognitive-load-budget
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-cognitive-load-budget.mjs
+
+  # ─── Deferred lints (stubbed until responsible epic lands them) ──────
+
+  lint-claims-manifest:
+    name: lint-claims-manifest
+    runs-on: ubuntu-latest
+    # Activates in Epic 2
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 2 (Story 2.7)"
+
+  golden-vector-parity:
+    name: golden-vector-parity
+    runs-on: ubuntu-latest
+    # Activates in Epic 2
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 2 (Story 2.6a/2.6b)"
+
+  network-trace:
+    name: network-trace
+    runs-on: ubuntu-latest
+    # Activates in Story 1.7
+    if: false
+    steps:
+      - run: echo "stub — Activates in Story 1.7"
+
+  lint-css-link-order:
+    name: lint-css-link-order
+    runs-on: ubuntu-latest
+    # Activates in Epic 3
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 3"
+
+  co-equal-triplet-computed-style:
+    name: co-equal-triplet-computed-style
+    runs-on: ubuntu-latest
+    # Activates in Epic 3
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 3 (Story 3.5)"
+
+  co-equal-triplet-css-source:
+    name: co-equal-triplet-css-source
+    runs-on: ubuntu-latest
+    # Activates in Epic 3
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 3 (Story 3.5)"
+
+  reveal-stage-event-ordering:
+    name: reveal-stage-event-ordering
+    runs-on: ubuntu-latest
+    # Activates in Epic 3
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 3"
+
+  csp-violation-count:
+    name: csp-violation-count
+    runs-on: ubuntu-latest
+    # Activates in Epic 3
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 3"
+
+  state-shape-contract:
+    name: state-shape-contract
+    runs-on: ubuntu-latest
+    # Activates in Epic 3
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 3 (Story 3.1)"
+
+  lint-frontmatter:
+    name: lint-frontmatter
+    runs-on: ubuntu-latest
+    # Activates in Epic 4
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 4"
+
+  lint-glossary:
+    name: lint-glossary
+    runs-on: ubuntu-latest
+    # Activates in Epic 4
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 4"
+
+  lint-reading-level:
+    name: lint-reading-level
+    runs-on: ubuntu-latest
+    # Activates in Epic 4 (EN); Epic 7 extends to RU + PL
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 4 (EN); Epic 7 extends RU/PL"
+
+  lint-license-provenance:
+    name: lint-license-provenance
+    runs-on: ubuntu-latest
+    # Activates in Epic 4
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 4"
+
+  byte-stable-build:
+    name: byte-stable-build
+    runs-on: ubuntu-latest
+    # Activates in Epic 4
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 4 (Story 4.2)"
+
+  lint-fr36-protection:
+    name: lint-fr36-protection
+    runs-on: ubuntu-latest
+    # Activates in Epic 5
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 5"
+
+  viewport-overflow:
+    name: viewport-overflow
+    runs-on: ubuntu-latest
+    # Activates in Epic 6
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 6"
+
+  cropping-fuzzer:
+    name: cropping-fuzzer
+    runs-on: ubuntu-latest
+    # Activates in Epic 6
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 6 (Story 6.6)"
+
+  lighthouse:
+    name: lighthouse
+    runs-on: ubuntu-latest
+    # Activates in Epic 6
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 6"
+
+  axe-core-pa11y:
+    name: axe-core-pa11y
+    runs-on: ubuntu-latest
+    # Activates in Epic 6
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 6"
+
+  lint-translation-parity:
+    name: lint-translation-parity
+    runs-on: ubuntu-latest
+    # Activates in Epic 7
+    if: false
+    steps:
+      - run: echo "stub — Activates in Epic 7 (Story 7.5b)"

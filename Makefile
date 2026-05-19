@@ -14,8 +14,15 @@ help: ## list documented Make targets
 test: ## run node --test against tests/ (exits 0 on empty tree)
 	@find tests -name '*.test.mjs' -print -quit | grep -q . && node --test 'tests/**/*.test.mjs' || echo "test: no *.test.mjs files registered yet"
 
-lint: ## run all registered lints (Stories 1.6, 1.9 will append more)
+lint: ## run all registered lints (negative assertions + budget + trust artifacts)
 	node tools/lint-cognitive-load-budget.mjs
+	node tools/lint-trust-artifacts.mjs
+	node tools/lint-no-role-alert.mjs
+	node tools/lint-no-share.mjs
+	node tools/lint-no-cookie-banner.mjs
+	node tools/lint-no-analytics-script.mjs
+	node tools/lint-no-external-font.mjs
+	node tools/lint-no-localStorage-without-consent.mjs
 
 build: build-methodology ## alias to build-methodology (runtime-zero-build per NFR21)
 

@@ -1,7 +1,7 @@
 ---
 id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
 title: "Story 1.6: Author CI matrix YAML with full future-lint stub jobs"
-status: ready-for-dev
+status: review
 ---
 
 # Story 1.6: Author CI matrix YAML with full future-lint stub jobs
@@ -30,32 +30,32 @@ so that **subsequent epics flip a stub job from inactive to active by editing on
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Author `.github/workflows/pr-checks.yml`** (AC: 1, 2, 3, 7)
-  - [ ] All 28 jobs present with correct IDs
-  - [ ] 8 Epic-1-active jobs run unconditionally
-  - [ ] 20 deferred jobs have `if: false` + `# Activates in Epic <N>` comment
-  - [ ] Top-level `on: pull_request:`
-- [ ] **Task 2: Author the six negative-assertion lint scripts** (AC: 4)
-  - [ ] `tools/lint-no-role-alert.mjs` — rejects `role="alert"` on non-temporary elements (heuristic: `role="alert"` outside a `<div data-toast>` / `<output>` ancestor — for now, any occurrence in `src/`, since no toasts exist yet)
-  - [ ] `tools/lint-no-share.mjs` — rejects `navigator.share(` calls
-  - [ ] `tools/lint-no-cookie-banner.mjs` — rejects DOM patterns like `cookie-banner`, `cookie-consent`, `cookieBanner`, `cookieConsent` (id/class/var names)
-  - [ ] `tools/lint-no-analytics-script.mjs` — rejects script srcs / imports from known analytics hosts (`googletagmanager.com`, `google-analytics.com`, `plausible.io`, `mixpanel.com`, `segment.com`, `mixpanel`, `posthog`, `analytics`, `gtag`)
-  - [ ] `tools/lint-no-external-font.mjs` — rejects `<link rel="stylesheet" href="https://fonts.googleapis.com…">`, `@import url("https://fonts.…")`, and any `fonts.gstatic.com` reference
-  - [ ] `tools/lint-no-localStorage-without-consent.mjs` — rejects `localStorage.setItem(` calls that aren't in an `if (consent...)` block (heuristic: any unguarded `localStorage.setItem(` is a violation; future PR may refine)
-  - [ ] Each is stdlib-only (NFR33) and ≤ 50 LOC
-  - [ ] Each exits 0 on current `src/` tree
-- [ ] **Task 3: Author fixture files demonstrating each violation** (AC: 4)
-  - [ ] `tests/fixtures/lint-negative-assertions/no-role-alert/violation.html`
-  - [ ] `tests/fixtures/lint-negative-assertions/no-share/violation.js`
-  - [ ] `tests/fixtures/lint-negative-assertions/no-cookie-banner/violation.html`
-  - [ ] `tests/fixtures/lint-negative-assertions/no-analytics-script/violation.html`
-  - [ ] `tests/fixtures/lint-negative-assertions/no-external-font/violation.css`
-  - [ ] `tests/fixtures/lint-negative-assertions/no-localStorage-without-consent/violation.js`
-- [ ] **Task 4: Extend Makefile `lint` to chain all active lints** (AC: 5)
-- [ ] **Task 5: Author `.github/workflows/release.yml` and `scheduled.yml` stubs** (AC: 6)
-- [ ] **Task 6: Author and pass acceptance tests** verifying AC 1-7
-  - [ ] `tests/scaffold/ci-matrix.test.mjs` — workflow YAML structure + job list + per-job `if:` correctness
-  - [ ] `tests/scaffold/negative-assertion-lints.test.mjs` — each lint exits 0 on `src/`, exits non-zero when run against its fixture
+- [x] **Task 1: Author `.github/workflows/pr-checks.yml`** (AC: 1, 2, 3, 7)
+  - [x] All 28 jobs present with correct IDs
+  - [x] 8 Epic-1-active jobs run unconditionally
+  - [x] 20 deferred jobs have `if: false` + `# Activates in Epic <N>` comment
+  - [x] Top-level `on: pull_request:`
+- [x] **Task 2: Author the six negative-assertion lint scripts** (AC: 4)
+  - [x] `tools/lint-no-role-alert.mjs` — rejects `role="alert"` on non-temporary elements (heuristic: `role="alert"` outside a `<div data-toast>` / `<output>` ancestor — for now, any occurrence in `src/`, since no toasts exist yet)
+  - [x] `tools/lint-no-share.mjs` — rejects `navigator.share(` calls
+  - [x] `tools/lint-no-cookie-banner.mjs` — rejects DOM patterns like `cookie-banner`, `cookie-consent`, `cookieBanner`, `cookieConsent` (id/class/var names)
+  - [x] `tools/lint-no-analytics-script.mjs` — rejects script srcs / imports from known analytics hosts (`googletagmanager.com`, `google-analytics.com`, `plausible.io`, `mixpanel.com`, `segment.com`, `mixpanel`, `posthog`, `analytics`, `gtag`)
+  - [x] `tools/lint-no-external-font.mjs` — rejects `<link rel="stylesheet" href="https://fonts.googleapis.com…">`, `@import url("https://fonts.…")`, and any `fonts.gstatic.com` reference
+  - [x] `tools/lint-no-localStorage-without-consent.mjs` — rejects `localStorage.setItem(` calls that aren't in an `if (consent...)` block (heuristic: any unguarded `localStorage.setItem(` is a violation; future PR may refine)
+  - [x] Each is stdlib-only (NFR33) and ≤ 50 LOC
+  - [x] Each exits 0 on current `src/` tree
+- [x] **Task 3: Author fixture files demonstrating each violation** (AC: 4)
+  - [x] `tests/fixtures/lint-negative-assertions/no-role-alert/violation.html`
+  - [x] `tests/fixtures/lint-negative-assertions/no-share/violation.js`
+  - [x] `tests/fixtures/lint-negative-assertions/no-cookie-banner/violation.html`
+  - [x] `tests/fixtures/lint-negative-assertions/no-analytics-script/violation.html`
+  - [x] `tests/fixtures/lint-negative-assertions/no-external-font/violation.css`
+  - [x] `tests/fixtures/lint-negative-assertions/no-localStorage-without-consent/violation.js`
+- [x] **Task 4: Extend Makefile `lint` to chain all active lints** (AC: 5)
+- [x] **Task 5: Author `.github/workflows/release.yml` and `scheduled.yml` stubs** (AC: 6)
+- [x] **Task 6: Author and pass acceptance tests** verifying AC 1-7
+  - [x] `tests/scaffold/ci-matrix.test.mjs` — workflow YAML structure + job list + per-job `if:` correctness
+  - [x] `tests/scaffold/negative-assertion-lints.test.mjs` — each lint exits 0 on `src/`, exits non-zero when run against its fixture
 
 ## Dev Notes
 
@@ -188,4 +188,61 @@ Each fixture under `tests/fixtures/lint-negative-assertions/<lint-name>/` contai
 
 ### Completion Notes List
 
+- 37 frozen tests pass; full suite 85/85. CI matrix with 28 jobs (8 Epic-1-active, 20 stubbed with Activates-in comments). 6 negative-assertion lints + lint-trust-artifacts implemented, all stdlib-only (NFR33). release.yml + scheduled.yml stubs include inline-comment orchestration plans.
+
 ### File List
+
+- .github/workflows/pr-checks.yml
+- .github/workflows/release.yml
+- .github/workflows/scheduled.yml
+- Makefile
+- tools/lint-trust-artifacts.mjs
+- tools/lint-no-role-alert.mjs
+- tools/lint-no-share.mjs
+- tools/lint-no-cookie-banner.mjs
+- tools/lint-no-analytics-script.mjs
+- tools/lint-no-external-font.mjs
+- tools/lint-no-localStorage-without-consent.mjs
+- tests/scaffold/ci-matrix.test.mjs
+- tests/scaffold/negative-assertion-lints.test.mjs
+
+## Specialist Self-Review
+
+**Decisions made:**
+
+1. **Six near-duplicate lint scripts instead of a shared `lint-base.mjs` helper.** Each script is 25-35 LOC of grep-style boilerplate. A shared helper would save ~50 lines net but adds an indirection layer to every lint — when one of these inevitably evolves (e.g. `lint-no-localStorage-without-consent` v2 with consent-block detection), the helper boundary would either become a bloated god-module or fork anyway. Six small files are easier to mind end-to-end (NFR32) and easier to special-case per-lint than a shared abstraction. Documented under "Common lint helper" in Dev Notes ahead of time.
+
+2. **`lint-trust-artifacts` materialized as a real script in this story** (not stubbed). The story spec's AC-2 named it Epic-1-active; either it had to be real OR we'd violate the AC. Wrote a ~50-LOC script that asserts: ICAR-CONFIRMATION.pdf + LICENSES.md + CITATION.cff + README.md exist with non-trivial sizes, and LICENSES.md cross-references ICAR-CONFIRMATION.pdf.
+
+3. **`IQME_LINT_TARGET` env var as the test-injection point.** Same pattern as Story 1.5's `IQME_BUDGET_OVERRIDE_*` — env-driven, no CLI-arg parsing needed (stays tiny). Each lint defaults its scan root to `src/` and replaces it with `IQME_LINT_TARGET` when set. Fixture tests use `IQME_LINT_TARGET=tests/fixtures/lint-negative-assertions/<lint-name>` to point the lint at a violating file.
+
+4. **`network-trace` job stubbed with `# Activates in Story 1.7` rather than `Epic 1`.** Test regex accepts both forms (`# Activates in (Epic|Story) <N>`); chose `Story 1.7` for precision since `network-trace` literally lands next story.
+
+**Alternatives considered:**
+
+- *YAML parser dep (`js-yaml`) for structural test* — would land a runtime dep, violating NFR33. Text-based grep regex sufficient for AC checks; GitHub Actions itself validates the YAML syntax at PR time. AC-1 only needs to assert "every job-id appears at proper indent" — regex `/^  <job-id>:$/m` does this cleanly.
+- *Single mega-lint scanning all six patterns* — would be slightly faster (one filesystem pass), but coupling all six rules into one script makes the failure-mode diagnostic worse (the breach message can't say "which check fired" without per-rule plumbing). Six small scripts keep each violation's error message native.
+- *Activate `lint-trust-artifacts` only after writing tests for it* — would require shifting scope into Story 1.2/1.3 retro. Cleaner to land it here as part of Epic-1-active wiring; the existing trust artifacts (ICAR pdf, LICENSES.md, CITATION.cff, README.md) already satisfy the script's assertions, so no test failures.
+
+**Framework gotchas avoided:**
+
+- `node:fs.globSync` with brace-expansion like `**/*.{html,js,mjs}` works in Node 22, but only if the brace literal is in the pattern. Tested locally; confirmed working.
+- AC-3 regex test accepted either `Epic <N>` or `Story <N>` after the `Activates in` prefix — needed because `network-trace` legitimately routes to a story, not an epic.
+- The `lint-no-cookie-banner` regex uses `[-_]?` to match `cookie-banner`, `cookie_banner`, `cookieBanner`, and `cookieconsent` simultaneously (case-insensitive).
+- `make lint` runs each lint sequentially with one `node` call per recipe line — the Makefile recipe-allowlist test from Story 1.1 only requires `node` (allowed) as the first token, no chain limit.
+- `localStorage` regex needs `\b` boundary so it doesn't catch the literal string `"localStorage"` inside doc-strings. Used `\blocalStorage\.setItem\s*\(`.
+
+**Areas of uncertainty:**
+
+- The `lint-no-role-alert` v1 is deliberately too-strict (any `role="alert"` is a violation, regardless of context). FR12 mentions "polite localized fallback" which may legitimately use `role="alert"` for a transient error toast. When that lands (likely Epic 6), the lint will need an allow-comment system (`// IQME-LINT-OK: role="alert" — transient toast`). Documented in Dev Notes ahead of time.
+- The `lint-no-analytics-script` regex catches the SDK names + hosts I could remember; this is **not** exhaustive. A future PR may want to add a "host allowlist" model instead — but that's a v2 problem when we have actual content to scan.
+- `js-yaml` was rejected for the structural test, but if a future PR wants to parse and assert deeper structure (e.g. "every active job has actions/setup-node@v4"), the temptation will resurface. The right move at that point is a small vendor/SHASUMS-pinned YAML mini-parser — not a runtime dep.
+
+**Tested edge cases:**
+
+- All 37 frozen tests pass; full suite 85/85 — no regression.
+- Each lint exits 0 on the current `src/` tree (which has 1 file: `src/content/methodology/en/provenance/icar-license.md` from Story 1.3, plus the .gitkeep'd domain dirs).
+- Each lint exits 1 with `BREACH …` on stderr when targeted at its fixture (via `IQME_LINT_TARGET`).
+- `make lint` chains all 8 active lints + exits 0, surfaces the budget-lint OK lines.
+- All 28 jobs present in `pr-checks.yml` (regex-asserted); 8 Epic-1-active have no `if: false`; 20 deferred have `if: false` + Activates-in comment.
+- `release.yml` + `scheduled.yml` contain "Activates in Epic 8" + the documented inline-comment orchestration plans (app-v*/corpus-v* namespaces + labeled-Issue routing).
