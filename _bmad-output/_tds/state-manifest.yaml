@@ -14,11 +14,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 35e4c5af3b2a2bb8a4135b60bcf65a3cc9a0d4d1ed0828a019b7303cef9cbe05
+    sha256: e10218dd802dfd278bd4c0c6836148998e99efd719d7cf6979ec32c485547a69
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T08:50:49.140Z
+    recorded_at: 2026-05-19T09:18:42.467Z
     recorded_by: engineer
-    story_id: 1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md
+    story_id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: fbf3924b00f73153538b321016f62daac1f2a2099e57156790c044b016e6f24b
@@ -85,3 +85,10 @@ entries:
     recorded_by: test-author
     story_id: 1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md
     notes: story-1-4 frozen tests
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/1-5-commit-budgets-json-lint-cognitive-load-budget-mjs.md
+    sha256: 115c0f9b9481fea0f0dcb0eb19c95e2126ea43a825d7ea0026a9eb3e4de4db43
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T09:18:42.490Z
+    recorded_by: engineer
+    story_id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
