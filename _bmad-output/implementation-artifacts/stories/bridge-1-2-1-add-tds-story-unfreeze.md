@@ -183,3 +183,86 @@ merging bridge-1-2 to avoid the drift carrying forward into main's
 integrity baseline.
 
 - **Suggested bridge:** `Ratify epic-1 retrospective drift on stories/1-6 + stories/1-7`
+
+## Auditor Findings (round-5)
+
+### [info] Upstream commit-state inaccuracy in Self-Review uncertainty #3. The spec
+states upstream `bmad-tds-module` impl is "committed locally to that
+repo's working tree (need to verify exact state)". Direct check at
+/Users/maksim/git/bmad-tds-module/ shows the unfreeze-tests changes are
+NOT committed — they're uncommitted modifications across 8 source files
+plus 2 untracked files (`src/state/unfreeze-windows.ts`,
+`src/cli/__tests__/bridge-1-2-1-unfreeze-tests.test.ts`). The IQ-ME
+bundle that ships in this story was built from that dirty tree. Until
+upstream commit + release, next `bmad install` from upstream main would
+overwrite the IQ-ME bundle with an older version missing
+`story unfreeze-tests`, silently regressing the feature in IQ-ME.
+
+
+- **Category:** process
+- **Suggested fix:** Bridge candidate for next epic: commit + push upstream
+bmad-tds-module changes, cut a release tag, then ratify the IQ-ME
+bundle against that tag (re-run `bmad install` or pin the module
+version in `_bmad/_config/manifest.yaml`).
+
+- **Suggested bridge:** `Land bridge-1-2-1 upstream commit + release; re-pin IQ-ME bundle to released module version`
+
+## Auditor Findings (round-6)
+
+### [info] TS strict warning (`noUncheckedIndexedAccess`) at
+`src/cli/__tests__/bridge-1-2-1-unfreeze-tests.test.ts:492` in the
+frozen test file (Self-Review uncertainty #2). `pnpm typecheck` flags
+it; `vitest run` + `pnpm build:bundle` succeed. Specialist correctly
+cannot patch in-place because tests are frozen post-test-author.
+Bootstrap problem is mild but real: the CLI shipped here is exactly
+the affordance needed to fix this — perfect dogfood case.
+
+
+- **Category:** technical
+- **Suggested fix:** Open a follow-up unfreeze-tests cycle on the upstream repo using the
+new CLI: `tds story unfreeze-tests --story=bridge-1-2-1-... --files=src/cli/__tests__/bridge-1-2-1-unfreeze-tests.test.ts
+--reason="resolve noUncheckedIndexedAccess strict warning"
+--as=engineer`. Add `// @ts-expect-error` or refactor index access;
+ratify via `tds integrity record`.
+
+- **Suggested bridge:** `Dogfood unfreeze-tests CLI to clear ts-strict warning on its own frozen test file`
+
+## Auditor Findings (round-7)
+
+### [info] Forward-transition blocker behavior on `halted` exit untested
+(Self-Review uncertainty #4). Story spec is silent; current impl
+treats any non-`halted` target as forward and lets `halted` bypass.
+Reasonable default but not pinned by AC #4 tests. If `halted` is ever
+used as an emergency exit from an open unfreeze window, semantics
+aren't explicitly guaranteed by test fixture.
+
+
+- **Category:** technical
+- **Suggested fix:** Add an AC-#4 sibling test case in the upstream test suite seeding
+open-window + state=in-progress, target=halted; assert blocker DOES
+NOT fire. Pin the contract.
+
+- **Suggested bridge:** `Pin halted-bypass forward-blocker contract with a dedicated test`
+
+## Auditor Findings (round-8)
+
+### [info] Pre-existing integrity drift on epic-1 story specs (Self-Review
+uncertainty #1): `tds integrity verify` reports failed=2 on
+`_bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md`
+and `.../1-7-implement-playwright-network-trace-...md`. Confirmed
+not introduced by this branch (`git log main -- <path>` shows only
+pre-merge commits). The epic-1 retrospective likely updated those
+specs post-integrity-record without re-ratifying. Non-blocking for
+THIS story (out of scope), BUT this drift will trip future
+`tds preflight check` gates that depend on clean verify — including
+Mode 1 PR-create preflight on the very NEXT story that lands.
+
+
+- **Category:** technical
+- **Suggested fix:** Ratify with `tds integrity record --as=engineer --files=<path1>,<path2>
+--story=epic-1-retrospective --notes="retrospective post-edit drift
+ratification"`. Single command, < 30s. Recommended to do BEFORE
+merging bridge-1-2 to avoid the drift carrying forward into main's
+integrity baseline.
+
+- **Suggested bridge:** `Ratify epic-1 retrospective drift on stories/1-6 + stories/1-7`
