@@ -140,6 +140,19 @@ jobs:
       - run: npx --yes playwright install --with-deps chromium
       - run: npx --yes playwright test tests/playwright/network-trace.spec.mjs
 
+  full-slice-network-trace:
+    name: full-slice-network-trace
+    runs-on: ubuntu-latest
+    # Activates in Epic 3 Story 3.7 — full-slice live spec via tools/dev-server.mjs.
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: make build-methodology
+      - run: npx --yes playwright test tests/playwright/full-slice.spec.mjs
+
   lint-css-link-order:
     name: lint-css-link-order
     runs-on: ubuntu-latest
@@ -183,10 +196,12 @@ jobs:
   state-shape-contract:
     name: state-shape-contract
     runs-on: ubuntu-latest
-    # Activates in Epic 3
-    if: false
     steps:
-      - run: echo "stub — Activates in Epic 3 (Story 3.1)"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node --test tests/contract/state-shape.spec.mjs
 
   lint-frontmatter:
     name: lint-frontmatter

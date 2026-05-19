@@ -71,7 +71,11 @@ function countLines(filePath) {
 }
 
 function computeCurrent(entry) {
-  const files = listFiles(entry.domain);
+  let files = listFiles(entry.domain);
+  if (Array.isArray(entry.exclude) && entry.exclude.length > 0) {
+    const excludeSet = new Set(entry.exclude.map((p) => resolve(REPO_ROOT, p)));
+    files = files.filter((f) => !excludeSet.has(f));
+  }
   if (entry.metric === "files") {
     return files.length;
   }

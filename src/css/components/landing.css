@@ -1,0 +1,65 @@
+/* src/css/components/landing.css
+ *
+ * Story 3.3 AC-9 — landing scene layout. Semantic tokens only; no literal
+ * hex / px / font-family. Mobile-first; widens at the prose-comfortable
+ * reading measure on larger viewports.
+ */
+
+.landing {
+  max-width: 38rem;
+  margin-inline: auto;
+  padding-block: var(--space-page-padding-y);
+  padding-inline: var(--space-5);
+  color: var(--color-text-body);
+  background-color: var(--color-surface-base);
+}
+
+.landing__paragraph {
+  font-size: var(--font-size-300);
+  line-height: var(--line-height-prose);
+  margin-block-end: var(--space-section-gap);
+}
+
+.landing__cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.landing__start-btn {
+  appearance: none;
+  font-size: var(--font-size-300);
+  line-height: var(--line-height-base);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-5);
+  color: var(--color-surface-base);
+  background-color: var(--color-text-link);
+  border: none;
+  border-radius: var(--space-1);
+  cursor: pointer;
+}
+
+.landing__start-btn:hover {
+  background-color: var(--color-text-link-hover);
+}
+
+.landing__start-btn:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}
+
+.landing__methodology-link {
+  font-size: var(--font-size-200);
+  color: var(--color-text-link);
+  text-decoration: underline;
+}
+
+.landing__methodology-link:hover {
+  color: var(--color-text-link-hover);
+}
+
+.landing__methodology-link:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}

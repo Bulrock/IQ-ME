@@ -1,0 +1,13 @@
+/* Story 3.5 AC-10.3 fixture — font-weight diverges on .score-panel__band. */
+.score-panel__anchor,
+.score-panel__percentile {
+  font-size: var(--font-size-600);
+  font-weight: var(--font-weight-regular);
+  font-family: var(--font-family-sans);
+}
+
+.score-panel__band {
+  font-size: var(--font-size-600);
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family-sans);
+}

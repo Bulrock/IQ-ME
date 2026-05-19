@@ -1,0 +1,12 @@
+/* Story 3.5 AC-10.5 fixture — .score-panel__band omits font-family entirely. */
+.score-panel__anchor,
+.score-panel__percentile {
+  font-size: var(--font-size-600);
+  font-weight: var(--font-weight-regular);
+  font-family: var(--font-family-sans);
+}
+
+.score-panel__band {
+  font-size: var(--font-size-600);
+  font-weight: var(--font-weight-regular);
+}

@@ -242,3 +242,124 @@ branches:
     last_synced_at: 2026-05-19T15:18:05.035Z
     notes: ""
     created_at: 2026-05-19T15:13:03.889Z
+  - branch: epic/3
+    story_id: null
+    epic_id: epic-3
+    base_branch: main
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-19T16:47:18.593Z
+  - branch: story/3-1-contract-adrs
+    story_id: 3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url
+    epic_id: null
+    base_branch: epic/3
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T17:23:57.035Z
+    notes: ""
+    created_at: 2026-05-19T16:52:52.886Z
+  - branch: story/3-2-implement-state-js-contract-test
+    story_id: 3-2-implement-state-js-contract-test
+    epic_id: null
+    base_branch: epic/3
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T17:50:46.035Z
+    notes: ""
+    created_at: 2026-05-19T17:44:23.277Z
+  - branch: story/3-3-implement-landing-consent-scene-en
+    story_id: 3-3-implement-landing-consent-scene-en
+    epic_id: null
+    base_branch: epic/3
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T20:12:09.012Z
+    notes: ""
+    created_at: 2026-05-19T18:13:06.813Z
+  - branch: story/3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed
+    story_id: 3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed
+    epic_id: null
+    base_branch: epic/3
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T20:57:26.342Z
+    notes: ""
+    created_at: 2026-05-19T20:21:40.019Z
+  - branch: story/3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
+    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
+    epic_id: null
+    base_branch: epic/3
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T21:45:48.134Z
+    notes: ""
+    created_at: 2026-05-19T21:14:11.449Z
+  - branch: story/3-6-author-3-en-methodology-stub-pages-the-click-targets
+    story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
+    epic_id: null
+    base_branch: epic/3
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T22:12:14.902Z
+    notes: ""
+    created_at: 2026-05-19T22:03:29.380Z
+  - branch: story/3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice
+    story_id: 3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice
+    epic_id: null
+    base_branch: epic/3
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T22:26:01.033Z
+    notes: ""
+    created_at: 2026-05-19T22:16:33.570Z
+  - branch: story/3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording
+    story_id: 3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording
+    epic_id: null
+    base_branch: epic/3
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T22:33:11.969Z
+    notes: ""
+    created_at: 2026-05-19T22:29:23.154Z
+  - branch: story/3-2-rework-integrity-cleanup
+    story_id: 3-2-implement-state-js-contract-test
+    epic_id: null
+    base_branch: epic/3
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T22:53:34.967Z
+    notes: ""
+    created_at: 2026-05-19T22:52:18.011Z
+  - branch: story/3-6-rework-test-isolation
+    story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
+    epic_id: null
+    base_branch: epic/3
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-19T22:57:24.185Z
+    notes: ""
+    created_at: 2026-05-19T22:54:39.150Z

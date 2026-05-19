@@ -37,6 +37,10 @@ The methodology corpus is written for an over-anxious lay test-taker, a skeptic,
 
 The Story 4.4 `lint-reading-level-en.mjs` enforces a Flesch-Kincaid reading level upper bound (target Grade 11; cap Grade 13).
 
+## Epic 3 interim stub builder
+
+Epic 3 ships `tools/build-methodology.mjs` as an interim stub that renders each EN methodology source via `<pre>`-wrap (no markdown subset parsing) and emits to `dist/methodology/v0.1.0/en/<path>/index.html` for three scoring pages — `scoring/percentile-to-iq/`, `scoring/uncertainty/`, `scoring/overview/`. Epic 4 (Story 4.1) replaces this stub with the full subset-parsing renderer + per-corpus-release re-emit semantics + `git describe --tags --match 'corpus-v*' --abbrev=0` version baking. The **output URL pattern is the permanent commitment** (per `docs/adr/methodology-handoff-url-contract.md`); the rendering quality is interim. The hard-coded `v0.1.0` aligns with Story 3-5's `CORPUS_VERSION` constant in `src/assessment/result.js` and Story 3-8's planned `corpus-v0.1.0` initial-tag.
+
 ## Pipeline land schedule
 
 The corpus pipeline lands across two epics. AI agents iterating on the corpus should **not invoke tooling that doesn't exist yet**:

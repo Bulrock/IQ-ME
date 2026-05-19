@@ -1,0 +1,23 @@
+{
+  "_note": "STUB POOL — placeholder items + IRT params authored in Story 3-4 for FR7 contract exercise. Real ICAR-MR items + calibrated parameters land in Story 9a-2 (ICAR license confirmation gate). DO NOT SHIP TO PRODUCTION without Epic 9a-2 completion. Schema is forward-compatible.",
+  "schemaVersion": "1.0",
+  "poolSize": 16,
+  "items": [
+    { "id": "stub-001", "a": 1.0, "b": -2.0,  "asset": "stub-001.svg", "options": ["A", "B", "C", "D", "E", "F"], "correct": "A" },
+    { "id": "stub-002", "a": 1.0, "b": -1.75, "asset": "stub-002.svg", "options": ["A", "B", "C", "D", "E", "F"], "correct": "B" },
+    { "id": "stub-003", "a": 1.0, "b": -1.5,  "asset": "stub-003.svg", "options": ["A", "B", "C", "D", "E", "F"], "correct": "C" },
+    { "id": "stub-004", "a": 1.0, "b": -1.25, "asset": "stub-004.svg", "options": ["A", "B", "C", "D", "E", "F"], "correct": "D" },
+    { "id": "stub-005", "a": 1.0, "b": -1.0,  "asset": "stub-005.svg", "options": ["A", "B", "C", "D", "E", "F"], "correct": "E" },
+    { "id": "stub-006", "a": 1.0, "b": -0.75, "asset": "stub-006.svg", "options": ["A", "B", "C", "D", "E", "F"], "correct": "F" },
+    { "id": "stub-007", "a": 1.0, "b": -0.5,  "asset": "stub-007.svg", "options": ["A", "B", "C", "D", "E", "F"], "correct": "A" },
+    { "id": "stub-008", "a": 1.0, "b": -0.25, "asset": "stub-008.svg", "options": ["A", "B", "C", "D", "E", "F"], "correct": "B" },
+    { "id": "stub-009", "a": 1.0, "b":  0.0,  "asset": "stub-009.svg", "options": ["A", "B", "C", "D", "E", "F"], "correct": "C" },
+    { "id": "stub-010", "a": 1.0, "b":  0.25, "asset": "stub-010.svg", "options": ["A", "B", "C", "D", "E", "F"], "correct": "D" },
+    { "id": "stub-011", "a": 1.0, "b":  0.5,  "asset": "stub-011.svg", "options": ["A", "B", "C", "D", "E", "F"], "correct": "E" },
+    { "id": "stub-012", "a": 1.0, "b":  0.75, "asset": "stub-012.svg", "options": ["A", "B", "C", "D", "E", "F"], "correct": "F" },
+    { "id": "stub-013", "a": 1.0, "b":  1.0,  "asset": "stub-013.svg", "options": ["A", "B", "C", "D", "E", "F"], "correct": "A" },
+    { "id": "stub-014", "a": 1.0, "b":  1.25, "asset": "stub-014.svg", "options": ["A", "B", "C", "D", "E", "F"], "correct": "B" },
+    { "id": "stub-015", "a": 1.0, "b":  1.5,  "asset": "stub-015.svg", "options": ["A", "B", "C", "D", "E", "F"], "correct": "C" },
+    { "id": "stub-016", "a": 1.0, "b":  1.75, "asset": "stub-016.svg", "options": ["A", "B", "C", "D", "E", "F"], "correct": "D" }
+  ]
+}

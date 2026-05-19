@@ -29,5 +29,13 @@ parents:
   2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10: epic-2
   2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring: epic-2
   2-7-populate-methodology_claims-json-activate-lint-claims-manifest: epic-2
-last_updated: 2026-05-19T15:39:26.284Z
+  3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url: epic-3
+  3-2-implement-state-js-contract-test: epic-3
+  3-3-implement-landing-consent-scene-en: epic-3
+  3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed: epic-3
+  3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint: epic-3
+  3-6-author-3-en-methodology-stub-pages-the-click-targets: epic-3
+  3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice: epic-3
+  3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording: epic-3
+last_updated: 2026-05-19T22:42:21.171Z
 generated_by: bmad-tds-bridge-from-retros

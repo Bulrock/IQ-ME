@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "item-parameters-schema-v1",
+  "title": "IQ-ME Item Parameters (v1)",
+  "description": "Shape contract for src/items/item-parameters.json. v1 stub-pool ships with Story 3-4 (deferred ICAR replacement in Story 9a-2). Underscore-prefixed keys (e.g. _note) are deferral markers and are not enforced by additionalProperties:false (see tests/contract/_item-parameters-schema-check.mjs).",
+  "type": "object",
+  "required": ["schemaVersion", "poolSize", "items"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
+    "poolSize": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "a", "b", "asset", "options", "correct"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$"
+          },
+          "a": {
+            "type": "number",
+            "minimum": 0
+          },
+          "b": {
+            "type": "number",
+            "minimum": -10,
+            "maximum": 10
+          },
+          "asset": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+\\.svg$"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "correct": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

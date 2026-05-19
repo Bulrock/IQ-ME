@@ -1,0 +1,8 @@
+/* Story 3.5 AC-10.1 fixture — parity OK across the co-equal triplet. */
+.score-panel__anchor,
+.score-panel__percentile,
+.score-panel__band {
+  font-size: var(--font-size-600);
+  font-weight: var(--font-weight-regular);
+  font-family: var(--font-family-sans);
+}

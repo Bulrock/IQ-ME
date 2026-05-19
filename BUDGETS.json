@@ -15,7 +15,8 @@
     "domain": "src/assessment/**/*.js",
     "metric": "bytes",
     "limit": 30720,
-    "rationale": "NFR32 — assessment SPA modules budget (~30 KB raw). Aligned with NFR21 vanilla-ES2022 + NFR33 zero-runtime-dep posture."
+    "exclude": ["src/assessment/test-hook.js"],
+    "rationale": "NFR32 — assessment SPA modules budget (~30 KB raw). Aligned with NFR21 vanilla-ES2022 + NFR33 zero-runtime-dep posture. test-hook.js is dev-time-only (activated by ?test=1; Story 3-7) — excluded from production-modules accounting."
   },
   "i18n-harness-bytes": {
     "domain": "src/assessment/i18n/**/*.js",

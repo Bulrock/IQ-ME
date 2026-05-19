@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "state-schema-v1",
+  "title": "IQ-ME Assessment Session State (v1)",
+  "type": "object",
+  "required": [
+    "currentItem",
+    "responses",
+    "startedAt",
+    "locale",
+    "seed"
+  ],
+  "properties": {
+    "currentItem": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "responses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "itemIndex",
+          "response"
+        ],
+        "properties": {
+          "itemIndex": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "response": {
+            "type": "integer",
+            "enum": [
+              0,
+              1
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "startedAt": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix ms; serialization-only — runtime ceremony uses performance.now() in iqme:reveal-stage payload"
+    },
+    "locale": {
+      "type": "string",
+      "enum": [
+        "en",
+        "ru",
+        "pl"
+      ]
+    },
+    "seed": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{32}$",
+      "description": "128-bit hex from crypto.getRandomValues(); in-memory only per FR7"
+    }
+  },
+  "additionalProperties": false,
+  "$comment": "Related: docs/adr/iqme-reveal-stage-event-contract.md (state lifecycle drives event emission). v1 contract; any future field addition requires a `version` field bump (currently implicit at v1; v2 will make `version` itself required)."
+}
