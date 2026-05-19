@@ -496,3 +496,21 @@ This is **Epic 3's result scene** — Stories 3-1/3-2/3-3/3-4 landed the contrac
 - AC-9.15: result.js source has no forbidden globals, no `performance.now` (only via reveal-stage.js indirection).
 - AC-10.5: missing-declaration fixture → lint exits 1 with stderr naming both the missing property (`font-family`) and the selector (`score-panel__band`).
 - All 376 prior-story tests stay green (no regressions); budget under limit; lint 11/11 green.
+
+## Auditor Findings (round-1)
+
+### [info] Specialist Self-Review §Areas of uncertainty #4 disclosed: `src/index.html` `<noscript>` references `/methodology/v1.0.0/en/` while reveal-stage / score-panel code paths use `v0.1.0` (per Story 3-1 ADR `release-tag-namespace-contract`). Documented out-of-scope; not introduced as a regression in 3-5 (the `v1.0.0` literal pre-dates this epic). No code path follows the noscript link at runtime since noscript renders only when JS is disabled. Recording for retro aggregation so the inconsistency is fixed in a focused follow-up (likely Epic 4 build-methodology generator territory or a one-line index.html edit).
+
+
+- **Category:** scope / cross-epic-debt
+- **Suggested bridge:** `"Reconcile noscript/SPA methodology version literal: replace `v1.0.0` in `src/index.html` <noscript> with the same build-time resolved corpus version that the SPA bundle uses (per Story 3-1 ADR-3 click-binding contract)."
+`
+
+## Auditor Findings (round-2)
+
+### [info] Specialist Self-Review §Areas of uncertainty #1 disclosed `app-modules-bytes` landed at 30715/30720 in story 3-5 (5-byte headroom). 3-7 later recovered to 30623/30720 (97 bytes free) via main.js comment-collapse + test-hook.js exclude. Pattern of brushing the budget twice in one epic is a signal that NFR32 was sized too tight for v1 or that the assessment domain is approaching a refactor (extract `_html-escape.js` shared util per 3-5 self-review). Not blocking; retro topic.
+
+
+- **Category:** budget / cognitive-load
+- **Suggested bridge:** `"Re-evaluate `app-modules-bytes` 30720 budget or extract shared utilities (`_html-escape.js` factor across 5+ modules) ahead of Epic 4. Recommend tracking byte-budget trend in retro SLI alongside test count + lint count."
+`
