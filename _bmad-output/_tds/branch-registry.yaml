@@ -335,9 +335,9 @@ branches:
     epic_id: null
     base_branch: epic/3
     created_by: tds-branch-start
-    status: active
+    status: merged
     pr_url: null
     pr_number: null
-    last_synced_at: null
+    last_synced_at: 2026-05-19T22:33:11.969Z
     notes: ""
     created_at: 2026-05-19T22:29:23.154Z
