@@ -1,7 +1,7 @@
 ---
 id: 2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test
 title: "Story 2.1: Scaffold src/scoring/irt/ module + write red-phase parity test"
-status: review
+status: approved
 ---
 
 # Story 2.1: Scaffold src/scoring/irt/ module + write red-phase parity test

@@ -1,7 +1,7 @@
 ---
 id: 2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
 title: "Story 2.6a: R-in-CI harness + smoke parity check against current fixture"
-status: review
+status: approved
 ---
 
 # Story 2.6a: R-in-CI harness + smoke parity check against current fixture

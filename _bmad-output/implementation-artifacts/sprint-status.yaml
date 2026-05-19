@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-19 2-7-populate-methodology_claims-json-activate-lint-claims-manifest: review'
+last_updated: '2026-05-19 epic-2: approved'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -58,15 +58,15 @@ development_status:
   # Bridge 1→2: 1 story from 1 retro
   bridge-1-2: done
   bridge-1-2-1-add-tds-story-unfreeze: approved       # Add `tds story unfreeze-tests --story=<id>` CLI affordance
-  epic-2: in-progress
-  2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test: review
-  2-2-implement-quadrature-js-likelihood-js-pure-math-primitives: review
-  2-3-implement-eap-js-eap-estimation: review
-  2-4-implement-se-js-standard-error-from-posterior-variance: review
-  2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade: review
-  2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10: review
-  2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring: review
-  2-7-populate-methodology_claims-json-activate-lint-claims-manifest: review
+  epic-2: approved
+  2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test: approved
+  2-2-implement-quadrature-js-likelihood-js-pure-math-primitives: approved
+  2-3-implement-eap-js-eap-estimation: approved
+  2-4-implement-se-js-standard-error-from-posterior-variance: approved
+  2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade: approved
+  2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10: approved
+  2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring: approved
+  2-7-populate-methodology_claims-json-activate-lint-claims-manifest: approved
   epic-2-retrospective: optional
   epic-3: backlog
   3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url: backlog

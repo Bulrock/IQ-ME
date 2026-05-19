@@ -14,11 +14,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 20c1bb69f7bf4603a6b0863279f7ed6faf16fe43db444435f18f1f3ae51025ba
+    sha256: 2f6ba270d455378f649ed4a158127b8ceb83f1a10c4522a67588a82633076027
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:17:57.356Z
-    recorded_by: engineer
-    story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
+    recorded_at: 2026-05-19T15:39:31.254Z
+    recorded_by: auditor
+    story_id: epic-2
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -191,10 +191,10 @@ entries:
     notes: story-1-10 frozen failing tests
   - artefact_class: A
     file: _bmad-output/_tds/sprint-status-extension.yaml
-    sha256: 1c19bf127d8f992859ea02ac41d08ae9d9ec58145afb3ae16f3100cd64be444c
+    sha256: a3f8905d48d4d6a79f553c537893ff7f460031e131adc6652a195cc867ef6ad7
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:05:13.634Z
-    recorded_by: engineer
+    recorded_at: 2026-05-19T15:39:26.305Z
+    recorded_by: setup
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-1-2-1-add-tds-story-unfreeze.md
     sha256: 736203a0f8ece51876f0512df119276359cda06ce3d86815a0259bd5db148a63
@@ -212,10 +212,10 @@ entries:
     notes: test-author red-phase scaffold for bridge-1-2-1
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test.md
-    sha256: aa2a562aafed863e9916691d1514154f4ed95146f51f696f78e33427d62f7674
+    sha256: 8b5a15c4a90c42ec20f08243e771bbfd6f704d1ed292e2135bcb3a20dd5c77f3
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:14:58.945Z
-    recorded_by: engineer
+    recorded_at: 2026-05-19T15:39:30.485Z
+    recorded_by: auditor
     story_id: 2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test
   - artefact_class: A
     file: tests/unit/scoring/irt/parity.test.mjs
@@ -242,10 +242,10 @@ entries:
     story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-2-implement-quadrature-js-likelihood-js-pure-math-primitives.md
-    sha256: 7d29b653039b154206106d05386da4d52c437ba437876b642386f0aa5bf6138d
+    sha256: 5fca43bd41c8c9a2711974d5434a28da04b4f82b112acf6b13d76eaef221e75a
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:21:20.807Z
-    recorded_by: engineer
+    recorded_at: 2026-05-19T15:39:30.586Z
+    recorded_by: auditor
     story_id: 2-2-implement-quadrature-js-likelihood-js-pure-math-primitives
   - artefact_class: A
     file: tests/unit/scoring/irt/quadrature.test.mjs
@@ -265,10 +265,10 @@ entries:
     notes: "test-author phase: 2-2 unit tests for quadrature + likelihood primitives"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-3-implement-eap-js-eap-estimation.md
-    sha256: 92dbc965fa2bdc2bb37c11f26f0530dae4e53a2e750b7ae250a25e12339a9933
+    sha256: 1591d95044b9ffff67a6647b958f5de11210c36b542f366d212eb838b28a91d9
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:37:36.159Z
-    recorded_by: engineer
+    recorded_at: 2026-05-19T15:39:30.691Z
+    recorded_by: auditor
     story_id: 2-3-implement-eap-js-eap-estimation
   - artefact_class: A
     file: tests/unit/scoring/irt/eap.test.mjs
@@ -279,10 +279,10 @@ entries:
     story_id: 2-3-implement-eap-js-eap-estimation
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-4-implement-se-js-standard-error-from-posterior-variance.md
-    sha256: f59a9c4732933de5767ab8a082b9f28a3a74b4d3702b1e4f15b7abe87f43ca28
+    sha256: 9b8b329bfbb77276281db25d87b3fe51006543c5edf433f3b12b0549d6484625
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:42:27.621Z
-    recorded_by: engineer
+    recorded_at: 2026-05-19T15:39:30.800Z
+    recorded_by: auditor
     story_id: 2-4-implement-se-js-standard-error-from-posterior-variance
   - artefact_class: A
     file: tests/unit/scoring/irt/se.test.mjs
@@ -293,10 +293,10 @@ entries:
     story_id: 2-4-implement-se-js-standard-error-from-posterior-variance
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade.md
-    sha256: f94485b55f9ef0c591b5f7231180273e116b0e310fc1ecb84aaf6b86efc8fc69
+    sha256: dbd8b7852ae84ad664202ca2529e24d3605aeca9ee9f1b3fe8208ab9e960e09c
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:54:24.105Z
-    recorded_by: engineer
+    recorded_at: 2026-05-19T15:39:30.900Z
+    recorded_by: auditor
     story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
   - artefact_class: A
     file: tests/unit/scoring/irt/index.test.mjs
@@ -307,10 +307,10 @@ entries:
     story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10.md
-    sha256: faac852821777cb767e954367208c00e706da1a678dcd9a24ecc0722500b0a3b
+    sha256: f2e2678bb8b33bd58b1a181329eeff795f2eb6dca48bb5eca47df0e1def15e44
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:02:02.189Z
-    recorded_by: engineer
+    recorded_at: 2026-05-19T15:39:31.000Z
+    recorded_by: auditor
     story_id: 2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
   - artefact_class: A
     file: tests/unit/golden/parity-audit.test.mjs
@@ -335,10 +335,10 @@ entries:
     story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring.md
-    sha256: 9a6e20011a7bd340a94653609458edaff220391f0a47011d5b50bf33fef1d00f
+    sha256: cf0794415d49d6f9b16875cfc933348b884ec876bd92a7eabc68cc6e889b437f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:11:03.693Z
-    recorded_by: engineer
+    recorded_at: 2026-05-19T15:39:31.091Z
+    recorded_by: auditor
     story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
   - artefact_class: A
     file: tests/unit/scoring/irt/parity-full.test.mjs
@@ -356,10 +356,10 @@ entries:
     story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-7-populate-methodology_claims-json-activate-lint-claims-manifest.md
-    sha256: 9d9b36296084932696103e8f5c43d7f8ab20b696a7d2824b4a86c3240ad01362
+    sha256: f32bd773b45244e1b07a6ef8a7997a4fd106ec620ff4fae24d8e31d5ecb4160e
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:17:57.463Z
-    recorded_by: engineer
+    recorded_at: 2026-05-19T15:39:31.180Z
+    recorded_by: auditor
     story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
   - artefact_class: A
     file: tests/unit/methodology-claims/schema.test.mjs
