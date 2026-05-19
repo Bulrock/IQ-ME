@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: bccdd4d40a38cbcbac1817f1cd299c2534d421db23f9506d6fa7389bcea6c63c
+    sha256: b49ea1dee6f80237d5edad1f9765e24ef0e87efc0846bf11ba4090f71c14beb5
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:16:33.597Z
+    recorded_at: 2026-05-19T22:29:23.176Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 115fa68c8b4fda06baf43e8b05f7d3ccc07a0ddd84525aa173b6f818fb8b9da0
+    sha256: 7a04d396105d617443d2b43a78a0caff6cd771b45355bc0d9b42e1bfa933106e
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:25:33.725Z
+    recorded_at: 2026-05-19T22:32:51.646Z
     recorded_by: engineer
-    story_id: 3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice
+    story_id: 3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -636,3 +636,18 @@ entries:
     recorded_by: test-author
     story_id: 3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice
     notes: "Story 3-7 test-author phase: 7 unit tests for tools/dev-server.mjs programmatic API + 7 unit tests for src/assessment/test-hook.js gate + delegation surface + 1 Playwright full-slice spec driving the live SPA via window.__IQME_TEST__"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording.md
+    sha256: ebbdaec41c46a9237957686b0e828daa7e612f7e9f13d129ecff75aa8eaa550d
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T22:32:51.677Z
+    recorded_by: engineer
+    story_id: 3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording
+  - artefact_class: A
+    file: tests/scaffold/story-3-8-evidence-scaffold.test.mjs
+    sha256: 56d7f4a00fe1752885a77a98580fbc652b661947ebbcd031d3f6bf8e38c5c554
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T22:32:51.041Z
+    recorded_by: test-author
+    story_id: 3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording
+    notes: "Story 3-8 scaffold test asserting documentation scaffold contract: 5 files exist + per-user template has 4 verbatim hypothesis questions + protocol documents ≥3-of-N threshold + summary template links to Epic 4 gate + local-build doc documents corpus-v0.1.0 tag step"
