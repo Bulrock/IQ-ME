@@ -1,7 +1,7 @@
 ---
 id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
 title: "Story 1.6: Author CI matrix YAML with full future-lint stub jobs"
-status: review
+status: rework
 ---
 
 # Story 1.6: Author CI matrix YAML with full future-lint stub jobs

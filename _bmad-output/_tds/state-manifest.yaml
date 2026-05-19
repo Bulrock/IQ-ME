@@ -14,11 +14,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: f36c000e720cb0f0e056bac25878c03a82f16ef1449fcc33b82bbdb2ad130461
+    sha256: ce3f8b605811fdc1e918a3a33f96fb83636e08ce8cc2d3570e7e68fc73baa615
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T09:51:35.522Z
-    recorded_by: engineer
-    story_id: 1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts
+    recorded_at: 2026-05-19T10:06:17.284Z
+    recorded_by: auditor
+    story_id: 1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: fbf3924b00f73153538b321016f62daac1f2a2099e57156790c044b016e6f24b
@@ -102,10 +102,10 @@ entries:
     notes: story-1-5 frozen failing tests
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
-    sha256: 925451b3345961759c3554be8453f46c72c34486041d3a6c08bb818b3e201793
+    sha256: 4263aa7b3e32b2e3c25cc42c8e3aff027cd137706ec4ef24c45bffdd21377b92
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T09:31:28.484Z
-    recorded_by: engineer
+    recorded_at: 2026-05-19T10:06:17.203Z
+    recorded_by: auditor
     story_id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
@@ -125,10 +125,10 @@ entries:
     notes: story-1-6 frozen failing tests
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1.md
-    sha256: f5309bf5af819ca4b8fbacd037c36a7946df02d4b35c6e39fd5e53ab63c10eb1
+    sha256: aad0d802777b37389bd51d931592ceb6d2d06a3c3222b900d60bb52e097408c1
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T09:38:08.214Z
-    recorded_by: engineer
+    recorded_at: 2026-05-19T10:06:17.303Z
+    recorded_by: auditor
     story_id: 1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1
   - artefact_class: A
     file: tests/scaffold/playwright-network-trace.test.mjs
@@ -191,3 +191,9 @@ entries:
     recorded_by: test-author
     story_id: 1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts
     notes: story-1-10 frozen failing tests
+  - artefact_class: A
+    file: _bmad-output/_tds/sprint-status-extension.yaml
+    sha256: 8f152c451846b36b8ae34493f869a83e5b261a9fd3e94320ebb0fcd314c74919
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T10:06:11.011Z
+    recorded_by: setup
