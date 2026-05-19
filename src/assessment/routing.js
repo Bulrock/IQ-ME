@@ -6,12 +6,14 @@
 
 import * as landing from "./landing.js";
 import * as consent from "./consent.js";
+import * as itemRunner from "./item-runner.js";
 import * as localeLoader from "./i18n/locale-loader.js";
 
 const ROUTES = {
   "": landing,
   "#/": landing,
   "#/consent": consent,
+  "#/test": itemRunner,
 };
 
 let started = false;

@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-19 3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed: ready-for-dev'
+last_updated: '2026-05-19 3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -72,7 +72,7 @@ development_status:
   3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url: review
   3-2-implement-state-js-contract-test: review
   3-3-implement-landing-consent-scene-en: review
-  3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed: ready-for-dev
+  3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed: review
   3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint: backlog
   3-6-author-3-en-methodology-stub-pages-the-click-targets: backlog
   3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice: backlog

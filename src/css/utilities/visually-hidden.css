@@ -1,0 +1,18 @@
+/* src/css/utilities/visually-hidden.css
+ *
+ * Story 3.4 AC-7 — visually-hidden utility (first utility file). Standard
+ * SR-only pattern; content is not visually rendered but is reachable by
+ * assistive tech. Used by .visually-hidden class on item-runner heading +
+ * options legend. Consent-scene sentinel uses the same pattern inline;
+ * a follow-up refactor (out of Story 3.4 scope) may consolidate.
+ */
+
+.visually-hidden {
+  position: absolute;
+  width: var(--space-1);
+  height: var(--space-1);
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}

@@ -1,0 +1,18 @@
+/* src/css/components/progress-indicator.css
+ *
+ * Story 3.4 AC-7 — progress indicator layout for .item-runner__progress
+ * (UX-DR20 role="status" + aria-live="polite" + aria-current="step"
+ * applied in markup). Semantic tokens only.
+ */
+
+.item-runner__progress {
+  font-size: var(--font-size-200);
+  line-height: var(--line-height-base);
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-block-end: var(--space-masthead-to-lede);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  background-color: var(--color-surface-elevated);
+  border-block-end: var(--space-1) solid var(--color-rule-divider);
+}

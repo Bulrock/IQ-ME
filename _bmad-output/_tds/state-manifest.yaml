@@ -8,16 +8,16 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 0526d59db29376e35d2cc3afeea94c760c35caf9aa5cc9c0c2227a6217402fc2
+    sha256: 50071c815d8888284ad9b02291155352f5d522e703391152a2d3ae41807cb4df
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T20:12:09.044Z
-    recorded_by: frontend
+    recorded_at: 2026-05-19T20:21:40.041Z
+    recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 1c4bb5506fa45c32a7ea99b54a6f68c5c2e290d6d3a4e7fb2f5abb2f0d385183
+    sha256: 9b52f8eadeabc5479c60bef1093b08bcdc87b4f6bebddae7a3b3c52fa30b4c33
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T20:21:06.766Z
-    recorded_by: engineer
+    recorded_at: 2026-05-19T20:56:44.684Z
+    recorded_by: frontend
     story_id: 3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
@@ -470,8 +470,36 @@ entries:
     notes: "test-author phase: failing red tests for story 3-3 landing+consent"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed.md
-    sha256: 72abba622ec0afbfeab8c6035f067c483b590c01b1e8be6dc57432679b972498
+    sha256: a22b7df3d206bdc96084f24296c60cd0e10f1aa3625f68374903fcf7b8f5c4dd
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T20:21:06.795Z
-    recorded_by: engineer
+    recorded_at: 2026-05-19T20:56:44.713Z
+    recorded_by: frontend
+    story_id: 3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed
+  - artefact_class: A
+    file: tests/unit/item-prng.test.mjs
+    sha256: d679e74fd2555c4d3da18de00a0e0ea84ea89d83460dbb5332c3dcdb99bd7885
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T20:34:47.262Z
+    recorded_by: test-author
+    story_id: 3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed
+  - artefact_class: A
+    file: tests/unit/item-selection.test.mjs
+    sha256: 11652b2f2061167c0cec458f8a8b438def86da9feced0afba8fc5a31feb4a624
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T20:34:47.379Z
+    recorded_by: test-author
+    story_id: 3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed
+  - artefact_class: A
+    file: tests/unit/item-runner.test.mjs
+    sha256: 8355d0218f8491153c8d5c2c71c333db594cb367a0d8af5d2045d248ca858a60
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T20:34:47.490Z
+    recorded_by: test-author
+    story_id: 3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed
+  - artefact_class: A
+    file: tests/contract/_item-parameters-schema-check.mjs
+    sha256: 20f9b04777752277b78a7a791fd9176dc1d79edd8872956f469580986e97576f
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T20:34:47.602Z
+    recorded_by: test-author
     story_id: 3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed

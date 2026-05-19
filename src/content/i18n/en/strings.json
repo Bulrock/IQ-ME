@@ -17,5 +17,14 @@
     "visuospatialDisclosure": "The matrix items are visual by construction. Screen-reader users cannot take this test equivalently — there is no synthetic alt-text that captures the patterns honestly. We disclose this rather than pretend otherwise.",
     "continueButton": "Continue",
     "notToday": "Not today"
+  },
+  "itemRunner": {
+    "headingTemplate": "Item {N} of {total}",
+    "progressTemplate": "Item {N} of {total}",
+    "optionsLegend": "Select the option that best completes the pattern",
+    "previousButton": "Previous",
+    "nextButton": "Next",
+    "submitButton": "Submit",
+    "fetchErrorMessage": "Could not load the item set. Try reloading."
   }
 }
