@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: ef8fced8a54b17712c2dbed284c5897df842c912fd2074620fcc00cd913dac33
+    sha256: f33cd3d97139a8e33ad8b2f0e6334015045d957f4398fcf076dc27ac7f112295
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:21:27.131Z
+    recorded_at: 2026-05-19T14:31:47.584Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 8bdaa0c95b8c5611de4fe457896a356b28c42a117eb5bae3a172d88f5498d946
+    sha256: a4f005747055f68beb70d882df248b2163809b9b9afa531c773adc678c068426
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:21:20.781Z
+    recorded_at: 2026-05-19T14:37:36.135Z
     recorded_by: engineer
-    story_id: 2-2-implement-quadrature-js-likelihood-js-pure-math-primitives
+    story_id: 2-3-implement-eap-js-eap-estimation
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -264,3 +264,17 @@ entries:
     recorded_by: test-author
     story_id: 2-2-implement-quadrature-js-likelihood-js-pure-math-primitives
     notes: "test-author phase: 2-2 unit tests for quadrature + likelihood primitives"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/2-3-implement-eap-js-eap-estimation.md
+    sha256: 92dbc965fa2bdc2bb37c11f26f0530dae4e53a2e750b7ae250a25e12339a9933
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T14:37:36.159Z
+    recorded_by: engineer
+    story_id: 2-3-implement-eap-js-eap-estimation
+  - artefact_class: A
+    file: tests/unit/scoring/irt/eap.test.mjs
+    sha256: 5f84c288e1dd26867c0ffb1b3a22084bdab09fa4e6e245dfe599f61ef0290742
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T14:33:16.224Z
+    recorded_by: test-author
+    story_id: 2-3-implement-eap-js-eap-estimation
