@@ -8,15 +8,15 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 9c3de415849c475cd99689cf3950cd3e0c75b047130d3841721c5b0306d42516
+    sha256: 4262ab77530c1de9ec2a444233b7370405f8b8e092f146dea7bc6fed9fa2be71
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:37:49.368Z
+    recorded_at: 2026-05-19T14:40:06.942Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 9f47086418b5784676cc178a4ce82c54d9306032c51a471aeee7fc23a2acd2e9
+    sha256: 79b8c54b2eb93a23df1881904da4d1eaf2488d0490551bbfc53c6db9c4c723c4
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:39:57.233Z
+    recorded_at: 2026-05-19T14:42:27.594Z
     recorded_by: engineer
     story_id: 2-4-implement-se-js-standard-error-from-posterior-variance
   - artefact_class: A
@@ -280,8 +280,15 @@ entries:
     story_id: 2-3-implement-eap-js-eap-estimation
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-4-implement-se-js-standard-error-from-posterior-variance.md
-    sha256: 7444984e913d06204adb380bcd784215f406d506d05ee2fd5dc9d2978340ad74
+    sha256: f59a9c4732933de5767ab8a082b9f28a3a74b4d3702b1e4f15b7abe87f43ca28
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T14:39:57.259Z
+    recorded_at: 2026-05-19T14:42:27.621Z
     recorded_by: engineer
+    story_id: 2-4-implement-se-js-standard-error-from-posterior-variance
+  - artefact_class: A
+    file: tests/unit/scoring/irt/se.test.mjs
+    sha256: 2aa6957bdedda9b255e1fbae1c2be209df2a66fac1d201665c3bd49a6bc1da0c
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T14:41:00.293Z
+    recorded_by: test-author
     story_id: 2-4-implement-se-js-standard-error-from-posterior-variance

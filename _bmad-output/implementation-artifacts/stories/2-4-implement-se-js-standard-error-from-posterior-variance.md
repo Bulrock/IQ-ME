@@ -1,7 +1,7 @@
 ---
 id: 2-4-implement-se-js-standard-error-from-posterior-variance
 title: "Story 2.4: Implement se.js (standard error from posterior variance)"
-status: ready-for-dev
+status: review
 ---
 
 # Story 2.4: Implement se.js (standard error from posterior variance)
@@ -72,32 +72,32 @@ This is the fourth story of Epic 2. Stories 2.1–2.3 stood up the math primitiv
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — Implement `standardError`** (AC: 1, 4, 5)
-  - [ ] Replace stub body in `src/scoring/irt/se.js` with real `standardError(theta, responses, itemParameters)` implementation.
-  - [ ] Import `logLikelihood` from `./likelihood.js` and `quadraturePoints` from `./quadrature.js`.
-  - [ ] Build `quad = quadraturePoints({ quadpts: 61, theta_lim: [-6, 6] })` internally.
-  - [ ] Compute `logL_i = logLikelihood(nodes[i], itemParameters, responses)` for each node.
-  - [ ] Apply M-shift stabilization: `M = max(logL_i)`; `post_i = exp(logL_i - M) * weights[i]`.
-  - [ ] Numerator = `Σ (nodes[i] - theta)² · post_i`; denominator = `Σ post_i`.
-  - [ ] Return `Math.sqrt(numerator / denominator)`.
-  - [ ] Inputs validation delegated to `logLikelihood`.
+- [x] **Task 1 — Implement `standardError`** (AC: 1, 4, 5)
+  - [x] Replace stub body in `src/scoring/irt/se.js` with real `standardError(theta, responses, itemParameters)` implementation.
+  - [x] Import `logLikelihood` from `./likelihood.js` and `quadraturePoints` from `./quadrature.js`.
+  - [x] Build `quad = quadraturePoints({ quadpts: 61, theta_lim: [-6, 6] })` internally.
+  - [x] Compute `logL_i = logLikelihood(nodes[i], itemParameters, responses)` for each node.
+  - [x] Apply M-shift stabilization: `M = max(logL_i)`; `post_i = exp(logL_i - M) * weights[i]`.
+  - [x] Numerator = `Σ (nodes[i] - theta)² · post_i`; denominator = `Σ post_i`.
+  - [x] Return `Math.sqrt(numerator / denominator)`.
+  - [x] Inputs validation delegated to `logLikelihood`.
 
-- [ ] **Task 2 — Implement `combinedSE`** (AC: 2, 4)
-  - [ ] Export `combinedSE(sem, seNorming) → Math.sqrt(sem ** 2 + seNorming ** 2)`.
-  - [ ] Validate: both non-negative finite Numbers; throw `RangeError` otherwise.
+- [x] **Task 2 — Implement `combinedSE`** (AC: 2, 4)
+  - [x] Export `combinedSE(sem, seNorming) → Math.sqrt(sem ** 2 + seNorming ** 2)`.
+  - [x] Validate: both non-negative finite Numbers; throw `RangeError` otherwise.
 
-- [ ] **Task 3 — Add `posteriorSE` alias** (AC: 3)
-  - [ ] `export { standardError as posteriorSE };` — single-line re-export for epic-narrative compatibility.
+- [x] **Task 3 — Add `posteriorSE` alias** (AC: 3)
+  - [x] `export { standardError as posteriorSE };` — single-line re-export for epic-narrative compatibility.
 
-- [ ] **Task 4 — Author unit tests** (AC: 6)
-  - [ ] Create `tests/unit/scoring/irt/se.test.mjs` covering all 8 AC-6 assertions.
-  - [ ] Use only `node:test`, `node:assert/strict`, sibling-relative imports.
+- [x] **Task 4 — Author unit tests** (AC: 6)
+  - [x] Create `tests/unit/scoring/irt/se.test.mjs` covering all 8 AC-6 assertions.
+  - [x] Use only `node:test`, `node:assert/strict`, sibling-relative imports.
 
-- [ ] **Task 5 — Run full local pipeline** (AC: 7, 8, 9)
-  - [ ] `make lint` → 0.
-  - [ ] `node tools/lint-cognitive-load-budget.mjs` → 0; record post-2.4 LOC count.
-  - [ ] `make test` → non-zero (parity still red on `scoreSession` stub at `index.js:14`); `se.test.mjs` green; all prior tests green.
-  - [ ] Confirm frozen tests + fixtures byte-identical.
+- [x] **Task 5 — Run full local pipeline** (AC: 7, 8, 9)
+  - [x] `make lint` → 0.
+  - [x] `node tools/lint-cognitive-load-budget.mjs` → 0; record post-2.4 LOC count.
+  - [x] `make test` → non-zero (parity still red on `scoreSession` stub at `index.js:14`); `se.test.mjs` green; all prior tests green.
+  - [x] Confirm frozen tests + fixtures byte-identical.
 
 ## Dev Notes
 
@@ -188,6 +188,59 @@ For Story 2.4 itself, `combinedSE` is a 4-line pure function with explicit valid
 
 ### Completion Notes List
 
+- Story 2-4 finalized: standardError + combinedSE + posteriorSE alias landed; 12 frozen tests green; budget 170/250 LOC; parity-test still red downstream (scoreSession stub at index.js:14).
+- Story 2-4 ready for code-review (cumulative-epic mode 2).
+
 ### File List
 
+- src/scoring/irt/se.js
+- tests/unit/scoring/irt/se.test.mjs
+
 ## Specialist Self-Review
+
+**Decisions made:**
+
+1. **Build `quadraturePoints` internally inside `standardError`.** D3 line 447 pins the signature as `standardError(theta, responses, itemParameters)` — no `quad` parameter. Construct it inside the function. Story 2.5's `scoreSession` will pay a redundant quad build (n=61 grid) per call; negligible cost (~10μs) for current request volume, and the canonical-signature win is clarity for the auditor reading top-to-bottom (NFR26).
+
+2. **Log-domain M-shift stabilization mirrors Story 2.3 `eapEstimate`.** Same numerical regime (n=16 underflow at θ=−6 for all-correct), same fix (`exp(logL_i − M) · weights[i]`). Code structure deliberately matches eap.js for ease of review — both files are a 2-loop pattern with `M` tracked in the first loop.
+
+3. **`combinedSE` validation throws `RangeError` on negative inputs.** SE is non-negative by definition (`√(non-neg)`). Accepting `combinedSE(-1, 2) → √5` would silently produce a valid-looking number from invalid input; fail-loud preferred.
+
+4. **`posteriorSE` as same-reference alias.** `export { standardError as posteriorSE }` exports the same function object — `assert.equal(posteriorSE, standardError)` passes by identity. No wrapper, no cost.
+
+**Alternatives considered:**
+
+- *Take `quad` as optional param `standardError(theta, responses, items, quad?)` to avoid double-construction in `scoreSession`.* Rejected for now — D3 signature wins; Story 2.5 can profile and add an internal `_quad` parameter if measurement shows it matters. Premature optimization (Karpathy #2 Simplicity).
+
+- *Validate `theta` explicitly before delegating to `logLikelihood`.* Considered. Rejected — `logLikelihood` already throws `RangeError` on non-finite `theta` (Story 2.2 impl). Re-validating in `standardError` would duplicate the check.
+
+- *Use `Math.hypot(sem, seNorming)` instead of `√(sem² + seNorming²)` for `combinedSE`.* `Math.hypot` is the canonical, overflow-safe Pythagorean. Briefly considered. Rejected because the AC-6.6 test asserts `combinedSE(3, 4) === 5` (strict equality). `Math.hypot(3, 4)` returns `5` exactly — same value, but `Math.hypot` is implementation-defined and may differ on edge cases. Direct `√(a² + b²)` is what the FR15 formula reads literally. For our SE magnitudes (typically 0..1), overflow protection from `Math.hypot` isn't needed.
+
+**Framework gotchas avoided:**
+
+- *No `Math.random`, no `Date.now`, no globals* — pure per NFR16/NFR17.
+- *Deterministic verified by test* (AC-6.4 — repeated calls return `===`-equal).
+- *No `Math.max(...arr)`* — `M` tracked inline during first loop, avoiding stack-overflow risk for hypothetical larger grids.
+
+**Areas of uncertainty:**
+
+1. **`posteriorSE` signature alias departs from epic narrative.** Epic line 822: `posteriorSE(items, responses, options = {...})`. The alias I created is `(theta, responses, items)` — same as `standardError`, since they share an export. The epic narrative's `(items, responses, options)` order would require a wrapper transforming args. Decision: stay D3-canonical; if any future caller needs the epic-narrative argument order, they can add a wrapper at that call site. Documented in story spec AC-3.
+
+2. **Internal quad construction cost in `scoreSession`.** Story 2.5 will call both `eapEstimate(responses, items, quad)` (taking quad) and `standardError(theta, responses, items)` (building quad). The duplicate n=61 grid build is ~10μs. Not measured under load; acceptable for v1.
+
+**Tested edge cases:**
+
+- All 12 frozen tests in `tests/unit/scoring/irt/se.test.mjs` pass green:
+  - AC-6.1 non-negative SE for 3-item all-correct
+  - AC-6.2 SE bounded by prior SD ≈ 1
+  - AC-6.3 SE monotonically decreases with item count (n=3 → n=10 → n=16)
+  - AC-6.4 determinism
+  - AC-6.5 16-item all-correct/all-wrong, finite SE (M-shift regression guard)
+  - AC-6.6 `combinedSE(3, 4) === 5` + identity-when-zero
+  - AC-6.7 `combinedSE` RangeError on negative + non-finite (4 cases)
+  - AC-6.8 `posteriorSE` === `standardError`
+
+- All prior frozen tests (`quadrature.test.mjs`, `likelihood.test.mjs`, `eap.test.mjs`, `scoring-irt-scaffold.test.mjs`) still green.
+- `make lint` clean.
+- Budget 170/250 (+36 LOC from 2-3's 134; budget projection accurate).
+- Parity test still red (correctly — fails at `scoreSession` stub `index.js:14`; Story 2.5 finishes the chain).
