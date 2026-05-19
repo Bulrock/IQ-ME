@@ -1,7 +1,7 @@
 ---
 id: 1-1-bootstrap-repo-skeleton-makefile
 title: "Story 1.1: Bootstrap repo skeleton + Makefile"
-status: review
+status: approved
 ---
 
 # Story 1.1: Bootstrap repo skeleton + Makefile

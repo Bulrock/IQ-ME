@@ -1,7 +1,7 @@
 ---
 id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
 title: "Story 1.5: Commit BUDGETS.json + lint-cognitive-load-budget.mjs"
-status: review
+status: approved
 ---
 
 # Story 1.5: Commit BUDGETS.json + lint-cognitive-load-budget.mjs

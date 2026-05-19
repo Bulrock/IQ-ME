@@ -1,7 +1,7 @@
 ---
 id: 1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts
 title: "Story 1.10: Design System Foundation — primitives.css + semantic.css + dark-mode overrides + tokens.spec.ts"
-status: review
+status: approved
 ---
 
 # Story 1.10: Design System Foundation

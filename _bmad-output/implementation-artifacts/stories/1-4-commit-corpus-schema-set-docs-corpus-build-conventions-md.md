@@ -1,7 +1,7 @@
 ---
 id: 1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md
 title: "Story 1.4: Commit corpus schema set + docs/corpus-build-conventions.md"
-status: review
+status: approved
 ---
 
 # Story 1.4: Commit corpus schema set + docs/corpus-build-conventions.md
