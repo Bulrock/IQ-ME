@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Bulrock/IQ-ME/corpus/schema.json",
+  "title": "IQ-ME methodology page frontmatter",
+  "description": "Required + optional YAML frontmatter for every src/content/methodology/<lang>/**.md page. Validated at author-time by tools/lint-frontmatter.mjs (Story 4.3).",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "title",
+    "version",
+    "lastReviewed",
+    "reviewer",
+    "reviewerHandle",
+    "asserts",
+    "glossaryRefs",
+    "sourceHashEN"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Page title rendered as <title> and <h1>."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Corpus version this page belongs to (semver). Pinned at author-time; bumped per corpus release per NFR25."
+    },
+    "lastReviewed": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO 8601 date of last reviewer sign-off (NFR29)."
+    },
+    "reviewer": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable name of the reviewer-of-record for this page (per-language; FR49, NFR29)."
+    },
+    "reviewerHandle": {
+      "type": "string",
+      "pattern": "^@[A-Za-z0-9_.-]+$",
+      "description": "GitHub handle (or @TBD-<lang>-reviewer placeholder) of the reviewer-of-record."
+    },
+    "asserts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Methodology claims this page asserts. Cross-referenced with src/scoring/irt/METHODOLOGY_CLAIMS.json by lint-claims-manifest.mjs (NFR23)."
+    },
+    "glossaryRefs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-zA-Z0-9]*$"
+      },
+      "description": "camelCase glossary keys referenced in body text (NFR30 glossary-first)."
+    },
+    "sourceHashEN": {
+      "type": "string",
+      "description": "For RU/PL pages: SHA-256 of the EN-source file this translation was reviewed against (NFR29 stale-translation hatnote). For EN pages: SHA-256 of self (set by build).",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "protected": {
+      "type": "boolean",
+      "description": "Optional. True for FR36-protected pages (validity-envelope, anti-credentialization, bottom-decile-care, etc.) — the version-mismatch hatnote always renders for these regardless of corpus-version pin.",
+      "default": false
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*(/[a-z0-9]+(-[a-z0-9]+)*)*$",
+      "description": "Optional explicit slug; defaults to file path under src/content/methodology/<lang>/."
+    },
+    "pending": {
+      "type": "boolean",
+      "description": "Optional. True for v0.0.1 placeholder pages awaiting Gate 9a-9e resolution; lint-frontmatter skips strict validation when true.",
+      "default": false
+    }
+  }
+}

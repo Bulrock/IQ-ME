@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 4385c016b0f9e1416dffd2e619860c2ea4947f4753bbf4446774b36437573853
+    sha256: c785961336da68256376ad89751fb0cacf58712a6e1920b3c55a1fd7d9c412f5
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T07:36:13.888Z
+    recorded_at: 2026-05-19T08:10:09.670Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 16981bf01be63bb6925afbbed4b1081423286f763263f5165c05cc82b5745ca7
+    sha256: 35e4c5af3b2a2bb8a4135b60bcf65a3cc9a0d4d1ed0828a019b7303cef9cbe05
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T07:57:23.992Z
+    recorded_at: 2026-05-19T08:50:49.140Z
     recorded_by: engineer
-    story_id: 1-3-commit-icar-confirmation-pdf-slot-with-visible-fallback-copy
+    story_id: 1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: fbf3924b00f73153538b321016f62daac1f2a2099e57156790c044b016e6f24b
@@ -70,3 +70,18 @@ entries:
     recorded_by: test-author
     story_id: 1-3-commit-icar-confirmation-pdf-slot-with-visible-fallback-copy
     notes: story-1-3 frozen tests
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md.md
+    sha256: 283838e574bce1d93cee7f62205fe316594f1ed90c36701b890d5618abbfba83
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T08:50:49.163Z
+    recorded_by: engineer
+    story_id: 1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md
+  - artefact_class: A
+    file: tests/scaffold/corpus-schema.test.mjs
+    sha256: cf3e0be1b77c99053b2269aad99239f02da75c4897fb553f963f7406458ac97b
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T08:13:42.157Z
+    recorded_by: test-author
+    story_id: 1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md
+    notes: story-1-4 frozen tests

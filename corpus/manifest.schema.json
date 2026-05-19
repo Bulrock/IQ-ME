@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Bulrock/IQ-ME/corpus/manifest.schema.json",
+  "title": "corpus/manifest.json contract",
+  "description": "Per-corpus-release pin manifest. Declares which item-bank version this corpus revision is locked against and whether the bank is frozen (cropping-fuzzer gate per Story 6.6 / Murat's bank-frozen-flag discipline).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["corpusVersion", "itemBankVersion", "lockedAtCorpusVersion", "bankFrozen"],
+  "properties": {
+    "corpusVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "The corpus-release version this manifest describes (per NFR25 versioning)."
+    },
+    "itemBankVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Item-bank version pin. Bumping requires a corresponding bump of corpusVersion and a refresh of every translated content sourceHashEN (NFR29)."
+    },
+    "lockedAtCorpusVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "The corpusVersion at which the item-bank was last frozen. If this matches corpusVersion, the bank is current; if it lags, the corpus has been re-emitted without a bank change."
+    },
+    "bankFrozen": {
+      "type": "boolean",
+      "default": false,
+      "description": "When true, no item-bank modifications are permitted for this corpus release; the Story 6.6 cropping-fuzzer is required to have already exercised the bank. Set true at release-tag time by tools/release.mjs (Epic 8)."
+    },
+    "releaseTagSha": {
+      "type": ["string", "null"],
+      "description": "Optional. The git tag SHA-256 corresponding to this corpus release (populated by Epic 8 release workflow)."
+    },
+    "archival": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "zenodoDoi": { "type": ["string", "null"] },
+        "internetArchiveUrl": { "type": ["string", "null"] },
+        "softwareHeritageId": { "type": ["string", "null"] }
+      },
+      "description": "Archival anchors per NFR18 / NFR25 (Epic 8 populates)."
+    }
+  }
+}
