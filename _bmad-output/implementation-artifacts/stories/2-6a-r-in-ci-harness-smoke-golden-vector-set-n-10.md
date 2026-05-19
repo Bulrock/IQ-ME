@@ -267,3 +267,23 @@ This story is the convergence point — it lands the gate. The CHANGELOG v1.0 en
 **Post-merge follow-up (out of this story's scope, per AC-6 + Task 7):**
 
 User manually dispatches `golden-regen` workflow once after merge → captures outcome → updates `CHANGELOG.md` v1.0 entry with measured drifts. If Large-Divergence outcome surfaces, file a bridge story for quadrature method investigation.
+
+## Auditor Findings (round-1)
+
+### [info] Smoke-set parity claim is self-circular until first R-mirt CI dispatch.
+`tests/golden/vectors-smoke.json` was regenerated against the JS engine
+in Story 2.5; `tests/unit/scoring/irt/parity.test.mjs` therefore passes
+by construction. Third-party validation gate (R 4.4.x + mirt 1.41.x with
+`set.seed(20260514)`) lands as `.github/workflows/golden-regen.yml` but
+first dispatch is deferred post-merge per AC-6 + Task 7 (R runtime not
+available locally). Status is honestly disclosed in CHANGELOG v1.0
+placeholder and Story 2.5 self-review Areas of uncertainty #1.
+
+
+- **Category:** deferred-validation
+- **Suggested bridge:** `Post-merge: user manually dispatches `golden-regen` workflow (smoke mode)
+once; updates `tests/golden/CHANGELOG.md` v1.0 entry with measured
+drifts. If Large-Divergence outcome surfaces (max drift > 1e-2 logits),
+file bridge story for quadrature method investigation per Story 2.1
+spec line 153 audit-win pattern.
+`
