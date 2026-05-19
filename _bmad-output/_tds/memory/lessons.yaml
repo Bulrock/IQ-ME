@@ -300,3 +300,83 @@ lessons:
     severity: low
     status: active
     superseded_by: null
+  - id: lesson-2026-05-19-013
+    created_during: epic-3
+    created_at: 2026-05-19T23:17:49.077Z
+    created_by: writer
+    story_refs:
+      - 3-2-implement-state-js-contract-test
+    category: process
+    tags:
+      - tds-cli
+      - integrity
+      - state-sweep
+      - sweep-resurrection
+    summary: Direct YAML edits to state-manifest.yaml can be silently undone by next tds state-commit sweep re-recording the path
+    lesson: "Story-3-2 round-1 resolution removed a stale integrity entry for `tests/scaffold/story-3-1-marker.test.mjs` via direct YAML edit (no `tds integrity remove` CLI exists). The auditor resolution note declared the removal complete, but the entry is back in `state-manifest.yaml` at epic-3 close (recorded_at 2026-05-19T17:16:25Z — after the round-1 fix). Hypothesis: a later `tds state-commit` sweep treated the on-disk-but-deleted-file as a dirty TDS-managed path and re-recorded it. Lesson: any direct manual edit to `_tds/state-manifest.yaml` must be verified after the next sweep — read the YAML back and confirm the intended row is still absent. If the row is resurrected, the deletion path is fighting the sweep heuristic and a real CLI affordance is needed (see bridge B1)."
+    avoid_pattern: Edit state-manifest.yaml directly to remove a stale integrity entry, write "Resolved" in the spec, move on without re-verifying after the next state-commit sweep
+    preferred_pattern: "After direct state-manifest.yaml edit: (1) run `tds state-commit` for the surrounding work, (2) re-grep `state-manifest.yaml` for the removed path, (3) if the path resurrected, escalate to a `tds integrity remove` bridge story rather than fighting the sweep"
+    severity: high
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-19-014
+    created_during: epic-3
+    created_at: 2026-05-19T23:18:02.300Z
+    created_by: writer
+    story_refs:
+      - 3-6-author-3-en-methodology-stub-pages-the-click-targets
+    category: technical
+    tags:
+      - node-test
+      - parallel
+      - flake
+      - filesystem-fixture
+      - dist
+    summary: Tests sharing a filesystem fixture path (dist/) race under default node:test parallelism; per-test mkdtempSync + env-var output override eliminates the flake
+    lesson: 'Story-3-6 round-1 blocker: `tests/scaffold/build-methodology-output.test.mjs` and `tests/unit/dev-server.test.mjs` both touched repo-root `dist/`; the build-methodology test unconditionally `rmSync`d `dist/` in setup AND `finally`. Under default node:test file-parallelism (workers ≈ CPU count) this raced ~75% of `make test` runs. Fix: per-test temp dir via `mkdtempSync(join(tmpdir(), "iqme-build-meth-"))` + env-var output override (`IQME_BUILD_METHODOLOGY_OUT`) consumed by the build tool. The complementary consumer test (`dev-server.test.mjs`) was already read-only with a `t.skip()` guard, which is the correct counterpart pattern. Generalizable: any test that writes to a sibling-test artefact must use a per-invocation temp path; no test ever `rmSync`s a shared fixture directory.'
+    avoid_pattern: 'Hardcode `const DIST = join(repoRoot, "dist")` in setup + finally with `rmSync({ recursive: true, force: true })`; assume "make test runs serially in practice"'
+    preferred_pattern: '`const DIST = mkdtempSync(join(tmpdir(), "feature-name-"))` in setup; pass via env var (`FEATURE_OUTPUT_DIR=$DIST`) to the SUT; cleanup `rmSync(DIST)` only on the per-test path. Read-side tests: `t.skip()` if shared fixture absent, never write to it'
+    severity: medium
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-19-015
+    created_during: epic-3
+    created_at: 2026-05-19T23:18:15.715Z
+    created_by: writer
+    story_refs:
+      - 3-2-implement-state-js-contract-test
+    category: process
+    tags:
+      - story-spec
+      - acceptance-criteria
+      - artefact-deletion
+      - integrity
+      - handoff
+    summary: Stories that delete a previous storys class-A artefact must include an explicit integrity-cleanup task in Acceptance Criteria; implicit deletion leaves a phantom integrity entry
+    lesson: 'Story-3-1 authored `tests/scaffold/story-3-1-marker.test.mjs` as a defense-in-depth state-machine marker (class-A integrity-recorded). Story-3-2 Task 5.1 deleted that marker as part of its scope, but the AC list named only the deletion of the file — not the integrity-registry cleanup. The auditor surfaced this as a round-1 blocker (no `tds integrity remove` CLI exists, so the cleanup is manual YAML editing). Lesson: when authoring a story spec whose scope deletes a class-A artefact recorded under a previous story, the AC list MUST include a paired "remove the integrity entry for <path>" task with explicit role attribution (engineer, since deletion is code-write side). Otherwise the deletion ships green on its own tests but `tds deliver`s pre-merge integrity-verify gate refuses the epic squash.'
+    avoid_pattern: Story spec lists "delete tests/scaffold/<previous-story-marker>.test.mjs as part of Task 5" without paired integrity-cleanup task; auditor catches the phantom integrity entry at code-review time
+    preferred_pattern: "Story spec AC checklist contains: `[ ] AC-N: Delete tests/scaffold/<path> (engineer)` + `[ ] AC-N+1: Remove integrity entry for tests/scaffold/<path> from state-manifest.yaml; tds integrity verify --as=auditor returns failed=<expected-N> (engineer)`. Both ride into the same state-commit sweep"
+    severity: medium
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-19-016
+    created_during: epic-3
+    created_at: 2026-05-19T23:18:29.986Z
+    created_by: writer
+    story_refs:
+      - 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
+      - 3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice
+    category: technical
+    tags:
+      - byte-budget
+      - nfr32
+      - cognitive-load
+      - shared-util
+      - html-escape
+    summary: Two consecutive byte-budget near-misses within one epic signal that the budget needs re-evaluation OR that a shared utility should be extracted, not that the next story should also "squeeze it in"
+    lesson: 'Epic-3 brushed the `app-modules-bytes` 30720 budget twice: story-3-5 closed at 30715/30720 (5 bytes headroom); story-3-7 reclaimed 97 bytes via main.js comment-collapse + test-hook.js exclude. The 3-5 self-review §uncertainty #1 flagged a candidate shared `_html-escape.js` util duplicated across 5+ modules. Pattern: a budget that requires comment-stripping and exclusion tweaks to fit is no longer a clean cognitive-load signal — it is a refactor signal. Verifiable: track byte-budget delta as an SLI in retro alongside test count + lint count; two consecutive stories within Δ < 1% of cap trigger a "refactor or revise" decision in retro, not a "next story also squeezes" assumption.'
+    avoid_pattern: Story-N closes 5 bytes under cap; specialist self-review notes "shared util would help"; next story has to find clever comment-strip tricks to fit; pattern repeats next epic
+    preferred_pattern: 'When stories within Δ < 1% of a byte/perf budget for 2+ consecutive ships, retro emits a Bridge Plan item: "refactor shared util OR revise the budget" before proceeding to next epic. Track headroom (bytes-free / budget) as an SLI per retro'
+    severity: low
+    status: active
+    superseded_by: null

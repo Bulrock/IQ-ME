@@ -77,7 +77,7 @@ development_status:
   3-6-author-3-en-methodology-stub-pages-the-click-targets: done
   3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice: done
   3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording: done
-  epic-3-retrospective: optional
+  epic-3-retrospective: done
   epic-4: backlog
   4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit: backlog
   4-2-byte-stable-build-assertion-golden-html-snapshots: backlog
