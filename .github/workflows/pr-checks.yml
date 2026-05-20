@@ -167,10 +167,15 @@ jobs:
   co-equal-triplet-computed-style:
     name: co-equal-triplet-computed-style
     runs-on: ubuntu-latest
-    # Activates in Epic 3
-    if: false
+    # Activated in Story 6.1 (Epic 6) — runtime computed-style assertion graduates Story 3.5 CSS-source lint per Murat two-tier defense
     steps:
-      - run: echo "stub — Activates in Epic 3 (Story 3.5)"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: make build-methodology
+      - run: npx --yes playwright test tests/playwright/co-equal-triplet-computed-style.spec.mjs
 
   co-equal-triplet-css-source:
     name: co-equal-triplet-css-source
@@ -183,10 +188,15 @@ jobs:
   reveal-stage-event-ordering:
     name: reveal-stage-event-ordering
     runs-on: ubuntu-latest
-    # Activates in Epic 3
-    if: false
+    # Activated in Story 6.1 (Epic 6) — full 6-stage ADR-3-1 sequence event-ordering Playwright spec
     steps:
-      - run: echo "stub — Activates in Epic 3"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: make build-methodology
+      - run: npx --yes playwright test tests/playwright/reveal-stage.spec.mjs
 
   csp-violation-count:
     name: csp-violation-count

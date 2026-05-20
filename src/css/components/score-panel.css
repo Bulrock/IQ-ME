@@ -25,6 +25,11 @@
 .score-panel__anchor,
 .score-panel__percentile,
 .score-panel__band {
+  /* Co-equal triplet: equal font + equal flex-basis so visual area parity
+     holds across content lengths (Story 6.1 AC-4 runtime computed-style
+     invariant; Story 3.5 source lint enforces the typography axes). */
+  flex: 1 1 0;
+  text-align: center;
   font-size: var(--font-size-600);
   font-weight: var(--font-weight-regular);
   font-family: var(--font-family-sans);

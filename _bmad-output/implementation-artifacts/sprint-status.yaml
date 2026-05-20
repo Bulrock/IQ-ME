@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-20 bridge-6-7-3-restore-carry-forward-lessons: done'
+last_updated: '2026-05-20 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -106,8 +106,8 @@ development_status:
   # Bridge 5→6: 1 story from 1 retro
   bridge-5-6: done
   bridge-5-6-1-extend-sweep-auto-record: done           # Extend sweep auto-record to sprint-status.yaml + emit autorecord telemetry event
-  epic-6: backlog
-  6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion: backlog
+  epic-6: in-progress
+  6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion: review
   6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile: backlog
   6-3-mid-session-bail-out-with-discard-continue-choice: backlog
   6-4-chrome-components-chrome-header-chrome-footer-theme-toggle: backlog

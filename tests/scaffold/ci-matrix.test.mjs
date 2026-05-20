@@ -96,6 +96,12 @@ const EPIC_1_ACTIVE = new Set([
   // lint-fr36-protection activated in Story 5.2 — FR36 protects the
   // "what this instrument does not measure" page from silent shortening.
   "lint-fr36-protection",
+  // co-equal-triplet-computed-style activated in Story 6.1 — runtime computed-style
+  // assertion graduates Story 3.5 CSS-source lint per Murat two-tier defense.
+  "co-equal-triplet-computed-style",
+  // reveal-stage-event-ordering activated in Story 6.1 — full 6-stage ADR-3-1
+  // sequence event-ordering Playwright spec.
+  "reveal-stage-event-ordering",
 ]);
 
 function loadPrChecks() {

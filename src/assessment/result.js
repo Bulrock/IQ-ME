@@ -16,7 +16,7 @@ const beat = (s) => `<section class="result-scene" data-reveal-stage="anchor"><h
 function panel(s, sc) {
   const p = Math.round(sc.percentile), a = sc.iqScale;
   const h = Math.round((sc.displayedBand.upper - sc.displayedBand.lower) / 2 * 15);
-  return `<section class="result-scene" data-reveal-stage="handoff"><h2 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h2><section class="score-panel" aria-labelledby="score-panel-heading"><p class="score-panel__caveat" role="note">${E(s.caveat)}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }))}</div></section></section>`;
+  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h2 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h2><section class="score-panel" aria-labelledby="score-panel-heading"><p class="score-panel__caveat" role="note">${E(s.caveat)}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }))}</div></section></section>`;
 }
 
 function on(el, type, fn) {
@@ -62,7 +62,11 @@ export async function render(rootEl, strings) {
     detach(); m.ls = [];
     rootEl.innerHTML = panel(strings.result, score);
     bindTriplet(rootEl);
-    rs.dispatchStage("handoff");
+    rs.dispatchStage("band");
+    rs.dispatchStage("interval");
+    rs.dispatchStage("context");
+    rs.dispatchStage("tail-scene");
+    rs.dispatchStage("methodology-handoff");
   });
   on(rootEl.querySelector(".rs-not"), "click", () => {});
   rs.dispatchStage("anchor");

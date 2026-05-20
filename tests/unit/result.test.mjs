@@ -252,7 +252,7 @@ test("AC-9.2: render dispatches iqme:reveal-stage with detail.stage='anchor' on 
 
 // ─── AC-9.3: Show-me transitions to handoff + replaces DOM + dispatches event ──
 
-test("AC-9.3: clicking Show-me transitions data-reveal-stage='handoff', renders score panel, dispatches second reveal-stage event", async () => {
+test("AC-9.3: clicking Show-me transitions data-reveal-stage='methodology-handoff', renders score panel, dispatches remaining 5 reveal-stage events [graduated 6.1]", async () => {
   assert.equal(importError, null);
   seed16Responses();
   resetWindowLocation();
@@ -264,11 +264,15 @@ test("AC-9.3: clicking Show-me transitions data-reveal-stage='handoff', renders 
   transitionToHandoff(root);
   const scene = root.querySelector(".result-scene");
   assert.ok(scene, ".result-scene must still exist post-transition");
-  assert.equal(scene.attrs["data-reveal-stage"], "handoff", "scene must be at data-reveal-stage='handoff'");
+  assert.equal(scene.attrs["data-reveal-stage"], "methodology-handoff", "scene must be at data-reveal-stage='methodology-handoff' (graduated 6.1)");
   const panel = root.querySelector(".score-panel");
   assert.ok(panel, ".score-panel must exist post-Show-me");
-  assert.equal(events.length, 2, `exactly two reveal-stage events expected; got ${events.length}`);
-  assert.equal(events[1].detail.stage, "handoff");
+  assert.equal(events.length, 6, `exactly six reveal-stage events expected (anchor + band + interval + context + tail-scene + methodology-handoff); got ${events.length}`);
+  assert.deepEqual(
+    events.map((e) => e.detail.stage),
+    ["anchor", "band", "interval", "context", "tail-scene", "methodology-handoff"],
+    "full ADR-3-1 6-stage sequence expected",
+  );
 });
 
 // ─── AC-9.4: score-panel DOM structure + ordering ────────────────────────

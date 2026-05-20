@@ -1,0 +1,10 @@
+{
+  "stages": {
+    "anchor": { "dwellMs": 600 },
+    "band": { "dwellMs": 600 },
+    "interval": { "dwellMs": 600 },
+    "context": { "dwellMs": 600 },
+    "tail-scene": { "dwellMs": 600 },
+    "methodology-handoff": { "dwellMs": 600 }
+  }
+}
