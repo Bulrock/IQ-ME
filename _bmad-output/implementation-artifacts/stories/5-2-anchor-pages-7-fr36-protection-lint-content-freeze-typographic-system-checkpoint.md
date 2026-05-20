@@ -1,7 +1,7 @@
 ---
 id: 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
 title: "Story 5.2: Anchor pages (7) + FR36-protection lint + content-freeze typographic-system checkpoint"
-status: review
+status: done
 tds:
   primary_specialist: frontend
   story_tags:

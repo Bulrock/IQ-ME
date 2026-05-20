@@ -1,7 +1,7 @@
 ---
 id: 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
 title: "Story 5.1: Methodology-page-chrome CSS additions + validity-envelope-diagram asset"
-status: review
+status: done
 tds:
   primary_specialist: frontend
   story_tags:

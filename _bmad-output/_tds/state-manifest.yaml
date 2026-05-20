@@ -8,10 +8,10 @@ entries:
     recorded_by: frontend
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: e51061031dea88fd0d2ebb387a20c76d36e469b70e370844be25940c38683b06
+    sha256: 428ee4d1db9c0ab0dcd899c180e5044c3d92624a6600b0645e1c51b5eab1a8e6
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:07:42.294Z
-    recorded_by: state-commit-autorecord
+    recorded_at: 2026-05-20T12:09:42.998Z
+    recorded_by: engineer
     story_id: 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
@@ -880,11 +880,11 @@ entries:
     story_id: bridge-5-6-1-extend-sweep-auto-record
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset.md
-    sha256: 99c507de038e1d05a17ef3ab7a54d48d58e3f0c99d7b1f81b9558ab2757aed20
+    sha256: f63f5dcd5cd0c842a1df2630ab52a5ea58f5e473504f50a01be98cee2e8ee094
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:41:59.180Z
+    recorded_at: 2026-05-20T12:09:41.729Z
     recorded_by: engineer
-    notes: Re-register spec files after auditor add-findings appended round-1/round-2 sections (auto-commit shipped but integrity registry not bumped by add-findings handler)
+    story_id: 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
   - artefact_class: A
     file: tests/scaffold/methodology-chrome-css.test.mjs
     sha256: d63d3b61b5ee50e28fe0da4a3018af7bbeee5e844385740a0d0af2640f6fc856
@@ -895,11 +895,11 @@ entries:
     notes: "story 5-7 test-author: extend with Phase-2 component tests"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint.md
-    sha256: a2d20f6a1a02222cb625a81814beb3ff4b2d9c5e95f0e57fc27519e01503bea9
+    sha256: 17840b0570923a7d19aa1fba19192b32eb0e34b47881026f2f36dfb9691528ee
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:44:37.925Z
-    recorded_by: state-commit-autorecord
-    notes: Re-register spec files after auditor add-findings appended round-1/round-2 sections (auto-commit shipped but integrity registry not bumped by add-findings handler)
+    recorded_at: 2026-05-20T12:09:41.936Z
+    recorded_by: engineer
+    story_id: 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
   - artefact_class: A
     file: tests/scaffold/anchor-pages.test.mjs
     sha256: 1aa64bb1e75eb1f7ede4d6faed12610095d1d0872fef918b3486347829a54235
@@ -926,31 +926,31 @@ entries:
     notes: "story 5-2 test-author phase: anchor-pages scaffold + FR36 lint tests + typographic-freeze contract"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-3-constructs-4-remaining-limitations-3-remaining.md
-    sha256: 7ac2ff6e4ac41c2b3f5b59cec8655b2a491bbb410ac27c27c899c74d87421018
+    sha256: 87a796575566cca1118f79a96eb087d4283b72dee2cb2450fc859a8251d6a4a7
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:06:27.554Z
-    recorded_by: frontend
+    recorded_at: 2026-05-20T12:09:42.179Z
+    recorded_by: engineer
     story_id: 5-3-constructs-4-remaining-limitations-3-remaining
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-4-scoring-4-remaining-norming-3.md
-    sha256: 8292e53cdd0429f614f69b22e20c2de0626fdc3092399c93a9bd00e9ee181ae8
+    sha256: ef1220e85085599f59b02098f14358d59020914996fbc91de13d480e046b206f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:44:37.925Z
-    recorded_by: state-commit-autorecord
-    notes: Re-register spec files after auditor add-findings appended round-1/round-2 sections (auto-commit shipped but integrity registry not bumped by add-findings handler)
+    recorded_at: 2026-05-20T12:09:42.403Z
+    recorded_by: engineer
+    story_id: 5-4-scoring-4-remaining-norming-3
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining.md
-    sha256: 98b68bcc16ed20b7aea067f3c9027eb0df103e1289463fcce30f2c9ffecd2333
+    sha256: f961caeb7ed233a95df7bf23c1e74906da81ef575d1d7603f5f92ecd723cf780
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:44:37.925Z
-    recorded_by: state-commit-autorecord
-    notes: Re-register spec files after auditor add-findings appended round-1/round-2 sections (auto-commit shipped but integrity registry not bumped by add-findings handler)
+    recorded_at: 2026-05-20T12:09:42.610Z
+    recorded_by: engineer
+    story_id: 5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd.md
-    sha256: 1d2e41a98f989e4517df34c0b0b3c9c01f5258ad033c7b47031c6c6c48d5a085
+    sha256: 57c53986fc6681b3953118ff0b57bcef060b66473fb041e30d95ca90ab36cbec
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:23:17.396Z
-    recorded_by: frontend
+    recorded_at: 2026-05-20T12:09:42.821Z
+    recorded_by: engineer
     story_id: 5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd
   - artefact_class: A
     file: tests/scaffold/crisis-resources.test.mjs
@@ -962,8 +962,8 @@ entries:
     notes: "story 5-6 test-author: tail-scene + crisis-resources scaffold"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows.md
-    sha256: 45c420308affe35a973b903d1a6546153e329246c3e69f8b90616bc77034f6e1
+    sha256: b6555b2b2e17626eafc67b46623114236423469e1d2d5fc3cda3318a5fb10143
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:41:59.181Z
+    recorded_at: 2026-05-20T12:09:43.031Z
     recorded_by: engineer
-    notes: Re-register spec files after auditor add-findings appended round-1/round-2 sections (auto-commit shipped but integrity registry not bumped by add-findings handler)
+    story_id: 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows

@@ -1,7 +1,7 @@
 ---
 id: 5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd
 title: "Story 5.6: Tail Scenes EN placeholders (reviewer-of-record TBD)"
-status: review
+status: done
 tds:
   primary_specialist: frontend
   story_tags:

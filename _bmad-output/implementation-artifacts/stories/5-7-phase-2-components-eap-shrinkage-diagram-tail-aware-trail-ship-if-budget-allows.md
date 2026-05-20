@@ -1,7 +1,7 @@
 ---
 id: 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows
 title: "Story 5.7: Phase-2 components (eap-shrinkage-diagram + tail-aware-trail) — ship-if-budget-allows"
-status: review
+status: done
 tds:
   primary_specialist: frontend
   story_tags:
