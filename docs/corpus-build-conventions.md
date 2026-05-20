@@ -8,6 +8,8 @@ Every time the corpus changes meaningfully, we tag a new `corpus-v<X>.<Y>.<Z>`. 
 
 The corollary: **changing a single page bumps `corpusVersion` and re-emits all pages**. This is the price of citation stability. The byte-stable build assertion (Story 1.8 / Epic 4) catches accidental non-determinism in the re-emit.
 
+Tests that exercise the build pipeline must follow the [test-isolation convention](test-isolation.md) (mkdtempSync + `IQME_<SCOPE>_OUT` env-var override) to avoid racing on the shared `dist/` surface.
+
 ## Block-level content-key parity (NFR27)
 
 Every block-level construct in an EN methodology page (heading, paragraph, code fence, list item) carries an implicit content-key derived from its position. The RU and PL translations of that page MUST contain a matching block at the same position. The `lint-translation-parity.mjs` script (Story 4.7 — no-op stub at v0.0.1, full implementation in Epic 7) walks the EN tree and asserts every block has a counterpart in every translated tree.

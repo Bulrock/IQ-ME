@@ -85,3 +85,7 @@ candidates:
 - ADRs frozen this epic: [docs/adr/state-shape-contract.md](../../../docs/adr/state-shape-contract.md), [docs/adr/reveal-stage-event-contract.md](../../../docs/adr/reveal-stage-event-contract.md), [docs/adr/methodology-handoff-url-contract.md](../../../docs/adr/methodology-handoff-url-contract.md), [docs/adr/release-tag-namespace-contract.md](../../../docs/adr/release-tag-namespace-contract.md)
 - Epic merge commits: 46bb04e, e76837c, a0ae900 (PRs #6 + #7)
 - Previous retros: [retro-epic-1.md](retro-epic-1.md), [retro-epic-2.md](retro-epic-2.md), [retro-bridge-1-2.md](retro-bridge-1-2.md)
+
+## Applied to bridge: bridge-4-5 @ 2026-05-20T09:05:27.285Z
+
+Bridge Plan candidates B1 (3-2) consolidated into `bridge-4-5-1-tds-integrity-remove-cli`. B2 (3-6) → `bridge-4-5-2-convention-doc-for-filesystem`. B3 (3-5 noscript) + B4 (3-5 byte-budget) deferred per auditor refinement — see [`_bridge-plan-20260520T090442Z.md`](_bridge-plan-20260520T090442Z.md) for rationale.

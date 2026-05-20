@@ -380,3 +380,63 @@ lessons:
     severity: low
     status: active
     superseded_by: null
+  - id: lesson-2026-05-20-001
+    created_during: epic-4
+    created_at: 2026-05-20T08:53:56.491Z
+    created_by: auditor
+    story_refs:
+      - 4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template
+      - 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
+    category: process
+    tags:
+      - bmad
+      - story-spec
+      - self-review
+      - process-discipline
+    summary: "Self-review prose must be committed inline in spec under ## Specialist Self-Review, never to /tmp/self-review-N.md"
+    lesson: "When a Specialist Self-Review is needed before status flip, the prose must be written into the spec md under the ## Specialist Self-Review heading and committed with the rest of the story changes. Writing to /tmp/self-review-N.md leaves the spec carrying a dangling pointer to an ephemeral file (lost on next reboot or cleanup); the audit trail is broken even though the original review existed. Two epic-4 stories (4-6, 4-7) hit this pattern — auditor caught both as [info]/process-discipline findings. Cost to fix at story-time is one Edit; cost to fix retro-time is reconstructing from memory."
+    avoid_pattern: Dev Agent Record references "self-review at /tmp/self-review-4-6.md" without inline section in spec
+    preferred_pattern: "Paste self-review prose under ## Specialist Self-Review heading in the story md before tds story update --status=review"
+    severity: medium
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-20-002
+    created_during: epic-4
+    created_at: 2026-05-20T08:54:06.336Z
+    created_by: auditor
+    story_refs:
+      - 4-3-lint-frontmatter-lint-claims-manifest-strict-graduation
+      - 4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment
+    category: process
+    tags:
+      - bmad
+      - story-spec
+      - file-list
+      - spec-hygiene
+    summary: "Dev Agent Record ### File List must mirror the Specialist Self-Review file list before status flip"
+    lesson: "Story specs use two separate file-list sections: ### File List under ## Dev Agent Record (BMAD-canonical) and a parallel file list inside ## Specialist Self-Review. When the engineer populates only the Self-Review list and leaves the Dev Agent Record File List empty, the spec carries inconsistent signal — automated tooling that reads Dev Agent Record (e.g., future tds story status --file-list extractors) sees nothing, while a human reading the same spec sees the correct list further down. Twice in epic-4 (4-3, 4-8) the section was left empty despite an accurate Self-Review file list. The fix is mechanical (copy-paste before --status=review). Future direction: consolidate to one canonical location."
+    avoid_pattern: "Specialist Self-Review lists 9 files; ### File List under ## Dev Agent Record is empty"
+    preferred_pattern: "Copy the Self-Review file list into ### File List immediately before tds story update --status=review"
+    severity: low
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-20-003
+    created_during: epic-4
+    created_at: 2026-05-20T08:54:22.310Z
+    created_by: auditor
+    story_refs:
+      - 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
+    category: technical
+    tags:
+      - architecture
+      - forward-design
+      - i18n
+      - stable-contract
+      - bmad
+    summary: Forward-design infrastructure stubs with stable contracts preserve cross-epic stability — plant the affordance now, content lights up later
+    lesson: 'Story 4-7 shipped multi-locale walk (LOCALES = [en, ru, pl]), EN-source-hash hook, stale-translation hatnote component, and lint-translation-parity stub — all at Epic-4 close — while RU/PL trees remain .gitkeep-only until Epic-7. The contract (body-only SHA-256, parity gate logic, lint exit codes, hatnote CSS data-attribute) is frozen now and Epic-7 only flips on the content. This is the counter-pattern to the Epic-2 anti-pattern (lesson-2026-05-19-010 — mid-implementation identifier transformation creating decision-debt). Cost: one round of stub design + WARN-mode no-op lint = ~1 day. Payoff: zero rename churn at content-arrival, zero re-litigation of the parity algorithm, zero "what was the Epic-4 hatnote DOM shape" archaeology. Validates as a deliberate pattern: when an epic will revisit a surface in N epics, plant the structurally-complete stub with the production contract NOW and gate it on content presence.'
+    avoid_pattern: Ship only EN code paths; defer multi-locale loop, hash hook, and parity lint to Epic-7 → renames + DOM shape changes ripple across all EN snapshots, lint contract relitigated
+    preferred_pattern: Ship the iteration loop, the contract-bearing helpers, and a WARN-mode lint stub in the foundation epic; gate behavior on data presence (e.g., RU/PL .gitkeep-only) so EN paths are unaffected until content lands
+    severity: medium
+    status: active
+    superseded_by: null

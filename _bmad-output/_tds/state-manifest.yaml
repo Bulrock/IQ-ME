@@ -1,24 +1,18 @@
 schema_version: "1.0"
-tds_meta:
-  profile: full
-  branch_mode: branch
-  installed_at: 2026-05-14T18:16:29.340Z
-  installed_by: maksim
-  archived_phases: []
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: a24f6127f32629d579b622e91f2f331e5db751bba59efb85945c92f19a9c297f
+    sha256: a3c8e0f3fe2f1b2b6bb31ed4bee247263d3f6ddcf3e60fb19e44fddf03e45f6f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T08:44:47.459Z
+    recorded_at: 2026-05-20T09:39:02.519Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: a1707eecc89e7555de482b5be40699866984a0e5a94e40ca75f0864a20bdb5a7
+    sha256: 9a31cf20ce59f0cf608b9aeb2fe8ecd270b3ce40cdf4bab99cd974c86d7717e5
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T08:44:11.904Z
+    recorded_at: 2026-05-20T09:45:07.011Z
     recorded_by: auditor
-    story_id: epic-4
+    story_id: bridge-4-5
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -36,10 +30,10 @@ entries:
     notes: story-1-1 frozen failing tests
   - artefact_class: A
     file: _bmad-output/_tds/memory/lessons.yaml
-    sha256: e26659926749c32015a572be85056bf4415dc0d563707928db179764a9f6a090
+    sha256: f27a75b0fb934984d46f3262e89916762f8ad2dcdeb57a62f13e9f212a8d84b7
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:18:30.008Z
-    recorded_by: writer
+    recorded_at: 2026-05-20T08:54:22.350Z
+    recorded_by: auditor
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners.md
     sha256: a19c34449eed4a1a0c2b6c2999f05e1da8af998e85a999ac031762509bb12808
@@ -191,10 +185,10 @@ entries:
     notes: story-1-10 frozen failing tests
   - artefact_class: A
     file: _bmad-output/_tds/sprint-status-extension.yaml
-    sha256: 5b70790912d70a5ffdb801493d9536e631d6c23e7cb7d93a1ffcc9fd03e34e08
+    sha256: b2fd1497cd7a5b0f765d065c746bc25444cd3c4ecbefc26d9c48f4b0e2970439
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T08:44:04.427Z
-    recorded_by: setup
+    recorded_at: 2026-05-20T09:05:27.270Z
+    recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-1-2-1-add-tds-story-unfreeze.md
     sha256: 736203a0f8ece51876f0512df119276359cda06ce3d86815a0259bd5db148a63
@@ -202,14 +196,6 @@ entries:
     recorded_at: 2026-05-19T11:54:06.144Z
     recorded_by: auditor
     story_id: bridge-1-2-1-add-tds-story-unfreeze
-  - artefact_class: A
-    file: ../bmad-tds-module/src/cli/__tests__/bridge-1-2-1-unfreeze-tests.test.ts
-    sha256: 9cd8f65e91eed7789a058523323926f477f0ce716319186f3f18123a61ab1002
-    canonical_form: raw-bytes
-    recorded_at: 2026-05-19T11:10:53.516Z
-    recorded_by: test-author
-    story_id: bridge-1-2-1-add-tds-story-unfreeze
-    notes: test-author red-phase scaffold for bridge-1-2-1
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test.md
     sha256: 92314cf23f680f00b66c289411a1c8dd65e7282480394da253e4295518f4e8fa
@@ -383,19 +369,11 @@ entries:
     recorded_by: engineer
     story_id: 3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url
   - artefact_class: A
-    file: tests/scaffold/story-3-1-marker.test.mjs
-    sha256: b1da14131d457049c04e924b73c8652f211053039c791076c7a5335b4734b84a
-    canonical_form: raw-bytes
-    recorded_at: 2026-05-19T17:16:25.000Z
-    recorded_by: test-author
-    story_id: 3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url
-    notes: story-3-1 procedural marker (AC-6 doc-only story; state-machine defense-in-depth gate)
-  - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-2-implement-state-js-contract-test.md
-    sha256: 4ecf8609917c90221ae821513e935c7a2321dc9b79c4d8cfd40492cffe58b811
+    sha256: 3024c50b7bf66c6a01c8231fa74ddc4845162e76a07d2faca65bdfa758612f65
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:09:01.264Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T09:29:11.720Z
+    recorded_by: state-commit-autorecord
     story_id: 3-2-implement-state-js-contract-test
   - artefact_class: A
     file: tests/contract/state-shape.spec.mjs
@@ -653,10 +631,10 @@ entries:
     notes: "Story 3-8 scaffold test asserting documentation scaffold contract: 5 files exist + per-user template has 4 verbatim hypothesis questions + protocol documents ≥3-of-N threshold + summary template links to Epic 4 gate + local-build doc documents corpus-v0.1.0 tag step"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit.md
-    sha256: 8426624d4516bc5ed5529bd84a4e39eb2017d12207042a165971856110d57c8f
+    sha256: 6d1be7db3d053fb22d3ff4c781a26b8328640d2002377ea5d984240e953c8268
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T08:44:10.980Z
-    recorded_by: auditor
+    recorded_at: 2026-05-20T09:29:11.721Z
+    recorded_by: state-commit-autorecord
     story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
   - artefact_class: A
     file: tests/unit/tools/markdown-subset.test.mjs
@@ -882,3 +860,17 @@ entries:
     recorded_by: test-author
     story_id: 4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment
     notes: Story 4-8 red-phase failing tests + SPA fragment fixture
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-4-5-1-tds-integrity-remove-cli.md
+    sha256: 5878e7e8318e4ba207b237e5c913908163778ef5b880b76f8a8d28ab9ea921ff
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T09:45:06.837Z
+    recorded_by: auditor
+    story_id: bridge-4-5-1-tds-integrity-remove-cli
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-4-5-2-convention-doc-for-filesystem.md
+    sha256: 90ca68a6880131d0cd6bd59db086722e5dd749f6312f397bdaf3905ff362dcfa
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T09:45:06.940Z
+    recorded_by: auditor
+    story_id: bridge-4-5-2-convention-doc-for-filesystem

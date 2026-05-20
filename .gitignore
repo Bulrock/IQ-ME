@@ -4,3 +4,5 @@ _bmad-output/_tds/runtime/
 # === end TDS block ===
 
 dist/
+__pycache__/
+*.pyc

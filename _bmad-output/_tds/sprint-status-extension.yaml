@@ -9,6 +9,15 @@ bridges:
       - bridge-1-2-1-add-tds-story-unfreeze
     status: done
     outcome: merged in 036f1e5; tds story unfreeze-tests CLI affordance shipped
+  - id: bridge-4-5
+    type: tech-debt
+    title_extended: tds integrity-remove CLI + sweep auto-clean + cross-repo entry policy decision + Convention doc for filesystem-fixture test isolation
+    blocks_epic: epic-5
+    outcome_required: []
+    stories:
+      - bridge-4-5-1-tds-integrity-remove-cli
+      - bridge-4-5-2-convention-doc-for-filesystem
+    status: backlog
 parents:
   1-1-bootstrap-repo-skeleton-makefile: epic-1
   1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts: epic-1
@@ -45,5 +54,7 @@ parents:
   4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template: epic-4
   4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub: epic-4
   4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment: epic-4
-last_updated: 2026-05-20T08:44:04.395Z
+  bridge-4-5-1-tds-integrity-remove-cli: bridge-4-5
+  bridge-4-5-2-convention-doc-for-filesystem: bridge-4-5
+last_updated: 2026-05-20T09:05:27.257Z
 generated_by: bmad-tds-bridge-from-retros
