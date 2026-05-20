@@ -105,3 +105,12 @@ Author the 4 remaining Scoring pages (`irt-2pl`, `eap`, `percentile-to-iq` alrea
 - All 20 EN pages now pass lint-frontmatter, lint-glossary, lint-reading-level (FK ≤12), lint-license-provenance.
 - lint-claims-manifest --strict exit 0 with 9 claims, zero WARNs (load-bearing AC-3).
 - make test 817/817+1skip. lint exit 0. build exit 0.
+
+## Auditor Findings (round-1)
+
+### [blocker] `tds integrity verify` reports sha256 mismatch on `tests/unit/tools/lint-claims-manifest.test.mjs` (artefact_class=A, registered story 4-3, recorded 2026-05-20T00:28:53Z; expected bb945c…, actual 0a1d11…). Specialist Self-Review §2 discloses the intentional modification ("Updated `lint-claims-manifest.test.mjs` AC-4.1/AC-4.2 — the prior tests asserted WARN lines for Epic-5 deferrals; those deferrals are now structurally cleared") — intent transparent but integrity registry not re-registered. Same lesson-2026-05-19-001 (severity=high) as 5-2 finding.
+
+
+- **Category:** integrity-drift
+- **Suggested fix:** Recommended: while on epic/5, run `tds integrity record --as=engineer --file=tests/unit/tools/lint-claims-manifest.test.mjs --story=5-4-... --notes="Story 5-4 AC-4.1/AC-4.2 deferral-WARN clearance"`, then `tds state-commit -m "chore(5-4): re-register lint-claims-manifest test after deferral clearance" --story=5-4-... --as=engineer`, then re-verify.
+
