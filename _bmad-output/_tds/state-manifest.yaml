@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 2a4dc27de208544ff016509b30bf71652503f1a54f1b2ed19e7ea88f3f59f29b
+    sha256: 48222731f3e32ea64bf953b8df3439ebfa346c45dee2bf01aec655670557c27c
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:19:58.134Z
-    recorded_by: frontend
+    recorded_at: 2026-05-20T11:20:31.000Z
+    recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: a331e9285bc0ca4061984649fdb1f14c43f4e3dc0fefbd2366ae262e9f5d20a3
+    sha256: b6557c5c7c61bce1e171b6c7a75230198f91e82f192e420c745601292d6b9f64
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:19:57.686Z
+    recorded_at: 2026-05-20T11:23:17.363Z
     recorded_by: frontend
-    story_id: 5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining
+    story_id: 5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -905,12 +905,12 @@ entries:
     story_id: 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
   - artefact_class: A
     file: tests/scaffold/anchor-pages.test.mjs
-    sha256: 1f683e1af17e7eca94aa3f62835686ced2629a2fc82c44cf980862827dc92b68
+    sha256: 1aa64bb1e75eb1f7ede4d6faed12610095d1d0872fef918b3486347829a54235
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:15:20.331Z
+    recorded_at: 2026-05-20T11:21:00.056Z
     recorded_by: test-author
-    story_id: 5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining
-    notes: "story 5-5 test-author: extend with 7 ethics+provenance+reference pages"
+    story_id: 5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd
+    notes: "story 5-6 test-author: tail-scene + crisis-resources scaffold"
   - artefact_class: A
     file: tests/unit/tools/lint-fr36-protection.test.mjs
     sha256: 356e1a40093fbefddecd4d1121f6bacd4dac8204822070408bb650769a414182
@@ -948,3 +948,18 @@ entries:
     recorded_at: 2026-05-20T11:19:57.717Z
     recorded_by: frontend
     story_id: 5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd.md
+    sha256: 1d2e41a98f989e4517df34c0b0b3c9c01f5258ad033c7b47031c6c6c48d5a085
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T11:23:17.396Z
+    recorded_by: frontend
+    story_id: 5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd
+  - artefact_class: A
+    file: tests/scaffold/crisis-resources.test.mjs
+    sha256: a4c3635af023f3968db80aa36d1b7ce9608b1f065ade76577e8d546c8a2c5f66
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T11:21:00.057Z
+    recorded_by: test-author
+    story_id: 5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd
+    notes: "story 5-6 test-author: tail-scene + crisis-resources scaffold"

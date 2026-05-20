@@ -46,6 +46,9 @@ const ANCHOR_PAGES = [
   "reference/citation/index.md",
   "reference/changelog/index.md",
   "reference/bibliography/index.md",
+  // Story 5.6 — Tail Scenes EN placeholders
+  "tails/bottom-decile/index.md",
+  "tails/top-decile/index.md",
 ];
 
 const REQUIRED_FM_KEYS = [

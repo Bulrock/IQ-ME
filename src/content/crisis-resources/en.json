@@ -1,0 +1,37 @@
+{
+  "_doc": "Story 5.6 (FR20) — EN crisis-resource list. Curated and verified. Each entry MUST have name, url (https or tel), and lastVerified (ISO YYYY-MM-DD).",
+  "locale": "en",
+  "lastUpdated": "2026-05-20",
+  "resources": [
+    {
+      "name": "988 Suicide and Crisis Lifeline (US)",
+      "url": "tel:988",
+      "description": "24/7 free and confidential support for people in distress; call or text 988 anywhere in the US.",
+      "lastVerified": "2026-05-20"
+    },
+    {
+      "name": "Crisis Text Line (US/UK/Ireland/Canada)",
+      "url": "https://www.crisistextline.org/",
+      "description": "Text HOME to 741741 (US), 85258 (UK), or 50808 (Ireland) to reach a trained crisis counselor.",
+      "lastVerified": "2026-05-20"
+    },
+    {
+      "name": "Samaritans (UK and Ireland)",
+      "url": "tel:116123",
+      "description": "Free 24/7 helpline; call 116 123 from anywhere in the UK or Republic of Ireland.",
+      "lastVerified": "2026-05-20"
+    },
+    {
+      "name": "Lifeline (Australia)",
+      "url": "tel:131114",
+      "description": "Free 24/7 crisis support; call 13 11 14 anywhere in Australia.",
+      "lastVerified": "2026-05-20"
+    },
+    {
+      "name": "International Association for Suicide Prevention — Crisis Resources Directory",
+      "url": "https://www.iasp.info/resources/Crisis_Centres/",
+      "description": "Searchable directory of crisis centres worldwide for readers outside the US/UK/Ireland/Australia.",
+      "lastVerified": "2026-05-20"
+    }
+  ]
+}
