@@ -238,10 +238,15 @@ jobs:
   byte-stable-build:
     name: byte-stable-build
     runs-on: ubuntu-latest
-    # Activates in Epic 4
-    if: false
+    # Activated in Story 4.2 — runs `make clean && make build` twice and
+    # asserts dist/ hashes match (NFR21 mechanization).
     steps:
-      - run: echo "stub — Activates in Epic 4 (Story 4.2)"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: make test-byte-stable
 
   lint-fr36-protection:
     name: lint-fr36-protection

@@ -63,6 +63,8 @@ const EPIC_1_ACTIVE = new Set([
   "network-trace",
   // golden-vector-parity activated in Story 2.6b (full-set parity test).
   "golden-vector-parity",
+  // byte-stable-build activated in Story 4.2 — runs `make test-byte-stable`.
+  "byte-stable-build",
 ]);
 
 function loadPrChecks() {

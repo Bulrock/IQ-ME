@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 3842d0cb80ff149076dbebe2db4a1475caad7d3ac31ce161e14e51baea0ddcb1
+    sha256: 0d6f160bc086a70f833621f19e9f44e8d2b9db6c378f3e348a58ac3388d4f548
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T00:03:19.069Z
+    recorded_at: 2026-05-20T00:05:55.854Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 9b6c51443c81b8763f17c666bc2de506a4e5f64cecb90178a42e7c247992d078
+    sha256: 5ebee3289a6249a786286364b3e669851d426cc03ee4aaf0b85977011d531e83
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T00:03:03.998Z
+    recorded_at: 2026-05-20T00:16:12.721Z
     recorded_by: engineer
-    story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
+    story_id: 4-2-byte-stable-build-assertion-golden-html-snapshots
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -109,11 +109,12 @@ entries:
     story_id: epic-1-retrospective
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: 483fbcccb2acc1ef727894f6a271d2a46bc47cf9574fc90b255a437909782517
+    sha256: 75bae5065798bbc20a305f382a74cd2e5cebc758593f9b78836300614a2ed61c
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:09:35.807Z
+    recorded_at: 2026-05-20T00:14:32.497Z
     recorded_by: engineer
-    story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
+    story_id: 4-2-byte-stable-build-assertion-golden-html-snapshots
+    notes: "Story 4-2: update Story 1.6 + 1.8 stub-state scaffold assertions after CI byte-stable-build activation + byte-stable.spec.mjs un-fixme"
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: a9bb6d72aa3e9fed7ea49b8c83dffffcb085c0a9fbe80b8144d14aa893ccac1f
@@ -145,12 +146,12 @@ entries:
     story_id: 1-8-ship-deterministic-build-harness-ready-for-epic-2-s-golden-vectors
   - artefact_class: A
     file: tests/scaffold/determinism-harness.test.mjs
-    sha256: d14f840417d6f4a6865edd1a016a3266e56cc01635159b678e2bb85c3ebc0707
+    sha256: fba1b8c30266f56ce10c85c89d548ac38c1b3dd87bf31c1e5d0c17d67f3a7269
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T09:40:13.775Z
-    recorded_by: test-author
-    story_id: 1-8-ship-deterministic-build-harness-ready-for-epic-2-s-golden-vectors
-    notes: story-1-8 frozen failing tests
+    recorded_at: 2026-05-20T00:14:32.497Z
+    recorded_by: engineer
+    story_id: 4-2-byte-stable-build-assertion-golden-html-snapshots
+    notes: "Story 4-2: update Story 1.6 + 1.8 stub-state scaffold assertions after CI byte-stable-build activation + byte-stable.spec.mjs un-fixme"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-9-eslint-config-no-restricted-paths-docs-domain-map-md.md
     sha256: eebf616770faefb48f1656f0c120e122c05379ad3d60bb591c017b249aab7e3e
@@ -680,3 +681,34 @@ entries:
     recorded_by: test-author
     story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
     notes: "Story 4-1 ATDD red phase: 49 new failing tests pinning AC-1..AC-10 + positive fixture"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/4-2-byte-stable-build-assertion-golden-html-snapshots.md
+    sha256: 50b44f21b4820e558388c87506a12684780e5c88da0793df831a1a3207267805
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T00:16:12.753Z
+    recorded_by: engineer
+    story_id: 4-2-byte-stable-build-assertion-golden-html-snapshots
+  - artefact_class: A
+    file: tests/unit/tools/snapshot-update.test.mjs
+    sha256: 6f8fc2c61b6ef075f8e67c261dba793573fe3057772e7ec0b4e97158d2205752
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T00:10:57.718Z
+    recorded_by: test-author
+    story_id: 4-2-byte-stable-build-assertion-golden-html-snapshots
+    notes: "Story 4-2 ATDD red phase: snapshot extension tests + drift gate + Playwright byte-stable activation"
+  - artefact_class: A
+    file: tests/scaffold/methodology-snapshots.test.mjs
+    sha256: 8cee9c83da0910525d8ea69d3e191d96cb577244c426a69848cc6715fbec8190
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T00:10:57.719Z
+    recorded_by: test-author
+    story_id: 4-2-byte-stable-build-assertion-golden-html-snapshots
+    notes: "Story 4-2 ATDD red phase: snapshot extension tests + drift gate + Playwright byte-stable activation"
+  - artefact_class: A
+    file: tests/playwright/byte-stable.spec.mjs
+    sha256: 818120491457c2ae66812cfa2ad59decfdb3a94f345f16e7ea15f6af7f8d903f
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T00:10:57.719Z
+    recorded_by: test-author
+    story_id: 4-2-byte-stable-build-assertion-golden-html-snapshots
+    notes: "Story 4-2 ATDD red phase: snapshot extension tests + drift gate + Playwright byte-stable activation"

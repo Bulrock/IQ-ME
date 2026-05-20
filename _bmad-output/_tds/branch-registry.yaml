@@ -385,3 +385,14 @@ branches:
     last_synced_at: 2026-05-20T00:03:19.035Z
     notes: ""
     created_at: 2026-05-19T23:38:44.656Z
+  - branch: story/4-2-byte-stable-snapshots
+    story_id: 4-2-byte-stable-build-assertion-golden-html-snapshots
+    epic_id: null
+    base_branch: epic/4
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-20T00:05:55.836Z

@@ -5,7 +5,7 @@
 
 .DEFAULT_GOAL := help
 
-.PHONY: help test test-network-trace test-full-slice lint build build-methodology dev clean snapshot-update test-contract
+.PHONY: help test test-network-trace test-full-slice test-byte-stable lint build build-methodology dev clean snapshot-update test-contract
 
 help: ## list documented Make targets
 	@grep -hE '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) \
@@ -19,6 +19,9 @@ test-network-trace: ## run Playwright network-trace spec (downloads chromium on 
 
 test-full-slice: build-methodology ## run Playwright full-slice spec (Story 3-7; builds methodology first)
 	npx --yes playwright test tests/playwright/full-slice.spec.mjs
+
+test-byte-stable: ## run Playwright byte-stable build spec (Story 4.2; runs `make clean && make build` twice and compares dist/ hashes)
+	npx --yes playwright test tests/playwright/byte-stable.spec.mjs
 
 test-contract: ## run contract tests only (tests/contract/**/*.spec.mjs)
 	node --test 'tests/contract/**/*.spec.mjs'
@@ -49,5 +52,6 @@ dev: ## start the interim dev-server on http://127.0.0.1:4173 (Ctrl-C to stop; E
 clean: ## remove build outputs (idempotent)
 	rm -rf dist
 
-snapshot-update: ## regenerate tests/snapshots/tokens.hash.json (codified D→E write boundary)
+snapshot-update: ## regenerate tests/snapshots/ tree (tokens.hash.json + methodology golden HTML — codified D→E write boundary)
+	# Run after deliberate changes to css tokens OR methodology source; commit the snapshot diff alongside the source change.
 	node tools/snapshot-update.mjs
