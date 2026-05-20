@@ -369,14 +369,6 @@ entries:
     recorded_by: engineer
     story_id: 3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url
   - artefact_class: A
-    file: tests/scaffold/story-3-1-marker.test.mjs
-    sha256: b1da14131d457049c04e924b73c8652f211053039c791076c7a5335b4734b84a
-    canonical_form: raw-bytes
-    recorded_at: 2026-05-19T17:16:25.000Z
-    recorded_by: test-author
-    story_id: 3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url
-    notes: story-3-1 procedural marker (AC-6 doc-only story; state-machine defense-in-depth gate)
-  - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-2-implement-state-js-contract-test.md
     sha256: 3024c50b7bf66c6a01c8231fa74ddc4845162e76a07d2faca65bdfa758612f65
     canonical_form: raw-bytes
