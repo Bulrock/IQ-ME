@@ -1,7 +1,7 @@
 ---
 id: bridge-5-6-1-extend-sweep-auto-record
 title: "Story bridge-5-6-1-extend-sweep-auto-record: Extend sweep auto-record to sprint-status.yaml + emit autorecord telemetry event"
-status: approved
+status: done
 ---
 
 # Story bridge-5-6-1-extend-sweep-auto-record: Extend sweep auto-record to sprint-status.yaml + emit autorecord telemetry event
