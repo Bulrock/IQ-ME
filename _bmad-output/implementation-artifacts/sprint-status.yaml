@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-20 4-3-lint-frontmatter-lint-claims-manifest-strict-graduation: review'
+last_updated: '2026-05-20 4-4-lint-glossary-lint-reading-level-en: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -82,7 +82,7 @@ development_status:
   4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit: review
   4-2-byte-stable-build-assertion-golden-html-snapshots: review
   4-3-lint-frontmatter-lint-claims-manifest-strict-graduation: review
-  4-4-lint-glossary-lint-reading-level-en: backlog
+  4-4-lint-glossary-lint-reading-level-en: review
   4-5-lint-license-provenance: backlog
   4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template: backlog
   4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub: backlog

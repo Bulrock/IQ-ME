@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: df707150bac6faeecd5b810f9f847da3a026510b3f98a638ddb9b5f681e74ddb
+    sha256: a006c725356dec8a8ee82f7bbd4bdf71d0b7ad5efaa251df27b9a9c654cc2845
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T00:28:10.792Z
+    recorded_at: 2026-05-20T00:31:08.806Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: a09c7047da937b1fa1c4193014040f743dff50a2cf849a69f86f1af003a1f2aa
+    sha256: 697457b5322abe610f14942c14e11ac75f2feb708c70be0519aafe2d9d44be69
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T00:27:48.125Z
+    recorded_at: 2026-05-20T07:06:47.512Z
     recorded_by: engineer
-    story_id: 4-3-lint-frontmatter-lint-claims-manifest-strict-graduation
+    story_id: 4-4-lint-glossary-lint-reading-level-en
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -109,12 +109,11 @@ entries:
     story_id: epic-1-retrospective
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: 75bae5065798bbc20a305f382a74cd2e5cebc758593f9b78836300614a2ed61c
+    sha256: 7dd304a65126c60d87f41bc94b8d78e473ab48d77a645ad97514ef0947d4775f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T00:14:32.497Z
+    recorded_at: 2026-05-20T00:28:53.084Z
     recorded_by: engineer
-    story_id: 4-2-byte-stable-build-assertion-golden-html-snapshots
-    notes: "Story 4-2: update Story 1.6 + 1.8 stub-state scaffold assertions after CI byte-stable-build activation + byte-stable.spec.mjs un-fixme"
+    notes: Story 4-3 impl + test extensions (CI activation guards + strict-mode bidirectional tests)
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: a9bb6d72aa3e9fed7ea49b8c83dffffcb085c0a9fbe80b8144d14aa893ccac1f
@@ -371,12 +370,11 @@ entries:
     story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
   - artefact_class: A
     file: tests/unit/tools/lint-claims-manifest.test.mjs
-    sha256: 6ee5c18b4f8f208104bd8e4720edd670b01df20074403317a96aefcff50f8ec1
+    sha256: bb945c1fef9f20c4a1fa8a0ab0e0dc6133be1663ec06e3d689a3d74bbd07ac20
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T00:22:35.653Z
-    recorded_by: test-author
-    story_id: 4-3-lint-frontmatter-lint-claims-manifest-strict-graduation
-    notes: Story 4-3 ATDD red phase
+    recorded_at: 2026-05-20T00:28:53.087Z
+    recorded_by: engineer
+    notes: Story 4-3 impl + test extensions (CI activation guards + strict-mode bidirectional tests)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url.md
     sha256: 6e4f0dbf019c1e7bf500dea1096f407ce90f2b3dcdee5df9e3a82a4d2c3eb298
@@ -736,3 +734,42 @@ entries:
     recorded_by: test-author
     story_id: 4-3-lint-frontmatter-lint-claims-manifest-strict-graduation
     notes: Story 4-3 ATDD red phase
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/4-4-lint-glossary-lint-reading-level-en.md
+    sha256: 3122a45a999d50db04d9e920699f8b9c3ff8225872bfd6867fe6b61c2668dea8
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T07:06:47.547Z
+    recorded_by: engineer
+    story_id: 4-4-lint-glossary-lint-reading-level-en
+  - artefact_class: A
+    file: tests/unit/tools/lint-glossary.test.mjs
+    sha256: 827f903325881d0bfc2e9b19712f6b43bfd9d109960d1b10f04fc5a646cae5ae
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T06:59:51.305Z
+    recorded_by: test-author
+    story_id: 4-4-lint-glossary-lint-reading-level-en
+    notes: Story 4-4 ATDD red phase
+  - artefact_class: A
+    file: tests/unit/tools/lint-reading-level.test.mjs
+    sha256: e6201c881122d0d9cbecc7a3b1a2f9a2c96e95e3690a9a83ebc7a691f2f9ad1e
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T06:59:51.306Z
+    recorded_by: test-author
+    story_id: 4-4-lint-glossary-lint-reading-level-en
+    notes: Story 4-4 ATDD red phase
+  - artefact_class: A
+    file: tests/scaffold/lint-glossary-coverage.test.mjs
+    sha256: dbac9ca6cf97883bc29b501f318fe2cccc64c844ae5899e831aa66e85dd67e4d
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T06:59:51.306Z
+    recorded_by: test-author
+    story_id: 4-4-lint-glossary-lint-reading-level-en
+    notes: Story 4-4 ATDD red phase
+  - artefact_class: A
+    file: tests/scaffold/lint-reading-level-coverage.test.mjs
+    sha256: fcac4a1acb6f0534128ed7bf1880beff10f67afa41f89da1e078890ae56c144e
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T06:59:51.306Z
+    recorded_by: test-author
+    story_id: 4-4-lint-glossary-lint-reading-level-en
+    notes: Story 4-4 ATDD red phase

@@ -72,6 +72,12 @@ const EPIC_1_ACTIVE = new Set([
   "lint-claims-manifest",
   // lint-frontmatter activated in Story 4.3 (corpus/schema.json subset validator).
   "lint-frontmatter",
+  // lint-glossary activated in Story 4.4 (glossaryRefs structural validation +
+  // Epic-5-deferred WARN until the per-locale glossary tree is authored).
+  "lint-glossary",
+  // lint-reading-level activated in Story 4.4 (EN Flesch-Kincaid ≤ 12 per NFR28;
+  // RU/PL deferred to Epic 7).
+  "lint-reading-level",
 ]);
 
 function loadPrChecks() {
