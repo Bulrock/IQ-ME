@@ -136,3 +136,5 @@ candidates:
 - Epic merge commit: `5484185` (PR #11)
 - Finalization recovery commit: `246bf95` (post-merge OH-07 patch)
 - Previous retros: [retro-epic-1.md](retro-epic-1.md), [retro-epic-2.md](retro-epic-2.md), [retro-bridge-1-2.md](retro-bridge-1-2.md), [retro-epic-3.md](retro-epic-3.md), [retro-epic-4.md](retro-epic-4.md), [retro-bridge-4-5.md](retro-bridge-4-5.md)
+
+## Applied to bridge: bridge-6-7 @ 2026-05-20T12:18:05.867Z

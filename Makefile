@@ -44,6 +44,7 @@ lint: ## run all registered lints (negative assertions + budget + trust artifact
 	node tools/lint-csp-source.mjs
 	node tools/lint-css-source-co-equal.mjs
 	node tools/lint-fr36-protection.mjs
+	node tools/lint-spec-carry-forward.mjs --ignore-old
 	npx --yes eslint@^9.16.0 --max-warnings 0 .
 
 build: build-methodology ## alias to build-methodology + emit determinism marker (NFR17 prep)

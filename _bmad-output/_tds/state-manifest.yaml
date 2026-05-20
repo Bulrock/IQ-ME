@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 88dade426390745a203f7499f623b17f1ae4d37e2e99888f0ad5f74d6167ca22
+    sha256: d913c77a21a61e9cc4a78e4ccb229c26da22d71f307c67d5d19c498fc170b3fb
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:26:13.210Z
-    recorded_by: frontend
+    recorded_at: 2026-05-20T13:34:28.642Z
+    recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 428ee4d1db9c0ab0dcd899c180e5044c3d92624a6600b0645e1c51b5eab1a8e6
+    sha256: a6206c3904e7d8b8d026e7e82c81de10235cb13d1b0315c5de3286f5ad1a0a72
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:09:42.998Z
-    recorded_by: engineer
-    story_id: 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows
+    recorded_at: 2026-05-20T13:41:38.042Z
+    recorded_by: auditor
+    story_id: bridge-6-7
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -184,9 +184,9 @@ entries:
     notes: story-1-10 frozen failing tests
   - artefact_class: A
     file: _bmad-output/_tds/sprint-status-extension.yaml
-    sha256: 5a0f3040de4d5bfdd8fb88a382cfcec7951a717b63030b4969f0f6d9de91a9bd
+    sha256: efd36cf12bca0a01bc27bf0eaa0f214c4a0f07c0ef328a06e4283377f9c28a08
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T09:59:33.231Z
+    recorded_at: 2026-05-20T12:18:05.856Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-1-2-1-add-tds-story-unfreeze.md
@@ -895,10 +895,10 @@ entries:
     notes: "story 5-7 test-author: extend with Phase-2 component tests"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint.md
-    sha256: 17840b0570923a7d19aa1fba19192b32eb0e34b47881026f2f36dfb9691528ee
+    sha256: c5750c72cc28cd33ea5b87e1ade3f83236964c021940bc020a71c60e8ca083f6
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:09:41.936Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T12:22:36.504Z
+    recorded_by: state-commit-autorecord
     story_id: 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
   - artefact_class: A
     file: tests/scaffold/anchor-pages.test.mjs
@@ -933,17 +933,17 @@ entries:
     story_id: 5-3-constructs-4-remaining-limitations-3-remaining
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-4-scoring-4-remaining-norming-3.md
-    sha256: ef1220e85085599f59b02098f14358d59020914996fbc91de13d480e046b206f
+    sha256: 4f82239607f2526b253888518e84baa6fed93791a904bca632482381e0662c9f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:09:42.403Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T12:22:36.504Z
+    recorded_by: state-commit-autorecord
     story_id: 5-4-scoring-4-remaining-norming-3
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining.md
-    sha256: f961caeb7ed233a95df7bf23c1e74906da81ef575d1d7603f5f92ecd723cf780
+    sha256: e886ed36ae9a330713fad9b38cab984dc0c73e009c4129ad00e5e2ae0fd08dea
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:09:42.610Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T12:22:36.504Z
+    recorded_by: state-commit-autorecord
     story_id: 5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd.md
@@ -967,3 +967,31 @@ entries:
     recorded_at: 2026-05-20T12:09:43.031Z
     recorded_by: engineer
     story_id: 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-6-7-1-extend-state-commit-sweep.md
+    sha256: a9ba45cbd451cd62f22434e5bda08e08f2d1eaae46f8667ff18d34ed638d8dab
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T13:41:37.769Z
+    recorded_by: auditor
+    story_id: bridge-6-7-1-extend-state-commit-sweep
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-6-7-2-tds-deliver-mode-2.md
+    sha256: dfc77a78b555339b8588be2d4cb395030284cbd77acba47b00f535fe3db0987f
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T13:41:37.870Z
+    recorded_by: auditor
+    story_id: bridge-6-7-2-tds-deliver-mode-2
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-6-7-3-restore-carry-forward-lessons.md
+    sha256: 86d2b22a3f59444e314f727683a3893bb473fb17361eef06fb69d21d262f2f8f
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T13:41:37.965Z
+    recorded_by: auditor
+    story_id: bridge-6-7-3-restore-carry-forward-lessons
+  - artefact_class: A
+    file: tests/scaffold/lint-spec-carry-forward-coverage.test.mjs
+    sha256: 544ef313c1a47732be0b7edfac0db574c745a107199c77dd8a26460d77a03727
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T13:21:58.013Z
+    recorded_by: test-author
+    story_id: bridge-6-7-3-restore-carry-forward-lessons

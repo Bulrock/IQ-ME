@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-20 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows: done'
+last_updated: '2026-05-20 bridge-6-7: approved'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -115,6 +115,12 @@ development_status:
   6-6-top-decile-tear-edge-overlay-cropping-fuzzer: backlog
   6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page: backlog
   epic-6-retrospective: optional
+
+  # Bridge 6→7: 3 stories from 1 retro
+  bridge-6-7: approved
+  bridge-6-7-1-extend-state-commit-sweep: approved       # Extend state-commit sweep auto-record to spec-md touched by add-finding
+  bridge-6-7-2-tds-deliver-mode-2: approved       # tds deliver Mode 2 idempotent recovery on re-run for partial OH-07 finalize
+  bridge-6-7-3-restore-carry-forward-lessons: approved       # Restore Carry-forward-lessons injection in story-create plus pre-commit warning on class-A edits
   epic-7: backlog
   7-1-i18n-harness-locale-loading-language-switcher: backlog
   7-2-locale-switch-blocker-hint-fr8-enforcement: backlog
