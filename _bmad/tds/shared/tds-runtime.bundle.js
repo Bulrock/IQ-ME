@@ -7686,22 +7686,26 @@ function collectDirtyTdsPaths(opts) {
   }
   return { paths: inWhitelist, filteredOut: outsideWhitelist };
 }
-function autoRecordDriftedSpecs(projectRoot, outputFolder) {
+function autoRecordDriftedSpecs(projectRoot, outputFolder, tdsStateDir) {
   const manifestRel = `${toPosixRel(projectRoot, outputFolder)}/_tds/state-manifest.yaml`;
   const manifestAbs = join3(projectRoot, manifestRel);
-  if (!existsSync2(manifestAbs)) return false;
+  if (!existsSync2(manifestAbs)) return [];
   const storiesPrefix = `${toPosixRel(projectRoot, outputFolder)}/implementation-artifacts/stories/`;
+  const allowlistExact = /* @__PURE__ */ new Set([
+    `${toPosixRel(projectRoot, outputFolder)}/implementation-artifacts/sprint-status.yaml`
+  ]);
   let doc;
   try {
     doc = (0, import_yaml2.parse)(readFileSync3(manifestAbs, "utf8"));
   } catch {
-    return false;
+    return [];
   }
-  if (!doc || !Array.isArray(doc.entries)) return false;
-  let mutated = false;
+  if (!doc || !Array.isArray(doc.entries)) return [];
+  const recorded = [];
   for (const entry of doc.entries) {
-    if (!entry.file.startsWith(storiesPrefix)) continue;
-    if (!entry.file.endsWith(".md")) continue;
+    const inStories = entry.file.startsWith(storiesPrefix) && entry.file.endsWith(".md");
+    const inAllowlist = allowlistExact.has(entry.file);
+    if (!inStories && !inAllowlist) continue;
     const absPath = join3(projectRoot, entry.file);
     if (!existsSync2(absPath)) continue;
     const currentSha = createHash("sha256").update(readFileSync3(absPath)).digest("hex");
@@ -7709,22 +7713,35 @@ function autoRecordDriftedSpecs(projectRoot, outputFolder) {
     entry.sha256 = currentSha;
     entry.recorded_at = (/* @__PURE__ */ new Date()).toISOString();
     entry.recorded_by = "state-commit-autorecord";
-    mutated = true;
+    recorded.push({ file: entry.file, sha256: currentSha });
   }
-  if (mutated) {
+  if (recorded.length > 0) {
     writeFileSync(
       manifestAbs,
       (0, import_yaml2.stringify)(doc, { indent: 2, lineWidth: 0 })
     );
+    const telemetryDir = join3(tdsStateDir, "runtime", "telemetry");
+    for (const r of recorded) {
+      emit({
+        telemetryDir,
+        stream: "integrity-events",
+        event: {
+          kind: "autorecord",
+          file: r.file,
+          sha256: r.sha256,
+          recorded_by: "state-commit-autorecord"
+        }
+      });
+    }
   }
-  return mutated;
+  return recorded.map((r) => r.file);
 }
 function sweepStateCommit(opts) {
   const storyId = opts.storyId ?? "chore-tds-internal";
   let pathsToCommit;
   let pathsFilteredOut;
   try {
-    autoRecordDriftedSpecs(opts.projectRoot, opts.outputFolder);
+    autoRecordDriftedSpecs(opts.projectRoot, opts.outputFolder, opts.tdsStateDir);
   } catch {
   }
   if (opts.explicitPaths !== void 0) {
@@ -7786,6 +7803,7 @@ var init_commit_sweep = __esm({
     "use strict";
     import_yaml2 = __toESM(require_dist(), 1);
     init_git();
+    init_emit();
   }
 });
 
@@ -12676,7 +12694,7 @@ var __dirname = dirname2(fileURLToPath2(import.meta.url));
 var repoRoot = resolve(__dirname, "../..");
 function readModuleVersion() {
   if (true) {
-    return "6.5.34";
+    return "6.5.35";
   }
   const pkg = JSON.parse(
     readFileSync(resolve(repoRoot, "package.json"), "utf8")
