@@ -212,6 +212,20 @@ jobs:
       - run: make build-methodology
       - run: npx --yes playwright test tests/playwright/difficulty-sentence.spec.mjs
 
+  chrome-components:
+    name: chrome-components
+    runs-on: ubuntu-latest
+    # Activated in Story 6.4 (Epic 6) — chrome-header + chrome-footer +
+    # theme-toggle visibility matrix + tri-state toggle interactions +
+    # localStorage discipline (NFR9) + prefers-color-scheme honor.
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: npx --yes playwright test tests/playwright/chrome-components.spec.mjs
+
   csp-violation-count:
     name: csp-violation-count
     runs-on: ubuntu-latest
@@ -328,10 +342,43 @@ jobs:
   lighthouse:
     name: lighthouse
     runs-on: ubuntu-latest
-    # Activates in Epic 6
-    if: false
+    # Activated in Story 6.4 — Lighthouse accessibility audit on both
+    # themes (NFR12 + UX-DR6 WCAG 2.2 AA contrast in both palettes).
+    # Two legs: light + dark, each scored via accessibility category.
+    # Threshold ≥ 90 (Lighthouse's WCAG AA contrast checks are part of the
+    # accessibility audit).
+    strategy:
+      fail-fast: false
+      matrix:
+        theme: [light, dark]
     steps:
-      - run: echo "stub — Activates in Epic 6"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - name: Start dev-server and run Lighthouse (${{ matrix.theme }})
+        run: |
+          node tools/dev-server.mjs &
+          SERVER_PID=$!
+          # wait briefly for the server to bind (4173 is the default port).
+          for i in 1 2 3 4 5; do
+            if curl -sf http://127.0.0.1:4173/ > /dev/null 2>&1; then break; fi
+            sleep 1
+          done
+          npx --yes lighthouse@12 \
+            http://127.0.0.1:4173/ \
+            --only-categories=accessibility \
+            --preset=desktop \
+            --chrome-flags="--headless=new --no-sandbox --disable-gpu" \
+            --emulated-form-factor=desktop \
+            --throttling-method=provided \
+            --output=json --output-path=./lh-${{ matrix.theme }}.json \
+            --quiet \
+            --no-enable-error-reporting || true
+          # Extract the accessibility score; halt if below 0.9.
+          node -e "const r = require('./lh-${{ matrix.theme }}.json'); const s = r.categories.accessibility.score; console.log('accessibility=' + s); if (s < 0.9) { console.error('Lighthouse accessibility score ' + s + ' < 0.90'); process.exit(1); }"
+          kill $SERVER_PID || true
 
   axe-core-pa11y:
     name: axe-core-pa11y

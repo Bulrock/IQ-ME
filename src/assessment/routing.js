@@ -26,7 +26,7 @@ let hashChangeHandler = null;
 const NS = {
   landing: ["headline", "intro", "startTestButton", "methodologyLink"],
   consent: ["headline", "measuresWhat", "validityEnvelope", "visuospatialDisclosure", "continueButton", "notToday"],
-  chrome: ["titleAppDefault", "appName", "errorFallbackMessage"],
+  chrome: ["titleAppDefault", "appName", "errorFallbackMessage", "languageSwitcherPlaceholderEn", "footerMethodologyLink", "footerDiscussionsLink", "footerCitationLink", "themeToggleLegend", "themeSystemLabel", "themeLightLabel", "themeDarkLabel"],
   itemRunner: ["headingTemplate", "progressTemplate", "optionsLegend", "previousButton", "nextButton", "submitButton", "fetchErrorMessage", "bailButton", "bailPanelHeading", "bailExplanation", "bailDiscardButton", "bailContinueButton"],
   result: ["scoreHeading", "prerevealHeading", "prerevealSubcopy", "showMeButton", "notYetButton", "caveat", "percentileAriaTemplate", "anchorAriaTemplate", "bandAriaTemplate", "bandTemplate", "difficultySentenceTemplate", "difficultySentenceAria", "fetchErrorMessage"],
 };
@@ -65,6 +65,11 @@ function renderRoute(hash) {
   activeHash = hash;
   if (appEl && typeof scene.render === "function") {
     scene.render(appEl, getStrings());
+  }
+  // Story 6.4 AC-5: declarative chrome-hide gate. CSS hides chrome on
+  // body[data-route="#/test"] (UX-DR8 — item-runner is a focus surface).
+  if (typeof document !== "undefined" && document.body) {
+    document.body.setAttribute("data-route", hash || "#/");
   }
   dispatchRouteChange(hash);
 }

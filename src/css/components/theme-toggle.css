@@ -1,0 +1,35 @@
+/* src/css/components/theme-toggle.css
+ *
+ * Story 6.4 AC-3 — tri-state theme toggle (System / Light / Dark) per
+ * UX-DR10. Keyboard-first (native <fieldset> + radio-group semantics:
+ * Tab to enter, arrow keys cycle). Restraint-first; no accent color on
+ * any option (neither is "primary"). Renders into .chrome-footer__theme-
+ * toggle slot via src/assessment/theme.js init().
+ */
+
+.theme-toggle {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.theme-toggle__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  font-size: var(--font-size-200);
+  color: var(--color-text-muted);
+}
+
+.theme-toggle__radio {
+  cursor: pointer;
+}
+
+.theme-toggle__radio:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}

@@ -1,7 +1,11 @@
 /* src/css/components/chrome-header.css
  *
- * Story 3.3 AC-9 — minimal chrome-header. Project name only at v1;
- * Story 7-1 adds the language switcher. Semantic tokens only.
+ * Story 3.3 AC-9 — minimal chrome-header (project name + persistent across
+ * landing, consent, result, methodology pages per UX-DR7).
+ *
+ * Story 6.4 AC-1 — language-switcher placeholder slot + UX-DR8 hide gate
+ * on item-runner (body[data-route="#/test"]). Story 7.1 replaces the
+ * placeholder span with an interactive <select> / radio-group.
  */
 
 .chrome-header {
@@ -18,4 +22,15 @@
   font-size: var(--font-size-400);
   line-height: var(--line-height-tight);
   font-weight: 700;
+}
+
+.chrome-header__language-switcher {
+  margin-inline-start: auto;
+  font-size: var(--font-size-200);
+  color: var(--color-text-muted);
+}
+
+/* UX-DR8: item-runner is a focus surface; chrome must not distract. */
+body[data-route="#/test"] .chrome-header {
+  display: none;
 }

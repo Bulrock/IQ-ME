@@ -2,7 +2,15 @@
   "chrome": {
     "titleAppDefault": "IQ-ME — a fluid-reasoning screener",
     "appName": "IQ-ME",
-    "errorFallbackMessage": "Something went wrong loading the page. Try reloading."
+    "errorFallbackMessage": "Something went wrong loading the page. Try reloading.",
+    "languageSwitcherPlaceholderEn": "EN",
+    "footerMethodologyLink": "Read the methodology",
+    "footerDiscussionsLink": "Discussions",
+    "footerCitationLink": "Cite",
+    "themeToggleLegend": "Color theme",
+    "themeSystemLabel": "System",
+    "themeLightLabel": "Light",
+    "themeDarkLabel": "Dark"
   },
   "landing": {
     "headline": "IQ-ME",

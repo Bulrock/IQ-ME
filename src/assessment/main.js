@@ -6,8 +6,21 @@
 
 import * as localeLoader from "./i18n/locale-loader.js";
 import * as routing from "./routing.js";
+import * as theme from "./theme.js";
 import { renderErrorFallback } from "./error-fallback.js";
 import "./test-hook.js";
+
+function applyChromeStrings() {
+  const set = (sel, key) => {
+    const el = document.querySelector(sel);
+    if (el) el.textContent = localeLoader.get(key);
+  };
+  set(".chrome-header__name", "chrome.appName");
+  set(".chrome-header__language-switcher", "chrome.languageSwitcherPlaceholderEn");
+  set(".chrome-footer__methodology-link", "chrome.footerMethodologyLink");
+  set(".chrome-footer__discussions-link", "chrome.footerDiscussionsLink");
+  set(".chrome-footer__citation-link", "chrome.footerCitationLink");
+}
 
 let inFlight = null;
 
@@ -17,6 +30,10 @@ function buildStrings() {
       titleAppDefault: localeLoader.get("chrome.titleAppDefault"),
       appName: localeLoader.get("chrome.appName"),
       errorFallbackMessage: localeLoader.get("chrome.errorFallbackMessage"),
+      themeToggleLegend: localeLoader.get("chrome.themeToggleLegend"),
+      themeSystemLabel: localeLoader.get("chrome.themeSystemLabel"),
+      themeLightLabel: localeLoader.get("chrome.themeLightLabel"),
+      themeDarkLabel: localeLoader.get("chrome.themeDarkLabel"),
     },
   };
 }
@@ -24,6 +41,10 @@ function buildStrings() {
 async function bootstrap() {
   try {
     await localeLoader.load("en");
+    // Apply theme BEFORE routing.start() so no flash-of-light-theme occurs.
+    const themeSlot = document.querySelector(".chrome-footer__theme-toggle");
+    if (themeSlot) theme.init(themeSlot, buildStrings());
+    applyChromeStrings();
     routing.start();
     // Re-render if router was started in a prior boot (idempotent-guard hop).
     const appEl = document.getElementById("app");
