@@ -12,4 +12,6 @@ sourceHashEN: "0000000000000000000000000000000000000000000000000000000000000000"
 pending: true
 ---
 
+# Page B heading
+
 Page B body with HTML-special chars: <tag> & "quotes".

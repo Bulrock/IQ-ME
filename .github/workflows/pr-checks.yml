@@ -111,11 +111,14 @@ jobs:
   lint-claims-manifest:
     name: lint-claims-manifest
     runs-on: ubuntu-latest
-    # Activates in Story 4.3 (strict-mode graduation per spec lines 921, 924-926;
-    # Story 2.7 lands warn-mode tool + manifest, deferred from CI to avoid duplicate-gate-trap per Murat)
-    if: false
+    # Activated in Story 4.3 (--strict graduation: existing in-repo pages enforce
+    # bidirectional assert↔claim coupling; Epic-5 stub pages WARN-only).
     steps:
-      - run: echo "stub — Activates in Story 4.3 (--strict mode after methodology pages land in Epic 5)"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-claims-manifest.mjs --strict
 
   golden-vector-parity:
     name: golden-vector-parity
@@ -206,42 +209,68 @@ jobs:
   lint-frontmatter:
     name: lint-frontmatter
     runs-on: ubuntu-latest
-    # Activates in Epic 4
-    if: false
+    # Activated in Story 4.3 — validates YAML frontmatter on every
+    # src/content/methodology/**.md page against corpus/schema.json subset.
     steps:
-      - run: echo "stub — Activates in Epic 4"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-frontmatter.mjs
 
   lint-glossary:
     name: lint-glossary
     runs-on: ubuntu-latest
-    # Activates in Epic 4
-    if: false
+    # Activated in Story 4.4 — validates `glossaryRefs:` frontmatter structure
+    # on every src/content/methodology/**.md page. Per-locale glossary-tree
+    # entries are checked when the tree exists; emits deferred WARNs while the
+    # tree is absent (Epic 5 will populate).
     steps:
-      - run: echo "stub — Activates in Epic 4"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-glossary.mjs
 
   lint-reading-level:
     name: lint-reading-level
     runs-on: ubuntu-latest
-    # Activates in Epic 4 (EN); Epic 7 extends to RU + PL
-    if: false
+    # Activated in Story 4.4 (EN only — Flesch-Kincaid grade ≤ 12 per NFR28).
+    # Epic 7 extends to RU (Oborneva) + PL (Pisarek/Jasnopis) calibrations;
+    # RU/PL pages currently emit a single per-locale deferred WARN.
     steps:
-      - run: echo "stub — Activates in Epic 4 (EN); Epic 7 extends RU/PL"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-reading-level.mjs
 
   lint-license-provenance:
     name: lint-license-provenance
     runs-on: ubuntu-latest
-    # Activates in Epic 4
-    if: false
+    # Activated in Story 4.5 — Phase 1 enforces every shipped source file under
+    # docs/license-scope-map.md globs traces to a LICENSES.md class; Phase 2
+    # enforces NFR24 last-modified-hash discipline (drift requires CHANGELOG.md
+    # entry naming LICENSES.md).
     steps:
-      - run: echo "stub — Activates in Epic 4"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-license-provenance.mjs
 
   byte-stable-build:
     name: byte-stable-build
     runs-on: ubuntu-latest
-    # Activates in Epic 4
-    if: false
+    # Activated in Story 4.2 — runs `make clean && make build` twice and
+    # asserts dist/ hashes match (NFR21 mechanization).
     steps:
-      - run: echo "stub — Activates in Epic 4 (Story 4.2)"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: make test-byte-stable
 
   lint-fr36-protection:
     name: lint-fr36-protection
@@ -286,7 +315,42 @@ jobs:
   lint-translation-parity:
     name: lint-translation-parity
     runs-on: ubuntu-latest
-    # Activates in Epic 7
-    if: false
+    # Activated in Story 4.7 — no-op stub at Epic 4 close (RU/PL are .gitkeep-only;
+    # emits a single WARN line + per-locale summary, exit 0). Epic 7 (Story 7.5b)
+    # flips on the full per-locale parity coverage (EN-source-hash diff) once
+    # RU/PL content lands.
     steps:
-      - run: echo "stub — Activates in Epic 7 (Story 7.5b)"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-translation-parity.mjs
+
+  lint-csp-source:
+    name: lint-csp-source
+    runs-on: ubuntu-latest
+    # Activated in Story 4.8 — out-of-band CSP-source check (NFR7 enforcement
+    # contract). Scans src/index.html + post-build dist/methodology/**/*.html
+    # for inline <style>/<script>/style=/on*= violations. Architectural
+    # exemption: D10 <script nomodule> display-toggle (architecture.md §D10).
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: make build-methodology
+      - run: node tools/lint-csp-source.mjs
+
+  exit-criterion-spec:
+    name: exit-criterion-spec
+    runs-on: ubuntu-latest
+    # Activated in Story 4.8 — Epic-4 exit-criterion verification: every
+    # Epic-4-shipped lint demonstrated against both a corpus page AND an SPA-side
+    # fragment (Winston Q4 #1/#3 parallelism claim).
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: make build-methodology
+      - run: node --test tests/exit-criteria/epic-04-lint-coverage.spec.mjs

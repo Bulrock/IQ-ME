@@ -138,20 +138,25 @@ test("AC-2: `make clean && make build` produces byte-identical marker across run
 });
 
 // ─────────────────────────────────────────────────────────────────────
-// AC-6: byte-stable.spec.mjs stub
+// AC-6 (Story 1.8): byte-stable.spec.mjs
+//
+// Story 4.2 activated the stub into a real Playwright test. The harness-
+// origin invariants below survive activation — the spec still imports
+// DETERMINISM from determinism-harness.mjs and uses hashTree on dist/.
 // ─────────────────────────────────────────────────────────────────────
 
-test("AC-6: tests/playwright/byte-stable.spec.mjs stub exists", () => {
-  assert.ok(existsSync(BYTE_STABLE_STUB), `byte-stable.spec.mjs stub missing at ${BYTE_STABLE_STUB}`);
+test("AC-6: tests/playwright/byte-stable.spec.mjs exists", () => {
+  assert.ok(existsSync(BYTE_STABLE_STUB), `byte-stable.spec.mjs missing at ${BYTE_STABLE_STUB}`);
 });
 
-test("AC-6: byte-stable stub references DETERMINISM from harness", () => {
+test("AC-6: byte-stable spec references DETERMINISM from harness", () => {
   const source = readFileSync(BYTE_STABLE_STUB, "utf8");
-  assert.match(source, /DETERMINISM/, `byte-stable stub must reference DETERMINISM`);
-  assert.match(source, /determinism-harness/, `byte-stable stub must import the harness`);
+  assert.match(source, /DETERMINISM/, `byte-stable spec must reference DETERMINISM`);
+  assert.match(source, /determinism-harness/, `byte-stable spec must import the harness`);
 });
 
-test("AC-6: byte-stable stub mentions \"Epic 4\" activation deferral", () => {
+test("AC-6 (Story 4.2): byte-stable spec is activated (no test.fixme) and imports hashTree", () => {
   const source = readFileSync(BYTE_STABLE_STUB, "utf8");
-  assert.match(source, /Epic 4/, `byte-stable stub must note activation in Epic 4`);
+  assert.doesNotMatch(source, /test\.fixme\(/, `byte-stable spec must no longer be fixme'd (activated in Story 4.2)`);
+  assert.match(source, /hashTree/, `byte-stable spec must import hashTree from determinism-harness`);
 });

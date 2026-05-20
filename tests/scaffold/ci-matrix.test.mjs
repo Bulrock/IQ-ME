@@ -48,6 +48,9 @@ const ALL_JOBS = [
   "reveal-stage-event-ordering",
   "csp-violation-count",
   "state-shape-contract",
+  // Story 4.8 — Epic-4 exit-criterion jobs.
+  "lint-csp-source",
+  "exit-criterion-spec",
 ];
 
 const EPIC_1_ACTIVE = new Set([
@@ -63,6 +66,33 @@ const EPIC_1_ACTIVE = new Set([
   "network-trace",
   // golden-vector-parity activated in Story 2.6b (full-set parity test).
   "golden-vector-parity",
+  // byte-stable-build activated in Story 4.2 — runs `make test-byte-stable`.
+  "byte-stable-build",
+  // state-shape-contract: contract test runs every PR (Story 3.x — runs
+  // `node --test tests/contract/state-shape.spec.mjs`; no `if: false`).
+  "state-shape-contract",
+  // lint-claims-manifest activated in Story 4.3 (strict-mode graduation).
+  "lint-claims-manifest",
+  // lint-frontmatter activated in Story 4.3 (corpus/schema.json subset validator).
+  "lint-frontmatter",
+  // lint-glossary activated in Story 4.4 (glossaryRefs structural validation +
+  // Epic-5-deferred WARN until the per-locale glossary tree is authored).
+  "lint-glossary",
+  // lint-reading-level activated in Story 4.4 (EN Flesch-Kincaid ≤ 12 per NFR28;
+  // RU/PL deferred to Epic 7).
+  "lint-reading-level",
+  // lint-license-provenance activated in Story 4.5 (Phase 1 LICENSES.md scope
+  // coverage via docs/license-scope-map.md + Phase 2 NFR24 hash-drift discipline).
+  "lint-license-provenance",
+  // lint-translation-parity activated in Story 4.7 (Epic-4-close no-op stub;
+  // Epic 7 / Story 7.5b flips on full per-locale parity coverage).
+  "lint-translation-parity",
+  // lint-csp-source activated in Story 4.8 — NFR7 source-level CSP-source check
+  // (no inline <style>/<script>/style=/on*=). D10 <script nomodule> exempt.
+  "lint-csp-source",
+  // exit-criterion-spec activated in Story 4.8 — Epic-4 exit criterion proof:
+  // every shipped lint demonstrated against both corpus AND SPA surfaces.
+  "exit-criterion-spec",
 ]);
 
 function loadPrChecks() {

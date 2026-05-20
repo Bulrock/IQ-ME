@@ -37,9 +37,21 @@ The methodology corpus is written for an over-anxious lay test-taker, a skeptic,
 
 The Story 4.4 `lint-reading-level-en.mjs` enforces a Flesch-Kincaid reading level upper bound (target Grade 11; cap Grade 13).
 
-## Epic 3 interim stub builder
+## Renderer contract (v1)
 
-Epic 3 ships `tools/build-methodology.mjs` as an interim stub that renders each EN methodology source via `<pre>`-wrap (no markdown subset parsing) and emits to `dist/methodology/v0.1.0/en/<path>/index.html` for three scoring pages — `scoring/percentile-to-iq/`, `scoring/uncertainty/`, `scoring/overview/`. Epic 4 (Story 4.1) replaces this stub with the full subset-parsing renderer + per-corpus-release re-emit semantics + `git describe --tags --match 'corpus-v*' --abbrev=0` version baking. The **output URL pattern is the permanent commitment** (per `docs/adr/methodology-handoff-url-contract.md`); the rendering quality is interim. The hard-coded `v0.1.0` aligns with Story 3-5's `CORPUS_VERSION` constant in `src/assessment/result.js` and Story 3-8's planned `corpus-v0.1.0` initial-tag.
+The build pipeline at `tools/build-methodology.mjs` parses every EN methodology source through the strict-mode subset renderer at `tools/markdown-subset.mjs`. The renderer implements the constructs declared in `corpus/markdown-subset-v1.md` and rejects every out-of-subset construct with a `MarkdownSubsetError` carrying line, column, and source-path coordinates. The build fails on any rejection; pages that need a forbidden construct must be reshaped to stay in the subset, never the renderer relaxed in place. New constructs ship as `markdown-subset-v2.md` plus a renderer flag.
+
+## Corpus-version resolution
+
+The builder resolves the corpus-version segment of every output URL in this order, first match wins. First, the env override `IQME_CORPUS_VERSION` if set and matching the `v<X>.<Y>.<Z>` semver pattern. Second, the output of `git describe --tags --match 'corpus-v*' --abbrev=0` with the leading `corpus-` stripped, if the command exits cleanly and the tag matches `corpus-v<X>.<Y>.<Z>`. Third, the literal fallback `v0.1.0`, which preserves the Story 3-6 URL contract in repositories that have not yet been corpus-tagged.
+
+## Per-corpus-release re-emit
+
+Every source page emits at every invocation regardless of whether its content changed. No skip-if-unchanged logic exists in the pipeline. Citers of `/<corpus-version>/<lang>/<path>` keep resolving to that frozen version forever because the emission is unconditional and the bytes are deterministic. The build-cache contract noted in `architecture.md` under the pending-decision section is deliberately not implemented at the current page count; premature optimization at four pages is exactly the trap to avoid.
+
+## Latest companion
+
+In addition to the versioned output path, the builder writes a byte-identical copy to `dist/methodology/latest/<lang>/<path>/index.html`. This companion exists for unversioned-link semantics, including the future root-redirect from `/methodology/<lang>/<path>/` and the eventual `x-default` hreflang anchor. It is a build-time byte copy, not a `<meta refresh>` redirect, because UX discipline says clipboard-pasted versioned URLs must always land the reader on the page they saw without a navigation surprise.
 
 ## Pipeline land schedule
 

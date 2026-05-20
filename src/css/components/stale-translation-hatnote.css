@@ -1,0 +1,41 @@
+/* src/css/components/stale-translation-hatnote.css
+ *
+ * Story 4.7 AC-1 — stale-translation hatnote (UX-DR15 load-bearing trust
+ * signal). Rendered on every methodology page; hidden by default. Revealed
+ * when an ancestor (the <body>) carries `data-translation-stale="true"`,
+ * which the builder sets when a non-EN page's frontmatter `sourceHashEN`
+ * does not match the current EN-source SHA-256.
+ *
+ * Pure CSS, semantic tokens only (no primitives). No inline styles (NFR7).
+ * `role="note"` is set in the HTML template (NOT `role="alert"` —
+ * lint-no-role-alert would block).
+ */
+
+.stale-translation-hatnote {
+  display: none;
+}
+
+[data-translation-stale="true"] .stale-translation-hatnote {
+  display: block;
+  padding-block: var(--space-4);
+  padding-inline: var(--space-5);
+  background-color: var(--color-surface-attention);
+  color: var(--color-text-attention-body);
+  border-block-end: 1px solid var(--color-rule-divider);
+}
+
+.stale-translation-hatnote p {
+  margin: 0;
+  font-size: var(--font-size-200);
+  line-height: var(--line-height-normal, 1.5);
+}
+
+.stale-translation-hatnote a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.stale-translation-hatnote a:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}

@@ -363,3 +363,102 @@ branches:
     last_synced_at: 2026-05-19T22:57:24.185Z
     notes: ""
     created_at: 2026-05-19T22:54:39.150Z
+  - branch: epic/4
+    story_id: null
+    epic_id: epic-4
+    base_branch: main
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-19T23:30:52.323Z
+  - branch: story/4-1-subset-renderer
+    story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
+    epic_id: null
+    base_branch: epic/4
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T00:03:19.035Z
+    notes: ""
+    created_at: 2026-05-19T23:38:44.656Z
+  - branch: story/4-2-byte-stable-snapshots
+    story_id: 4-2-byte-stable-build-assertion-golden-html-snapshots
+    epic_id: null
+    base_branch: epic/4
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T00:16:31.439Z
+    notes: ""
+    created_at: 2026-05-20T00:05:55.836Z
+  - branch: story/4-3-lint-frontmatter-strict
+    story_id: 4-3-lint-frontmatter-lint-claims-manifest-strict-graduation
+    epic_id: null
+    base_branch: epic/4
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T00:28:10.709Z
+    notes: ""
+    created_at: 2026-05-20T00:19:43.370Z
+  - branch: story/4-4-lint-glossary-readlvl
+    story_id: 4-4-lint-glossary-lint-reading-level-en
+    epic_id: null
+    base_branch: epic/4
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T07:07:04.656Z
+    notes: ""
+    created_at: 2026-05-20T00:31:08.785Z
+  - branch: story/4-5-lint-license-provenance
+    story_id: 4-5-lint-license-provenance
+    epic_id: null
+    base_branch: epic/4
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T07:19:00.685Z
+    notes: ""
+    created_at: 2026-05-20T07:09:47.466Z
+  - branch: story/4-6-masthead-cite-widget
+    story_id: 4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template
+    epic_id: null
+    base_branch: epic/4
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T07:38:07.100Z
+    notes: ""
+    created_at: 2026-05-20T07:22:05.734Z
+  - branch: story/4-7-stale-translation-hatnote
+    story_id: 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
+    epic_id: null
+    base_branch: epic/4
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T07:53:55.577Z
+    notes: ""
+    created_at: 2026-05-20T07:40:33.525Z
+  - branch: story/4-8-exit-criterion
+    story_id: 4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment
+    epic_id: null
+    base_branch: epic/4
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T08:11:28.904Z
+    notes: ""
+    created_at: 2026-05-20T07:56:44.633Z

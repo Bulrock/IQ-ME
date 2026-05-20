@@ -37,5 +37,13 @@ parents:
   3-6-author-3-en-methodology-stub-pages-the-click-targets: epic-3
   3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice: epic-3
   3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording: epic-3
-last_updated: 2026-05-19T22:42:21.171Z
+  4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit: epic-4
+  4-2-byte-stable-build-assertion-golden-html-snapshots: epic-4
+  4-3-lint-frontmatter-lint-claims-manifest-strict-graduation: epic-4
+  4-4-lint-glossary-lint-reading-level-en: epic-4
+  4-5-lint-license-provenance: epic-4
+  4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template: epic-4
+  4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub: epic-4
+  4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment: epic-4
+last_updated: 2026-05-20T08:44:04.395Z
 generated_by: bmad-tds-bridge-from-retros

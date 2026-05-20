@@ -1,0 +1,48 @@
+/* src/css/components/masthead.css
+ *
+ * Story 4.6 AC-1 — methodology page masthead (UX-DR11 load-bearing trust
+ * signal + Karolina-60s checklist item #1). Renders title, version, DOI,
+ * last-reviewed date, named reviewer + GitHub handle, with a bottom hairline
+ * rule. Pure CSS, semantic tokens only (no primitives).
+ *
+ * Inline-style discipline (NFR7 CSP): no `style=""` attributes; all styling
+ * lives here.
+ */
+
+.methodology-masthead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-block: var(--space-5);
+  padding-inline: var(--space-5);
+  color: var(--color-text-body);
+  background-color: var(--color-surface-base);
+  border-block-end: 1px solid var(--color-rule-divider);
+}
+
+.methodology-masthead__title {
+  font-size: var(--font-size-700);
+  line-height: var(--line-height-tight, 1.15);
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-text-body);
+}
+
+.methodology-masthead__version,
+.methodology-masthead__doi,
+.methodology-masthead__last-reviewed,
+.methodology-masthead__reviewer {
+  font-size: var(--font-size-200);
+  line-height: var(--line-height-normal, 1.5);
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.methodology-masthead__doi[data-doi-pending] {
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
+.methodology-masthead__last-reviewed time {
+  font-variant-numeric: tabular-nums;
+}
