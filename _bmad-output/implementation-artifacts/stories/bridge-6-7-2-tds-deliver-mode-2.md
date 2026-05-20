@@ -1,7 +1,7 @@
 ---
 id: bridge-6-7-2-tds-deliver-mode-2
 title: "Story bridge-6-7-2-tds-deliver-mode-2: tds deliver Mode 2 idempotent recovery on re-run for partial OH-07 finalize"
-status: review
+status: approved
 ---
 
 # Story bridge-6-7-2-tds-deliver-mode-2: tds deliver Mode 2 idempotent recovery on re-run for partial OH-07 finalize

@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 12df1321da3eced03094ca0d07ab80bf4cc63d2c2e4301d14026a36729b7501d
+    sha256: a6206c3904e7d8b8d026e7e82c81de10235cb13d1b0315c5de3286f5ad1a0a72
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:34:12.386Z
-    recorded_by: engineer
-    story_id: bridge-6-7-3-restore-carry-forward-lessons
+    recorded_at: 2026-05-20T13:41:38.042Z
+    recorded_by: auditor
+    story_id: bridge-6-7
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -969,24 +969,24 @@ entries:
     story_id: 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-6-7-1-extend-state-commit-sweep.md
-    sha256: 12228eea49fd17d720a2dc0232408d1e3540e8ba05f1d5e291e084da77330332
+    sha256: a9ba45cbd451cd62f22434e5bda08e08f2d1eaae46f8667ff18d34ed638d8dab
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:39:04.907Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T13:41:37.769Z
+    recorded_by: auditor
     story_id: bridge-6-7-1-extend-state-commit-sweep
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-6-7-2-tds-deliver-mode-2.md
-    sha256: f152d315cb69da88512eab7dd9b2add6f14aa5630d92784c03dbe8200afe9f16
+    sha256: dfc77a78b555339b8588be2d4cb395030284cbd77acba47b00f535fe3db0987f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:06:17.150Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T13:41:37.870Z
+    recorded_by: auditor
     story_id: bridge-6-7-2-tds-deliver-mode-2
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-6-7-3-restore-carry-forward-lessons.md
-    sha256: 14be6da9ce843b45aaccbf617f585b6768068a93bdf504ed7d572fdea031fddc
+    sha256: 86d2b22a3f59444e314f727683a3893bb473fb17361eef06fb69d21d262f2f8f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:40:38.842Z
-    recorded_by: story-add-finding-autorecord
+    recorded_at: 2026-05-20T13:41:37.965Z
+    recorded_by: auditor
     story_id: bridge-6-7-3-restore-carry-forward-lessons
   - artefact_class: A
     file: tests/scaffold/lint-spec-carry-forward-coverage.test.mjs
