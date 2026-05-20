@@ -253,3 +253,21 @@ This story owns:
 - Full `make test` exit 0 (705 tests, 704 pass, 1 skip).
 - Full `make lint` exit 0.
 - Full `make build` exit 0.
+
+## Auditor Findings (round-1)
+
+### [info] `tds integrity verify` also flags `tests/golden/regenerate.R` (artefact_class=A, registered story 2-6b, recorded 2026-05-19T15:06:08Z; expected f3b6cb…, actual ec64bb…). This drift was inherited from main: commit 4b0f51c "fix(golden): skip estimation in regenerate.R parameter template (#5)" landed at 2026-05-19T18:21:41+0200, AFTER the registry was recorded at 17:06+0200. Not introduced by epic-5; surfaces here because epic-5 cumulative review runs full registry verify. Not a blocker for this epic but should be cleaned to keep `tds integrity verify` exit 0 stable.
+
+
+- **Category:** integrity-drift-inherited
+- **Suggested fix:** Out-of-epic-scope, but recommended: open a tiny housekeeping bridge story or piggy-back on next bridge-5-6 (already done) successor: run `tds integrity record --as=engineer --file=tests/golden/regenerate.R --story=2-6b-... --notes="Re-register after PR #5 fix"` on main and commit. Alternatively fold into bridge-5-6 follow-up if still open.
+
+
+## Auditor Findings (round-2)
+
+### [info] Story 5-1 carries three deferred tasks (Task 4: Playwright lede spec → 5-2; Task 11: consent-scene placeholder replacement → 5-3/Epic 6; Task 12: snapshot regen → no diff). Self-review confirms each deferral has a credible follow-up home. Not a defect; logged so retro can decide whether to bridge or fold into Epic 6 Story 6.1. AC-6 (Epic-3 consent-scene update) deferred to Epic 6: spec accepts this in self-review (consent.js has no placeholder today). Net AC-6 acceptance: structurally satisfied (no placeholder exists, none required).
+
+
+- **Category:** deferred-tasks
+- **Suggested bridge:** `Bridge candidate: lede auto-wrap (build-methodology emits `<p class="lede">` on first paragraph) — currently editorial discipline. Worth evaluating in epic-5 retro whether the editorial-discipline approach is sufficient or whether build-pipeline auto-wrap is wanted before Epic 6 score-panel typography seam locks.
+`
