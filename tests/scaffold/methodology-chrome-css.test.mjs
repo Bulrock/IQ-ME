@@ -14,6 +14,10 @@ const LEDE_CSS = join(REPO_ROOT, "src", "css", "components", "lede.css");
 const STUB_CSS = join(REPO_ROOT, "src", "css", "components", "translation-in-progress-stub.css");
 const DIAGRAM_CSS = join(REPO_ROOT, "src", "css", "components", "validity-envelope-diagram.css");
 const DIAGRAM_SVG = join(REPO_ROOT, "src", "content", "diagrams", "validity-envelope-diagram.svg");
+// Story 5.7 — Phase-2 components
+const EAP_SVG = join(REPO_ROOT, "src", "content", "diagrams", "eap-shrinkage-diagram.svg");
+const EAP_CSS = join(REPO_ROOT, "src", "css", "components", "eap-shrinkage-diagram.css");
+const TRAIL_CSS = join(REPO_ROOT, "src", "css", "components", "tail-aware-trail.css");
 const INDEX_HTML = join(REPO_ROOT, "src", "index.html");
 const STRINGS_EN = join(REPO_ROOT, "src", "content", "i18n", "en", "strings.json");
 
@@ -132,6 +136,55 @@ test("AC-2+AC-3: strings.json carries Story 5.1 i18n keys", () => {
 });
 
 // ─── CSS aggregator wiring (linked from src/index.html or _index.css) ────
+
+// ─── Story 5.7 — Phase-2 components ─────────────────────────────────────
+
+test("Story 5.7: src/content/diagrams/eap-shrinkage-diagram.svg exists", () => {
+  assert.ok(existsSync(EAP_SVG), `${EAP_SVG} missing`);
+});
+
+test("Story 5.7: eap-shrinkage SVG has <title> + <desc> with data-i18n-key", () => {
+  const svg = readFileSync(EAP_SVG, "utf8");
+  assert.match(svg, /<title[^>]*data-i18n-key=["']diagrams\.eapShrinkage\.title["']/);
+  assert.match(svg, /<desc[^>]*data-i18n-key=["']diagrams\.eapShrinkage\.desc["']/);
+});
+
+test("Story 5.7: eap-shrinkage SVG contains no <style> block (CSP-safe inline)", () => {
+  const svg = readFileSync(EAP_SVG, "utf8");
+  assert.doesNotMatch(svg, /<style\b/i);
+});
+
+test("Story 5.7: eap-shrinkage SVG file size ≤ 8KB (NFR3)", () => {
+  const { size } = statSync(EAP_SVG);
+  assert.ok(size <= 8 * 1024, `eap-shrinkage-diagram.svg = ${size}B > 8192B budget`);
+});
+
+test("Story 5.7: src/css/components/eap-shrinkage-diagram.css exists", () => {
+  assert.ok(existsSync(EAP_CSS), `${EAP_CSS} missing`);
+});
+
+test("Story 5.7: src/css/components/tail-aware-trail.css exists", () => {
+  assert.ok(existsSync(TRAIL_CSS), `${TRAIL_CSS} missing`);
+});
+
+test("Story 5.7: strings.json carries Story 5.7 i18n keys", () => {
+  const json = JSON.parse(readFileSync(STRINGS_EN, "utf8"));
+  for (const path of ["diagrams.eapShrinkage.title", "diagrams.eapShrinkage.desc"]) {
+    let cur = json;
+    for (const part of path.split(".")) {
+      assert.ok(cur && Object.prototype.hasOwnProperty.call(cur, part), `missing ${path}`);
+      cur = cur[part];
+    }
+    assert.equal(typeof cur, "string");
+    assert.ok(cur.length > 0);
+  }
+});
+
+test("Story 5.7: index.html links eap-shrinkage-diagram.css + tail-aware-trail.css", () => {
+  const html = readFileSync(INDEX_HTML, "utf8");
+  assert.match(html, /eap-shrinkage-diagram\.css/);
+  assert.match(html, /tail-aware-trail\.css/);
+});
 
 test("Story 5.1 CSS components are loaded by src/index.html (directly or transitively)", () => {
   // Convention from src/css/components/*: all are <link rel="stylesheet"> or

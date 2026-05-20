@@ -1,0 +1,72 @@
+/* src/css/components/eap-shrinkage-diagram.css
+ *
+ * Story 5.7 — EAP-shrinkage diagram. Visual aid for scoring/eap.md showing
+ * the EAP estimator's shrinkage toward the prior centre at the tails.
+ *
+ * Mirrors the validity-envelope-diagram pattern (Story 5.1): colorblind-safe
+ * via shape + position + label, not just colour. NFR12.
+ */
+
+.eap-shrinkage-diagram {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+main .eap-shrinkage-diagram,
+.methodology-body .eap-shrinkage-diagram {
+  inline-size: 100%;
+  margin-block: var(--space-prose-paragraph-gap);
+}
+
+.eap-shrinkage-diagram .axis {
+  stroke: var(--color-rule-strong);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.eap-shrinkage-diagram .axis-tick {
+  stroke: var(--color-rule-divider);
+  stroke-width: 1;
+  fill: none;
+}
+
+.eap-shrinkage-diagram .point-mle {
+  fill: var(--color-surface-base);
+  stroke: var(--color-text-muted);
+  stroke-width: 2;
+}
+
+.eap-shrinkage-diagram .point-eap {
+  fill: var(--color-accent-500);
+  stroke: var(--color-accent-700);
+  stroke-width: 1;
+}
+
+.eap-shrinkage-diagram .shrink-arrow {
+  stroke: var(--color-accent-500);
+  stroke-width: 2;
+  fill: none;
+  marker-end: none;
+}
+
+.eap-shrinkage-diagram .title-label {
+  fill: var(--color-text-body);
+  font-family: var(--font-family-sans);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.eap-shrinkage-diagram .axis-label,
+.eap-shrinkage-diagram .point-label {
+  fill: var(--color-text-muted);
+  font-family: var(--font-family-sans);
+  font-size: 11px;
+}
+
+.eap-shrinkage-diagram .caption {
+  fill: var(--color-text-muted);
+  font-family: var(--font-family-sans);
+  font-size: 11px;
+  font-style: italic;
+}

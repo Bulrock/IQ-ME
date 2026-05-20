@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: a049640b7223374fb142e4f025e15436e33e4ca7a6e27489be9d2b7689282667
+    sha256: 81cca16e3c102c9651f78afb562ebb05f5124e9b26d995cf375f2ef4d9424617
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:23:17.793Z
-    recorded_by: frontend
+    recorded_at: 2026-05-20T11:23:53.252Z
+    recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: b6557c5c7c61bce1e171b6c7a75230198f91e82f192e420c745601292d6b9f64
+    sha256: bbd4e582bd181a76bf292bcc61880b4fd63dee44edf0537ea8f6737e14eea855
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:23:17.363Z
+    recorded_at: 2026-05-20T11:26:12.766Z
     recorded_by: frontend
-    story_id: 5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd
+    story_id: 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -890,12 +890,12 @@ entries:
     story_id: 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
   - artefact_class: A
     file: tests/scaffold/methodology-chrome-css.test.mjs
-    sha256: 0db715a4e31b9d6f68589fb72f83c746ff17451d2d6cc8649af63064832c66f4
+    sha256: d63d3b61b5ee50e28fe0da4a3018af7bbeee5e844385740a0d0af2640f6fc856
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:44:19.107Z
+    recorded_at: 2026-05-20T11:24:25.892Z
     recorded_by: test-author
-    story_id: 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
-    notes: "story 5-1 test-author phase: scaffold tests + lint-frontmatter translationStatus extension"
+    story_id: 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows
+    notes: "story 5-7 test-author: extend with Phase-2 component tests"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint.md
     sha256: 0e945276db5d9e55af5996e14e19df1b1b786c3da6a69c76a4192316a3f4dabc
@@ -963,3 +963,10 @@ entries:
     recorded_by: test-author
     story_id: 5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd
     notes: "story 5-6 test-author: tail-scene + crisis-resources scaffold"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows.md
+    sha256: e811f77625a69901069adcb29f13a89f905e5a2c5249a8c23d294b77e4e261ef
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T11:26:12.802Z
+    recorded_by: frontend
+    story_id: 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows

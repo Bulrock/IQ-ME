@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" role="img" aria-labelledby="eap-shrinkage-title eap-shrinkage-desc" class="eap-shrinkage-diagram">
+  <title id="eap-shrinkage-title" data-i18n-key="diagrams.eapShrinkage.title">EAP shrinkage at the tails</title>
+  <desc id="eap-shrinkage-desc" data-i18n-key="diagrams.eapShrinkage.desc">An EAP point estimate (filled circle) sits between a raw maximum-likelihood theta (open marker, further from zero) and the standard-normal prior centre (vertical line at theta=0). At the tails, the prior pulls the estimate toward zero — visible shrinkage. Near the centre, the prior has little effect.</desc>
+  <line class="axis" x1="20" y1="180" x2="380" y2="180" />
+  <line class="axis-tick" x1="200" y1="40" x2="200" y2="180" />
+  <text class="axis-label" x="200" y="200" text-anchor="middle">theta = 0 (prior centre)</text>
+  <text class="axis-label" x="40" y="200" text-anchor="middle">-3</text>
+  <text class="axis-label" x="360" y="200" text-anchor="middle">+3</text>
+  <text class="title-label" x="200" y="30" text-anchor="middle">EAP shrinkage at the tails</text>
+  <circle class="point-mle" cx="60" cy="180" r="6" />
+  <text class="point-label" x="60" y="160" text-anchor="middle">ML theta</text>
+  <circle class="point-eap" cx="100" cy="180" r="6" />
+  <text class="point-label" x="100" y="160" text-anchor="middle">EAP theta</text>
+  <path class="shrink-arrow" d="M 60 180 L 96 180" />
+  <circle class="point-mle" cx="320" cy="180" r="6" />
+  <circle class="point-eap" cx="280" cy="180" r="6" />
+  <path class="shrink-arrow" d="M 320 180 L 284 180" />
+  <circle class="point-mle" cx="220" cy="180" r="6" />
+  <circle class="point-eap" cx="216" cy="180" r="6" />
+  <text class="caption" x="200" y="80" text-anchor="middle">At the tails (left and right), the prior pulls the estimate inward.</text>
+  <text class="caption" x="200" y="100" text-anchor="middle">Near zero, the prior has almost no effect.</text>
+</svg>
