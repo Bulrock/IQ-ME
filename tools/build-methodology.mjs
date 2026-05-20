@@ -19,17 +19,24 @@
 // Stdlib-only (NFR33) + a single relative import of the in-repo renderer.
 // Deterministic: no time-source or RNG calls in output.
 
-import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from "node:fs";
 import { resolve, join, relative, dirname } from "node:path";
 import { argv, env, cwd, exit, stderr, stdout } from "node:process";
 import { execSync } from "node:child_process";
+import { createHash } from "node:crypto";
 
 import { render, MarkdownSubsetError } from "./markdown-subset.mjs";
 
 const CWD = cwd();
 const SRC_ROOT = resolve(CWD, env.IQME_BUILD_METHODOLOGY_SRC || "src/content/methodology");
 const OUT_ROOT = resolve(CWD, env.IQME_BUILD_METHODOLOGY_OUT || "dist/methodology");
-const LANG = "en"; // Story 3-6 v1: EN only. Epic 7 adds RU/PL.
+// Story 3-6 launched with EN only; Story 4-7 extends the builder so it can
+// walk RU/PL locale trees and apply the stale-translation hatnote hook. At
+// Epic 4 close, only EN content exists in-repo — RU/PL trees are
+// .gitkeep-only and produce zero pages.
+const LOCALES = ["en", "ru", "pl"];
+// Retained for callers that historically referenced LANG; canonical EN path.
+const LANG = "en";
 const SEMVER_RE = /^v\d+\.\d+\.\d+$/;
 const FALLBACK_VERSION = "v0.1.0";
 
@@ -184,23 +191,50 @@ function stripBodyLeadingH1(bodySrc) {
 // URL fallback rooted at the version + lang segments emitted by the builder.
 // Epic 8 (release.yml) is expected to replace this with the absolute canonical
 // URL once the corpus deploys under a known origin.
-function canonicalUrlFor(srcPath, corpusVersion) {
-  const enRoot = join(SRC_ROOT, LANG);
-  const rel = relative(enRoot, srcPath).replace(/\\/g, "/");
+function canonicalUrlFor(srcPath, lang, corpusVersion) {
+  const localeRoot = join(SRC_ROOT, lang);
+  const rel = relative(localeRoot, srcPath).replace(/\\/g, "/");
   const noExt = rel.replace(/\.md$/, "");
   // Use the directory path (drop trailing /index → directory URL).
   const dirPath = noExt.endsWith("/index") ? noExt.slice(0, -"/index".length) : noExt;
-  return `/methodology/${corpusVersion}/${LANG}/${dirPath}/`;
+  return `/methodology/${corpusVersion}/${lang}/${dirPath}/`;
 }
 
-function renderPage(srcPath, fm, bodySrc, corpusVersion) {
+// Story 4.7 AC-3 — compute SHA-256 of the body-only portion of an EN source
+// file (everything after the second `---` line). Returns undefined when the
+// EN counterpart does not exist on disk (graceful no-counterpart path).
+function enSourceHashFor(srcPath, lang) {
+  if (lang === "en") return undefined;
+  const localeRoot = join(SRC_ROOT, lang);
+  const rel = relative(localeRoot, srcPath);
+  const enCounterpart = join(SRC_ROOT, "en", rel);
+  if (!existsSync(enCounterpart)) {
+    stderr.write(
+      `build-methodology: WARN no EN counterpart for ${lang}/${rel} at ${enCounterpart}; ` +
+        `stale-translation hatnote skipped\n`,
+    );
+    return undefined;
+  }
+  const text = readFileSync(enCounterpart, "utf8");
+  const lines = text.split(/\r?\n/);
+  if (lines[0] !== "---") return undefined;
+  let end = -1;
+  for (let i = 1; i < lines.length; i++) {
+    if (lines[i] === "---") { end = i; break; }
+  }
+  if (end === -1) return undefined;
+  const body = lines.slice(end + 1).join("\n");
+  return createHash("sha256").update(body, "utf8").digest("hex");
+}
+
+function renderPage(srcPath, lang, fm, bodySrc, corpusVersion) {
   const title = esc(fm.title || "(untitled)");
   const reviewer = esc(fm.reviewer || "TBD");
   const reviewerHandle = esc(fm.reviewerHandle || "@TBD");
   const lastReviewed = esc(fm.lastReviewed || "0000-00-00");
   const version = esc(corpusVersion);
   const doi = esc(fm.doi || "");
-  const url = esc(canonicalUrlFor(srcPath, corpusVersion));
+  const url = esc(canonicalUrlFor(srcPath, lang, corpusVersion));
   // Strip body's leading `# Title` line (masthead owns the page <h1>).
   const strippedBody = stripBodyLeadingH1(bodySrc);
   // Body rendered via subset renderer with allowZeroH1: true (Story 4.6 AC-8).
@@ -209,9 +243,23 @@ function renderPage(srcPath, fm, bodySrc, corpusVersion) {
   const doiLine = doi
     ? `<p class="methodology-masthead__doi">DOI: ${doi}</p>`
     : `<p class="methodology-masthead__doi" data-doi-pending>DOI: pending v1.0.0 release</p>`;
+  // Story 4.7 AC-3 — translation-stale detection. Only fires for non-EN pages
+  // with an existing EN counterpart whose body-SHA disagrees with the page's
+  // frontmatter sourceHashEN.
+  const enHash = enSourceHashFor(srcPath, lang);
+  const isStale = enHash !== undefined && enHash !== fm.sourceHashEN;
+  const bodyAttrs = `data-lang="${lang}"` + (isStale ? ` data-translation-stale="true"` : "");
+  // Hatnote always rendered (uniform DOM across locales); CSS hides it unless
+  // an ancestor carries data-translation-stale="true".
+  const enUrl = esc(canonicalUrlFor(srcPath, "en", corpusVersion));
+  const hatnote =
+    `<aside class="stale-translation-hatnote" role="note">\n` +
+    `<p>This page may be out of date relative to its English source. ` +
+    `<a href="${enUrl}">View source EN page</a>.</p>\n` +
+    `</aside>\n`;
   return (
     `<!doctype html>\n` +
-    `<html lang="en">\n` +
+    `<html lang="${lang}">\n` +
     `<head>\n` +
     `<meta charset="utf-8">\n` +
     `<meta name="viewport" content="width=device-width,initial-scale=1">\n` +
@@ -222,15 +270,16 @@ function renderPage(srcPath, fm, bodySrc, corpusVersion) {
     `<meta name="iqme-last-reviewed" content="${lastReviewed}">\n` +
     `<meta name="iqme-reviewer" content="${reviewer}">\n` +
     `<meta name="iqme-reviewer-handle" content="${reviewerHandle}">\n` +
-    `<meta name="iqme-lang" content="${LANG}">\n` +
+    `<meta name="iqme-lang" content="${lang}">\n` +
     `<meta name="iqme-url" content="${url}">\n` +
     `<link rel="stylesheet" href="/src/css/primitives.css">\n` +
     `<link rel="stylesheet" href="/src/css/semantic.css">\n` +
     `<link rel="stylesheet" href="/src/css/components/masthead.css">\n` +
     `<link rel="stylesheet" href="/src/css/components/cite-this-page-widget.css">\n` +
+    `<link rel="stylesheet" href="/src/css/components/stale-translation-hatnote.css">\n` +
     `<script type="module" src="/src/assessment/cite-this-page.js" defer></script>\n` +
     `</head>\n` +
-    `<body>\n` +
+    `<body ${bodyAttrs}>\n` +
     `<header class="methodology-masthead">\n` +
     `<h1 class="methodology-masthead__title">${title}</h1>\n` +
     `<p class="methodology-masthead__version">${version}</p>\n` +
@@ -238,6 +287,7 @@ function renderPage(srcPath, fm, bodySrc, corpusVersion) {
     `<p class="methodology-masthead__last-reviewed">Last reviewed: <time datetime="${lastReviewed}">${lastReviewed}</time></p>\n` +
     `<p class="methodology-masthead__reviewer">Reviewer: ${reviewer} (${reviewerHandle})</p>\n` +
     `</header>\n` +
+    hatnote +
     `<main>\n` +
     bodyHtml +
     `\n</main>\n` +
@@ -247,59 +297,61 @@ function renderPage(srcPath, fm, bodySrc, corpusVersion) {
   );
 }
 
-function outputPathFor(srcPath, corpusVersion, latest = false) {
-  const enRoot = join(SRC_ROOT, LANG);
-  const rel = relative(enRoot, srcPath);
+function outputPathFor(srcPath, lang, corpusVersion, latest = false) {
+  const localeRoot = join(SRC_ROOT, lang);
+  const rel = relative(localeRoot, srcPath);
   if (rel.startsWith("..")) return null;
   const htmlRel = rel.replace(/\.md$/, ".html");
   const versionSegment = latest ? "latest" : corpusVersion;
-  return join(OUT_ROOT, versionSegment, LANG, htmlRel);
+  return join(OUT_ROOT, versionSegment, lang, htmlRel);
 }
 
 function main() {
   const corpusVersion = resolveCorpusVersion();
-  const enRoot = join(SRC_ROOT, LANG);
   let count = 0;
-  for (const srcPath of walkMd(enRoot)) {
-    let text;
-    try {
-      text = readFileSync(srcPath, "utf8");
-    } catch (e) {
-      die(`reading ${srcPath}: ${e.message}`);
-    }
-    let parsed;
-    try {
-      parsed = parseFrontmatter(text, srcPath);
-      validateRequiredFrontmatter(parsed.fm, srcPath);
-    } catch (e) {
-      die(e.message);
-    }
-    const bodySrc = parsed.lines.slice(parsed.bodyStart).join("\n");
-    let html;
-    try {
-      html = renderPage(srcPath, parsed.fm, bodySrc, corpusVersion);
-    } catch (e) {
-      if (e instanceof MarkdownSubsetError) {
-        die(`markdown-subset rejected page: ${e.message}`);
+  for (const lang of LOCALES) {
+    const localeRoot = join(SRC_ROOT, lang);
+    for (const srcPath of walkMd(localeRoot)) {
+      let text;
+      try {
+        text = readFileSync(srcPath, "utf8");
+      } catch (e) {
+        die(`reading ${srcPath}: ${e.message}`);
       }
-      die(`rendering ${srcPath}: ${e.message}`);
+      let parsed;
+      try {
+        parsed = parseFrontmatter(text, srcPath);
+        validateRequiredFrontmatter(parsed.fm, srcPath);
+      } catch (e) {
+        die(e.message);
+      }
+      const bodySrc = parsed.lines.slice(parsed.bodyStart).join("\n");
+      let html;
+      try {
+        html = renderPage(srcPath, lang, parsed.fm, bodySrc, corpusVersion);
+      } catch (e) {
+        if (e instanceof MarkdownSubsetError) {
+          die(`markdown-subset rejected page: ${e.message}`);
+        }
+        die(`rendering ${srcPath}: ${e.message}`);
+      }
+      const versionedOut = outputPathFor(srcPath, lang, corpusVersion, false);
+      const latestOut = outputPathFor(srcPath, lang, corpusVersion, true);
+      if (!versionedOut || !latestOut) {
+        die(`source path ${srcPath} is outside SRC_ROOT/${lang}`);
+      }
+      try {
+        mkdirSync(dirname(versionedOut), { recursive: true });
+        writeFileSync(versionedOut, html);
+        mkdirSync(dirname(latestOut), { recursive: true });
+        writeFileSync(latestOut, html);
+      } catch (e) {
+        die(`writing output: ${e.message}`);
+      }
+      count++;
     }
-    const versionedOut = outputPathFor(srcPath, corpusVersion, false);
-    const latestOut = outputPathFor(srcPath, corpusVersion, true);
-    if (!versionedOut || !latestOut) {
-      die(`source path ${srcPath} is outside SRC_ROOT/${LANG}`);
-    }
-    try {
-      mkdirSync(dirname(versionedOut), { recursive: true });
-      writeFileSync(versionedOut, html);
-      mkdirSync(dirname(latestOut), { recursive: true });
-      writeFileSync(latestOut, html);
-    } catch (e) {
-      die(`writing output: ${e.message}`);
-    }
-    count++;
   }
-  stdout.write(`build-methodology: built ${count} pages → ${OUT_ROOT}/{${corpusVersion},latest}/${LANG}/\n`);
+  stdout.write(`build-methodology: built ${count} pages → ${OUT_ROOT}/{${corpusVersion},latest}/<lang>/\n`);
 }
 
 main();

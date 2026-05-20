@@ -81,6 +81,9 @@ const EPIC_1_ACTIVE = new Set([
   // lint-license-provenance activated in Story 4.5 (Phase 1 LICENSES.md scope
   // coverage via docs/license-scope-map.md + Phase 2 NFR24 hash-drift discipline).
   "lint-license-provenance",
+  // lint-translation-parity activated in Story 4.7 (Epic-4-close no-op stub;
+  // Epic 7 / Story 7.5b flips on full per-locale parity coverage).
+  "lint-translation-parity",
 ]);
 
 function loadPrChecks() {

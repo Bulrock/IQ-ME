@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: e7e50140a87cd72057a516a63d9b9f9d0585dde53edec0c19e2e2c1c8351c808
+    sha256: f4bfebeecf07e01ae678f891bfc85f4228b8eb53481ae3dd46d3266b0fd6e73e
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:38:07.136Z
+    recorded_at: 2026-05-20T07:40:33.547Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: fc821220afaa2aa64b0ca1f4af96c02fcc0cb82e599e8024d0515359b1367c30
+    sha256: 036b8e43937bc565f3cefd822e192a1a84d8376de5a656d4950601cb1abf8022
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:37:18.773Z
+    recorded_at: 2026-05-20T07:53:23.667Z
     recorded_by: engineer
-    story_id: 4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template
+    story_id: 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -592,12 +592,12 @@ entries:
     story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
   - artefact_class: A
     file: tests/unit/build-methodology.test.mjs
-    sha256: 946b3dca40efdb990e8f13d1eafcc46bd6bdb0afe785ee34f66cef884af9669c
+    sha256: 49da653a05d5553ef67b4902f43e3d4a46e137086b634361d72849637e488a94
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:28:13.822Z
-    recorded_by: test-author
-    story_id: 4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template
-    notes: story 4-6 test-author phase
+    recorded_at: 2026-05-20T07:48:35.456Z
+    recorded_by: engineer
+    story_id: 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
+    notes: bugfix in fixture setup helper (removed stray writeFileSync before mkdir) — assertions unchanged
   - artefact_class: A
     file: tests/scaffold/build-methodology-output.test.mjs
     sha256: c1ac6af75c17ac5b891e15128e4f235dda75abd1859476269523bc525d75df73
@@ -820,3 +820,26 @@ entries:
     recorded_by: test-author
     story_id: 4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template
     notes: story 4-6 test-author phase
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub.md
+    sha256: 780c03687112f1c5cb266496eac3b2b8218e416fe4b04ade6b959cee40d66c9e
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T07:53:23.703Z
+    recorded_by: engineer
+    story_id: 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
+  - artefact_class: A
+    file: tests/unit/tools/lint-translation-parity.test.mjs
+    sha256: 1f2e3db1a84690e3c6569939ac78f41e13a94c4c0cbc96adb21abda60c8cfcce
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T07:45:13.436Z
+    recorded_by: test-author
+    story_id: 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
+    notes: "Story 4-7 test-author Phase A: failing tests for lint-translation-parity stub + hatnote builder extensions"
+  - artefact_class: A
+    file: tests/scaffold/lint-translation-parity-coverage.test.mjs
+    sha256: 5a31d6e4223e00a2547c487bb6e0dc50c78ee2a2bfdb7b296e74efc5e71fe4a4
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T07:45:13.436Z
+    recorded_by: test-author
+    story_id: 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
+    notes: "Story 4-7 test-author Phase A: failing tests for lint-translation-parity stub + hatnote builder extensions"

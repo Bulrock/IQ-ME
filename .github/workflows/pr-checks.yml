@@ -315,7 +315,13 @@ jobs:
   lint-translation-parity:
     name: lint-translation-parity
     runs-on: ubuntu-latest
-    # Activates in Epic 7
-    if: false
+    # Activated in Story 4.7 — no-op stub at Epic 4 close (RU/PL are .gitkeep-only;
+    # emits a single WARN line + per-locale summary, exit 0). Epic 7 (Story 7.5b)
+    # flips on the full per-locale parity coverage (EN-source-hash diff) once
+    # RU/PL content lands.
     steps:
-      - run: echo "stub — Activates in Epic 7 (Story 7.5b)"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-translation-parity.mjs

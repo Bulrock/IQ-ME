@@ -440,3 +440,14 @@ branches:
     last_synced_at: 2026-05-20T07:38:07.100Z
     notes: ""
     created_at: 2026-05-20T07:22:05.734Z
+  - branch: story/4-7-stale-translation-hatnote
+    story_id: 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
+    epic_id: null
+    base_branch: epic/4
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-20T07:40:33.525Z

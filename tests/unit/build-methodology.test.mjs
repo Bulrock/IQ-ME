@@ -612,3 +612,222 @@ test("AC-5 4.6: DOI placeholder text appears verbatim when iqme-doi is empty", (
     rmSync(out, { recursive: true, force: true });
   }
 });
+
+// ─── Story 4.7 extensions: stale-translation hatnote + data-stale hook ─────
+//
+// AC-3 / AC-4 / AC-7. The hatnote `<aside>` lives in the DOM on every page;
+// CSS hides it unless the body carries `data-translation-stale="true"`. The
+// builder computes the EN-source-hash for non-EN pages and sets the attribute
+// when the page's frontmatter `sourceHashEN` disagrees.
+
+import { createHash as createSha } from "node:crypto";
+
+// Helper: assemble a frontmatter+body string for a methodology page.
+function fmPage(fm, body) {
+  const lines = ["---"];
+  for (const [k, v] of Object.entries(fm)) {
+    if (Array.isArray(v)) {
+      lines.push(`${k}:`);
+      for (const item of v) lines.push(`  - ${JSON.stringify(item)}`);
+    } else {
+      lines.push(`${k}: ${JSON.stringify(v)}`);
+    }
+  }
+  lines.push("---", "", body, "");
+  return lines.join("\n");
+}
+
+// Helper: standard frontmatter dict with overrides.
+function baseFm(overrides = {}) {
+  return {
+    title: "Sample",
+    version: "0.1.0",
+    lastReviewed: "2026-05-19",
+    reviewer: "R",
+    reviewerHandle: "@r",
+    asserts: ["a"],
+    glossaryRefs: ["g"],
+    sourceHashEN: "0".repeat(64),
+    ...overrides,
+  };
+}
+
+// Helper: SHA-256 of the body-only portion (no frontmatter, no trailing
+// whitespace beyond what we wrote) — must match the builder's computation.
+// We mirror the build-methodology body-extraction convention: everything
+// after the closing `---` line, joined by "\n".
+function bodyHash(fmFields, body) {
+  const text = fmPage(fmFields, body);
+  const lines = text.split(/\r?\n/);
+  // Locate second `---`.
+  let end = -1;
+  for (let i = 1; i < lines.length; i++) {
+    if (lines[i] === "---") { end = i; break; }
+  }
+  const bodyLines = lines.slice(end + 1).join("\n");
+  return createSha("sha256").update(bodyLines, "utf8").digest("hex");
+}
+
+function makeFixtureRoot() {
+  return mkdtempSync(join(tmpdir(), "iqme-4-7-fx-"));
+}
+
+test("AC-4 4-7: every rendered EN page contains the stale-translation hatnote <aside role=\"note\">", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r.status, 0, `expected exit 0; stderr=${r.stderr}`);
+    const html = readFileSync(join(out, "v1.2.0/en/scoring/sample-page/index.html"), "utf8");
+    assert.match(
+      html,
+      /<aside class="stale-translation-hatnote" role="note">/,
+      `expected hatnote aside present; got:\n${html.slice(0, 800)}`,
+    );
+    // role="alert" must NOT appear — lint-no-role-alert would reject.
+    assert.ok(!/role="alert"/.test(html), `hatnote must not use role="alert" (lint-no-role-alert)`);
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+test("AC-4 4-7: EN page renders WITHOUT data-translation-stale attribute on <body>", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r.status, 0);
+    const html = readFileSync(join(out, "v1.2.0/en/scoring/sample-page/index.html"), "utf8");
+    // <body ...> opening tag should NOT carry data-translation-stale.
+    const bodyOpen = html.match(/<body[^>]*>/);
+    assert.ok(bodyOpen, "expected <body> tag in output");
+    assert.ok(
+      !/data-translation-stale/.test(bodyOpen[0]),
+      `EN page must not carry data-translation-stale on <body>; got: ${bodyOpen[0]}`,
+    );
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+test("AC-3 4-7: emitted HTML contains link tag for stale-translation-hatnote.css", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r.status, 0);
+    const html = readFileSync(join(out, "v1.2.0/en/scoring/sample-page/index.html"), "utf8");
+    assert.match(html, /<link rel="stylesheet" href="[^"]*stale-translation-hatnote\.css">/);
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+test("AC-3 4-7: fixture RU page with MISMATCHED sourceHashEN sets data-translation-stale=\"true\" on <body>", () => {
+  const root = makeFixtureRoot();
+  const out = makeOutDir();
+  try {
+    const enBody = "# EN page\n\nEnglish body.\n";
+    const enFm = baseFm({ title: "EN page" });
+    mkdirSync(join(root, "en/scoring/page"), { recursive: true });
+    mkdirSync(join(root, "ru/scoring/page"), { recursive: true });
+    writeFileSync(join(root, "en/scoring/page/index.md"), fmPage(enFm, enBody));
+    // RU frontmatter says sourceHashEN=BAD (mismatched) — builder must flag stale.
+    const ruFm = baseFm({ title: "RU page", sourceHashEN: "f".repeat(64) });
+    writeFileSync(join(root, "ru/scoring/page/index.md"), fmPage(ruFm, "# RU page\n\nRU body.\n"));
+
+    const r = spawnSync("node", [SCRIPT], {
+      cwd: REPO_ROOT,
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        IQME_BUILD_METHODOLOGY_SRC: root,
+        IQME_BUILD_METHODOLOGY_OUT: out,
+        IQME_CORPUS_VERSION: "v1.2.0",
+      },
+    });
+    assert.equal(r.status, 0, `expected exit 0; stderr=${r.stderr}; stdout=${r.stdout}`);
+    const ruHtml = readFileSync(join(out, "v1.2.0/ru/scoring/page/index.html"), "utf8");
+    const bodyOpen = ruHtml.match(/<body[^>]*>/);
+    assert.ok(bodyOpen, "expected <body> in RU output");
+    assert.match(
+      bodyOpen[0],
+      /data-translation-stale="true"/,
+      `RU page with mismatched hash must carry data-translation-stale="true"; body open: ${bodyOpen[0]}`,
+    );
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+test("AC-3 4-7: fixture RU page with MATCHING sourceHashEN does NOT carry data-translation-stale", () => {
+  const root = makeFixtureRoot();
+  const out = makeOutDir();
+  try {
+    const enBody = "# EN page\n\nEnglish body.\n";
+    const enFm = baseFm({ title: "EN page" });
+    mkdirSync(join(root, "en/scoring/page"), { recursive: true });
+    mkdirSync(join(root, "ru/scoring/page"), { recursive: true });
+    writeFileSync(join(root, "en/scoring/page/index.md"), fmPage(enFm, enBody));
+    // Compute the matching hash; the builder will recompute the same value.
+    const matchingHash = bodyHash(enFm, enBody);
+    const ruFm = baseFm({ title: "RU page", sourceHashEN: matchingHash });
+    writeFileSync(join(root, "ru/scoring/page/index.md"), fmPage(ruFm, "# RU page\n\nRU body.\n"));
+
+    const r = spawnSync("node", [SCRIPT], {
+      cwd: REPO_ROOT,
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        IQME_BUILD_METHODOLOGY_SRC: root,
+        IQME_BUILD_METHODOLOGY_OUT: out,
+        IQME_CORPUS_VERSION: "v1.2.0",
+      },
+    });
+    assert.equal(r.status, 0, `expected exit 0; stderr=${r.stderr}`);
+    const ruHtml = readFileSync(join(out, "v1.2.0/ru/scoring/page/index.html"), "utf8");
+    const bodyOpen = ruHtml.match(/<body[^>]*>/);
+    assert.ok(bodyOpen, "expected <body> in RU output");
+    assert.ok(
+      !/data-translation-stale/.test(bodyOpen[0]),
+      `RU page with matching hash must NOT carry data-translation-stale; body open: ${bodyOpen[0]}`,
+    );
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+test("AC-3 4-7: fixture RU page WITHOUT EN counterpart renders gracefully (no data-translation-stale)", () => {
+  const root = makeFixtureRoot();
+  const out = makeOutDir();
+  try {
+    // EN tree exists but for a DIFFERENT page; the RU page has no EN counterpart.
+    mkdirSync(join(root, "en/scoring/other-page"), { recursive: true });
+    mkdirSync(join(root, "ru/scoring/orphan-page"), { recursive: true });
+    writeFileSync(join(root, "en/scoring/other-page/index.md"),
+      fmPage(baseFm({ title: "Other" }), "# Other\n\nBody.\n"));
+    writeFileSync(join(root, "ru/scoring/orphan-page/index.md"),
+      fmPage(baseFm({ title: "Orphan RU" }), "# Orphan RU\n\nBody.\n"));
+
+    const r = spawnSync("node", [SCRIPT], {
+      cwd: REPO_ROOT,
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        IQME_BUILD_METHODOLOGY_SRC: root,
+        IQME_BUILD_METHODOLOGY_OUT: out,
+        IQME_CORPUS_VERSION: "v1.2.0",
+      },
+    });
+    assert.equal(r.status, 0, `expected exit 0 (graceful no-counterpart); stderr=${r.stderr}`);
+    const ruHtml = readFileSync(join(out, "v1.2.0/ru/scoring/orphan-page/index.html"), "utf8");
+    const bodyOpen = ruHtml.match(/<body[^>]*>/);
+    assert.ok(bodyOpen, "expected <body> in RU output");
+    assert.ok(
+      !/data-translation-stale/.test(bodyOpen[0]),
+      `orphan RU page (no EN counterpart) must NOT carry data-translation-stale; body open: ${bodyOpen[0]}`,
+    );
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+    rmSync(out, { recursive: true, force: true });
+  }
+});
