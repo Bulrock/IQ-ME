@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: f76cf1cef309a049c9ba831b60fc57d9cf8a15675508c076071b5c778faffba4
+    sha256: 9c09da9beb78d9f785287cd4a36a969a27b76234b634a8db6f329fd6c3e02497
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:42:26.436Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T16:04:04.150Z
+    recorded_by: frontend
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: ad720f2bbe52d6d1db13053c6a6838103a5354878d8959610214eb4b4bb48ed4
+    sha256: 287a2383a5a8a2265eacdc1ef2ca9855c25235f4fa0edad4a41e854e416ed21d
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:42:41.693Z
-    recorded_by: engineer
-    story_id: bridge-6-7-3-restore-carry-forward-lessons
+    recorded_at: 2026-05-20T16:03:50.212Z
+    recorded_by: frontend
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -102,11 +102,12 @@ entries:
     story_id: epic-1-retrospective
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: 77fce1ac56af99bae8f6473b30a32897618ea4ac888b2a011c1a61295bf26a2c
+    sha256: ecdfd8abe6b1ac3b6b9ab2a90d2cc5d08e8fefe6e68a802e27d5cac27b63a1c2
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:40:54.393Z
-    recorded_by: engineer
-    notes: Story 5-2 EPIC_1_ACTIVE extension + glossary/reading-level coverage threshold relaxation (story 5-2 self-review §2-3); re-register after legitimate cross-epic test modification — lesson-2026-05-19-001
+    recorded_at: 2026-05-20T16:00:08.793Z
+    recorded_by: frontend
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+    notes: "Story 6.1 AC-6 wiring: add co-equal-triplet-computed-style + reveal-stage-event-ordering to EPIC_1_ACTIVE (now activated, no if:false) — lesson-2026-05-19-001"
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: a9bb6d72aa3e9fed7ea49b8c83dffffcb085c0a9fbe80b8144d14aa893ccac1f
@@ -488,21 +489,13 @@ entries:
     recorded_by: engineer
     story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
   - artefact_class: A
-    file: tests/unit/reveal-stage.test.mjs
-    sha256: 16578d90e8face4760fb5d04d1a642509d7e893c688d094bcb5882a058e1cde9
-    canonical_form: raw-bytes
-    recorded_at: 2026-05-19T21:27:32.499Z
-    recorded_by: test-author
-    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
-    notes: story 3-5 red-phase tests authored via ATDD; AC-8/9/10/11
-  - artefact_class: A
     file: tests/unit/result.test.mjs
-    sha256: b613aba9831bb98b0d95d3c17b3737b9afe24cf7682743ffad225be0ba6758c5
+    sha256: 08450303e25c56c6e1ed7bf271b283a31d75bcbaa69d790236c3772b0f32d484
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T21:27:32.499Z
-    recorded_by: test-author
-    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
-    notes: story 3-5 red-phase tests authored via ATDD; AC-8/9/10/11
+    recorded_at: 2026-05-20T15:59:41.107Z
+    recorded_by: frontend
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+    notes: "Story 6.1 AC-9.3 graduation: 2-event handoff assertions replaced with 6-stage ADR-3-1 sequence (matching reveal-stage.test.mjs cycle-2 graduation) — lesson-2026-05-19-001"
   - artefact_class: A
     file: tests/unit/lint-css-source-co-equal.test.mjs
     sha256: a628b2d44b17a31e8ba67b9087742512b5612d9402a4850cb34f4838a18b08a5
@@ -513,12 +506,12 @@ entries:
     notes: story 3-5 red-phase tests authored via ATDD; AC-8/9/10/11
   - artefact_class: A
     file: tests/contract/reveal-stage-event-contract.spec.mjs
-    sha256: 53c8d046f17afa9c3e3dbbb7801a81499d73a9338c64ce83d98639b62620ba15
+    sha256: 59bd0d78dfd292423fd2d42bde6c1f315f39d67b4c95fae43ea6ae7ae4acf75c
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T21:27:32.500Z
+    recorded_at: 2026-05-20T15:42:43.730Z
     recorded_by: test-author
-    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
-    notes: story 3-5 red-phase tests authored via ATDD; AC-8/9/10/11
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+    notes: "story 6-1 red-phase: AC-11.5 inversion + AC-11.6/7/8 lock graduated 6-stage contract"
   - artefact_class: A
     file: tests/fixtures/lint-css-source-co-equal/parity-ok.css
     sha256: 0b24dcec2a1de3008264657fd404f8ca40a3ed4d0329011db8933cd6582fd27f
@@ -995,3 +988,42 @@ entries:
     recorded_at: 2026-05-20T13:21:58.013Z
     recorded_by: test-author
     story_id: bridge-6-7-3-restore-carry-forward-lessons
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion.md
+    sha256: 038aa4a835717918981e41f547c52d815a99de7bc86aee25a2eac566b820a4a5
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T16:03:50.300Z
+    recorded_by: frontend
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+  - artefact_class: A
+    file: tests/playwright/co-equal-triplet-computed-style.spec.mjs
+    sha256: 6d872f79572908b2cc61941aacb43ad021944bd36374d871d2a6226aa130f493
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T15:43:47.381Z
+    recorded_by: test-author
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+    notes: "story 6-1 red-phase: AC-4 computed-style runtime assertion (graduates 3.5 source lint)"
+  - artefact_class: A
+    file: tests/playwright/reveal-stage.spec.mjs
+    sha256: f7145ab932af64166f70b7be52454505417f812a76a54026a922fd29f960d47c
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T15:44:44.420Z
+    recorded_by: test-author
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+    notes: "story 6-1 red-phase: AC-5 full-sequence event-ordering + monotonic-t + out-of-order negative"
+  - artefact_class: A
+    file: tests/contract/reveal-stage-timings.spec.mjs
+    sha256: 72996a253e9c95009ffa15c4da267fe15096b7fdce05c615b7004f78a44927c7
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T15:47:49.098Z
+    recorded_by: test-author
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+    notes: "story-6-1 ATDD round-2: AC-3 timings JSON contract test"
+  - artefact_class: A
+    file: tests/unit/reveal-stage.test.mjs
+    sha256: 3ee647df0a66b8a843253413bf83a040a2507418d43a9a8caf46f047ff8ebc59
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T15:54:44.060Z
+    recorded_by: test-author
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+    notes: "story 6-1 ATDD cycle-2: graduated AC-8.2/8.3/8.4/8.6 to 6-stage enum symmetric with contract AC-11.5 inversion"

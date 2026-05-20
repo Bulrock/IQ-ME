@@ -649,3 +649,25 @@ branches:
     last_synced_at: 2026-05-20T13:34:28.609Z
     notes: ""
     created_at: 2026-05-20T13:13:00.943Z
+  - branch: epic/6
+    story_id: null
+    epic_id: epic-6
+    base_branch: main
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-20T15:28:55.325Z
+  - branch: story/6-1-reveal-stage-full
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+    epic_id: null
+    base_branch: epic/6
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T16:04:04.109Z
+    notes: ""
+    created_at: 2026-05-20T15:34:59.921Z
