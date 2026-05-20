@@ -429,3 +429,14 @@ branches:
     last_synced_at: 2026-05-20T07:19:00.685Z
     notes: ""
     created_at: 2026-05-20T07:09:47.466Z
+  - branch: story/4-6-masthead-cite-widget
+    story_id: 4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template
+    epic_id: null
+    base_branch: epic/4
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-20T07:22:05.734Z

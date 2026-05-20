@@ -49,7 +49,9 @@ test("AC-8.1: fixture-ok renders to expected output path with template surfaces"
     // Story 4.1 AC-2 removed the <pre class="methodology-stub-source"> wrap;
     // the body now lives inside <main> as real subset-rendered HTML.
     assert.ok(/<main>/.test(html), `expected <main> wrapper; got: ${html.slice(0, 500)}`);
-    assert.ok(/<h1>Sample heading<\/h1>/.test(html), `expected <h1> from body heading; got: ${html.slice(0, 500)}`);
+    // Story 4-6: title moves into the masthead <h1 class="methodology-masthead__title">.
+    assert.ok(/<h1 class="methodology-masthead__title">Sample page<\/h1>/.test(html),
+      `expected masthead <h1> title from frontmatter; got: ${html.slice(0, 500)}`);
     assert.ok(!/<pre class="methodology-stub-source">/.test(html), `legacy stub <pre> wrap leaked; got: ${html.slice(0, 500)}`);
     assert.ok(/v0\.1\.0/.test(html), `expected v0.1.0 in masthead; got: ${html.slice(0, 500)}`);
   } finally {
@@ -354,21 +356,23 @@ test("AC-2 4.1: output HTML does NOT contain the interim 'v0.1.0 stub' footer pa
   }
 });
 
-// AC-2: real renderer is applied — <h1> from `# Sample heading` body, NOT
-// duplicated from frontmatter title. Title in <title> tag should match
-// frontmatter; <h1> should match the body heading (which may be the same text
-// in this fixture but the path must be the renderer, not the builder template).
-test("AC-2 4.1: <h1> originates from body heading, not duplicated from frontmatter", () => {
+// AC-2 / AC-8 (Story 4-6 update): exactly one <h1> on the page; it now belongs
+// to the masthead chrome, sourced from frontmatter `title`. The body heading
+// (`# Sample heading`) is no longer rendered as <h1> — Story 4-6 reconciles the
+// h1-duplication by either stripping the leading `#` from the body OR by
+// allowing zero <h1> in the renderer. Engineer-choice; either way the only
+// <h1> on the page is the masthead one.
+test("AC-2 4.1 / AC-8 4.6: page has exactly one <h1> and it lives in the masthead", () => {
   const out = makeOutDir();
   try {
     const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
     assert.equal(r.status, 0, `stderr=${r.stderr}`);
     const html = readFileSync(join(out, "v1.2.0/en/scoring/sample-page/index.html"), "utf8");
     // Exactly one <h1>
-    const h1Count = (html.match(/<h1>/g) || []).length;
+    const h1Count = (html.match(/<h1\b/g) || []).length;
     assert.equal(h1Count, 1, `expected exactly one <h1>, found ${h1Count}`);
-    // The body heading text "Sample heading" should appear inside the <h1>.
-    assert.match(html, /<h1>Sample heading<\/h1>/);
+    // The single <h1> is the masthead title sourced from frontmatter.
+    assert.match(html, /<h1 class="methodology-masthead__title">Sample page<\/h1>/);
   } finally {
     rmSync(out, { recursive: true, force: true });
   }
@@ -495,6 +499,116 @@ test("AC-2 4.1: body containing a forbidden construct (autolink) exits 1 via Mar
     );
   } finally {
     rmSync(root, { recursive: true, force: true });
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+// ─── Story 4.6 template extensions ──────────────────────────────────────────
+//
+// AC-4: full masthead replaces minimal chrome.
+// AC-7: meta tags, cite-widget placeholder, link tags, script tag, no-body-h1.
+
+test("AC-4 4.6: emitted HTML contains full methodology-masthead with all 5 fields", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r.status, 0, `expected exit 0; stderr=${r.stderr}`);
+    const html = readFileSync(join(out, "v1.2.0/en/scoring/sample-page/index.html"), "utf8");
+    assert.match(html, /<header class="methodology-masthead">/);
+    assert.match(html, /<h1 class="methodology-masthead__title">Sample page<\/h1>/);
+    assert.match(html, /methodology-masthead__version[^>]*>[^<]*v1\.2\.0/);
+    assert.match(html, /methodology-masthead__doi[^>]*>DOI: pending v1\.0\.0 release/);
+    assert.match(html, /methodology-masthead__last-reviewed[^>]*>Last reviewed:[^<]*<time datetime="2026-05-19">2026-05-19<\/time>/);
+    assert.match(html, /methodology-masthead__reviewer[^>]*>Reviewer: Sample \(@sample\)/);
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+test("AC-4 4.6: emitted HTML contains <meta name=\"iqme-*\"> tags in <head>", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r.status, 0, `expected exit 0; stderr=${r.stderr}`);
+    const html = readFileSync(join(out, "v1.2.0/en/scoring/sample-page/index.html"), "utf8");
+    assert.match(html, /<meta name="iqme-title" content="Sample page">/);
+    assert.match(html, /<meta name="iqme-version" content="v1\.2\.0">/);
+    assert.match(html, /<meta name="iqme-doi" content="">/);
+    assert.match(html, /<meta name="iqme-last-reviewed" content="2026-05-19">/);
+    assert.match(html, /<meta name="iqme-reviewer" content="Sample">/);
+    assert.match(html, /<meta name="iqme-reviewer-handle" content="@sample">/);
+    assert.match(html, /<meta name="iqme-lang" content="en">/);
+    assert.match(html, /<meta name="iqme-url" content="[^"]+">/);
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+test("AC-4 4.6: emitted HTML contains the cite-widget placeholder aside", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r.status, 0, `expected exit 0; stderr=${r.stderr}`);
+    const html = readFileSync(join(out, "v1.2.0/en/scoring/sample-page/index.html"), "utf8");
+    assert.match(html, /<aside class="cite-this-page-affordance">\s*<div data-cite-widget>\s*<\/div>\s*<\/aside>/);
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+test("AC-4 4.6: emitted HTML contains link tags for masthead.css and cite-this-page-widget.css", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r.status, 0, `expected exit 0; stderr=${r.stderr}`);
+    const html = readFileSync(join(out, "v1.2.0/en/scoring/sample-page/index.html"), "utf8");
+    assert.match(html, /<link rel="stylesheet" href="[^"]*masthead\.css">/);
+    assert.match(html, /<link rel="stylesheet" href="[^"]*cite-this-page-widget\.css">/);
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+test("AC-4 4.6: emitted HTML contains <script type=\"module\"> tag for cite-this-page.js", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r.status, 0, `expected exit 0; stderr=${r.stderr}`);
+    const html = readFileSync(join(out, "v1.2.0/en/scoring/sample-page/index.html"), "utf8");
+    assert.match(html, /<script type="module" src="[^"]*cite-this-page\.js"[^>]*>\s*<\/script>/);
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+test("AC-8 4.6: renderer body does NOT contain a <h1> (masthead owns the title)", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r.status, 0, `expected exit 0; stderr=${r.stderr}`);
+    const html = readFileSync(join(out, "v1.2.0/en/scoring/sample-page/index.html"), "utf8");
+    // Extract the <main>...</main> block; it must not contain any <h1>.
+    const mainMatch = html.match(/<main>([\s\S]*?)<\/main>/);
+    assert.ok(mainMatch, "expected a <main> block in output");
+    const mainBody = mainMatch[1];
+    assert.ok(!/<h1\b/.test(mainBody), `<main> body must not contain <h1>; found in: ${mainBody.slice(0, 400)}`);
+    // Title appears in the masthead <h1 class="methodology-masthead__title">.
+    const h1Count = (html.match(/<h1\b/g) || []).length;
+    assert.equal(h1Count, 1, `expected exactly one <h1> on the page (masthead); found ${h1Count}`);
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+test("AC-5 4.6: DOI placeholder text appears verbatim when iqme-doi is empty", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r.status, 0);
+    const html = readFileSync(join(out, "v1.2.0/en/scoring/sample-page/index.html"), "utf8");
+    assert.match(html, /DOI: pending v1\.0\.0 release/);
+    assert.match(html, /data-doi-pending/);
+  } finally {
     rmSync(out, { recursive: true, force: true });
   }
 });

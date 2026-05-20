@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-20 4-5-lint-license-provenance: review'
+last_updated: '2026-05-20 4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -84,7 +84,7 @@ development_status:
   4-3-lint-frontmatter-lint-claims-manifest-strict-graduation: review
   4-4-lint-glossary-lint-reading-level-en: review
   4-5-lint-license-provenance: review
-  4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template: backlog
+  4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template: review
   4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub: backlog
   4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment: backlog
   epic-4-retrospective: optional

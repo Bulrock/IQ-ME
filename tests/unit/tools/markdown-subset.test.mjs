@@ -361,3 +361,27 @@ test("AC-1 escape: no double-escape — &amp; in source becomes &amp; once", () 
   assert.match(html, /A &amp; B/);
   assert.ok(!/&amp;amp;/.test(html), `double-escape detected: ${html}`);
 });
+
+// ─── Story 4.6: allowZeroH1 option ─────────────────────────────────────────
+
+test("Story 4.6: render() with allowZeroH1: true permits body with zero <h1>", () => {
+  const html = render("## Subsection\n\nbody paragraph.", { allowZeroH1: true });
+  assert.match(html, /<h2>Subsection<\/h2>/);
+  assert.match(html, /<p>body paragraph\.<\/p>/);
+  // No <h1> in output.
+  assert.ok(!/<h1\b/.test(html), `expected no <h1> when allowZeroH1: true; got: ${html}`);
+});
+
+test("Story 4.6: render() with allowZeroH1: true still rejects multiple <h1>", () => {
+  assert.throws(
+    () => render("# One\n\nbody\n\n# Two", { allowZeroH1: true }),
+    (err) => err instanceof MarkdownSubsetError,
+  );
+});
+
+test("Story 4.6: render() default (no option) still rejects zero <h1>", () => {
+  assert.throws(
+    () => render("## Only sub\n\nbody"),
+    (err) => err instanceof MarkdownSubsetError,
+  );
+});

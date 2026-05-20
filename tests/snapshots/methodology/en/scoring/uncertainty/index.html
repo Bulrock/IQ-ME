@@ -4,16 +4,31 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>What the uncertainty band means — IQ-ME methodology v0.1.0</title>
+<meta name="iqme-title" content="What the uncertainty band means">
+<meta name="iqme-version" content="v0.1.0">
+<meta name="iqme-doi" content="">
+<meta name="iqme-last-reviewed" content="2026-05-19">
+<meta name="iqme-reviewer" content="TBD">
+<meta name="iqme-reviewer-handle" content="@TBD-en-reviewer">
+<meta name="iqme-lang" content="en">
+<meta name="iqme-url" content="/methodology/v0.1.0/en/scoring/uncertainty/">
+<link rel="stylesheet" href="/src/css/primitives.css">
+<link rel="stylesheet" href="/src/css/semantic.css">
+<link rel="stylesheet" href="/src/css/components/masthead.css">
+<link rel="stylesheet" href="/src/css/components/cite-this-page-widget.css">
+<script type="module" src="/src/assessment/cite-this-page.js" defer></script>
 </head>
 <body>
 <header class="methodology-masthead">
-<a href="/">IQ-ME</a> · methodology corpus · <span class="methodology-masthead__version">v0.1.0</span>
+<h1 class="methodology-masthead__title">What the uncertainty band means</h1>
+<p class="methodology-masthead__version">v0.1.0</p>
+<p class="methodology-masthead__doi" data-doi-pending>DOI: pending v1.0.0 release</p>
+<p class="methodology-masthead__last-reviewed">Last reviewed: <time datetime="2026-05-19">2026-05-19</time></p>
+<p class="methodology-masthead__reviewer">Reviewer: TBD (@TBD-en-reviewer)</p>
 </header>
 <main>
-<h1>What the uncertainty band means</h1><p>Your score is one estimate. The uncertainty band around it shows the range of plausible scores given the precision of the measurement.</p><p>We display the band as <code>±N</code>. Read it this way: your true latent score is plausibly within roughly N points either way of the displayed number, at approximately 95% confidence.</p><p>The band combines two sources of uncertainty. The first is the test itself: a 16-item screening session leaves room for response noise. We summarize this with the standard error of measurement, or SEM, computed from the posterior variance of the ability estimate. The second is the norming sample: the percentile-to-IQ-scale conversion was calibrated against one finite reference group, and that sample has its own uncertainty, called SE_norming.</p><p>The full formula combines them: <code>SE_total = sqrt(SEM² + SE_norming²)</code>. The band you see on the result panel uses <code>SE_total</code> projected onto the IQ scale.</p><p>For the v1 build of this screener, <code>SE_norming</code> is set to 0. This is a placeholder pending psychometrician sign-off on the norming-sample SE values. The current band therefore reflects test noise only, not norming-sample noise. The displayed band is narrower than the true band by an amount we cannot yet quantify. We will update this page when the norming SE is finalized.</p><p>The uncertainty band is the honest signal. A score is never a point; it is a region. A test-taker who sees <code>124 ± 7</code> should think of the score as somewhere between 117 and 131, with the displayed value as a midpoint estimate.</p><p><a href="/">Back to IQ-ME</a></p>
+<p>Your score is one estimate. The uncertainty band around it shows the range of plausible scores given the precision of the measurement.</p><p>We display the band as <code>±N</code>. Read it this way: your true latent score is plausibly within roughly N points either way of the displayed number, at approximately 95% confidence.</p><p>The band combines two sources of uncertainty. The first is the test itself: a 16-item screening session leaves room for response noise. We summarize this with the standard error of measurement, or SEM, computed from the posterior variance of the ability estimate. The second is the norming sample: the percentile-to-IQ-scale conversion was calibrated against one finite reference group, and that sample has its own uncertainty, called SE_norming.</p><p>The full formula combines them: <code>SE_total = sqrt(SEM² + SE_norming²)</code>. The band you see on the result panel uses <code>SE_total</code> projected onto the IQ scale.</p><p>For the v1 build of this screener, <code>SE_norming</code> is set to 0. This is a placeholder pending psychometrician sign-off on the norming-sample SE values. The current band therefore reflects test noise only, not norming-sample noise. The displayed band is narrower than the true band by an amount we cannot yet quantify. We will update this page when the norming SE is finalized.</p><p>The uncertainty band is the honest signal. A score is never a point; it is a region. A test-taker who sees <code>124 ± 7</code> should think of the score as somewhere between 117 and 131, with the displayed value as a midpoint estimate.</p><p><a href="/">Back to IQ-ME</a></p>
 </main>
-<footer class="methodology-footer">
-<p>Reviewer: TBD (@TBD-en-reviewer). Last reviewed: 2026-05-19.</p>
-</footer>
+<aside class="cite-this-page-affordance"><div data-cite-widget></div></aside>
 </body>
 </html>

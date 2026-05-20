@@ -1,0 +1,111 @@
+/* src/css/components/cite-this-page-widget.css
+ *
+ * Story 4.6 AC-2 — visual styling for the cite-this-page widget rendered by
+ * src/assessment/cite-this-page.js. Two formats: .cite-format-apa +
+ * .cite-format-wikipedia, each in a <pre> block. Karolina-60s checklist item
+ * #3: the affordance must be discoverable above the fold — the parent
+ * <aside class="cite-this-page-affordance"> is positioned within the page
+ * chrome by the builder, not at footer-only.
+ *
+ * Pure CSS; semantic tokens only; no inline styles (NFR7).
+ */
+
+.cite-this-page-affordance {
+  margin-block: var(--space-5);
+  margin-inline: var(--space-5);
+}
+
+.cite-this-page-widget {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-rule-divider);
+  border-radius: var(--space-2);
+}
+
+.cite-this-page-widget__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.cite-this-page-widget__heading {
+  font-size: var(--font-size-300);
+  line-height: var(--line-height-tight, 1.2);
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-text-body);
+}
+
+.cite-this-page-widget__tabs {
+  display: inline-flex;
+  gap: var(--space-2);
+}
+
+.cite-this-page-widget__tab {
+  font: inherit;
+  padding-block: var(--space-1);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--color-rule-divider);
+  border-radius: var(--space-1);
+  background-color: var(--color-surface-base);
+  color: var(--color-text-body);
+  cursor: pointer;
+}
+
+.cite-this-page-widget__tab[aria-selected="true"] {
+  background-color: var(--color-text-body);
+  color: var(--color-surface-base);
+  border-color: var(--color-text-body);
+}
+
+.cite-this-page-widget__tab:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.cite-this-page-widget__copy-btn {
+  font: inherit;
+  align-self: flex-start;
+  padding-block: var(--space-1);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--color-rule-divider);
+  border-radius: var(--space-1);
+  background-color: var(--color-surface-base);
+  color: var(--color-text-body);
+  cursor: pointer;
+}
+
+.cite-this-page-widget__copy-btn:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.cite-format-apa,
+.cite-format-wikipedia {
+  margin: 0;
+  padding: var(--space-3);
+  background-color: var(--color-surface-base);
+  border: 1px solid var(--color-rule-divider);
+  border-radius: var(--space-1);
+  font-size: var(--font-size-100);
+  line-height: var(--line-height-normal, 1.5);
+  color: var(--color-text-body);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.cite-format-apa[hidden],
+.cite-format-wikipedia[hidden] {
+  display: none;
+}
+
+.cite-this-page-widget__warning {
+  margin: 0;
+  font-size: var(--font-size-200);
+  color: var(--color-text-attention-body);
+}

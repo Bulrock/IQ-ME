@@ -152,6 +152,10 @@ function renderList(items, sourcePath) {
 
 export function render(source, options = {}) {
   const sourcePath = options.sourcePath;
+  // Story 4.6: callers that own the page <h1> in chrome (e.g. the methodology
+  // builder's masthead template) opt in with allowZeroH1: true. Default keeps
+  // the Story-4.1 strict-mode invariant (exactly one level-1 heading).
+  const allowZeroH1 = options.allowZeroH1 === true;
   const lines = String(source).split(/\r?\n/);
 
   // Phase 1: extract trailing reference-link definitions `[ref]: url`.
@@ -179,9 +183,15 @@ export function render(source, options = {}) {
       fail("setext-style headings are not permitted; use ATX (# / ## / …)", i + 2, 1, sourcePath);
     }
   }
-  if (h1Count !== 1) {
+  if (h1Count > 1) {
     fail(
       `page must declare exactly one level-1 heading; found ${h1Count}`,
+      1, 1, sourcePath,
+    );
+  }
+  if (h1Count === 0 && !allowZeroH1) {
+    fail(
+      `page must declare exactly one level-1 heading; found 0`,
       1, 1, sourcePath,
     );
   }

@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 272f43c3a4f558e56798cbe6dae3756523c4db68596cdd240e1ce949a99d30b5
+    sha256: 9bfb6aed241a006f15f92691676e0c4afc3665c9092c4070c6419e4db84d6f96
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:19:00.727Z
+    recorded_at: 2026-05-20T07:22:05.757Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 8ab666118572d7363e1d710ad5658b7b843d6deaf146c40ab75a903486ce793a
+    sha256: fc821220afaa2aa64b0ca1f4af96c02fcc0cb82e599e8024d0515359b1367c30
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:18:39.003Z
+    recorded_at: 2026-05-20T07:37:18.773Z
     recorded_by: engineer
-    story_id: 4-5-lint-license-provenance
+    story_id: 4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -592,18 +592,20 @@ entries:
     story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
   - artefact_class: A
     file: tests/unit/build-methodology.test.mjs
-    sha256: 5e08fcb06544ecf14ceda93671a7bc08f4892e273b8f548a085eb1f9ce1e1412
+    sha256: 946b3dca40efdb990e8f13d1eafcc46bd6bdb0afe785ee34f66cef884af9669c
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:57:01.396Z
-    recorded_by: engineer
-    story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
+    recorded_at: 2026-05-20T07:28:13.822Z
+    recorded_by: test-author
+    story_id: 4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template
+    notes: story 4-6 test-author phase
   - artefact_class: A
     file: tests/scaffold/build-methodology-output.test.mjs
-    sha256: f79ba7251d65bfe50329bbc1010b74d925bbe84134da9e38b5c371bf31afc35e
+    sha256: c1ac6af75c17ac5b891e15128e4f235dda75abd1859476269523bc525d75df73
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:57:01.546Z
+    recorded_at: 2026-05-20T07:37:53.894Z
     recorded_by: engineer
-    story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
+    story_id: 4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template
+    notes: story 4-6 frozen-test edits during impl
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice.md
     sha256: a3346633f70cf90bf0194ba5f940cabf2935921c259181a3214442759857ad65
@@ -659,12 +661,12 @@ entries:
     story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
   - artefact_class: A
     file: tests/unit/tools/markdown-subset.test.mjs
-    sha256: c9f933275787d89510274550cd954cf56b086f4f23e789471872f4f7cf59fed9
+    sha256: 7eb907691096157d5d1cfb288a8d4311fd6aedf798ab88a104042b924fe680c0
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:47:50.792Z
-    recorded_by: test-author
-    story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
-    notes: "Story 4-1 ATDD red phase: 49 new failing tests pinning AC-1..AC-10 + positive fixture"
+    recorded_at: 2026-05-20T07:37:53.894Z
+    recorded_by: engineer
+    story_id: 4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template
+    notes: story 4-6 frozen-test edits during impl
   - artefact_class: A
     file: tests/contract/markdown-subset-strict-mode.spec.mjs
     sha256: c29dc63ea7dc87e45335252e161a3b4a548e2b3b34bf04513fbdcd255c0e0386
@@ -795,3 +797,26 @@ entries:
     recorded_by: engineer
     story_id: 4-5-lint-license-provenance
     notes: "Story 4-5 engineer impl: test fixture fix + EPIC_1_ACTIVE update"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template.md
+    sha256: 3a4c66b1e84f23000bb8166ee0745ee0ac5732ba92723a364a49ff6cece8f1f5
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T07:37:18.811Z
+    recorded_by: engineer
+    story_id: 4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template
+  - artefact_class: A
+    file: tests/unit/cite-this-page.test.mjs
+    sha256: d91fc05f6bd02b90e6e78d570862604d2f7dff5573c4db8e83949bb6e4172ac0
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T07:37:53.894Z
+    recorded_by: engineer
+    story_id: 4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template
+    notes: story 4-6 frozen-test edits during impl
+  - artefact_class: A
+    file: tests/scaffold/methodology-masthead.test.mjs
+    sha256: 1df86141ca2730f62f9b5f81a7494ccc2ba1772d5c35549e77e72ec3463f2133
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T07:28:13.822Z
+    recorded_by: test-author
+    story_id: 4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template
+    notes: story 4-6 test-author phase

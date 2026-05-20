@@ -160,14 +160,55 @@ function* walkMd(dir) {
   }
 }
 
+// Story 4.6 AC-8: the masthead chrome owns the page <h1>. Strip the leading
+// `# <title>` line from the body before passing to the renderer so the body
+// has zero <h1>s. The renderer is invoked with allowZeroH1: true to honour
+// the masthead-owned-title convention.
+function stripBodyLeadingH1(bodySrc) {
+  const lines = bodySrc.split(/\r?\n/);
+  let i = 0;
+  // Skip leading blank lines.
+  while (i < lines.length && lines[i].trim() === "") i++;
+  if (i < lines.length && /^#\s+\S/.test(lines[i])) {
+    // Drop this line + any immediately-following blank line so paragraph
+    // spacing is preserved deterministically.
+    lines.splice(i, 1);
+    if (i < lines.length && lines[i].trim() === "") {
+      lines.splice(i, 1);
+    }
+  }
+  return lines.join("\n");
+}
+
+// Build the canonical URL for a methodology page. v0.1.0 contract: relative
+// URL fallback rooted at the version + lang segments emitted by the builder.
+// Epic 8 (release.yml) is expected to replace this with the absolute canonical
+// URL once the corpus deploys under a known origin.
+function canonicalUrlFor(srcPath, corpusVersion) {
+  const enRoot = join(SRC_ROOT, LANG);
+  const rel = relative(enRoot, srcPath).replace(/\\/g, "/");
+  const noExt = rel.replace(/\.md$/, "");
+  // Use the directory path (drop trailing /index → directory URL).
+  const dirPath = noExt.endsWith("/index") ? noExt.slice(0, -"/index".length) : noExt;
+  return `/methodology/${corpusVersion}/${LANG}/${dirPath}/`;
+}
+
 function renderPage(srcPath, fm, bodySrc, corpusVersion) {
   const title = esc(fm.title || "(untitled)");
   const reviewer = esc(fm.reviewer || "TBD");
   const reviewerHandle = esc(fm.reviewerHandle || "@TBD");
   const lastReviewed = esc(fm.lastReviewed || "0000-00-00");
   const version = esc(corpusVersion);
-  // Body rendered via subset renderer. MarkdownSubsetError propagates to main().
-  const bodyHtml = render(bodySrc, { sourcePath: srcPath });
+  const doi = esc(fm.doi || "");
+  const url = esc(canonicalUrlFor(srcPath, corpusVersion));
+  // Strip body's leading `# Title` line (masthead owns the page <h1>).
+  const strippedBody = stripBodyLeadingH1(bodySrc);
+  // Body rendered via subset renderer with allowZeroH1: true (Story 4.6 AC-8).
+  const bodyHtml = render(strippedBody, { sourcePath: srcPath, allowZeroH1: true });
+  // DOI text: visible-fallback when empty (Story 4.6 AC-5).
+  const doiLine = doi
+    ? `<p class="methodology-masthead__doi">DOI: ${doi}</p>`
+    : `<p class="methodology-masthead__doi" data-doi-pending>DOI: pending v1.0.0 release</p>`;
   return (
     `<!doctype html>\n` +
     `<html lang="en">\n` +
@@ -175,17 +216,32 @@ function renderPage(srcPath, fm, bodySrc, corpusVersion) {
     `<meta charset="utf-8">\n` +
     `<meta name="viewport" content="width=device-width,initial-scale=1">\n` +
     `<title>${title} — IQ-ME methodology ${version}</title>\n` +
+    `<meta name="iqme-title" content="${title}">\n` +
+    `<meta name="iqme-version" content="${version}">\n` +
+    `<meta name="iqme-doi" content="${doi}">\n` +
+    `<meta name="iqme-last-reviewed" content="${lastReviewed}">\n` +
+    `<meta name="iqme-reviewer" content="${reviewer}">\n` +
+    `<meta name="iqme-reviewer-handle" content="${reviewerHandle}">\n` +
+    `<meta name="iqme-lang" content="${LANG}">\n` +
+    `<meta name="iqme-url" content="${url}">\n` +
+    `<link rel="stylesheet" href="/src/css/primitives.css">\n` +
+    `<link rel="stylesheet" href="/src/css/semantic.css">\n` +
+    `<link rel="stylesheet" href="/src/css/components/masthead.css">\n` +
+    `<link rel="stylesheet" href="/src/css/components/cite-this-page-widget.css">\n` +
+    `<script type="module" src="/src/assessment/cite-this-page.js" defer></script>\n` +
     `</head>\n` +
     `<body>\n` +
     `<header class="methodology-masthead">\n` +
-    `<a href="/">IQ-ME</a> · methodology corpus · <span class="methodology-masthead__version">${version}</span>\n` +
+    `<h1 class="methodology-masthead__title">${title}</h1>\n` +
+    `<p class="methodology-masthead__version">${version}</p>\n` +
+    doiLine + `\n` +
+    `<p class="methodology-masthead__last-reviewed">Last reviewed: <time datetime="${lastReviewed}">${lastReviewed}</time></p>\n` +
+    `<p class="methodology-masthead__reviewer">Reviewer: ${reviewer} (${reviewerHandle})</p>\n` +
     `</header>\n` +
     `<main>\n` +
     bodyHtml +
     `\n</main>\n` +
-    `<footer class="methodology-footer">\n` +
-    `<p>Reviewer: ${reviewer} (${reviewerHandle}). Last reviewed: ${lastReviewed}.</p>\n` +
-    `</footer>\n` +
+    `<aside class="cite-this-page-affordance"><div data-cite-widget></div></aside>\n` +
     `</body>\n` +
     `</html>\n`
   );

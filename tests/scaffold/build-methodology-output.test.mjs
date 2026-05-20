@@ -55,7 +55,8 @@ test("AC-9: build-methodology renders the 3 Epic-3 stub pages with template surf
       // Story 4.1 AC-2 removed the <pre class="methodology-stub-source"> wrap;
       // body now lives inside <main> as real subset-rendered HTML.
       assert.ok(/<main>/.test(html), `${full} missing <main> wrapper`);
-      assert.ok(/<h1>/.test(html), `${full} missing <h1> from body`);
+      // Story 4-6: <h1> now lives in the masthead chrome, not the body.
+      assert.ok(/<h1\b/.test(html), `${full} missing <h1> (masthead)`);
       assert.ok(!/<pre class="methodology-stub-source">/.test(html), `${full} legacy stub <pre> wrap leaked`);
       assert.ok(/v0\.1\.0/.test(html), `${full} missing v0.1.0 masthead version`);
 
