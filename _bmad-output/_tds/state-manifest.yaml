@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 1e6c852d21dab01f3a1e4ad56ef930483cf1632c490229df54164a035359114b
+    sha256: 5717cbcbd3fdefa8dbd7f9f2ea3c6e5a86374907957a5fa19341f152601de6e0
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T09:12:09.743Z
+    recorded_at: 2026-05-20T09:32:46.545Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: a86839a389302c2bb3c299bbaa6e07b84156a7dbfcd322c3b755c65aa1dba04c
+    sha256: 66f9756cefdcfba414bb1497bb935c42e42639da88fa3365d3a118fb74a11ea3
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T09:12:26.638Z
+    recorded_at: 2026-05-20T09:33:16.297Z
     recorded_by: engineer
-    story_id: bridge-4-5
+    story_id: bridge-4-5-1-tds-integrity-remove-cli
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -860,3 +860,10 @@ entries:
     recorded_by: test-author
     story_id: 4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment
     notes: Story 4-8 red-phase failing tests + SPA fragment fixture
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-4-5-1-tds-integrity-remove-cli.md
+    sha256: 1de5f4f9ed61d5d580f22bb23034e9c19cd8c59881486e0535b71977dbe4708c
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T09:35:20.353Z
+    recorded_by: state-commit-autorecord
+    story_id: bridge-4-5-1-tds-integrity-remove-cli
