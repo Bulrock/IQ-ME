@@ -599,9 +599,9 @@ branches:
     epic_id: null
     base_branch: epic/5
     created_by: tds-branch-start
-    status: active
+    status: merged
     pr_url: null
     pr_number: null
-    last_synced_at: null
+    last_synced_at: 2026-05-20T11:26:13.181Z
     notes: ""
     created_at: 2026-05-20T11:23:53.229Z
