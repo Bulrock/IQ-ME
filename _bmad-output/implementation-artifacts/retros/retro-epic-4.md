@@ -74,3 +74,7 @@ candidates:
 - Epic merge commit: `5c4545d` (PR #8)
 - Previous retros: [retro-epic-1.md](retro-epic-1.md), [retro-epic-2.md](retro-epic-2.md), [retro-bridge-1-2.md](retro-bridge-1-2.md), [retro-epic-3.md](retro-epic-3.md)
 - Exit-criterion verification: [docs/epic-4-exit-criterion.md](../../../docs/epic-4-exit-criterion.md)
+
+## Applied to bridge: bridge-4-5 @ 2026-05-20T09:05:27.285Z
+
+Bridge Plan candidates B1 (4-1 integrity-CLI re-confirm) + B2 (4-1 cross-repo entry policy) consolidated into `bridge-4-5-1-tds-integrity-remove-cli`. See [`_bridge-plan-20260520T090442Z.md`](_bridge-plan-20260520T090442Z.md) for the auditor-refined plan.

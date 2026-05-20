@@ -88,6 +88,11 @@ development_status:
   4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub: done
   4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment: done
   epic-4-retrospective: done
+
+  # Bridge 4→5: 2 stories from 1 retro
+  bridge-4-5: backlog
+  bridge-4-5-1-tds-integrity-remove-cli: backlog # tds integrity-remove CLI + sweep auto-clean + cross-repo entry policy decision
+  bridge-4-5-2-convention-doc-for-filesystem: backlog # Convention doc for filesystem-fixture test isolation
   epic-5: backlog
   5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset: backlog
   5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint: backlog

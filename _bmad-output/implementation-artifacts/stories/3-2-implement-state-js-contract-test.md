@@ -310,3 +310,4 @@ Candidate scope: 1 handler change in bmad-tds-module + regression test
 that asserts post-add-finding sweep restores `integrity verify` to
 `failed=N-1` not `failed=N`.
 `
+- **Bridged to:** `bridge-4-5-1-tds-integrity-remove-cli`

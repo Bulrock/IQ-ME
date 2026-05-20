@@ -337,3 +337,4 @@ None introduced by epic-4 commits (`git log main..epic/4 -- <paths>` empty for a
 - **Category:** integrity
 - **Suggested bridge:** `Bridge story for next epic: "Reconcile pre-existing integrity drift from epic-2/epic-3" — re-record sha256 via `tds integrity record` for `tests/golden/regenerate.R` (legitimate update via PR #5), remove or re-record stale entry for `tests/scaffold/story-3-1-marker.test.mjs`, decide policy for cross-project entry under `../bmad-tds-module/`.
 `
+- **Bridged to:** `bridge-4-5-1-tds-integrity-remove-cli`
