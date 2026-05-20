@@ -8,10 +8,10 @@ entries:
     recorded_by: frontend
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: bbd4e582bd181a76bf292bcc61880b4fd63dee44edf0537ea8f6737e14eea855
+    sha256: 6ab2931fb0c2f085d8c866e1db5bf9cf75a674dabcf31915a22002fd1647c7d2
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:26:12.766Z
-    recorded_by: frontend
+    recorded_at: 2026-05-20T11:46:54.406Z
+    recorded_by: state-commit-autorecord
     story_id: 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
