@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 9230adef052be258388eb6a2f893e9e590c57bb6da6f13033dc20c7025c32d8e
+    sha256: 6e672475735fceb7face4d855e883e0e82263eaacc75b21495f2442bd1bea445
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:51:35.054Z
-    recorded_by: frontend
+    recorded_at: 2026-05-20T10:53:03.607Z
+    recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 5d5dea6ae0013002c838f1bcb3d5f81e2ce8179b1369fc85a2ad78b3e4fdc47f
+    sha256: c11b24e50963bba00e43cbe2aa5bd1994e6afa41cd6fbd9bdfd4a60de092142f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:51:27.708Z
+    recorded_at: 2026-05-20T11:01:36.754Z
     recorded_by: frontend
-    story_id: 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
+    story_id: 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -896,3 +896,34 @@ entries:
     recorded_by: test-author
     story_id: 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
     notes: "story 5-1 test-author phase: scaffold tests + lint-frontmatter translationStatus extension"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint.md
+    sha256: 0e945276db5d9e55af5996e14e19df1b1b786c3da6a69c76a4192316a3f4dabc
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T11:01:36.832Z
+    recorded_by: frontend
+    story_id: 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
+  - artefact_class: A
+    file: tests/scaffold/anchor-pages.test.mjs
+    sha256: 4adbe4dce83a87cf867d8a5ee08bb1823f2b3130d30a1fd4b2989f2ca3ad4bb8
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T10:54:03.033Z
+    recorded_by: test-author
+    story_id: 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
+    notes: "story 5-2 test-author phase: anchor-pages scaffold + FR36 lint tests + typographic-freeze contract"
+  - artefact_class: A
+    file: tests/unit/tools/lint-fr36-protection.test.mjs
+    sha256: 356e1a40093fbefddecd4d1121f6bacd4dac8204822070408bb650769a414182
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T10:54:03.034Z
+    recorded_by: test-author
+    story_id: 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
+    notes: "story 5-2 test-author phase: anchor-pages scaffold + FR36 lint tests + typographic-freeze contract"
+  - artefact_class: A
+    file: tests/contract/typographic-freeze.spec.mjs
+    sha256: 45cdb4e0c1724bf87b0a6222e6ed15e694da9ec7f20bc510cfc8f244c4cc4aac
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T10:54:03.034Z
+    recorded_by: test-author
+    story_id: 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
+    notes: "story 5-2 test-author phase: anchor-pages scaffold + FR36 lint tests + typographic-freeze contract"
