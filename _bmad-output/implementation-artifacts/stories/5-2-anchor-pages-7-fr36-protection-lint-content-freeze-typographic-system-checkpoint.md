@@ -156,3 +156,21 @@ This story ships 7 EN anchor pages, the FR36-protection lint, and the typographi
 - typographic-freeze: 13-entry snapshot static-validates against primitives/semantic/lede CSS.
 - Full make test 750/749 pass + 1 skip; lint exit 0; build exit 0.
 - Updated 2 pre-existing scaffold tests (lint-glossary-coverage, lint-reading-level-coverage) to reflect the new EN-page corpus state.
+
+## Auditor Findings (round-1)
+
+### [blocker] `tds integrity verify` reports sha256 mismatch on three artefact_class=A frozen test files modified in this story but never re-registered: `tests/scaffold/ci-matrix.test.mjs` (registered story 4-8, recorded 2026-05-20T08:12:32Z; expected 2cab09…, actual 77fce1…), `tests/scaffold/lint-glossary-coverage.test.mjs` (registered story 4-4, recorded 2026-05-20T06:59:51Z; expected dbac9c…, actual 15ba36…), `tests/scaffold/lint-reading-level-coverage.test.mjs` (registered story 4-4, recorded 2026-05-20T06:59:51Z; expected fcac4a…, actual 018b5f…). Specialist Self-Review §2-3 honestly discloses the modifications (extending `EPIC_1_ACTIVE`, relaxing glossary-coverage and reading-level page-count assertions) so the intent is documented — but the integrity registry was not bumped, leaving a class-A invariant violation that blocks epic-merge gates (lesson-2026-05-19-001, severity=high, "Cross-story or post-impl edits to frozen tests silently drift tds integrity"). This is the exact lesson previously captured in epic-1; it was not applied here.
+
+
+- **Category:** integrity-drift
+- **Suggested fix:** Recommended: while on epic/5, for each of the three files run `tds integrity record --as=engineer --file=<path> --story=5-2-... --notes="Story 5-2 EPIC_1_ACTIVE extension / coverage threshold relaxation"`, then `tds state-commit -m "chore(5-2): re-register frozen tests modified by EPIC_1_ACTIVE + coverage updates" --story=5-2-... --as=engineer`, then re-run `tds integrity verify --as=auditor` to confirm 0 failures, then re-run `/bmad-tds-code-review --epic=epic-5`.
+
+- **Suggested bridge:** `Bridge candidate: surface friction of frozen-test re-registration after cross-epic modification — recurring lesson, low ergonomics. Possible affordance: `tds story modify-frozen-test --story=<id> --file=<path>` that bundles unfreeze-window + Edit + integrity record into one ceremony; OR pre-commit hook that warns on edit-to-class-A path without surrounding unfreeze window.
+`
+
+## Auditor Findings (round-2)
+
+### [info] AC-8 explicitly carries three deferrals: tonal-handoff E2E doc → Epic 6 Story 6.1; corpus tag application → epic-delivery; lede auto-wrap → Epic 5 retro/Epic 6. Defers are well-bounded and documented inline. icar-license.md retains `pending: true` per Story 5.2 §1 (Self-Review §1) — load-bearing decision to avoid silently claiming the ICAR license is settled before Gate-9a; anchor-pages test exempts the file. Acceptable disclosure; no AC violation.
+
+
+- **Category:** deferred-scope
