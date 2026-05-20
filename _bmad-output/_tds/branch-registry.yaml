@@ -561,3 +561,14 @@ branches:
     last_synced_at: 2026-05-20T11:06:27.935Z
     notes: ""
     created_at: 2026-05-20T11:02:26.588Z
+  - branch: story/5-4-scoring-norming
+    story_id: 5-4-scoring-4-remaining-norming-3
+    epic_id: null
+    base_branch: epic/5
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-20T11:07:19.031Z

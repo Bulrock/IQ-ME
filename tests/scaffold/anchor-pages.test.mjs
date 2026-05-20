@@ -30,6 +30,14 @@ const ANCHOR_PAGES = [
   "limitations/cultural-variance/index.md",
   "limitations/anti-leakage/index.md",
   "limitations/retest-effects/index.md",
+  // Story 5.4 — Scoring (4) + Norming (3)
+  "scoring/irt-2pl.md",
+  "scoring/eap.md",
+  "scoring/percentile-to-iq/index.md",
+  "scoring/golden-vectors.md",
+  "norming/sapa-sample/index.md",
+  "norming/representativeness/index.md",
+  "norming/flynn-effects/index.md",
 ];
 
 const REQUIRED_FM_KEYS = [
