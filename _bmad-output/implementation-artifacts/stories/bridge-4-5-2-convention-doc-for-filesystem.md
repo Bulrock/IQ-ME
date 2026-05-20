@@ -1,6 +1,6 @@
 # Story bridge-4-5-2-convention-doc-for-filesystem: Convention doc for filesystem-fixture test isolation
 
-Status: backlog
+Status: review
 
 ## Story
 
@@ -19,19 +19,57 @@ Story-3-6 round-1 resolved the immediate dist/ race with mkdtempSync + env-var o
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1 — draft `docs/test-isolation.md`** by writer/tech-writer voice. Sections: Problem · Pattern (mkdtempSync + env override) · Read-only counterpattern · Worked example (3-6 fix) · When to apply. Keep to one short page (≤ 100 lines).
-- [ ] **Task 2 — add cross-reference** in `docs/corpus-build-conventions.md` to the new doc.
-- [ ] **Task 3 — verify links + lint.** Confirm all internal links resolve (`tests/scaffold/build-methodology-output.test.mjs`, `tools/build-methodology.mjs`). Run `make test` + `make lint` to confirm no incidental break.
+- [x] **Task 1 — draft `docs/test-isolation.md`** by writer/tech-writer voice. Sections: Problem · Pattern (mkdtempSync + env override) · Read-only counterpattern · Worked example (3-6 fix) · When to apply. Keep to one short page (≤ 100 lines).
+- [x] **Task 2 — add cross-reference** in `docs/corpus-build-conventions.md` to the new doc.
+- [x] **Task 3 — verify links + lint.** Confirm all internal links resolve (`tests/scaffold/build-methodology-output.test.mjs`, `tools/build-methodology.mjs`). Run `make test` + `make lint` to confirm no incidental break.
 
 ## Dev Agent Record
 
+### Agent Model Used
+
+engineer (general-purpose; docs-only story, no specialist domain).
+
 ### Completion Notes List
 
-_(populated during implementation)_
+- **AC-1 doc authored:** `docs/test-isolation.md` written with all required sections — Problem · Pattern (mkdtempSync + env-var override with `iqme-<scope>-` / `IQME_<SCOPE>_OUT` naming convention) · Read-only counter-pattern (`t.skip()` if artefact absent; no mutation) · Worked example (links to `tests/scaffold/build-methodology-output.test.mjs` + `tools/build-methodology.mjs` line 32) · When to apply · Why not `process.chdir(tmpdir)` (added as bonus). 88 lines total, within the ≤100 budget.
+- **AC-2 cross-link added:** `docs/corpus-build-conventions.md` gains a single-line reference to `test-isolation.md` immediately after the re-emit semantics paragraph (the natural test/build-discussion location).
+- **AC-3 no code regression:** No source/test files under `src/` or `tests/` modified — docs-only story. `make test` 683/684 pass / 1 skipped / 0 fail. `make lint` exit 0.
+- **AC-4 markdown lint clean:** New doc has well-formed headings (single `#` h1 + `##`/`###` levels), valid relative links to repo files (verified via `ls`), code fences use `javascript` language hints. Repo has no markdown-lint targeting `docs/**`, but doc passes informal validation.
 
 ### File List
 
-_(populated during implementation)_
+- `docs/test-isolation.md` (new) — convention doc.
+- `docs/corpus-build-conventions.md` (modified) — one-line cross-reference added.
+
+## Specialist Self-Review
+
+**Decisions made:**
+
+1. **Convention covers the GENERAL pattern, not just `dist/methodology/`.** The doc lifts the 3-6 round-1 fix into a reusable shape (`mkdtempSync(join(tmpdir(), "iqme-<scope>-"))` + `IQME_<SCOPE>_OUT`-style env-var). Rationale: AC-1 explicitly said "the rule generalizes to any shared sibling-test artefact under the repo root" — Epic-5 will add corpus-emit tests that touch new shared paths, so naming the convention `iqme-<scope>-` / `IQME_<SCOPE>_OUT` makes it copy-pasteable.
+2. **Added "Why not `process.chdir(tmpdir)` instead?" section** beyond the AC-required sections. Rationale: this is the obvious alternative a future author will try first; documenting why it doesn't work saves them the cycle. Stayed within the ≤100-line budget.
+3. **Read-only counter-pattern named explicitly** rather than just "don't mutate". Rationale: AC-1(c) called out `t.skip()` as the prescribed shape; documenting it side-by-side with the writable pattern (rather than as a footnote) makes the mental model symmetric and the rule easier to apply.
+
+**Alternatives considered:**
+
+- **Heading-anchored deep links** in the cross-reference (`docs/test-isolation.md#pattern`). Rejected — the doc is short enough that linking to the file root is fine; deep links rot when the doc is restructured.
+- **Embedding the pattern as a code fence in `docs/corpus-build-conventions.md`** instead of cross-linking. Rejected — duplicating the worked example introduces drift risk; the cross-link is one line, which is what AC-2 explicitly asked for.
+- **Adding a lint rule** that detects test files that write to `dist/` without an env-var override. Considered but out-of-scope for this story (would be a separate task with its own test coverage). Mentioned as future hardening implicitly via the "When in doubt" section.
+
+**Framework gotchas avoided:**
+
+- Relative links in the worked example use `../tests/...` / `../tools/...` (one level up from `docs/`) — verified manually that these resolve correctly to repo files.
+- Code fences use `javascript` (not `js`) — matches existing convention in `docs/corpus-build-conventions.md` and other docs.
+
+**Areas of uncertainty:**
+
+- The doc uses `<scope>` as a placeholder in both the tmpdir prefix and env-var name. A future reader might wonder whether the same `<scope>` value goes in both. I clarified this with the worked example (`iqme-build-meth-*` ↔ `IQME_BUILD_METHODOLOGY_OUT`) but the syntactic divergence (underscore vs. hyphen, all-caps vs. lowercase) might still confuse. Mitigated by the worked example showing both sides.
+- No automated check enforces the convention. If Epic-5 lands corpus-emit tests that don't follow it, they'll race on shared paths until someone notices. A future lint or a Husky pre-commit hook could surface violations.
+
+**Tested edge cases:**
+
+- All relative paths in the doc verified manually: `../tests/scaffold/build-methodology-output.test.mjs` and `../tools/build-methodology.mjs` both resolve.
+- `make test` re-run after doc landing → 683/684 pass (same as pre-change baseline).
+- `make lint` exit 0 (same as pre-change baseline).
 
 ---
 Generated by `tds epic create-bridge-from-retros` for bridge `bridge-4-5` (blocks `epic-5`).
