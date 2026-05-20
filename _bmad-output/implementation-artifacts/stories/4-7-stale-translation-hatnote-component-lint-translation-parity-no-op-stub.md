@@ -226,3 +226,12 @@ claude-opus-4-7 (bmad-tds-execute-story → engineer + test-author roles).
 - `Makefile` (`lint-translation-parity` added after `lint-license-provenance` in `lint` target)
 - `.github/workflows/pr-checks.yml` (`lint-translation-parity` job activated — Story-4.7 comment + checkout + setup-node + run)
 - `tests/scaffold/ci-matrix.test.mjs` (`EPIC_1_ACTIVE` extended with `lint-translation-parity`)
+
+## Auditor Findings (round-1)
+
+### [info] Same pattern as 4-6: spec references `/tmp/self-review-4-7.md` (Debug Log References line 200) without committing the section inline. Per A10: non-critical path → info.
+
+
+- **Category:** process-discipline
+- **Suggested fix:** Recommended: commit self-review inline in spec before status flip.
+
