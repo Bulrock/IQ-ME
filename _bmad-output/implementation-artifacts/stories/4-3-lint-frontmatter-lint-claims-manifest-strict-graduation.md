@@ -217,3 +217,12 @@ This story owns:
 - New: `tools/lint-frontmatter.mjs`, `tests/unit/tools/lint-frontmatter.test.mjs`, `tests/scaffold/lint-frontmatter-coverage.test.mjs`
 - Modified: `tools/lint-claims-manifest.mjs`, `tests/unit/tools/lint-claims-manifest.test.mjs`, `tests/scaffold/ci-matrix.test.mjs`, `Makefile`, `.github/workflows/pr-checks.yml`
 - Methodology pages: no edits required (AC-3 audit confirmed alignment).
+
+## Auditor Findings (round-1)
+
+### [info] Dev Agent Record `### File List` left empty (line 187) despite Specialist Self-Review listing files (lines 217-218). Minor inconsistency — Self-Review version of file list is complete and accurate; Dev Agent Record version was just not duplicated.
+
+
+- **Category:** spec-hygiene
+- **Suggested fix:** Recommended: copy file list from Specialist Self-Review into Dev Agent Record File List section. Documentation hygiene only.
+
