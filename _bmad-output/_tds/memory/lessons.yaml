@@ -560,3 +560,59 @@ lessons:
     severity: low
     status: active
     superseded_by: null
+  - id: lesson-2026-05-20-010
+    created_during: bridge-6-7
+    created_at: 2026-05-20T13:50:34.868Z
+    created_by: writer
+    story_refs:
+      - bridge-6-7-1-extend-state-commit-sweep
+    category: process
+    tags:
+      - acceptance-criteria
+      - self-review
+      - auditor-review
+    summary: AC that literally names an internal function may target the wrong surface; design-equivalent extensions are OK when observable behavior matches
+    lesson: When an Acceptance Criterion names a specific internal symbol (e.g. recordIntegrity, applyStateTransition), the actual surface that determines observable behavior may live in a sibling helper (e.g. autoRecordDriftedSpecs emits kind:autorecord, not recordIntegrity which emits kind:record). Implementation should match the AC's intent — emitted event kind + discriminator + same code-path invariant — not the literal symbol name. Specialist Self-Review must document the deviation under Decisions Made; auditor accepts design-equivalent extensions as info-only (not blockers) when the observable AC sub-claims (telemetry envelope shape, drift behaviour, regression coverage) still pass.
+    avoid_pattern: Refactor the literally-named symbol to satisfy AC wording even when the actual behavioral surface lives elsewhere
+    preferred_pattern: "Match the AC's observable intent (event kind, discriminator, drift behaviour) on the correct code path; document the deviation in ## Specialist Self-Review → Decisions made"
+    severity: medium
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-20-011
+    created_during: bridge-6-7
+    created_at: 2026-05-20T13:50:45.768Z
+    created_by: writer
+    story_refs:
+      - bridge-6-7-2-tds-deliver-mode-2
+    category: process
+    tags:
+      - self-exercising-bridge
+      - telemetry
+      - deliver-resume
+    summary: Bridge story that ships a recovery affordance for its own delivery flow can self-exercise that affordance on the bridge's PR finalize
+    lesson: "When a bridge story ships a recovery / resume affordance for an operation that runs at delivery time (e.g. tds deliver Mode 2 OH-07 recovery), the affordance can be deliberately exercised when the bridge itself is delivered. bridge-6-7-2 closed the third documented OH-07 occurrence and the very next tds deliver invocation — finalizing bridge-6-7's own PR #12 — triggered the new recovery path: telemetry shows 3 kind:deliver-resume events + 1 kind:deliver-resume-summary, zero manual operator steps. Schedule this self-exercise as deliberate end-to-end verification; capture the telemetry tail in Completion Notes / retro."
+    avoid_pattern: Test recovery affordance only against synthetic fixtures, then deliver the bridge without confirming the affordance fires in real production handler invocation
+    preferred_pattern: On bridge delivery, tail integrity-events.jsonl for the new kind=<recovery-resume> envelope and capture as live AC-7 evidence in Completion Notes or retro
+    severity: medium
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-20-012
+    created_during: bridge-6-7
+    created_at: 2026-05-20T13:50:53.540Z
+    created_by: writer
+    story_refs:
+      - bridge-6-7-3-restore-carry-forward-lessons
+    category: technical
+    tags:
+      - pre-commit
+      - git-hook
+      - performance
+      - bash
+      - awk
+    summary: Pre-commit hooks must run sub-10ms — bash+awk on canonical-form YAML beats Node/Python fork; graceful exit-0 on schema drift
+    lesson: "Pre-commit hooks fire on every commit. Forking a Python interpreter (~150ms cold-start) or Node runtime (~150-300ms on macOS) is unacceptable interactive latency for chore commits. The right tooling is bash+awk on a canonical YAML schema (per ADR-0014: single-line scalars, no flow style); parses sub-10ms with no external runtime dependency. When the schema can drift (multi-line scalars, flow-style entries) the hook should silently exit-0 — graceful degradation (false negative on warning) is preferable to false positive or crash. Same tradeoff applies to commit-msg hooks."
+    avoid_pattern: Author the pre-commit hook in Node or Python; or hard-fail on YAML schema variance
+    preferred_pattern: bash+awk on the ADR-locked canonical YAML form, with a try/catch-equivalent that exits 0 on parser surprise
+    severity: low
+    status: active
+    superseded_by: null
