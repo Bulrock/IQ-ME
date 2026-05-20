@@ -1,0 +1,76 @@
+/* src/css/components/validity-envelope-diagram.css
+ *
+ * Story 5.1 — validity-envelope-diagram SVG layout + dark-mode adaptation.
+ * Reusable in consent scene (Epic 3) and methodology body (Epic 5 Story 5.3
+ * — /methodology/constructs/validity-envelope/).
+ *
+ * UX-DR28 — reusable as a designed visual asset.
+ * NFR12 — colorblind-safe: zones are also labelled in text, never color-only.
+ * Dark mode: tokens cascade via primitives.css custom-properties. No
+ * per-element dark-mode rules here — keep the asset color-token-driven.
+ */
+
+.validity-envelope-diagram {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+/* ─── Surface sizing ─────────────────────────────────────────────────── */
+
+/* Inside consent scene: half-column width, leaves room for the disclosure
+ * copy to the side at wide viewports. */
+.consent-scene .validity-envelope-diagram {
+  inline-size: min(100%, 24rem);
+  margin-block: var(--space-5);
+}
+
+/* Inside a methodology body: full content width. */
+.methodology-body .validity-envelope-diagram,
+main .validity-envelope-diagram {
+  inline-size: 100%;
+  margin-block: var(--space-prose-paragraph-gap);
+}
+
+/* ─── Zone fills (NFR12 colorblind-safe — labels in text) ────────────── */
+
+.validity-envelope-diagram .zone-valid {
+  fill: var(--color-surface-elevated);
+  stroke: var(--color-accent-500);
+  stroke-width: 2;
+}
+
+.validity-envelope-diagram .zone-partial {
+  fill: var(--color-surface-attention);
+  stroke: var(--color-attention-700);
+  stroke-width: 2;
+}
+
+.validity-envelope-diagram .zone-invalid {
+  fill: var(--color-surface-base);
+  stroke: var(--color-rule-strong);
+  stroke-dasharray: 6 4;
+  stroke-width: 2;
+}
+
+/* ─── Text ───────────────────────────────────────────────────────────── */
+
+.validity-envelope-diagram .zone-label {
+  fill: var(--color-text-body);
+  font-family: var(--font-family-sans);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.validity-envelope-diagram .zone-sublabel {
+  fill: var(--color-text-muted);
+  font-family: var(--font-family-sans);
+  font-size: 12px;
+}
+
+.validity-envelope-diagram .zone-caption {
+  fill: var(--color-text-muted);
+  font-family: var(--font-family-sans);
+  font-size: 11px;
+  font-style: italic;
+}

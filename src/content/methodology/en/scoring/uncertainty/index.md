@@ -10,7 +10,6 @@ glossaryRefs:
   - "uncertainty"
   - "sem"
 sourceHashEN: "0000000000000000000000000000000000000000000000000000000000000000"
-pending: true
 ---
 
 # What the uncertainty band means

@@ -517,3 +517,91 @@ branches:
     last_synced_at: 2026-05-20T10:23:03.671Z
     notes: ""
     created_at: 2026-05-20T10:12:12.898Z
+  - branch: epic/5
+    story_id: null
+    epic_id: epic-5
+    base_branch: main
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-20T10:33:08.696Z
+  - branch: story/5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
+    story_id: 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
+    epic_id: null
+    base_branch: epic/5
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T10:51:35.023Z
+    notes: ""
+    created_at: 2026-05-20T10:41:18.745Z
+  - branch: story/5-2-anchor-pages-freeze
+    story_id: 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
+    epic_id: null
+    base_branch: epic/5
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T11:01:44.011Z
+    notes: ""
+    created_at: 2026-05-20T10:53:03.588Z
+  - branch: story/5-3-constructs-limitations
+    story_id: 5-3-constructs-4-remaining-limitations-3-remaining
+    epic_id: null
+    base_branch: epic/5
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T11:06:27.935Z
+    notes: ""
+    created_at: 2026-05-20T11:02:26.588Z
+  - branch: story/5-4-scoring-norming
+    story_id: 5-4-scoring-4-remaining-norming-3
+    epic_id: null
+    base_branch: epic/5
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T11:14:35.975Z
+    notes: ""
+    created_at: 2026-05-20T11:07:19.031Z
+  - branch: story/5-5-ethics-provenance-ref
+    story_id: 5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining
+    epic_id: null
+    base_branch: epic/5
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T11:19:58.103Z
+    notes: ""
+    created_at: 2026-05-20T11:15:06.183Z
+  - branch: story/5-6-tail-scenes
+    story_id: 5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd
+    epic_id: null
+    base_branch: epic/5
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T11:23:17.762Z
+    notes: ""
+    created_at: 2026-05-20T11:20:30.978Z
+  - branch: story/5-7-phase-2
+    story_id: 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows
+    epic_id: null
+    base_branch: epic/5
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T11:26:13.181Z
+    notes: ""
+    created_at: 2026-05-20T11:23:53.229Z

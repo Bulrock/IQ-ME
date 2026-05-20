@@ -9,7 +9,6 @@ asserts:
 glossaryRefs:
   - "percentile"
 sourceHashEN: "0000000000000000000000000000000000000000000000000000000000000000"
-pending: true
 ---
 
 # What a percentile means

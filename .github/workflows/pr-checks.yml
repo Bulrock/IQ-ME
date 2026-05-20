@@ -275,10 +275,15 @@ jobs:
   lint-fr36-protection:
     name: lint-fr36-protection
     runs-on: ubuntu-latest
-    # Activates in Epic 5
-    if: false
+    # Activated in Story 5.2 — FR36 protects the "what this instrument does not
+    # measure" page from silent shortening or removal. Asserts the page exists
+    # with frontmatter protected:true and body length ≥ MIN_CHARS=2000.
     steps:
-      - run: echo "stub — Activates in Epic 5"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-fr36-protection.mjs
 
   viewport-overflow:
     name: viewport-overflow

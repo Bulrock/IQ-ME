@@ -248,7 +248,14 @@ function renderPage(srcPath, lang, fm, bodySrc, corpusVersion) {
   // frontmatter sourceHashEN.
   const enHash = enSourceHashFor(srcPath, lang);
   const isStale = enHash !== undefined && enHash !== fm.sourceHashEN;
-  const bodyAttrs = `data-lang="${lang}"` + (isStale ? ` data-translation-stale="true"` : "");
+  // Story 5.1 — translationStatus body attr hook for the
+  // translation-in-progress-stub composition. The CSS-side hook is wired
+  // today; the full body-suppression render branch is deferred to Epic 7.
+  const isInProgress = lang !== "en" && fm.translationStatus === "in-progress";
+  const bodyAttrs =
+    `data-lang="${lang}"` +
+    (isStale ? ` data-translation-stale="true"` : "") +
+    (isInProgress ? ` data-translation-status="in-progress"` : "");
   // Hatnote always rendered (uniform DOM across locales); CSS hides it unless
   // an ancestor carries data-translation-stale="true".
   const enUrl = esc(canonicalUrlFor(srcPath, "en", corpusVersion));

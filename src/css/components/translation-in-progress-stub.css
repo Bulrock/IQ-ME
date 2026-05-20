@@ -1,0 +1,43 @@
+/* src/css/components/translation-in-progress-stub.css
+ *
+ * Story 5.1 — translation-in-progress stub composition (UX-DR16, UX §1464).
+ * Replaces silent EN/RU fallback for missing PL pages (Paige's Step 10
+ * contribution). EN source rendered inline; masthead "Translated: none yet";
+ * contributor CTA linking to CONTRIBUTING.md.
+ *
+ * Selected via [data-translation-status="in-progress"] on <body>. The full
+ * builder branch (body-suppression + stub composition) is deferred to Epic 7
+ * when RU/PL content actually lands; today, only the body-attr hook is wired.
+ */
+
+[data-translation-status="in-progress"] .methodology-masthead__title::after {
+  content: " — Translated: none yet";
+  color: var(--color-text-muted);
+  font-weight: 400;
+  font-size: var(--font-size-200);
+}
+
+[data-translation-status="in-progress"] .translation-in-progress-stub {
+  border-block-start: 1px solid var(--color-rule-divider);
+  margin-block-start: var(--space-section-gap);
+  padding-block-start: var(--space-section-gap);
+  padding-inline: var(--space-5);
+}
+
+[data-translation-status="in-progress"] .translation-in-progress-stub__heading {
+  font-size: var(--font-size-400);
+  margin-block-end: var(--space-prose-paragraph-gap);
+}
+
+[data-translation-status="in-progress"] .translation-in-progress-stub__cta {
+  display: inline-block;
+  margin-block-start: var(--space-4);
+  color: var(--color-text-link);
+}
+
+[data-translation-status="in-progress"] .translation-in-progress-stub__fallback {
+  display: block;
+  margin-block-start: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-100);
+}

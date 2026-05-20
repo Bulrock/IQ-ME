@@ -39,5 +39,24 @@
     "bandAriaTemplate": "Uncertainty band, 95 percent confidence.",
     "bandTemplate": "±{N}",
     "fetchErrorMessage": "Could not load the item set. Try reloading."
+  },
+  "methodology": {
+    "masthead": {
+      "translatedNoneYet": "Translated: none yet"
+    },
+    "translationInProgress": {
+      "heading": "Translation in progress",
+      "cta": "Help translate this page — see CONTRIBUTING.md"
+    }
+  },
+  "diagrams": {
+    "validityEnvelope": {
+      "title": "IQ-ME validity envelope",
+      "desc": "Three population zones labelled valid for, partial validity, and not valid for. The diagram shows IQ-ME applies as a screener of fluid reasoning in adults who can complete a 16-item visual session unimpaired; partial validity for users with mild fatigue or transient distraction; not valid for clinical diagnosis, time-pressured assessment, or stand-in multi-domain IQ batteries."
+    },
+    "eapShrinkage": {
+      "title": "EAP shrinkage at the tails",
+      "desc": "An EAP point estimate sits between a raw maximum-likelihood theta and the standard-normal prior centre at theta zero. At the tails, the prior pulls the estimate toward zero — visible shrinkage. Near the centre, the prior has little effect."
+    }
   }
 }

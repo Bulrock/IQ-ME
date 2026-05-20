@@ -1,0 +1,19 @@
+{
+  "_doc": "Story 5.2 typographic-freeze contract. Each entry pins one CSS declaration that Epic 6 must not regress. Tested by tests/contract/typographic-freeze.spec.mjs via static analysis (no Playwright). Full runtime computed-style assertion is graduated in Epic 6 Story 6.1.",
+  "schema_version": "1",
+  "entries": [
+    { "selector": ".lede", "property": "font-size", "value": "var(--font-size-300)", "source": "src/css/components/lede.css" },
+    { "selector": ".lede", "property": "line-height", "value": "1.5", "source": "src/css/components/lede.css" },
+    { "selector": ".lede", "property": "margin-block-start", "value": "var(--space-masthead-to-lede)", "source": "src/css/components/lede.css" },
+    { "selector": ".lede", "property": "color", "value": "var(--color-text-body)", "source": "src/css/components/lede.css" },
+    { "selector": ":root", "property": "--font-size-200", "value": "1rem", "source": "src/css/primitives.css" },
+    { "selector": ":root", "property": "--font-size-300", "value": "1.25rem", "source": "src/css/primitives.css" },
+    { "selector": ":root", "property": "--font-size-600", "value": "2.441rem", "source": "src/css/primitives.css" },
+    { "selector": ":root", "property": "--font-size-700", "value": "3.052rem", "source": "src/css/primitives.css" },
+    { "selector": ":root", "property": "--line-height-base", "value": "1.5", "source": "src/css/primitives.css" },
+    { "selector": ":root", "property": "--line-height-prose", "value": "1.65", "source": "src/css/primitives.css" },
+    { "selector": ":root", "property": "--color-text-body", "value": "var(--color-neutral-900)", "source": "src/css/semantic.css" },
+    { "selector": ":root", "property": "--color-rule-divider", "value": "var(--color-neutral-200)", "source": "src/css/semantic.css" },
+    { "selector": ":root", "property": "--space-masthead-to-lede", "value": "var(--space-5)", "source": "src/css/semantic.css" }
+  ]
+}

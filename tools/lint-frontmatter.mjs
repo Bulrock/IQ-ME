@@ -38,6 +38,11 @@ const REQUIRED_KEYS = [
   "sourceHashEN",
 ];
 
+// Story 5.1 — translationStatus is optional with default "complete". Enforced
+// EN-cannot-be-in-progress in the per-page validation block below.
+const OPTIONAL_KEYS = ["translationStatus"];
+const TRANSLATION_STATUS_ENUM = new Set(["complete", "in-progress"]);
+
 const VERSION_RE = /^[0-9]+\.[0-9]+\.[0-9]+$/;
 const DATE_RE = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
 const HEX64_RE = /^[0-9a-f]{64}$/;
@@ -225,6 +230,26 @@ function main() {
       if (reason !== null) {
         emit(rel, k, reason);
         failures++;
+      }
+    }
+    // Story 5.1 — translationStatus optional field validation.
+    if ("translationStatus" in fm) {
+      const v = fm.translationStatus;
+      if (typeof v !== "string" || !TRANSLATION_STATUS_ENUM.has(v)) {
+        emit(
+          rel,
+          "translationStatus",
+          `must be one of ${JSON.stringify([...TRANSLATION_STATUS_ENUM])} (got ${JSON.stringify(v)})`,
+        );
+        failures++;
+      } else if (v === "in-progress") {
+        // EN is source-of-truth — non-EN-only flag.
+        const relFromRoot = relative(ROOT, fullPath);
+        const lang = relFromRoot.split(/[\\/]/)[0];
+        if (lang === "en") {
+          emit(rel, "translationStatus", "en pages cannot be in-progress (EN is source-of-truth)");
+          failures++;
+        }
       }
     }
     count++;

@@ -21,33 +21,24 @@ function runLint(args, cwd) {
 }
 
 // AC-4.1 — Default invocation in warn-mode against real manifest exits 0.
-test("lint-claims-manifest: warn-mode exits 0 on real manifest (no methodology pages yet)", () => {
+// Story 5.4 update: all methodology pages now landed; no Epic-5 deferrals.
+test("lint-claims-manifest: warn-mode exits 0 on real manifest", () => {
   const result = runLint([]);
   assert.equal(
     result.status,
     0,
     `expected exit 0; got ${result.status}; stderr: ${result.stderr}`,
   );
-  // Should emit WARN lines but not exit 1.
-  assert.ok(
-    result.stderr.includes("WARN") || result.stdout.includes("WARN"),
-    "expected WARN lines in output when methodology pages missing",
-  );
 });
 
-// AC-4.2 (Story 4.3 update) — --strict on real manifest exits 0: in-repo
-// pages have matching asserts; Epic-5 stub pages WARN (not fail) per AC-2.
-test("lint-claims-manifest: --strict on real manifest exits 0 (Epic-5 stubs WARN)", () => {
+// AC-4.2 — --strict on real manifest exits 0 once Story 5.4 landed all
+// scoring methodology pages.
+test("lint-claims-manifest: --strict on real manifest exits 0", () => {
   const result = runLint(["--strict"]);
   assert.equal(
     result.status,
     0,
     `expected exit 0; got ${result.status}; stderr: ${result.stderr}`,
-  );
-  // Should emit WARN lines for the 6 deferred Epic-5 stub pages.
-  assert.ok(
-    result.stderr.includes("WARN") || result.stdout.includes("WARN"),
-    "expected WARN lines for Epic-5 stub methodology pages",
   );
 });
 

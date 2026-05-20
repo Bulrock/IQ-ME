@@ -93,6 +93,9 @@ const EPIC_1_ACTIVE = new Set([
   // exit-criterion-spec activated in Story 4.8 — Epic-4 exit criterion proof:
   // every shipped lint demonstrated against both corpus AND SPA surfaces.
   "exit-criterion-spec",
+  // lint-fr36-protection activated in Story 5.2 — FR36 protects the
+  // "what this instrument does not measure" page from silent shortening.
+  "lint-fr36-protection",
 ]);
 
 function loadPrChecks() {

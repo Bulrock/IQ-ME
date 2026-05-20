@@ -22,7 +22,7 @@ const REQUIRED_BUDGETS = {
   "css-components-lines":   { metric: "lines", limit: 1500 },
   "app-modules-bytes":      { metric: "bytes", limit: 30720 },
   "i18n-harness-bytes":     { metric: "bytes", limit: 15360 },
-  "methodology-pages-en":   { metric: "files", limit: 30 },
+  "methodology-pages-en":   { metric: "files", limit: 45 },
   "methodology-pages-ru":   { metric: "files", limit: 30 },
   "methodology-pages-pl":   { metric: "files", limit: 30 },
 };

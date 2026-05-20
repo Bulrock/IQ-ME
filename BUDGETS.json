@@ -27,8 +27,8 @@
   "methodology-pages-en": {
     "domain": "src/content/methodology/en/**/*.md",
     "metric": "files",
-    "limit": 30,
-    "rationale": "NFR32 — EN methodology corpus page count (~30/locale). Larger corpora drift outside per-corpus-release review capacity."
+    "limit": 45,
+    "rationale": "NFR32 — EN methodology corpus page count. Original ~30 corpus pages + ~5 glossary entries (Story 5.2) + ~2 tail-scene placeholders (Story 5.6) + headroom for v0.5→v1.0 editorial expansion."
   },
   "methodology-pages-ru": {
     "domain": "src/content/methodology/ru/**/*.md",
