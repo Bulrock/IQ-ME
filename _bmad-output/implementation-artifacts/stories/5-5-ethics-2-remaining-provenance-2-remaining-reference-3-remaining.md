@@ -95,3 +95,12 @@ Author the 2 remaining Ethics pages, 2 remaining Provenance pages, and 3 remaini
 - 27 EN pages now (will be 29 after Story 5.6 tail scenes); all FK ≤12.
 - lint-claims-manifest --strict still exit 0 (no Epic-5 deferrals).
 - make test 853/852+1skip. lint exit 0. build exit 0.
+
+## Auditor Findings (round-1)
+
+### [blocker] `tds integrity verify` reports sha256 mismatch on `tests/scaffold/cognitive-load-budget.test.mjs` (artefact_class=A, registered story 1-5, recorded 2026-05-19T09:21:30Z; expected 7ff895…, actual babe40…). Specialist Self-Review §2 discloses the intentional modification ("Updated the corresponding budget assertion in `tests/scaffold/cognitive-load-budget.test.mjs` (line 25) — single hard-coded value to match" — paired with BUDGETS.json `methodology-pages-en` bump 30→45) — intent transparent and well-reasoned, but integrity registry not bumped. Same lesson-2026-05-19-001 (severity=high).
+
+
+- **Category:** integrity-drift
+- **Suggested fix:** Recommended: while on epic/5, run `tds integrity record --as=engineer --file=tests/scaffold/cognitive-load-budget.test.mjs --story=5-5-... --notes="Story 5-5 BUDGETS.json methodology-pages-en bump 30→45 (covers Story 5.2 glossary + Story 5.6 tail-scene placeholders)"`, then state-commit, then re-verify.
+
