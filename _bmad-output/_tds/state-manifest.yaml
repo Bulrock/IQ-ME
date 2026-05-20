@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 4c918c81f22bab5e3474c2dbea363389ec6e62661f5ae26eb66754f0d2cd5b34
+    sha256: d8f696e255c1a113784587d56c296df7c54b94d71bbd57b32425d509a37f3e5f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:06:05.207Z
+    recorded_at: 2026-05-20T10:07:55.048Z
     recorded_by: engineer
-    story_id: bridge-4-5-2-convention-doc-for-filesystem
+    story_id: bridge-1-2-1-add-tds-story-unfreeze
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -191,10 +191,10 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-1-2-1-add-tds-story-unfreeze.md
-    sha256: 736203a0f8ece51876f0512df119276359cda06ce3d86815a0259bd5db148a63
+    sha256: 7207787d9e7a98f603f42eb09f009f4404be165988284f4f4c6a3d48ac2dd2bc
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T11:54:06.144Z
-    recorded_by: auditor
+    recorded_at: 2026-05-20T10:07:55.081Z
+    recorded_by: engineer
     story_id: bridge-1-2-1-add-tds-story-unfreeze
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test.md

@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-20 bridge-4-5-2-convention-doc-for-filesystem: done'
+last_updated: '2026-05-20 bridge-1-2-1-add-tds-story-unfreeze: done'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -57,7 +57,7 @@ development_status:
 
   # Bridge 1→2: 1 story from 1 retro
   bridge-1-2: done
-  bridge-1-2-1-add-tds-story-unfreeze: approved       # Add `tds story unfreeze-tests --story=<id>` CLI affordance
+  bridge-1-2-1-add-tds-story-unfreeze: done           # Add `tds story unfreeze-tests --story=<id>` CLI affordance
   epic-2: done
   2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test: done
   2-2-implement-quadrature-js-likelihood-js-pure-math-primitives: done
