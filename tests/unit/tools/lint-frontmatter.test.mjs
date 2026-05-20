@@ -279,3 +279,64 @@ test("lint-frontmatter: empty methodology tree exits 0", () => {
     assert.equal(r.status, 0, `expected 0; stderr: ${r.stderr}`);
   });
 });
+
+// ─── Story 5.1 — translationStatus optional field ───────────────────────
+
+function writePageLang(dir, lang, relPath, content) {
+  const full = join(dir, "src/content/methodology", lang, relPath);
+  mkdirSync(dirname(full), { recursive: true });
+  writeFileSync(full, content);
+  return full;
+}
+
+// 5.1 AC-5 — non-EN page with translationStatus: in-progress is valid
+test("lint-frontmatter (5.1): non-EN translationStatus=in-progress exits 0", () => {
+  withFixture((dir) => {
+    writePageLang(
+      dir,
+      "ru",
+      "ok/index.md",
+      buildFrontmatter({ translationStatus: '"in-progress"' }),
+    );
+    const r = runLint([], dir);
+    assert.equal(r.status, 0, `expected 0; stderr: ${r.stderr}; stdout: ${r.stdout}`);
+  });
+});
+
+// 5.1 AC-5 — EN page with translationStatus: in-progress is INVALID
+test("lint-frontmatter (5.1): EN translationStatus=in-progress exits 1", () => {
+  withFixture((dir) => {
+    writePage(dir, "bad/index.md", buildFrontmatter({ translationStatus: '"in-progress"' }));
+    const r = runLint([], dir);
+    assert.equal(r.status, 1, `expected 1; stderr: ${r.stderr}`);
+    assert.match(
+      r.stderr + r.stdout,
+      /translationStatus|source-of-truth|en.*in-progress/i,
+      "must explain EN cannot be in-progress",
+    );
+  });
+});
+
+// 5.1 AC-5 — invalid enum value rejected
+test("lint-frontmatter (5.1): translationStatus=bogus exits 1", () => {
+  withFixture((dir) => {
+    writePageLang(
+      dir,
+      "ru",
+      "bad/index.md",
+      buildFrontmatter({ translationStatus: '"bogus"' }),
+    );
+    const r = runLint([], dir);
+    assert.equal(r.status, 1, `expected 1; stderr: ${r.stderr}`);
+    assert.match(r.stderr + r.stdout, /translationStatus/i);
+  });
+});
+
+// 5.1 AC-5 — translationStatus omitted (default complete) still passes
+test("lint-frontmatter (5.1): translationStatus omitted exits 0", () => {
+  withFixture((dir) => {
+    writePage(dir, "ok/index.md", buildFrontmatter());
+    const r = runLint([], dir);
+    assert.equal(r.status, 0, `expected 0; stderr: ${r.stderr}`);
+  });
+});

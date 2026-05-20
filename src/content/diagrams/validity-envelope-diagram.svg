@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" role="img" aria-labelledby="validity-envelope-title validity-envelope-desc" class="validity-envelope-diagram">
+  <title id="validity-envelope-title" data-i18n-key="diagrams.validityEnvelope.title">IQ-ME validity envelope</title>
+  <desc id="validity-envelope-desc" data-i18n-key="diagrams.validityEnvelope.desc">Three population zones labelled valid for, partial validity, and not valid for. The diagram shows IQ-ME applies as a screener of fluid reasoning in adults who can complete a 16-item visual session unimpaired; partial validity for users with mild fatigue or transient distraction; not valid for clinical diagnosis, time-pressured assessment, or stand-in multi-domain IQ batteries.</desc>
+  <rect class="zone-valid" x="20" y="40" width="120" height="160" rx="6" />
+  <text class="zone-label" x="80" y="120" text-anchor="middle" dominant-baseline="middle">Valid for</text>
+  <text class="zone-sublabel" x="80" y="140" text-anchor="middle" dominant-baseline="middle">screening adults</text>
+  <text class="zone-sublabel" x="80" y="156" text-anchor="middle" dominant-baseline="middle">in non-distress</text>
+  <rect class="zone-partial" x="140" y="40" width="120" height="160" rx="6" />
+  <text class="zone-label" x="200" y="120" text-anchor="middle" dominant-baseline="middle">Partial validity</text>
+  <text class="zone-sublabel" x="200" y="140" text-anchor="middle" dominant-baseline="middle">mild fatigue or</text>
+  <text class="zone-sublabel" x="200" y="156" text-anchor="middle" dominant-baseline="middle">transient distraction</text>
+  <rect class="zone-invalid" x="260" y="40" width="120" height="160" rx="6" />
+  <text class="zone-label" x="320" y="120" text-anchor="middle" dominant-baseline="middle">Not valid for</text>
+  <text class="zone-sublabel" x="320" y="140" text-anchor="middle" dominant-baseline="middle">diagnosis or</text>
+  <text class="zone-sublabel" x="320" y="156" text-anchor="middle" dominant-baseline="middle">time-pressured use</text>
+  <text class="zone-caption" x="200" y="220" text-anchor="middle">Read left to right: scope narrows as conditions diverge from the calibrated context.</text>
+</svg>

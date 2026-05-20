@@ -1,0 +1,24 @@
+/* src/css/components/lede.css
+ *
+ * Story 5.1 — methodology-page lede (UX-DR12). The lede is the first plain-
+ * language sentence under the masthead — surface-aware on the consent scene
+ * but strictly first-paragraph on methodology pages. The build pipeline wraps
+ * the first <p> of the methodology body in this class; no per-page hardcoded
+ * content.
+ *
+ * UX-DR3 — sizes at --font-size-300 (20px).
+ * UX spec §1589 — line-height 1.5.
+ * UX spec §863 — --space-masthead-to-lede above.
+ *
+ * No role override (AC-1 a11y): a lede is visually-distinct prose, not a
+ * semantic landmark. Reading order is unchanged.
+ */
+
+.lede {
+  font-size: var(--font-size-300);
+  line-height: 1.5;
+  margin-block-start: var(--space-masthead-to-lede);
+  margin-block-end: var(--space-prose-paragraph-gap);
+  color: var(--color-text-body);
+  /* No max-width override here — inherits the page's reading-measure cap. */
+}

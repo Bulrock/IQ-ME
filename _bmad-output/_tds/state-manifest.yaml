@@ -2,16 +2,16 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 3acda5406d3942e945fc542b80da4152c13722bb9dd9f271d26979c455dd3c71
+    sha256: e1025c9e25c8e94f6c2f40233334db9c3d03b0a3c2d704f200ae2caf1c6964d5
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:33:08.716Z
+    recorded_at: 2026-05-20T10:41:18.771Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 3a63be3b42ccaf1d020959e287eb8b4681fc11e6493612c9045109553a4f7b21
+    sha256: 5d5dea6ae0013002c838f1bcb3d5f81e2ce8179b1369fc85a2ad78b3e4fdc47f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:39:25.807Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T10:51:27.708Z
+    recorded_by: frontend
     story_id: 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
@@ -700,12 +700,12 @@ entries:
     story_id: 4-3-lint-frontmatter-lint-claims-manifest-strict-graduation
   - artefact_class: A
     file: tests/unit/tools/lint-frontmatter.test.mjs
-    sha256: c8a30859a77c44dcb5d8aa20f3b063b883b4e2eaa170189f0c6396b8d2a94a5b
+    sha256: 890bba59943f715658e04baa146a16acabb7e64b9835d80880d649b10a03dc01
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T00:22:35.653Z
+    recorded_at: 2026-05-20T10:44:19.107Z
     recorded_by: test-author
-    story_id: 4-3-lint-frontmatter-lint-claims-manifest-strict-graduation
-    notes: Story 4-3 ATDD red phase
+    story_id: 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
+    notes: "story 5-1 test-author phase: scaffold tests + lint-frontmatter translationStatus extension"
   - artefact_class: A
     file: tests/scaffold/lint-frontmatter-coverage.test.mjs
     sha256: fabe60db3b017af6ba018328a10020b8f3285de2ddc1d51e58d10ad53462e726
@@ -883,8 +883,16 @@ entries:
     story_id: bridge-5-6-1-extend-sweep-auto-record
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset.md
-    sha256: 71d60e47eaf87d6a29439b4cac315d7457e438d576b8894afe8fb602bc5e979e
+    sha256: e067ed34cbf4704e82f1b1c48584e4b70de27d2aac0978df6252623284137a31
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:39:25.840Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T10:51:27.742Z
+    recorded_by: frontend
     story_id: 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
+  - artefact_class: A
+    file: tests/scaffold/methodology-chrome-css.test.mjs
+    sha256: 0db715a4e31b9d6f68589fb72f83c746ff17451d2d6cc8649af63064832c66f4
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T10:44:19.107Z
+    recorded_by: test-author
+    story_id: 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
+    notes: "story 5-1 test-author phase: scaffold tests + lint-frontmatter translationStatus extension"
