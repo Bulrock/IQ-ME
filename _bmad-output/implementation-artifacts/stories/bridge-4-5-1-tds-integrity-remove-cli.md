@@ -132,6 +132,7 @@ well-known path `_bmad-output/implementation-artifacts/sprint-status.yaml`
 (or a small allowlist of workflow-mutated state-yaml files). Keeps retros/
 archive frozen per current decision; closes the observed drift class.
 `
+- **Bridged to:** `bridge-5-6-1-extend-sweep-auto-record`
 
 ## Auditor Findings (round-2)
 
@@ -153,3 +154,4 @@ Capture as bridge candidate.
 mutation. Aligns with the existing `kind: record` / `kind: remove`
 pattern.
 `
+- **Bridged to:** `bridge-5-6-1-extend-sweep-auto-record`

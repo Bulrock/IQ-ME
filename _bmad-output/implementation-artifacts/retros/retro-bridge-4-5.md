@@ -34,7 +34,19 @@ proposed_at: 2026-05-20
 type: tech-debt
 candidates:
   - title: Extend sweep auto-record to sprint-status.yaml + emit autorecord telemetry event
-    justification: Both info findings from bridge-4-5-1 land in the same handler (autoRecordDriftedSpecs in sibling commit-sweep.ts). (a) Extend scope to also cover the well-known path `_bmad-output/implementation-artifacts/sprint-status.yaml` (or a small allowlist of workflow-mutated state-yaml files), keeping retros/archive frozen per current decision; (b) emit `kind: autorecord` (or equivalent) integrity event from autoRecordDriftedSpecs so JSONL mirrors manifest mutation, aligning with existing `kind: record` / `kind: remove` pattern. Low coupling — single file, single epic-branch session. Time-box 1 day. Closes the only remaining sweep-scope drift class observed in this retro.
+    justification: >-
+      Both info findings from bridge-4-5-1 land in the same handler
+      (autoRecordDriftedSpecs in sibling commit-sweep.ts).
+      (a) Extend scope to also cover the well-known path
+      `_bmad-output/implementation-artifacts/sprint-status.yaml`
+      (or a small allowlist of workflow-mutated state-yaml files),
+      keeping retros/archive frozen per current decision;
+      (b) emit `kind autorecord` (or equivalent) integrity event from
+      autoRecordDriftedSpecs so JSONL mirrors manifest mutation, aligning
+      with existing `kind record` / `kind remove` pattern.
+      Low coupling — single file, single epic-branch session.
+      Time-box 1 day. Closes the only remaining sweep-scope drift class
+      observed in this retro.
     sources:
       - story: bridge-4-5-1-tds-integrity-remove-cli
         kind: auditor-finding
@@ -45,3 +57,5 @@ candidates:
         round: 2
         finding_index: 1
 ```
+
+## Applied to bridge: bridge-5-6 @ 2026-05-20T09:59:33.244Z

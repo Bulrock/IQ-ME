@@ -17,6 +17,15 @@ bridges:
     stories:
       - bridge-4-5-1-tds-integrity-remove-cli
       - bridge-4-5-2-convention-doc-for-filesystem
+    status: done
+    outcome: "bridge-4-5-1 + bridge-4-5-2 merged to main in 440db00 (PR #9); registry status sync-up after sprint-status flip drift"
+  - id: bridge-5-6
+    type: tech-debt
+    title_extended: Extend sweep auto-record to sprint-status.yaml + emit autorecord telemetry event
+    blocks_epic: epic-6
+    outcome_required: []
+    stories:
+      - bridge-5-6-1-extend-sweep-auto-record
     status: backlog
 parents:
   1-1-bootstrap-repo-skeleton-makefile: epic-1
@@ -56,5 +65,6 @@ parents:
   4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment: epic-4
   bridge-4-5-1-tds-integrity-remove-cli: bridge-4-5
   bridge-4-5-2-convention-doc-for-filesystem: bridge-4-5
-last_updated: 2026-05-20T09:05:27.257Z
+  bridge-5-6-1-extend-sweep-auto-record: bridge-5-6
+last_updated: 2026-05-20T09:59:33.219Z
 generated_by: bmad-tds-bridge-from-retros
