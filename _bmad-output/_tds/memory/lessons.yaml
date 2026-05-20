@@ -440,3 +440,58 @@ lessons:
     severity: medium
     status: active
     superseded_by: null
+  - id: lesson-2026-05-20-004
+    created_during: bridge-4-5
+    created_at: 2026-05-20T09:50:41.652Z
+    created_by: writer
+    story_refs:
+      - bridge-4-5
+    category: process
+    tags:
+      - tds-deliver
+      - oh-07
+      - workflow-recovery
+    summary: "tds deliver Mode 2 can partial-finalize: epic→done, stories left at approved, no main switch. Verify before re-running."
+    lesson: "After /bmad-tds-code-review --epic=<id> auto-deliver completes, verify on origin/main that ALL story keys AND the epic key show 'done' in sprint-status.yaml. If any story is still at 'approved', DO NOT re-run tds deliver — it does not always detect the merged PR and may open a phantom second PR. Use manual recovery: flip stories via sprint_status_writer.py, hard-reset local main to origin/main (squash may have replaced SHAs), commit finalization on main, delete epic branch."
+    avoid_pattern: blindly re-running 'tds deliver' after OH-07 partial finalize
+    preferred_pattern: "post-deliver verify: grep -A3 '^  <epic-id>:' sprint-status.yaml | grep -q done; if any story at approved → manual recovery"
+    severity: medium
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-20-005
+    created_during: bridge-4-5
+    created_at: 2026-05-20T09:50:51.981Z
+    created_by: writer
+    story_refs:
+      - bridge-4-5-1-tds-integrity-remove-cli
+    category: process
+    tags:
+      - cross-repo
+      - bundle-bump
+      - tds-module
+    summary: Cross-repo Option-A scope partition + temporary bundle bump on epic branch is the canonical pattern when a story spans IQ-ME + sibling bmad-tds-module repo.
+    lesson: "When a story needs CLI/bundle changes in sibling-repo (bmad-tds-module) before its formal npm release, split tasks: implement + test in sibling-repo on its own feature branch; consume in IQ-ME via temporary bundle bump on the epic branch. Commit message MUST mark the bundle bump as temporary and reference the source branch — next formal release supersedes naturally. Story-Id trailer keeps audit trail."
+    avoid_pattern: ad-hoc bundle bumps with no temporary marker, or blocking IQ-ME story on full npm release cycle
+    preferred_pattern: "commit message 'chore(tds): bump runtime bundle to <feature-branch>' + 'temporary; superseded by next release' line + Story-Id trailer"
+    severity: low
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-20-006
+    created_during: bridge-4-5
+    created_at: 2026-05-20T09:51:01.969Z
+    created_by: writer
+    story_refs:
+      - bridge-4-5-1-tds-integrity-remove-cli
+      - bridge-4-5-2-convention-doc-for-filesystem
+    category: process
+    tags:
+      - specialist-self-review
+      - auditor
+      - disclosure
+    summary: Specialist Self-Review 'Areas of uncertainty' subsection actively feeds auditor — self-disclosed uncertainties become bridge candidates or focused scrutiny points.
+    lesson: When authoring a story spec's Specialist Self-Review section, treat 'Areas of uncertainty' as a non-penalty disclosure channel. Auditor uses it both as a deep-scrutiny prompt (verify these specifically) AND as a bridge-candidate source (uncertainties often map directly to next-retro bridges). In bridge-4-5-1, two of the three uncertainties became bridge proposals. Honest disclosure → better verdicts, faster reviews.
+    avoid_pattern: hiding uncertainty in specialist self-review to look polished
+    preferred_pattern: explicit 'Areas of uncertainty' subsection in Specialist Self-Review; each item either resolved in story or surfaced as bridge candidate by auditor
+    severity: low
+    status: active
+    superseded_by: null
