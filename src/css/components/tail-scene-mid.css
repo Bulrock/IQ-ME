@@ -1,0 +1,11 @@
+/* src/css/components/tail-scene-mid.css
+ *
+ * Story 6.5 AC-4 — mid-band tail-scene composition (Anna).
+ * Methodology link as natural next step; no crisis-resources, no
+ * silent-companion-line. Shared .tail-scene base lives in tail-scene-bottom.css.
+ */
+
+.tail-scene--mid-band .tail-scene__copy {
+  /* mid-band copy register is contextualization — restraint-first cascade
+     from .tail-scene base is sufficient; no per-variant overrides this story. */
+}

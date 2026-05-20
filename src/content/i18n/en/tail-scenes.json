@@ -1,0 +1,22 @@
+{
+  "_doc": "Story 6.5 (FR19) — EN tail-scene placeholder copy. Reviewer @TBD-en-clinical-register pending equivalent of Gates 9c/9d for EN. NOT clinical-register-reviewed; real copy lands when an EN reviewer-of-record is named. clinicalRegisterReviewed must remain false until then.",
+  "locale": "en",
+  "reviewer": "@TBD-en-clinical-register",
+  "lastReviewed": "pending",
+  "clinicalRegisterReviewed": false,
+  "scenes": {
+    "bottom-decile": {
+      "heading": "Your result",
+      "copy": "This result is one estimate. It does not define you. The numbers below are entry points into the methodology, not a verdict. Resources are listed if you want them.",
+      "silentCompanionLine": "The methodology pages and resources are here when you want them."
+    },
+    "mid-band": {
+      "heading": "Your result",
+      "copy": "This estimate sits within the middle range of the screener's norming sample. The methodology pages explain what the percentile and the IQ-scale value mean and what this measure does not capture."
+    },
+    "top-decile": {
+      "heading": "Your result",
+      "copy": "This estimate sits in the top decile of the screener's norming sample. The screener is not a credential. The number is a screening output, not a placement test or employment qualification."
+    }
+  }
+}

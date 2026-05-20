@@ -1,0 +1,20 @@
+/* src/css/components/tail-scene-top.css
+ *
+ * Story 6.5 AC-4 — top-decile tail-scene composition (Daria).
+ * Anti-credentialization composition; no share affordance; the actual
+ * tear-edge overlay implementation is Story 6.6's scope — this file
+ * reserves the .score-panel--top-decile .score-panel__tear-edge selector
+ * surface but does NOT render the overlay.
+ *
+ * Shared .tail-scene base lives in tail-scene-bottom.css.
+ */
+
+.tail-scene--top-decile .tail-scene__copy {
+  /* anti-credentialization copy register; restraint-first cascade
+     from .tail-scene base is sufficient; no per-variant overrides this story. */
+}
+
+/* Story 6.6 will populate the tear-edge overlay rules under this selector. */
+.score-panel--top-decile .score-panel__tear-edge {
+  /* placeholder selector; intentionally empty in Story 6.5. */
+}

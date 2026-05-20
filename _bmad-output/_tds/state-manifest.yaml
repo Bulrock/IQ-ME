@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 162e836148137501fca00bf289caa6becf030e2a10243f7f6d5358e585c51c8f
+    sha256: 5efbbd5218a16116c1a3cd8b4e017f44938a9f24784311460d97b16ca77c1db9
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T17:49:07.949Z
-    recorded_by: frontend
+    recorded_at: 2026-05-20T19:54:33.742Z
+    recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 0364da81ec5fdcdb6fc06dedd31b27f85729fc40c6c04ceef32a4053dde1a150
+    sha256: a424cd67276bcb743e6701d717f71c636af170033fa4e7cb35b8ba75f9dd6718
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T17:48:42.976Z
+    recorded_at: 2026-05-20T20:20:08.161Z
     recorded_by: frontend
-    story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
+    story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -88,11 +88,12 @@ entries:
     story_id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: e0c4ec812fa7e2371a63de8309b08f9c9c2aeeff2004a035725921b92586cc68
+    sha256: c15a21935a817ba350282bd351cfb00b27015d6646c9a782e9ffba18fe36a284
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T17:41:38.067Z
+    recorded_at: 2026-05-20T20:14:32.069Z
     recorded_by: frontend
-    story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
+    story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
+    notes: bump app-modules-bytes limit 40960→45056 per Story 6.5 AC-14
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
     sha256: b200206425a1a3882b9d3243385bb218f872fe03f7e0147d83a871185b8d16a8
@@ -690,12 +691,12 @@ entries:
     story_id: 4-3-lint-frontmatter-lint-claims-manifest-strict-graduation
   - artefact_class: A
     file: tests/unit/tools/lint-frontmatter.test.mjs
-    sha256: 890bba59943f715658e04baa146a16acabb7e64b9835d80880d649b10a03dc01
+    sha256: a1a27182fa3ac5b7ed8d09d476574086d8ae4c4c587c58afd17fe67f6d2fda5d
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:44:19.107Z
-    recorded_by: test-author
-    story_id: 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
-    notes: "story 5-1 test-author phase: scaffold tests + lint-frontmatter translationStatus extension"
+    recorded_at: 2026-05-20T20:14:47.679Z
+    recorded_by: frontend
+    story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
+    notes: Story 6-5 AC-8 — extend with 9 crisis-resources schema cases (happy/required/pattern/enum/minItems/minLength)
   - artefact_class: A
     file: tests/scaffold/lint-frontmatter-coverage.test.mjs
     sha256: fabe60db3b017af6ba018328a10020b8f3285de2ddc1d51e58d10ad53462e726
@@ -1097,3 +1098,26 @@ entries:
     recorded_at: 2026-05-20T17:44:22.638Z
     recorded_by: frontend
     story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list.md
+    sha256: c155d3d41f7c0a5f7c9d674c00a58a34987fbc68ca9ec310a6c27fe2bf63fd34
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T20:20:08.199Z
+    recorded_by: frontend
+    story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
+  - artefact_class: A
+    file: tests/unit/tail-scene-router.test.mjs
+    sha256: 5f4a65d5bd942c45ef9762a519cf5ed8414b47dad0632f98c0df9de57608d118
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T19:57:57.974Z
+    recorded_by: test-author
+    story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
+    notes: "Story 6-5 test-author phase: tail-scene-router unit tests (AC-1 + AC-10 threshold + RangeError boundaries)"
+  - artefact_class: A
+    file: tests/playwright/asymmetric-tail-scenes.spec.mjs
+    sha256: 3ccf29fcf8f2ba5b361e138e86686073fa94f95e2e9a2233cb7c4528b126331c
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T19:58:03.318Z
+    recorded_by: test-author
+    story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
+    notes: "Story 6-5 test-author phase: asymmetric-tail-scenes Playwright (AC-9 Test 1-5; bottom/mid/top render + reveal-stage gate + zero-third-party)"

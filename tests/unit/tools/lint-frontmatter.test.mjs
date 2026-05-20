@@ -340,3 +340,148 @@ test("lint-frontmatter (5.1): translationStatus omitted exits 0", () => {
     assert.equal(r.status, 0, `expected 0; stderr: ${r.stderr}`);
   });
 });
+
+// ─── Story 6.5 AC-8: crisis-resources schema validation extension ────────
+//
+// lint-frontmatter is extended to walk src/content/crisis-resources/*.json and
+// validate each against crisis-resources.schema.json (stdlib-only mini-validator;
+// no JSON-Schema runtime dep per NFR33). The schema requires:
+//   - locale ∈ {en, ru, pl}
+//   - lastUpdated matches ^\d{4}-\d{2}-\d{2}$
+//   - resources: array, minItems 3
+//   - each resource: { name (non-empty string), description (non-empty string),
+//                       url (^(https?:|tel:)), lastVerified (^\d{4}-\d{2}-\d{2}$) }
+
+function writeCrisisFile(dir, locale, body) {
+  const full = join(dir, "src/content/crisis-resources", `${locale}.json`);
+  mkdirSync(dirname(full), { recursive: true });
+  writeFileSync(full, JSON.stringify(body, null, 2));
+  return full;
+}
+
+const VALID_CRISIS_BODY = {
+  _doc: "test crisis-resources file",
+  locale: "en",
+  lastUpdated: "2026-05-20",
+  resources: [
+    { name: "988 Lifeline", description: "24/7 crisis support", url: "tel:988", lastVerified: "2026-05-20" },
+    { name: "Crisis Text Line", description: "Text-based crisis support", url: "https://www.crisistextline.org/", lastVerified: "2026-05-20" },
+    { name: "Samaritans", description: "UK helpline", url: "tel:116123", lastVerified: "2026-05-20" },
+  ],
+};
+
+// 6.5 AC-8 — happy path: valid crisis-resources/en.json passes
+test("lint-frontmatter (6.5): valid crisis-resources file exits 0", () => {
+  withFixture((dir) => {
+    writeCrisisFile(dir, "en", VALID_CRISIS_BODY);
+    const r = runLint([], dir);
+    assert.equal(r.status, 0, `expected 0; stderr: ${r.stderr}\nstdout: ${r.stdout}`);
+  });
+});
+
+// 6.5 AC-8 — missing required top-level field
+test("lint-frontmatter (6.5): crisis-resources missing 'locale' exits 1", () => {
+  withFixture((dir) => {
+    const body = { ...VALID_CRISIS_BODY };
+    delete body.locale;
+    writeCrisisFile(dir, "en", body);
+    const r = runLint([], dir);
+    assert.equal(r.status, 1, `expected 1; stderr: ${r.stderr}`);
+    assert.match(r.stderr + r.stdout, /locale/i);
+  });
+});
+
+test("lint-frontmatter (6.5): crisis-resources missing 'lastUpdated' exits 1", () => {
+  withFixture((dir) => {
+    const body = { ...VALID_CRISIS_BODY };
+    delete body.lastUpdated;
+    writeCrisisFile(dir, "en", body);
+    const r = runLint([], dir);
+    assert.equal(r.status, 1, `expected 1; stderr: ${r.stderr}`);
+    assert.match(r.stderr + r.stdout, /lastUpdated/i);
+  });
+});
+
+test("lint-frontmatter (6.5): crisis-resources missing 'resources' exits 1", () => {
+  withFixture((dir) => {
+    const body = { ...VALID_CRISIS_BODY };
+    delete body.resources;
+    writeCrisisFile(dir, "en", body);
+    const r = runLint([], dir);
+    assert.equal(r.status, 1, `expected 1; stderr: ${r.stderr}`);
+    assert.match(r.stderr + r.stdout, /resources/i);
+  });
+});
+
+// 6.5 AC-8 — bad pattern: invalid url prefix
+test("lint-frontmatter (6.5): crisis-resources url must be http(s) or tel: prefix", () => {
+  withFixture((dir) => {
+    const body = {
+      ...VALID_CRISIS_BODY,
+      resources: [
+        ...VALID_CRISIS_BODY.resources.slice(0, 2),
+        { name: "Bad", description: "Bad url", url: "ftp://example.com", lastVerified: "2026-05-20" },
+      ],
+    };
+    writeCrisisFile(dir, "en", body);
+    const r = runLint([], dir);
+    assert.equal(r.status, 1, `expected 1; stderr: ${r.stderr}`);
+    assert.match(r.stderr + r.stdout, /url/i);
+  });
+});
+
+// 6.5 AC-8 — bad pattern: invalid lastVerified date format
+test("lint-frontmatter (6.5): crisis-resources lastVerified must be ISO YYYY-MM-DD", () => {
+  withFixture((dir) => {
+    const body = {
+      ...VALID_CRISIS_BODY,
+      resources: [
+        ...VALID_CRISIS_BODY.resources.slice(0, 2),
+        { name: "Bad", description: "bad date", url: "tel:911", lastVerified: "May 20 2026" },
+      ],
+    };
+    writeCrisisFile(dir, "en", body);
+    const r = runLint([], dir);
+    assert.equal(r.status, 1, `expected 1; stderr: ${r.stderr}`);
+    assert.match(r.stderr + r.stdout, /lastVerified/i);
+  });
+});
+
+// 6.5 AC-8 — minItems: fewer than 3 resources rejected
+test("lint-frontmatter (6.5): crisis-resources with < 3 entries exits 1", () => {
+  withFixture((dir) => {
+    const body = { ...VALID_CRISIS_BODY, resources: VALID_CRISIS_BODY.resources.slice(0, 2) };
+    writeCrisisFile(dir, "en", body);
+    const r = runLint([], dir);
+    assert.equal(r.status, 1, `expected 1; stderr: ${r.stderr}`);
+    assert.match(r.stderr + r.stdout, /resources|minItems|3/i);
+  });
+});
+
+// 6.5 AC-8 — bad enum: invalid locale
+test("lint-frontmatter (6.5): crisis-resources invalid locale exits 1", () => {
+  withFixture((dir) => {
+    const body = { ...VALID_CRISIS_BODY, locale: "fr" };
+    writeCrisisFile(dir, "en", body);
+    const r = runLint([], dir);
+    assert.equal(r.status, 1, `expected 1; stderr: ${r.stderr}`);
+    assert.match(r.stderr + r.stdout, /locale/i);
+  });
+});
+
+// 6.5 AC-8 — empty name string rejected (minLength 1)
+test("lint-frontmatter (6.5): crisis-resources empty name exits 1", () => {
+  withFixture((dir) => {
+    const body = {
+      ...VALID_CRISIS_BODY,
+      resources: [
+        ...VALID_CRISIS_BODY.resources.slice(0, 2),
+        { name: "", description: "x", url: "tel:911", lastVerified: "2026-05-20" },
+      ],
+    };
+    writeCrisisFile(dir, "en", body);
+    const r = runLint([], dir);
+    assert.equal(r.status, 1, `expected 1; stderr: ${r.stderr}`);
+    assert.match(r.stderr + r.stdout, /name/i);
+  });
+});

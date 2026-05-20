@@ -3,6 +3,7 @@ import * as state from "./state.js";
 import { scoreSession } from "../scoring/irt/index.js";
 import * as rs from "./reveal-stage.js";
 import { selectSession } from "./item-selection.js";
+import { selectTailScene } from "./tail-scene-router.js";
 
 const CV = "v0.1.0";
 const SS = 16;
@@ -34,10 +35,25 @@ const beat = (s) => `<section class="result-scene" data-reveal-stage="anchor"><h
 
 const DS = (s, c) => `<p class="score-panel__difficulty-sentence" aria-label="${E(s.difficultySentenceAria)}">${E(F(s.difficultySentenceTemplate, { hardN: c.totals.hard, medN: c.totals.medium, easyN: c.totals.easy, hardCorrect: c.correct.hard, medCorrect: c.correct.medium, easyCorrect: c.correct.easy }))}</p>`;
 
-function panel(s, sc, c) {
+function crisisList(crisis) {
+  if (!crisis || !Array.isArray(crisis.resources)) return "";
+  const items = crisis.resources.map((r) => `<li><a class="crisis-resource-link" href="${E(r.url)}" aria-label="${E(r.name)} — ${E(r.description)}">${E(r.name)}</a><span class="crisis-resource-description">${E(r.description)}</span></li>`).join("");
+  return `<div class="tail-scene__crisis-resources" aria-label="Crisis resources"><h4 class="visually-hidden">Crisis resources</h4><ul>${items}</ul></div>`;
+}
+
+function tailScene(variant, tailScenes, crisis) {
+  const scene = (tailScenes && tailScenes.scenes && tailScenes.scenes[variant]) || { heading: "", copy: "", silentCompanionLine: "" };
+  const heading = `<h3 id="tail-scene-heading" class="visually-hidden">${E(scene.heading)}</h3>`;
+  const copy = `<p class="tail-scene__copy">${E(scene.copy)}</p>`;
+  const scl = variant === "bottom-decile" && scene.silentCompanionLine ? `<p class="silent-companion-line" role="note" aria-live="off">${E(scene.silentCompanionLine)}</p>` : "";
+  const cr = variant === "bottom-decile" ? crisisList(crisis) : "";
+  return `<aside class="tail-scene tail-scene--${variant}" role="region" aria-labelledby="tail-scene-heading">${heading}${copy}${scl}${cr}</aside>`;
+}
+
+function panel(s, sc, c, variant, tailScenes, crisis) {
   const p = Math.round(sc.percentile), a = sc.iqScale;
   const h = Math.round((sc.displayedBand.upper - sc.displayedBand.lower) / 2 * 15);
-  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h2 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h2><section class="score-panel" aria-labelledby="score-panel-heading"><p class="score-panel__caveat" role="note">${E(s.caveat)}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }))}</div>${DS(s, c)}</section></section>`;
+  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h2 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h2><section class="score-panel score-panel--${variant}" aria-labelledby="score-panel-heading"><p class="score-panel__caveat" role="note">${E(s.caveat)}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }))}</div>${DS(s, c)}</section>${tailScene(variant, tailScenes, crisis)}</section>`;
 }
 
 function on(el, type, fn) {
@@ -68,12 +84,17 @@ const Z = { totals: { easy: 0, medium: 0, hard: 0 }, correct: { easy: 0, medium:
 export async function render(rootEl, strings) {
   if (m) { detach(); m = null; }
   rs.resetRevealStage();
-  let pool, bands = null;
+  let pool, bands = null, tailScenes = null;
   try {
-    const [pr, br] = await Promise.all([fetch("/src/items/item-parameters.json"), fetch("/src/items/item-difficulty-bands.json")]);
+    const [pr, br, tr] = await Promise.all([
+      fetch("/src/items/item-parameters.json"),
+      fetch("/src/items/item-difficulty-bands.json"),
+      fetch("/src/content/i18n/en/tail-scenes.json"),
+    ]);
     if (!pr || !pr.ok) throw new Error("fetch failed");
     pool = await pr.json();
     if (br && br.ok) bands = await br.json();
+    if (tr && tr.ok) tailScenes = await tr.json();
   } catch { renderErrorFallback(rootEl, strings); return; }
   const score = scoreSession({
     responses: state.getState().responses.map((x) => x.response),
@@ -81,11 +102,19 @@ export async function render(rootEl, strings) {
     normingStats: { se_norming: 0 },
   });
   const counts = bands ? computeDifficultyCounts(pool, bands, state.getState().responses, state.getState().seed) : Z;
+  const variant = selectTailScene(Math.round(score.percentile));
+  let crisis = null;
+  if (variant === "bottom-decile") {
+    try {
+      const cr = await fetch("/src/content/crisis-resources/en.json");
+      if (cr && cr.ok) crisis = await cr.json();
+    } catch {}
+  }
   rootEl.innerHTML = beat(strings.result);
   m = { ls: [] };
   on(rootEl.querySelector(".rs-show"), "click", () => {
     detach(); m.ls = [];
-    rootEl.innerHTML = panel(strings.result, score, counts);
+    rootEl.innerHTML = panel(strings.result, score, counts, variant, tailScenes, crisis);
     bindTriplet(rootEl);
     rs.dispatchStage("band");
     rs.dispatchStage("interval");
