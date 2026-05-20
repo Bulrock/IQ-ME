@@ -983,10 +983,10 @@ entries:
     story_id: bridge-6-7-2-tds-deliver-mode-2
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-6-7-3-restore-carry-forward-lessons.md
-    sha256: bc11b6abf0e42bd273a37deaaf8b4f281b40206defdd9cbd49cb105a8f464708
+    sha256: 14be6da9ce843b45aaccbf617f585b6768068a93bdf504ed7d572fdea031fddc
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:34:12.419Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T13:40:38.842Z
+    recorded_by: story-add-finding-autorecord
     story_id: bridge-6-7-3-restore-carry-forward-lessons
   - artefact_class: A
     file: tests/scaffold/lint-spec-carry-forward-coverage.test.mjs
