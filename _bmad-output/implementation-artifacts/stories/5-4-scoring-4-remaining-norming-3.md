@@ -113,4 +113,5 @@ Author the 4 remaining Scoring pages (`irt-2pl`, `eap`, `percentile-to-iq` alrea
 
 - **Category:** integrity-drift
 - **Suggested fix:** Recommended: while on epic/5, run `tds integrity record --as=engineer --file=tests/unit/tools/lint-claims-manifest.test.mjs --story=5-4-... --notes="Story 5-4 AC-4.1/AC-4.2 deferral-WARN clearance"`, then `tds state-commit -m "chore(5-4): re-register lint-claims-manifest test after deferral clearance" --story=5-4-... --as=engineer`, then re-verify.
+- **Resolved:** Re-registered via `tds integrity record --as=engineer --files=tests/unit/tools/lint-claims-manifest.test.mjs --reason="..."` at 2026-05-20T11:41:12Z. `tds integrity verify` → exit 0. Sweep commits: 849ca95, bf9980f.
 

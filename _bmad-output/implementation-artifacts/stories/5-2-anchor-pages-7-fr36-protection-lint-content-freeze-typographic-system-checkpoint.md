@@ -167,6 +167,7 @@ This story ships 7 EN anchor pages, the FR36-protection lint, and the typographi
 
 - **Suggested bridge:** `Bridge candidate: surface friction of frozen-test re-registration after cross-epic modification — recurring lesson, low ergonomics. Possible affordance: `tds story modify-frozen-test --story=<id> --file=<path>` that bundles unfreeze-window + Edit + integrity record into one ceremony; OR pre-commit hook that warns on edit-to-class-A path without surrounding unfreeze window.
 `
+- **Resolved:** Re-registered all three files via `tds integrity record --as=engineer --files=tests/scaffold/ci-matrix.test.mjs,tests/scaffold/lint-glossary-coverage.test.mjs,tests/scaffold/lint-reading-level-coverage.test.mjs --reason="..."` at 2026-05-20T11:40:54Z. `tds integrity verify` → exit 0 (130 verified, 0 failed). Sweep commits: 849ca95, bf9980f.
 
 ## Auditor Findings (round-2)
 

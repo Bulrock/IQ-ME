@@ -103,4 +103,5 @@ Author the 2 remaining Ethics pages, 2 remaining Provenance pages, and 3 remaini
 
 - **Category:** integrity-drift
 - **Suggested fix:** Recommended: while on epic/5, run `tds integrity record --as=engineer --file=tests/scaffold/cognitive-load-budget.test.mjs --story=5-5-... --notes="Story 5-5 BUDGETS.json methodology-pages-en bump 30→45 (covers Story 5.2 glossary + Story 5.6 tail-scene placeholders)"`, then state-commit, then re-verify.
+- **Resolved:** Re-registered via `tds integrity record --as=engineer --files=tests/scaffold/cognitive-load-budget.test.mjs --reason="..."` at 2026-05-20T11:41:13Z. `tds integrity verify` → exit 0. Sweep commits: 849ca95, bf9980f.
 

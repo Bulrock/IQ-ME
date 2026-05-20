@@ -895,10 +895,10 @@ entries:
     notes: "story 5-7 test-author: extend with Phase-2 component tests"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint.md
-    sha256: 47325daa7c44fec2bf252ab2d9d684423d7bc88df5422aea64da39be21afe4f3
+    sha256: a2d20f6a1a02222cb625a81814beb3ff4b2d9c5e95f0e57fc27519e01503bea9
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:41:59.181Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T11:44:37.925Z
+    recorded_by: state-commit-autorecord
     notes: Re-register spec files after auditor add-findings appended round-1/round-2 sections (auto-commit shipped but integrity registry not bumped by add-findings handler)
   - artefact_class: A
     file: tests/scaffold/anchor-pages.test.mjs
@@ -933,17 +933,17 @@ entries:
     story_id: 5-3-constructs-4-remaining-limitations-3-remaining
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-4-scoring-4-remaining-norming-3.md
-    sha256: 12d248b2126116b1c1645c81273766dcd6655f56b69969cec94173738cd8b6e7
+    sha256: 8292e53cdd0429f614f69b22e20c2de0626fdc3092399c93a9bd00e9ee181ae8
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:41:59.181Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T11:44:37.925Z
+    recorded_by: state-commit-autorecord
     notes: Re-register spec files after auditor add-findings appended round-1/round-2 sections (auto-commit shipped but integrity registry not bumped by add-findings handler)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining.md
-    sha256: a968ab6db510976df5e945c7ff8eb727f75bd67d243e3bed24a62fcc275cb3c1
+    sha256: 98b68bcc16ed20b7aea067f3c9027eb0df103e1289463fcce30f2c9ffecd2333
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:41:59.181Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T11:44:37.925Z
+    recorded_by: state-commit-autorecord
     notes: Re-register spec files after auditor add-findings appended round-1/round-2 sections (auto-commit shipped but integrity registry not bumped by add-findings handler)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd.md
