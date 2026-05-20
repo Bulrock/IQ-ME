@@ -1,7 +1,7 @@
 ---
 id: 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
 title: "Story 4.7: stale-translation-hatnote component + lint-translation-parity no-op stub"
-status: approved
+status: done
 tds:
   primary_specialist: engineer
   story_tags:

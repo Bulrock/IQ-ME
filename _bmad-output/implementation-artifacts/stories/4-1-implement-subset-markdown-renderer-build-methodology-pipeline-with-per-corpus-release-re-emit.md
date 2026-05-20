@@ -1,7 +1,7 @@
 ---
 id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
 title: "Story 4.1: Implement subset markdown renderer + build-methodology pipeline with per-corpus-release re-emit"
-status: approved
+status: done
 tds:
   primary_specialist: engineer
   story_tags:

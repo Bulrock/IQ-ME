@@ -1,7 +1,7 @@
 ---
 id: 4-2-byte-stable-build-assertion-golden-html-snapshots
 title: "Story 4.2: Byte-stable build assertion + golden HTML snapshots"
-status: approved
+status: done
 tds:
   primary_specialist: engineer
   story_tags:

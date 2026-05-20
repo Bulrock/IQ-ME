@@ -1,7 +1,7 @@
 ---
 id: 4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template
 title: "Story 4.6: Masthead component + cite-this-page widget (APA + Wikipedia-template)"
-status: approved
+status: done
 tds:
   primary_specialist: engineer
   story_tags:
