@@ -327,3 +327,13 @@ This story owns:
 - `tests/unit/build-methodology.test.mjs` — 28 tests covering legacy AC-8.1..8.8 (preserved with one updated assertion) + 12 Story-4.1 ACs (env-override, fallback resolution, malformed-version-rejected, latest companion exists/byte-matches, idempotency, re-emit-into-same-outDir, no-stub-pre-wrap, no-stub-footer, body-h1-origin, version-in-masthead-and-title, 8× required-key-missing parametrized, autolink-in-body-rejected).
 - `tests/scaffold/build-methodology-output.test.mjs` — 5 tests (1 updated AC-9 + 4 Story-4.1: all-4-pages-render-at-v0.1.0, latest-companion-exists, latest-bytes-equal-versioned-bytes, no-stub-pre-wrap).
 - Full `make test` = 517 tests, 516 pass, 1 skipped (pre-existing skip, unrelated).
+
+## Auditor Findings (round-1)
+
+### [info] Pre-existing integrity drift surfaces during `tds integrity verify --as=auditor` (3 failures: `tests/golden/regenerate.R` sha256 mismatch from epic-2 hotfix commit 4b0f51c; `tests/scaffold/story-3-1-marker.test.mjs` registered-but-missing; `../bmad-tds-module/src/cli/__tests__/bridge-1-2-1-unfreeze-tests.test.ts` sha256 mismatch in sibling project).
+None introduced by epic-4 commits (`git log main..epic/4 -- <paths>` empty for all three). Documented in story 4-1 Completion Notes as known pre-existing state.
+
+
+- **Category:** integrity
+- **Suggested bridge:** `Bridge story for next epic: "Reconcile pre-existing integrity drift from epic-2/epic-3" — re-record sha256 via `tds integrity record` for `tests/golden/regenerate.R` (legitimate update via PR #5), remove or re-record stale entry for `tests/scaffold/story-3-1-marker.test.mjs`, decide policy for cross-project entry under `../bmad-tds-module/`.
+`
