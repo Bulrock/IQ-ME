@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 2a559af18586cf1a12d43ab8e405240283f715c875b71fb361732dc5f0793a38
+    sha256: fa9568fa895122f6877dc937a1e2d3afb2509b4c36f17713a773ebe9b096f7e7
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:22:21.009Z
-    recorded_by: engineer
-    story_id: bridge-5-6-1-extend-sweep-auto-record
+    recorded_at: 2026-05-20T10:27:10.063Z
+    recorded_by: auditor
+    story_id: bridge-5-6
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -876,8 +876,8 @@ entries:
     story_id: bridge-4-5-2-convention-doc-for-filesystem
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-5-6-1-extend-sweep-auto-record.md
-    sha256: 6a558c506a7b2f043bc32f7f5e08a14144e49e45aefd3dc3dad423c82cc8c6fb
+    sha256: 2a598632d3d21804f6b1bb0e37fce10196195d1bfe4f202293ae5855ff29b57a
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:22:21.044Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T10:27:09.980Z
+    recorded_by: auditor
     story_id: bridge-5-6-1-extend-sweep-auto-record
