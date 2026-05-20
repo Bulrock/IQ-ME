@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 4d64793f6c3a09bb04081d273f1620a3393dc948c8464fc3f1f01c22afd7d9b8
+    sha256: 8c75686ad21a3779dbdb5fbf3c40516f56d2c35d707a184050f3175c614c3e52
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:26:19.500Z
+    recorded_at: 2026-05-20T12:28:04.545Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 2cb9ea46e01c2d311509fc27756b675b51bd8eab59e4ff2e36f3b132c7d46c99
+    sha256: 0deff8c8293769fe4907ea5e16cb9ae25b68bb1dbf1aa9321d1e083416db3d67
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:26:30.750Z
+    recorded_at: 2026-05-20T12:39:04.874Z
     recorded_by: engineer
-    story_id: bridge-6-7
+    story_id: bridge-6-7-1-extend-state-commit-sweep
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -967,3 +967,10 @@ entries:
     recorded_at: 2026-05-20T12:09:43.031Z
     recorded_by: engineer
     story_id: 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-6-7-1-extend-state-commit-sweep.md
+    sha256: 12228eea49fd17d720a2dc0232408d1e3540e8ba05f1d5e291e084da77330332
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T12:39:04.907Z
+    recorded_by: engineer
+    story_id: bridge-6-7-1-extend-state-commit-sweep

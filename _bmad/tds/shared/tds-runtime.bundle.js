@@ -3995,10 +3995,10 @@ var require_resolve_block_map = __commonJS({
       let offset = bm.offset;
       let commentEnd = null;
       for (const collItem of bm.items) {
-        const { start, key: key2, sep: sep3, value } = collItem;
+        const { start, key: key2, sep: sep4, value } = collItem;
         const keyProps = resolveProps.resolveProps(start, {
           indicator: "explicit-key-ind",
-          next: key2 ?? sep3?.[0],
+          next: key2 ?? sep4?.[0],
           offset,
           onError,
           parentIndent: bm.indent,
@@ -4012,7 +4012,7 @@ var require_resolve_block_map = __commonJS({
             else if ("indent" in key2 && key2.indent !== bm.indent)
               onError(offset, "BAD_INDENT", startColMsg);
           }
-          if (!keyProps.anchor && !keyProps.tag && !sep3) {
+          if (!keyProps.anchor && !keyProps.tag && !sep4) {
             commentEnd = keyProps.end;
             if (keyProps.comment) {
               if (map.comment)
@@ -4036,7 +4036,7 @@ var require_resolve_block_map = __commonJS({
         ctx.atKey = false;
         if (utilMapIncludes.mapIncludes(ctx, map.items, keyNode))
           onError(keyStart, "DUPLICATE_KEY", "Map keys must be unique");
-        const valueProps = resolveProps.resolveProps(sep3 ?? [], {
+        const valueProps = resolveProps.resolveProps(sep4 ?? [], {
           indicator: "map-value-ind",
           next: value,
           offset: keyNode.range[2],
@@ -4052,7 +4052,7 @@ var require_resolve_block_map = __commonJS({
             if (ctx.options.strict && keyProps.start < valueProps.found.offset - 1024)
               onError(keyNode.range, "KEY_OVER_1024_CHARS", "The : indicator must be at most 1024 chars after the start of an implicit block mapping key");
           }
-          const valueNode = value ? composeNode(ctx, value, valueProps, onError) : composeEmptyNode(ctx, offset, sep3, null, valueProps, onError);
+          const valueNode = value ? composeNode(ctx, value, valueProps, onError) : composeEmptyNode(ctx, offset, sep4, null, valueProps, onError);
           if (ctx.schema.compat)
             utilFlowIndentCheck.flowIndentCheck(bm.indent, value, onError);
           offset = valueNode.range[2];
@@ -4143,7 +4143,7 @@ var require_resolve_end = __commonJS({
       let comment = "";
       if (end) {
         let hasSpace = false;
-        let sep3 = "";
+        let sep4 = "";
         for (const token of end) {
           const { source, type } = token;
           switch (type) {
@@ -4157,13 +4157,13 @@ var require_resolve_end = __commonJS({
               if (!comment)
                 comment = cb;
               else
-                comment += sep3 + cb;
-              sep3 = "";
+                comment += sep4 + cb;
+              sep4 = "";
               break;
             }
             case "newline":
               if (comment)
-                sep3 += source;
+                sep4 += source;
               hasSpace = true;
               break;
             default:
@@ -4206,18 +4206,18 @@ var require_resolve_flow_collection = __commonJS({
       let offset = fc.offset + fc.start.source.length;
       for (let i = 0; i < fc.items.length; ++i) {
         const collItem = fc.items[i];
-        const { start, key: key2, sep: sep3, value } = collItem;
+        const { start, key: key2, sep: sep4, value } = collItem;
         const props = resolveProps.resolveProps(start, {
           flow: fcName,
           indicator: "explicit-key-ind",
-          next: key2 ?? sep3?.[0],
+          next: key2 ?? sep4?.[0],
           offset,
           onError,
           parentIndent: fc.indent,
           startOnNewline: false
         });
         if (!props.found) {
-          if (!props.anchor && !props.tag && !sep3 && !value) {
+          if (!props.anchor && !props.tag && !sep4 && !value) {
             if (i === 0 && props.comma)
               onError(props.comma, "UNEXPECTED_TOKEN", `Unexpected , in ${fcName}`);
             else if (i < fc.items.length - 1)
@@ -4271,8 +4271,8 @@ var require_resolve_flow_collection = __commonJS({
             }
           }
         }
-        if (!isMap && !sep3 && !props.found) {
-          const valueNode = value ? composeNode(ctx, value, props, onError) : composeEmptyNode(ctx, props.end, sep3, null, props, onError);
+        if (!isMap && !sep4 && !props.found) {
+          const valueNode = value ? composeNode(ctx, value, props, onError) : composeEmptyNode(ctx, props.end, sep4, null, props, onError);
           coll.items.push(valueNode);
           offset = valueNode.range[2];
           if (isBlock(value))
@@ -4284,7 +4284,7 @@ var require_resolve_flow_collection = __commonJS({
           if (isBlock(key2))
             onError(keyNode.range, "BLOCK_IN_FLOW", blockMsg);
           ctx.atKey = false;
-          const valueProps = resolveProps.resolveProps(sep3 ?? [], {
+          const valueProps = resolveProps.resolveProps(sep4 ?? [], {
             flow: fcName,
             indicator: "map-value-ind",
             next: value,
@@ -4295,8 +4295,8 @@ var require_resolve_flow_collection = __commonJS({
           });
           if (valueProps.found) {
             if (!isMap && !props.found && ctx.options.strict) {
-              if (sep3)
-                for (const st of sep3) {
+              if (sep4)
+                for (const st of sep4) {
                   if (st === valueProps.found)
                     break;
                   if (st.type === "newline") {
@@ -4313,7 +4313,7 @@ var require_resolve_flow_collection = __commonJS({
             else
               onError(valueProps.start, "MISSING_CHAR", `Missing , or : between ${fcName} items`);
           }
-          const valueNode = value ? composeNode(ctx, value, valueProps, onError) : valueProps.found ? composeEmptyNode(ctx, valueProps.end, sep3, null, valueProps, onError) : null;
+          const valueNode = value ? composeNode(ctx, value, valueProps, onError) : valueProps.found ? composeEmptyNode(ctx, valueProps.end, sep4, null, valueProps, onError) : null;
           if (valueNode) {
             if (isBlock(value))
               onError(valueNode.range, "BLOCK_IN_FLOW", blockMsg);
@@ -4493,7 +4493,7 @@ var require_resolve_block_scalar = __commonJS({
           chompStart = i + 1;
       }
       let value = "";
-      let sep3 = "";
+      let sep4 = "";
       let prevMoreIndented = false;
       for (let i = 0; i < contentStart; ++i)
         value += lines[i][0].slice(trimIndent) + "\n";
@@ -4510,24 +4510,24 @@ var require_resolve_block_scalar = __commonJS({
           indent = "";
         }
         if (type === Scalar.Scalar.BLOCK_LITERAL) {
-          value += sep3 + indent.slice(trimIndent) + content;
-          sep3 = "\n";
+          value += sep4 + indent.slice(trimIndent) + content;
+          sep4 = "\n";
         } else if (indent.length > trimIndent || content[0] === "	") {
-          if (sep3 === " ")
-            sep3 = "\n";
-          else if (!prevMoreIndented && sep3 === "\n")
-            sep3 = "\n\n";
-          value += sep3 + indent.slice(trimIndent) + content;
-          sep3 = "\n";
+          if (sep4 === " ")
+            sep4 = "\n";
+          else if (!prevMoreIndented && sep4 === "\n")
+            sep4 = "\n\n";
+          value += sep4 + indent.slice(trimIndent) + content;
+          sep4 = "\n";
           prevMoreIndented = true;
         } else if (content === "") {
-          if (sep3 === "\n")
+          if (sep4 === "\n")
             value += "\n";
           else
-            sep3 = "\n";
+            sep4 = "\n";
         } else {
-          value += sep3 + content;
-          sep3 = " ";
+          value += sep4 + content;
+          sep4 = " ";
           prevMoreIndented = false;
         }
       }
@@ -4709,25 +4709,25 @@ var require_resolve_flow_scalar = __commonJS({
       if (!match)
         return source;
       let res = match[1];
-      let sep3 = " ";
+      let sep4 = " ";
       let pos = first.lastIndex;
       line.lastIndex = pos;
       while (match = line.exec(source)) {
         if (match[1] === "") {
-          if (sep3 === "\n")
-            res += sep3;
+          if (sep4 === "\n")
+            res += sep4;
           else
-            sep3 = "\n";
+            sep4 = "\n";
         } else {
-          res += sep3 + match[1];
-          sep3 = " ";
+          res += sep4 + match[1];
+          sep4 = " ";
         }
         pos = line.lastIndex;
       }
       const last = /[ \t]*(.*)/sy;
       last.lastIndex = pos;
       match = last.exec(source);
-      return res + sep3 + (match?.[1] ?? "");
+      return res + sep4 + (match?.[1] ?? "");
     }
     function doubleQuotedValue(source, onError) {
       let res = "";
@@ -5534,14 +5534,14 @@ var require_cst_stringify = __commonJS({
         }
       }
     }
-    function stringifyItem({ start, key: key2, sep: sep3, value }) {
+    function stringifyItem({ start, key: key2, sep: sep4, value }) {
       let res = "";
       for (const st of start)
         res += st.source;
       if (key2)
         res += stringifyToken(key2);
-      if (sep3)
-        for (const st of sep3)
+      if (sep4)
+        for (const st of sep4)
           res += st.source;
       if (value)
         res += stringifyToken(value);
@@ -6691,18 +6691,18 @@ var require_parser = __commonJS({
         if (this.type === "map-value-ind") {
           const prev = getPrevProps(this.peek(2));
           const start = getFirstKeyStartProps(prev);
-          let sep3;
+          let sep4;
           if (scalar.end) {
-            sep3 = scalar.end;
-            sep3.push(this.sourceToken);
+            sep4 = scalar.end;
+            sep4.push(this.sourceToken);
             delete scalar.end;
           } else
-            sep3 = [this.sourceToken];
+            sep4 = [this.sourceToken];
           const map = {
             type: "block-map",
             offset: scalar.offset,
             indent: scalar.indent,
-            items: [{ start, key: scalar, sep: sep3 }]
+            items: [{ start, key: scalar, sep: sep4 }]
           };
           this.onKeyLine = true;
           this.stack[this.stack.length - 1] = map;
@@ -6855,15 +6855,15 @@ var require_parser = __commonJS({
                 } else if (isFlowToken(it.key) && !includesToken(it.sep, "newline")) {
                   const start2 = getFirstKeyStartProps(it.start);
                   const key2 = it.key;
-                  const sep3 = it.sep;
-                  sep3.push(this.sourceToken);
+                  const sep4 = it.sep;
+                  sep4.push(this.sourceToken);
                   delete it.key;
                   delete it.sep;
                   this.stack.push({
                     type: "block-map",
                     offset: this.offset,
                     indent: this.indent,
-                    items: [{ start: start2, key: key2, sep: sep3 }]
+                    items: [{ start: start2, key: key2, sep: sep4 }]
                   });
                 } else if (start.length > 0) {
                   it.sep = it.sep.concat(start, this.sourceToken);
@@ -7057,13 +7057,13 @@ var require_parser = __commonJS({
             const prev = getPrevProps(parent);
             const start = getFirstKeyStartProps(prev);
             fixFlowSeqItems(fc);
-            const sep3 = fc.end.splice(1, fc.end.length);
-            sep3.push(this.sourceToken);
+            const sep4 = fc.end.splice(1, fc.end.length);
+            sep4.push(this.sourceToken);
             const map = {
               type: "block-map",
               offset: fc.offset,
               indent: fc.indent,
-              items: [{ start, key: fc, sep: sep3 }]
+              items: [{ start, key: fc, sep: sep4 }]
             };
             this.onKeyLine = true;
             this.stack[this.stack.length - 1] = map;
@@ -7627,6 +7627,12 @@ var init_git = __esm({
 });
 
 // src/state/commit-sweep.ts
+var commit_sweep_exports = {};
+__export(commit_sweep_exports, {
+  autoRecordSpecsFromAddFinding: () => autoRecordSpecsFromAddFinding,
+  collectDirtyTdsPaths: () => collectDirtyTdsPaths,
+  sweepStateCommit: () => sweepStateCommit
+});
 import { spawnSync as spawnSync5 } from "node:child_process";
 import { existsSync as existsSync2, readFileSync as readFileSync3, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
@@ -7687,6 +7693,16 @@ function collectDirtyTdsPaths(opts) {
   return { paths: inWhitelist, filteredOut: outsideWhitelist };
 }
 function autoRecordDriftedSpecs(projectRoot, outputFolder, tdsStateDir) {
+  return autoRecordDriftedSpecsImpl({
+    projectRoot,
+    outputFolder,
+    tdsStateDir,
+    recordedBy: "state-commit-autorecord"
+  });
+}
+function autoRecordDriftedSpecsImpl(opts) {
+  const { projectRoot, outputFolder, tdsStateDir } = opts;
+  const recordedBy = opts.recordedBy ?? "state-commit-autorecord";
   const manifestRel = `${toPosixRel(projectRoot, outputFolder)}/_tds/state-manifest.yaml`;
   const manifestAbs = join3(projectRoot, manifestRel);
   if (!existsSync2(manifestAbs)) return [];
@@ -7703,6 +7719,9 @@ function autoRecordDriftedSpecs(projectRoot, outputFolder, tdsStateDir) {
   if (!doc || !Array.isArray(doc.entries)) return [];
   const recorded = [];
   for (const entry of doc.entries) {
+    if (opts.fileScope !== void 0 && !opts.fileScope.has(entry.file)) {
+      continue;
+    }
     const inStories = entry.file.startsWith(storiesPrefix) && entry.file.endsWith(".md");
     const inAllowlist = allowlistExact.has(entry.file);
     if (!inStories && !inAllowlist) continue;
@@ -7712,7 +7731,7 @@ function autoRecordDriftedSpecs(projectRoot, outputFolder, tdsStateDir) {
     if (currentSha === entry.sha256) continue;
     entry.sha256 = currentSha;
     entry.recorded_at = (/* @__PURE__ */ new Date()).toISOString();
-    entry.recorded_by = "state-commit-autorecord";
+    entry.recorded_by = recordedBy;
     recorded.push({ file: entry.file, sha256: currentSha });
   }
   if (recorded.length > 0) {
@@ -7729,12 +7748,21 @@ function autoRecordDriftedSpecs(projectRoot, outputFolder, tdsStateDir) {
           kind: "autorecord",
           file: r.file,
           sha256: r.sha256,
-          recorded_by: "state-commit-autorecord"
+          recorded_by: recordedBy
         }
       });
     }
   }
   return recorded.map((r) => r.file);
+}
+function autoRecordSpecsFromAddFinding(opts) {
+  return autoRecordDriftedSpecsImpl({
+    projectRoot: opts.projectRoot,
+    outputFolder: opts.outputFolder,
+    tdsStateDir: opts.tdsStateDir,
+    recordedBy: "story-add-finding-autorecord",
+    fileScope: new Set(opts.specPathsRel)
+  });
 }
 function sweepStateCommit(opts) {
   const storyId = opts.storyId ?? "chore-tds-internal";
@@ -12694,7 +12722,7 @@ var __dirname = dirname2(fileURLToPath2(import.meta.url));
 var repoRoot = resolve(__dirname, "../..");
 function readModuleVersion() {
   if (true) {
-    return "6.5.35";
+    return "6.5.36";
   }
   const pkg = JSON.parse(
     readFileSync(resolve(repoRoot, "package.json"), "utf8")
@@ -19178,8 +19206,12 @@ Recovery: re-run \`tds story update --story=${storyId} --status=${newStatus} --a
 }
 
 // src/cli/handlers/story-findings.ts
-import { join as pathJoin13 } from "node:path";
+import { join as pathJoin13, relative as pathRelative, sep as sep3, posix as posix2 } from "node:path";
 init_model();
+function toPosixRel2(projectRoot, abs) {
+  const rel = pathRelative(projectRoot, abs);
+  return sep3 === posix2.sep ? rel : rel.split(sep3).join(posix2.sep);
+}
 async function handleStoryAddFinding(opts) {
   const { role, storyId, flags, paths, telemetryDir, wantJson } = opts;
   if (role !== "auditor") {
@@ -19264,9 +19296,25 @@ async function handleStoryAddFinding(opts) {
     round
   );
   await writeStorySpec2(specPath, mutated);
+  const specRel = toPosixRel2(paths.projectRoot, specPath);
+  const { autoRecordSpecsFromAddFinding: autoRecordSpecsFromAddFinding2 } = await Promise.resolve().then(() => (init_commit_sweep(), commit_sweep_exports));
+  let manifestUpdated = [];
+  try {
+    manifestUpdated = autoRecordSpecsFromAddFinding2({
+      projectRoot: paths.projectRoot,
+      outputFolder: paths.outputFolder,
+      tdsStateDir: paths.tdsStateDir,
+      specPathsRel: [specRel]
+    });
+  } catch {
+  }
   const { autoCommitTdsState: autoCommitTdsState2 } = await Promise.resolve().then(() => (init_git(), git_exports));
+  const commitPaths = [specPath];
+  if (manifestUpdated.length > 0) {
+    commitPaths.push(pathJoin13(paths.tdsStateDir, "state-manifest.yaml"));
+  }
   const autoCommit = autoCommitTdsState2({
-    paths: [specPath],
+    paths: commitPaths,
     message: `chore(${storyId}): auditor finding (round-${round}, ${severity}, ${category})`,
     storyId,
     cwd: paths.projectRoot
@@ -20057,9 +20105,35 @@ async function handleAddFindingsBatch(opts) {
       specPath
     });
   }
+  const { sep: pathSep, posix: pathPosix, relative: pathRel } = await import("node:path");
+  const toPosix = (abs) => {
+    const rel = pathRel(paths.projectRoot, abs);
+    return pathSep === pathPosix.sep ? rel : rel.split(pathSep).join(pathPosix.sep);
+  };
+  const touchedSpecRels = [...perStory.values()].map((info) => toPosix(info.specPath));
+  let manifestUpdatedRels = [];
+  if (touchedSpecRels.length > 0) {
+    try {
+      const { autoRecordSpecsFromAddFinding: autoRecordSpecsFromAddFinding2 } = await Promise.resolve().then(() => (init_commit_sweep(), commit_sweep_exports));
+      manifestUpdatedRels = autoRecordSpecsFromAddFinding2({
+        projectRoot: paths.projectRoot,
+        outputFolder: paths.outputFolder,
+        tdsStateDir: paths.tdsStateDir,
+        specPathsRel: touchedSpecRels
+      });
+    } catch {
+    }
+  }
+  const manifestAbsPath = pathJoin14(paths.tdsStateDir, "state-manifest.yaml");
+  let manifestAttached = false;
   for (const [storyId, info] of perStory.entries()) {
+    const commitPaths = [info.specPath];
+    if (manifestUpdatedRels.length > 0 && !manifestAttached) {
+      commitPaths.push(manifestAbsPath);
+      manifestAttached = true;
+    }
     autoCommitsByStory[storyId] = autoCommitTdsState2({
-      paths: [info.specPath],
+      paths: commitPaths,
       message: `chore(${storyId}): auditor finding writeback (${info.count} finding${info.count > 1 ? "s" : ""})`,
       storyId,
       cwd: paths.projectRoot
