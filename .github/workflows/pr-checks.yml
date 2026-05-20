@@ -325,3 +325,32 @@ jobs:
         with:
           node-version: "22"
       - run: node tools/lint-translation-parity.mjs
+
+  lint-csp-source:
+    name: lint-csp-source
+    runs-on: ubuntu-latest
+    # Activated in Story 4.8 — out-of-band CSP-source check (NFR7 enforcement
+    # contract). Scans src/index.html + post-build dist/methodology/**/*.html
+    # for inline <style>/<script>/style=/on*= violations. Architectural
+    # exemption: D10 <script nomodule> display-toggle (architecture.md §D10).
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: make build-methodology
+      - run: node tools/lint-csp-source.mjs
+
+  exit-criterion-spec:
+    name: exit-criterion-spec
+    runs-on: ubuntu-latest
+    # Activated in Story 4.8 — Epic-4 exit-criterion verification: every
+    # Epic-4-shipped lint demonstrated against both a corpus page AND an SPA-side
+    # fragment (Winston Q4 #1/#3 parallelism claim).
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: make build-methodology
+      - run: node --test tests/exit-criteria/epic-04-lint-coverage.spec.mjs

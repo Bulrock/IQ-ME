@@ -266,3 +266,94 @@ test("lint-reading-level: ATX headings stripped from FK calc", () => {
     assert.ok(g < 5, `expected low grade after stripping heading; got ${g}`);
   });
 });
+
+// ─── Story 4-8 — --include-i18n flag tests ──────────────────────────────
+
+function writeI18n(dir, lang, jsonObj) {
+  const full = join(dir, "src/content/i18n", lang, "strings.json");
+  mkdirSync(dirname(full), { recursive: true });
+  writeFileSync(full, JSON.stringify(jsonObj, null, 2));
+  return full;
+}
+
+// AC-2.1 — without --include-i18n flag, i18n JSON is ignored (backward-compat).
+test("lint-reading-level: without --include-i18n flag, i18n JSON ignored", () => {
+  withFixture((dir) => {
+    // Plant an i18n JSON with deliberately polysyllabic prose.
+    writeI18n(dir, "en", {
+      a: "Epistemological multidisciplinary phenomenological investigations corroborate interdisciplinary methodologies.",
+    });
+    // No methodology pages → empty walk, exit 0.
+    const r = runLint([], dir);
+    assert.equal(r.status, 0, `expected 0; stderr: ${r.stderr}; stdout: ${r.stdout}`);
+    // Ensure no grade line was emitted for strings.json (flag absent).
+    assert.doesNotMatch(r.stdout + r.stderr, /strings\.json/);
+  });
+});
+
+// AC-2.2 — with --include-i18n: EN strings.json values extracted, FK computed.
+test("lint-reading-level: --include-i18n extracts EN string values + computes FK", () => {
+  withFixture((dir) => {
+    writeI18n(dir, "en", {
+      group: {
+        a: "The cat sat on the mat.",
+        b: "The dog ran in the park.",
+        c: "We took a walk on the path.",
+      },
+    });
+    const r = runLint(["--include-i18n"], dir);
+    assert.equal(r.status, 0, `expected 0; stderr: ${r.stderr}; stdout: ${r.stdout}`);
+    assert.match(r.stdout + r.stderr, /i18n\/en\/strings\.json.*grade=/);
+  });
+});
+
+// AC-2.3 — with --include-i18n: EN strings.json with polysyllabic prose fails grade > 12.
+test("lint-reading-level: --include-i18n EN polysyllabic prose fails grade > 12", () => {
+  withFixture((dir) => {
+    writeI18n(dir, "en", {
+      a: "Epistemological multidisciplinary phenomenological investigations corroborate interdisciplinary methodologies amongst psychometric instrumentation across heterogeneous sociodemographic populations exhibiting substantial variability.",
+    });
+    const r = runLint(["--include-i18n"], dir);
+    assert.equal(r.status, 1, `expected exit 1; stderr: ${r.stderr}; stdout: ${r.stdout}`);
+    assert.match(r.stderr + r.stdout, /i18n\/en\/strings\.json.*grade=/);
+  });
+});
+
+// AC-2.4 — with --include-i18n: RU strings.json → per-locale WARN, no FK enforcement.
+test("lint-reading-level: --include-i18n RU strings emit per-locale WARN, no enforcement", () => {
+  withFixture((dir) => {
+    writeI18n(dir, "ru", { a: "Кошка села на коврик." });
+    const r = runLint(["--include-i18n"], dir);
+    assert.equal(r.status, 0, `expected 0; stderr: ${r.stderr}; stdout: ${r.stdout}`);
+    assert.match(r.stderr + r.stdout, /WARN.*ru.*calibration.*Epic 7/);
+  });
+});
+
+// AC-2.5 — with --include-i18n: nested object string extraction.
+test("lint-reading-level: --include-i18n extracts strings from nested objects", () => {
+  withFixture((dir) => {
+    writeI18n(dir, "en", {
+      level1: {
+        level2: {
+          deep: "The cat sat on the mat. The dog ran in the park.",
+        },
+      },
+    });
+    const r = runLint(["--include-i18n"], dir);
+    assert.equal(r.status, 0, `expected 0; stderr: ${r.stderr}`);
+    assert.match(r.stdout + r.stderr, /i18n\/en\/strings\.json.*grade=/);
+  });
+});
+
+// AC-2.6 — Backward-compat: --include-i18n flag still runs methodology pass.
+test("lint-reading-level: --include-i18n still validates methodology pages", () => {
+  withFixture((dir) => {
+    writePage(dir, "en", "page/index.md", "The cat sat on the mat.\n");
+    writeI18n(dir, "en", { a: "The dog ran in the park." });
+    const r = runLint(["--include-i18n"], dir);
+    assert.equal(r.status, 0, `expected 0; stderr: ${r.stderr}`);
+    // Both surfaces produced grade lines.
+    assert.match(r.stdout + r.stderr, /page\/index\.md.*grade=/);
+    assert.match(r.stdout + r.stderr, /i18n\/en\/strings\.json.*grade=/);
+  });
+});

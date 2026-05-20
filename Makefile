@@ -11,8 +11,8 @@ help: ## list documented Make targets
 	@grep -hE '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) \
 	  | awk -F':.*## ' '{printf "%-20s %s\n", $$1, $$2}'
 
-test: ## run node --test against tests/scaffold + tests/contract + tests/unit (Playwright excluded)
-	node --test 'tests/scaffold/**/*.test.mjs' 'tests/contract/**/*.spec.mjs' 'tests/unit/**/*.test.mjs'
+test: ## run node --test against tests/scaffold + tests/contract + tests/unit + tests/exit-criteria (Playwright excluded)
+	node --test 'tests/scaffold/**/*.test.mjs' 'tests/contract/**/*.spec.mjs' 'tests/unit/**/*.test.mjs' 'tests/exit-criteria/**/*.spec.mjs'
 
 test-network-trace: ## run Playwright network-trace spec (downloads chromium on first run)
 	npx --yes playwright test tests/playwright/network-trace.spec.mjs
@@ -41,6 +41,7 @@ lint: ## run all registered lints (negative assertions + budget + trust artifact
 	node tools/lint-reading-level.mjs
 	node tools/lint-license-provenance.mjs
 	node tools/lint-translation-parity.mjs
+	node tools/lint-csp-source.mjs
 	node tools/lint-css-source-co-equal.mjs
 	npx --yes eslint@^9.16.0 --max-warnings 0 .
 

@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: e35d09f91fc812515a20907bf869112ceba3d13c1d0b0982cbeb10a51dfde621
+    sha256: 58e312e2ecea39264bcee5ec39bc3eb0f5b9a93be1c5595b8fe2c5794e145d87
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:53:55.614Z
+    recorded_at: 2026-05-20T07:56:44.657Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 036b8e43937bc565f3cefd822e192a1a84d8376de5a656d4950601cb1abf8022
+    sha256: f78ad6e023e37b3a4f1c8a91554a6367461a4d604ba6efa010e263dff005b593
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:53:23.667Z
+    recorded_at: 2026-05-20T08:11:11.550Z
     recorded_by: engineer
-    story_id: 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
+    story_id: 4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -109,12 +109,11 @@ entries:
     story_id: epic-1-retrospective
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: a41dba139ad02cfc11088bebe5a667d461b78858585aa0628cbead660cb62ee9
+    sha256: a245d0855552879a54c4da53445726de9a235d2e465469cf512ed4aaac571ace
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:17:29.013Z
+    recorded_at: 2026-05-20T07:54:48.624Z
     recorded_by: engineer
-    story_id: 4-5-lint-license-provenance
-    notes: "Story 4-5 engineer impl: test fixture fix + EPIC_1_ACTIVE update"
+    notes: Story 4-7 CI matrix lint-translation-parity activation
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: a9bb6d72aa3e9fed7ea49b8c83dffffcb085c0a9fbe80b8144d14aa893ccac1f
@@ -753,11 +752,12 @@ entries:
     notes: Story 4-4 impl-phase frozen-test fixes (engineer commit 3306335) + CI matrix activations
   - artefact_class: A
     file: tests/unit/tools/lint-reading-level.test.mjs
-    sha256: 93605102c999ba65b0bb3c77e9e5e4969c6a8740ada460fb3b72736cf7b898fd
+    sha256: 696633e166ef2e953453251653e77cfbdb03e865df8ad2e68bcfabac9811e640
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:08:00.631Z
-    recorded_by: engineer
-    notes: Story 4-4 impl-phase frozen-test fixes (engineer commit 3306335) + CI matrix activations
+    recorded_at: 2026-05-20T08:02:31.633Z
+    recorded_by: test-author
+    story_id: 4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment
+    notes: Story 4-8 red-phase failing tests + SPA fragment fixture
   - artefact_class: A
     file: tests/scaffold/lint-glossary-coverage.test.mjs
     sha256: dbac9ca6cf97883bc29b501f318fe2cccc64c844ae5899e831aa66e85dd67e4d
@@ -843,3 +843,42 @@ entries:
     recorded_by: test-author
     story_id: 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
     notes: "Story 4-7 test-author Phase A: failing tests for lint-translation-parity stub + hatnote builder extensions"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment.md
+    sha256: 586edc978b57fe4b273dd37b52d197b8f12f0b60427d3dc5a1438494708795e1
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T08:11:11.589Z
+    recorded_by: engineer
+    story_id: 4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment
+  - artefact_class: A
+    file: tests/unit/tools/lint-csp-source.test.mjs
+    sha256: a5973058f38f8edc4c1765c2704785028b723f2ce3190c20afc7f9d78706830b
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T08:02:31.632Z
+    recorded_by: test-author
+    story_id: 4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment
+    notes: Story 4-8 red-phase failing tests + SPA fragment fixture
+  - artefact_class: A
+    file: tests/scaffold/lint-csp-source-coverage.test.mjs
+    sha256: 1a491991dc1617e550c26914f45b3aab2c7ff7fa8348c26e587a331a5c3d27f5
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T08:02:31.633Z
+    recorded_by: test-author
+    story_id: 4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment
+    notes: Story 4-8 red-phase failing tests + SPA fragment fixture
+  - artefact_class: A
+    file: tests/exit-criteria/epic-04-lint-coverage.spec.mjs
+    sha256: 5f06d73c4f392919997379d55a411a1a44f0b8615c3767cc30a4414272bafa85
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T08:02:31.633Z
+    recorded_by: test-author
+    story_id: 4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment
+    notes: Story 4-8 red-phase failing tests + SPA fragment fixture
+  - artefact_class: A
+    file: tests/fixtures/spa-fragment.md
+    sha256: 0b1250ac3d9361a2a891e728abfaeb7ba92c14961fc5b55475b751b19daa7963
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T08:02:31.634Z
+    recorded_by: test-author
+    story_id: 4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment
+    notes: Story 4-8 red-phase failing tests + SPA fragment fixture

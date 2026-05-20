@@ -48,6 +48,9 @@ const ALL_JOBS = [
   "reveal-stage-event-ordering",
   "csp-violation-count",
   "state-shape-contract",
+  // Story 4.8 — Epic-4 exit-criterion jobs.
+  "lint-csp-source",
+  "exit-criterion-spec",
 ];
 
 const EPIC_1_ACTIVE = new Set([
@@ -84,6 +87,12 @@ const EPIC_1_ACTIVE = new Set([
   // lint-translation-parity activated in Story 4.7 (Epic-4-close no-op stub;
   // Epic 7 / Story 7.5b flips on full per-locale parity coverage).
   "lint-translation-parity",
+  // lint-csp-source activated in Story 4.8 — NFR7 source-level CSP-source check
+  // (no inline <style>/<script>/style=/on*=). D10 <script nomodule> exempt.
+  "lint-csp-source",
+  // exit-criterion-spec activated in Story 4.8 — Epic-4 exit criterion proof:
+  // every shipped lint demonstrated against both corpus AND SPA surfaces.
+  "exit-criterion-spec",
 ]);
 
 function loadPrChecks() {

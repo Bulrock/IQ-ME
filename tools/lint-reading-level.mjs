@@ -23,10 +23,15 @@
 // Syllable heuristic: count vowel groups per word; subtract trailing silent
 // `e`; minimum 1. Acceptable for CI gating.
 //
-// Optional flag:
-//   --paths=<dir>   override the methodology root (default: src/content/methodology)
+// Optional flags:
+//   --paths=<dir>     override the methodology root (default: src/content/methodology)
+//   --include-i18n    ALSO walk src/content/i18n/<lang>/*.json, extract every
+//                     string value (recursively, nested objects supported),
+//                     concatenate per file, and grade against NFR28 threshold.
+//                     EN-only enforcement; RU/PL → per-locale deferred WARN
+//                     (matches Story 4-4 AC-3 locale gating). Story 4-8 AC-2.
 
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { resolve, join, relative } from "node:path";
 import { argv, cwd, stdout, stderr, exit } from "node:process";
 
@@ -36,10 +41,15 @@ const THRESHOLD = 12;
 // ─── arg parsing ─────────────────────────────────────────────────────────
 const args = argv.slice(2);
 let pathsArg = null;
+let includeI18n = false;
 for (const a of args) {
   if (a.startsWith("--paths=")) pathsArg = a.slice("--paths=".length);
+  else if (a === "--include-i18n") includeI18n = true;
 }
 const ROOT = resolve(CWD, pathsArg ?? "src/content/methodology");
+// i18n root is derived from the methodology root's parent (../i18n) so that
+// --paths= overrides cooperate naturally in test fixtures.
+const I18N_ROOT = resolve(ROOT, "..", "i18n");
 
 // ─── markdown stripping ──────────────────────────────────────────────────
 function stripFrontmatter(text) {
@@ -163,6 +173,42 @@ function detectLang(fullPath) {
   return parts[0] ?? null;
 }
 
+// ─── i18n walker (Story 4-8 --include-i18n) ─────────────────────────────
+function* walkI18nJson(root) {
+  let langs;
+  try {
+    langs = readdirSync(root, { withFileTypes: true });
+  } catch (e) {
+    if (e.code === "ENOENT") return;
+    throw e;
+  }
+  langs.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+  for (const langEntry of langs) {
+    if (langEntry.name.startsWith(".") || !langEntry.isDirectory()) continue;
+    const langDir = join(root, langEntry.name);
+    let files;
+    try {
+      files = readdirSync(langDir, { withFileTypes: true });
+    } catch { continue; }
+    files.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+    for (const f of files) {
+      if (f.isFile() && f.name.endsWith(".json")) {
+        yield { lang: langEntry.name, path: join(langDir, f.name) };
+      }
+    }
+  }
+}
+
+function extractStringsRecursive(value, out) {
+  if (typeof value === "string") {
+    out.push(value);
+  } else if (Array.isArray(value)) {
+    for (const v of value) extractStringsRecursive(v, out);
+  } else if (value && typeof value === "object") {
+    for (const k of Object.keys(value)) extractStringsRecursive(value[k], out);
+  }
+}
+
 function main() {
   let failures = 0;
   let enPages = 0;
@@ -225,14 +271,80 @@ function main() {
     }
   }
 
+  // ─── --include-i18n pass (Story 4-8 AC-2) ──────────────────────────
+  let i18nFiles = 0;
+  if (includeI18n && existsSync(I18N_ROOT)) {
+    const i18nDeferred = new Set();
+    for (const { lang, path: fullPath } of walkI18nJson(I18N_ROOT)) {
+      if (lang !== "en") {
+        i18nDeferred.add(lang);
+        continue;
+      }
+    }
+    for (const lang of [...i18nDeferred].sort()) {
+      stderr.write(
+        `lint-reading-level: WARN ${lang} reading-level calibration not yet wired (Epic 7)\n`,
+      );
+    }
+    for (const { lang, path: fullPath } of walkI18nJson(I18N_ROOT)) {
+      if (lang !== "en") continue;
+      i18nFiles++;
+      const rel = relative(CWD, fullPath);
+      let parsed;
+      try {
+        parsed = JSON.parse(readFileSync(fullPath, "utf8"));
+      } catch (e) {
+        stderr.write(`lint-reading-level: ${rel}: JSON parse error: ${e.message}\n`);
+        failures++;
+        continue;
+      }
+      const strings = [];
+      extractStringsRecursive(parsed, strings);
+      // Treat each string as a separate sentence (append period if absent —
+      // many UI strings omit terminal punctuation).
+      const body = strings
+        .map((s) => (s.trim().match(/[.!?]$/) ? s.trim() : `${s.trim()}.`))
+        .join(" ");
+      const sentences = countSentences(body);
+      const words = tokenizeWords(body);
+      if (sentences === 0 || words.length === 0) {
+        stderr.write(`lint-reading-level: WARN ${rel} — no readable prose\n`);
+        continue;
+      }
+      let syllables = 0;
+      for (const w of words) syllables += countSyllablesInWord(w);
+      const grade = fleschKincaidGrade({
+        words: words.length,
+        sentences,
+        syllables,
+      });
+      if (grade === null) {
+        stderr.write(`lint-reading-level: WARN ${rel} — no readable prose\n`);
+        continue;
+      }
+      const rounded = grade.toFixed(1);
+      stdout.write(`lint-reading-level: ${rel}: grade=${rounded}\n`);
+      if (grade > THRESHOLD) {
+        stderr.write(
+          `lint-reading-level: ${rel}: grade ${rounded} exceeds threshold ${THRESHOLD.toFixed(1)} (NFR28)\n`,
+        );
+        failures++;
+      }
+    }
+  }
+
   if (failures > 0) {
     stderr.write(
-      `lint-reading-level: ${failures} page(s) exceeded grade ${THRESHOLD} across ${enPages} EN page(s)\n`,
+      `lint-reading-level: ${failures} surface(s) exceeded grade ${THRESHOLD} across ${enPages} EN page(s)` +
+        (includeI18n ? ` + ${i18nFiles} EN i18n file(s)` : "") +
+        "\n",
     );
     exit(1);
   }
   stdout.write(
-    `lint-reading-level: ${enPages} EN page(s) within grade ${THRESHOLD}\n`,
+    `lint-reading-level: ${enPages} EN page(s) within grade ${THRESHOLD}` +
+      (includeI18n ? ` (+ ${i18nFiles} EN i18n file(s))` : "") +
+      "\n",
   );
   exit(0);
 }
