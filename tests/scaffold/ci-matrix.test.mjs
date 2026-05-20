@@ -78,6 +78,9 @@ const EPIC_1_ACTIVE = new Set([
   // lint-reading-level activated in Story 4.4 (EN Flesch-Kincaid ≤ 12 per NFR28;
   // RU/PL deferred to Epic 7).
   "lint-reading-level",
+  // lint-license-provenance activated in Story 4.5 (Phase 1 LICENSES.md scope
+  // coverage via docs/license-scope-map.md + Phase 2 NFR24 hash-drift discipline).
+  "lint-license-provenance",
 ]);
 
 function loadPrChecks() {

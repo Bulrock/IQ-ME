@@ -39,6 +39,7 @@ lint: ## run all registered lints (negative assertions + budget + trust artifact
 	node tools/lint-frontmatter.mjs
 	node tools/lint-glossary.mjs
 	node tools/lint-reading-level.mjs
+	node tools/lint-license-provenance.mjs
 	node tools/lint-css-source-co-equal.mjs
 	npx --yes eslint@^9.16.0 --max-warnings 0 .
 

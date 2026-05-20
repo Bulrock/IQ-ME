@@ -1,6 +1,6 @@
 # IQ-ME Licenses
 
-<!-- last-modified-hash: 0000000000000000000000000000000000000000000000000000000000000000 -->
+<!-- last-modified-hash: 515ffe6f8a8c977eba47c8624269ee3432a67909c6089f0bea55cbdc461be56e -->
 <!-- The hash above is the SHA-256 of this file's contents *excluding* the
      hash line itself. The Story 1.9 `lint-license-provenance.mjs` script
      recomputes and compares it on every PR (NFR24). At v0.0.1 the placeholder

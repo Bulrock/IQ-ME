@@ -248,10 +248,16 @@ jobs:
   lint-license-provenance:
     name: lint-license-provenance
     runs-on: ubuntu-latest
-    # Activates in Epic 4
-    if: false
+    # Activated in Story 4.5 — Phase 1 enforces every shipped source file under
+    # docs/license-scope-map.md globs traces to a LICENSES.md class; Phase 2
+    # enforces NFR24 last-modified-hash discipline (drift requires CHANGELOG.md
+    # entry naming LICENSES.md).
     steps:
-      - run: echo "stub — Activates in Epic 4"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-license-provenance.mjs
 
   byte-stable-build:
     name: byte-stable-build

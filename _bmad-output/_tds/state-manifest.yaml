@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 37f5a3579f26e9cc6a7b5a1552d84d46298dc6bdba17454d90925a5f8e5f4d2e
+    sha256: 660bba24ce03fb51b1c4ddc48a5afd7fec1d355615eb83d0e0bfe7396c1a181f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:07:04.701Z
+    recorded_at: 2026-05-20T07:09:47.488Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 697457b5322abe610f14942c14e11ac75f2feb708c70be0519aafe2d9d44be69
+    sha256: 8ab666118572d7363e1d710ad5658b7b843d6deaf146c40ab75a903486ce793a
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:06:47.512Z
+    recorded_at: 2026-05-20T07:18:39.003Z
     recorded_by: engineer
-    story_id: 4-4-lint-glossary-lint-reading-level-en
+    story_id: 4-5-lint-license-provenance
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -109,11 +109,12 @@ entries:
     story_id: epic-1-retrospective
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: 7dd304a65126c60d87f41bc94b8d78e473ab48d77a645ad97514ef0947d4775f
+    sha256: a41dba139ad02cfc11088bebe5a667d461b78858585aa0628cbead660cb62ee9
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T00:28:53.084Z
+    recorded_at: 2026-05-20T07:17:29.013Z
     recorded_by: engineer
-    notes: Story 4-3 impl + test extensions (CI activation guards + strict-mode bidirectional tests)
+    story_id: 4-5-lint-license-provenance
+    notes: "Story 4-5 engineer impl: test fixture fix + EPIC_1_ACTIVE update"
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: a9bb6d72aa3e9fed7ea49b8c83dffffcb085c0a9fbe80b8144d14aa893ccac1f
@@ -743,20 +744,18 @@ entries:
     story_id: 4-4-lint-glossary-lint-reading-level-en
   - artefact_class: A
     file: tests/unit/tools/lint-glossary.test.mjs
-    sha256: 827f903325881d0bfc2e9b19712f6b43bfd9d109960d1b10f04fc5a646cae5ae
+    sha256: 8dff8e5d8a3c06d9c4f0c8a7c74cbce7c759dbd7ab4d952e748059065187842a
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T06:59:51.305Z
-    recorded_by: test-author
-    story_id: 4-4-lint-glossary-lint-reading-level-en
-    notes: Story 4-4 ATDD red phase
+    recorded_at: 2026-05-20T07:08:00.631Z
+    recorded_by: engineer
+    notes: Story 4-4 impl-phase frozen-test fixes (engineer commit 3306335) + CI matrix activations
   - artefact_class: A
     file: tests/unit/tools/lint-reading-level.test.mjs
-    sha256: e6201c881122d0d9cbecc7a3b1a2f9a2c96e95e3690a9a83ebc7a691f2f9ad1e
+    sha256: 93605102c999ba65b0bb3c77e9e5e4969c6a8740ada460fb3b72736cf7b898fd
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T06:59:51.306Z
-    recorded_by: test-author
-    story_id: 4-4-lint-glossary-lint-reading-level-en
-    notes: Story 4-4 ATDD red phase
+    recorded_at: 2026-05-20T07:08:00.631Z
+    recorded_by: engineer
+    notes: Story 4-4 impl-phase frozen-test fixes (engineer commit 3306335) + CI matrix activations
   - artefact_class: A
     file: tests/scaffold/lint-glossary-coverage.test.mjs
     sha256: dbac9ca6cf97883bc29b501f318fe2cccc64c844ae5899e831aa66e85dd67e4d
@@ -773,3 +772,26 @@ entries:
     recorded_by: test-author
     story_id: 4-4-lint-glossary-lint-reading-level-en
     notes: Story 4-4 ATDD red phase
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/4-5-lint-license-provenance.md
+    sha256: 174517c6b60e82d04fee93a67802b7bbfa02d69ede90829ea31b3a68a1cc2a0c
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T07:18:39.035Z
+    recorded_by: engineer
+    story_id: 4-5-lint-license-provenance
+  - artefact_class: A
+    file: tests/unit/tools/lint-license-provenance.test.mjs
+    sha256: c50a32350a5997f147caf4d603d019d940c8b13b43f27ae62037f13b299dfd1c
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T07:17:29.012Z
+    recorded_by: engineer
+    story_id: 4-5-lint-license-provenance
+    notes: "Story 4-5 engineer impl: test fixture fix + EPIC_1_ACTIVE update"
+  - artefact_class: A
+    file: tests/scaffold/lint-license-provenance-coverage.test.mjs
+    sha256: b3c016ae91f0fb1b429ca1967d68a70af7580d4adafe1c8d9a20bc9ed8ce14a1
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T07:17:29.013Z
+    recorded_by: engineer
+    story_id: 4-5-lint-license-provenance
+    notes: "Story 4-5 engineer impl: test fixture fix + EPIC_1_ACTIVE update"
