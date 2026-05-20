@@ -25,7 +25,12 @@
     "previousButton": "Previous",
     "nextButton": "Next",
     "submitButton": "Submit",
-    "fetchErrorMessage": "Could not load the item set. Try reloading."
+    "fetchErrorMessage": "Could not load the item set. Try reloading.",
+    "bailButton": "End the test early",
+    "bailPanelHeading": "End the test early?",
+    "bailExplanation": "An incomplete test cannot produce a meaningful score.",
+    "bailDiscardButton": "Discard responses",
+    "bailContinueButton": "Continue"
   },
   "result": {
     "scoreHeading": "Your result",

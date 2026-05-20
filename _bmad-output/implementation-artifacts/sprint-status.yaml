@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-20 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile: review'
+last_updated: '2026-05-20 6-3-mid-session-bail-out-with-discard-continue-choice: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -109,7 +109,7 @@ development_status:
   epic-6: in-progress
   6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion: review
   6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile: review
-  6-3-mid-session-bail-out-with-discard-continue-choice: ready-for-dev
+  6-3-mid-session-bail-out-with-discard-continue-choice: review
   6-4-chrome-components-chrome-header-chrome-footer-theme-toggle: backlog
   6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list: backlog
   6-6-top-decile-tear-edge-overlay-cropping-fuzzer: backlog

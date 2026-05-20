@@ -682,3 +682,14 @@ branches:
     last_synced_at: 2026-05-20T16:36:52.295Z
     notes: ""
     created_at: 2026-05-20T16:13:05.894Z
+  - branch: story/6-3-mid-session-bail-out-with-discard-continue-choice
+    story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
+    epic_id: null
+    base_branch: epic/6
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-20T16:48:58.704Z

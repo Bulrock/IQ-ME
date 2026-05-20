@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: d3adaf2d811c8e0311910006b8b696e93908f526c3219109446c61494f42769e
+    sha256: a016f5129872777de27d3b1c57783ef3d4a64f0b2462eb7e79ccc5e20d9f58c8
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T16:36:52.337Z
-    recorded_by: frontend
+    recorded_at: 2026-05-20T16:48:58.724Z
+    recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 135998cfde141b1eb4c6f11004155adf08a908d7c4a68a67bc903e275530c43e
+    sha256: e17279ff36828c7380d8ad48821cd37beac1f39cd466eab94666519e01341f18
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T16:48:55.587Z
-    recorded_by: state-commit-autorecord
-    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
+    recorded_at: 2026-05-20T17:16:09.306Z
+    recorded_by: frontend
+    story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -1053,3 +1053,26 @@ entries:
     recorded_at: 2026-05-20T16:21:35.748Z
     recorded_by: test-author
     story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/6-3-mid-session-bail-out-with-discard-continue-choice.md
+    sha256: 310f48e824c0fbec67ad1d38e7efa84bb1397f83c9beb274fbb2e7137c15f63c
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T17:16:09.345Z
+    recorded_by: frontend
+    story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
+  - artefact_class: A
+    file: tests/unit/item-runner-bail.test.mjs
+    sha256: 31b055aa58f682ee0d53ac49e2d08381dee3117d305b38e6c6d1a88a4b69f1d4
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T17:09:44.472Z
+    recorded_by: frontend
+    story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
+    notes: closed unfreeze window for 6-3 — spy mechanism revised to observable end-state assertions; tests now green
+  - artefact_class: A
+    file: tests/playwright/mid-session-bail-out.spec.mjs
+    sha256: 4f8da45de02f2c39d4604f245c433d4fe1f780e04ecc3a98c02ecde34bbd4302
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T17:04:22.380Z
+    recorded_by: test-author
+    story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
+    notes: story-6-3 frozen failing tests authored via ATDD

@@ -82,3 +82,78 @@
 [data-augmentation="rot270"]  { transform: rotate(270deg); transform-origin: center; }
 [data-augmentation="flip-h"]  { transform: scaleX(-1);     transform-origin: center; }
 [data-augmentation="flip-v"]  { transform: scaleY(-1);     transform-origin: center; }
+
+/* Story 6.3 — mid-session bail-out affordance + in-place explanation panel.
+   Restraint-first per UX-DR3: the affordance reads as small + neutral
+   (not prominent enough to invite easy abandonment, prominent enough to
+   find when needed). The panel sits inline below the nav row — NOT a
+   modal overlay — so the user remains oriented to the item.
+   Discard + Continue render at emotionally-equal visual weight per the
+   twin-affordance principle (UX-DR Step 5 invention #9). */
+
+.item-runner {
+  position: relative;
+}
+
+.item-runner__bail-affordance {
+  position: absolute;
+  inset-block-start: var(--space-3);
+  inset-inline-end: var(--space-3);
+  font-size: var(--font-size-200);
+  line-height: var(--line-height-base);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  color: var(--color-text-muted);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.item-runner__bail-affordance:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}
+
+.item-runner__bail-panel {
+  display: none;
+  margin-block-start: var(--space-section-gap);
+  padding-block: var(--space-section-gap);
+  padding-inline: var(--space-5);
+  background-color: var(--color-surface-elevated);
+  border: var(--space-1) solid var(--color-rule-divider);
+}
+
+.item-runner[data-bail-state="open"] .item-runner__bail-panel {
+  display: block;
+}
+
+.item-runner__bail-explanation {
+  font-size: var(--font-size-300);
+  line-height: var(--line-height-base);
+  color: var(--color-text-body);
+  margin-block-end: var(--space-section-gap);
+}
+
+.item-runner__bail-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.item-runner__bail-discard,
+.item-runner__bail-continue {
+  font-size: var(--font-size-200);
+  line-height: var(--line-height-base);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-5);
+  background-color: var(--color-surface-base);
+  color: var(--color-text-body);
+  border: var(--space-1) solid var(--color-rule-strong);
+  cursor: pointer;
+}
+
+.item-runner__bail-discard:focus-visible,
+.item-runner__bail-continue:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}
