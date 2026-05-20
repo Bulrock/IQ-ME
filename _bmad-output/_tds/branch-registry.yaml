@@ -671,3 +671,14 @@ branches:
     last_synced_at: 2026-05-20T16:04:04.109Z
     notes: ""
     created_at: 2026-05-20T15:34:59.921Z
+  - branch: story/6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
+    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
+    epic_id: null
+    base_branch: epic/6
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-20T16:13:05.894Z

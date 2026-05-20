@@ -51,6 +51,8 @@ const ALL_JOBS = [
   // Story 4.8 — Epic-4 exit-criterion jobs.
   "lint-csp-source",
   "exit-criterion-spec",
+  // Story 6.2 — FR22 per-item-difficulty breakdown sentence Playwright spec.
+  "difficulty-sentence",
 ];
 
 const EPIC_1_ACTIVE = new Set([
@@ -102,6 +104,9 @@ const EPIC_1_ACTIVE = new Set([
   // reveal-stage-event-ordering activated in Story 6.1 — full 6-stage ADR-3-1
   // sequence event-ordering Playwright spec.
   "reveal-stage-event-ordering",
+  // difficulty-sentence activated in Story 6.2 — FR22 per-item-difficulty
+  // breakdown sentence Playwright spec.
+  "difficulty-sentence",
 ]);
 
 function loadPrChecks() {

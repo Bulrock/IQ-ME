@@ -14,9 +14,9 @@
   "app-modules-bytes": {
     "domain": "src/assessment/**/*.js",
     "metric": "bytes",
-    "limit": 30720,
+    "limit": 34816,
     "exclude": ["src/assessment/test-hook.js", "src/assessment/cite-this-page.js"],
-    "rationale": "NFR32 — assessment SPA modules budget (~30 KB raw). Aligned with NFR21 vanilla-ES2022 + NFR33 zero-runtime-dep posture. test-hook.js is dev-time-only (activated by ?test=1; Story 3-7) — excluded from production-modules accounting. cite-this-page.js (Story 4-6) is methodology-corpus-only — injected by tools/build-methodology.mjs into static methodology pages, never loaded by the assessment SPA."
+    "rationale": "NFR32 — assessment SPA modules budget (~34 KB raw). Aligned with NFR21 vanilla-ES2022 + NFR33 zero-runtime-dep posture. Initial budget (30 KB) set in Epic 1; raised to 34 KB in Story 6.2 to accommodate Story 6.1 (full 6-stage reveal-stage dispatcher graduation + timings JSON consumption) plus Story 6.2 (FR22 per-item-difficulty breakdown — selectSession re-derivation + band lookup + difficulty-sentence render in result.js). test-hook.js is dev-time-only (activated by ?test=1; Story 3-7) — excluded from production-modules accounting. cite-this-page.js (Story 4-6) is methodology-corpus-only — injected by tools/build-methodology.mjs into static methodology pages, never loaded by the assessment SPA."
   },
   "i18n-harness-bytes": {
     "domain": "src/assessment/i18n/**/*.js",

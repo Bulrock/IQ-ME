@@ -5,7 +5,7 @@
 
 .DEFAULT_GOAL := help
 
-.PHONY: help test test-network-trace test-full-slice test-byte-stable lint build build-methodology dev clean snapshot-update test-contract
+.PHONY: help test test-network-trace test-full-slice test-byte-stable lint build build-methodology build-difficulty-bands dev clean snapshot-update test-contract
 
 help: ## list documented Make targets
 	@grep -hE '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) \
@@ -47,8 +47,11 @@ lint: ## run all registered lints (negative assertions + budget + trust artifact
 	node tools/lint-spec-carry-forward.mjs --ignore-old
 	npx --yes eslint@^9.16.0 --max-warnings 0 .
 
-build: build-methodology ## alias to build-methodology + emit determinism marker (NFR17 prep)
+build: build-difficulty-bands build-methodology ## alias to build-difficulty-bands + build-methodology + emit determinism marker (NFR17 prep)
 	node tools/build-determinism-marker.mjs
+
+build-difficulty-bands: ## regenerate src/items/item-difficulty-bands.json from item-parameters.json (Story 6.2 — deterministic, byte-stable)
+	node tools/compute-difficulty-bands.mjs
 
 build-methodology: ## render src/content/methodology/**.md to dist/methodology/v<corpus-version>/<lang>/<path>/index.html + latest companion (Story 4.1)
 	# Override version: make build-methodology IQME_CORPUS_VERSION=v1.2.0

@@ -27,7 +27,7 @@ const NS = {
   landing: ["headline", "intro", "startTestButton", "methodologyLink"],
   consent: ["headline", "measuresWhat", "validityEnvelope", "visuospatialDisclosure", "continueButton", "notToday"],
   chrome: ["titleAppDefault", "appName", "errorFallbackMessage"],
-  result: ["scoreHeading", "prerevealHeading", "prerevealSubcopy", "showMeButton", "notYetButton", "caveat", "percentileAriaTemplate", "anchorAriaTemplate", "bandAriaTemplate", "bandTemplate", "fetchErrorMessage"],
+  result: ["scoreHeading", "prerevealHeading", "prerevealSubcopy", "showMeButton", "notYetButton", "caveat", "percentileAriaTemplate", "anchorAriaTemplate", "bandAriaTemplate", "bandTemplate", "difficultySentenceTemplate", "difficultySentenceAria", "fetchErrorMessage"],
 };
 
 function getStrings() {

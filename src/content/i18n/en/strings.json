@@ -38,6 +38,8 @@
     "anchorAriaTemplate": "Your IQ-scale equivalent, {N}.",
     "bandAriaTemplate": "Uncertainty band, 95 percent confidence.",
     "bandTemplate": "±{N}",
+    "difficultySentenceTemplate": "Of the {hardN} hard, {medN} medium, and {easyN} easy items, you answered {hardCorrect} / {hardN}, {medCorrect} / {medN}, and {easyCorrect} / {easyN} correctly.",
+    "difficultySentenceAria": "Per-difficulty breakdown.",
     "fetchErrorMessage": "Could not load the item set. Try reloading."
   },
   "methodology": {

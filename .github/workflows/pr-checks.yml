@@ -198,6 +198,20 @@ jobs:
       - run: make build-methodology
       - run: npx --yes playwright test tests/playwright/reveal-stage.spec.mjs
 
+  difficulty-sentence:
+    name: difficulty-sentence
+    runs-on: ubuntu-latest
+    # Activated in Story 6.2 (Epic 6) — FR22 per-item-difficulty breakdown sentence Playwright spec
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: make build-difficulty-bands
+      - run: make build-methodology
+      - run: npx --yes playwright test tests/playwright/difficulty-sentence.spec.mjs
+
   csp-violation-count:
     name: csp-violation-count
     runs-on: ubuntu-latest

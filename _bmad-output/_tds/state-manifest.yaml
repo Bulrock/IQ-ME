@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 9c09da9beb78d9f785287cd4a36a969a27b76234b634a8db6f329fd6c3e02497
+    sha256: 21c56abce66a31063a17dee9f7911ed71a1c983dc87fdad66ea42eea23642d8e
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T16:04:04.150Z
-    recorded_by: frontend
+    recorded_at: 2026-05-20T16:13:05.920Z
+    recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 287a2383a5a8a2265eacdc1ef2ca9855c25235f4fa0edad4a41e854e416ed21d
+    sha256: 876148f4a3677ebcfcf626326c61f9663315d9489afe642b8fb3a0920bb7bdfa
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T16:03:50.212Z
+    recorded_at: 2026-05-20T16:36:20.531Z
     recorded_by: frontend
-    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -88,11 +88,11 @@ entries:
     story_id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: babe40d96deaf4e55e646afcb906dc4a3f8898475d1630930790b1e752aefa4e
+    sha256: eb01b9f92afbdc7c1401763e8ef657d3be6cb924877816a32fbb183e2dbf8c1f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:41:13.105Z
-    recorded_by: engineer
-    notes: Story 5-5 BUDGETS.json methodology-pages-en bump 30→45 (covers Story 5.2 glossary + Story 5.6 tail-scene placeholders); re-register per lesson-2026-05-19-001
+    recorded_at: 2026-05-20T16:26:10.706Z
+    recorded_by: frontend
+    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
     sha256: b200206425a1a3882b9d3243385bb218f872fe03f7e0147d83a871185b8d16a8
@@ -102,12 +102,11 @@ entries:
     story_id: epic-1-retrospective
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: ecdfd8abe6b1ac3b6b9ab2a90d2cc5d08e8fefe6e68a802e27d5cac27b63a1c2
+    sha256: 295fb664bdb725b6e4ffa86d290c8ef7d8a018d4f0a8d4957e24f1f7c092621e
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T16:00:08.793Z
+    recorded_at: 2026-05-20T16:21:51.188Z
     recorded_by: frontend
-    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
-    notes: "Story 6.1 AC-6 wiring: add co-equal-triplet-computed-style + reveal-stage-event-ordering to EPIC_1_ACTIVE (now activated, no if:false) — lesson-2026-05-19-001"
+    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: a9bb6d72aa3e9fed7ea49b8c83dffffcb085c0a9fbe80b8144d14aa893ccac1f
@@ -154,12 +153,11 @@ entries:
     story_id: 1-9-eslint-config-no-restricted-paths-docs-domain-map-md
   - artefact_class: A
     file: tests/scaffold/eslint-config.test.mjs
-    sha256: 91ad7556902286af16df87cd08c2dcc1f0ac07f71b8eafbd72ee57139bdff865
+    sha256: 85e1afc0a2ad657071a718b29a5918d27ef917cf2b9969fd4daf5c765b29277b
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T09:43:58.929Z
-    recorded_by: test-author
-    story_id: 1-9-eslint-config-no-restricted-paths-docs-domain-map-md
-    notes: story-1-9 frozen failing tests
+    recorded_at: 2026-05-20T16:28:52.335Z
+    recorded_by: frontend
+    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
   - artefact_class: A
     file: tests/scaffold/domain-map.test.mjs
     sha256: 763f2f02a9cf85c2e9205b6a72d595c92ce18e3953445b6ed9975eced285ca77
@@ -1027,3 +1025,31 @@ entries:
     recorded_by: test-author
     story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
     notes: "story 6-1 ATDD cycle-2: graduated AC-8.2/8.3/8.4/8.6 to 6-stage enum symmetric with contract AC-11.5 inversion"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile.md
+    sha256: 341346e0b569c1dd6065fcc841165cf0272924acf8d3ded3f88e39285483aaa8
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T16:36:20.565Z
+    recorded_by: frontend
+    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
+  - artefact_class: A
+    file: tests/unit/tools/compute-difficulty-bands.test.mjs
+    sha256: a5e0feb06edb5d13956aa6f08f6fb926ee47c0c6710f090165f3dcb5540d4225
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T16:21:35.747Z
+    recorded_by: test-author
+    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
+  - artefact_class: A
+    file: tests/contract/item-difficulty-bands-contract.spec.mjs
+    sha256: 14312699745b906ec05c329d662c099edae19432b3cf9eba129de624383a24d5
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T16:21:35.748Z
+    recorded_by: test-author
+    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
+  - artefact_class: A
+    file: tests/playwright/difficulty-sentence.spec.mjs
+    sha256: ebed351e5824b0c31c71cdf7c466d93088ec0ff3d31ea22b3529cee26528ecea
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T16:21:35.748Z
+    recorded_by: test-author
+    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile

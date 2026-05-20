@@ -6,3 +6,7 @@ _bmad-output/_tds/runtime/
 dist/
 __pycache__/
 *.pyc
+
+# Story 6.2: regenerable difficulty-band assignments — produced by
+# `make build-difficulty-bands` from src/items/item-parameters.json.
+src/items/item-difficulty-bands.json

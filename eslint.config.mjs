@@ -31,7 +31,13 @@ export default [
   // Global defaults.
   {
     languageOptions: {
-      ecmaVersion: 2022,
+      // Story 6.2 — raised from 2022 to 2025 so import-attributes
+      // (`import x from "./y.json" with { type: "json" }`) parses cleanly.
+      // Story 6.1 introduced the syntax in src/assessment/reveal-stage.js
+      // but the lint-chain short-circuit at cognitive-load-budget hid the
+      // parse error; bumping app-modules-bytes (Story 6.2 — see BUDGETS.json)
+      // unblocked the chain and surfaced it.
+      ecmaVersion: 2025,
       sourceType: "module",
     },
   },
