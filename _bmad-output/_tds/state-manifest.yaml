@@ -1,10 +1,4 @@
 schema_version: "1.0"
-tds_meta:
-  profile: full
-  branch_mode: branch
-  installed_at: 2026-05-14T18:16:29.340Z
-  installed_by: maksim
-  archived_phases: []
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
@@ -203,14 +197,6 @@ entries:
     recorded_by: auditor
     story_id: bridge-1-2-1-add-tds-story-unfreeze
   - artefact_class: A
-    file: ../bmad-tds-module/src/cli/__tests__/bridge-1-2-1-unfreeze-tests.test.ts
-    sha256: 9cd8f65e91eed7789a058523323926f477f0ce716319186f3f18123a61ab1002
-    canonical_form: raw-bytes
-    recorded_at: 2026-05-19T11:10:53.516Z
-    recorded_by: test-author
-    story_id: bridge-1-2-1-add-tds-story-unfreeze
-    notes: test-author red-phase scaffold for bridge-1-2-1
-  - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test.md
     sha256: 92314cf23f680f00b66c289411a1c8dd65e7282480394da253e4295518f4e8fa
     canonical_form: raw-bytes
@@ -392,10 +378,10 @@ entries:
     notes: story-3-1 procedural marker (AC-6 doc-only story; state-machine defense-in-depth gate)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-2-implement-state-js-contract-test.md
-    sha256: 4ecf8609917c90221ae821513e935c7a2321dc9b79c4d8cfd40492cffe58b811
+    sha256: 3024c50b7bf66c6a01c8231fa74ddc4845162e76a07d2faca65bdfa758612f65
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:09:01.264Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T09:29:11.720Z
+    recorded_by: state-commit-autorecord
     story_id: 3-2-implement-state-js-contract-test
   - artefact_class: A
     file: tests/contract/state-shape.spec.mjs
@@ -653,10 +639,10 @@ entries:
     notes: "Story 3-8 scaffold test asserting documentation scaffold contract: 5 files exist + per-user template has 4 verbatim hypothesis questions + protocol documents ≥3-of-N threshold + summary template links to Epic 4 gate + local-build doc documents corpus-v0.1.0 tag step"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit.md
-    sha256: 8426624d4516bc5ed5529bd84a4e39eb2017d12207042a165971856110d57c8f
+    sha256: 6d1be7db3d053fb22d3ff4c781a26b8328640d2002377ea5d984240e953c8268
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T08:44:10.980Z
-    recorded_by: auditor
+    recorded_at: 2026-05-20T09:29:11.721Z
+    recorded_by: state-commit-autorecord
     story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
   - artefact_class: A
     file: tests/unit/tools/markdown-subset.test.mjs
