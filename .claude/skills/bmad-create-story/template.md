@@ -27,6 +27,20 @@ so that {{benefit}}.
 - Source tree components to touch
 - Testing standards summary
 
+### Carry-forward lessons
+
+<!--
+Populate this section BEFORE engineer starts implementation. Run:
+  tds memory query --story=<this-story-id> --top=5 --as=engineer
+and inline each relevant hit as a bullet (id + one-line summary + actionable
+takeaway for THIS story's touched surfaces). If the query returns zero hits,
+keep the section with an explicit sentinel:
+  _(no relevant lessons — `tds memory query` returned zero hits)_
+Never omit the heading. See lesson-2026-05-20-007.
+-->
+
+_(populate via `tds memory query --story=<id>` at create-time; see comment above)_
+
 ### Project Structure Notes
 
 - Alignment with unified project structure (paths, modules, naming)
