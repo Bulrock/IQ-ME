@@ -38,6 +38,14 @@ const ANCHOR_PAGES = [
   "norming/sapa-sample/index.md",
   "norming/representativeness/index.md",
   "norming/flynn-effects/index.md",
+  // Story 5.5 — Ethics (2) + Provenance (2) + Reference (3)
+  "ethics/apa-standards/index.md",
+  "ethics/anti-credentialization/index.md",
+  "provenance/iq-me-license/index.md",
+  "provenance/methodology-claims/index.md",
+  "reference/citation/index.md",
+  "reference/changelog/index.md",
+  "reference/bibliography/index.md",
 ];
 
 const REQUIRED_FM_KEYS = [

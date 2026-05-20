@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: a794cef0daf5ac11b38d7350204215904132b043b5f38114b0fbcc0756d10409
+    sha256: 3c04aef7e9099026c13f211b2667a3ecc87af3c82f6b472242b81df845573d40
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:14:36.003Z
-    recorded_by: frontend
+    recorded_at: 2026-05-20T11:15:06.202Z
+    recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 6347b154c9a2552d5cd412b41a7135de28daada5569225a4b3b1e5a5b9b556db
+    sha256: a331e9285bc0ca4061984649fdb1f14c43f4e3dc0fefbd2366ae262e9f5d20a3
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:14:35.470Z
+    recorded_at: 2026-05-20T11:19:57.686Z
     recorded_by: frontend
-    story_id: 5-4-scoring-4-remaining-norming-3
+    story_id: 5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -905,12 +905,12 @@ entries:
     story_id: 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
   - artefact_class: A
     file: tests/scaffold/anchor-pages.test.mjs
-    sha256: 1554292cd9f650f5e6c0b4d10eb52596260823c299f21c73c2fc4d7135bed96a
+    sha256: 1f683e1af17e7eca94aa3f62835686ced2629a2fc82c44cf980862827dc92b68
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:07:35.016Z
+    recorded_at: 2026-05-20T11:15:20.331Z
     recorded_by: test-author
-    story_id: 5-4-scoring-4-remaining-norming-3
-    notes: "story 5-4 test-author: extend with 7 scoring+norming pages"
+    story_id: 5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining
+    notes: "story 5-5 test-author: extend with 7 ethics+provenance+reference pages"
   - artefact_class: A
     file: tests/unit/tools/lint-fr36-protection.test.mjs
     sha256: 356e1a40093fbefddecd4d1121f6bacd4dac8204822070408bb650769a414182
@@ -941,3 +941,10 @@ entries:
     recorded_at: 2026-05-20T11:14:35.505Z
     recorded_by: frontend
     story_id: 5-4-scoring-4-remaining-norming-3
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining.md
+    sha256: c6338ef4ccf726eb98fc210b54d02d2660d046cadd3ac1757b66fb5c045a58c3
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T11:19:57.717Z
+    recorded_by: frontend
+    story_id: 5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining

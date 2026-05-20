@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-20 5-4-scoring-4-remaining-norming-3: review'
+last_updated: '2026-05-20 5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -98,7 +98,7 @@ development_status:
   5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint: review
   5-3-constructs-4-remaining-limitations-3-remaining: review
   5-4-scoring-4-remaining-norming-3: review
-  5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining: backlog
+  5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining: review
   5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd: backlog
   5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows: backlog
   epic-5-retrospective: optional
