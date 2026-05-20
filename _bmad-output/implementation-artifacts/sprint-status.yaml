@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-20 bridge-5-6: done'
+last_updated: '2026-05-20 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset: ready-for-dev'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -93,8 +93,8 @@ development_status:
   bridge-4-5: done
   bridge-4-5-1-tds-integrity-remove-cli: done           # tds integrity-remove CLI + sweep auto-clean + cross-repo entry policy decision
   bridge-4-5-2-convention-doc-for-filesystem: done     # Convention doc for filesystem-fixture test isolation
-  epic-5: backlog
-  5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset: backlog
+  epic-5: in-progress
+  5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset: ready-for-dev
   5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint: backlog
   5-3-constructs-4-remaining-limitations-3-remaining: backlog
   5-4-scoring-4-remaining-norming-3: backlog

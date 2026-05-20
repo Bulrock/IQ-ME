@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 48400541b379a94b5dc635b121fcb3ba9babdcf702faf16dd384081daae82577
+    sha256: 3acda5406d3942e945fc542b80da4152c13722bb9dd9f271d26979c455dd3c71
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:23:03.700Z
+    recorded_at: 2026-05-20T10:33:08.716Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 23f47b3b053c70a6989b125409444fb837b2fe8977bf95e3b92436596231694e
+    sha256: 3a63be3b42ccaf1d020959e287eb8b4681fc11e6493612c9045109553a4f7b21
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:28:47.978Z
-    recorded_by: state-commit-autorecord
-    story_id: bridge-5-6
+    recorded_at: 2026-05-20T10:39:25.807Z
+    recorded_by: engineer
+    story_id: 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -881,3 +881,10 @@ entries:
     recorded_at: 2026-05-20T10:30:06.897Z
     recorded_by: state-commit-autorecord
     story_id: bridge-5-6-1-extend-sweep-auto-record
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset.md
+    sha256: 71d60e47eaf87d6a29439b4cac315d7457e438d576b8894afe8fb602bc5e979e
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T10:39:25.840Z
+    recorded_by: engineer
+    story_id: 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
