@@ -109,11 +109,11 @@ entries:
     story_id: epic-1-retrospective
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: a245d0855552879a54c4da53445726de9a235d2e465469cf512ed4aaac571ace
+    sha256: 2cab095acbc69101fd76e779192229690fc63680c32e6b6467f814eb96c43095
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:54:48.624Z
+    recorded_at: 2026-05-20T08:12:32.521Z
     recorded_by: engineer
-    notes: Story 4-7 CI matrix lint-translation-parity activation
+    notes: Story 4-8 lint-csp-source + exit-criterion job activation
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: a9bb6d72aa3e9fed7ea49b8c83dffffcb085c0a9fbe80b8144d14aa893ccac1f
