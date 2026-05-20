@@ -8,9 +8,9 @@ entries:
     recorded_by: frontend
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 6ab2931fb0c2f085d8c866e1db5bf9cf75a674dabcf31915a22002fd1647c7d2
+    sha256: e51061031dea88fd0d2ebb387a20c76d36e469b70e370844be25940c38683b06
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:46:54.406Z
+    recorded_at: 2026-05-20T12:07:42.294Z
     recorded_by: state-commit-autorecord
     story_id: 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows
   - artefact_class: A
@@ -30,9 +30,9 @@ entries:
     notes: story-1-1 frozen failing tests
   - artefact_class: A
     file: _bmad-output/_tds/memory/lessons.yaml
-    sha256: 9c6dbec04b2a47119c9fa35bfdac8d081c229c707809c3953a35d6196e2c6838
+    sha256: cc2c2f6ca4039dae668ec7df5664acd11c11c7d91af346a2eeacd1ef8fa5929d
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T09:51:01.993Z
+    recorded_at: 2026-05-20T12:00:35.595Z
     recorded_by: writer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners.md

@@ -495,3 +495,68 @@ lessons:
     severity: low
     status: active
     superseded_by: null
+  - id: lesson-2026-05-20-007
+    created_during: epic-5
+    created_at: 2026-05-20T12:00:07.374Z
+    created_by: writer
+    story_refs:
+      - 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
+      - 5-4-scoring-4-remaining-norming-3
+      - 5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining
+    category: process
+    tags:
+      - retro:epic-5
+      - carry-forward
+      - memory-injection
+      - integrity-drift
+    summary: "Stories that touch class-A frozen tests must carry ### Carry-forward lessons with lesson-2026-05-19-001 inlined; 5-2..5-7 omitted the section and the lesson fired 3×"
+    lesson: "Story specs must include a populated ### Carry-forward lessons section listing memory hits relevant to the touched surfaces. In epic-5, only story 5-1 carried this section. Stories 5-2, 5-4, 5-5 each modified a class-A artefact_class test (ci-matrix, lint-glossary-coverage, lint-reading-level-coverage, lint-claims-manifest, cognitive-load-budget) WITHOUT re-registering integrity — the exact failure mode lesson-2026-05-19-001 already names. The lesson capture worked; the lesson DELIVERY to the next author regressed. The injection mechanism (memory query → spec section) is the load-bearing affordance, not the lesson catalog itself."
+    avoid_pattern: "Authoring story specs that omit ### Carry-forward lessons even when memory query against the touched surface would return relevant hits."
+    preferred_pattern: "Every story spec carries a ### Carry-forward lessons section populated from 'tds memory query --story=<id> --primary-specialist=<role>' BEFORE engineer starts work; if zero hits, render the empty section explicitly (so absence is observable, not silent)."
+    severity: high
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-20-008
+    created_during: epic-5
+    created_at: 2026-05-20T12:00:21.431Z
+    created_by: writer
+    story_refs:
+      - 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
+      - 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
+      - 5-4-scoring-4-remaining-norming-3
+      - 5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining
+      - 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows
+    category: tooling
+    tags:
+      - retro:epic-5
+      - add-finding
+      - integrity-drift
+      - tds-cli
+    summary: tds story add-finding auto-commits the spec-md but does not re-record state-manifest; touched specs immediately fail tds integrity verify until a manual integrity record
+    lesson: During epic-5 cumulative review, auditor's tds story add-finding × 5 specs (5-1, 5-2, 5-4, 5-5, 5-7) shipped via auto-commit but left every touched spec-md drift-failing tds integrity verify. Engineer had to issue 'tds integrity record --files=<5 specs>' immediately afterwards (telemetry kind=record at 2026-05-20T11:41:59Z, reason='Re-register spec files after auditor add-findings appended round-1/round-2 sections (auto-commit shipped but integrity registry not bumped by add-findings handler)'). Same root-cause family as bridge-5-6 (sweep auto-record for sprint-status.yaml) but on a different code path.
+    avoid_pattern: Treating tds story add-finding as a complete atomic operation; assuming its auto-commit also keeps state-manifest in sync.
+    preferred_pattern: After any batch of tds story add-finding calls, immediately run 'tds integrity record --files=<all touched specs> --as=engineer' BEFORE the next tds integrity verify. Track via state-commit sweep telemetry; the kind=record event after add-finding is the manual paper-trail today.
+    severity: medium
+    status: active
+    superseded_by: null
+  - id: lesson-2026-05-20-009
+    created_during: epic-5
+    created_at: 2026-05-20T12:00:35.571Z
+    created_by: writer
+    story_refs:
+      - 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
+      - 5-4-scoring-4-remaining-norming-3
+      - 5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining
+    category: tooling
+    tags:
+      - retro:epic-5
+      - frozen-tests
+      - integrity-drift
+      - affordance-candidate
+    summary: Editing a class-A frozen test cross-epic requires unfreeze-window + Edit + integrity record; the three-step ceremony is the recurring drift surface
+    lesson: "Across epic-1 (lesson-2026-05-19-001 origin) and epic-5 (3× re-violation in 5-2, 5-4, 5-5), the same friction surface keeps tripping engineers: a story legitimately needs to update a class-A artefact_class test (extending EPIC_*_ACTIVE arrays, relaxing thresholds against new corpus state, clearing deferred-WARN assertions). The Self-Review §2 prose is honest disclosure every time — intent is documented — but the manual three-step ceremony (unfreeze-window → Edit → integrity record) is easy to forget under a state=tests-pending invariant. Auditor in 5-2 already proposed the affordance: 'tds story modify-frozen-test --story=<id> --file=<path>' bundling the three; OR a pre-commit hook that warns on edit-to-class-A path without surrounding unfreeze window. Both are valid; the bridge (B3) will decide."
+    avoid_pattern: Editing a class-A frozen test inline (via Edit) without explicit unfreeze window + immediate integrity record.
+    preferred_pattern: "Treat any class-A frozen-test edit as a three-step transaction: (1) unfreeze window (or modify-frozen-test affordance once it lands), (2) Edit, (3) integrity record. Track via state-commit sweep; verify exit-0 BEFORE the next status flip."
+    severity: low
+    status: active
+    superseded_by: null
