@@ -14,6 +14,7 @@ const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const METH_ROOT = join(REPO_ROOT, "src", "content", "methodology", "en");
 
 const ANCHOR_PAGES = [
+  // Story 5.2 — anchor pages (7)
   "constructs/fluid-reasoning/index.md",
   "scoring/overview/index.md",
   "scoring/uncertainty/index.md",
@@ -21,6 +22,14 @@ const ANCHOR_PAGES = [
   "ethics/non-clinical/index.md",
   "provenance/icar-license.md",
   "reference/glossary/index.md",
+  // Story 5.3 — Constructs (4) + Limitations (3)
+  "constructs/matrix-reasoning/index.md",
+  "constructs/icar-mr/index.md",
+  "constructs/g-factor/index.md",
+  "constructs/validity-envelope/index.md",
+  "limitations/cultural-variance/index.md",
+  "limitations/anti-leakage/index.md",
+  "limitations/retest-effects/index.md",
 ];
 
 const REQUIRED_FM_KEYS = [

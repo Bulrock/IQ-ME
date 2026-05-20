@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: e4e3fcbed1983c0198e58bf4f365ed4f3c5047650efb8fd1960be5d1f225ec93
+    sha256: cbe92aaf2e2f7d1bad97ee73942d7b651b30067aba830f256120d69215078d6e
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:01:44.040Z
-    recorded_by: frontend
+    recorded_at: 2026-05-20T11:02:26.610Z
+    recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: c11b24e50963bba00e43cbe2aa5bd1994e6afa41cd6fbd9bdfd4a60de092142f
+    sha256: 2b33c06f778005cb81d5aee40f20d1c1574ada3b422eaf1f753fafe539c67816
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:01:36.754Z
+    recorded_at: 2026-05-20T11:06:27.520Z
     recorded_by: frontend
-    story_id: 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
+    story_id: 5-3-constructs-4-remaining-limitations-3-remaining
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -905,12 +905,12 @@ entries:
     story_id: 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
   - artefact_class: A
     file: tests/scaffold/anchor-pages.test.mjs
-    sha256: 4adbe4dce83a87cf867d8a5ee08bb1823f2b3130d30a1fd4b2989f2ca3ad4bb8
+    sha256: a4d9b349ebffaf9f7992e9b77b3cf9d152fa4551a4240a73c9412a687aeb00d0
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:54:03.033Z
+    recorded_at: 2026-05-20T11:02:42.894Z
     recorded_by: test-author
-    story_id: 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
-    notes: "story 5-2 test-author phase: anchor-pages scaffold + FR36 lint tests + typographic-freeze contract"
+    story_id: 5-3-constructs-4-remaining-limitations-3-remaining
+    notes: "story 5-3 test-author: extend anchor-pages scaffold with 7 new pages"
   - artefact_class: A
     file: tests/unit/tools/lint-fr36-protection.test.mjs
     sha256: 356e1a40093fbefddecd4d1121f6bacd4dac8204822070408bb650769a414182
@@ -927,3 +927,10 @@ entries:
     recorded_by: test-author
     story_id: 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
     notes: "story 5-2 test-author phase: anchor-pages scaffold + FR36 lint tests + typographic-freeze contract"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/5-3-constructs-4-remaining-limitations-3-remaining.md
+    sha256: 7ac2ff6e4ac41c2b3f5b59cec8655b2a491bbb410ac27c27c899c74d87421018
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T11:06:27.554Z
+    recorded_by: frontend
+    story_id: 5-3-constructs-4-remaining-limitations-3-remaining
