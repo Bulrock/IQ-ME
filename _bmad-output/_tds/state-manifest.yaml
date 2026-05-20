@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 66f9756cefdcfba414bb1497bb935c42e42639da88fa3365d3a118fb74a11ea3
+    sha256: 9a31cf20ce59f0cf608b9aeb2fe8ecd270b3ce40cdf4bab99cd974c86d7717e5
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T09:33:16.297Z
-    recorded_by: engineer
-    story_id: bridge-4-5-1-tds-integrity-remove-cli
+    recorded_at: 2026-05-20T09:45:07.011Z
+    recorded_by: auditor
+    story_id: bridge-4-5
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -862,8 +862,15 @@ entries:
     notes: Story 4-8 red-phase failing tests + SPA fragment fixture
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-4-5-1-tds-integrity-remove-cli.md
-    sha256: 1de5f4f9ed61d5d580f22bb23034e9c19cd8c59881486e0535b71977dbe4708c
+    sha256: 5878e7e8318e4ba207b237e5c913908163778ef5b880b76f8a8d28ab9ea921ff
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T09:35:20.353Z
-    recorded_by: state-commit-autorecord
+    recorded_at: 2026-05-20T09:45:06.837Z
+    recorded_by: auditor
     story_id: bridge-4-5-1-tds-integrity-remove-cli
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-4-5-2-convention-doc-for-filesystem.md
+    sha256: 90ca68a6880131d0cd6bd59db086722e5dd749f6312f397bdaf3905ff362dcfa
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T09:45:06.940Z
+    recorded_by: auditor
+    story_id: bridge-4-5-2-convention-doc-for-filesystem
