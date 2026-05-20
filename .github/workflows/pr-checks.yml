@@ -111,11 +111,14 @@ jobs:
   lint-claims-manifest:
     name: lint-claims-manifest
     runs-on: ubuntu-latest
-    # Activates in Story 4.3 (strict-mode graduation per spec lines 921, 924-926;
-    # Story 2.7 lands warn-mode tool + manifest, deferred from CI to avoid duplicate-gate-trap per Murat)
-    if: false
+    # Activated in Story 4.3 (--strict graduation: existing in-repo pages enforce
+    # bidirectional assert↔claim coupling; Epic-5 stub pages WARN-only).
     steps:
-      - run: echo "stub — Activates in Story 4.3 (--strict mode after methodology pages land in Epic 5)"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-claims-manifest.mjs --strict
 
   golden-vector-parity:
     name: golden-vector-parity
@@ -206,10 +209,14 @@ jobs:
   lint-frontmatter:
     name: lint-frontmatter
     runs-on: ubuntu-latest
-    # Activates in Epic 4
-    if: false
+    # Activated in Story 4.3 — validates YAML frontmatter on every
+    # src/content/methodology/**.md page against corpus/schema.json subset.
     steps:
-      - run: echo "stub — Activates in Epic 4"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-frontmatter.mjs
 
   lint-glossary:
     name: lint-glossary

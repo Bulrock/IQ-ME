@@ -8,17 +8,17 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 9f3642e36a46c5874f90696b5e7413e6692164f00fdaffd79d35ea3f4f7acf8c
+    sha256: 8158faff3ad2cead81345a53a4ff4b792937b177c1a1b11b9fe5f9a0d2caca08
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T00:16:31.472Z
+    recorded_at: 2026-05-20T00:19:43.390Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 5ebee3289a6249a786286364b3e669851d426cc03ee4aaf0b85977011d531e83
+    sha256: a09c7047da937b1fa1c4193014040f743dff50a2cf849a69f86f1af003a1f2aa
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T00:16:12.721Z
+    recorded_at: 2026-05-20T00:27:48.125Z
     recorded_by: engineer
-    story_id: 4-2-byte-stable-build-assertion-golden-html-snapshots
+    story_id: 4-3-lint-frontmatter-lint-claims-manifest-strict-graduation
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -371,11 +371,12 @@ entries:
     story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
   - artefact_class: A
     file: tests/unit/tools/lint-claims-manifest.test.mjs
-    sha256: 9cec8d95cc3acc2241dfd8e15a9c3f8d3da4a6969dacafa574a829a729033cb9
+    sha256: 6ee5c18b4f8f208104bd8e4720edd670b01df20074403317a96aefcff50f8ec1
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T15:14:28.798Z
+    recorded_at: 2026-05-20T00:22:35.653Z
     recorded_by: test-author
-    story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
+    story_id: 4-3-lint-frontmatter-lint-claims-manifest-strict-graduation
+    notes: Story 4-3 ATDD red phase
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url.md
     sha256: 6e4f0dbf019c1e7bf500dea1096f407ce90f2b3dcdee5df9e3a82a4d2c3eb298
@@ -712,3 +713,26 @@ entries:
     recorded_by: test-author
     story_id: 4-2-byte-stable-build-assertion-golden-html-snapshots
     notes: "Story 4-2 ATDD red phase: snapshot extension tests + drift gate + Playwright byte-stable activation"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/4-3-lint-frontmatter-lint-claims-manifest-strict-graduation.md
+    sha256: 93d4eaf80b5355f1da6df6f9a647e664e781ae8c1785747cd7af0135e9a51c19
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T00:27:48.177Z
+    recorded_by: engineer
+    story_id: 4-3-lint-frontmatter-lint-claims-manifest-strict-graduation
+  - artefact_class: A
+    file: tests/unit/tools/lint-frontmatter.test.mjs
+    sha256: c8a30859a77c44dcb5d8aa20f3b063b883b4e2eaa170189f0c6396b8d2a94a5b
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T00:22:35.653Z
+    recorded_by: test-author
+    story_id: 4-3-lint-frontmatter-lint-claims-manifest-strict-graduation
+    notes: Story 4-3 ATDD red phase
+  - artefact_class: A
+    file: tests/scaffold/lint-frontmatter-coverage.test.mjs
+    sha256: fabe60db3b017af6ba018328a10020b8f3285de2ddc1d51e58d10ad53462e726
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T00:22:35.653Z
+    recorded_by: test-author
+    story_id: 4-3-lint-frontmatter-lint-claims-manifest-strict-graduation
+    notes: Story 4-3 ATDD red phase

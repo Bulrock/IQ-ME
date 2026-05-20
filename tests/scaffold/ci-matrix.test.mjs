@@ -65,6 +65,13 @@ const EPIC_1_ACTIVE = new Set([
   "golden-vector-parity",
   // byte-stable-build activated in Story 4.2 — runs `make test-byte-stable`.
   "byte-stable-build",
+  // state-shape-contract: contract test runs every PR (Story 3.x — runs
+  // `node --test tests/contract/state-shape.spec.mjs`; no `if: false`).
+  "state-shape-contract",
+  // lint-claims-manifest activated in Story 4.3 (strict-mode graduation).
+  "lint-claims-manifest",
+  // lint-frontmatter activated in Story 4.3 (corpus/schema.json subset validator).
+  "lint-frontmatter",
 ]);
 
 function loadPrChecks() {
