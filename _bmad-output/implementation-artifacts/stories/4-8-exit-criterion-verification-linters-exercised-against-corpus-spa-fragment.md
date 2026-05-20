@@ -209,3 +209,13 @@ This story owns:
 - Phase A test-author: 9 lint-csp-source unit tests + 6 reading-level --include-i18n tests + 20-subtest exit-criteria spec + 2 scaffold tests + spa-fragment fixture. Phase B engineer: lint-csp-source.mjs (~210 LOC stdlib, D10 nomodule + #fallback inline-style exemptions) + lint-reading-level.mjs --include-i18n flag (recursive JSON string extraction, EN enforcement, RU/PL deferred WARN). Baselines: lint-csp-source 9 files scanned exit 0; lint-reading-level --include-i18n strings.json FK=7.1 (well under 12). docs/epic-4-exit-criterion.md coverage matrix authored. Makefile +lint-csp-source +test glob extended for tests/exit-criteria/. CI: lint-csp-source + exit-criterion-spec jobs added; ci-matrix.test.mjs ALL_JOBS + EPIC_1_ACTIVE extended. make test=683/684 (1 transient skip), make lint exit 0, byte-stable Playwright passes.
 
 ### File List
+
+## Auditor Findings (round-1)
+
+### [info] Spec inconsistencies in Dev Agent Record: Tasks/Subtasks remain unchecked `[ ]` despite Completion Notes asserting all 12 tasks completed; `### File List` left empty (line 211-212) despite extensive file changes (tools/lint-csp-source.mjs, tests/exit-criteria/, etc.).
+Functionally complete per evidence (683/684 tests pass, lint exit 0, docs/epic-4-exit-criterion.md authored) but spec doc hygiene drifted.
+
+
+- **Category:** spec-hygiene
+- **Suggested fix:** Recommended: update spec Tasks/Subtasks checkmarks + populate File List to match the actual commit (be59842). One-line edit per task plus File List from `git show --stat be59842`. Not a code change — just spec self-consistency.
+
