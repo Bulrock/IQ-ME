@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 2df9f972b4c35d4d60f4e52a2f5e8a7f5b33bb8291e4972e9983d9cb348a4bf3
+    sha256: 162e836148137501fca00bf289caa6becf030e2a10243f7f6d5358e585c51c8f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T17:16:40.986Z
+    recorded_at: 2026-05-20T17:49:07.949Z
     recorded_by: frontend
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: e17279ff36828c7380d8ad48821cd37beac1f39cd466eab94666519e01341f18
+    sha256: 0364da81ec5fdcdb6fc06dedd31b27f85729fc40c6c04ceef32a4053dde1a150
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T17:16:09.306Z
+    recorded_at: 2026-05-20T17:48:42.976Z
     recorded_by: frontend
-    story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
+    story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -88,11 +88,11 @@ entries:
     story_id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: eb01b9f92afbdc7c1401763e8ef657d3be6cb924877816a32fbb183e2dbf8c1f
+    sha256: e0c4ec812fa7e2371a63de8309b08f9c9c2aeeff2004a035725921b92586cc68
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T16:26:10.706Z
+    recorded_at: 2026-05-20T17:41:38.067Z
     recorded_by: frontend
-    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
+    story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
     sha256: b200206425a1a3882b9d3243385bb218f872fe03f7e0147d83a871185b8d16a8
@@ -1076,3 +1076,24 @@ entries:
     recorded_by: test-author
     story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
     notes: story-6-3 frozen failing tests authored via ATDD
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/6-4-chrome-components-chrome-header-chrome-footer-theme-toggle.md
+    sha256: 7d055bbc118d83a949ba2d2ee7b1f4c2754f08dc368f615fb4fe1f9ddcab72cc
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T17:48:43.020Z
+    recorded_by: frontend
+    story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
+  - artefact_class: A
+    file: tests/unit/theme.test.mjs
+    sha256: b1a45ebca197ff618f40a34ba2a4c87e778cc94070c22837c459e37328e5fb2c
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T17:35:04.302Z
+    recorded_by: test-author
+    story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
+  - artefact_class: A
+    file: tests/playwright/chrome-components.spec.mjs
+    sha256: 7b6d443a9946594a97fff10f5b99e74fdbe87025d63abebbac09e0be3ebe962d
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T17:44:22.638Z
+    recorded_by: frontend
+    story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
