@@ -882,9 +882,9 @@ entries:
     file: _bmad-output/implementation-artifacts/stories/5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset.md
     sha256: 99c507de038e1d05a17ef3ab7a54d48d58e3f0c99d7b1f81b9558ab2757aed20
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:41:42.869Z
-    recorded_by: state-commit-autorecord
-    story_id: 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
+    recorded_at: 2026-05-20T11:41:59.180Z
+    recorded_by: engineer
+    notes: Re-register spec files after auditor add-findings appended round-1/round-2 sections (auto-commit shipped but integrity registry not bumped by add-findings handler)
   - artefact_class: A
     file: tests/scaffold/methodology-chrome-css.test.mjs
     sha256: d63d3b61b5ee50e28fe0da4a3018af7bbeee5e844385740a0d0af2640f6fc856
@@ -897,9 +897,9 @@ entries:
     file: _bmad-output/implementation-artifacts/stories/5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint.md
     sha256: 47325daa7c44fec2bf252ab2d9d684423d7bc88df5422aea64da39be21afe4f3
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:41:42.869Z
-    recorded_by: state-commit-autorecord
-    story_id: 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
+    recorded_at: 2026-05-20T11:41:59.181Z
+    recorded_by: engineer
+    notes: Re-register spec files after auditor add-findings appended round-1/round-2 sections (auto-commit shipped but integrity registry not bumped by add-findings handler)
   - artefact_class: A
     file: tests/scaffold/anchor-pages.test.mjs
     sha256: 1aa64bb1e75eb1f7ede4d6faed12610095d1d0872fef918b3486347829a54235
@@ -935,16 +935,16 @@ entries:
     file: _bmad-output/implementation-artifacts/stories/5-4-scoring-4-remaining-norming-3.md
     sha256: 12d248b2126116b1c1645c81273766dcd6655f56b69969cec94173738cd8b6e7
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:41:42.869Z
-    recorded_by: state-commit-autorecord
-    story_id: 5-4-scoring-4-remaining-norming-3
+    recorded_at: 2026-05-20T11:41:59.181Z
+    recorded_by: engineer
+    notes: Re-register spec files after auditor add-findings appended round-1/round-2 sections (auto-commit shipped but integrity registry not bumped by add-findings handler)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining.md
     sha256: a968ab6db510976df5e945c7ff8eb727f75bd67d243e3bed24a62fcc275cb3c1
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:41:42.869Z
-    recorded_by: state-commit-autorecord
-    story_id: 5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining
+    recorded_at: 2026-05-20T11:41:59.181Z
+    recorded_by: engineer
+    notes: Re-register spec files after auditor add-findings appended round-1/round-2 sections (auto-commit shipped but integrity registry not bumped by add-findings handler)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd.md
     sha256: 1d2e41a98f989e4517df34c0b0b3c9c01f5258ad033c7b47031c6c6c48d5a085
@@ -964,6 +964,6 @@ entries:
     file: _bmad-output/implementation-artifacts/stories/5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows.md
     sha256: 45c420308affe35a973b903d1a6546153e329246c3e69f8b90616bc77034f6e1
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:41:42.869Z
-    recorded_by: state-commit-autorecord
-    story_id: 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows
+    recorded_at: 2026-05-20T11:41:59.181Z
+    recorded_by: engineer
+    notes: Re-register spec files after auditor add-findings appended round-1/round-2 sections (auto-commit shipped but integrity registry not bumped by add-findings handler)
