@@ -12,6 +12,7 @@ import { resolve, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
+import { createHash } from "node:crypto";
 
 const __filename = fileURLToPath(import.meta.url);
 const REPO_ROOT = resolve(dirname(__filename), "..", "..");
@@ -51,7 +52,11 @@ test("AC-9: build-methodology renders the 3 Epic-3 stub pages with template surf
       const html = readFileSync(full, "utf8");
       assert.ok(html.length > 0, `${full} is empty`);
       assert.ok(/<title>[^<]+<\/title>/.test(html), `${full} missing <title>`);
-      assert.ok(/<pre class="methodology-stub-source">/.test(html), `${full} missing stub <pre> wrapper`);
+      // Story 4.1 AC-2 removed the <pre class="methodology-stub-source"> wrap;
+      // body now lives inside <main> as real subset-rendered HTML.
+      assert.ok(/<main>/.test(html), `${full} missing <main> wrapper`);
+      assert.ok(/<h1>/.test(html), `${full} missing <h1> from body`);
+      assert.ok(!/<pre class="methodology-stub-source">/.test(html), `${full} legacy stub <pre> wrap leaked`);
       assert.ok(/v0\.1\.0/.test(html), `${full} missing v0.1.0 masthead version`);
 
       const slugMatch = rel.match(/\/scoring\/([^/]+)\//);
@@ -62,5 +67,101 @@ test("AC-9: build-methodology renders the 3 Epic-3 stub pages with template surf
     }
   } finally {
     rmSync(tmpOutRoot, { recursive: true, force: true });
+  }
+});
+
+// ─── Story 4.1 extensions ───────────────────────────────────────────────────
+//
+// AC-4: dist/methodology/latest/<lang>/<path>/index.html companion exists for
+//       each of the four EN pages and bytes equal the versioned page bytes.
+// AC-5: all four pre-existing EN pages (3 scoring stubs + icar-license) still
+//       render at the v0.1.0 URL after Story 4.1 lands.
+//
+// Per-test mkdtempSync is preserved from Story 3-6 round-1 — do not regress
+// the test-isolation fix.
+
+const EPIC_4_EXPECTED = [
+  "scoring/percentile-to-iq/index.html",
+  "scoring/uncertainty/index.html",
+  "scoring/overview/index.html",
+  "provenance/icar-license.html",
+];
+
+test("AC-5 4.1: all four pre-Story-3-6 EN pages render at v0.1.0/en/ (path contract preserved)", () => {
+  const out = mkdtempSync(join(tmpdir(), "iqme-build-meth-4-1-ac5-"));
+  try {
+    const r = spawnSync("node", [SCRIPT], {
+      cwd: REPO_ROOT,
+      encoding: "utf8",
+      env: { ...process.env, IQME_BUILD_METHODOLOGY_OUT: out },
+    });
+    assert.equal(r.status, 0, `expected build exit 0; stdout=${r.stdout}; stderr=${r.stderr}`);
+    for (const rel of EPIC_4_EXPECTED) {
+      const full = join(out, "v0.1.0/en", rel);
+      assert.ok(existsSync(full), `expected versioned output at ${full}`);
+    }
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+test("AC-4 4.1: latest/en/<path>/index.html companion exists for each of the 4 EN pages", () => {
+  const out = mkdtempSync(join(tmpdir(), "iqme-build-meth-4-1-ac4-exist-"));
+  try {
+    const r = spawnSync("node", [SCRIPT], {
+      cwd: REPO_ROOT,
+      encoding: "utf8",
+      env: { ...process.env, IQME_BUILD_METHODOLOGY_OUT: out },
+    });
+    assert.equal(r.status, 0, `stderr=${r.stderr}`);
+    for (const rel of EPIC_4_EXPECTED) {
+      const full = join(out, "latest/en", rel);
+      assert.ok(existsSync(full), `expected latest companion at ${full}`);
+    }
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+test("AC-4 4.1: latest/<path> bytes equal v0.1.0/<path> bytes for each EN page", () => {
+  const out = mkdtempSync(join(tmpdir(), "iqme-build-meth-4-1-ac4-bytes-"));
+  try {
+    const r = spawnSync("node", [SCRIPT], {
+      cwd: REPO_ROOT,
+      encoding: "utf8",
+      env: { ...process.env, IQME_BUILD_METHODOLOGY_OUT: out },
+    });
+    assert.equal(r.status, 0, `stderr=${r.stderr}`);
+    for (const rel of EPIC_4_EXPECTED) {
+      const versioned = readFileSync(join(out, "v0.1.0/en", rel));
+      const latest = readFileSync(join(out, "latest/en", rel));
+      const hv = createHash("sha256").update(versioned).digest("hex");
+      const hl = createHash("sha256").update(latest).digest("hex");
+      assert.equal(hv, hl, `byte mismatch for ${rel}: versioned ${hv} vs latest ${hl}`);
+    }
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+test("AC-5 4.1: rendered pages no longer carry the stub <pre class=\"methodology-stub-source\"> wrap", () => {
+  const out = mkdtempSync(join(tmpdir(), "iqme-build-meth-4-1-nostub-"));
+  try {
+    const r = spawnSync("node", [SCRIPT], {
+      cwd: REPO_ROOT,
+      encoding: "utf8",
+      env: { ...process.env, IQME_BUILD_METHODOLOGY_OUT: out },
+    });
+    assert.equal(r.status, 0, `stderr=${r.stderr}`);
+    for (const rel of EPIC_4_EXPECTED) {
+      const full = join(out, "v0.1.0/en", rel);
+      const html = readFileSync(full, "utf8");
+      assert.ok(
+        !/<pre class="methodology-stub-source">/.test(html),
+        `stub <pre> wrap leaked into Story-4-1 output at ${full}`,
+      );
+    }
+  } finally {
+    rmSync(out, { recursive: true, force: true });
   }
 });

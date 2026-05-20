@@ -10,7 +10,7 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { resolve, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { createHash } from "node:crypto";
 
@@ -46,7 +46,11 @@ test("AC-8.1: fixture-ok renders to expected output path with template surfaces"
     assert.ok(existsSync(outFile), `expected output at ${outFile}`);
     const html = readFileSync(outFile, "utf8");
     assert.ok(/<title>Sample page/.test(html), `expected <title> from frontmatter; got: ${html.slice(0, 200)}`);
-    assert.ok(/<pre class="methodology-stub-source">/.test(html), `expected stub <pre> wrapper; got: ${html.slice(0, 500)}`);
+    // Story 4.1 AC-2 removed the <pre class="methodology-stub-source"> wrap;
+    // the body now lives inside <main> as real subset-rendered HTML.
+    assert.ok(/<main>/.test(html), `expected <main> wrapper; got: ${html.slice(0, 500)}`);
+    assert.ok(/<h1>Sample heading<\/h1>/.test(html), `expected <h1> from body heading; got: ${html.slice(0, 500)}`);
+    assert.ok(!/<pre class="methodology-stub-source">/.test(html), `legacy stub <pre> wrap leaked; got: ${html.slice(0, 500)}`);
     assert.ok(/v0\.1\.0/.test(html), `expected v0.1.0 in masthead; got: ${html.slice(0, 500)}`);
   } finally {
     rmSync(out, { recursive: true, force: true });
@@ -170,9 +174,327 @@ test("AC-8.8: tools/build-methodology.mjs has no forbidden globals / third-party
   assert.ok(!/Date\.now/.test(src), "must not use Date.now");
   assert.ok(!/setTimeout|setInterval/.test(src), "must not use setTimeout/setInterval");
   assert.ok(!/localStorage|sessionStorage/.test(src), "must not reference localStorage/sessionStorage");
-  // Imports must be node: stdlib only.
+  // Imports must be node: stdlib only — with a single permitted relative import
+  // to the in-repo renderer at tools/markdown-subset.mjs (Story 4.1).
   const importLines = src.match(/^import .*$/gm) || [];
   for (const line of importLines) {
-    assert.ok(/from\s+["']node:/.test(line), `non-stdlib import detected: ${line}`);
+    const isStdlib = /from\s+["']node:/.test(line);
+    const isLocalRenderer = /from\s+["']\.\/markdown-subset\.mjs["']/.test(line);
+    assert.ok(isStdlib || isLocalRenderer, `non-stdlib import detected: ${line}`);
+  }
+});
+
+// ─── Story 4.1 extensions ───────────────────────────────────────────────────
+//
+// AC-2..AC-7, AC-10: env-override precedence, corpus-version resolution order,
+// latest-companion emission, idempotency, frontmatter required-key validation,
+// new template surfaces (no `<pre class="methodology-stub-source">` wrap, no
+// "v0.1.0 stub" interim footer paragraph, no duplicated <h1>).
+
+function runBuildWithVersion(srcFixture, outDir, version) {
+  return spawnSync("node", [SCRIPT], {
+    cwd: REPO_ROOT,
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      IQME_BUILD_METHODOLOGY_SRC: resolve(FIXTURES, srcFixture),
+      IQME_BUILD_METHODOLOGY_OUT: outDir,
+      IQME_CORPUS_VERSION: version,
+    },
+  });
+}
+
+// AC-6: env-override precedence — IQME_CORPUS_VERSION wins, output path uses it.
+test("AC-2/AC-6 4.1: IQME_CORPUS_VERSION env override drives output path", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r.status, 0, `expected exit 0; stderr=${r.stderr}`);
+    const versioned = join(out, "v1.2.0/en/scoring/sample-page/index.html");
+    assert.ok(existsSync(versioned), `expected versioned output at ${versioned}`);
+    const v010 = join(out, "v0.1.0/en/scoring/sample-page/index.html");
+    assert.ok(!existsSync(v010), `expected NO v0.1.0 output when env override set; found ${v010}`);
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+// AC-6: when no env override and no corpus-v* tag, fallback to v0.1.0.
+test("AC-6 4.1: with no env override the resolved version falls back to v0.1.0", () => {
+  const out = makeOutDir();
+  try {
+    // Run with the env var EXPLICITLY removed so the resolver can fall through
+    // to the git-describe path and then to the literal fallback.
+    const cleanEnv = { ...process.env };
+    delete cleanEnv.IQME_CORPUS_VERSION;
+    cleanEnv.IQME_BUILD_METHODOLOGY_SRC = resolve(FIXTURES, "fixture-ok");
+    cleanEnv.IQME_BUILD_METHODOLOGY_OUT = out;
+    const r = spawnSync("node", [SCRIPT], { cwd: REPO_ROOT, encoding: "utf8", env: cleanEnv });
+    assert.equal(r.status, 0, `expected exit 0; stderr=${r.stderr}`);
+    const fallback = join(out, "v0.1.0/en/scoring/sample-page/index.html");
+    assert.ok(existsSync(fallback), `expected fallback v0.1.0 path at ${fallback}`);
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+// AC-6: malformed env value should be rejected; builder must NOT use a value
+// that doesn't match /^v\d+\.\d+\.\d+$/.
+test("AC-6 4.1: malformed IQME_CORPUS_VERSION (e.g. 'not-a-version') exits 1", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "not-a-version");
+    assert.notEqual(r.status, 0, `expected non-zero exit for malformed version; stdout=${r.stdout}; stderr=${r.stderr}`);
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+// AC-4: latest-companion emission.
+test("AC-4 4.1: builder emits dist/.../latest/<lang>/<path>/index.html alongside versioned", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r.status, 0, `expected exit 0; stderr=${r.stderr}`);
+    const latest = join(out, "latest/en/scoring/sample-page/index.html");
+    assert.ok(existsSync(latest), `expected latest companion at ${latest}`);
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+// AC-4: latest companion is byte-identical to versioned page.
+test("AC-4 4.1: latest companion bytes equal versioned page bytes", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r.status, 0);
+    const versioned = readFileSync(join(out, "v1.2.0/en/scoring/sample-page/index.html"));
+    const latest = readFileSync(join(out, "latest/en/scoring/sample-page/index.html"));
+    const hv = createHash("sha256").update(versioned).digest("hex");
+    const hl = createHash("sha256").update(latest).digest("hex");
+    assert.equal(hv, hl, `latest companion bytes differ from versioned bytes; sha256 ${hv} vs ${hl}`);
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+// AC-3/AC-7: idempotency — two consecutive builds with the same env produce
+// byte-identical output (per-corpus-release re-emit + deterministic bytes).
+test("AC-3/AC-7 4.1: two consecutive builds with same version yield byte-identical bytes", () => {
+  const out1 = makeOutDir();
+  const out2 = makeOutDir();
+  try {
+    const r1 = runBuildWithVersion("fixture-ok", out1, "v1.2.0");
+    const r2 = runBuildWithVersion("fixture-ok", out2, "v1.2.0");
+    assert.equal(r1.status, 0);
+    assert.equal(r2.status, 0);
+    const a = readFileSync(join(out1, "v1.2.0/en/scoring/sample-page/index.html"));
+    const b = readFileSync(join(out2, "v1.2.0/en/scoring/sample-page/index.html"));
+    assert.equal(
+      createHash("sha256").update(a).digest("hex"),
+      createHash("sha256").update(b).digest("hex"),
+      "two builds with same env not byte-identical",
+    );
+  } finally {
+    rmSync(out1, { recursive: true, force: true });
+    rmSync(out2, { recursive: true, force: true });
+  }
+});
+
+// AC-3: re-emit semantics — second build into the SAME outDir must succeed and
+// re-write the file even though nothing changed. No "skip if unchanged" logic.
+test("AC-3 4.1: re-run into same outDir re-emits the page (no skip-if-unchanged)", () => {
+  const out = makeOutDir();
+  try {
+    const r1 = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r1.status, 0);
+    const file = join(out, "v1.2.0/en/scoring/sample-page/index.html");
+    assert.ok(existsSync(file));
+    const before = readFileSync(file, "utf8");
+    const r2 = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r2.status, 0, `second run failed; stderr=${r2.stderr}`);
+    assert.ok(existsSync(file), "file disappeared on second run");
+    const after = readFileSync(file, "utf8");
+    assert.equal(before, after, "re-emitted bytes differ — expected deterministic re-emit");
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+// AC-2: stub-renderer wrap removed.
+test("AC-2 4.1: output HTML does NOT contain <pre class=\"methodology-stub-source\"> wrap", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r.status, 0, `expected exit 0; stderr=${r.stderr}`);
+    const html = readFileSync(join(out, "v1.2.0/en/scoring/sample-page/index.html"), "utf8");
+    assert.ok(
+      !/<pre class="methodology-stub-source">/.test(html),
+      `stub <pre> wrap leaked into Story-4-1 output: ${html.slice(0, 500)}`,
+    );
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+// AC-2: interim "v0.1.0 stub" footer paragraph removed.
+test("AC-2 4.1: output HTML does NOT contain the interim 'v0.1.0 stub' footer paragraph", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r.status, 0);
+    const html = readFileSync(join(out, "v1.2.0/en/scoring/sample-page/index.html"), "utf8");
+    assert.ok(
+      !/v0\.1\.0 stub/i.test(html),
+      `interim 'v0.1.0 stub' footer paragraph leaked into Story-4-1 output`,
+    );
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+// AC-2: real renderer is applied — <h1> from `# Sample heading` body, NOT
+// duplicated from frontmatter title. Title in <title> tag should match
+// frontmatter; <h1> should match the body heading (which may be the same text
+// in this fixture but the path must be the renderer, not the builder template).
+test("AC-2 4.1: <h1> originates from body heading, not duplicated from frontmatter", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r.status, 0, `stderr=${r.stderr}`);
+    const html = readFileSync(join(out, "v1.2.0/en/scoring/sample-page/index.html"), "utf8");
+    // Exactly one <h1>
+    const h1Count = (html.match(/<h1>/g) || []).length;
+    assert.equal(h1Count, 1, `expected exactly one <h1>, found ${h1Count}`);
+    // The body heading text "Sample heading" should appear inside the <h1>.
+    assert.match(html, /<h1>Sample heading<\/h1>/);
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+// AC-2 4.1: corpus-version appears in masthead and in <title> tag.
+test("AC-2 4.1: rendered HTML contains the resolved corpus-version in masthead + title", () => {
+  const out = makeOutDir();
+  try {
+    const r = runBuildWithVersion("fixture-ok", out, "v1.2.0");
+    assert.equal(r.status, 0);
+    const html = readFileSync(join(out, "v1.2.0/en/scoring/sample-page/index.html"), "utf8");
+    assert.match(html, /<title>[^<]*v1\.2\.0[^<]*<\/title>/, `expected v1.2.0 in <title>; got: ${html.slice(0, 400)}`);
+    assert.match(html, /v1\.2\.0/, `expected v1.2.0 in body chrome`);
+    assert.ok(!/v0\.1\.0/.test(html), `v0.1.0 leaked when v1.2.0 was requested: ${html.slice(0, 600)}`);
+  } finally {
+    rmSync(out, { recursive: true, force: true });
+  }
+});
+
+// ─── Frontmatter required-key validation (AC-2) ────────────────────────────
+//
+// Parametrize across every required key; for each, build a fixture with the
+// key missing and assert the builder exits non-zero with a message naming the
+// missing key (or "missing required").
+
+const REQUIRED_KEYS = [
+  "title",
+  "version",
+  "lastReviewed",
+  "reviewer",
+  "reviewerHandle",
+  "asserts",
+  "glossaryRefs",
+  "sourceHashEN",
+];
+
+for (const key of REQUIRED_KEYS) {
+  test(`AC-2 4.1: missing frontmatter key '${key}' causes builder to exit non-zero`, () => {
+    const fmRoot = mkdtempSync(join(tmpdir(), `iqme-fm-${key}-`));
+    const out = makeOutDir();
+    try {
+      // Build the page tree at fmRoot/en/scoring/page/index.md with `key` omitted.
+      const pageDir = join(fmRoot, "en/scoring/page");
+      mkdirSync(pageDir, { recursive: true });
+      const all = {
+        title: '"X"',
+        version: '"0.1.0"',
+        lastReviewed: '"2026-05-19"',
+        reviewer: '"R"',
+        reviewerHandle: '"@r"',
+        asserts: "\n  - \"a\"",
+        glossaryRefs: "\n  - \"g\"",
+        sourceHashEN: '"0000000000000000000000000000000000000000000000000000000000000000"',
+      };
+      const lines = ["---"];
+      for (const [k, v] of Object.entries(all)) {
+        if (k === key) continue;
+        lines.push(`${k}: ${v}`);
+      }
+      lines.push("---", "", "# X", "", "Body.", "");
+      writeFileSync(join(pageDir, "index.md"), lines.join("\n"));
+
+      const r = spawnSync("node", [SCRIPT], {
+        cwd: REPO_ROOT,
+        encoding: "utf8",
+        env: {
+          ...process.env,
+          IQME_BUILD_METHODOLOGY_SRC: fmRoot,
+          IQME_BUILD_METHODOLOGY_OUT: out,
+          IQME_CORPUS_VERSION: "v1.2.0",
+        },
+      });
+      assert.notEqual(r.status, 0, `expected non-zero exit when '${key}' missing; stdout=${r.stdout}; stderr=${r.stderr}`);
+      assert.ok(
+        new RegExp(key, "i").test(r.stderr) || /missing|required|frontmatter/i.test(r.stderr),
+        `stderr should reference missing key '${key}' or 'missing required'; got: ${r.stderr}`,
+      );
+    } finally {
+      rmSync(fmRoot, { recursive: true, force: true });
+      rmSync(out, { recursive: true, force: true });
+    }
+  });
+}
+
+// ─── Real-renderer engagement: invalid body throws ─────────────────────────
+//
+// Author a fixture whose body contains a forbidden construct (e.g. autolink)
+// and confirm the builder exits 1 with a markdown-subset diagnostic.
+test("AC-2 4.1: body containing a forbidden construct (autolink) exits 1 via MarkdownSubsetError", () => {
+  const root = mkdtempSync(join(tmpdir(), "iqme-bad-body-"));
+  const out = makeOutDir();
+  try {
+    const pageDir = join(root, "en/scoring/bad");
+    mkdirSync(pageDir, { recursive: true });
+    const src =
+      `---\n` +
+      `title: "Bad"\n` +
+      `version: "0.1.0"\n` +
+      `lastReviewed: "2026-05-19"\n` +
+      `reviewer: "R"\n` +
+      `reviewerHandle: "@r"\n` +
+      `asserts:\n  - "a"\n` +
+      `glossaryRefs:\n  - "g"\n` +
+      `sourceHashEN: "0000000000000000000000000000000000000000000000000000000000000000"\n` +
+      `---\n\n` +
+      `# Bad page\n\n` +
+      `An autolink to <https://example.com> is forbidden.\n`;
+    writeFileSync(join(pageDir, "index.md"), src);
+    const r = spawnSync("node", [SCRIPT], {
+      cwd: REPO_ROOT,
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        IQME_BUILD_METHODOLOGY_SRC: root,
+        IQME_BUILD_METHODOLOGY_OUT: out,
+        IQME_CORPUS_VERSION: "v1.2.0",
+      },
+    });
+    assert.notEqual(r.status, 0, `expected non-zero exit on forbidden construct; stdout=${r.stdout}; stderr=${r.stderr}`);
+    assert.ok(
+      /markdown-subset|autolink|forbidden|reject/i.test(r.stderr),
+      `stderr should reference markdown-subset rejection; got: ${r.stderr}`,
+    );
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+    rmSync(out, { recursive: true, force: true });
   }
 });

@@ -1,7 +1,7 @@
 ---
 id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
 title: "Story 4.1: Implement subset markdown renderer + build-methodology pipeline with per-corpus-release re-emit"
-status: ready-for-dev
+status: review
 tds:
   primary_specialist: engineer
   story_tags:
@@ -157,45 +157,45 @@ This story owns:
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: TDD red phase for `tools/markdown-subset.mjs`** (AC-1)
-  - [ ] Author `tests/unit/tools/markdown-subset.test.mjs` with ≥30 failing tests covering all permitted constructs (happy path) and forbidden constructs (reject path). Group tests by construct.
-  - [ ] Confirm tests fail with ENOENT on `tools/markdown-subset.mjs`.
-- [ ] **Task 2: Implement `tools/markdown-subset.mjs`** (AC-1)
-  - [ ] Author the renderer ~200 LOC. State-machine line-scan style (single pass). Track line+column for error reporting.
-  - [ ] Implement `MarkdownSubsetError` class with `line`/`column`/`sourcePath`.
-  - [ ] Run unit tests → green.
-  - [ ] Self-audit LOC count (≤300 hard cap).
-- [ ] **Task 3: Contract test against in-repo content** (AC-10)
-  - [ ] Author `tests/contract/markdown-subset-strict-mode.spec.mjs`.
-  - [ ] Author `tests/fixtures/markdown-subset/all-permitted.md` (positive fixture).
-  - [ ] Run → identify any in-repo `.md` that fails strict mode → minimal fix (e.g., if `corpus/markdown-subset-v1.md` uses a setext-style construct anywhere, switch to ATX).
-- [ ] **Task 4: TDD red phase for `tools/build-methodology.mjs` extensions** (AC-2, AC-3, AC-4, AC-6)
-  - [ ] Extend `tests/unit/build-methodology.test.mjs` with failing tests for: env-override precedence, corpus-version resolution order, latest-companion emission, idempotency.
-  - [ ] Extend `tests/scaffold/build-methodology-output.test.mjs` with latest-companion + byte-match assertions. Preserve `mkdtempSync` pattern.
-- [ ] **Task 5: Implement the new builder** (AC-2, AC-3, AC-4, AC-5, AC-6, AC-7)
-  - [ ] Replace `tools/build-methodology.mjs` body. Keep `parseFrontmatter`, `walkMd`, `outputPathFor` patterns (proven Story 3-6 shape) but rewire renderer call to `markdownSubset.render()` and rewire output path to use resolved corpus-version.
-  - [ ] Add corpus-version resolver function. Default to `execSync('git describe ...')` with try/catch; fallback `v0.1.0`.
-  - [ ] Add latest-companion emission: after writing versioned file, write byte-copy to `latest/`.
-  - [ ] Add frontmatter required-key validation (clear error message naming the missing key + sourcePath).
-  - [ ] Remove the "v0.1.0 stub" interim footer paragraph.
-  - [ ] Remove duplicate `<h1>` in template (let renderer emit it from `# Title` in the body).
-  - [ ] Run unit + scaffold tests → green.
-- [ ] **Task 6: Validate Story-3-6 page continuity** (AC-5)
-  - [ ] Run `make clean && make build-methodology` → exit 0.
-  - [ ] Inspect 4 output pages — confirm they render at same URLs (`v0.1.0/en/...`), no `<pre class="methodology-stub-source">` wrap remains, real HTML body present.
-  - [ ] If any page fails strict-mode renderer, minimally edit source `.md` (record in File List).
-- [ ] **Task 7: Idempotency / byte-stable verification** (AC-7)
-  - [ ] Add a unit-level test: run builder twice with same env, hash output dirs, assert equal. (Story 4.2 wires the Playwright-level full-suite assertion; this story owns the unit-level check.)
-- [ ] **Task 8: Makefile + docs/corpus-build-conventions.md** (AC-8, AC-9)
-  - [ ] Add `# Override version: make build-methodology IQME_CORPUS_VERSION=v1.2.0` comment in Makefile recipe.
-  - [ ] Update `docs/corpus-build-conventions.md` per AC-9. Verify doc parses through `markdown-subset.render()` as a sanity check (informally — the corpus contract scopes to `src/content/methodology/`, but the doc itself living in subset is good discipline).
-- [ ] **Task 9: Full test + lint pass** (AC-10)
-  - [ ] `make test` exit 0.
-  - [ ] `make lint` exit 0 — confirm `lint-cognitive-load-budget` accommodates the new ~200 LOC `markdown-subset.mjs` + the rewritten `build-methodology.mjs` (the budget cap is in `BUDGETS.json`; if exceeded, update the budget with a one-line justification — the new tooling envelope was anticipated in architecture.md §"~900–1,400 LOC" for build-methodology and ~200 LOC for markdown-subset).
-- [ ] **Task 10: Branch + state hygiene**
-  - [ ] Commits: separate the renderer (`markdown-subset.mjs` + tests) from the builder (`build-methodology.mjs` + tests) from the docs (Makefile/conventions) where natural — small reviewable commits.
-  - [ ] Integrity record for any frozen-test edit if encountered (TDD-first should avoid this; lesson-2026-05-19-001 carry-forward — comment text and source-grep awareness).
-  - [ ] `tds state set --story=4-1-... --status=review` at end. Squash-merge story branch into epic/4 via `tds branch merge` (execute-story Step 6 owns this).
+- [x] **Task 1: TDD red phase for `tools/markdown-subset.mjs`** (AC-1)
+  - [x] Author `tests/unit/tools/markdown-subset.test.mjs` with ≥30 failing tests covering all permitted constructs (happy path) and forbidden constructs (reject path). Group tests by construct.
+  - [x] Confirm tests fail with ENOENT on `tools/markdown-subset.mjs`.
+- [x] **Task 2: Implement `tools/markdown-subset.mjs`** (AC-1)
+  - [x] Author the renderer ~200 LOC. State-machine line-scan style (single pass). Track line+column for error reporting.
+  - [x] Implement `MarkdownSubsetError` class with `line`/`column`/`sourcePath`.
+  - [x] Run unit tests → green.
+  - [x] Self-audit LOC count (≤300 hard cap).
+- [x] **Task 3: Contract test against in-repo content** (AC-10)
+  - [x] Author `tests/contract/markdown-subset-strict-mode.spec.mjs`.
+  - [x] Author `tests/fixtures/markdown-subset/all-permitted.md` (positive fixture).
+  - [x] Run → identify any in-repo `.md` that fails strict mode → minimal fix (e.g., if `corpus/markdown-subset-v1.md` uses a setext-style construct anywhere, switch to ATX).
+- [x] **Task 4: TDD red phase for `tools/build-methodology.mjs` extensions** (AC-2, AC-3, AC-4, AC-6)
+  - [x] Extend `tests/unit/build-methodology.test.mjs` with failing tests for: env-override precedence, corpus-version resolution order, latest-companion emission, idempotency.
+  - [x] Extend `tests/scaffold/build-methodology-output.test.mjs` with latest-companion + byte-match assertions. Preserve `mkdtempSync` pattern.
+- [x] **Task 5: Implement the new builder** (AC-2, AC-3, AC-4, AC-5, AC-6, AC-7)
+  - [x] Replace `tools/build-methodology.mjs` body. Keep `parseFrontmatter`, `walkMd`, `outputPathFor` patterns (proven Story 3-6 shape) but rewire renderer call to `markdownSubset.render()` and rewire output path to use resolved corpus-version.
+  - [x] Add corpus-version resolver function. Default to `execSync('git describe ...')` with try/catch; fallback `v0.1.0`.
+  - [x] Add latest-companion emission: after writing versioned file, write byte-copy to `latest/`.
+  - [x] Add frontmatter required-key validation (clear error message naming the missing key + sourcePath).
+  - [x] Remove the "v0.1.0 stub" interim footer paragraph.
+  - [x] Remove duplicate `<h1>` in template (let renderer emit it from `# Title` in the body).
+  - [x] Run unit + scaffold tests → green.
+- [x] **Task 6: Validate Story-3-6 page continuity** (AC-5)
+  - [x] Run `make clean && make build-methodology` → exit 0.
+  - [x] Inspect 4 output pages — confirm they render at same URLs (`v0.1.0/en/...`), no `<pre class="methodology-stub-source">` wrap remains, real HTML body present.
+  - [x] If any page fails strict-mode renderer, minimally edit source `.md` (record in File List).
+- [x] **Task 7: Idempotency / byte-stable verification** (AC-7)
+  - [x] Add a unit-level test: run builder twice with same env, hash output dirs, assert equal. (Story 4.2 wires the Playwright-level full-suite assertion; this story owns the unit-level check.)
+- [x] **Task 8: Makefile + docs/corpus-build-conventions.md** (AC-8, AC-9)
+  - [x] Add `# Override version: make build-methodology IQME_CORPUS_VERSION=v1.2.0` comment in Makefile recipe.
+  - [x] Update `docs/corpus-build-conventions.md` per AC-9. Verify doc parses through `markdown-subset.render()` as a sanity check (informally — the corpus contract scopes to `src/content/methodology/`, but the doc itself living in subset is good discipline).
+- [x] **Task 9: Full test + lint pass** (AC-10)
+  - [x] `make test` exit 0.
+  - [x] `make lint` exit 0 — confirm `lint-cognitive-load-budget` accommodates the new ~200 LOC `markdown-subset.mjs` + the rewritten `build-methodology.mjs` (the budget cap is in `BUDGETS.json`; if exceeded, update the budget with a one-line justification — the new tooling envelope was anticipated in architecture.md §"~900–1,400 LOC" for build-methodology and ~200 LOC for markdown-subset).
+- [x] **Task 10: Branch + state hygiene**
+  - [x] Commits: separate the renderer (`markdown-subset.mjs` + tests) from the builder (`build-methodology.mjs` + tests) from the docs (Makefile/conventions) where natural — small reviewable commits.
+  - [x] Integrity record for any frozen-test edit if encountered (TDD-first should avoid this; lesson-2026-05-19-001 carry-forward — comment text and source-grep awareness).
+  - [x] `tds state set --story=4-1-... --status=review` at end. Squash-merge story branch into epic/4 via `tds branch merge` (execute-story Step 6 owns this).
 
 ## Dev Notes
 
@@ -266,4 +266,64 @@ This story owns:
 
 ### Completion Notes List
 
+- Renderer 275 LOC (under 300 cap); 45 unit tests + 9 contract tests green; builder rewritten for subset-renderer + per-corpus-release re-emit + latest companion; 33 builder tests green (28 unit + 5 scaffold); make test 516 pass / 1 skip, make lint exit 0. Two legacy tests (AC-8.1 / scaffold AC-9) unfrozen + assertions updated to Story-4-1 HTML shape (no <pre> stub wrap). icar-license.md frontmatter extended with required keys (version, lastReviewed, reviewer, reviewerHandle, asserts, glossaryRefs, sourceHashEN) to pass required-key validation; URL contract preserved. Fixture-multi + fixture-non-md pages got '# Heading' lines so subset renderer accepts them (the previous body-only fixtures lacked exactly-one-level-1-heading).
+- Story 4-1 complete: renderer (275 LOC) + builder rewrite + latest-companion + git-describe resolver. 516/0/1 tests; lint=0; integrity=88 verified / 3 pre-existing failures.
+
 ### File List
+
+- tools/markdown-subset.mjs
+- tools/build-methodology.mjs
+- tests/unit/tools/markdown-subset.test.mjs
+- tests/unit/build-methodology.test.mjs
+- tests/scaffold/build-methodology-output.test.mjs
+- tests/contract/markdown-subset-strict-mode.spec.mjs
+- tests/fixtures/markdown-subset/all-permitted.md
+- tests/fixtures/build-methodology/fixture-multi/en/scoring/page-a/index.md
+- tests/fixtures/build-methodology/fixture-multi/en/scoring/page-b/index.md
+- tests/fixtures/build-methodology/fixture-non-md/en/sample/index.md
+- src/content/methodology/en/provenance/icar-license.md
+- Makefile
+- docs/corpus-build-conventions.md
+
+## Specialist Self-Review
+
+# Story 4.1 — engineer self-review
+
+**Decisions made:**
+
+1. **Reference-link end-of-doc parsing strategy:** scan from bottom-up before any body processing, collecting `[ref]: url` lines into a `refMap` until I hit the first non-blank, non-reference line. This treats trailing references as a "footer block" and lets the body walker remain a single forward pass. Rejected: stateful "are-we-after-the-final-paragraph?" tracking in the block walker (would add state-machine complexity for ~3 LOC of pre-scan savings).
+
+2. **Corpus-version resolver as inline function (no internal mock hook):** per AC-6 the engineer has two valid options — expose a hook or rely on `IQME_CORPUS_VERSION` env-driven tests. I picked the env path. The tests already cover (a) env-override-wins, (b) malformed-env-rejected, (c) no-env-falls-through-to-default. The git-describe branch is exercised opportunistically when the test runner happens to be in a corpus-v* tagged repo (currently no tag → fallback path is the de-facto coverage). Trade-off: no per-call mockable test of the git branch itself; gain: zero `vi.mock`-style harness in stdlib `node:test`, zero coupling between test infra and resolver internals.
+
+3. **Legacy-test unfreeze surface kept to one window-pair:** the advisory listed AC-8.1, 8.4, 8.5, 9 as potentially-broken legacy assertions. I ran the suite first and found only AC-8.1 and AC-9-scaffold actually failed (the others passed because their assertions happen to be shape-agnostic — e.g., AC-8.5's `&lt;tag&gt;` escape assertion holds for real-renderer output too). Single unfreeze CLI call covering both files; assertion updates minimal — kept the `<title>` + version assertions, swapped `<pre class="methodology-stub-source">` for `<main>` + `<h1>` presence checks + a negative-assert that the stub wrap did NOT leak.
+
+4. **icar-license frontmatter extension over rewrite:** the page was missing 7 of 8 required frontmatter keys. Per AC-5 ("If any of the 4 pages contain a construct the renderer rejects … the page is fixed in this story — minimal edit to the source `.md`"). I added the 7 missing keys with TBD-style placeholders matching the 3 sibling pages' shape, preserving the existing `pending: true` + `slug:` fields. Did NOT rewrite the body (blockquote-style `>` lines pass through as escaped paragraph text per the subset's explicit "raw HTML → escape, not throw" rule from AC-1).
+
+**Alternatives considered:**
+
+- **Renderer as a parser-combinator framework or state-machine class hierarchy.** Rejected per Karpathy/simplicity principle and the 200-LOC envelope. Final renderer is one module with one exported function + one exported error class; the inline-parse helper recurses but doesn't escape ~50 LOC.
+- **Exposing `__resolveCorpusVersion__` as a test seam.** Rejected (option-B in AC-6). Env-override path is sufficient + simpler.
+- **Removing the `>` blockquote lines from icar-license.md by rewriting them as plain paragraphs.** Rejected — the subset explicitly escapes raw HTML/angle-brackets rather than rejecting them; `>` at line-start renders as `&gt;` in a paragraph, which is semantically OK and matches the existing source-text intent. Avoids gratuitous content edit.
+- **Two separate fixes for fixture-multi page-a/page-b/non-md.** Combined into the builder commit since they're build-pipeline-test fixtures, not production content.
+
+**Framework gotchas avoided:**
+
+- `assert.throws` with custom Error matcher requires returning `true` (truthy) from the predicate; I structured the predicate as `(err) => { assert.ok(err instanceof MarkdownSubsetError); return true; }` — the existing test code does this correctly; my impl preserved the error class identity so `instanceof` works across module boundaries.
+- `node --test` file parallelism — preserved per-test `mkdtempSync` pattern from Story 3-6; no shared `dist/` write. Verified by running unit + scaffold builds in same suite without flake.
+- The `parseFrontmatter` mini-parser treats `asserts: []` as the literal scalar string `"[]"` because it only handles block-list form (`asserts:\n  - "foo"`). Validation just checks key-presence, so this is benign — but it's a sharp edge worth flagging for Story 4.3 (real schema validator). I added a comment to the icar-license fixture commit, but if Story 4.3 lands `lint-frontmatter`, it must handle empty-list syntax.
+- `execSync` with no matching tag returns non-zero exit + stderr; the try/catch absorbs it and the catch block silently falls through to literal fallback — verified by running on the current repo (no `corpus-v*` tag → `v0.1.0` is the resolved version, matching Story 3-6 URL contract).
+
+**Areas of uncertainty:**
+
+- **List-depth detection heuristic:** I treat indents 0–1 as depth 0, 2–3 as depth 1, ≥4 as depth ≥2 (rejected). This works for `-` (depth-2 needs 2 spaces) and `1.` (depth-2 needs 3 spaces; `1.` plus space takes 3 columns). The architecture spec doesn't pin exact indent semantics; the all-permitted fixture uses 2-space `-` nesting + 3-space `1.` nesting and both pass. **Auditor should look harder** at: do we handle 4-space-indented nested ordered lists (which some authors might use)? Current impl rejects them as depth ≥ 2.
+- **Heading-with-trailing-hash:** ATX heading regex allows optional trailing `#`s (CommonMark "closing sequence"). Not exercised by any test; harmless if author uses it; out-of-spec if author over-indents. Auditor: validate the regex doesn't accidentally accept `#### text ####extra` as a heading with mangled content.
+- **Reference-link URL parsing:** I use `\S+` for the URL (no quoted-URL form, no title-attribute form). The all-permitted fixture uses a plain `/corpus/markdown-subset-v1` URL. Auditor: if any in-repo content adds a CommonMark-style `[ref]: <url> "title"`, the regex won't match and the build will fail. Currently no such content exists.
+- **Inline link in nested-list body:** the `renderList` calls `renderInline` per-item; inline links inside nested items should work but aren't explicitly tested. The all-permitted fixture exercises this only at depth-0.
+
+**Tested edge cases:**
+
+- `tests/unit/tools/markdown-subset.test.mjs` — 45 tests covering each AC-1 construct happy-path + each forbidden-construct reject + MarkdownSubsetError `.line` / `.column` / `.sourcePath` properties + double-escape avoidance.
+- `tests/contract/markdown-subset-strict-mode.spec.mjs` — 9 tests parametrized over (a) every `src/content/methodology/en/**/*.md` (4 pages), (b) `corpus/markdown-subset-v1.md` itself, (c) the positive fixture exercising every permitted construct + a determinism assert.
+- `tests/unit/build-methodology.test.mjs` — 28 tests covering legacy AC-8.1..8.8 (preserved with one updated assertion) + 12 Story-4.1 ACs (env-override, fallback resolution, malformed-version-rejected, latest companion exists/byte-matches, idempotency, re-emit-into-same-outDir, no-stub-pre-wrap, no-stub-footer, body-h1-origin, version-in-masthead-and-title, 8× required-key-missing parametrized, autolink-in-body-rejected).
+- `tests/scaffold/build-methodology-output.test.mjs` — 5 tests (1 updated AC-9 + 4 Story-4.1: all-4-pages-render-at-v0.1.0, latest-companion-exists, latest-bytes-equal-versioned-bytes, no-stub-pre-wrap).
+- Full `make test` = 517 tests, 516 pass, 1 skipped (pre-existing skip, unrelated).

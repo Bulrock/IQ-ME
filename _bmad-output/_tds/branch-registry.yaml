@@ -374,3 +374,14 @@ branches:
     last_synced_at: null
     notes: ""
     created_at: 2026-05-19T23:30:52.323Z
+  - branch: story/4-1-subset-renderer
+    story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
+    epic_id: null
+    base_branch: epic/4
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-19T23:38:44.656Z

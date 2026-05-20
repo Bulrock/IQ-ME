@@ -1,5 +1,12 @@
 ---
 title: "ICAR license status (pending — Gate 9a)"
+version: "0.1.0"
+lastReviewed: "2026-05-19"
+reviewer: "TBD"
+reviewerHandle: "@TBD-en-reviewer"
+asserts: []
+glossaryRefs: []
+sourceHashEN: "0000000000000000000000000000000000000000000000000000000000000000"
 pending: true
 slug: provenance/icar-license
 ---

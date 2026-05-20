@@ -39,7 +39,8 @@ lint: ## run all registered lints (negative assertions + budget + trust artifact
 build: build-methodology ## alias to build-methodology + emit determinism marker (NFR17 prep)
 	node tools/build-determinism-marker.mjs
 
-build-methodology: ## render src/content/methodology/**.md to dist/methodology/ (Epic 3 interim stub; Epic 4 lands the full renderer)
+build-methodology: ## render src/content/methodology/**.md to dist/methodology/v<corpus-version>/<lang>/<path>/index.html + latest companion (Story 4.1)
+	# Override version: make build-methodology IQME_CORPUS_VERSION=v1.2.0
 	node tools/build-methodology.mjs
 
 dev: ## start the interim dev-server on http://127.0.0.1:4173 (Ctrl-C to stop; Epic 4 lands live-reload)

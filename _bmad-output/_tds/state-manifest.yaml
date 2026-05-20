@@ -8,15 +8,15 @@ tds_meta:
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: df34fe6ae914ed23a66d9ea29a1f4b996b4fc1ad7a7a091e0020e59a111d5b4d
+    sha256: c51f6019e56249229b6608b902a1d7564b301a83138f1ef698ddef367b8caf54
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:30:52.346Z
+    recorded_at: 2026-05-19T23:38:44.678Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 2969d4c14759e0a95977535dcc619dda04f9a7f037841ec731c7aad1a0d98e75
+    sha256: 9b6c51443c81b8763f17c666bc2de506a4e5f64cecb90178a42e7c247992d078
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:36:52.409Z
+    recorded_at: 2026-05-20T00:03:03.998Z
     recorded_by: engineer
     story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
   - artefact_class: A
@@ -591,20 +591,18 @@ entries:
     story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
   - artefact_class: A
     file: tests/unit/build-methodology.test.mjs
-    sha256: dbee741463970656aee7b2ef55097a1a948e2ddd24b5a9bda742b30dc13c7161
+    sha256: 5e08fcb06544ecf14ceda93671a7bc08f4892e273b8f548a085eb1f9ce1e1412
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:09:19.653Z
-    recorded_by: test-author
-    story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
-    notes: "Story 3-6 test-author phase: 8 unit tests (AC-8) + 1 scaffold integration smoke (AC-9) for tools/build-methodology.mjs interim renderer; failing red phase confirmed before impl, then green confirmed after impl"
+    recorded_at: 2026-05-19T23:57:01.396Z
+    recorded_by: engineer
+    story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
   - artefact_class: A
     file: tests/scaffold/build-methodology-output.test.mjs
-    sha256: f714f6715da9068f31d5c0b6f2a022d89cff3ff5543d60f6c805229bc497ddb2
+    sha256: f79ba7251d65bfe50329bbc1010b74d925bbe84134da9e38b5c371bf31afc35e
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:56:03.422Z
+    recorded_at: 2026-05-19T23:57:01.546Z
     recorded_by: engineer
-    story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
-    notes: "Round-1 rework: refactored to per-test mkdtempSync + IQME_BUILD_METHODOLOGY_OUT env to eliminate race with tests/unit/dev-server.test.mjs over shared dist/. 5/5 parallel races pass; full suite 438/438."
+    story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice.md
     sha256: a3346633f70cf90bf0194ba5f940cabf2935921c259181a3214442759857ad65
@@ -653,8 +651,32 @@ entries:
     notes: "Story 3-8 scaffold test asserting documentation scaffold contract: 5 files exist + per-user template has 4 verbatim hypothesis questions + protocol documents ≥3-of-N threshold + summary template links to Epic 4 gate + local-build doc documents corpus-v0.1.0 tag step"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit.md
-    sha256: 4e382263a08c52d7d812036c5ccbcbc353922868ea8e75bb59a1070fe8149234
+    sha256: 109f8237df98db3783e7e3a8cc00e474b1b31690d963ecf6d80aa6e26d0d88d5
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:36:52.446Z
+    recorded_at: 2026-05-20T00:03:04.041Z
     recorded_by: engineer
     story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
+  - artefact_class: A
+    file: tests/unit/tools/markdown-subset.test.mjs
+    sha256: c9f933275787d89510274550cd954cf56b086f4f23e789471872f4f7cf59fed9
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T23:47:50.792Z
+    recorded_by: test-author
+    story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
+    notes: "Story 4-1 ATDD red phase: 49 new failing tests pinning AC-1..AC-10 + positive fixture"
+  - artefact_class: A
+    file: tests/contract/markdown-subset-strict-mode.spec.mjs
+    sha256: c29dc63ea7dc87e45335252e161a3b4a548e2b3b34bf04513fbdcd255c0e0386
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T23:47:50.793Z
+    recorded_by: test-author
+    story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
+    notes: "Story 4-1 ATDD red phase: 49 new failing tests pinning AC-1..AC-10 + positive fixture"
+  - artefact_class: A
+    file: tests/fixtures/markdown-subset/all-permitted.md
+    sha256: 03d2243286a25b278064cb0d31fc88aea7d0d39301915fbd0074efc9322b6331
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-19T23:47:50.793Z
+    recorded_by: test-author
+    story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
+    notes: "Story 4-1 ATDD red phase: 49 new failing tests pinning AC-1..AC-10 + positive fixture"
