@@ -91,3 +91,10 @@ Ship the two Phase-2 designed visual assets: `eap-shrinkage-diagram` (visual aid
 - 9 new scaffold tests for the Phase-2 surfaces (SVG existence + i18n keys + CSP-safety + size budget + CSS files + index.html wiring + strings.json keys).
 - All 21 Story-5.1 tests continue to pass.
 - make test 875/874+1skip. lint+build exit 0.
+
+## Auditor Findings (round-1)
+
+### [info] Two deferrals declared in AC-4: tail-aware-trail HTML composition → Epic 6; inline rendering of eap-shrinkage SVG in scoring/eap.md → tracked by Story 5-3 AC-5 (markdown-subset image-inline support). Self-Review correctly notes the qualitative-not-quantitative nature of the eap-shrinkage diagram. Land-as-CSS-surface decision (Karpathy #2 simplicity) properly bounded.
+
+
+- **Category:** deferred-rendering
