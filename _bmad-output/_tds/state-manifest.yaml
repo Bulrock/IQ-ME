@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: d913c77a21a61e9cc4a78e4ccb229c26da22d71f307c67d5d19c498fc170b3fb
+    sha256: f76cf1cef309a049c9ba831b60fc57d9cf8a15675508c076071b5c778faffba4
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:34:28.642Z
+    recorded_at: 2026-05-20T13:42:26.436Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: a6206c3904e7d8b8d026e7e82c81de10235cb13d1b0315c5de3286f5ad1a0a72
+    sha256: ad720f2bbe52d6d1db13053c6a6838103a5354878d8959610214eb4b4bb48ed4
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:41:38.042Z
-    recorded_by: auditor
-    story_id: bridge-6-7
+    recorded_at: 2026-05-20T13:42:41.693Z
+    recorded_by: engineer
+    story_id: bridge-6-7-3-restore-carry-forward-lessons
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -969,24 +969,24 @@ entries:
     story_id: 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-6-7-1-extend-state-commit-sweep.md
-    sha256: a9ba45cbd451cd62f22434e5bda08e08f2d1eaae46f8667ff18d34ed638d8dab
+    sha256: 25a97b0b6764f4f92269ef19076dc7d1ab0f3602c3ca145a1dcb78ed53b9f6b2
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:41:37.769Z
-    recorded_by: auditor
+    recorded_at: 2026-05-20T13:42:41.490Z
+    recorded_by: engineer
     story_id: bridge-6-7-1-extend-state-commit-sweep
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-6-7-2-tds-deliver-mode-2.md
-    sha256: dfc77a78b555339b8588be2d4cb395030284cbd77acba47b00f535fe3db0987f
+    sha256: b85e7b18aa9d9dab165d9c4ab6475a97ee6512c4fd912c8c65480c54f1fea9f7
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:41:37.870Z
-    recorded_by: auditor
+    recorded_at: 2026-05-20T13:42:41.614Z
+    recorded_by: engineer
     story_id: bridge-6-7-2-tds-deliver-mode-2
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-6-7-3-restore-carry-forward-lessons.md
-    sha256: 86d2b22a3f59444e314f727683a3893bb473fb17361eef06fb69d21d262f2f8f
+    sha256: bb00c39e1daad411777ac7cad5199f3fae3de88e380851bbe63a2e29c55feb3b
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:41:37.965Z
-    recorded_by: auditor
+    recorded_at: 2026-05-20T13:42:41.717Z
+    recorded_by: engineer
     story_id: bridge-6-7-3-restore-carry-forward-lessons
   - artefact_class: A
     file: tests/scaffold/lint-spec-carry-forward-coverage.test.mjs

@@ -1,7 +1,7 @@
 ---
 id: bridge-6-7-3-restore-carry-forward-lessons
 title: "Story bridge-6-7-3-restore-carry-forward-lessons: Restore Carry-forward-lessons injection in story-create plus pre-commit warning on class-A edits"
-status: approved
+status: done
 ---
 
 # Story bridge-6-7-3-restore-carry-forward-lessons: Restore Carry-forward-lessons injection in story-create plus pre-commit warning on class-A edits
