@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: a9814ad8d6144eb9aa5290e0b15a2b03ccffe5548eca85fc0e5fe9f3f3c75a32
+    sha256: b6c01815755c1616a8f6715bcdfdb36a23252bed87aee3d0dceebe9268d3b170
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:39:26.013Z
+    recorded_at: 2026-05-20T12:50:47.134Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 0deff8c8293769fe4907ea5e16cb9ae25b68bb1dbf1aa9321d1e083416db3d67
+    sha256: 604700034cddc1e782ef6b7c20086725231a22af5751e7cb7fe5fb629c972f6a
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:39:04.874Z
+    recorded_at: 2026-05-20T13:06:17.114Z
     recorded_by: engineer
-    story_id: bridge-6-7-1-extend-state-commit-sweep
+    story_id: bridge-6-7-2-tds-deliver-mode-2
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -974,3 +974,10 @@ entries:
     recorded_at: 2026-05-20T12:39:04.907Z
     recorded_by: engineer
     story_id: bridge-6-7-1-extend-state-commit-sweep
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-6-7-2-tds-deliver-mode-2.md
+    sha256: f152d315cb69da88512eab7dd9b2add6f14aa5630d92784c03dbe8200afe9f16
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T13:06:17.150Z
+    recorded_by: engineer
+    story_id: bridge-6-7-2-tds-deliver-mode-2
