@@ -2,16 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 88dade426390745a203f7499f623b17f1ae4d37e2e99888f0ad5f74d6167ca22
+    sha256: 4d64793f6c3a09bb04081d273f1620a3393dc948c8464fc3f1f01c22afd7d9b8
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:26:13.210Z
-    recorded_by: frontend
+    recorded_at: 2026-05-20T12:26:19.500Z
+    recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: c07b24ff13bc7ab6c4ed7952f4f12eaa348b2fac63145411b22e1fa8789fbcfe
+    sha256: 2cb9ea46e01c2d311509fc27756b675b51bd8eab59e4ff2e36f3b132c7d46c99
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:18:05.832Z
+    recorded_at: 2026-05-20T12:26:30.750Z
     recorded_by: engineer
+    story_id: bridge-6-7
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751

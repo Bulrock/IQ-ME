@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-20 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows: done'
+last_updated: '2026-05-20 bridge-6-7: in-progress'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -117,7 +117,7 @@ development_status:
   epic-6-retrospective: optional
 
   # Bridge 6→7: 3 stories from 1 retro
-  bridge-6-7: backlog
+  bridge-6-7: in-progress
   bridge-6-7-1-extend-state-commit-sweep: backlog # Extend state-commit sweep auto-record to spec-md touched by add-finding
   bridge-6-7-2-tds-deliver-mode-2: backlog # tds deliver Mode 2 idempotent recovery on re-run for partial OH-07 finalize
   bridge-6-7-3-restore-carry-forward-lessons: backlog # Restore Carry-forward-lessons injection in story-create plus pre-commit warning on class-A edits
