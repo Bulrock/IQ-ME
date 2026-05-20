@@ -249,3 +249,12 @@ This story owns:
 - tests/snapshots/methodology/en/scoring/percentile-to-iq/index.html
 - tests/snapshots/methodology/en/scoring/uncertainty/index.html
 - BUDGETS.json
+
+## Auditor Findings (round-1)
+
+### [info] Spec is missing inline `## Specialist Self-Review` section. Completion Notes line 233 references `/tmp/self-review-4-6.md` which is not committed and not in the spec file. Per Decision Tree A10: non-security-critical (CSS component, builder template extension, browser clipboard API) → info-severity (would be blocker on security/integrity-critical paths).
+
+
+- **Category:** process-discipline
+- **Suggested fix:** Recommended: future stories require the self-review prose committed in-spec under `## Specialist Self-Review` (not `/tmp/` paths). Engineer can paste self-review contents into the spec md before status flip. Avoids /tmp ephemerality and keeps audit trail durable.
+
