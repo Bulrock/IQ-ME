@@ -14,11 +14,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: f78ad6e023e37b3a4f1c8a91554a6367461a4d604ba6efa010e263dff005b593
+    sha256: a1707eecc89e7555de482b5be40699866984a0e5a94e40ca75f0864a20bdb5a7
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T08:11:11.550Z
-    recorded_by: engineer
-    story_id: 4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment
+    recorded_at: 2026-05-20T08:44:11.904Z
+    recorded_by: auditor
+    story_id: epic-4
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -191,9 +191,9 @@ entries:
     notes: story-1-10 frozen failing tests
   - artefact_class: A
     file: _bmad-output/_tds/sprint-status-extension.yaml
-    sha256: 5f60c21497054618cf418934d46bd6235c4608249e700ced53bcddf37f926223
+    sha256: 5b70790912d70a5ffdb801493d9536e631d6c23e7cb7d93a1ffcc9fd03e34e08
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:42:21.205Z
+    recorded_at: 2026-05-20T08:44:04.427Z
     recorded_by: setup
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-1-2-1-add-tds-story-unfreeze.md
@@ -653,10 +653,10 @@ entries:
     notes: "Story 3-8 scaffold test asserting documentation scaffold contract: 5 files exist + per-user template has 4 verbatim hypothesis questions + protocol documents ≥3-of-N threshold + summary template links to Epic 4 gate + local-build doc documents corpus-v0.1.0 tag step"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit.md
-    sha256: 109f8237df98db3783e7e3a8cc00e474b1b31690d963ecf6d80aa6e26d0d88d5
+    sha256: 8426624d4516bc5ed5529bd84a4e39eb2017d12207042a165971856110d57c8f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T00:03:04.041Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T08:44:10.980Z
+    recorded_by: auditor
     story_id: 4-1-implement-subset-markdown-renderer-build-methodology-pipeline-with-per-corpus-release-re-emit
   - artefact_class: A
     file: tests/unit/tools/markdown-subset.test.mjs
@@ -684,10 +684,10 @@ entries:
     notes: "Story 4-1 ATDD red phase: 49 new failing tests pinning AC-1..AC-10 + positive fixture"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/4-2-byte-stable-build-assertion-golden-html-snapshots.md
-    sha256: 50b44f21b4820e558388c87506a12684780e5c88da0793df831a1a3207267805
+    sha256: d67ac24dd18d45db3edac840f92aad2cf76c84aed8430cf05191f7b25dd43285
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T00:16:12.753Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T08:44:11.097Z
+    recorded_by: auditor
     story_id: 4-2-byte-stable-build-assertion-golden-html-snapshots
   - artefact_class: A
     file: tests/unit/tools/snapshot-update.test.mjs
@@ -715,10 +715,10 @@ entries:
     notes: "Story 4-2 ATDD red phase: snapshot extension tests + drift gate + Playwright byte-stable activation"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/4-3-lint-frontmatter-lint-claims-manifest-strict-graduation.md
-    sha256: 93d4eaf80b5355f1da6df6f9a647e664e781ae8c1785747cd7af0135e9a51c19
+    sha256: 87aaf768b705e2ccf4ffc00b1d6fa808e73836a4e91a7981b0234222b4b2b3c9
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T00:27:48.177Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T08:44:11.212Z
+    recorded_by: auditor
     story_id: 4-3-lint-frontmatter-lint-claims-manifest-strict-graduation
   - artefact_class: A
     file: tests/unit/tools/lint-frontmatter.test.mjs
@@ -738,10 +738,10 @@ entries:
     notes: Story 4-3 ATDD red phase
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/4-4-lint-glossary-lint-reading-level-en.md
-    sha256: 3122a45a999d50db04d9e920699f8b9c3ff8225872bfd6867fe6b61c2668dea8
+    sha256: f1cde8d981b8abc2c83c1378ce5868982dadcd660cf447b1c9d8d2827efa22a8
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:06:47.547Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T08:44:11.321Z
+    recorded_by: auditor
     story_id: 4-4-lint-glossary-lint-reading-level-en
   - artefact_class: A
     file: tests/unit/tools/lint-glossary.test.mjs
@@ -776,10 +776,10 @@ entries:
     notes: Story 4-4 ATDD red phase
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/4-5-lint-license-provenance.md
-    sha256: 174517c6b60e82d04fee93a67802b7bbfa02d69ede90829ea31b3a68a1cc2a0c
+    sha256: 508c289291b2dbc9529c9de1526d684b109dbc96abbe1ca20eb2e1a168a4e25b
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:18:39.035Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T08:44:11.485Z
+    recorded_by: auditor
     story_id: 4-5-lint-license-provenance
   - artefact_class: A
     file: tests/unit/tools/lint-license-provenance.test.mjs
@@ -799,10 +799,10 @@ entries:
     notes: "Story 4-5 engineer impl: test fixture fix + EPIC_1_ACTIVE update"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template.md
-    sha256: 3a4c66b1e84f23000bb8166ee0745ee0ac5732ba92723a364a49ff6cece8f1f5
+    sha256: d6e19009247376fba213e84550d819e74ae007c517201e5111cba24c68dcc7c7
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:37:18.811Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T08:44:11.593Z
+    recorded_by: auditor
     story_id: 4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template
   - artefact_class: A
     file: tests/unit/cite-this-page.test.mjs
@@ -822,10 +822,10 @@ entries:
     notes: story 4-6 test-author phase
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub.md
-    sha256: 780c03687112f1c5cb266496eac3b2b8218e416fe4b04ade6b959cee40d66c9e
+    sha256: d4b033d89bc8e6df9baf94ad7cd54fb4197966fb90826603a379323547474303
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:53:23.703Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T08:44:11.710Z
+    recorded_by: auditor
     story_id: 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
   - artefact_class: A
     file: tests/unit/tools/lint-translation-parity.test.mjs
@@ -845,10 +845,10 @@ entries:
     notes: "Story 4-7 test-author Phase A: failing tests for lint-translation-parity stub + hatnote builder extensions"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment.md
-    sha256: 586edc978b57fe4b273dd37b52d197b8f12f0b60427d3dc5a1438494708795e1
+    sha256: 49bccb359133035f54ddf82e5d53d5f5db23b541422fee1d7e5247b06da1bf8d
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T08:11:11.589Z
-    recorded_by: engineer
+    recorded_at: 2026-05-20T08:44:11.817Z
+    recorded_by: auditor
     story_id: 4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment
   - artefact_class: A
     file: tests/unit/tools/lint-csp-source.test.mjs

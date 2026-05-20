@@ -1,7 +1,7 @@
 ---
 id: 4-4-lint-glossary-lint-reading-level-en
 title: "Story 4.4: lint-glossary + lint-reading-level (EN)"
-status: review
+status: approved
 tds:
   primary_specialist: engineer
   story_tags:

@@ -1,7 +1,7 @@
 ---
 id: 4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment
 title: "Story 4.8: Exit-criterion verification — linters exercised against corpus + SPA fragment"
-status: review
+status: approved
 tds:
   primary_specialist: engineer
   story_tags:

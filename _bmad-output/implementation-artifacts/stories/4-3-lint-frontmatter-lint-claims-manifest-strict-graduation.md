@@ -1,7 +1,7 @@
 ---
 id: 4-3-lint-frontmatter-lint-claims-manifest-strict-graduation
 title: "Story 4.3: lint-frontmatter + lint-claims-manifest --strict graduation"
-status: review
+status: approved
 tds:
   primary_specialist: engineer
   story_tags:

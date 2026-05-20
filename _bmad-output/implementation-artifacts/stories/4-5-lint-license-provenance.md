@@ -1,7 +1,7 @@
 ---
 id: 4-5-lint-license-provenance
 title: "Story 4.5: lint-license-provenance"
-status: review
+status: approved
 tds:
   primary_specialist: engineer
   story_tags:
