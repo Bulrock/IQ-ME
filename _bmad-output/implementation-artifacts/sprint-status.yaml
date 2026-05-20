@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-05-20 epic-4: done'
+last_updated: '2026-05-20 epic-4-retrospective: done'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -87,7 +87,7 @@ development_status:
   4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template: done
   4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub: done
   4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment: done
-  epic-4-retrospective: optional
+  epic-4-retrospective: done
   epic-5: backlog
   5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset: backlog
   5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint: backlog
