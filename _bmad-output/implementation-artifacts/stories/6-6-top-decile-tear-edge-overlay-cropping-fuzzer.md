@@ -1,7 +1,7 @@
 ---
 id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
 title: "Story 6.6: Top-decile tear-edge overlay + cropping fuzzer"
-status: rework
+status: review
 tds:
   primary_specialist: frontend
 ---
@@ -175,3 +175,4 @@ frontend (vanilla JS ES modules + CSS custom-properties/BEM + Playwright `@playw
 
 - **Category:** regression / frozen-test drift
 - **Suggested fix:** Add "lighthouse" and "cropping-fuzzer" to the EPIC_1_ACTIVE set in tests/scaffold/ci-matrix.test.mjs (and add chrome-components + tear-edge-overlay to ALL_JOBS + EPIC_1_ACTIVE for completeness, since 6.4/6.6 introduced them as new active jobs). Because ci-matrix.test.mjs is class-A frozen, immediately re-record via `tds integrity record --as=frontend --files=tests/scaffold/ci-matrix.test.mjs --story=6-6-... --reason="reconcile EPIC_1_ACTIVE with lighthouse/cropping-fuzzer/chrome-components/tear-edge CI activations"` BEFORE state-commit (lesson-2026-05-19-001). Re-run `make test` → 0 fail. The same single edit closes 6.4's lighthouse gap too.
+- **Resolved:** rework fix-commit on epic/6 — added `lighthouse`, `cropping-fuzzer`, `chrome-components`, `tear-edge-overlay` to EPIC_1_ACTIVE (+ last two to ALL_JOBS), class-A integrity re-recorded. Full node suite green (974/974, 0 fail). ci-matrix.test.mjs AC-1/2/3 pass 6/6.

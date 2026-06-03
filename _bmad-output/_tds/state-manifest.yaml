@@ -8,9 +8,9 @@ entries:
     recorded_by: frontend
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 89270721f77d428cd0cabe9b8752fd89fc103149c3b76234f07b7d40ac6e0be4
+    sha256: 885de1ba747e9669991e8a3813343a5e9da40afb5cf4d74dfd52769035ee3d1d
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:36:23.863Z
+    recorded_at: 2026-06-03T12:45:00.632Z
     recorded_by: state-commit-autorecord
     story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
   - artefact_class: A
@@ -103,11 +103,11 @@ entries:
     story_id: epic-1-retrospective
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: 295fb664bdb725b6e4ffa86d290c8ef7d8a018d4f0a8d4957e24f1f7c092621e
+    sha256: fa9dce38596c387445fcde96b836da3c78506d6823d89edbc00dd713427182b9
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T16:21:51.188Z
+    recorded_at: 2026-06-03T12:39:40.328Z
     recorded_by: frontend
-    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
+    notes: reconcile EPIC_1_ACTIVE + ALL_JOBS with Story 6.4/6.6 CI activations (lighthouse, cropping-fuzzer, chrome-components, tear-edge-overlay)
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: a9bb6d72aa3e9fed7ea49b8c83dffffcb085c0a9fbe80b8144d14aa893ccac1f
@@ -599,12 +599,11 @@ entries:
     notes: "Story 3-7 test-author phase: 7 unit tests for tools/dev-server.mjs programmatic API + 7 unit tests for src/assessment/test-hook.js gate + delegation surface + 1 Playwright full-slice spec driving the live SPA via window.__IQME_TEST__"
   - artefact_class: A
     file: tests/playwright/full-slice.spec.mjs
-    sha256: 83d416c10c25d19528562b4a44e19d3f566035674868acb797d2c0edfdfd3612
+    sha256: e2f621821ee3d575ccccb82c89ae59dbf224df800a2fe9931030608f94d1464c
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:25:31.508Z
-    recorded_by: test-author
-    story_id: 3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice
-    notes: "Story 3-7 test-author phase: 7 unit tests for tools/dev-server.mjs programmatic API + 7 unit tests for src/assessment/test-hook.js gate + delegation surface + 1 Playwright full-slice spec driving the live SPA via window.__IQME_TEST__"
+    recorded_at: 2026-06-03T12:43:05.535Z
+    recorded_by: frontend
+    notes: "methodology-handoff assertion: toHaveText on <head><title> never matches; use page.toHaveTitle (exposed after bindTriplet getAttribute fix restored the triplet-click navigation)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording.md
     sha256: d09f7b200633cd4b0a451f84b799f9169564ae879d26215e4929907ff4afe0e9
@@ -989,10 +988,10 @@ entries:
     story_id: bridge-6-7-3-restore-carry-forward-lessons
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion.md
-    sha256: 00645cbd8026c005901626e43130fd5812f0f162f9269115b44b120aba49bac2
+    sha256: 8219e7eae6518c4ec5de8eec4acc21ec295d3ef4709d01d414c1c45963fdfb3b
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:27:23.504Z
-    recorded_by: story-add-finding-autorecord
+    recorded_at: 2026-06-03T12:45:00.642Z
+    recorded_by: state-commit-autorecord
     story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
   - artefact_class: A
     file: tests/playwright/co-equal-triplet-computed-style.spec.mjs
@@ -1123,9 +1122,9 @@ entries:
     notes: "Story 6-5 test-author phase: asymmetric-tail-scenes Playwright (AC-9 Test 1-5; bottom/mid/top render + reveal-stage gate + zero-third-party)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-6-top-decile-tear-edge-overlay-cropping-fuzzer.md
-    sha256: cd0aabf8c2e9fe92d508dfbd337096b5c6cd32493a131ad0d5997f7e3e07780b
+    sha256: b75f303f06922330ecddfeb4c7577cac9d2b2c834b90c6b1362c426fae9f0413
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:36:23.885Z
+    recorded_at: 2026-06-03T12:45:00.643Z
     recorded_by: state-commit-autorecord
     story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
   - artefact_class: A
