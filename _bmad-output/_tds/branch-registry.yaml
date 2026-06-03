@@ -836,3 +836,14 @@ branches:
     last_synced_at: 2026-06-03T16:27:40.891Z
     notes: ""
     created_at: 2026-06-03T16:06:19.593Z
+  - branch: story/7-4-full-pl-methodology-corpus-translation-30-pages
+    story_id: 7-4-full-pl-methodology-corpus-translation-30-pages
+    epic_id: null
+    base_branch: epic/7
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-06-03T16:29:43.577Z

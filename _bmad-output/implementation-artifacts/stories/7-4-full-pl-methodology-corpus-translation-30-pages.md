@@ -1,7 +1,7 @@
 ---
 id: 7-4-full-pl-methodology-corpus-translation-30-pages
 title: "Story 7.4: Full PL methodology corpus translation (30 pages)"
-status: ready-for-dev
+status: review
 ---
 
 # Story 7.4: Full PL methodology corpus translation (30 pages)
@@ -24,16 +24,16 @@ so that **the same measurement-equivalence invariant holds for PL and Polish-lan
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: PL file-tree mirror via generator** (AC: 1, 2)
-  - [ ] Run `node tools/scaffold-translation-mirror.mjs --langs=pl --date=<today>`; remove `src/content/methodology/pl/.gitkeep`.
-- [ ] **Task 2: verify parity + build wiring** (AC: 2)
-  - [ ] `lint-translation-parity.mjs` + `make build`; confirm PL pages render `data-translation-status="in-progress"`, `isStale=false`, stub CSS composes.
-- [ ] **Task 3: CODEOWNERS gate note** (AC: 3)
-  - [ ] Confirm `.github/CODEOWNERS` PL entries stay `@TBD-pl-reviewer`; no real handle.
-- [ ] **Task 4: tests** (AC: 4)
-  - [ ] PL mirror parity test (new or parametric extension of the RU test).
-- [ ] **Task 5: regression gate + cross-story fixes** (AC: 5)
-  - [ ] PL budget 30→45 + pin; parity-coverage PL assertion; `make snapshot-update` + commit PL snapshots; `make test`/`make lint`/`make build` green.
+- [x] **Task 1: PL file-tree mirror via generator** (AC: 1, 2)
+  - [x] Run `node tools/scaffold-translation-mirror.mjs --langs=pl --date=<today>`; remove `src/content/methodology/pl/.gitkeep`.
+- [x] **Task 2: verify parity + build wiring** (AC: 2)
+  - [x] `lint-translation-parity.mjs` + `make build`; confirm PL pages render `data-translation-status="in-progress"`, `isStale=false`, stub CSS composes.
+- [x] **Task 3: CODEOWNERS gate note** (AC: 3)
+  - [x] Confirm `.github/CODEOWNERS` PL entries stay `@TBD-pl-reviewer`; no real handle.
+- [x] **Task 4: tests** (AC: 4)
+  - [x] PL mirror parity test (new or parametric extension of the RU test).
+- [x] **Task 5: regression gate + cross-story fixes** (AC: 5)
+  - [x] PL budget 30→45 + pin; parity-coverage PL assertion; `make snapshot-update` + commit PL snapshots; `make test`/`make lint`/`make build` green.
 
 ## Dev Notes
 
@@ -70,4 +70,35 @@ so that **the same measurement-equivalence invariant holds for PL and Polish-lan
 
 ### Completion Notes List
 
+- PL corpus mirror scaffolded (35 pages, EN-placeholder + translationStatus:in-progress + sourceHashEN parity) via tools/scaffold-translation-mirror.mjs --langs=pl. CODEOWNERS left @TBD-pl-reviewer (Gate-9d-gated). Cross-story fixes: methodology-pages-pl budget 30 to 45 + pin; parity-coverage PL assertion; 35 PL snapshots committed (EN+RU byte-identical). make test 1147 pass 0 fail; make lint + make build exit 0.
+
 ### File List
+
+- src/content/methodology/pl/**/*.md (35 PL mirror pages)
+- tests/unit/tools/translation-mirror-pl.test.mjs
+- tests/snapshots/methodology/pl/**/*.html (35 PL snapshots)
+- BUDGETS.json
+- tests/scaffold/cognitive-load-budget.test.mjs
+- tests/scaffold/lint-translation-parity-coverage.test.mjs
+
+## Specialist Self-Review
+
+## Specialist Self-Review — Story 7-4 (PL methodology corpus mirror, infra-now scaffold)
+
+**Decisions made:**
+- PL corpus scaffolded as a parity-aware EN-placeholder mirror via the Story-7.3 generator (`tools/scaffold-translation-mirror.mjs --langs=pl`) — 35 pages, `@TBD-pl-reviewer`, `translationStatus:"in-progress"`, `sourceHashEN`=SHA256(EN body). No human PL prose fabricated (Gate 9d backlog). Structurally identical to RU (7.3); independent failure isolation per Mary preserved (separate locale tree, separate reviewer handle, separate budget).
+- CODEOWNERS left at `@TBD-pl-reviewer` (AC-3) — gated on Gate 9d close.
+- `translation-in-progress-stub` rendering is satisfied by the already-wired Story-5.1 CSS (`[data-translation-status="in-progress"]`) + the always-emitted stale-translation-hatnote EN-source link; full body-suppression deferred as a content-completion refinement (per `build-methodology.mjs` comment).
+
+**Alternatives considered:**
+- Parametrically extending the frozen RU mirror test vs. a standalone PL test — chose a standalone `translation-mirror-pl.test.mjs` to avoid editing 7.3's frozen test (cleaner cross-story boundary).
+
+**Cross-story test impact (Option-A pattern, established in 7.3):** Landing net-new PL content tripped the same absence-asserting frozen tests. Provenance verified self-inflicted (PL content net-new; clean epic/7 was 0-fail). Applied: `methodology-pages-pl` budget 30→45 (mirror EN) + frozen pin; updated `lint-translation-parity-coverage.test.mjs` PL assertion ("PL not yet authored" → "PL: N page(s) found") + header comment; ran `make snapshot-update` and committed 35 new PL methodology snapshots (EN+RU snapshots verified byte-identical). The aggregate-only snapshot failure (design-system AC-6 `make snapshot-update` regenerating mid-run) resolves once PL snapshots are committed — confirmed: 1147 pass / 0 fail after commit. Frozen-test edits accepted via `tds integrity record --as=engineer` (owning stories 1-5, 4-7 done; no unfreeze ceremony).
+
+**Framework gotchas avoided:** same as 7.3 — `sourceHashEN` = body-only SHA256 (no false stale), `lint-reading-level` RU/PL skip (calibration in 7.5a), `lint-frontmatter` optional `translationStatus`.
+
+**Areas of uncertainty:**
+- The aggregate snapshot test's sensitivity to `make snapshot-update` (design-system AC-6) regenerating the real tree mid-run is a latent coupling; committing the locale's snapshots is the reliable resolution. Worth a retro note for whether design-system AC-6 should snapshot-update into a tmpdir.
+
+**Tested edge cases:**
+- `tests/unit/tools/translation-mirror-pl.test.mjs` (frozen): PL path parity, sourceHashEN non-stale, scaffold-marker frontmatter, real build asserting `data-translation-status="in-progress"` + no `data-translation-stale`.

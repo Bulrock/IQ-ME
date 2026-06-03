@@ -39,7 +39,7 @@
   "methodology-pages-pl": {
     "domain": "src/content/methodology/pl/**/*.md",
     "metric": "files",
-    "limit": 30,
-    "rationale": "NFR32 — PL methodology corpus page count (~30/locale). Mirrors EN budget; activates when Epic 7 lands PL content."
+    "limit": 45,
+    "rationale": "NFR32 — PL methodology corpus page count. Mirrors EN budget (45) now that Story 7.4 landed the full PL mirror (~30 corpus + ~5 glossary + tail-scene placeholders + headroom). Story 7.4 raised 30→45."
   }
 }

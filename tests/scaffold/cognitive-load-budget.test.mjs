@@ -24,7 +24,7 @@ const REQUIRED_BUDGETS = {
   "i18n-harness-bytes":     { metric: "bytes", limit: 15360 },
   "methodology-pages-en":   { metric: "files", limit: 45 },
   "methodology-pages-ru":   { metric: "files", limit: 45 },
-  "methodology-pages-pl":   { metric: "files", limit: 30 },
+  "methodology-pages-pl":   { metric: "files", limit: 45 },
 };
 
 function loadBudgets() {
