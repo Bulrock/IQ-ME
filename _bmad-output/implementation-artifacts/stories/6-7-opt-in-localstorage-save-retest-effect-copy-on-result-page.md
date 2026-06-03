@@ -192,3 +192,10 @@ frontend (vanilla ES modules / DOM / CSS / localStorage; node:test; stdlib-only 
 - save-result.test.mjs: zero writes at import; exactly-one `setItem`; key = `iqme:saved-result:`+hashSeed; payload carries artifact + savedAt; hashSeed determinism + distinctness + key-safety; isSaved read-only; idempotent re-save (one key, no remove).
 - result-save-retest.test.mjs: button unsaved default + zero render writes; retest anchor exact href; click → one write + flip to saved; second click no extra write; empty-storage first render.
 - Full suite: 972/974 pass (1 pre-existing ci-matrix), `make lint` exit 0, `integrity verify` 158/0.
+
+## Auditor Findings (round-1)
+
+### [info] The app-modules-bytes cognitive-load budget grew from 30720 (epic start) to 49152 (6-7) across the epic — 30720->34816 (6.2) ->40960 (6.4) ->45056 (6.5) ->49152 (6.7), a ~60% increase. Each individual bump is documented with a per-story rationale (legitimate feature growth: theme.js, tail-scenes, save-result.js), but the cumulative drift was never audited as a whole. The budget is meant to be a friction signal; five consecutive raises in one epic risk turning it into a rubber stamp.
+
+- **Category:** cumulative budget inflation
+- **Suggested bridge:** `Post-epic module-size audit + trim pass on src/assessment/** to recover headroom and re-establish a principled app-modules-bytes ceiling before Epic 7 adds i18n locale-loading weight.`
