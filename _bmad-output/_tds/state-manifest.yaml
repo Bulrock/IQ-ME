@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 7bb4b774dd44fa8048ae9c809f1dd498cc973fdf0f8980f0f7c522b4e20a37ef
+    sha256: d8eee1cfdeab825a4bbc40b69fc1228935007cacde1c4b159f3e8a6f4efdcea1
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:24:08.260Z
+    recorded_at: 2026-06-03T14:25:26.702Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 81958cb4071ab40757db966f46a7ddde4f3f81028f153812b4dcc66279949a85
+    sha256: a6842531ce0929fc2d2b00c361d0023ec98d9c90c217124d64f9a13e33d74fdc
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:23:24.656Z
+    recorded_at: 2026-06-03T14:27:51.425Z
     recorded_by: engineer
-    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    story_id: bridge-7-8-4-de-binary-save-result
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1196,12 +1196,12 @@ entries:
     story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
   - artefact_class: A
     file: tests/unit/save-result.test.mjs
-    sha256: 790a30ec9c6f9163f7de91a2065ef825d431739ea593e1c5d6293b7ba1e4dd39
+    sha256: ed72ab6c5b6ca0ed6dec8656b345dbd7e76047567f43568b86de40585bd04f02
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:11:34.726Z
+    recorded_at: 2026-06-03T14:27:24.170Z
     recorded_by: engineer
     story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
-    notes: "closed unfreeze window: removed unused eslint-disable directive (no-control-regex not enabled in flat config); assertion semantics unchanged, test green"
+    notes: "bridge-7-8-4: post-edit re-record after de-binarizing control bytes (line 130 \\x00/\\x1f escapes); behavior byte-identical, 5/5 green"
   - artefact_class: A
     file: tests/unit/result-save-retest.test.mjs
     sha256: a364d508bee4c514381a19dcf4b1db34d83c1b0b4faf6bebafac5813bdd4296c
@@ -1239,3 +1239,10 @@ entries:
     recorded_by: test-author
     story_id: bridge-7-8-3-replace-legacy-exempt-central
     notes: "bridge-7-8-3 test-author: frozen failing tests for frontmatter-flag exemption"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-7-8-4-de-binary-save-result.md
+    sha256: 53fb2de40d02428b4ce5dc6f1fc6de22799197220d23aad23086bbf98a7c5e66
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T14:28:43.565Z
+    recorded_by: state-commit-autorecord
+    story_id: bridge-7-8-4-de-binary-save-result
