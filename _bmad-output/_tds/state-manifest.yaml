@@ -8,11 +8,11 @@ entries:
     recorded_by: frontend
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: fa05ff337dbe1906a1dbe91e1ee27e847cfeaa119de8de7cca78ea1e03313028
+    sha256: cdcffc850fd2ea074429eb5dc1d58701553daf6a189ca8ba1f2540e03a913329
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:02:22.155Z
-    recorded_by: state-commit-autorecord
-    story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
+    recorded_at: 2026-06-03T13:10:20.608Z
+    recorded_by: frontend
+    story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -1055,10 +1055,10 @@ entries:
     story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-3-mid-session-bail-out-with-discard-continue-choice.md
-    sha256: 41246d0ad249cdbebc54a662dd1852af0fa2f541992076151ccec4bc65d37c07
+    sha256: 58d0f04cddae1a630570998f016cd9e476ebf8e577c3b186642fd235ae1122b3
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:53:37.076Z
-    recorded_by: story-add-finding-autorecord
+    recorded_at: 2026-06-03T13:10:20.646Z
+    recorded_by: frontend
     story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
   - artefact_class: A
     file: tests/unit/item-runner-bail.test.mjs
