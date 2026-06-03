@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 1b5ca1d02a6e1a8d34d73c386219935767d520455c94336f4d19c3fbfd23d3c9
+    sha256: 1e22e7300b31d988e8e62f1729a4237968a33c99c5ae1ad9142c6ef016a55862
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T20:20:29.871Z
+    recorded_at: 2026-06-03T11:39:28.940Z
     recorded_by: frontend
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: a424cd67276bcb743e6701d717f71c636af170033fa4e7cb35b8ba75f9dd6718
+    sha256: 801f209c6672b2cdd31f736f638d84624322e69cce1fe53aa4f2eec6bf690246
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T20:20:08.161Z
+    recorded_at: 2026-06-03T11:38:54.459Z
     recorded_by: frontend
-    story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
+    story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -1121,3 +1121,31 @@ entries:
     recorded_by: test-author
     story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
     notes: "Story 6-5 test-author phase: asymmetric-tail-scenes Playwright (AC-9 Test 1-5; bottom/mid/top render + reveal-stage gate + zero-third-party)"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/6-6-top-decile-tear-edge-overlay-cropping-fuzzer.md
+    sha256: 8a2c43ed257de67f484993e4d650ee2cc5996a336d6529374e6f13ff4e83cafc
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T11:38:54.497Z
+    recorded_by: frontend
+    story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
+  - artefact_class: A
+    file: tests/unit/cropping-fuzzer.test.mjs
+    sha256: 2d36ecf674e631cf6f2882f1f97b33f319ffbe7802fef461e06115de8ebfcdf3
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T11:31:32.132Z
+    recorded_by: test-author
+    story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
+  - artefact_class: A
+    file: tests/playwright/tear-edge-overlay.spec.mjs
+    sha256: 1f72350bfda91aed10f52a8edbf7a6cb0f826d90120048e6aa76f5b4a1ba772c
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T11:31:32.132Z
+    recorded_by: test-author
+    story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
+  - artefact_class: A
+    file: tests/playwright/cropping-fuzzer.spec.mjs
+    sha256: f4c9d6393f0b20313302647a54a3ce53309c7c3e672246cbef08c64b0c440447
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T11:31:32.132Z
+    recorded_by: test-author
+    story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
