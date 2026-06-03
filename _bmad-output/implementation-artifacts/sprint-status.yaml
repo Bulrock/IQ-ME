@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-03 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis: review'
+last_updated: '2026-06-03 7-5b-lint-translation-parity-full-coverage-graduation: ready-for-dev'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -127,7 +127,7 @@ development_status:
   7-3-full-ru-methodology-corpus-translation-30-pages: review
   7-4-full-pl-methodology-corpus-translation-30-pages: review
   7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis: review
-  7-5b-lint-translation-parity-full-coverage-graduation: backlog
+  7-5b-lint-translation-parity-full-coverage-graduation: ready-for-dev
   7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders: backlog
   7-7-ru-pl-crisis-resource-lists-hreflang-declarations: backlog
   7-8-codeowners-branch-protection-config-artifact-for-dual-approval: backlog

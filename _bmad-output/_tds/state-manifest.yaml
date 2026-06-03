@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: ec2c3126382f26a3e1e708af3004c0f37f7e5f4db21a392716c1b6e1eac476c5
+    sha256: 49258b9a8e145d7a529da2c7ae6730842cd8ed4002b45b99a8e42a47bcd407d1
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T16:53:40.043Z
+    recorded_at: 2026-06-03T16:55:06.971Z
     recorded_by: engineer
-    story_id: 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
+    story_id: 7-5b-lint-translation-parity-full-coverage-graduation
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1344,3 +1344,10 @@ entries:
     recorded_by: test-author
     story_id: 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
     notes: story-7-5a frozen failing tests (RU Oborneva + PL Pisarek/Jasnopis calibration + translationStatus gating + i18n caps)
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-5b-lint-translation-parity-full-coverage-graduation.md
+    sha256: 4f0762a60577197d768814babe843983fe55caf517e34682d5c7e06e44111f8a
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T16:55:07.013Z
+    recorded_by: engineer
+    story_id: 7-5b-lint-translation-parity-full-coverage-graduation
