@@ -6,6 +6,7 @@ import { selectSession } from "./item-selection.js";
 import { selectTailScene } from "./tail-scene-router.js";
 import { saveResult, isSaved } from "./save-result.js";
 import { escapeAttr as E, fmt as F } from "./html-util.js";
+import { tailScenesUrl } from "./tail-scenes-url.js";
 
 const CV = "v0.1.0";
 const SS = 16;
@@ -127,16 +128,23 @@ export async function render(rootEl, strings) {
   if (m) { detach(); m = null; }
   rs.resetRevealStage();
   let pool, bands = null, tailScenes = null;
+  const locale = state.getState().locale || "en";
   try {
     const [pr, br, tr] = await Promise.all([
       fetch("/src/items/item-parameters.json"),
       fetch("/src/items/item-difficulty-bands.json"),
-      fetch("/src/content/i18n/en/tail-scenes.json"),
+      fetch(tailScenesUrl(locale)),
     ]);
     if (!pr || !pr.ok) throw new Error("fetch failed");
     pool = await pr.json();
     if (br && br.ok) bands = await br.json();
-    if (tr && tr.ok) tailScenes = await tr.json();
+    if (tr && tr.ok) {
+      tailScenes = await tr.json();
+    } else if (locale !== "en") {
+      // Active-locale tail-scenes missing → fall back to the EN file.
+      const enTr = await fetch(tailScenesUrl("en"));
+      if (enTr && enTr.ok) tailScenes = await enTr.json();
+    }
   } catch { renderErrorFallback(rootEl, strings); return; }
   const score = scoreSession({
     responses: state.getState().responses.map((x) => x.response),

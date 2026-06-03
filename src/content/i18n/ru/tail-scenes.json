@@ -1,0 +1,28 @@
+{
+  "_doc": "Story 7.6 (FR19) — RU tail-scene EN-placeholder scaffold. Per the Epic-7 infra-now decision the RU clinical-register copy is authored by the named Gate-9c reviewer-of-record, NOT translated from EN by AI or maintainer. translationStatus stays in-progress and clinicalRegisterReviewed stays false until Gate 9c closes and the reviewer overwrites copy + flips both flags. Structure mirrors en/tail-scenes.json so the result page renders parity-aware placeholders.",
+  "_meta": {
+    "locale": "ru",
+    "translationStatus": "in-progress",
+    "reviewer": "@TBD-ru-clinical-register",
+    "reviewerHandle": "@TBD-ru-clinical-register"
+  },
+  "locale": "ru",
+  "reviewer": "@TBD-ru-clinical-register",
+  "lastReviewed": "pending",
+  "clinicalRegisterReviewed": false,
+  "scenes": {
+    "bottom-decile": {
+      "heading": "Your result",
+      "copy": "This result is one estimate. It does not define you. The numbers below are entry points into the methodology, not a verdict. Resources are listed if you want them.",
+      "silentCompanionLine": "The methodology pages and resources are here when you want them."
+    },
+    "mid-band": {
+      "heading": "Your result",
+      "copy": "This estimate sits within the middle range of the screener's norming sample. The methodology pages explain what the percentile and the IQ-scale value mean and what this measure does not capture."
+    },
+    "top-decile": {
+      "heading": "Your result",
+      "copy": "This estimate sits in the top decile of the screener's norming sample. The screener is not a credential. The number is a screening output, not a placement test or employment qualification."
+    }
+  }
+}

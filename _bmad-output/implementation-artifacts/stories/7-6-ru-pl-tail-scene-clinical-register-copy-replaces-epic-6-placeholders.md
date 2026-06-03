@@ -1,7 +1,7 @@
 ---
 id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
 title: "Story 7.6: RU + PL tail-scene clinical-register copy (replaces Epic 6 placeholders)"
-status: ready-for-dev
+status: review
 ---
 
 # Story 7.6: RU + PL tail-scene clinical-register copy (replaces Epic 6 placeholders)
@@ -24,16 +24,16 @@ so that **the harm-mitigation surface is real for the primary underserved audien
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: RU + PL tail-scenes.json placeholders** (AC: 1)
-  - [ ] Mirror en/tail-scenes.json structure; EN-placeholder copy; `_meta` in-progress; reviewer `@TBD-{ru,pl}-clinical-register`; `clinicalRegisterReviewed: false`.
-- [ ] **Task 2: per-locale loading in result.js** (AC: 2)
-  - [ ] Fetch `/src/content/i18n/${locale}/tail-scenes.json` with EN fallback; EN happy-path unchanged.
-- [ ] **Task 3: launch-readiness sign-off stubs** (AC: 4)
-  - [ ] `docs/launch-readiness/{ru,pl}-translator-signoff.md` enumerating all 7 deliverables as NOT-YET-SIGNED-OFF.
-- [ ] **Task 4: tests** (AC: 5)
-  - [ ] tail-scenes parity + clinicalRegisterReviewed false + _meta; result.js active-locale fetch + EN fallback; sign-off docs enumerate 7 deliverables.
-- [ ] **Task 5: regression gate** (AC: 5)
-  - [ ] `make test`/`make lint`/`make build` green; EN tail-scene path unaffected.
+- [x] **Task 1: RU + PL tail-scenes.json placeholders** (AC: 1)
+  - [x] Mirror en/tail-scenes.json structure; EN-placeholder copy; `_meta` in-progress; reviewer `@TBD-{ru,pl}-clinical-register`; `clinicalRegisterReviewed: false`.
+- [x] **Task 2: per-locale loading in result.js** (AC: 2)
+  - [x] Fetch `/src/content/i18n/${locale}/tail-scenes.json` with EN fallback; EN happy-path unchanged.
+- [x] **Task 3: launch-readiness sign-off stubs** (AC: 4)
+  - [x] `docs/launch-readiness/{ru,pl}-translator-signoff.md` enumerating all 7 deliverables as NOT-YET-SIGNED-OFF.
+- [x] **Task 4: tests** (AC: 5)
+  - [x] tail-scenes parity + clinicalRegisterReviewed false + _meta; result.js active-locale fetch + EN fallback; sign-off docs enumerate 7 deliverables.
+- [x] **Task 5: regression gate** (AC: 5)
+  - [x] `make test`/`make lint`/`make build` green; EN tail-scene path unaffected.
 
 ## Dev Notes
 
@@ -70,4 +70,37 @@ so that **the harm-mitigation surface is real for the primary underserved audien
 
 ### Completion Notes List
 
+- RU/PL tail-scenes EN-placeholder scaffolds (clinicalRegisterReviewed:false, _meta in-progress, @TBD-{ru,pl}-clinical-register); per-locale loading via pure tailScenesUrl helper + result.js active-locale fetch w/ EN fallback; sign-off doc stubs enumerate 7 deliverables (block-launch). Test-review cycle-1 closed the AC-2 dead-string gap (behavioral helper + fetch-coupling). app-modules-bytes 57344→59392. 1185 tests pass, lint+build exit 0.
+
 ### File List
+
+- src/assessment/tail-scenes-url.js
+- src/content/i18n/ru/tail-scenes.json
+- src/content/i18n/pl/tail-scenes.json
+- src/assessment/result.js
+- docs/launch-readiness/ru-translator-signoff.md
+- docs/launch-readiness/pl-translator-signoff.md
+- tests/unit/tail-scenes-i18n.test.mjs
+- BUDGETS.json
+
+## Specialist Self-Review
+
+## Specialist Self-Review — Story 7-6 (RU/PL tail-scene clinical-register copy, infra-now)
+
+**Decisions made:**
+- Tail-scene copy is the load-bearing harm-mitigation HUMAN clinical-register content the AC forbids AI/maintainer from authoring (Gates 9c/9d, backlog). So 7-6 ships **infra + EN-placeholder scaffolds only**: `src/content/i18n/{ru,pl}/tail-scenes.json` mirror the EN structure, `clinicalRegisterReviewed: false`, `_meta.translationStatus: "in-progress"`, `reviewer: @TBD-{ru,pl}-clinical-register`, EN-placeholder copy. No RU/PL clinical prose fabricated.
+- Per-locale loading infra: factored the URL into a pure, unit-testable helper `src/assessment/tail-scenes-url.js` (`tailScenesUrl(locale)`); `result.js` fetches `tailScenesUrl(state.getState().locale || "en")` and falls back to `tailScenesUrl("en")` when the active-locale file is missing/not-ok. EN happy-path unchanged.
+- Launch-readiness sign-off stubs `docs/launch-readiness/{ru,pl}-translator-signoff.md` enumerate all 7 deliverables (tail-scene bottom/mid/top, silent-companion-line, locale-switch-blocker-hint, crisis-resources, retest-effect), each NOT-YET-SIGNED-OFF, stating un-signed deliverables block Epic 10 launch. CODEOWNERS unchanged (Gate-gated).
+
+**Test-review interaction (1 revision cycle):** The independent reviewer flagged that the original AC-2 verification was 4 independent static substring checks — a broken loader (dead interpolated string + still-hardcoded EN fetch) would pass green. Addressed in cycle 1 by making the test require a pure `tailScenesUrl(locale)` helper (verified BEHAVIORALLY — ru→ru path, pl→pl, en→en) AND that result.js fetches tail-scenes THROUGH `fetch(tailScenesUrl(...))` (defeats the dead-string attack). Implemented the helper accordingly.
+
+**Cross-story test impact:** `app-modules-bytes` nudged 57389/57344 from the result.js + helper additions (the spec anticipated this). Bumped 57344→59392 (56→58 KB) with documented rationale + the frozen pin (`cognitive-load-budget.test.mjs`), recorded as engineer.
+
+**Framework gotchas avoided:**
+- A literal EN-path fetch (even as a template literal with backticks) would trip the test's "no hardcoded EN fetch" matcher; routing BOTH the active and fallback fetch through `tailScenesUrl(...)` keeps it clean and behaviorally correct.
+- `tailScenesUrl` is pure (no browser coupling) so it imports cleanly in node:test — the behavioral guarantee the static-source approach lacked.
+
+**Areas of uncertainty:**
+- A transient aggregate-only failure of `lint-csp-source-coverage` appeared once then cleared (2 consecutive clean full runs after; csp lint passes isolated + directly). Provenance: NOT 7-6 (no CSP-affecting change) — likely the same class of concurrent-`make`-against-shared-tree flake as the snapshot one fixed in 7.5b. Flagged for the auditor / a possible retro item (audit other coverage tests that spawn make/lint against the real tree under aggregate concurrency).
+
+**Tested edge cases:** `tests/unit/tail-scenes-i18n.test.mjs` (frozen) — RU/PL parity (scene keys derived from EN) + clinicalRegisterReviewed:false + _meta in-progress + reviewer handle; `tailScenesUrl` behavioral mapping; result.js fetches via helper + EN fallback; sign-off docs enumerate 7 deliverables + blocks-launch marker. Full suite 1185 pass / 0 fail (2 consecutive runs); make lint + build exit 0.

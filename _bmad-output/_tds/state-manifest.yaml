@@ -2,15 +2,15 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 4611ac8b5c2fda97eabf68f933ee73513738cecd635d122323eadc5bdd1810e1
+    sha256: fb73d4d7a5a01c1e6a0efac7ac2e7db7bc274807e27156431458ac5fb0102e05
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T17:05:26.726Z
+    recorded_at: 2026-06-03T17:07:55.348Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 57498c70b1de305d2eb52628004705d1451cb1847505c541531621600237e298
+    sha256: 733fa2da0d462e43f0a25dacef4ef50d538e13e61ab06b56e991439496cb3523
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T17:07:54.842Z
+    recorded_at: 2026-06-03T19:30:39.711Z
     recorded_by: engineer
     story_id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
   - artefact_class: A
@@ -93,12 +93,12 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: e34f07852af028cff512608220db019b0c7ad55b26f682d47a8b62072d4ce861
+    sha256: 0c620e75a35a851b64451f4c318c18bf85c1e71492ddf9e8e03facf2d8b3ede8
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T16:34:07.007Z
+    recorded_at: 2026-06-03T19:30:03.366Z
     recorded_by: engineer
-    story_id: 7-4-full-pl-methodology-corpus-translation-30-pages
-    notes: "story-7-4: PL budget pin 30→45 + parity-coverage PL assertion"
+    story_id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
+    notes: "story-7-6: app-modules-bytes pin 57344→59392 (tail-scenes-url.js + result.js locale fetch)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
     sha256: 03af01b6c89b47714c6fb83be9b0d3d9aaa6eeba107c2bba32d9ecc508bf63a4
@@ -1361,8 +1361,16 @@ entries:
     notes: "story-7-5b frozen failing tests (full-coverage parity: missing/orphan/stale + parity-green summary)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders.md
-    sha256: 694a3183515f6cf2319cc9b68a15bec56a024741f8c0c9b9c14530a78fabc094
+    sha256: 8541bf0aa762761b11a23039dd6f53c7d95bea84e36db324347a7df07f070db3
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T17:07:54.887Z
+    recorded_at: 2026-06-03T19:30:39.751Z
     recorded_by: engineer
     story_id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
+  - artefact_class: A
+    file: tests/unit/tail-scenes-i18n.test.mjs
+    sha256: da44027bb351626e8617eb7cc4a3f787bc791db1e69cac3642e9485db3976d7e
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T19:26:54.160Z
+    recorded_by: test-author
+    story_id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
+    notes: "story-7-6 tests revised (cycle 1): behavioral tailScenesUrl helper + fetch-coupling closes the AC-2 dead-string gap"
