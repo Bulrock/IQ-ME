@@ -989,10 +989,10 @@ entries:
     story_id: bridge-6-7-3-restore-carry-forward-lessons
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion.md
-    sha256: 038aa4a835717918981e41f547c52d815a99de7bc86aee25a2eac566b820a4a5
+    sha256: 00645cbd8026c005901626e43130fd5812f0f162f9269115b44b120aba49bac2
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T16:03:50.300Z
-    recorded_by: frontend
+    recorded_at: 2026-06-03T12:27:23.504Z
+    recorded_by: story-add-finding-autorecord
     story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
   - artefact_class: A
     file: tests/playwright/co-equal-triplet-computed-style.spec.mjs
@@ -1100,10 +1100,10 @@ entries:
     story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list.md
-    sha256: c155d3d41f7c0a5f7c9d674c00a58a34987fbc68ca9ec310a6c27fe2bf63fd34
+    sha256: 51fba0a14aea6925bd012d1389925f8e92ec03a0f694c729aa3436c056f1b073
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T20:20:08.199Z
-    recorded_by: frontend
+    recorded_at: 2026-06-03T12:27:23.504Z
+    recorded_by: story-add-finding-autorecord
     story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
   - artefact_class: A
     file: tests/unit/tail-scene-router.test.mjs
@@ -1123,10 +1123,10 @@ entries:
     notes: "Story 6-5 test-author phase: asymmetric-tail-scenes Playwright (AC-9 Test 1-5; bottom/mid/top render + reveal-stage gate + zero-third-party)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-6-top-decile-tear-edge-overlay-cropping-fuzzer.md
-    sha256: 8a2c43ed257de67f484993e4d650ee2cc5996a336d6529374e6f13ff4e83cafc
+    sha256: 603c0c93cab156cc3b25f18468c64f85a8c9ef9b8b01570af5d253fafebf61ab
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T11:38:54.497Z
-    recorded_by: frontend
+    recorded_at: 2026-06-03T12:27:23.504Z
+    recorded_by: story-add-finding-autorecord
     story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
   - artefact_class: A
     file: tests/unit/cropping-fuzzer.test.mjs
@@ -1151,10 +1151,10 @@ entries:
     story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page.md
-    sha256: 5c8fccb8f96d0de2da97ce8b7c4c4ea0ab32d1bb44ecf50ecbcf28291e4dd0b0
+    sha256: 36464246a169b74c8f6c16c512f4bd4c4e7ef676aa8f8fad5a8fca58d199913e
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:19:01.732Z
-    recorded_by: state-commit-autorecord
+    recorded_at: 2026-06-03T12:27:23.504Z
+    recorded_by: story-add-finding-autorecord
     story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
   - artefact_class: A
     file: tests/unit/save-result.test.mjs
