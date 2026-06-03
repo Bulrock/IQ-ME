@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: acd670de6018b72484ef93a1fd450680099ea3c14ad850c0be072cfea907be34
+    sha256: 7013ddb70eec628352e262f99a52a670e362ff3e1866177784c1e6599681f38c
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:00:10.456Z
+    recorded_at: 2026-06-03T14:06:31.275Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: b21601db60171fb5c354fcfa8a8cd1a14c85a15e21d850b89525ec2b870d6458
+    sha256: 053fa7ae11f83efb2e55724a59585db5e45eb94b147acde5ed625882b72837a2
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:59:10.245Z
+    recorded_at: 2026-06-03T14:12:36.521Z
     recorded_by: engineer
-    story_id: bridge-7-8-1-changelog-discipline-for-sibling
+    story_id: bridge-7-8-2-tighten-unfreeze-windows-yaml
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -1178,3 +1178,10 @@ entries:
     recorded_at: 2026-06-03T14:00:06.008Z
     recorded_by: state-commit-autorecord
     story_id: bridge-7-8-1-changelog-discipline-for-sibling
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-7-8-2-tighten-unfreeze-windows-yaml.md
+    sha256: 6be771352cdea6a625358ac294316e11fbc316b0735c6e38eb31e55aff8d737c
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T14:13:24.804Z
+    recorded_by: state-commit-autorecord
+    story_id: bridge-7-8-2-tighten-unfreeze-windows-yaml
