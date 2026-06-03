@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Methodology claims — engine and corpus coupling — IQ-ME methodology v0.1.0</title>
+<meta name="iqme-title" content="Methodology claims — engine and corpus coupling">
+<meta name="iqme-version" content="v0.1.0">
+<meta name="iqme-doi" content="">
+<meta name="iqme-last-reviewed" content="2026-06-03">
+<meta name="iqme-reviewer" content="TBD">
+<meta name="iqme-reviewer-handle" content="@TBD-ru-reviewer">
+<meta name="iqme-lang" content="ru">
+<meta name="iqme-url" content="/methodology/v0.1.0/ru/provenance/methodology-claims/">
+<link rel="stylesheet" href="/src/css/primitives.css">
+<link rel="stylesheet" href="/src/css/semantic.css">
+<link rel="stylesheet" href="/src/css/components/masthead.css">
+<link rel="stylesheet" href="/src/css/components/cite-this-page-widget.css">
+<link rel="stylesheet" href="/src/css/components/stale-translation-hatnote.css">
+<script type="module" src="/src/assessment/cite-this-page.js" defer></script>
+</head>
+<body data-lang="ru" data-translation-status="in-progress">
+<header class="methodology-masthead">
+<h1 class="methodology-masthead__title">Methodology claims — engine and corpus coupling</h1>
+<p class="methodology-masthead__version">v0.1.0</p>
+<p class="methodology-masthead__doi" data-doi-pending>DOI: pending v1.0.0 release</p>
+<p class="methodology-masthead__last-reviewed">Last reviewed: <time datetime="2026-06-03">2026-06-03</time></p>
+<p class="methodology-masthead__reviewer">Reviewer: TBD (@TBD-ru-reviewer)</p>
+</header>
+<aside class="stale-translation-hatnote" role="note">
+<p>This page may be out of date relative to its English source. <a href="/methodology/v0.1.0/en/../ru/provenance/methodology-claims/">View source EN page</a>.</p>
+</aside>
+<main>
+<p>A scoring engine is a set of design choices about how to turn responses into a score. A methodology corpus is a set of statements about what those design choices are. If the two drift, the public record about the screener stops being honest.</p><p>IQ-ME enforces the coupling mechanically. The file <code>METHODOLOGY_CLAIMS.json</code> at the repository root lists every load-bearing design choice in the engine. Each claim names the engine source file that implements it, the methodology page that documents it, and the value or formula in question.</p><p>On every CI run, the project's lint-claims-manifest tool walks the manifest. For each claim, it verifies the methodology page exists and that the page's frontmatter declares the matching claim in its <code>asserts:</code> list. If a claim's engine source changes without the methodology page tracking it, CI fails the pull request.</p><p>The current manifest covers nine claims. They span the IRT 2PL model formula, the EAP estimation method, the quadrature points and theta range, the prior on the latent ability scale, the percentile-from-normal-CDF transform, the IQ-scale mean and standard deviation, the root-sum-square uncertainty combination, and the golden-vector parity tolerance against the R reference implementation.</p><p>A reader who wants to audit the screener can read the manifest, follow each claim's <code>methodology-path</code> link to read what the project says about that choice, and then read the engine source at the <code>engine-source</code> path to verify the code matches. The auditable surface is small enough — about 250 lines of pure-function scoring code — that the audit can be done in under ten minutes by anyone with a working <code>node</code> installation.</p><p>Innovation pillar #2 of the project is methodology-as-coupled-artefact. The mechanical CI enforcement of <code>METHODOLOGY_CLAIMS.json</code> is the technical surface that makes the pillar real. Without the manifest, the coupling would be a documentation aspiration; with it, the coupling is a CI gate.</p>
+</main>
+<aside class="cite-this-page-affordance"><div data-cite-widget></div></aside>
+</body>
+</html>

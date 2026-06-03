@@ -1,7 +1,7 @@
 ---
 id: 7-3-full-ru-methodology-corpus-translation-30-pages
 title: "Story 7.3: Full RU methodology corpus translation (30 pages)"
-status: ready-for-dev
+status: review
 ---
 
 # Story 7.3: Full RU methodology corpus translation (30 pages)
@@ -24,17 +24,17 @@ so that **measurement equivalence as a build-time invariant (Innovation #7) hold
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: RU file-tree mirror generator + scaffold** (AC: 1, 2)
-  - [ ] Author an idempotent generator (`tools/scaffold-translation-mirror.mjs` or inline) that, for each EN page, writes the RU counterpart with adjusted frontmatter (`reviewer: "TBD"`, `reviewerHandle: "@TBD-ru-reviewer"`, `lastReviewed`, `sourceHashEN = SHA256(EN body)`, `translationStatus: "in-progress"`, identical `slug`) and the EN body as placeholder content.
-  - [ ] Remove `src/content/methodology/ru/.gitkeep`; commit the generated RU tree.
-- [ ] **Task 2: verify parity + build wiring** (AC: 2)
-  - [ ] Run `tools/lint-translation-parity.mjs` and `make build`; confirm RU pages render `data-translation-status="in-progress"`, `isStale=false`.
-- [ ] **Task 3: CODEOWNERS gate note (no mutation)** (AC: 3)
-  - [ ] Confirm `.github/CODEOWNERS` RU entries remain `@TBD-ru-reviewer`; add no real handle. Record the Gate-9c-close deliverable in Dev Notes.
-- [ ] **Task 4: tests** (AC: 4)
-  - [ ] `tests/unit/tools/translation-mirror-ru.test.mjs` — parity + sourceHashEN match + translationStatus + build-attr assertions. Wire a `pr-checks.yml` job if not covered by an existing node-test job.
-- [ ] **Task 5: regression gate** (AC: 5)
-  - [ ] `make test` / `make lint` / `make build` green + deterministic; reading-level gate green for RU (document the chosen approach).
+- [x] **Task 1: RU file-tree mirror generator + scaffold** (AC: 1, 2)
+  - [x] Author an idempotent generator (`tools/scaffold-translation-mirror.mjs` or inline) that, for each EN page, writes the RU counterpart with adjusted frontmatter (`reviewer: "TBD"`, `reviewerHandle: "@TBD-ru-reviewer"`, `lastReviewed`, `sourceHashEN = SHA256(EN body)`, `translationStatus: "in-progress"`, identical `slug`) and the EN body as placeholder content.
+  - [x] Remove `src/content/methodology/ru/.gitkeep`; commit the generated RU tree.
+- [x] **Task 2: verify parity + build wiring** (AC: 2)
+  - [x] Run `tools/lint-translation-parity.mjs` and `make build`; confirm RU pages render `data-translation-status="in-progress"`, `isStale=false`.
+- [x] **Task 3: CODEOWNERS gate note (no mutation)** (AC: 3)
+  - [x] Confirm `.github/CODEOWNERS` RU entries remain `@TBD-ru-reviewer`; add no real handle. Record the Gate-9c-close deliverable in Dev Notes.
+- [x] **Task 4: tests** (AC: 4)
+  - [x] `tests/unit/tools/translation-mirror-ru.test.mjs` — parity + sourceHashEN match + translationStatus + build-attr assertions. Wire a `pr-checks.yml` job if not covered by an existing node-test job.
+- [x] **Task 5: regression gate** (AC: 5)
+  - [x] `make test` / `make lint` / `make build` green + deterministic; reading-level gate green for RU (document the chosen approach).
 
 ## Dev Notes
 
@@ -73,4 +73,46 @@ so that **measurement equivalence as a build-time invariant (Innovation #7) hold
 
 ### Completion Notes List
 
+- RU corpus mirror scaffolded (35 pages, EN-placeholder bodies + translationStatus:in-progress + sourceHashEN parity); idempotent generator tools/scaffold-translation-mirror.mjs (reused by 7.4). CODEOWNERS left @TBD-ru-reviewer (Gate-9c-gated). Cross-story fixes (Option A): methodology-pages-ru budget 30 to 45 + pin; parity-coverage assertion post-RU; 35 RU snapshots committed (EN byte-identical). make test 1069 pass 0 fail 1 skip; make lint + make build exit 0.
+
 ### File List
+
+- tools/scaffold-translation-mirror.mjs
+- BUDGETS.json
+- tests/unit/tools/translation-mirror-ru.test.mjs
+- tests/scaffold/cognitive-load-budget.test.mjs
+- tests/scaffold/lint-translation-parity-coverage.test.mjs
+- src/content/methodology/ru/**/*.md (35 RU mirror pages)
+- tests/snapshots/methodology/ru/**/*.html (35 RU snapshots)
+
+## Specialist Self-Review
+
+## Specialist Self-Review — Story 7-3 (RU methodology corpus mirror, infra-now scaffold)
+
+**Decisions made:**
+- Implemented the RU corpus as a parity-aware EN-placeholder scaffold via a committed idempotent generator (`tools/scaffold-translation-mirror.mjs`), NOT machine translation — honoring the Epic-7 infra-now decision (human RU clinical-register prose is gated on Gate 9c, still backlog). Each RU page mirrors its EN counterpart path-for-path with frontmatter `reviewer:"TBD"`, `reviewerHandle:"@TBD-ru-reviewer"`, `translationStatus:"in-progress"`, and `sourceHashEN`=SHA256(EN body) computed byte-identically to `build-methodology.mjs` `enSourceHashFor`. Bodies are the EN source verbatim (placeholder) so block-level parity holds; the Gate-9c reviewer later overwrites bodies + flips status with zero structural churn.
+- The generator is parameterized by `--langs` so Story 7.4 (PL) reuses it unchanged.
+- `.github/CODEOWNERS` deliberately left at `@TBD-ru-reviewer` (AC-3) — the real-handle replacement is gated on Gate 9c close per the CODEOWNERS un-resolvable-handle contract; no handle invented.
+
+**Alternatives considered:**
+- Machine-translating the corpus to Russian — rejected: violates the AC ("not translated from EN by AI or maintainer") and the infra-now decision.
+- Committing only a subset of RU pages — rejected: full file/key parity is the build-time measurement-equivalence invariant (Innovation #7); a partial mirror would fail orphan/parity checks.
+
+**Cross-story test impact (the load-bearing part of this story):** Landing net-new RU content broke 8 tests frozen by earlier epics — all self-inflicted (provenance verified by baseline `git stash` run: clean epic/7 = 0 failures; RU content present = the 8). Per a user decision (Option A: "7-3 owns the fixes"), 7-3:
+- bumped `methodology-pages-ru` budget 30→45 in BUDGETS.json to mirror the EN budget (45) — RU corpus is 35 pages (30 + glossary sub-pages); updated the frozen pin (`tests/scaffold/cognitive-load-budget.test.mjs:26`).
+- updated Story-4.7's `lint-translation-parity-coverage.test.mjs` in-repo assertion: the "no non-EN content yet" WARN no longer fires (RU landed); now asserts the EN source-of-truth line + "RU: N page(s) found" + PL-still-deferred.
+- ran `make snapshot-update` and committed the 35 new RU methodology snapshots (drift baselines); EN snapshots verified byte-identical (no diff). This also resolves the `design-system.test.mjs` AC-6 `make snapshot-update`-idempotency polluting the tree mid-aggregate (the originally-confusing aggregate-only failure).
+- The frozen-test edits required NO `unfreeze-tests` ceremony: the owning stories (1-5, 4-7) are done, so `tds integrity record --as=engineer` was accepted directly (no active frozen window).
+
+**Framework gotchas avoided:**
+- `sourceHashEN` is SHA256 of the page BODY only (after the closing `---`, `\n`-joined) — matched `build-methodology.mjs:218-227` exactly so `isStale=false` at landing (no false stale-hatnote).
+- `lint-reading-level` skips RU/PL with a WARN (calibration deferred to Story 7.5a) — EN-placeholder RU bodies don't trip it.
+- `lint-frontmatter` tolerates the optional `translationStatus` key (enum complete|in-progress; EN forbidden from in-progress) — RU pages are valid.
+
+**Areas of uncertainty:**
+- Whether committing 35 RU HTML snapshots is desired bloat vs. acceptable parity discipline — chose parity (every EN page already has a committed snapshot; consistency + clean-tree on snapshot-update). Auditor may weigh in.
+- The parity-coverage test assertion update arguably overlaps Story 7.5b's full-coverage graduation; I limited the change to the in-repo content assertion (not the lint logic), leaving the orphan/stale enforcement graduation to 7.5b.
+
+**Tested edge cases:**
+- `tests/unit/tools/translation-mirror-ru.test.mjs` (frozen, test-author): path parity (no missing/orphans), sourceHashEN non-stale, scaffold-marker frontmatter, and a real `build-methodology.mjs` invocation asserting `data-translation-status="in-progress"` + absence of `data-translation-stale="true"`.
+- Generator idempotency: re-run produces byte-identical output (EN-source-driven).

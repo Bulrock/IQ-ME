@@ -33,8 +33,8 @@
   "methodology-pages-ru": {
     "domain": "src/content/methodology/ru/**/*.md",
     "metric": "files",
-    "limit": 30,
-    "rationale": "NFR32 — RU methodology corpus page count (~30/locale). Mirrors EN budget; activates when Epic 7 lands RU content."
+    "limit": 45,
+    "rationale": "NFR32 — RU methodology corpus page count. Mirrors EN budget (45) now that Story 7.3 landed the full RU mirror (~30 corpus + ~5 glossary + tail-scene placeholders + headroom). Story 7.3 raised 30→45."
   },
   "methodology-pages-pl": {
     "domain": "src/content/methodology/pl/**/*.md",

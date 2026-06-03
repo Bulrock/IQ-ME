@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-03 7-3-full-ru-methodology-corpus-translation-30-pages: ready-for-dev'
+last_updated: '2026-06-03 7-3-full-ru-methodology-corpus-translation-30-pages: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -124,7 +124,7 @@ development_status:
   epic-7: in-progress
   7-1-i18n-harness-locale-loading-language-switcher: review
   7-2-locale-switch-blocker-hint-fr8-enforcement: review
-  7-3-full-ru-methodology-corpus-translation-30-pages: ready-for-dev
+  7-3-full-ru-methodology-corpus-translation-30-pages: review
   7-4-full-pl-methodology-corpus-translation-30-pages: backlog
   7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis: backlog
   7-5b-lint-translation-parity-full-coverage-graduation: backlog

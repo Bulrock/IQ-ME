@@ -2,15 +2,15 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 1b5d363b4ce8731435fdbe2e68713709d1b5aa295f9952f872ab9fb86fe4043c
+    sha256: 3213ea3ebcd9f7545afdb2e8f096eaf104670640680bad4fbf1df4d0c609fa96
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T15:48:54.798Z
+    recorded_at: 2026-06-03T16:06:19.619Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: ef00fa78cd4c3a8858fe4f68a480e8fdce7be671c9d104bc6e4eef540cf114af
+    sha256: ea6171bb42696774b45714010d62cf83272bd5a5ff80f6dd8cbe0c8a5add987f
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T16:05:31.914Z
+    recorded_at: 2026-06-03T16:27:19.489Z
     recorded_by: engineer
     story_id: 7-3-full-ru-methodology-corpus-translation-30-pages
   - artefact_class: A
@@ -93,12 +93,12 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: 60cbb03d73ef2ed8fb583b402680afef48c3d227cc8de4d5159ba438e10fb762
+    sha256: f542207bdc8b7fd640e300a21490afedbeb5f6696cf7213061da214591fdcd36
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T15:47:57.702Z
+    recorded_at: 2026-06-03T16:24:37.241Z
     recorded_by: engineer
-    story_id: 7-2-locale-switch-blocker-hint-fr8-enforcement
-    notes: "story-7.2: app-modules-bytes 55296→57344 (locale-switch-blocker-hint.js)"
+    story_id: 7-3-full-ru-methodology-corpus-translation-30-pages
+    notes: "story-7-3: budget pin 30→45 + parity-coverage post-RU-content assertions"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
     sha256: 03af01b6c89b47714c6fb83be9b0d3d9aaa6eeba107c2bba32d9ecc508bf63a4
@@ -830,12 +830,12 @@ entries:
     notes: "Story 4-7 test-author Phase A: failing tests for lint-translation-parity stub + hatnote builder extensions"
   - artefact_class: A
     file: tests/scaffold/lint-translation-parity-coverage.test.mjs
-    sha256: 5a31d6e4223e00a2547c487bb6e0dc50c78ee2a2bfdb7b296e74efc5e71fe4a4
+    sha256: ffec2833a8ce23e6001111cda787c7492aec136f62ef050ab49f804780d4cf69
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:45:13.436Z
-    recorded_by: test-author
-    story_id: 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
-    notes: "Story 4-7 test-author Phase A: failing tests for lint-translation-parity stub + hatnote builder extensions"
+    recorded_at: 2026-06-03T16:24:37.241Z
+    recorded_by: engineer
+    story_id: 7-3-full-ru-methodology-corpus-translation-30-pages
+    notes: "story-7-3: budget pin 30→45 + parity-coverage post-RU-content assertions"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment.md
     sha256: 7642a7bcb363d1969db9f6dbb3ff2b4e0ce6f17a446a2c87d264fb9178f00312
@@ -1301,8 +1301,16 @@ entries:
     notes: story-7-2 frozen failing tests (locale-switch-blocker-hint)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-3-full-ru-methodology-corpus-translation-30-pages.md
-    sha256: 2ea39aa4ac4d9cb8c768ee6d3d435b69966fb995f19314a66a7233a354dc833e
+    sha256: 9ffdc5b8d7057405a88ccc792e8f641924a88e30f74b8286c1653f8f6e1521f2
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T16:05:31.955Z
+    recorded_at: 2026-06-03T16:27:19.529Z
     recorded_by: engineer
     story_id: 7-3-full-ru-methodology-corpus-translation-30-pages
+  - artefact_class: A
+    file: tests/unit/tools/translation-mirror-ru.test.mjs
+    sha256: 133c9cc7d01c033094d6ab999e0d4e90d7dede2e3f5a42e3db0a9a47644d82d5
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T16:10:05.987Z
+    recorded_by: test-author
+    story_id: 7-3-full-ru-methodology-corpus-translation-30-pages
+    notes: story-7-3 frozen failing tests (RU methodology mirror parity AC-4)
