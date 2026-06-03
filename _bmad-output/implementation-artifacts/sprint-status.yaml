@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-03 bridge-7-8: done'
+last_updated: '2026-06-03 7-1-i18n-harness-locale-loading-language-switcher: ready-for-dev'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -121,8 +121,8 @@ development_status:
   bridge-6-7-1-extend-state-commit-sweep: done           # Extend state-commit sweep auto-record to spec-md touched by add-finding
   bridge-6-7-2-tds-deliver-mode-2: done           # tds deliver Mode 2 idempotent recovery on re-run for partial OH-07 finalize
   bridge-6-7-3-restore-carry-forward-lessons: done           # Restore Carry-forward-lessons injection in story-create plus pre-commit warning on class-A edits
-  epic-7: backlog
-  7-1-i18n-harness-locale-loading-language-switcher: backlog
+  epic-7: in-progress
+  7-1-i18n-harness-locale-loading-language-switcher: ready-for-dev
   7-2-locale-switch-blocker-hint-fr8-enforcement: backlog
   7-3-full-ru-methodology-corpus-translation-30-pages: backlog
   7-4-full-pl-methodology-corpus-translation-30-pages: backlog

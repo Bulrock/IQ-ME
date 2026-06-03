@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 68575af3b2f92425491d5e001d2547870e739d2b45e55dc668c21d3f0f5cfaa1
+    sha256: 2320463d5a898f356a5bc38c048d5dac1ef213a959e77a29f68ad59e6cae3806
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:41:25.203Z
+    recorded_at: 2026-06-03T14:58:49.071Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: b3433eb4159f9dfbccf854d9b8ed95fafed11c75b15ae5c318a1925fb769cdff
+    sha256: 299092c8b77ffc36ef6d542a83a781edb3aaa60badb9093e4ed9dbecc80f6668
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:53:04.510Z
+    recorded_at: 2026-06-03T15:20:00.855Z
     recorded_by: engineer
-    story_id: bridge-7-8
+    story_id: 7-1-i18n-harness-locale-loading-language-switcher
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1253,3 +1253,10 @@ entries:
     recorded_at: 2026-06-03T14:53:04.313Z
     recorded_by: engineer
     story_id: bridge-7-8-5-post-epic-app-modules
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-1-i18n-harness-locale-loading-language-switcher.md
+    sha256: 5360f3cdf3f9a17179146b8285db192db3c7f7982c8f4e1455153e34f6a9b166
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T15:20:00.892Z
+    recorded_by: engineer
+    story_id: 7-1-i18n-harness-locale-loading-language-switcher
