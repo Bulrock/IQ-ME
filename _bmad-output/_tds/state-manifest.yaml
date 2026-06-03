@@ -1055,10 +1055,10 @@ entries:
     story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-3-mid-session-bail-out-with-discard-continue-choice.md
-    sha256: 310f48e824c0fbec67ad1d38e7efa84bb1397f83c9beb274fbb2e7137c15f63c
+    sha256: 41246d0ad249cdbebc54a662dd1852af0fa2f541992076151ccec4bc65d37c07
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T17:16:09.345Z
-    recorded_by: frontend
+    recorded_at: 2026-06-03T12:53:37.076Z
+    recorded_by: story-add-finding-autorecord
     story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
   - artefact_class: A
     file: tests/unit/item-runner-bail.test.mjs
@@ -1099,9 +1099,9 @@ entries:
     story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list.md
-    sha256: 51fba0a14aea6925bd012d1389925f8e92ec03a0f694c729aa3436c056f1b073
+    sha256: c665f92cb120e3256782bb388066b88ec5caae98ae17b60753bbe0812e48d53a
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:27:23.504Z
+    recorded_at: 2026-06-03T12:53:37.076Z
     recorded_by: story-add-finding-autorecord
     story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
   - artefact_class: A
@@ -1150,9 +1150,9 @@ entries:
     story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page.md
-    sha256: 36464246a169b74c8f6c16c512f4bd4c4e7ef676aa8f8fad5a8fca58d199913e
+    sha256: 23409944486205c116e3d0eae1cd02f1db808efa5710fed663d6146be22c01fd
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:27:23.504Z
+    recorded_at: 2026-06-03T12:53:37.076Z
     recorded_by: story-add-finding-autorecord
     story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
   - artefact_class: A
