@@ -14,6 +14,13 @@ lint-spec-carry-forward.mjs LEGACY_EXEMPT array (tools side) flags legacy specs 
 
 - `bridge-6-7-3-restore-carry-forward-lessons` (kind=completion-note) — Specialist Self-Review Areas-of-uncertainty bullet 3 — Carry-forward section lint exempt-list LEGACY_EXEMPT is brittle, requires manual maintenance
 
+## Dev Notes
+
+### Carry-forward lessons
+
+- lesson-2026-05-20-007 — the section this lint enforces; the central allow-list is now a per-spec frontmatter flag.
+- lesson-2026-05-19-013 — direct YAML/manifest edits can be resurrected by the next sweep; re-recorded integrity for all 39 migrated specs and re-verified.
+
 ## Acceptance Criteria
 
 1. `tools/lint-spec-carry-forward.mjs` reads a per-spec frontmatter field `lint-exempt-carry-forward: true` and skips the Carry-forward-section check for that spec; the central `LEGACY_EXEMPT` Set is **removed**.

@@ -5,13 +5,11 @@ import * as rs from "./reveal-stage.js";
 import { selectSession } from "./item-selection.js";
 import { selectTailScene } from "./tail-scene-router.js";
 import { saveResult, isSaved } from "./save-result.js";
+import { escapeAttr as E, fmt as F } from "./html-util.js";
 
 const CV = "v0.1.0";
 const SS = 16;
 let m = null;
-
-const E = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-const F = (t, v) => String(t).replace(/\{(\w+)\}/g, (_x, k) => k in v ? String(v[k]) : `{${k}}`);
 const SP = (n, p, l, x) => `<span class="score-panel__${n}" tabindex="0" data-methodology-target="scoring/${p}" aria-label="${E(l)}">${E(x)}</span>`;
 const go = (t) => window.location.assign(`/methodology/${CV}/${state.getState().locale || "en"}/${t}/`);
 const HB = (h) => { const o = new Uint8Array(h.length / 2); for (let i = 0; i < o.length; i++) o[i] = parseInt(h.substr(i * 2, 2), 16); return o; };

@@ -11,6 +11,7 @@ import { renderErrorFallback } from "./error-fallback.js";
 import * as state from "./state.js";
 import * as routing from "./routing.js";
 import { selectSession } from "./item-selection.js";
+import { escapeAttr as esc, fmt } from "./html-util.js";
 
 const SESSION_SIZE = 16;
 const INITIAL_SEED = "0".repeat(32);
@@ -23,13 +24,6 @@ function bytesToHex(bytes) {
   return Array.from(bytes).map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-function esc(s) {
-  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-}
-
-function fmt(template, vars) {
-  return String(template).replace(/\{(\w+)\}/g, (_m, k) => (k in vars ? String(vars[k]) : `{${k}}`));
-}
 
 async function ensureSession(rootEl, strings) {
   if (state.getState().seed !== INITIAL_SEED && sessionCache) return sessionCache;

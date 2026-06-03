@@ -4,17 +4,10 @@
 // "Read the methodology" link to /methodology/v0.1.0/en/.
 
 import * as routing from "./routing.js";
+import { escapeText, escapeAttr } from "./html-util.js";
 
 let startBtn = null;
 let startClickHandler = null;
-
-function escapeAttr(s) {
-  return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
-
-function escapeText(s) {
-  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
 
 export function render(rootEl, strings) {
   const s = (strings && strings.landing) || {};

@@ -12,11 +12,9 @@
 //   - System default = ABSENCE of key + ABSENCE of data-theme attribute.
 //     `prefers-color-scheme: dark` then resolves via semantic.css line 55.
 
-let listeners = [];
+import { escapeAttr as esc } from "./html-util.js";
 
-function esc(s) {
-  return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
+let listeners = [];
 
 function readPersisted() {
   try {

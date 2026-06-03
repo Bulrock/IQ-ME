@@ -14,6 +14,13 @@ tests/unit/save-result.test.mjs embeds literal 0x00 and 0x1F bytes in the hashSe
 
 - `6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page` (kind=auditor-finding, round=3, finding_index=1)
 
+## Dev Notes
+
+### Carry-forward lessons
+
+- lesson-2026-05-19-001 — frozen-test edit ratified via the unfreeze-window + `tds integrity record` ceremony (targeted the owning story 6-7).
+- lesson-2026-06-03-002 — provenance: confirmed byte-identical regex behavior (5/5 green) before relabeling the change cosmetic.
+
 ## Acceptance Criteria
 
 1. `tests/unit/save-result.test.mjs` contains **no literal control bytes**; the hashSeed no-control-chars regex (≈ line 130) uses the textual escape forms `\x00` / `\x1f` instead of raw 0x00 / 0x1F bytes.

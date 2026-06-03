@@ -14,6 +14,13 @@ Pre-commit hook (bridge-6-7-3 Phase B) parses unfreeze-windows.yaml via bash+awk
 
 - `bridge-6-7-3-restore-carry-forward-lessons` (kind=completion-note) — Specialist Self-Review Areas-of-uncertainty bullet 1 — hooks unfreeze-windows.yaml parser handles only the canonical schema observed in state today
 
+## Dev Notes
+
+### Carry-forward lessons
+
+- lesson-2026-05-19-001 — re-register integrity after touching frozen/class-A artefacts.
+- Cross-repo: write-time validator parity with the state-manifest Class-I lock; verified the real unfreeze-tests CLI writes still pass the new guard.
+
 ## Acceptance Criteria
 
 1. Entries in `_bmad-output/_tds/unfreeze-windows.yaml` are guaranteed to be in the **canonical single-line scalar** schema the pre-commit hook's awk parser expects (`  - file: <single-line>` / `    expires_at: <single-line>`, per ADR-0014), enforced by **either** (preferred) a sibling schema-validator sharing the state-manifest Class I lock code path, **or** an ADR-0014 amendment that explicitly enumerates `unfreeze-windows.yaml` under the canonical-form requirement.

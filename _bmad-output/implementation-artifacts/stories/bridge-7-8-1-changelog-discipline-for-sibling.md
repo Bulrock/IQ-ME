@@ -14,6 +14,13 @@ bmad-tds-module ships a new git hook in setup init/full (bridge-6-7-3 added pre-
 
 - `bridge-6-7-3-restore-carry-forward-lessons` (kind=auditor-finding, round=1, finding_index=1)
 
+## Dev Notes
+
+### Carry-forward lessons
+
+- lesson-2026-05-20-007 — every spec must carry this section; rendered explicitly here.
+- Cross-repo docs story: deliverable landed in the sibling `bmad-tds-module` repo; AC4 scope-guard kept IQ-ME code untouched.
+
 ## Acceptance Criteria
 
 1. A `CHANGELOG.md` exists at the **bmad-tds-module** repo root (created if absent), Keep-a-Changelog-style, with an entry documenting the bridge-6-7-3 installer-contract change: `tds setup init/full` now installs a pre-commit hook, bumping the hook-count contract **2 → 3** (sibling `init.test.ts` now asserts 3 hooks), including the `TDS_BYPASS=1` bypass-parity callout (parity with the existing `commit-msg` hook).

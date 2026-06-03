@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: fe534007699ae44a0950e43ff7ff9224bcec305557d62732041468de2145ec71
+    sha256: e6d1217bf65d3ea312dea529e1782399194114e5e465479f2a7b00aaba5f749a
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:28:44.063Z
+    recorded_at: 2026-06-03T14:31:42.011Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: a6842531ce0929fc2d2b00c361d0023ec98d9c90c217124d64f9a13e33d74fdc
+    sha256: ea05b549676d31d4075d6bf28f3b7bdaa03882340a5dc4dd1ef313526ead11a1
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:27:51.425Z
+    recorded_at: 2026-06-03T14:40:59.593Z
     recorded_by: engineer
-    story_id: bridge-7-8-4-de-binary-save-result
+    story_id: bridge-7-8-5-post-epic-app-modules
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -93,12 +93,12 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: 0cf02860cd3ba0fcf1660213ae061835d60437efd6adeac2e6809243cdaf0ef0
+    sha256: b07c868bcfd387c1f596828a4b1f7511c9df6c3f02b0d89177fa9a39807162a2
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:14:43.198Z
+    recorded_at: 2026-06-03T14:39:53.677Z
     recorded_by: engineer
     story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
-    notes: "closed unfreeze: app-modules-bytes budget-pin 45056→49152 for Story 6.7 raise"
+    notes: "bridge-7-8-5: post-edit re-record after re-pinning app-modules-bytes ceiling 49152→48128"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
     sha256: 03af01b6c89b47714c6fb83be9b0d3d9aaa6eeba107c2bba32d9ecc508bf63a4
@@ -1212,25 +1212,28 @@ entries:
     notes: "story 6-7 frozen RED tests: save-result.js localStorage opt-in discipline + result.js save-button/retest-note render"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-7-8-1-changelog-discipline-for-sibling.md
-    sha256: 808a58808a42f60a73a7232716e7a50941179d42f068ae3700a91f0d1af08668
+    sha256: d641542849fafee5583512b90c041c90cf462bec15af39050b843b189ffcf9a1
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:00:06.008Z
-    recorded_by: state-commit-autorecord
+    recorded_at: 2026-06-03T14:38:10.392Z
+    recorded_by: engineer
     story_id: bridge-7-8-1-changelog-discipline-for-sibling
+    notes: "bridge-7-8-5 epic-compliance: backfill ### Carry-forward lessons section (create-bridge-from-retros stub gap)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-7-8-2-tighten-unfreeze-windows-yaml.md
-    sha256: 6be771352cdea6a625358ac294316e11fbc316b0735c6e38eb31e55aff8d737c
+    sha256: 8c84b685fa42ef54614911d4ce2c0d7735217a0ad2dc40ebdc4c24f38b011583
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:13:24.804Z
-    recorded_by: state-commit-autorecord
+    recorded_at: 2026-06-03T14:38:10.542Z
+    recorded_by: engineer
     story_id: bridge-7-8-2-tighten-unfreeze-windows-yaml
+    notes: "bridge-7-8-5 epic-compliance: backfill ### Carry-forward lessons section (create-bridge-from-retros stub gap)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-7-8-3-replace-legacy-exempt-central.md
-    sha256: 111bc35ec6fb7f9a0ca69b1fa4dff92207a692de3fbc03aadefb59b1941ac47b
+    sha256: 93365b0e080724ade51cff40570047be01fb1e44e17525c4ed9b439b8d880187
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:24:07.143Z
-    recorded_by: state-commit-autorecord
+    recorded_at: 2026-06-03T14:38:10.683Z
+    recorded_by: engineer
     story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-5 epic-compliance: backfill ### Carry-forward lessons section (create-bridge-from-retros stub gap)"
   - artefact_class: A
     file: tests/scaffold/lint-spec-carry-forward-frontmatter-exempt.test.mjs
     sha256: c4dd08042beaa14bf94a8f5b15da930f7515662edd45dca3f40d3ae3973efae0
@@ -1241,8 +1244,16 @@ entries:
     notes: "bridge-7-8-3 test-author: frozen failing tests for frontmatter-flag exemption"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-7-8-4-de-binary-save-result.md
-    sha256: 53fb2de40d02428b4ce5dc6f1fc6de22799197220d23aad23086bbf98a7c5e66
+    sha256: 37c6dbc71114c5851dbac89c3ea19ededb2a00c74fac6f4a30b31527ce3a1e01
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:28:43.565Z
-    recorded_by: state-commit-autorecord
+    recorded_at: 2026-06-03T14:38:10.830Z
+    recorded_by: engineer
     story_id: bridge-7-8-4-de-binary-save-result
+    notes: "bridge-7-8-5 epic-compliance: backfill ### Carry-forward lessons section (create-bridge-from-retros stub gap)"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-7-8-5-post-epic-app-modules.md
+    sha256: 856c01d11b2bca3e27cd5463e03d2208267982571e1ea5f20ee12a1bea4c9291
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T14:41:24.655Z
+    recorded_by: state-commit-autorecord
+    story_id: bridge-7-8-5-post-epic-app-modules
