@@ -199,3 +199,10 @@ frontend (vanilla ES modules / DOM / CSS / localStorage; node:test; stdlib-only 
 
 - **Category:** cumulative budget inflation
 - **Suggested bridge:** `Post-epic module-size audit + trim pass on src/assessment/** to recover headroom and re-establish a principled app-modules-bytes ceiling before Epic 7 adds i18n locale-loading weight.`
+
+## Auditor Findings (round-2)
+
+### [info] tests/unit/save-result.test.mjs is classified as a BINARY file by git (diffstat shows "Bin 0 -> 9549 bytes", `file` reports "data") because it embeds LITERAL control bytes (a NUL 0x00 and a 0x1f, at byte offset ~6649) directly inside a regex character class — the source contains the regex written with raw control bytes rather than the escape sequences /[\x00-\x1f]/. Functionally correct (the test asserts hashSeed output contains no control characters and runs 5/5 green), but the raw bytes make the file invisible to normal text diffs and code-review tooling — its 9.5KB of test logic cannot be reviewed in a standard PR diff.
+
+- **Category:** reviewability / file hygiene
+- **Suggested fix:** Replace the literal embedded control bytes in the regex with their escape sequences (the four-character text forms \x00 and \x1f) so the file is valid UTF-8 text and diffs normally. Behaviour is identical. Re-record class-A integrity if the file is class-A after the edit.
