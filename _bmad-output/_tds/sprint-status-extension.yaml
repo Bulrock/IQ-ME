@@ -37,6 +37,18 @@ bridges:
       - bridge-6-7-2-tds-deliver-mode-2
       - bridge-6-7-3-restore-carry-forward-lessons
     status: backlog
+  - id: bridge-7-8
+    type: tech-debt
+    title_extended: "CHANGELOG discipline for sibling installer-contract bumps + Tighten unfreeze-windows.yaml schema lock + Replace LEGACY_EXEMPT central list with per-spec frontmatter flag + De-binary save-result.test.mjs: replace literal control bytes with \\x escapes + Post-epic app-modules-bytes trim pass + re-establish principled ceiling"
+    blocks_epic: epic-8
+    outcome_required: []
+    stories:
+      - bridge-7-8-1-changelog-discipline-for-sibling
+      - bridge-7-8-2-tighten-unfreeze-windows-yaml
+      - bridge-7-8-3-replace-legacy-exempt-central
+      - bridge-7-8-4-de-binary-save-result
+      - bridge-7-8-5-post-epic-app-modules
+    status: backlog
 parents:
   1-1-bootstrap-repo-skeleton-makefile: epic-1
   1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts: epic-1
@@ -93,5 +105,10 @@ parents:
   bridge-6-7-1-extend-state-commit-sweep: bridge-6-7
   bridge-6-7-2-tds-deliver-mode-2: bridge-6-7
   bridge-6-7-3-restore-carry-forward-lessons: bridge-6-7
-last_updated: 2026-05-20T12:18:05.844Z
+  bridge-7-8-1-changelog-discipline-for-sibling: bridge-7-8
+  bridge-7-8-2-tighten-unfreeze-windows-yaml: bridge-7-8
+  bridge-7-8-3-replace-legacy-exempt-central: bridge-7-8
+  bridge-7-8-4-de-binary-save-result: bridge-7-8
+  bridge-7-8-5-post-epic-app-modules: bridge-7-8
+last_updated: 2026-06-03T13:42:03.839Z
 generated_by: bmad-tds-bridge-from-retros

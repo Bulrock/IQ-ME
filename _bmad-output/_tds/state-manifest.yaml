@@ -2,24 +2,25 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: acb1668de92e22d5fa50a1f49b448523f5db8b639a3f9e7eae08ea9713bf4c89
+    sha256: 68575af3b2f92425491d5e001d2547870e739d2b45e55dc668c21d3f0f5cfaa1
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:28:43.868Z
+    recorded_at: 2026-06-03T14:41:25.203Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: b9a68ddd63f5f71cb9b9b9c35b012b0d802bfe95aa779bc1b0d8184c74c39be8
+    sha256: 21ed4eb04f33134c7fcf8daf81a7f209a96c8f9de30ebdd9148662ea8a5d7ddf
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:30:21.794Z
-    recorded_by: engineer
-    story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
+    recorded_at: 2026-06-03T14:49:06.138Z
+    recorded_by: auditor
+    story_id: bridge-7-8
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
-    sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
+    sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:32:26.529Z
+    recorded_at: 2026-06-03T14:21:51.146Z
     recorded_by: engineer
-    story_id: 1-1-bootstrap-repo-skeleton-makefile
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/makefile.test.mjs
     sha256: 371a6a93f86ab82509c77a6a17128d4f8dc5187edd2c06c51c5401ec56363160
@@ -30,17 +31,18 @@ entries:
     notes: story-1-1 frozen failing tests
   - artefact_class: A
     file: _bmad-output/_tds/memory/lessons.yaml
-    sha256: bef614e4d3d26ed99e233c805f487a66f8944a47ecb57ec143c45ea41aae0171
+    sha256: d4209935d7ce7bf4c18ff57e9d3872e0df0b1441ddb30910fecf399973436d2c
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:50:53.566Z
+    recorded_at: 2026-06-03T13:36:22.543Z
     recorded_by: writer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners.md
-    sha256: a19c34449eed4a1a0c2b6c2999f05e1da8af998e85a999ac031762509bb12808
+    sha256: 0430d5bd93f9f6e611c2494599745de9384baed6064b06f8dfa2d06339c16ce9
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:32:36.776Z
+    recorded_at: 2026-06-03T14:21:51.146Z
     recorded_by: engineer
-    story_id: 1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/trust-artifacts.test.mjs
     sha256: ab889c611d6e92d7f68b5c6b2d6c3609213b49eee6b94cd181ba16d1feac92cd
@@ -51,11 +53,12 @@ entries:
     notes: story-1-2 frozen tests
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-3-commit-icar-confirmation-pdf-slot-with-visible-fallback-copy.md
-    sha256: 0a02d2a53e1e25ee0afc45bbc93c7082124112db4d91d1816de6aef51023fb2b
+    sha256: 8568871f7214b9aaca4748e1cb14fa61bff630eaa3929015c44aee3c359d99ce
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:32:36.975Z
+    recorded_at: 2026-06-03T14:21:51.146Z
     recorded_by: engineer
-    story_id: 1-3-commit-icar-confirmation-pdf-slot-with-visible-fallback-copy
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/icar-slot.test.mjs
     sha256: 61d4a01f8e68408e671692f0010a5e8fa9052a6d245123b7b99409044b135598
@@ -66,11 +69,12 @@ entries:
     notes: story-1-3 frozen tests
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md.md
-    sha256: b69f1c8aa31ea4a651f525d0bd9cb41ea071475bbddb6c2875e99d6f8392e48f
+    sha256: 3438c97340cd5faf53fd9b9134df87b223c55c1a579fccdebe376429d5d03f1f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:32:37.180Z
+    recorded_at: 2026-06-03T14:21:51.146Z
     recorded_by: engineer
-    story_id: 1-4-commit-corpus-schema-set-docs-corpus-build-conventions-md
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/corpus-schema.test.mjs
     sha256: cf3e0be1b77c99053b2269aad99239f02da75c4897fb553f963f7406458ac97b
@@ -81,26 +85,28 @@ entries:
     notes: story-1-4 frozen tests
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-5-commit-budgets-json-lint-cognitive-load-budget-mjs.md
-    sha256: 1ba8877d5d0bbcfb39233222054f7f07056357b8d339fe52cb97eb978e5802b3
+    sha256: 85b91e928baf587e3debbde91d7393ba5e57a19007804496d4b564db17f1657f
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:32:37.425Z
+    recorded_at: 2026-06-03T14:21:51.147Z
     recorded_by: engineer
-    story_id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: 0cf02860cd3ba0fcf1660213ae061835d60437efd6adeac2e6809243cdaf0ef0
+    sha256: b07c868bcfd387c1f596828a4b1f7511c9df6c3f02b0d89177fa9a39807162a2
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:14:43.198Z
+    recorded_at: 2026-06-03T14:39:53.677Z
     recorded_by: engineer
     story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
-    notes: "closed unfreeze: app-modules-bytes budget-pin 45056→49152 for Story 6.7 raise"
+    notes: "bridge-7-8-5: post-edit re-record after re-pinning app-modules-bytes ceiling 49152→48128"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
-    sha256: b200206425a1a3882b9d3243385bb218f872fe03f7e0147d83a871185b8d16a8
+    sha256: 03af01b6c89b47714c6fb83be9b0d3d9aaa6eeba107c2bba32d9ecc508bf63a4
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T12:55:42.690Z
+    recorded_at: 2026-06-03T14:21:51.147Z
     recorded_by: engineer
-    story_id: epic-1-retrospective
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
     sha256: fa9dce38596c387445fcde96b836da3c78506d6823d89edbc00dd713427182b9
@@ -118,11 +124,12 @@ entries:
     notes: story-1-6 frozen failing tests
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1.md
-    sha256: c5f9f206279ad74fca275ad7660f80098efdc4aceee8cfe2815b202be80d7439
+    sha256: fbb37ed4607cb8002b2cebce71077892eec48028a03f04b3dea94467d3945a45
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T12:55:42.690Z
+    recorded_at: 2026-06-03T14:21:51.148Z
     recorded_by: engineer
-    story_id: epic-1-retrospective
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/playwright-network-trace.test.mjs
     sha256: 24d53777acf0b079407416934d4c644fb950da3ff828b8d4a6ec3ad2be837400
@@ -132,11 +139,12 @@ entries:
     notes: "post-impl test bug-fix per Specialist Self-Review §4: AC-2 regex didn't span newlines, AC-5 20-line scan window bled into next job's if:false; engineer ratifies post-impl edits (auditor finding round-1)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-8-ship-deterministic-build-harness-ready-for-epic-2-s-golden-vectors.md
-    sha256: eb525b1f8c1fab408c38b8ce12dd96191fea0d486db587bdbeb9341798c376ce
+    sha256: 4d5dd778ea06c2ba777b0446deab68732d83c4e74cade948ccdc512c04570087
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:32:38.057Z
+    recorded_at: 2026-06-03T14:21:51.148Z
     recorded_by: engineer
-    story_id: 1-8-ship-deterministic-build-harness-ready-for-epic-2-s-golden-vectors
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/determinism-harness.test.mjs
     sha256: fba1b8c30266f56ce10c85c89d548ac38c1b3dd87bf31c1e5d0c17d67f3a7269
@@ -147,11 +155,12 @@ entries:
     notes: "Story 4-2: update Story 1.6 + 1.8 stub-state scaffold assertions after CI byte-stable-build activation + byte-stable.spec.mjs un-fixme"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-9-eslint-config-no-restricted-paths-docs-domain-map-md.md
-    sha256: eebf616770faefb48f1656f0c120e122c05379ad3d60bb591c017b249aab7e3e
+    sha256: c5ade34a1b7396af0a2cd74b0614d10f64f280933b7a7a0ec648604723f118bf
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:32:38.257Z
+    recorded_at: 2026-06-03T14:21:51.148Z
     recorded_by: engineer
-    story_id: 1-9-eslint-config-no-restricted-paths-docs-domain-map-md
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/eslint-config.test.mjs
     sha256: 85e1afc0a2ad657071a718b29a5918d27ef917cf2b9969fd4daf5c765b29277b
@@ -169,11 +178,12 @@ entries:
     notes: story-1-9 frozen failing tests
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts.md
-    sha256: 07663d18529bb7973bed0a84eff073fba050fbbc22ee0bdaf779a4d1128bddd6
+    sha256: d90f7943d5571849a7693a7639b43db62075ca26377984e0e4024c3fd0a7f063
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T10:32:38.460Z
+    recorded_at: 2026-06-03T14:21:51.149Z
     recorded_by: engineer
-    story_id: 1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/design-system.test.mjs
     sha256: 92c271535c2eddf3fdfa1ec846508992296b3772c67c792fc5a95aecc43c0c5d
@@ -184,25 +194,26 @@ entries:
     notes: story-1-10 frozen failing tests
   - artefact_class: A
     file: _bmad-output/_tds/sprint-status-extension.yaml
-    sha256: ab4823b28178b55a6674d0f3a144552c6c2a95a15fb492f8cd2144d7e5255556
+    sha256: a3ae5717dd9ff59561b24d0dd0cf4d010f79ccf6e5b043b8f80570f0bd974592
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:29:34.474Z
+    recorded_at: 2026-06-03T13:42:03.851Z
     recorded_by: engineer
-    notes: epic-5+epic-6 parents populated (bootstrap-parents gap recovery)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-1-2-1-add-tds-story-unfreeze.md
-    sha256: 7207787d9e7a98f603f42eb09f009f4404be165988284f4f4c6a3d48ac2dd2bc
+    sha256: 09a87b20e669594c49bfec90ff634fb82a075b8d22378e068f9b9399e2d6e386
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:07:55.081Z
+    recorded_at: 2026-06-03T14:21:51.149Z
     recorded_by: engineer
-    story_id: bridge-1-2-1-add-tds-story-unfreeze
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test.md
-    sha256: 92314cf23f680f00b66c289411a1c8dd65e7282480394da253e4295518f4e8fa
+    sha256: 8d32c94e493f824d2e3a4b1a2d85adcf8bb8fd6bfda231663eb2a8996a77c06a
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:25:34.565Z
+    recorded_at: 2026-06-03T14:21:51.149Z
     recorded_by: engineer
-    story_id: 2-1-scaffold-src-scoring-irt-module-write-red-phase-parity-test
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/unit/scoring/irt/parity.test.mjs
     sha256: 7caa343994bb0c73d764d3bd3eaff2f22fd96a99c4839205bed38a4496014162
@@ -228,11 +239,12 @@ entries:
     story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-2-implement-quadrature-js-likelihood-js-pure-math-primitives.md
-    sha256: 9ba9a9491777a3858827279bcc022944ff652dcde030827c94a3b58e5d2697e3
+    sha256: 947240811176a33918df41a694d2415c283d059acd253e94212ab1bb535fdf5a
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:25:47.565Z
+    recorded_at: 2026-06-03T14:21:51.149Z
     recorded_by: engineer
-    story_id: 2-2-implement-quadrature-js-likelihood-js-pure-math-primitives
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/unit/scoring/irt/quadrature.test.mjs
     sha256: 47c6ce696c84c10c9b8c59277889eb6a0947943008cfa51f4f060b7823969606
@@ -251,11 +263,12 @@ entries:
     notes: "test-author phase: 2-2 unit tests for quadrature + likelihood primitives"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-3-implement-eap-js-eap-estimation.md
-    sha256: abac75ec31a7577732529fb95662b5bf01b743bccfb2d6f6d35cb63179d1fa3d
+    sha256: 84f9ae97f6a0134af197b55e54499e6cc65f6eab6cf9d4ef1abf84658a1d82ea
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:25:47.794Z
+    recorded_at: 2026-06-03T14:21:51.149Z
     recorded_by: engineer
-    story_id: 2-3-implement-eap-js-eap-estimation
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/unit/scoring/irt/eap.test.mjs
     sha256: 5f84c288e1dd26867c0ffb1b3a22084bdab09fa4e6e245dfe599f61ef0290742
@@ -265,11 +278,12 @@ entries:
     story_id: 2-3-implement-eap-js-eap-estimation
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-4-implement-se-js-standard-error-from-posterior-variance.md
-    sha256: 790782bf1ce9c60e13caf94263ffc32eeae627c11e843875f0861f93a4839f22
+    sha256: 5612b28998eef0f758d67ec5bb1c0895f334ae454964885b3e8e6444bf637e29
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:25:48.014Z
+    recorded_at: 2026-06-03T14:21:51.149Z
     recorded_by: engineer
-    story_id: 2-4-implement-se-js-standard-error-from-posterior-variance
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/unit/scoring/irt/se.test.mjs
     sha256: 2aa6957bdedda9b255e1fbae1c2be209df2a66fac1d201665c3bd49a6bc1da0c
@@ -279,11 +293,12 @@ entries:
     story_id: 2-4-implement-se-js-standard-error-from-posterior-variance
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade.md
-    sha256: c52f4b74d3781c0d4934d10789c7744e3a0ae26901cb038d2d18a2d40ce6bbf6
+    sha256: c0d4e9108fc5371aa36f5f9f63591e77f6bbc8b05732f7367a44a91ac9c8aba4
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:25:48.223Z
+    recorded_at: 2026-06-03T14:21:51.149Z
     recorded_by: engineer
-    story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/unit/scoring/irt/index.test.mjs
     sha256: 33e633469517d8138a4ccbd8a2cc23be9df4c3c22a684a0f084e1e878bb5b30d
@@ -293,11 +308,12 @@ entries:
     story_id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10.md
-    sha256: 7432182ae89d9fcb81300cc54f10621c2ed005f739021cc5d2725d0d5f8ccc21
+    sha256: 3a871bc4d946fca0b3fbc13ca1d705353688e6c31f49bafe61bedd1b7a454a99
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:25:48.430Z
+    recorded_at: 2026-06-03T14:21:51.150Z
     recorded_by: engineer
-    story_id: 2-6a-r-in-ci-harness-smoke-golden-vector-set-n-10
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/unit/golden/parity-audit.test.mjs
     sha256: c0867731ebcbd928bf1d349a293f364c93f58ec488e4765f960ffa79f2673657
@@ -321,11 +337,12 @@ entries:
     notes: "Re-register after main commit 4b0f51c 'fix(golden): skip estimation in regenerate.R parameter template (#5)' which landed AFTER prior registration; inherited drift cleanup during epic-5 review"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring.md
-    sha256: b9c9f1ab162cc4bac0d2b6d26ed81b9ecb53869cbeba2d8513707d719dcff7c2
+    sha256: b83dc0b2d09941d08e3ea114274c2e6774456e9ce89c171b46c8432760b989cc
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:25:48.635Z
+    recorded_at: 2026-06-03T14:21:51.150Z
     recorded_by: engineer
-    story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/unit/scoring/irt/parity-full.test.mjs
     sha256: 39af0300861fe6580a1b9756a057c85bc55dfb2ed9e30146f6335a063841ee79
@@ -342,11 +359,12 @@ entries:
     story_id: 2-6b-full-1-000-pattern-golden-vector-set-ci-parity-wiring
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/2-7-populate-methodology_claims-json-activate-lint-claims-manifest.md
-    sha256: 69776b349cab700578ceb5a8ee9e8908e9ede9e222ff067df31e13848876de67
+    sha256: 2a0ee357473f4a6adc2e1647d424925d54b1b18b05124b681410631d335d60b2
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:25:48.848Z
+    recorded_at: 2026-06-03T14:21:51.150Z
     recorded_by: engineer
-    story_id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/unit/methodology-claims/schema.test.mjs
     sha256: db41b4fce903adc226480254a6d95a85012019a7f4b432b12573e1bbf1fc0c4d
@@ -363,18 +381,20 @@ entries:
     notes: Story 5-4 AC-4.1/AC-4.2 deferral-WARN clearance (Epic-5 scoring claims now have authored methodology pages); re-register per lesson-2026-05-19-001
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url.md
-    sha256: 6e4f0dbf019c1e7bf500dea1096f407ce90f2b3dcdee5df9e3a82a4d2c3eb298
+    sha256: 4ba10f45a296fa5614ccffe61e3b5795c87e9505e2ce2bf6ce5aef4b2d24d5bf
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:09:01.050Z
+    recorded_at: 2026-06-03T14:21:51.150Z
     recorded_by: engineer
-    story_id: 3-1-author-the-three-contract-adrs-state-shape-reveal-stage-event-methodology-handoff-url
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-2-implement-state-js-contract-test.md
-    sha256: 3024c50b7bf66c6a01c8231fa74ddc4845162e76a07d2faca65bdfa758612f65
+    sha256: cfb8bab2a5f62822fb7702faaa142d37986bf63eee42c59c939628380fa287d6
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T09:29:11.720Z
-    recorded_by: state-commit-autorecord
-    story_id: 3-2-implement-state-js-contract-test
+    recorded_at: 2026-06-03T14:21:51.150Z
+    recorded_by: engineer
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/contract/state-shape.spec.mjs
     sha256: ae654246cb53fe2b9362d4d8555730226081a99a06f2b1ec89d0a129fcfac2ee
@@ -393,11 +413,12 @@ entries:
     notes: story-3-2 frozen failing tests
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-3-implement-landing-consent-scene-en.md
-    sha256: e87ce08db00f708292d10b3fb64dee315dc3ae7ecf9db4137aba1ffe61819acd
+    sha256: a77482a41174f2ad8f628369c78cad1eb9d677b890f8ff71fe0263e4399bbba9
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:09:01.484Z
+    recorded_at: 2026-06-03T14:21:51.150Z
     recorded_by: engineer
-    story_id: 3-3-implement-landing-consent-scene-en
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/unit/main.test.mjs
     sha256: 96decad6de937f756104f118797bff1503ec859b1119cf1338c7beaae01384e5
@@ -448,11 +469,12 @@ entries:
     notes: "test-author phase: failing red tests for story 3-3 landing+consent"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed.md
-    sha256: 1ba7396c8e1be0c127c0652e84d20263242086aed3b2b5718b62695597dde5bf
+    sha256: d8ba181a251fae9e87989f7355795f03803836472926f7655620a7cc9d0e2984
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:09:01.707Z
+    recorded_at: 2026-06-03T14:21:51.151Z
     recorded_by: engineer
-    story_id: 3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/unit/item-prng.test.mjs
     sha256: d679e74fd2555c4d3da18de00a0e0ea84ea89d83460dbb5332c3dcdb99bd7885
@@ -483,11 +505,12 @@ entries:
     story_id: 3-4-implement-item-runner-progress-indicator-16-item-session-with-fr7-seed
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint.md
-    sha256: 60736229f7deb6482e1bd09cbb6313d41c9bc39a4d02511f64480c95dcbbbc1b
+    sha256: 41765c00f9a3ab350f035a43bc830a8369eb9084502c881604016d1120308b0b
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:09:01.954Z
+    recorded_at: 2026-06-03T14:21:51.151Z
     recorded_by: engineer
-    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/unit/result.test.mjs
     sha256: 08450303e25c56c6e1ed7bf271b283a31d75bcbaa69d790236c3772b0f32d484
@@ -554,11 +577,12 @@ entries:
     notes: story 3-5 test fixtures for lint-css-source-co-equal
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-6-author-3-en-methodology-stub-pages-the-click-targets.md
-    sha256: ac447b385bdf09ef7f4bc48e17f99ac638f5c2511dc13c17c0d63b03698d1c63
+    sha256: 311394df5dcac48828e03721b8a9a583eb6d482f4ece0f5c18302ba194a0d541
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:09:02.222Z
+    recorded_at: 2026-06-03T14:21:51.151Z
     recorded_by: engineer
-    story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/unit/build-methodology.test.mjs
     sha256: 49da653a05d5553ef67b4902f43e3d4a46e137086b634361d72849637e488a94
@@ -577,11 +601,12 @@ entries:
     notes: story 4-6 frozen-test edits during impl
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice.md
-    sha256: a3346633f70cf90bf0194ba5f940cabf2935921c259181a3214442759857ad65
+    sha256: 76b1e5a1c82cad4956782572e4ff9020beac2d50a19adce4567614ead580bc8a
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:09:02.449Z
+    recorded_at: 2026-06-03T14:21:51.151Z
     recorded_by: engineer
-    story_id: 3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/unit/dev-server.test.mjs
     sha256: 1d9a7bd3d3380fd19c6bf6a9f8abe3654927128bcc3f03e92413c3a1e5fbb02e
@@ -607,11 +632,12 @@ entries:
     notes: "methodology-handoff assertion: toHaveText on <head><title> never matches; use page.toHaveTitle (exposed after bindTriplet getAttribute fix restored the triplet-click navigation)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording.md
-    sha256: d09f7b200633cd4b0a451f84b799f9169564ae879d26215e4929907ff4afe0e9
+    sha256: de9a948c6b45134ddbf1d98b282ac56d2f0ff9b8ed896b251b2c7780549b27b9
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T23:09:02.681Z
+    recorded_at: 2026-06-03T14:21:51.151Z
     recorded_by: engineer
-    story_id: 3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/story-3-8-evidence-scaffold.test.mjs
     sha256: 56d7f4a00fe1752885a77a98580fbc652b661947ebbcd031d3f6bf8e38c5c554
@@ -851,25 +877,28 @@ entries:
     notes: Story 4-8 red-phase failing tests + SPA fragment fixture
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-4-5-1-tds-integrity-remove-cli.md
-    sha256: 9275a8ea455b3a2f0113aad965d782a1cf402fedb980210dfaf0b754dca731f0
+    sha256: 23555cba4ad7eeefa3d6c2761fea41f9e216878e5936ea948d3b26ad69cd12d4
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:06:05.028Z
+    recorded_at: 2026-06-03T14:21:51.152Z
     recorded_by: engineer
-    story_id: bridge-4-5-1-tds-integrity-remove-cli
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-4-5-2-convention-doc-for-filesystem.md
-    sha256: abfca5b8c1694275f430cb2085c727473dc1ec29243608ae93203497593d61dd
+    sha256: b31bf7ab9cfc1c51fa1ceca1453d492848f0d099ea68ff1d807353061e8ce9f1
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:06:05.283Z
+    recorded_at: 2026-06-03T14:21:51.152Z
     recorded_by: engineer
-    story_id: bridge-4-5-2-convention-doc-for-filesystem
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-5-6-1-extend-sweep-auto-record.md
-    sha256: 9e9f66fcf98776784cd43b4736342649869df1c4681bd39b61a684f829f603a9
+    sha256: 8a1bd9cb044e0aa1ae7caead690ca57368b4c7ac82e850aa64f38624d8c41b01
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:30:06.897Z
-    recorded_by: state-commit-autorecord
-    story_id: bridge-5-6-1-extend-sweep-auto-record
+    recorded_at: 2026-06-03T14:21:51.152Z
+    recorded_by: engineer
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset.md
     sha256: f63f5dcd5cd0c842a1df2630ab52a5ea58f5e473504f50a01be98cee2e8ee094
@@ -887,11 +916,12 @@ entries:
     notes: "story 5-7 test-author: extend with Phase-2 component tests"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint.md
-    sha256: c5750c72cc28cd33ea5b87e1ade3f83236964c021940bc020a71c60e8ca083f6
+    sha256: e81c4769bf584159743f28b7c792a0a2ca1c495a01dbd8e0bd4b299573a18eb0
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:22:36.504Z
-    recorded_by: state-commit-autorecord
-    story_id: 5-2-anchor-pages-7-fr36-protection-lint-content-freeze-typographic-system-checkpoint
+    recorded_at: 2026-06-03T14:21:51.152Z
+    recorded_by: engineer
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/anchor-pages.test.mjs
     sha256: 1aa64bb1e75eb1f7ede4d6faed12610095d1d0872fef918b3486347829a54235
@@ -918,32 +948,36 @@ entries:
     notes: "story 5-2 test-author phase: anchor-pages scaffold + FR36 lint tests + typographic-freeze contract"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-3-constructs-4-remaining-limitations-3-remaining.md
-    sha256: 87a796575566cca1118f79a96eb087d4283b72dee2cb2450fc859a8251d6a4a7
+    sha256: 6fed961f752e2fa3c8bb2c607dc664f0891e2cc93db52df1889ccf5a9e3727c7
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:09:42.179Z
+    recorded_at: 2026-06-03T14:21:51.152Z
     recorded_by: engineer
-    story_id: 5-3-constructs-4-remaining-limitations-3-remaining
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-4-scoring-4-remaining-norming-3.md
-    sha256: 4f82239607f2526b253888518e84baa6fed93791a904bca632482381e0662c9f
+    sha256: bd9b208570475309f8aca597d3ad036ddfd50e7f34780744c4d5915588048f31
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:22:36.504Z
-    recorded_by: state-commit-autorecord
-    story_id: 5-4-scoring-4-remaining-norming-3
+    recorded_at: 2026-06-03T14:21:51.152Z
+    recorded_by: engineer
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining.md
-    sha256: e886ed36ae9a330713fad9b38cab984dc0c73e009c4129ad00e5e2ae0fd08dea
+    sha256: c1f1d2f38dc5538f3b56b87bcbb21318cc1c9d29d90b82c06e1468b9568f0e2b
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:22:36.504Z
-    recorded_by: state-commit-autorecord
-    story_id: 5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining
+    recorded_at: 2026-06-03T14:21:51.153Z
+    recorded_by: engineer
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd.md
-    sha256: 57c53986fc6681b3953118ff0b57bcef060b66473fb041e30d95ca90ab36cbec
+    sha256: 98469c19105b3f6761d1a90828f7b7ec66b2b1f9a2dc95db129c9fe8b944f5ff
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:09:42.821Z
+    recorded_at: 2026-06-03T14:21:51.153Z
     recorded_by: engineer
-    story_id: 5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/crisis-resources.test.mjs
     sha256: a4c3635af023f3968db80aa36d1b7ce9608b1f065ade76577e8d546c8a2c5f66
@@ -954,32 +988,36 @@ entries:
     notes: "story 5-6 test-author: tail-scene + crisis-resources scaffold"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows.md
-    sha256: b6555b2b2e17626eafc67b46623114236423469e1d2d5fc3cda3318a5fb10143
+    sha256: 291681edef5047d5514cedfd17a6f4388c16c2fe2293f26c90bafe2aa15389d6
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:09:43.031Z
+    recorded_at: 2026-06-03T14:21:51.153Z
     recorded_by: engineer
-    story_id: 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-6-7-1-extend-state-commit-sweep.md
-    sha256: 25a97b0b6764f4f92269ef19076dc7d1ab0f3602c3ca145a1dcb78ed53b9f6b2
+    sha256: ea46e68f1a48be5ee1c33c5cd34d9167735e72a1e21f143e297720d2c0604d95
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:42:41.490Z
+    recorded_at: 2026-06-03T14:21:51.153Z
     recorded_by: engineer
-    story_id: bridge-6-7-1-extend-state-commit-sweep
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-6-7-2-tds-deliver-mode-2.md
-    sha256: b85e7b18aa9d9dab165d9c4ab6475a97ee6512c4fd912c8c65480c54f1fea9f7
+    sha256: 1d640e72ff9db87236e2c568ae865d6779a7f8acd18d02dd11c3c0b658b3bc36
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:42:41.614Z
+    recorded_at: 2026-06-03T14:21:51.153Z
     recorded_by: engineer
-    story_id: bridge-6-7-2-tds-deliver-mode-2
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-6-7-3-restore-carry-forward-lessons.md
-    sha256: bb00c39e1daad411777ac7cad5199f3fae3de88e380851bbe63a2e29c55feb3b
+    sha256: ff936bcdd482e95ce11acd60fba166f47d5d44ac167afd9d85b087a660cb874a
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:42:41.717Z
+    recorded_at: 2026-06-03T14:21:51.153Z
     recorded_by: engineer
-    story_id: bridge-6-7-3-restore-carry-forward-lessons
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/lint-spec-carry-forward-coverage.test.mjs
     sha256: 544ef313c1a47732be0b7edfac0db574c745a107199c77dd8a26460d77a03727
@@ -1151,19 +1189,19 @@ entries:
     story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page.md
-    sha256: 0bd96952f0ef6b232dba804ef97990f716f781cdf1e1b69ffc36f9ad263a2e24
+    sha256: 829e0c1152b79dfdf2034d1cd02981116ccbdd422e4a1805e7ecf29c2c2829ea
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:30:21.833Z
-    recorded_by: engineer
+    recorded_at: 2026-06-03T13:46:01.362Z
+    recorded_by: state-commit-autorecord
     story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
   - artefact_class: A
     file: tests/unit/save-result.test.mjs
-    sha256: 790a30ec9c6f9163f7de91a2065ef825d431739ea593e1c5d6293b7ba1e4dd39
+    sha256: ed72ab6c5b6ca0ed6dec8656b345dbd7e76047567f43568b86de40585bd04f02
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:11:34.726Z
+    recorded_at: 2026-06-03T14:27:24.170Z
     recorded_by: engineer
     story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
-    notes: "closed unfreeze window: removed unused eslint-disable directive (no-control-regex not enabled in flat config); assertion semantics unchanged, test green"
+    notes: "bridge-7-8-4: post-edit re-record after de-binarizing control bytes (line 130 \\x00/\\x1f escapes); behavior byte-identical, 5/5 green"
   - artefact_class: A
     file: tests/unit/result-save-retest.test.mjs
     sha256: a364d508bee4c514381a19dcf4b1db34d83c1b0b4faf6bebafac5813bdd4296c
@@ -1172,3 +1210,46 @@ entries:
     recorded_by: test-author
     story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
     notes: "story 6-7 frozen RED tests: save-result.js localStorage opt-in discipline + result.js save-button/retest-note render"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-7-8-1-changelog-discipline-for-sibling.md
+    sha256: 851a71a462acd7506fcce733c5041bbb08d6ea4a0da4700de36afcf1bd1de8e0
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T14:49:05.615Z
+    recorded_by: auditor
+    story_id: bridge-7-8-1-changelog-discipline-for-sibling
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-7-8-2-tighten-unfreeze-windows-yaml.md
+    sha256: 0eb018ce1cd73a60510585f64e59391871d8d0d3aacc9a806596cfba64f9017c
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T14:49:05.734Z
+    recorded_by: auditor
+    story_id: bridge-7-8-2-tighten-unfreeze-windows-yaml
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-7-8-3-replace-legacy-exempt-central.md
+    sha256: 0d7bc3dcfba2e93c9be58f2ca0ab255b514fa9554a6bf274e671ca47c34f1e51
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T14:49:05.848Z
+    recorded_by: auditor
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+  - artefact_class: A
+    file: tests/scaffold/lint-spec-carry-forward-frontmatter-exempt.test.mjs
+    sha256: c4dd08042beaa14bf94a8f5b15da930f7515662edd45dca3f40d3ae3973efae0
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T14:17:31.022Z
+    recorded_by: test-author
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    notes: "bridge-7-8-3 test-author: frozen failing tests for frontmatter-flag exemption"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-7-8-4-de-binary-save-result.md
+    sha256: 2c23c1e98b66517a2fc3465e7fcb10364e5cfe7fe80d78dc9248169e3c7be780
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T14:49:05.956Z
+    recorded_by: auditor
+    story_id: bridge-7-8-4-de-binary-save-result
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-7-8-5-post-epic-app-modules.md
+    sha256: e84a9fb25ca2f335b68e637b2fb317bbd89d10ac0a3ba4e77cc1301fdd90633d
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T14:49:06.061Z
+    recorded_by: auditor
+    story_id: bridge-7-8-5-post-epic-app-modules

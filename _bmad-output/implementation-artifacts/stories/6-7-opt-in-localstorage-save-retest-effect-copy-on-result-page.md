@@ -199,6 +199,7 @@ frontend (vanilla ES modules / DOM / CSS / localStorage; node:test; stdlib-only 
 
 - **Category:** cumulative budget inflation
 - **Suggested bridge:** `Post-epic module-size audit + trim pass on src/assessment/** to recover headroom and re-establish a principled app-modules-bytes ceiling before Epic 7 adds i18n locale-loading weight.`
+- **Bridged to:** `bridge-7-8-5-post-epic-app-modules`
 
 ## Auditor Findings (round-2)
 
@@ -213,3 +214,4 @@ frontend (vanilla ES modules / DOM / CSS / localStorage; node:test; stdlib-only 
 
 - **Category:** test-hygiene / source-encoding
 - **Suggested fix:** Replace the two literal control bytes with their escape sequences so the regex reads the standard JS form (backslash-x-zero-zero through backslash-x-one-f). Re-record class-A integrity for the file after the edit. The assertion semantics are byte-identical; only the on-disk encoding changes from binary back to text.
+- **Bridged to:** `bridge-7-8-4-de-binary-save-result`

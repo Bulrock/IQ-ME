@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: 1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners
 title: "Story 1.2: Author LICENSES.md + CITATION.cff + README forking-ethics + slim CONTRIBUTING.md + CODEOWNERS"
 status: done

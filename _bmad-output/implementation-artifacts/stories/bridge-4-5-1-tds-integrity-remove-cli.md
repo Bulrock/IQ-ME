@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: bridge-4-5-1-tds-integrity-remove-cli
 title: "Story bridge-4-5-1-tds-integrity-remove-cli: tds integrity-remove CLI + sweep auto-clean + cross-repo entry policy decision"
 status: done

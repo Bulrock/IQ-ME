@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: 3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice
 title: "Story 3.7: Exercise the strict network-trace assertion against the full live slice"
 status: done

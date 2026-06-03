@@ -726,3 +726,69 @@ branches:
     last_synced_at: 2026-06-03T12:19:08.559Z
     notes: ""
     created_at: 2026-06-03T11:52:30.649Z
+  - branch: epic/bridge-7-8-bridge-7-8-5-stories-from-2-retros
+    story_id: null
+    epic_id: bridge-7-8
+    base_branch: main
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-06-03T13:49:28.695Z
+  - branch: story/bridge-7-8-1-changelog-discipline-for-sibling
+    story_id: bridge-7-8-1-changelog-discipline-for-sibling
+    epic_id: null
+    base_branch: epic/bridge-7-8-bridge-7-8-5-stories-from-2-retros
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-03T14:00:10.421Z
+    notes: ""
+    created_at: 2026-06-03T13:50:52.969Z
+  - branch: story/bridge-7-8-2-tighten-unfreeze-windows-yaml
+    story_id: bridge-7-8-2-tighten-unfreeze-windows-yaml
+    epic_id: null
+    base_branch: epic/bridge-7-8-bridge-7-8-5-stories-from-2-retros
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-03T14:13:25.338Z
+    notes: ""
+    created_at: 2026-06-03T14:06:31.246Z
+  - branch: story/bridge-7-8-3-replace-legacy-exempt-central
+    story_id: bridge-7-8-3-replace-legacy-exempt-central
+    epic_id: null
+    base_branch: epic/bridge-7-8-bridge-7-8-5-stories-from-2-retros
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-03T14:24:08.221Z
+    notes: ""
+    created_at: 2026-06-03T14:15:39.760Z
+  - branch: story/bridge-7-8-4-de-binary-save-result
+    story_id: bridge-7-8-4-de-binary-save-result
+    epic_id: null
+    base_branch: epic/bridge-7-8-bridge-7-8-5-stories-from-2-retros
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-03T14:28:44.027Z
+    notes: ""
+    created_at: 2026-06-03T14:25:26.676Z
+  - branch: story/bridge-7-8-5-post-epic-app-modules
+    story_id: bridge-7-8-5-post-epic-app-modules
+    epic_id: null
+    base_branch: epic/bridge-7-8-bridge-7-8-5-stories-from-2-retros
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-03T14:41:25.166Z
+    notes: ""
+    created_at: 2026-06-03T14:31:41.984Z

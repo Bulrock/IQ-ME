@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: 5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd
 title: "Story 5.6: Tail Scenes EN placeholders (reviewer-of-record TBD)"
 status: done

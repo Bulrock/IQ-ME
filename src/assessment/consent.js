@@ -7,6 +7,7 @@
 
 import * as routing from "./routing.js";
 import { resetState } from "./state.js";
+import { escapeText } from "./html-util.js";
 
 let observer = null;
 let dwellTimer = null;
@@ -15,9 +16,6 @@ let notTodayLink = null;
 let continueClickHandler = null;
 let notTodayClickHandler = null;
 
-function escapeText(s) {
-  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
 
 function flipGate() {
   if (continueBtn) continueBtn.setAttribute("aria-disabled", "false");

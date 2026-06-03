@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: 1-8-ship-deterministic-build-harness-ready-for-epic-2-s-golden-vectors
 title: "Story 1.8: Ship deterministic-build harness ready for Epic 2's golden vectors"
 status: done

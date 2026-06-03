@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: 2-3-implement-eap-js-eap-estimation
 title: "Story 2.3: Implement eap.js (EAP estimation)"
 status: done

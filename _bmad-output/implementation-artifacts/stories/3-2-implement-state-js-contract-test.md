@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: 3-2-implement-state-js-contract-test
 title: "Story 3.2: Implement state.js + contract test"
 status: done

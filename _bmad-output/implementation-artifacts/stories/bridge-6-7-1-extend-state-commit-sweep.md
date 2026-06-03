@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: bridge-6-7-1-extend-state-commit-sweep
 title: "Story bridge-6-7-1-extend-state-commit-sweep: Extend state-commit sweep auto-record to spec-md touched by add-finding"
 status: done
