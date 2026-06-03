@@ -1,7 +1,7 @@
 ---
 id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
 title: "Story 6.7: Opt-in localStorage save + retest-effect copy on result page"
-status: review
+status: done
 ---
 
 # Story 6.7: Opt-in localStorage save + retest-effect copy on result page

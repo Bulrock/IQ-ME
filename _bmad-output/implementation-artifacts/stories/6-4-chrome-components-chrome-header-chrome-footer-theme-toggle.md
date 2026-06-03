@@ -1,7 +1,7 @@
 ---
 id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
 title: "Story 6.4: Chrome components (chrome-header + chrome-footer + theme-toggle)"
-status: review
+status: done
 ---
 
 # Story 6.4: Chrome components (chrome-header + chrome-footer + theme-toggle)

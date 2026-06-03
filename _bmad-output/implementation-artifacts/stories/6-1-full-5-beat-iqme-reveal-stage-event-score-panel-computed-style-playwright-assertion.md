@@ -1,7 +1,7 @@
 ---
 id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
 title: "Story 6.1: Full 5-beat iqme:reveal-stage event + score-panel computed-style Playwright assertion"
-status: review
+status: done
 ---
 
 # Story 6.1: Full 5-beat iqme:reveal-stage event + score-panel computed-style Playwright assertion

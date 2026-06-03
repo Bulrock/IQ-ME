@@ -1,7 +1,7 @@
 ---
 id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
 title: "Story 6.6: Top-decile tear-edge overlay + cropping fuzzer"
-status: review
+status: done
 tds:
   primary_specialist: frontend
 ---

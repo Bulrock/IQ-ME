@@ -1,7 +1,7 @@
 ---
 id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
 title: "Story 6.5: Asymmetric tail-scenes EN (bottom + mid + top) + silent-companion-line + EN crisis-resource list"
-status: review
+status: done
 ---
 
 # Story 6.5: Asymmetric tail-scenes EN (bottom + mid + top) + silent-companion-line + EN crisis-resource list

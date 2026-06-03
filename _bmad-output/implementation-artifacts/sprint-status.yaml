@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-03 6-3-mid-session-bail-out-with-discard-continue-choice: review'
+last_updated: '2026-06-03 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page: done'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system

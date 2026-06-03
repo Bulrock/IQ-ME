@@ -1,7 +1,7 @@
 ---
 id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
 title: "Story 6.2: Per-item-difficulty breakdown (easy/medium/hard tercile)"
-status: review
+status: done
 ---
 
 # Story 6.2: Per-item-difficulty breakdown (easy/medium/hard tercile)

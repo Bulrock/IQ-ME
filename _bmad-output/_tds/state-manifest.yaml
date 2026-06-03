@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: d0027a99573e2bfe0fb8c5ac5fded4cde4939961f9d4a6c21dbc55b4219dd92e
+    sha256: b9a68ddd63f5f71cb9b9b9c35b012b0d802bfe95aa779bc1b0d8184c74c39be8
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:28:15.168Z
-    recorded_by: state-commit-autorecord
-    story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
+    recorded_at: 2026-06-03T13:30:21.794Z
+    recorded_by: engineer
+    story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -989,10 +989,10 @@ entries:
     story_id: bridge-6-7-3-restore-carry-forward-lessons
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion.md
-    sha256: a0e20a554d0bc7e45578c1eddb9a8ed7ee8602d1d7e7435c2f35dc7b7f54fd2a
+    sha256: 0d77ad3a2f916fb7c7e87ef9d976abee4107e390c3944b807ee915684f75c890
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:19:33.951Z
-    recorded_by: story-add-finding-autorecord
+    recorded_at: 2026-06-03T13:30:20.510Z
+    recorded_by: engineer
     story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
   - artefact_class: A
     file: tests/playwright/co-equal-triplet-computed-style.spec.mjs
@@ -1028,10 +1028,10 @@ entries:
     notes: "story 6-1 ATDD cycle-2: graduated AC-8.2/8.3/8.4/8.6 to 6-stage enum symmetric with contract AC-11.5 inversion"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile.md
-    sha256: 341346e0b569c1dd6065fcc841165cf0272924acf8d3ded3f88e39285483aaa8
+    sha256: e603fba0d35387a475cc1bce5ce7d0980353c905b3fa4f4622d8ea04eaa56c52
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T16:36:20.565Z
-    recorded_by: frontend
+    recorded_at: 2026-06-03T13:30:20.739Z
+    recorded_by: engineer
     story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
   - artefact_class: A
     file: tests/unit/tools/compute-difficulty-bands.test.mjs
@@ -1056,10 +1056,10 @@ entries:
     story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-3-mid-session-bail-out-with-discard-continue-choice.md
-    sha256: 58d0f04cddae1a630570998f016cd9e476ebf8e577c3b186642fd235ae1122b3
+    sha256: dec00f39c5910760332adc4ff96ddf8b21896567f334ecf6c162c7fc662a0c6e
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:10:20.646Z
-    recorded_by: frontend
+    recorded_at: 2026-06-03T13:30:20.958Z
+    recorded_by: engineer
     story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
   - artefact_class: A
     file: tests/unit/item-runner-bail.test.mjs
@@ -1079,10 +1079,10 @@ entries:
     notes: story-6-3 frozen failing tests authored via ATDD
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-4-chrome-components-chrome-header-chrome-footer-theme-toggle.md
-    sha256: 6c4c6cf92c9a6875297a0fef0571909d85aec95cf8ad5885a0fc8bb89785e404
+    sha256: fa4db4acab16f5c501eb781b0f5cba00c24c9e960d3165eefe21db295a8b4228
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:19:33.951Z
-    recorded_by: story-add-finding-autorecord
+    recorded_at: 2026-06-03T13:30:21.174Z
+    recorded_by: engineer
     story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
   - artefact_class: A
     file: tests/unit/theme.test.mjs
@@ -1100,10 +1100,10 @@ entries:
     story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list.md
-    sha256: c665f92cb120e3256782bb388066b88ec5caae98ae17b60753bbe0812e48d53a
+    sha256: 9e9cb4c7801e14c4fad44068f9de19e6c7d13e85475e011164ecd75593a7121d
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:53:37.076Z
-    recorded_by: story-add-finding-autorecord
+    recorded_at: 2026-06-03T13:30:21.395Z
+    recorded_by: engineer
     story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
   - artefact_class: A
     file: tests/unit/tail-scene-router.test.mjs
@@ -1123,10 +1123,10 @@ entries:
     notes: "Story 6-5 test-author phase: asymmetric-tail-scenes Playwright (AC-9 Test 1-5; bottom/mid/top render + reveal-stage gate + zero-third-party)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-6-top-decile-tear-edge-overlay-cropping-fuzzer.md
-    sha256: b75f303f06922330ecddfeb4c7577cac9d2b2c834b90c6b1362c426fae9f0413
+    sha256: 0f84075b953c4095e43b90ca1f60d6a303bcb937ac0ff00d4c0a641ad3dc73cb
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:45:00.643Z
-    recorded_by: state-commit-autorecord
+    recorded_at: 2026-06-03T13:30:21.611Z
+    recorded_by: engineer
     story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
   - artefact_class: A
     file: tests/unit/cropping-fuzzer.test.mjs
@@ -1151,10 +1151,10 @@ entries:
     story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page.md
-    sha256: be12a04703027d20335f678658afb8b16a05d5efcf5fc2700cb07fc7900a5a54
+    sha256: 0bd96952f0ef6b232dba804ef97990f716f781cdf1e1b69ffc36f9ad263a2e24
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:19:33.951Z
-    recorded_by: story-add-finding-autorecord
+    recorded_at: 2026-06-03T13:30:21.833Z
+    recorded_by: engineer
     story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
   - artefact_class: A
     file: tests/unit/save-result.test.mjs
