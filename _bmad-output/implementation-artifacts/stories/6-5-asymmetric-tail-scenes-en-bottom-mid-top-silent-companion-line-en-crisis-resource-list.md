@@ -440,3 +440,10 @@ frontend (Claude Opus 4.7) — `bmad-tds-frontend` specialist; HTML/CSS/JS autho
 
 - **Category:** process / peer-review invariant
 - **Suggested bridge:** `If the inline-test-author shortcut recurs across stories, add a lightweight gate (or retro lesson) clarifying when TEA clean-context subagent authoring is mandatory vs optional for low-risk frontend-composition stories.`
+
+## Auditor Findings (round-2)
+
+### [warn] tests/playwright/asymmetric-tail-scenes.spec.mjs exists on disk and passes locally but is NOT wired into .github/workflows/pr-checks.yml — same false-"greedy-glob" assumption that affected 6-3. No 6-5 acceptance criterion explicitly mandated CI wiring (hence warn, not blocker), but the asymmetric-by-tail design intent (silent-companion-line bottom-decile-only, no crisis-resources on mid/top — AC-3/AC-4) and the clinicalRegisterReviewed honesty signal are only protected locally. The spec is referenced by 6-6 AC-3 as the canonical harness pattern, so it is clearly intended to be a live guard.
+
+- **Category:** CI coverage gap
+- **Suggested fix:** Wire tests/playwright/asymmetric-tail-scenes.spec.mjs into pr-checks.yml in the same commit that fixes the 6-3 bail-out wiring (one additional per-spec job block). No source change required.
