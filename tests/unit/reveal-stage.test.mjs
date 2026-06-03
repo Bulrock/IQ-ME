@@ -1,14 +1,21 @@
 // tests/unit/reveal-stage.test.mjs
 //
 // Story 3.5 AC-8.1..8.10 — `src/assessment/reveal-stage.js` event dispatcher.
+// Story 6.1 graduated the v1 enum from ["anchor","handoff"] to the full
+// ADR-3-1 sequence ["anchor","band","interval","context","tail-scene",
+// "methodology-handoff"]. Tests AC-8.2/8.3/8.4/8.6 retargeted to use
+// graduated stage names while preserving the original behavioral intent
+// (sequence dispatch + order enforcement + per-session one-shot).
 //
 // Contract under test (per docs/adr/iqme-reveal-stage-event-contract.md):
 //   - Named export `dispatchStage(stage)` constructs a CustomEvent named
 //     "iqme:reveal-stage" with { bubbles:true, composed:false } and
 //     detail { stage, t: performance.now() }, dispatched on `document`.
-//   - v1 enum is exactly ["anchor","handoff"]; declared order anchor→handoff.
-//   - Reserved Epic-6 stages + arbitrary strings throw RangeError.
-//   - Repeat or out-of-order calls throw Error.
+//   - Stage enum is exactly the ADR-3-1 6-stage sequence; declared order
+//     anchor → band → interval → context → tail-scene → methodology-handoff.
+//   - Arbitrary unknown strings (e.g. legacy "handoff") throw RangeError.
+//   - Repeat or out-of-order calls throw Error matching /declared order/i
+//     or /already fired/i.
 //   - Named export `resetRevealStage()` clears the per-session fired-set.
 //   - Source-grep: no Math.random / Date.now / localStorage / sessionStorage /
 //     console.log / setTimeout / setInterval / default export.
@@ -102,44 +109,44 @@ test("AC-8.1: dispatchStage('anchor') fires iqme:reveal-stage on document with d
 
 // ─── AC-8.2 ──────────────────────────────────────────────────────────────
 
-test("AC-8.2: dispatchStage('handoff') (after anchor) fires with detail.stage='handoff'", () => {
+test("AC-8.2: dispatchStage('band') (after anchor) fires with detail.stage='band' [graduated 6.1]", () => {
   assert.equal(importError, null);
   resetIfPossible();
   revealStage.dispatchStage("anchor");
   const events = captureEvents("iqme:reveal-stage", () => {
-    revealStage.dispatchStage("handoff");
+    revealStage.dispatchStage("band");
   });
   assert.equal(events.length, 1);
-  assert.equal(events[0].detail.stage, "handoff");
+  assert.equal(events[0].detail.stage, "band");
 });
 
 // ─── AC-8.3 ──────────────────────────────────────────────────────────────
 
-test("AC-8.3: anchor then handoff produces two events in order with t_handoff > t_anchor", () => {
+test("AC-8.3: anchor then band produces two events in order with t_band >= t_anchor [graduated 6.1]", () => {
   assert.equal(importError, null);
   resetIfPossible();
   const events = captureEvents("iqme:reveal-stage", () => {
     revealStage.dispatchStage("anchor");
-    revealStage.dispatchStage("handoff");
+    revealStage.dispatchStage("band");
   });
   assert.equal(events.length, 2, "two events expected");
   assert.equal(events[0].detail.stage, "anchor");
-  assert.equal(events[1].detail.stage, "handoff");
+  assert.equal(events[1].detail.stage, "band");
   assert.ok(
-    events[1].detail.t > events[0].detail.t,
-    `t_handoff (${events[1].detail.t}) must be greater than t_anchor (${events[0].detail.t})`,
+    events[1].detail.t >= events[0].detail.t,
+    `t_band (${events[1].detail.t}) must be >= t_anchor (${events[0].detail.t})`,
   );
 });
 
 // ─── AC-8.4 ──────────────────────────────────────────────────────────────
 
-test("AC-8.4: dispatchStage('handoff') before anchor throws Error matching /declared order/i", () => {
+test("AC-8.4: dispatchStage('methodology-handoff') before anchor throws Error matching /declared order/i [graduated 6.1]", () => {
   assert.equal(importError, null);
   resetIfPossible();
   assert.throws(
-    () => revealStage.dispatchStage("handoff"),
+    () => revealStage.dispatchStage("methodology-handoff"),
     (err) => err instanceof Error && /declared order/i.test(err.message),
-    "handoff before anchor must throw Error matching /declared order/i",
+    "methodology-handoff before anchor must throw Error matching /declared order/i",
   );
 });
 
@@ -158,13 +165,13 @@ test("AC-8.5: dispatchStage('anchor') twice in a session throws Error matching /
 
 // ─── AC-8.6 ──────────────────────────────────────────────────────────────
 
-test("AC-8.6: dispatchStage('band') (reserved Epic-6 stage) throws RangeError matching /unknown reveal stage/i", () => {
+test("AC-8.6: legacy stage 'handoff' (removed in 6.1 graduation) throws RangeError [graduated 6.1]", () => {
   assert.equal(importError, null);
   resetIfPossible();
   assert.throws(
-    () => revealStage.dispatchStage("band"),
+    () => revealStage.dispatchStage("handoff"),
     (err) => err instanceof RangeError && /unknown reveal stage/i.test(err.message),
-    "reserved 'band' stage must throw RangeError /unknown reveal stage/i in v1",
+    "legacy 'handoff' token (not in graduated ADR-3-1 enum) must throw RangeError",
   );
 });
 

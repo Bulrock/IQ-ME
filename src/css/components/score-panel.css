@@ -25,12 +25,67 @@
 .score-panel__anchor,
 .score-panel__percentile,
 .score-panel__band {
+  /* Co-equal triplet: equal font + equal flex-basis so visual area parity
+     holds across content lengths (Story 6.1 AC-4 runtime computed-style
+     invariant; Story 3.5 source lint enforces the typography axes). */
+  flex: 1 1 0;
+  text-align: center;
   font-size: var(--font-size-600);
   font-weight: var(--font-weight-regular);
   font-family: var(--font-family-sans);
 }
 
+/* Story 6.2 — FR22 per-item-difficulty breakdown sentence. UX-DR Step 5
+   invention #8: "reads as a footnote that earns attention" — subordinate
+   to the triplet at --font-size-200 (16px). NOT a triplet member; the
+   CSS-source co-equal lint (lint-css-source-co-equal.mjs) ignores it. */
+.score-panel__difficulty-sentence {
+  font-size: var(--font-size-200);
+  font-weight: var(--font-weight-regular);
+  font-family: var(--font-family-sans);
+  text-align: center;
+  margin-block-start: var(--space-4);
+  display: none;
+}
+
+/* Visibility gate: difficulty sentence becomes visible at beat:context
+   per UX state-table (ux-design-specification.md §1389) and stays visible
+   through tail-scene + methodology-handoff. data-reveal-stage is set on
+   the outer .result-scene (see result.js panel() — Story 6.1 graduation). */
+.result-scene[data-reveal-stage="context"] .score-panel__difficulty-sentence,
+.result-scene[data-reveal-stage="tail-scene"] .score-panel__difficulty-sentence,
+.result-scene[data-reveal-stage="methodology-handoff"] .score-panel__difficulty-sentence {
+  display: block;
+}
+
 /* Epic 6 tear-edge composition slot — reserved, currently unused */
 .score-panel__tear-edge {
   display: none;
+}
+
+/* Story 6.7 — opt-in "Save my result" button (FR26, NFR9) + retest-effect note
+   (FR27). Neither is a triplet member; the CSS-source co-equal lint
+   (lint-css-source-co-equal.mjs) ignores them. Restraint-first: the save button
+   is a quiet affordance, not a call-to-action. */
+.score-panel__save-button {
+  display: block;
+  margin-block-start: var(--space-5);
+  font-size: var(--font-size-200);
+  font-weight: var(--font-weight-regular);
+  font-family: var(--font-family-sans);
+}
+
+.score-panel__save-button[aria-pressed="true"] {
+  /* Saved state reads as confirmed, not celebratory. */
+  font-weight: var(--font-weight-medium);
+}
+
+.score-panel__retest-note {
+  margin-block-start: var(--space-4);
+  font-size: var(--font-size-100);
+  font-family: var(--font-family-sans);
+}
+
+.score-panel__retest-copy {
+  margin-block-end: var(--space-2);
 }

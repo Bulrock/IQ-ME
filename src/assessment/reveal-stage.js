@@ -1,5 +1,7 @@
-// src/assessment/reveal-stage.js — Story 3.5 AC-1 (ADR-3-1).
-const O = ["anchor", "handoff"];
+// src/assessment/reveal-stage.js — Story 6.1 AC-1/AC-3 (ADR-3-1 6-stage enum + timings wire).
+import timings from "./reveal-stage-timings.json" with { type: "json" };
+
+const O = ["anchor", "band", "interval", "context", "tail-scene", "methodology-handoff"];
 const fired = new Set();
 
 export function dispatchStage(stage) {
@@ -14,3 +16,4 @@ export function dispatchStage(stage) {
 }
 
 export const resetRevealStage = () => fired.clear();
+export const revealStageTimings = timings;

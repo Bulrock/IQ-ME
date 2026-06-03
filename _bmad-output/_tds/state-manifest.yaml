@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: f76cf1cef309a049c9ba831b60fc57d9cf8a15675508c076071b5c778faffba4
+    sha256: ae33797f0692cb17249edfdaae0ba57ba6a5d8e8834ea387696617a56dd90c7b
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:42:26.436Z
-    recorded_by: engineer
+    recorded_at: 2026-06-03T12:19:08.596Z
+    recorded_by: frontend
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: ad720f2bbe52d6d1db13053c6a6838103a5354878d8959610214eb4b4bb48ed4
+    sha256: a5390f133d0306b9d6aa5406eeb6d1135705dd764a426e2ea35a75ab7d5ccfab
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:42:41.693Z
-    recorded_by: engineer
-    story_id: bridge-6-7-3-restore-carry-forward-lessons
+    recorded_at: 2026-06-03T13:21:45.741Z
+    recorded_by: state-commit-autorecord
+    story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -30,9 +30,9 @@ entries:
     notes: story-1-1 frozen failing tests
   - artefact_class: A
     file: _bmad-output/_tds/memory/lessons.yaml
-    sha256: cc2c2f6ca4039dae668ec7df5664acd11c11c7d91af346a2eeacd1ef8fa5929d
+    sha256: bef614e4d3d26ed99e233c805f487a66f8944a47ecb57ec143c45ea41aae0171
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T12:00:35.595Z
+    recorded_at: 2026-05-20T13:50:53.566Z
     recorded_by: writer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners.md
@@ -88,11 +88,12 @@ entries:
     story_id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: babe40d96deaf4e55e646afcb906dc4a3f8898475d1630930790b1e752aefa4e
+    sha256: 0cf02860cd3ba0fcf1660213ae061835d60437efd6adeac2e6809243cdaf0ef0
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:41:13.105Z
+    recorded_at: 2026-06-03T12:14:43.198Z
     recorded_by: engineer
-    notes: Story 5-5 BUDGETS.json methodology-pages-en bump 30→45 (covers Story 5.2 glossary + Story 5.6 tail-scene placeholders); re-register per lesson-2026-05-19-001
+    story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
+    notes: "closed unfreeze: app-modules-bytes budget-pin 45056→49152 for Story 6.7 raise"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
     sha256: b200206425a1a3882b9d3243385bb218f872fe03f7e0147d83a871185b8d16a8
@@ -102,11 +103,11 @@ entries:
     story_id: epic-1-retrospective
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: 77fce1ac56af99bae8f6473b30a32897618ea4ac888b2a011c1a61295bf26a2c
+    sha256: fa9dce38596c387445fcde96b836da3c78506d6823d89edbc00dd713427182b9
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:40:54.393Z
-    recorded_by: engineer
-    notes: Story 5-2 EPIC_1_ACTIVE extension + glossary/reading-level coverage threshold relaxation (story 5-2 self-review §2-3); re-register after legitimate cross-epic test modification — lesson-2026-05-19-001
+    recorded_at: 2026-06-03T12:39:40.328Z
+    recorded_by: frontend
+    notes: reconcile EPIC_1_ACTIVE + ALL_JOBS with Story 6.4/6.6 CI activations (lighthouse, cropping-fuzzer, chrome-components, tear-edge-overlay)
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: a9bb6d72aa3e9fed7ea49b8c83dffffcb085c0a9fbe80b8144d14aa893ccac1f
@@ -153,12 +154,11 @@ entries:
     story_id: 1-9-eslint-config-no-restricted-paths-docs-domain-map-md
   - artefact_class: A
     file: tests/scaffold/eslint-config.test.mjs
-    sha256: 91ad7556902286af16df87cd08c2dcc1f0ac07f71b8eafbd72ee57139bdff865
+    sha256: 85e1afc0a2ad657071a718b29a5918d27ef917cf2b9969fd4daf5c765b29277b
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T09:43:58.929Z
-    recorded_by: test-author
-    story_id: 1-9-eslint-config-no-restricted-paths-docs-domain-map-md
-    notes: story-1-9 frozen failing tests
+    recorded_at: 2026-05-20T16:28:52.335Z
+    recorded_by: frontend
+    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
   - artefact_class: A
     file: tests/scaffold/domain-map.test.mjs
     sha256: 763f2f02a9cf85c2e9205b6a72d595c92ce18e3953445b6ed9975eced285ca77
@@ -488,21 +488,13 @@ entries:
     recorded_by: engineer
     story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
   - artefact_class: A
-    file: tests/unit/reveal-stage.test.mjs
-    sha256: 16578d90e8face4760fb5d04d1a642509d7e893c688d094bcb5882a058e1cde9
-    canonical_form: raw-bytes
-    recorded_at: 2026-05-19T21:27:32.499Z
-    recorded_by: test-author
-    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
-    notes: story 3-5 red-phase tests authored via ATDD; AC-8/9/10/11
-  - artefact_class: A
     file: tests/unit/result.test.mjs
-    sha256: b613aba9831bb98b0d95d3c17b3737b9afe24cf7682743ffad225be0ba6758c5
+    sha256: 08450303e25c56c6e1ed7bf271b283a31d75bcbaa69d790236c3772b0f32d484
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T21:27:32.499Z
-    recorded_by: test-author
-    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
-    notes: story 3-5 red-phase tests authored via ATDD; AC-8/9/10/11
+    recorded_at: 2026-05-20T15:59:41.107Z
+    recorded_by: frontend
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+    notes: "Story 6.1 AC-9.3 graduation: 2-event handoff assertions replaced with 6-stage ADR-3-1 sequence (matching reveal-stage.test.mjs cycle-2 graduation) — lesson-2026-05-19-001"
   - artefact_class: A
     file: tests/unit/lint-css-source-co-equal.test.mjs
     sha256: a628b2d44b17a31e8ba67b9087742512b5612d9402a4850cb34f4838a18b08a5
@@ -513,12 +505,12 @@ entries:
     notes: story 3-5 red-phase tests authored via ATDD; AC-8/9/10/11
   - artefact_class: A
     file: tests/contract/reveal-stage-event-contract.spec.mjs
-    sha256: 53c8d046f17afa9c3e3dbbb7801a81499d73a9338c64ce83d98639b62620ba15
+    sha256: 59bd0d78dfd292423fd2d42bde6c1f315f39d67b4c95fae43ea6ae7ae4acf75c
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T21:27:32.500Z
+    recorded_at: 2026-05-20T15:42:43.730Z
     recorded_by: test-author
-    story_id: 3-5-implement-reveal-stage-event-score-panel-css-source-co-equal-triplet-lint
-    notes: story 3-5 red-phase tests authored via ATDD; AC-8/9/10/11
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+    notes: "story 6-1 red-phase: AC-11.5 inversion + AC-11.6/7/8 lock graduated 6-stage contract"
   - artefact_class: A
     file: tests/fixtures/lint-css-source-co-equal/parity-ok.css
     sha256: 0b24dcec2a1de3008264657fd404f8ca40a3ed4d0329011db8933cd6582fd27f
@@ -607,12 +599,11 @@ entries:
     notes: "Story 3-7 test-author phase: 7 unit tests for tools/dev-server.mjs programmatic API + 7 unit tests for src/assessment/test-hook.js gate + delegation surface + 1 Playwright full-slice spec driving the live SPA via window.__IQME_TEST__"
   - artefact_class: A
     file: tests/playwright/full-slice.spec.mjs
-    sha256: 83d416c10c25d19528562b4a44e19d3f566035674868acb797d2c0edfdfd3612
+    sha256: e2f621821ee3d575ccccb82c89ae59dbf224df800a2fe9931030608f94d1464c
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:25:31.508Z
-    recorded_by: test-author
-    story_id: 3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice
-    notes: "Story 3-7 test-author phase: 7 unit tests for tools/dev-server.mjs programmatic API + 7 unit tests for src/assessment/test-hook.js gate + delegation surface + 1 Playwright full-slice spec driving the live SPA via window.__IQME_TEST__"
+    recorded_at: 2026-06-03T12:43:05.535Z
+    recorded_by: frontend
+    notes: "methodology-handoff assertion: toHaveText on <head><title> never matches; use page.toHaveTitle (exposed after bindTriplet getAttribute fix restored the triplet-click navigation)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording.md
     sha256: d09f7b200633cd4b0a451f84b799f9169564ae879d26215e4929907ff4afe0e9
@@ -699,12 +690,12 @@ entries:
     story_id: 4-3-lint-frontmatter-lint-claims-manifest-strict-graduation
   - artefact_class: A
     file: tests/unit/tools/lint-frontmatter.test.mjs
-    sha256: 890bba59943f715658e04baa146a16acabb7e64b9835d80880d649b10a03dc01
+    sha256: a1a27182fa3ac5b7ed8d09d476574086d8ae4c4c587c58afd17fe67f6d2fda5d
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T10:44:19.107Z
-    recorded_by: test-author
-    story_id: 5-1-methodology-page-chrome-css-additions-validity-envelope-diagram-asset
-    notes: "story 5-1 test-author phase: scaffold tests + lint-frontmatter translationStatus extension"
+    recorded_at: 2026-05-20T20:14:47.679Z
+    recorded_by: frontend
+    story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
+    notes: Story 6-5 AC-8 — extend with 9 crisis-resources schema cases (happy/required/pattern/enum/minItems/minLength)
   - artefact_class: A
     file: tests/scaffold/lint-frontmatter-coverage.test.mjs
     sha256: fabe60db3b017af6ba018328a10020b8f3285de2ddc1d51e58d10ad53462e726
@@ -995,3 +986,188 @@ entries:
     recorded_at: 2026-05-20T13:21:58.013Z
     recorded_by: test-author
     story_id: bridge-6-7-3-restore-carry-forward-lessons
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion.md
+    sha256: a0e20a554d0bc7e45578c1eddb9a8ed7ee8602d1d7e7435c2f35dc7b7f54fd2a
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T13:19:33.951Z
+    recorded_by: story-add-finding-autorecord
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+  - artefact_class: A
+    file: tests/playwright/co-equal-triplet-computed-style.spec.mjs
+    sha256: 6d872f79572908b2cc61941aacb43ad021944bd36374d871d2a6226aa130f493
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T15:43:47.381Z
+    recorded_by: test-author
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+    notes: "story 6-1 red-phase: AC-4 computed-style runtime assertion (graduates 3.5 source lint)"
+  - artefact_class: A
+    file: tests/playwright/reveal-stage.spec.mjs
+    sha256: f7145ab932af64166f70b7be52454505417f812a76a54026a922fd29f960d47c
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T15:44:44.420Z
+    recorded_by: test-author
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+    notes: "story 6-1 red-phase: AC-5 full-sequence event-ordering + monotonic-t + out-of-order negative"
+  - artefact_class: A
+    file: tests/contract/reveal-stage-timings.spec.mjs
+    sha256: 72996a253e9c95009ffa15c4da267fe15096b7fdce05c615b7004f78a44927c7
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T15:47:49.098Z
+    recorded_by: test-author
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+    notes: "story-6-1 ATDD round-2: AC-3 timings JSON contract test"
+  - artefact_class: A
+    file: tests/unit/reveal-stage.test.mjs
+    sha256: 3ee647df0a66b8a843253413bf83a040a2507418d43a9a8caf46f047ff8ebc59
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T15:54:44.060Z
+    recorded_by: test-author
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+    notes: "story 6-1 ATDD cycle-2: graduated AC-8.2/8.3/8.4/8.6 to 6-stage enum symmetric with contract AC-11.5 inversion"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile.md
+    sha256: 341346e0b569c1dd6065fcc841165cf0272924acf8d3ded3f88e39285483aaa8
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T16:36:20.565Z
+    recorded_by: frontend
+    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
+  - artefact_class: A
+    file: tests/unit/tools/compute-difficulty-bands.test.mjs
+    sha256: a5e0feb06edb5d13956aa6f08f6fb926ee47c0c6710f090165f3dcb5540d4225
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T16:21:35.747Z
+    recorded_by: test-author
+    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
+  - artefact_class: A
+    file: tests/contract/item-difficulty-bands-contract.spec.mjs
+    sha256: 14312699745b906ec05c329d662c099edae19432b3cf9eba129de624383a24d5
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T16:21:35.748Z
+    recorded_by: test-author
+    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
+  - artefact_class: A
+    file: tests/playwright/difficulty-sentence.spec.mjs
+    sha256: ebed351e5824b0c31c71cdf7c466d93088ec0ff3d31ea22b3529cee26528ecea
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T16:21:35.748Z
+    recorded_by: test-author
+    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/6-3-mid-session-bail-out-with-discard-continue-choice.md
+    sha256: 58d0f04cddae1a630570998f016cd9e476ebf8e577c3b186642fd235ae1122b3
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T13:10:20.646Z
+    recorded_by: frontend
+    story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
+  - artefact_class: A
+    file: tests/unit/item-runner-bail.test.mjs
+    sha256: 31b055aa58f682ee0d53ac49e2d08381dee3117d305b38e6c6d1a88a4b69f1d4
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T17:09:44.472Z
+    recorded_by: frontend
+    story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
+    notes: closed unfreeze window for 6-3 — spy mechanism revised to observable end-state assertions; tests now green
+  - artefact_class: A
+    file: tests/playwright/mid-session-bail-out.spec.mjs
+    sha256: 4f8da45de02f2c39d4604f245c433d4fe1f780e04ecc3a98c02ecde34bbd4302
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T17:04:22.380Z
+    recorded_by: test-author
+    story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
+    notes: story-6-3 frozen failing tests authored via ATDD
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/6-4-chrome-components-chrome-header-chrome-footer-theme-toggle.md
+    sha256: 6c4c6cf92c9a6875297a0fef0571909d85aec95cf8ad5885a0fc8bb89785e404
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T13:19:33.951Z
+    recorded_by: story-add-finding-autorecord
+    story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
+  - artefact_class: A
+    file: tests/unit/theme.test.mjs
+    sha256: b1a45ebca197ff618f40a34ba2a4c87e778cc94070c22837c459e37328e5fb2c
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T17:35:04.302Z
+    recorded_by: test-author
+    story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
+  - artefact_class: A
+    file: tests/playwright/chrome-components.spec.mjs
+    sha256: 7b6d443a9946594a97fff10f5b99e74fdbe87025d63abebbac09e0be3ebe962d
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T17:44:22.638Z
+    recorded_by: frontend
+    story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list.md
+    sha256: c665f92cb120e3256782bb388066b88ec5caae98ae17b60753bbe0812e48d53a
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T12:53:37.076Z
+    recorded_by: story-add-finding-autorecord
+    story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
+  - artefact_class: A
+    file: tests/unit/tail-scene-router.test.mjs
+    sha256: 5f4a65d5bd942c45ef9762a519cf5ed8414b47dad0632f98c0df9de57608d118
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T19:57:57.974Z
+    recorded_by: test-author
+    story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
+    notes: "Story 6-5 test-author phase: tail-scene-router unit tests (AC-1 + AC-10 threshold + RangeError boundaries)"
+  - artefact_class: A
+    file: tests/playwright/asymmetric-tail-scenes.spec.mjs
+    sha256: 3ccf29fcf8f2ba5b361e138e86686073fa94f95e2e9a2233cb7c4528b126331c
+    canonical_form: raw-bytes
+    recorded_at: 2026-05-20T19:58:03.318Z
+    recorded_by: test-author
+    story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
+    notes: "Story 6-5 test-author phase: asymmetric-tail-scenes Playwright (AC-9 Test 1-5; bottom/mid/top render + reveal-stage gate + zero-third-party)"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/6-6-top-decile-tear-edge-overlay-cropping-fuzzer.md
+    sha256: b75f303f06922330ecddfeb4c7577cac9d2b2c834b90c6b1362c426fae9f0413
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T12:45:00.643Z
+    recorded_by: state-commit-autorecord
+    story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
+  - artefact_class: A
+    file: tests/unit/cropping-fuzzer.test.mjs
+    sha256: 2d36ecf674e631cf6f2882f1f97b33f319ffbe7802fef461e06115de8ebfcdf3
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T11:31:32.132Z
+    recorded_by: test-author
+    story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
+  - artefact_class: A
+    file: tests/playwright/tear-edge-overlay.spec.mjs
+    sha256: 1f72350bfda91aed10f52a8edbf7a6cb0f826d90120048e6aa76f5b4a1ba772c
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T11:31:32.132Z
+    recorded_by: test-author
+    story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
+  - artefact_class: A
+    file: tests/playwright/cropping-fuzzer.spec.mjs
+    sha256: f4c9d6393f0b20313302647a54a3ce53309c7c3e672246cbef08c64b0c440447
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T11:31:32.132Z
+    recorded_by: test-author
+    story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page.md
+    sha256: be12a04703027d20335f678658afb8b16a05d5efcf5fc2700cb07fc7900a5a54
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T13:19:33.951Z
+    recorded_by: story-add-finding-autorecord
+    story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
+  - artefact_class: A
+    file: tests/unit/save-result.test.mjs
+    sha256: 790a30ec9c6f9163f7de91a2065ef825d431739ea593e1c5d6293b7ba1e4dd39
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T12:11:34.726Z
+    recorded_by: engineer
+    story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
+    notes: "closed unfreeze window: removed unused eslint-disable directive (no-control-regex not enabled in flat config); assertion semantics unchanged, test green"
+  - artefact_class: A
+    file: tests/unit/result-save-retest.test.mjs
+    sha256: a364d508bee4c514381a19dcf4b1db34d83c1b0b4faf6bebafac5813bdd4296c
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T11:58:32.549Z
+    recorded_by: test-author
+    story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
+    notes: "story 6-7 frozen RED tests: save-result.js localStorage opt-in discipline + result.js save-button/retest-note render"

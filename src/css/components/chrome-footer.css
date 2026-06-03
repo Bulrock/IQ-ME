@@ -1,0 +1,53 @@
+/* src/css/components/chrome-footer.css
+ *
+ * Story 6.4 AC-2 — persistent chrome-footer with methodology link, theme
+ * toggle slot, GitHub Discussions link (FR52), and citation reference link.
+ * Hidden on item-runner (UX-DR8). Neutral chrome-level visual weight —
+ * restraint-first per UX-DR3; no accent color, no "primary CTA" register.
+ */
+
+.chrome-footer {
+  display: flex;
+  gap: var(--space-5);
+  align-items: center;
+  padding-block: var(--space-3);
+  padding-inline: var(--space-5);
+  background-color: var(--color-surface-elevated);
+  border-block-start: var(--space-1) solid var(--color-rule-divider);
+}
+
+.chrome-footer__methodology-link,
+.chrome-footer__discussions-link,
+.chrome-footer__citation-link {
+  font-size: var(--font-size-200);
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.chrome-footer__methodology-link:hover,
+.chrome-footer__methodology-link:focus-visible,
+.chrome-footer__discussions-link:hover,
+.chrome-footer__discussions-link:focus-visible,
+.chrome-footer__citation-link:hover,
+.chrome-footer__citation-link:focus-visible {
+  color: var(--color-text-link);
+  text-decoration: underline;
+}
+
+.chrome-footer__methodology-link:focus-visible,
+.chrome-footer__discussions-link:focus-visible,
+.chrome-footer__citation-link:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}
+
+.chrome-footer__theme-toggle {
+  /* Slot — theme.js renders <fieldset.theme-toggle> into this container. */
+  display: inline-flex;
+  align-items: center;
+}
+
+/* UX-DR8: item-runner is a focus surface; chrome must not distract. */
+body[data-route="#/test"] .chrome-footer {
+  display: none;
+}

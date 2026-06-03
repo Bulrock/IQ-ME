@@ -167,10 +167,15 @@ jobs:
   co-equal-triplet-computed-style:
     name: co-equal-triplet-computed-style
     runs-on: ubuntu-latest
-    # Activates in Epic 3
-    if: false
+    # Activated in Story 6.1 (Epic 6) — runtime computed-style assertion graduates Story 3.5 CSS-source lint per Murat two-tier defense
     steps:
-      - run: echo "stub — Activates in Epic 3 (Story 3.5)"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: make build-methodology
+      - run: npx --yes playwright test tests/playwright/co-equal-triplet-computed-style.spec.mjs
 
   co-equal-triplet-css-source:
     name: co-equal-triplet-css-source
@@ -183,10 +188,59 @@ jobs:
   reveal-stage-event-ordering:
     name: reveal-stage-event-ordering
     runs-on: ubuntu-latest
-    # Activates in Epic 3
-    if: false
+    # Activated in Story 6.1 (Epic 6) — full 6-stage ADR-3-1 sequence event-ordering Playwright spec
     steps:
-      - run: echo "stub — Activates in Epic 3"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: make build-methodology
+      - run: npx --yes playwright test tests/playwright/reveal-stage.spec.mjs
+
+  difficulty-sentence:
+    name: difficulty-sentence
+    runs-on: ubuntu-latest
+    # Activated in Story 6.2 (Epic 6) — FR22 per-item-difficulty breakdown sentence Playwright spec
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: make build-difficulty-bands
+      - run: make build-methodology
+      - run: npx --yes playwright test tests/playwright/difficulty-sentence.spec.mjs
+
+  mid-session-bail-out:
+    name: mid-session-bail-out
+    runs-on: ubuntu-latest
+    # Activated in Story 6.3 (Epic 6) — full mid-session bail-out cycle
+    # (Escape / Discard / Continue) driven through the SPA, plus the NFR9/FR4
+    # privacy invariant: a Storage.prototype.setItem spy asserts ZERO
+    # localStorage writes during the bail/discard cycle. SPA-only (landing →
+    # consent → item-runner); no methodology/build prerequisite.
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: npx --yes playwright test tests/playwright/mid-session-bail-out.spec.mjs
+
+  chrome-components:
+    name: chrome-components
+    runs-on: ubuntu-latest
+    # Activated in Story 6.4 (Epic 6) — chrome-header + chrome-footer +
+    # theme-toggle visibility matrix + tri-state toggle interactions +
+    # localStorage discipline (NFR9) + prefers-color-scheme honor.
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: npx --yes playwright test tests/playwright/chrome-components.spec.mjs
 
   csp-violation-count:
     name: csp-violation-count
@@ -293,21 +347,97 @@ jobs:
     steps:
       - run: echo "stub — Activates in Epic 6"
 
+  asymmetric-tail-scenes:
+    name: asymmetric-tail-scenes
+    runs-on: ubuntu-latest
+    # Activated in Story 6.5 (Epic 6) — asymmetric tail-scene composition
+    # (bottom/mid/top decile, silent-companion-line, crisis-resources,
+    # reveal-stage gate, zero-third-party). Mirrors the difficulty-sentence
+    # driving pattern; the result render fetches the build-generated
+    # src/items/item-difficulty-bands.json, so the bands build runs first.
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: make build-difficulty-bands
+      - run: make build-methodology
+      - run: npx --yes playwright test tests/playwright/asymmetric-tail-scenes.spec.mjs
+
+  tear-edge-overlay:
+    name: tear-edge-overlay
+    runs-on: ubuntu-latest
+    # Activated in Story 6.6 (Epic 6) — top-decile tear-edge overlay bbox
+    # invariant: the tear-edge SVG box overlaps the caveat and dips past the
+    # triplet top at every viewport width 320→1440px (UX-DR25, FR24,
+    # UX Innovation #4 — anti-credentialization by composition).
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: npx --yes playwright test tests/playwright/tear-edge-overlay.spec.mjs
+
   cropping-fuzzer:
     name: cropping-fuzzer
     runs-on: ubuntu-latest
-    # Activates in Epic 6
-    if: false
+    # Activated in Story 6.6 (Epic 6) — generates seeded synthetic crops of the
+    # rendered top-decile score-panel and asserts no clean score-only crop
+    # exists (the caveat/tear-edge survives cropping). The Playwright suite
+    # self-gates on corpus/manifest.json bankFrozen (Murat's bank-frozen-flag
+    # discipline — dormant while the bank is unfrozen, hard gate once frozen).
+    # The unit test pins the pure-geometry verdict logic unconditionally.
     steps:
-      - run: echo "stub — Activates in Epic 6 (Story 6.6)"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node --test tests/unit/cropping-fuzzer.test.mjs
+      - run: npx --yes playwright install --with-deps chromium
+      - run: npx --yes playwright test tests/playwright/cropping-fuzzer.spec.mjs
 
   lighthouse:
     name: lighthouse
     runs-on: ubuntu-latest
-    # Activates in Epic 6
-    if: false
+    # Activated in Story 6.4 — Lighthouse accessibility audit on both
+    # themes (NFR12 + UX-DR6 WCAG 2.2 AA contrast in both palettes).
+    # Two legs: light + dark, each scored via accessibility category.
+    # Threshold ≥ 90 (Lighthouse's WCAG AA contrast checks are part of the
+    # accessibility audit).
+    strategy:
+      fail-fast: false
+      matrix:
+        theme: [light, dark]
     steps:
-      - run: echo "stub — Activates in Epic 6"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - name: Start dev-server and run Lighthouse (${{ matrix.theme }})
+        run: |
+          node tools/dev-server.mjs &
+          SERVER_PID=$!
+          # wait briefly for the server to bind (4173 is the default port).
+          for i in 1 2 3 4 5; do
+            if curl -sf http://127.0.0.1:4173/ > /dev/null 2>&1; then break; fi
+            sleep 1
+          done
+          npx --yes lighthouse@12 \
+            http://127.0.0.1:4173/ \
+            --only-categories=accessibility \
+            --preset=desktop \
+            --chrome-flags="--headless=new --no-sandbox --disable-gpu" \
+            --emulated-form-factor=desktop \
+            --throttling-method=provided \
+            --output=json --output-path=./lh-${{ matrix.theme }}.json \
+            --quiet \
+            --no-enable-error-reporting || true
+          # Extract the accessibility score; halt if below 0.9.
+          node -e "const r = require('./lh-${{ matrix.theme }}.json'); const s = r.categories.accessibility.score; console.log('accessibility=' + s); if (s < 0.9) { console.error('Lighthouse accessibility score ' + s + ' < 0.90'); process.exit(1); }"
+          kill $SERVER_PID || true
 
   axe-core-pa11y:
     name: axe-core-pa11y

@@ -1,0 +1,58 @@
+/* src/css/components/tail-scene-bottom.css
+ *
+ * Story 6.5 AC-4 — bottom-decile asymmetric tail-scene composition for
+ * Mikhail (UX Innovation #5; UX-DR Step 10 §"Held").
+ *
+ * Holds the shared .tail-scene base block (cf. UX spec line 1424) plus
+ * the bottom-decile-specific deltas; mid + top variant files (sibling)
+ * carry only their variant deltas.
+ */
+
+/* ── shared .tail-scene base (declared once here) ───────────────────── */
+.tail-scene {
+  display: none;
+  padding: var(--space-5);
+  background-color: var(--color-surface-elevated);
+  border: var(--space-1) solid var(--color-rule-divider);
+  border-radius: var(--space-2);
+  margin-block-start: var(--space-tail-scene-top);
+}
+
+.tail-scene__copy {
+  font-size: var(--font-size-200);
+  margin-block-end: var(--space-3);
+}
+
+/* Reveal-stage visibility gate — tail-scene becomes visible at the
+   tail-scene beat and stays visible through methodology-handoff
+   (mirrors the difficulty-sentence gate from Story 6.2). */
+.result-scene[data-reveal-stage="tail-scene"] .tail-scene,
+.result-scene[data-reveal-stage="methodology-handoff"] .tail-scene {
+  display: block;
+}
+
+/* ── .tail-scene--bottom-decile (Mikhail) ───────────────────────────── */
+.tail-scene--bottom-decile .tail-scene__crisis-resources {
+  margin-block-start: var(--space-4);
+}
+
+.tail-scene--bottom-decile .tail-scene__crisis-resources ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tail-scene--bottom-decile .tail-scene__crisis-resources li {
+  margin-block-end: var(--space-2);
+}
+
+.tail-scene--bottom-decile .crisis-resource-link {
+  font-size: var(--font-size-200);
+  color: var(--color-text-link);
+}
+
+.tail-scene--bottom-decile .crisis-resource-description {
+  display: block;
+  font-size: var(--font-size-100);
+  color: var(--color-text-muted);
+}

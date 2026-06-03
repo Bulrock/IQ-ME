@@ -18,9 +18,26 @@ const SCAN_DIR = resolve(REPO_ROOT, TARGET);
 const FORBIDDEN = /\blocalStorage\.setItem\s*\(/;
 const FILES_GLOB = `${SCAN_DIR}/**/*.{js,mjs,ts,tsx,jsx,html}`;
 
+// Allowlist: files whose localStorage.setItem calls are gated by an
+// explicit user gesture (per NFR9). Each entry must point at a file that
+// only writes localStorage inside a user-event handler — never on load.
+// Story 6.4 AC-3: theme.js writes only inside radio-change handlers; the
+// unit test (tests/unit/theme.test.mjs AC-10.a) + Playwright spec
+// (tests/playwright/chrome-components.spec.mjs Test 2) assert zero writes
+// during bootstrap.
+// Story 6.7: save-result.js writes only inside the score-panel Save-button
+// click handler (an explicit user gesture, per NFR9 / FR26); the unit tests
+// (tests/unit/save-result.test.mjs AC-3 + tests/unit/result-save-retest.test.mjs
+// AC-3) assert zero writes at import/render time.
+const ALLOWLIST = new Set([
+  resolve(REPO_ROOT, "src/assessment/theme.js"),
+  resolve(REPO_ROOT, "src/assessment/save-result.js"),
+]);
+
 const files = globSync(FILES_GLOB);
 const violations = [];
 for (const f of files) {
+  if (ALLOWLIST.has(f)) continue;
   if (FORBIDDEN.test(readFileSync(f, "utf8"))) violations.push(f);
 }
 

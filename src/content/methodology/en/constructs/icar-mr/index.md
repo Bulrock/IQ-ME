@@ -24,3 +24,13 @@ Two test-takers who start at the same instant get the same items. Two sessions f
 The license attribution lives on the ICAR-license page. The license itself is pending the Gate-9a sign-off from the ICAR maintainers. The screener treats that gate as load-bearing for release.
 
 The item-selection algorithm is described in the scoring section. The short version: items span a range of difficulty. A 16-item session pins ability with good precision in the middle of the range. The session has broader uncertainty at the tails. The full procedure lives in the scoring engine source.
+
+## Easy, medium, and hard item bands
+
+The pool is partitioned into three difficulty bands by IRT b-parameter terciles. The lowest third of items by b becomes the easy band. The top third becomes the hard band. The middle third becomes the medium band. The remainder of an uneven split lands in the middle band.
+
+Items with a b value equal to a tercile cutoff stay in the lower band. The rule is the natural reading: easy items are those with b at or below the easy cutoff; medium items are those with b at or below the medium cutoff; hard items are everything above.
+
+This per-item difficulty band is distinct from the qualitative band label applied to the score itself. The score band describes where the test-taker's ability estimate sits in the reference distribution. The item band describes how hard each presented item was. The result page reports both, and the difficulty-breakdown sentence near the score reads as a footnote that earns attention.
+
+See the [scoring overview](../../scoring/overview/) for how this is rendered on the result page.

@@ -649,3 +649,91 @@ branches:
     last_synced_at: 2026-05-20T13:34:28.609Z
     notes: ""
     created_at: 2026-05-20T13:13:00.943Z
+  - branch: epic/6
+    story_id: null
+    epic_id: epic-6
+    base_branch: main
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-05-20T15:28:55.325Z
+  - branch: story/6-1-reveal-stage-full
+    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+    epic_id: null
+    base_branch: epic/6
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T16:04:04.109Z
+    notes: ""
+    created_at: 2026-05-20T15:34:59.921Z
+  - branch: story/6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
+    story_id: 6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile
+    epic_id: null
+    base_branch: epic/6
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T16:36:52.295Z
+    notes: ""
+    created_at: 2026-05-20T16:13:05.894Z
+  - branch: story/6-3-mid-session-bail-out-with-discard-continue-choice
+    story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
+    epic_id: null
+    base_branch: epic/6
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T17:16:40.952Z
+    notes: ""
+    created_at: 2026-05-20T16:48:58.704Z
+  - branch: story/6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
+    story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
+    epic_id: null
+    base_branch: epic/6
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T17:49:07.905Z
+    notes: ""
+    created_at: 2026-05-20T17:31:22.174Z
+  - branch: story/6-5-tail-scenes-en
+    story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
+    epic_id: null
+    base_branch: epic/6
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-05-20T20:20:29.836Z
+    notes: ""
+    created_at: 2026-05-20T19:54:33.679Z
+  - branch: story/6-6-top-decile-tear-edge-overlay-cropping-fuzzer
+    story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
+    epic_id: null
+    base_branch: epic/6
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-03T11:39:28.900Z
+    notes: ""
+    created_at: 2026-06-03T11:22:39.709Z
+  - branch: story/6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
+    story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
+    epic_id: null
+    base_branch: epic/6
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-03T12:19:08.559Z
+    notes: ""
+    created_at: 2026-06-03T11:52:30.649Z

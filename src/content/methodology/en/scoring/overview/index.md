@@ -28,4 +28,12 @@ If the displayed number surprises you, the uncertainty band is the second thing 
 
 You can read the related corpus pages on percentiles and on the uncertainty band for more context on what this single number does and does not say.
 
+## Per-item difficulty breakdown
+
+The result page also shows a per-item difficulty breakdown. The 16 items presented in your session were drawn from a pool partitioned by IRT b-parameter terciles into easy, medium, and hard bands. The breakdown reports, for each band, how many items in that band you answered correctly.
+
+This is distinct from the qualitative band label on the score itself. The score band describes the position of your ability estimate in the reference distribution. The item band describes the difficulty of each item you saw. A low score paired with all hard items answered reads differently than a low score paired with all easy items missed. The breakdown lets you read your score in that context.
+
+Read the [ICAR-MR item-pool page](../../constructs/icar-mr/) for the derivation of the easy/medium/hard cutoffs.
+
 [Back to IQ-ME](/)

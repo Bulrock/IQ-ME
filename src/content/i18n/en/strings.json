@@ -2,7 +2,15 @@
   "chrome": {
     "titleAppDefault": "IQ-ME — a fluid-reasoning screener",
     "appName": "IQ-ME",
-    "errorFallbackMessage": "Something went wrong loading the page. Try reloading."
+    "errorFallbackMessage": "Something went wrong loading the page. Try reloading.",
+    "languageSwitcherPlaceholderEn": "EN",
+    "footerMethodologyLink": "Read the methodology",
+    "footerDiscussionsLink": "Discussions",
+    "footerCitationLink": "Cite",
+    "themeToggleLegend": "Color theme",
+    "themeSystemLabel": "System",
+    "themeLightLabel": "Light",
+    "themeDarkLabel": "Dark"
   },
   "landing": {
     "headline": "IQ-ME",
@@ -25,7 +33,12 @@
     "previousButton": "Previous",
     "nextButton": "Next",
     "submitButton": "Submit",
-    "fetchErrorMessage": "Could not load the item set. Try reloading."
+    "fetchErrorMessage": "Could not load the item set. Try reloading.",
+    "bailButton": "End the test early",
+    "bailPanelHeading": "End the test early?",
+    "bailExplanation": "An incomplete test cannot produce a meaningful score.",
+    "bailDiscardButton": "Discard responses",
+    "bailContinueButton": "Continue"
   },
   "result": {
     "scoreHeading": "Your result",
@@ -38,7 +51,13 @@
     "anchorAriaTemplate": "Your IQ-scale equivalent, {N}.",
     "bandAriaTemplate": "Uncertainty band, 95 percent confidence.",
     "bandTemplate": "±{N}",
-    "fetchErrorMessage": "Could not load the item set. Try reloading."
+    "difficultySentenceTemplate": "Of the {hardN} hard, {medN} medium, and {easyN} easy items, you answered {hardCorrect} / {hardN}, {medCorrect} / {medN}, and {easyCorrect} / {easyN} correctly.",
+    "difficultySentenceAria": "Per-difficulty breakdown.",
+    "fetchErrorMessage": "Could not load the item set. Try reloading.",
+    "saveButton": "Save my result",
+    "saveButtonSaved": "Result saved",
+    "retestNote": "This screener draws from a small pool of matrix items. If you take it again soon, your second score will be correlated with this one rather than an independent estimate — you will partly be remembering these patterns, not re-measuring your reasoning from scratch. We enforce no technical cooldown: that would be a false guarantee in a browser-only app. We simply ask you to read this and decide honestly whether a quick retest tells you anything new.",
+    "retestNoteLinkLabel": "Read about retest effects"
   },
   "methodology": {
     "masthead": {

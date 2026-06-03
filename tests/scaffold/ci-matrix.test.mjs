@@ -51,6 +51,12 @@ const ALL_JOBS = [
   // Story 4.8 — Epic-4 exit-criterion jobs.
   "lint-csp-source",
   "exit-criterion-spec",
+  // Story 6.2 — FR22 per-item-difficulty breakdown sentence Playwright spec.
+  "difficulty-sentence",
+  // Story 6.4 — chrome-header/footer + theme-toggle visibility + tri-state toggle.
+  "chrome-components",
+  // Story 6.6 — top-decile tear-edge overlay bbox-overlap invariant.
+  "tear-edge-overlay",
 ];
 
 const EPIC_1_ACTIVE = new Set([
@@ -96,6 +102,27 @@ const EPIC_1_ACTIVE = new Set([
   // lint-fr36-protection activated in Story 5.2 — FR36 protects the
   // "what this instrument does not measure" page from silent shortening.
   "lint-fr36-protection",
+  // co-equal-triplet-computed-style activated in Story 6.1 — runtime computed-style
+  // assertion graduates Story 3.5 CSS-source lint per Murat two-tier defense.
+  "co-equal-triplet-computed-style",
+  // reveal-stage-event-ordering activated in Story 6.1 — full 6-stage ADR-3-1
+  // sequence event-ordering Playwright spec.
+  "reveal-stage-event-ordering",
+  // difficulty-sentence activated in Story 6.2 — FR22 per-item-difficulty
+  // breakdown sentence Playwright spec.
+  "difficulty-sentence",
+  // chrome-components activated in Story 6.4 — chrome-header/footer + theme-toggle
+  // visibility matrix + tri-state toggle localStorage discipline.
+  "chrome-components",
+  // lighthouse activated in Story 6.4 — light+dark accessibility audit (NFR12
+  // WCAG 2.2 AA contrast in both palettes).
+  "lighthouse",
+  // tear-edge-overlay activated in Story 6.6 — top-decile tear-edge bbox-overlap
+  // invariant (FR24 anti-credentialization-by-composition).
+  "tear-edge-overlay",
+  // cropping-fuzzer activated in Story 6.6 — seeded synthetic-crop assertion that
+  // no clean score-only screenshot is possible (gated on corpus bankFrozen).
+  "cropping-fuzzer",
 ]);
 
 function loadPrChecks() {
@@ -107,7 +134,7 @@ function loadPrChecks() {
 // AC-1: every job present (28 total)
 // ─────────────────────────────────────────────────────────────────────
 
-test("AC-1: pr-checks.yml exists and declares all 28 expected jobs", () => {
+test("AC-1: pr-checks.yml exists and declares all 30 expected jobs", () => {
   const text = loadPrChecks();
   for (const job of ALL_JOBS) {
     // Each job declared as a top-level key under `jobs:` — two-space indent + `<job-id>:`

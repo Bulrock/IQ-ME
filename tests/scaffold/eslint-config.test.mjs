@@ -39,13 +39,15 @@ test("AC-1: eslint.config.mjs declares no-restricted-imports with all five domai
   }
 });
 
-test("AC-1: config sets ecmaVersion 2022 and sourceType module", () => {
+test("AC-1: config sets ecmaVersion 2025 and sourceType module", () => {
   const source = readFileSync(ESLINT_CONFIG, "utf8");
+  // Story 6.2 raised ecmaVersion from 2022 to 2025 — import-attributes
+  // (`import x with { type: "json" }`) require ES2025-aware parser.
   // Allow either string or number form for ecmaVersion.
   assert.match(
     source,
-    /ecmaVersion\s*:\s*(2022|"2022"|'2022')/,
-    `must declare ecmaVersion: 2022`,
+    /ecmaVersion\s*:\s*(2025|"2025"|'2025')/,
+    `must declare ecmaVersion: 2025`,
   );
   assert.match(
     source,

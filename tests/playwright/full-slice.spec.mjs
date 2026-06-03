@@ -84,7 +84,7 @@ test("full-slice: zero third-party requests across the full happy-path", async (
     page.waitForURL("**/methodology/v0.1.0/en/scoring/percentile-to-iq/**"),
     page.locator(".score-panel__percentile").click(),
   ]);
-  await expect(page.locator("title")).toHaveText(/percentile/i);
+  await expect(page).toHaveTitle(/percentile/i);
 
   // ─── Assertions ──────────────────────────────────────────────────────
 

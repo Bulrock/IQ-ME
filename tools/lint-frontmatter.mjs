@@ -13,7 +13,8 @@
 //   --paths=<dir>   override the methodology root (default: src/content/methodology)
 
 import { readFileSync, readdirSync } from "node:fs";
-import { resolve, join, relative } from "node:path";
+import { resolve, join, relative, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { argv, cwd, stdout, stderr, exit } from "node:process";
 
 const CWD = cwd();
@@ -25,6 +26,13 @@ for (const a of args) {
   if (a.startsWith("--paths=")) pathsArg = a.slice("--paths=".length);
 }
 const ROOT = resolve(CWD, pathsArg ?? "src/content/methodology");
+
+// Story 6.5 AC-8 — crisis-resources schema validation extension.
+const CRISIS_ROOT = resolve(CWD, "src/content/crisis-resources");
+// Schema ships at script-relative path so the validation works on any cwd
+// (including tmpdir-fixtures in tests/unit/tools/lint-frontmatter.test.mjs).
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
+const CRISIS_SCHEMA_PATH = resolve(SCRIPT_DIR, "..", "src/content/crisis-resources/crisis-resources.schema.json");
 
 // ─── schema-subset validators ────────────────────────────────────────────
 const REQUIRED_KEYS = [
@@ -191,6 +199,74 @@ function emit(path, field, reason) {
   stderr.write(`lint-frontmatter: ${path}: ${field} ${reason}\n`);
 }
 
+// Story 6.5 AC-8 — stdlib-only mini-validator subset for crisis-resources schema.
+// Supports: type, required, properties, items, enum, pattern, minLength, minItems.
+function validateAgainst(schema, value, pathField) {
+  const errs = [];
+  if (schema.type === "object") {
+    if (value === null || typeof value !== "object" || Array.isArray(value)) {
+      errs.push([pathField, "must be an object"]);
+      return errs;
+    }
+    if (Array.isArray(schema.required)) {
+      for (const k of schema.required) {
+        if (!(k in value)) errs.push([pathField ? `${pathField}.${k}` : k, "missing required key"]);
+      }
+    }
+    if (schema.properties) {
+      for (const [k, sub] of Object.entries(schema.properties)) {
+        if (k in value) {
+          errs.push(...validateAgainst(sub, value[k], pathField ? `${pathField}.${k}` : k));
+        }
+      }
+    }
+    return errs;
+  }
+  if (schema.type === "array") {
+    if (!Array.isArray(value)) { errs.push([pathField, "must be an array"]); return errs; }
+    if (typeof schema.minItems === "number" && value.length < schema.minItems) {
+      errs.push([pathField, `must have ≥${schema.minItems} entries (got ${value.length})`]);
+    }
+    if (schema.items) {
+      for (let i = 0; i < value.length; i++) {
+        errs.push(...validateAgainst(schema.items, value[i], `${pathField}[${i}]`));
+      }
+    }
+    return errs;
+  }
+  if (schema.type === "string") {
+    if (typeof value !== "string") { errs.push([pathField, "must be a string"]); return errs; }
+    if (typeof schema.minLength === "number" && value.length < schema.minLength) {
+      errs.push([pathField, `must have length ≥${schema.minLength} (got ${value.length})`]);
+    }
+    if (schema.pattern && !new RegExp(schema.pattern).test(value)) {
+      errs.push([pathField, `value ${JSON.stringify(value)} does not match pattern ${schema.pattern}`]);
+    }
+    if (Array.isArray(schema.enum) && !schema.enum.includes(value)) {
+      errs.push([pathField, `value ${JSON.stringify(value)} not in enum ${JSON.stringify(schema.enum)}`]);
+    }
+    return errs;
+  }
+  return errs;
+}
+
+function* walkCrisisJson(dir) {
+  let entries;
+  try {
+    entries = readdirSync(dir, { withFileTypes: true });
+  } catch (e) {
+    if (e.code === "ENOENT") return;
+    throw e;
+  }
+  entries.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+  for (const e of entries) {
+    if (e.name.startsWith(".")) continue;
+    if (!e.isFile() || !e.name.endsWith(".json")) continue;
+    if (e.name === "crisis-resources.schema.json") continue;
+    yield join(dir, e.name);
+  }
+}
+
 function main() {
   let count = 0;
   let failures = 0;
@@ -255,11 +331,26 @@ function main() {
     count++;
   }
 
+  // Story 6.5 AC-8 — crisis-resources/*.json validation (when schema present).
+  let crisisSchema = null;
+  try { crisisSchema = JSON.parse(readFileSync(CRISIS_SCHEMA_PATH, "utf8")); } catch {}
+  if (crisisSchema) {
+    for (const fullPath of walkCrisisJson(CRISIS_ROOT)) {
+      const rel = relative(CWD, fullPath);
+      let body;
+      try { body = JSON.parse(readFileSync(fullPath, "utf8")); }
+      catch (e) { emit(rel, "<json>", `parse error: ${e.message}`); failures++; count++; continue; }
+      const errs = validateAgainst(crisisSchema, body, "");
+      for (const [field, reason] of errs) { emit(rel, field || "<root>", reason); failures++; }
+      count++;
+    }
+  }
+
   if (failures > 0) {
-    stderr.write(`lint-frontmatter: ${failures} violation(s) across ${count} page(s)\n`);
+    stderr.write(`lint-frontmatter: ${failures} violation(s) across ${count} file(s)\n`);
     exit(1);
   }
-  stdout.write(`lint-frontmatter: ${count} page(s) validated\n`);
+  stdout.write(`lint-frontmatter: ${count} file(s) validated\n`);
   exit(0);
 }
 
