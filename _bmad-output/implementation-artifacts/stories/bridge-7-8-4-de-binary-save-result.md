@@ -1,7 +1,7 @@
 ---
 id: bridge-7-8-4-de-binary-save-result
 title: "Story bridge-7-8-4-de-binary-save-result: De-binary save-result.test.mjs: replace literal control bytes with \\x escapes"
-status: approved
+status: done
 ---
 
 # Story bridge-7-8-4-de-binary-save-result: De-binary save-result.test.mjs: replace literal control bytes with \x escapes

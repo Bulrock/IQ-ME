@@ -1,7 +1,7 @@
 ---
 id: bridge-7-8-5-post-epic-app-modules
 title: "Story bridge-7-8-5-post-epic-app-modules: Post-epic app-modules-bytes trim pass + re-establish principled ceiling"
-status: approved
+status: done
 ---
 
 # Story bridge-7-8-5-post-epic-app-modules: Post-epic app-modules-bytes trim pass + re-establish principled ceiling

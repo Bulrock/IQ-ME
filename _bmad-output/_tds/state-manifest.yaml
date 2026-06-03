@@ -8,10 +8,10 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 21ed4eb04f33134c7fcf8daf81a7f209a96c8f9de30ebdd9148662ea8a5d7ddf
+    sha256: b3433eb4159f9dfbccf854d9b8ed95fafed11c75b15ae5c318a1925fb769cdff
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:49:06.138Z
-    recorded_by: auditor
+    recorded_at: 2026-06-03T14:53:04.510Z
+    recorded_by: engineer
     story_id: bridge-7-8
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
@@ -1212,24 +1212,24 @@ entries:
     notes: "story 6-7 frozen RED tests: save-result.js localStorage opt-in discipline + result.js save-button/retest-note render"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-7-8-1-changelog-discipline-for-sibling.md
-    sha256: 851a71a462acd7506fcce733c5041bbb08d6ea4a0da4700de36afcf1bd1de8e0
+    sha256: 61c4a23e863c8d6e317790dd88002a08ec8891dc64e97c1a454645ec28e88197
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:49:05.615Z
-    recorded_by: auditor
+    recorded_at: 2026-06-03T14:52:57.881Z
+    recorded_by: engineer
     story_id: bridge-7-8-1-changelog-discipline-for-sibling
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-7-8-2-tighten-unfreeze-windows-yaml.md
-    sha256: 0eb018ce1cd73a60510585f64e59391871d8d0d3aacc9a806596cfba64f9017c
+    sha256: 2dd507cd238c820b213f780cdb8613577a793497b996be999d0e556b8a7bbde5
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:49:05.734Z
-    recorded_by: auditor
+    recorded_at: 2026-06-03T14:53:03.602Z
+    recorded_by: engineer
     story_id: bridge-7-8-2-tighten-unfreeze-windows-yaml
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-7-8-3-replace-legacy-exempt-central.md
-    sha256: 0d7bc3dcfba2e93c9be58f2ca0ab255b514fa9554a6bf274e671ca47c34f1e51
+    sha256: b13e3ba56b2941b4cb24774b5c7a266ba32c56f0bf9638c46f3093206a2b9e72
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:49:05.848Z
-    recorded_by: auditor
+    recorded_at: 2026-06-03T14:53:03.856Z
+    recorded_by: engineer
     story_id: bridge-7-8-3-replace-legacy-exempt-central
   - artefact_class: A
     file: tests/scaffold/lint-spec-carry-forward-frontmatter-exempt.test.mjs
@@ -1241,15 +1241,15 @@ entries:
     notes: "bridge-7-8-3 test-author: frozen failing tests for frontmatter-flag exemption"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-7-8-4-de-binary-save-result.md
-    sha256: 2c23c1e98b66517a2fc3465e7fcb10364e5cfe7fe80d78dc9248169e3c7be780
+    sha256: 1f0973d067af30754034196da5ea8b828f216bde10f967a4b1cf3265f81d51fe
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:49:05.956Z
-    recorded_by: auditor
+    recorded_at: 2026-06-03T14:53:04.092Z
+    recorded_by: engineer
     story_id: bridge-7-8-4-de-binary-save-result
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-7-8-5-post-epic-app-modules.md
-    sha256: e84a9fb25ca2f335b68e637b2fb317bbd89d10ac0a3ba4e77cc1301fdd90633d
+    sha256: 86e6d5e92d15b01528ee0faeadc50846c1b559c7b6fc133be5dfb3abd3efa955
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:49:06.061Z
-    recorded_by: auditor
+    recorded_at: 2026-06-03T14:53:04.313Z
+    recorded_by: engineer
     story_id: bridge-7-8-5-post-epic-app-modules

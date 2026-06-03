@@ -1,7 +1,7 @@
 ---
 id: bridge-7-8-3-replace-legacy-exempt-central
 title: "Story bridge-7-8-3-replace-legacy-exempt-central: Replace LEGACY_EXEMPT central list with per-spec frontmatter flag"
-status: approved
+status: done
 ---
 
 # Story bridge-7-8-3-replace-legacy-exempt-central: Replace LEGACY_EXEMPT central list with per-spec frontmatter flag

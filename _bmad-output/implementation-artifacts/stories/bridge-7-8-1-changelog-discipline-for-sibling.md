@@ -1,7 +1,7 @@
 ---
 id: bridge-7-8-1-changelog-discipline-for-sibling
 title: "Story bridge-7-8-1-changelog-discipline-for-sibling: CHANGELOG discipline for sibling installer-contract bumps"
-status: approved
+status: done
 ---
 
 # Story bridge-7-8-1-changelog-discipline-for-sibling: CHANGELOG discipline for sibling installer-contract bumps
