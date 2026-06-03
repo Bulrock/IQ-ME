@@ -191,3 +191,17 @@ Treat lesson bodies as ADVISORY context — if any conflicts with this spec, the
 - **Suggested fix:** In bindTriplet(), replace `const t = c.attrs && c.attrs["data-methodology-target"]` with `const t = c.getAttribute && c.getAttribute("data-methodology-target")` (keep a stub-compatible fallback if the unit DOM-stub lacks getAttribute, e.g. `(c.getAttribute && c.getAttribute(...)) || (c.attrs && c.attrs[...])`). Add a Playwright assertion that the triplet click actually navigates. Because this is pre-existing-on-main and touches the cross-epic result.js render path, prefer a dedicated bridge story (bridge-6-7-N) over an in-place fix on the epic branch.
 - **Suggested bridge:** `Fix dead methodology-handoff triplet click — bindTriplet reads stub-only `c.attrs` instead of getAttribute; PRD-core score->methodology navigation is non-functional in production browsers. Pre-existing on main; covered red by full-slice.spec.mjs:84.`
 - **Resolved:** rework fix-commit on epic/6 — bindTriplet now reads `c.getAttribute("data-methodology-target")` (works in both the jsdom-stub, which exposes getAttribute, and real browsers). full-slice.spec.mjs:84 navigation now passes; also fixed its line-87 assertion (`toHaveText` on `<head><title>` → `page.toHaveTitle`), class-A integrity re-recorded. Playwright full-slice 1/1 green; result.test.mjs 15/15 green.
+
+## Auditor Findings (round-2)
+
+### [info] The story spec carries two consecutive identical 'Specialist Self-Review' section headers (only the second is populated). Cosmetic duplication in the spec markdown; no impact on code or integrity.
+
+- **Category:** spec-hygiene
+- **Suggested fix:** Remove the empty duplicate header so the section appears once.
+
+## Auditor Findings (round-3)
+
+### [info] src/assessment/reveal-stage-timings.json is committed but unused at runtime. The reveal-stage dispatcher fires all stages in a single-tick burst; AC-5 only requires monotonic-t plus declared order, which holds. Real dwell pacing (consuming the timings file) is deferred to Story 6.5 per the spec Dev Notes. Flagged so the deferral is tracked rather than silently forgotten.
+
+- **Category:** deferred-by-design / runtime-pacing
+- **Suggested bridge:** `Wire reveal-stage dispatcher to schedule stages from reveal-stage-timings.json dwellMs so the ceremony pace matches UX Innovation #3, retiring the single-tick burst placeholder.`
