@@ -616,3 +616,62 @@ lessons:
     severity: low
     status: active
     superseded_by: null
+  - id: lesson-2026-06-03-001
+    created_during: epic-6
+    created_at: 2026-06-03T13:36:02.796Z
+    created_by: writer
+    story_refs:
+      - 6-3-mid-session-bail-out-with-discard-continue-choice
+      - 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
+    category: tooling
+    tags:
+      - ci
+      - playwright
+      - pr-checks
+      - coverage
+    summary: pr-checks.yml wires Playwright specs per-spec (one job each), NOT via a greedy glob; a new spec is uncovered in CI until explicitly added
+    lesson: "Epic-6 deferred CI wiring twice (6-3 blocker bail-out spec, 6-5 warn asymmetric-tail spec) on the false claim that pr-checks.yml greedy-globs tests/playwright/*.spec.mjs. It does not: specs are listed individually, one job per spec, no glob run exists. The bail-out spec is the SOLE guard of the NFR9/FR4 zero-localStorage privacy invariant, so the gap would have shipped a privacy regression green. Verifiable: grep the spec filename in pr-checks.yml; absence == uncovered."
+    avoid_pattern: Defer the CI-wiring task for a new tests/playwright/<name>.spec.mjs on the premise that the matrix greedy-globs the directory
+    preferred_pattern: "Add a dedicated per-spec job to .github/workflows/pr-checks.yml mirroring existing jobs; verify with: grep <spec-filename> .github/workflows/pr-checks.yml before marking the wiring task done"
+    severity: high
+    status: active
+    superseded_by: null
+  - id: lesson-2026-06-03-002
+    created_during: epic-6
+    created_at: 2026-06-03T13:36:13.459Z
+    created_by: writer
+    story_refs:
+      - 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
+      - 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
+    category: process
+    tags:
+      - provenance
+      - self-review
+      - regression
+      - process
+    summary: Before labeling a failing test pre-existing-on-main OR introduced-by-story-X, verify provenance with a baseline diff (git stash / git diff main) — epic-6 misattributed in both directions
+    lesson: "Epic-6 self-reviews misattributed regression provenance in BOTH directions: 6-3/6-4 called the dead bindTriplet methodology-handoff a 6.1/6.2 regression when it was pre-existing on main (byte-identical), and 6-4/6-5/6-7 called the red ci-matrix.test.mjs AC-3 pre-existing when it was a self-inflicted epic-6 regression from activating CI jobs without updating the frozen job-set. Unverified provenance claims mislead the auditor and risk either wasted bridge scope or a shipped regression. Verifiable: a provenance claim must be backed by a baseline checkout/diff command quoted in the self-review."
+    avoid_pattern: Self-review asserts a red test is pre-existing (or a regression) from memory/assumption without running a baseline checkout or diff
+    preferred_pattern: "Cite a baseline-diff command in the provenance claim: git stash then re-run, or git diff main -- <file>; only then label pre-existing vs introduced"
+    severity: high
+    status: active
+    superseded_by: null
+  - id: lesson-2026-06-03-003
+    created_during: epic-6
+    created_at: 2026-06-03T13:36:22.515Z
+    created_by: writer
+    story_refs:
+      - 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
+    category: technical
+    tags:
+      - test-hygiene
+      - encoding
+      - reviewability
+      - binary
+    summary: Regex assertions for control characters must use escape sequences (\x00, \x1f) — never literal control bytes; a raw NUL makes git classify the file binary and unreviewable in diffs/grep
+    lesson: "Story 6-7 tests/unit/save-result.test.mjs embeds literal 0x00 and 0x1F bytes in a hashSeed no-control-chars regex; git classifies the 9.5KB file as binary, so its test logic is invisible to diffs, grep, and PR-review tooling even though it runs 5/5 green. Functionally correct but unreviewable. Verifiable: run file(1) on every committed test source — none should report data/binary; a lint guard can enforce it."
+    avoid_pattern: Write a no-control-chars regex with raw embedded control bytes (e.g. a literal NUL inside the character class) instead of the textual \x00-\x1f escape forms
+    preferred_pattern: "Use the textual escape forms in the regex character class; verify none of your test sources are binary with: file tests/**/*.mjs (must never report data)"
+    severity: medium
+    status: active
+    superseded_by: null
