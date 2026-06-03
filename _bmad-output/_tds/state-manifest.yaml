@@ -988,10 +988,10 @@ entries:
     story_id: bridge-6-7-3-restore-carry-forward-lessons
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion.md
-    sha256: 8219e7eae6518c4ec5de8eec4acc21ec295d3ef4709d01d414c1c45963fdfb3b
+    sha256: a0e20a554d0bc7e45578c1eddb9a8ed7ee8602d1d7e7435c2f35dc7b7f54fd2a
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:45:00.642Z
-    recorded_by: state-commit-autorecord
+    recorded_at: 2026-06-03T13:19:33.951Z
+    recorded_by: story-add-finding-autorecord
     story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
   - artefact_class: A
     file: tests/playwright/co-equal-triplet-computed-style.spec.mjs
@@ -1078,10 +1078,10 @@ entries:
     notes: story-6-3 frozen failing tests authored via ATDD
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-4-chrome-components-chrome-header-chrome-footer-theme-toggle.md
-    sha256: 7d055bbc118d83a949ba2d2ee7b1f4c2754f08dc368f615fb4fe1f9ddcab72cc
+    sha256: 6c4c6cf92c9a6875297a0fef0571909d85aec95cf8ad5885a0fc8bb89785e404
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T17:48:43.020Z
-    recorded_by: frontend
+    recorded_at: 2026-06-03T13:19:33.951Z
+    recorded_by: story-add-finding-autorecord
     story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
   - artefact_class: A
     file: tests/unit/theme.test.mjs
@@ -1150,9 +1150,9 @@ entries:
     story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page.md
-    sha256: 23409944486205c116e3d0eae1cd02f1db808efa5710fed663d6146be22c01fd
+    sha256: be12a04703027d20335f678658afb8b16a05d5efcf5fc2700cb07fc7900a5a54
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:53:37.076Z
+    recorded_at: 2026-06-03T13:19:33.951Z
     recorded_by: story-add-finding-autorecord
     story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
   - artefact_class: A

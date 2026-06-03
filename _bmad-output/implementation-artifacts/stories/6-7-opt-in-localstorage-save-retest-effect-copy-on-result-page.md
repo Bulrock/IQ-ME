@@ -206,3 +206,10 @@ frontend (vanilla ES modules / DOM / CSS / localStorage; node:test; stdlib-only 
 
 - **Category:** reviewability / file hygiene
 - **Suggested fix:** Replace the literal embedded control bytes in the regex with their escape sequences (the four-character text forms \x00 and \x1f) so the file is valid UTF-8 text and diffs normally. Behaviour is identical. Re-record class-A integrity if the file is class-A after the edit.
+
+## Auditor Findings (round-3)
+
+### [warn] tests/unit/save-result.test.mjs embeds two literal control bytes (0x00 and 0x1F) directly in the regex at line 130 (the hashSeed no-control-chars assertion) instead of the escape sequences. Because the source contains a raw NUL, git classifies the file as binary (diff stat shows 'Bin 0 -> 9549 bytes'); diffs, grep, and most review tooling can no longer read it as text. The test passes and integrity is intact, so this is not a functional defect, but a binary test file is unreviewable in future PRs.
+
+- **Category:** test-hygiene / source-encoding
+- **Suggested fix:** Replace the two literal control bytes with their escape sequences so the regex reads the standard JS form (backslash-x-zero-zero through backslash-x-one-f). Re-record class-A integrity for the file after the edit. The assertion semantics are byte-identical; only the on-disk encoding changes from binary back to text.
