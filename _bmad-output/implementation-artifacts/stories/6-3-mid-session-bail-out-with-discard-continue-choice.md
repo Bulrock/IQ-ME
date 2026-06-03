@@ -1,7 +1,7 @@
 ---
 id: 6-3-mid-session-bail-out-with-discard-continue-choice
 title: "Story 6.3: Mid-session bail-out with discard/continue choice"
-status: review
+status: in-progress
 ---
 
 # Story 6.3: Mid-session bail-out with discard/continue choice
