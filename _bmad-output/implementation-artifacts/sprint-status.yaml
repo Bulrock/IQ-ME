@@ -112,7 +112,7 @@ development_status:
   6-3-mid-session-bail-out-with-discard-continue-choice: review
   6-4-chrome-components-chrome-header-chrome-footer-theme-toggle: review
   6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list: review
-  6-6-top-decile-tear-edge-overlay-cropping-fuzzer: review
+  6-6-top-decile-tear-edge-overlay-cropping-fuzzer: rework
   6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page: review
   epic-6-retrospective: optional
 

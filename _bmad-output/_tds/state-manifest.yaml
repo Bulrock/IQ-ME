@@ -8,10 +8,10 @@ entries:
     recorded_by: frontend
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 885de1ba747e9669991e8a3813343a5e9da40afb5cf4d74dfd52769035ee3d1d
+    sha256: 89270721f77d428cd0cabe9b8752fd89fc103149c3b76234f07b7d40ac6e0be4
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:16:51.697Z
-    recorded_by: frontend
+    recorded_at: 2026-06-03T12:36:23.863Z
+    recorded_by: state-commit-autorecord
     story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
@@ -1123,10 +1123,10 @@ entries:
     notes: "Story 6-5 test-author phase: asymmetric-tail-scenes Playwright (AC-9 Test 1-5; bottom/mid/top render + reveal-stage gate + zero-third-party)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-6-top-decile-tear-edge-overlay-cropping-fuzzer.md
-    sha256: 603c0c93cab156cc3b25f18468c64f85a8c9ef9b8b01570af5d253fafebf61ab
+    sha256: cd0aabf8c2e9fe92d508dfbd337096b5c6cd32493a131ad0d5997f7e3e07780b
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:27:23.504Z
-    recorded_by: story-add-finding-autorecord
+    recorded_at: 2026-06-03T12:36:23.885Z
+    recorded_by: state-commit-autorecord
     story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
   - artefact_class: A
     file: tests/unit/cropping-fuzzer.test.mjs
