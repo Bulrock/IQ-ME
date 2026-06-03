@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 44f9db79f18c3e63e1305fab78639925002a549389f5ad96c726b7d89be8aa37
+    sha256: af9aaf1927737528d1e1266e50c054e7a19133e3087707bb2f44cf94cb086f5e
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T15:41:43.069Z
+    recorded_at: 2026-06-03T15:44:01.196Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: e616cb48b6b10eb899e33cd10422e38cf781f49d21734c883ad780a102d21733
+    sha256: 6312fa7f25d439ebb87a848c14f5ff0ca736ba275e752908b8ed73910849ba83
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T15:40:27.228Z
+    recorded_at: 2026-06-03T15:48:40.717Z
     recorded_by: engineer
-    story_id: 7-1-i18n-harness-locale-loading-language-switcher
+    story_id: 7-2-locale-switch-blocker-hint-fr8-enforcement
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -93,12 +93,12 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: 376ad5a78c376a5f31dafc5e77d79b3d0d18de11f76b60c5513787c0fae3f46a
+    sha256: 60cbb03d73ef2ed8fb583b402680afef48c3d227cc8de4d5159ba438e10fb762
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T15:38:35.085Z
+    recorded_at: 2026-06-03T15:47:57.702Z
     recorded_by: engineer
-    story_id: 7-1-i18n-harness-locale-loading-language-switcher
-    notes: "story-7.1: app-modules-bytes ceiling 48128→55296 (i18n harness, anticipated bump per budget rationale)"
+    story_id: 7-2-locale-switch-blocker-hint-fr8-enforcement
+    notes: "story-7.2: app-modules-bytes 55296→57344 (locale-switch-blocker-hint.js)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
     sha256: 03af01b6c89b47714c6fb83be9b0d3d9aaa6eeba107c2bba32d9ecc508bf63a4
@@ -1284,3 +1284,18 @@ entries:
     recorded_by: test-author
     story_id: 7-1-i18n-harness-locale-loading-language-switcher
     notes: story-7-1 frozen failing tests (i18n harness + language-switcher + 3-locale Playwright)
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-2-locale-switch-blocker-hint-fr8-enforcement.md
+    sha256: 7e0830d9d70ffcc9e58e30a03272de14b32747358c94e9915b9b59f3977a8e91
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T15:48:40.758Z
+    recorded_by: engineer
+    story_id: 7-2-locale-switch-blocker-hint-fr8-enforcement
+  - artefact_class: A
+    file: tests/unit/locale-switch-blocker-hint.test.mjs
+    sha256: c51c22b8b5738f61b81cfe0d6ab64e471d978d0ed0217868c709990aeaf92a20
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T15:44:41.449Z
+    recorded_by: test-author
+    story_id: 7-2-locale-switch-blocker-hint-fr8-enforcement
+    notes: story-7-2 frozen failing tests (locale-switch-blocker-hint)

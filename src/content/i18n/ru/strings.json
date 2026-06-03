@@ -4,7 +4,7 @@
     "translationStatus": "in-progress",
     "reviewer": "TBD",
     "reviewerHandle": "@TBD-ru-reviewer",
-    "sourceHashEN": "725d7a825a841b790608f92118587d65a540f1df9c2d686151f6c2a4649b48e4"
+    "sourceHashEN": "a496c7804ad1fcb028ca531abd1cf6c6cea1deed04b56fee558f3e21ac92604b"
   },
   "chrome": {
     "titleAppDefault": "IQ-ME — a fluid-reasoning screener",
@@ -66,6 +66,11 @@
     "saveButtonSaved": "Result saved",
     "retestNote": "This screener draws from a small pool of matrix items. If you take it again soon, your second score will be correlated with this one rather than an independent estimate — you will partly be remembering these patterns, not re-measuring your reasoning from scratch. We enforce no technical cooldown: that would be a false guarantee in a browser-only app. We simply ask you to read this and decide honestly whether a quick retest tells you anything new.",
     "retestNoteLinkLabel": "Read about retest effects"
+  },
+  "localeSwitchBlockerHint": {
+    "message": "Switching language during a test changes what the test measures. Finish this session in your current language, or end early and restart in a different language.",
+    "bailLinkLabel": "End the test early",
+    "validityLinkLabel": "Why language is locked"
   },
   "methodology": {
     "masthead": {

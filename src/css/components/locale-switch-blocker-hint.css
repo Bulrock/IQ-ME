@@ -1,0 +1,40 @@
+/* src/css/components/locale-switch-blocker-hint.css
+ *
+ * Story 7.2 AC-2 — teachable-moment FR8 hint (UX-DR27). Rendered in-place
+ * adjacent to the language-switcher when an in-session locale-switch is
+ * blocked. Informational register (status live-region), restraint-first; no
+ * accent/warning color — it teaches, it does not warn.
+ */
+
+.locale-switch-blocker-hint {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-inline-size: 32rem;
+  padding: var(--space-3);
+  margin-block-start: var(--space-2);
+  border: 1px solid var(--color-rule-divider);
+  background: var(--color-surface-elevated);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-200);
+}
+
+.locale-switch-blocker-hint__message {
+  margin: 0;
+}
+
+.locale-switch-blocker-hint__bail-link,
+.locale-switch-blocker-hint__validity-link {
+  color: var(--color-text-link);
+}
+
+.locale-switch-blocker-hint__bail-link:hover,
+.locale-switch-blocker-hint__validity-link:hover {
+  color: var(--color-text-link-hover);
+}
+
+.locale-switch-blocker-hint__bail-link:focus-visible,
+.locale-switch-blocker-hint__validity-link:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}

@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-03 7-1-i18n-harness-locale-loading-language-switcher: review'
+last_updated: '2026-06-03 7-2-locale-switch-blocker-hint-fr8-enforcement: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -123,7 +123,7 @@ development_status:
   bridge-6-7-3-restore-carry-forward-lessons: done           # Restore Carry-forward-lessons injection in story-create plus pre-commit warning on class-A edits
   epic-7: in-progress
   7-1-i18n-harness-locale-loading-language-switcher: review
-  7-2-locale-switch-blocker-hint-fr8-enforcement: backlog
+  7-2-locale-switch-blocker-hint-fr8-enforcement: review
   7-3-full-ru-methodology-corpus-translation-30-pages: backlog
   7-4-full-pl-methodology-corpus-translation-30-pages: backlog
   7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis: backlog

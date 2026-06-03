@@ -8,6 +8,7 @@ import * as localeLoader from "./i18n/locale-loader.js";
 import * as routing from "./routing.js";
 import * as theme from "./theme.js";
 import * as languageSwitcher from "./language-switcher.js";
+import * as localeSwitchBlockerHint from "./locale-switch-blocker-hint.js";
 import { renderErrorFallback } from "./error-fallback.js";
 import "./test-hook.js";
 
@@ -51,6 +52,11 @@ function buildStrings() {
       themeDarkLabel: localeLoader.get("chrome.themeDarkLabel"),
       languageSwitcherLegend: localeLoader.get("chrome.languageSwitcherLegend"),
     },
+    localeSwitchBlockerHint: {
+      message: localeLoader.get("localeSwitchBlockerHint.message"),
+      bailLinkLabel: localeLoader.get("localeSwitchBlockerHint.bailLinkLabel"),
+      validityLinkLabel: localeLoader.get("localeSwitchBlockerHint.validityLinkLabel"),
+    },
   };
 }
 
@@ -65,7 +71,16 @@ async function bootstrap() {
     // Story 7.1 — render the keyboard-first locale switcher into the
     // chrome-header slot (replaces the Story 6.4 placeholder span).
     const switcherSlot = document.querySelector(".chrome-header__language-switcher");
-    if (switcherSlot) languageSwitcher.init(switcherSlot, { strings: buildStrings(), currentLocale: locale });
+    if (switcherSlot) {
+      const hintSlot = document.querySelector(".locale-switch-blocker-hint__slot");
+      languageSwitcher.init(switcherSlot, {
+        strings: buildStrings(),
+        currentLocale: locale,
+        // Story 7.2 — render the FR8 teachable-moment hint on a blocked
+        // in-session switch attempt (7.1 left this seam as a no-op default).
+        onBlockedAttempt: () => { if (hintSlot) localeSwitchBlockerHint.render(hintSlot, buildStrings()); },
+      });
+    }
     applyChromeStrings();
     routing.start();
     // Re-render if router was started in a prior boot (idempotent-guard hop).
