@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 91de7bffb53af3998d533fb22c43cbec267bf83f322926128232c8c8524e92f6
+    sha256: 57498c70b1de305d2eb52628004705d1451cb1847505c541531621600237e298
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T17:05:20.197Z
+    recorded_at: 2026-06-03T17:07:54.842Z
     recorded_by: engineer
-    story_id: 7-5b-lint-translation-parity-full-coverage-graduation
+    story_id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1359,3 +1359,10 @@ entries:
     recorded_by: test-author
     story_id: 7-5b-lint-translation-parity-full-coverage-graduation
     notes: "story-7-5b frozen failing tests (full-coverage parity: missing/orphan/stale + parity-green summary)"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders.md
+    sha256: 694a3183515f6cf2319cc9b68a15bec56a024741f8c0c9b9c14530a78fabc094
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T17:07:54.887Z
+    recorded_by: engineer
+    story_id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
