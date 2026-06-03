@@ -8,9 +8,9 @@ entries:
     recorded_by: frontend
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: a5390f133d0306b9d6aa5406eeb6d1135705dd764a426e2ea35a75ab7d5ccfab
+    sha256: d0027a99573e2bfe0fb8c5ac5fded4cde4939961f9d4a6c21dbc55b4219dd92e
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:21:45.741Z
+    recorded_at: 2026-06-03T13:28:15.168Z
     recorded_by: state-commit-autorecord
     story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
   - artefact_class: A
