@@ -92,3 +92,5 @@ candidates:
           Carry-forward section lint exempt-list LEGACY_EXEMPT
           is brittle, requires manual maintenance
 ```
+
+## Applied to bridge: bridge-7-8 @ 2026-06-03T13:42:03.865Z

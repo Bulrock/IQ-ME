@@ -132,6 +132,14 @@ development_status:
   7-7-ru-pl-crisis-resource-lists-hreflang-declarations: backlog
   7-8-codeowners-branch-protection-config-artifact-for-dual-approval: backlog
   epic-7-retrospective: optional
+
+  # Bridge 7→8: 5 stories from 2 retros
+  bridge-7-8: backlog
+  bridge-7-8-1-changelog-discipline-for-sibling: backlog # CHANGELOG discipline for sibling installer-contract bumps
+  bridge-7-8-2-tighten-unfreeze-windows-yaml: backlog # Tighten unfreeze-windows.yaml schema lock
+  bridge-7-8-3-replace-legacy-exempt-central: backlog # Replace LEGACY_EXEMPT central list with per-spec frontmatter flag
+  bridge-7-8-4-de-binary-save-result: backlog # De-binary save-result.test.mjs: replace literal control bytes with \x escapes
+  bridge-7-8-5-post-epic-app-modules: backlog # Post-epic app-modules-bytes trim pass + re-establish principled ceiling
   epic-8: backlog
   8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment: backlog
   8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v: backlog

@@ -8,11 +8,10 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 66d51e9288c3474c6795ebb60103bcc84499e12a324d73ba3b339eab63b3b587
+    sha256: a47218dfa6a8bdc7588d7fc6f1afd3b5769b77a48f439063772e207c65a838b7
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:37:33.208Z
-    recorded_by: state-commit-autorecord
-    story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
+    recorded_at: 2026-06-03T13:42:03.826Z
+    recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -184,11 +183,10 @@ entries:
     notes: story-1-10 frozen failing tests
   - artefact_class: A
     file: _bmad-output/_tds/sprint-status-extension.yaml
-    sha256: ab4823b28178b55a6674d0f3a144552c6c2a95a15fb492f8cd2144d7e5255556
+    sha256: a3ae5717dd9ff59561b24d0dd0cf4d010f79ccf6e5b043b8f80570f0bd974592
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:29:34.474Z
+    recorded_at: 2026-06-03T13:42:03.851Z
     recorded_by: engineer
-    notes: epic-5+epic-6 parents populated (bootstrap-parents gap recovery)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-1-2-1-add-tds-story-unfreeze.md
     sha256: 7207787d9e7a98f603f42eb09f009f4404be165988284f4f4c6a3d48ac2dd2bc
@@ -975,10 +973,10 @@ entries:
     story_id: bridge-6-7-2-tds-deliver-mode-2
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-6-7-3-restore-carry-forward-lessons.md
-    sha256: bb00c39e1daad411777ac7cad5199f3fae3de88e380851bbe63a2e29c55feb3b
+    sha256: 293eab81da9d967aae5695ed5d1b1527c86d7ea5bcab8af73a686f3f4687505c
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T13:42:41.717Z
-    recorded_by: engineer
+    recorded_at: 2026-06-03T13:46:01.360Z
+    recorded_by: state-commit-autorecord
     story_id: bridge-6-7-3-restore-carry-forward-lessons
   - artefact_class: A
     file: tests/scaffold/lint-spec-carry-forward-coverage.test.mjs
@@ -1151,10 +1149,10 @@ entries:
     story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page.md
-    sha256: 0bd96952f0ef6b232dba804ef97990f716f781cdf1e1b69ffc36f9ad263a2e24
+    sha256: 829e0c1152b79dfdf2034d1cd02981116ccbdd422e4a1805e7ecf29c2c2829ea
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:30:21.833Z
-    recorded_by: engineer
+    recorded_at: 2026-06-03T13:46:01.362Z
+    recorded_by: state-commit-autorecord
     story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
   - artefact_class: A
     file: tests/unit/save-result.test.mjs

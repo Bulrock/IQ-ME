@@ -90,3 +90,5 @@ candidates:
 ```
 
 > These two candidates are recorded as **intent only**. They assemble into a real pre-epic when you run `/bmad-tds-bridge-from-retros` (likely batched with any later retro tech-debt). `bridge-6-7` already exists in the registry (sourced from retro-epic-5), so the applier will auto-derive the next free bridge id.
+
+## Applied to bridge: bridge-7-8 @ 2026-06-03T13:42:03.865Z
