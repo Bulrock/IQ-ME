@@ -1,7 +1,7 @@
 ---
 id: bridge-7-8-2-tighten-unfreeze-windows-yaml
 title: "Story bridge-7-8-2-tighten-unfreeze-windows-yaml: Tighten unfreeze-windows.yaml schema lock"
-status: review
+status: approved
 ---
 
 # Story bridge-7-8-2-tighten-unfreeze-windows-yaml: Tighten unfreeze-windows.yaml schema lock

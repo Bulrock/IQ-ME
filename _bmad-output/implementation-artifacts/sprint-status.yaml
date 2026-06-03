@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-03 bridge-7-8-5-post-epic-app-modules: review'
+last_updated: '2026-06-03 bridge-7-8: approved'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -134,12 +134,12 @@ development_status:
   epic-7-retrospective: optional
 
   # Bridge 7→8: 5 stories from 2 retros
-  bridge-7-8: in-progress
-  bridge-7-8-1-changelog-discipline-for-sibling: review         # CHANGELOG discipline for sibling installer-contract bumps
-  bridge-7-8-2-tighten-unfreeze-windows-yaml: review         # Tighten unfreeze-windows.yaml schema lock
-  bridge-7-8-3-replace-legacy-exempt-central: review         # Replace LEGACY_EXEMPT central list with per-spec frontmatter flag
-  bridge-7-8-4-de-binary-save-result: review         # De-binary save-result.test.mjs: replace literal control bytes with \x escapes
-  bridge-7-8-5-post-epic-app-modules: review         # Post-epic app-modules-bytes trim pass + re-establish principled ceiling
+  bridge-7-8: approved
+  bridge-7-8-1-changelog-discipline-for-sibling: approved       # CHANGELOG discipline for sibling installer-contract bumps
+  bridge-7-8-2-tighten-unfreeze-windows-yaml: approved       # Tighten unfreeze-windows.yaml schema lock
+  bridge-7-8-3-replace-legacy-exempt-central: approved       # Replace LEGACY_EXEMPT central list with per-spec frontmatter flag
+  bridge-7-8-4-de-binary-save-result: approved       # De-binary save-result.test.mjs: replace literal control bytes with \x escapes
+  bridge-7-8-5-post-epic-app-modules: approved       # Post-epic app-modules-bytes trim pass + re-establish principled ceiling
   epic-8: backlog
   8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment: backlog
   8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v: backlog
