@@ -365,3 +365,10 @@ frontend (Claude Opus 4.7) — `bmad-tds-frontend` specialist; HTML/CSS/JS autho
 - **Pre-existing Playwright failure (still surfaced):** `tests/playwright/full-slice.spec.mjs:84` times out waiting for `**/methodology/v0.1.0/en/scoring/percentile-to-iq/**` after clicking `.score-panel__percentile`. Same finding as Story 6.3 (verified via `git stash` baseline that this fails on epic/6 tip before any 6-4 changes). Not in scope for 6-4 to fix; flagging again for code-review Mode 2 auditor — this needs either an in-place fix on epic/6 OR a bridge story before epic delivery.
 
 - **Spec AC-13 class-A claim mismatch with ADR-0014.** The Story 6.4 spec (authored from the 6-3 pattern + my own assumption) said `.github/workflows/pr-checks.yml` is class-A; the CLI rejects integrity records for that path. Future stories authoring against pr-checks.yml should drop the class-A claim and rely on git tamper-evidence. Story 6.3's spec carried the same wrong assumption — recommend a small follow-up to harmonize the wording across active specs.
+
+## Auditor Findings (round-1)
+
+### [info] The axe-core-pa11y CI job in .github/workflows/pr-checks.yml carries the comment 'Activates in Epic 6' but remains if:false (this state is unchanged from main; epic-6 did not introduce it). NFR12 WCAG 2.2 AA verification is delivered instead by the now-active Lighthouse accessibility job (6-4 AC-11, light+dark matrix, score gate at 0.90), so no epic-6 AC is unmet. The comment is now misleading.
+
+- **Category:** ci-coverage / stale-comment
+- **Suggested bridge:** `Either activate the axe-core-pa11y job as a second NFR12 accessibility tier or update its stale 'Activates in Epic 6' comment to reflect that Lighthouse is the chosen vehicle.`
