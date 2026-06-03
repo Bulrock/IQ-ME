@@ -7,8 +7,24 @@
 import * as localeLoader from "./i18n/locale-loader.js";
 import * as routing from "./routing.js";
 import * as theme from "./theme.js";
+import * as languageSwitcher from "./language-switcher.js";
 import { renderErrorFallback } from "./error-fallback.js";
 import "./test-hook.js";
+
+// Story 7.1 AC-2 — pure resolution of the boot locale. The persisted read is
+// delegated to language-switcher.readPersistedLocale() (keeps main.js free of
+// the storage token per the Story 3.3 source-invariant); the navigator
+// language primary subtag is read here (the Web Share API is not used).
+function resolveBootLocale() {
+  const stored = languageSwitcher.readPersistedLocale();
+  const navLang = (typeof navigator !== "undefined" && navigator.language) ? navigator.language : "en";
+  return localeLoader.resolveInitialLocale({ stored, navigatorLang: navLang });
+}
+
+function applyDocumentLocale(locale) {
+  const root = (typeof document !== "undefined" && document.documentElement) || null;
+  if (root && typeof root.setAttribute === "function") root.setAttribute("data-locale", locale);
+}
 
 function applyChromeStrings() {
   const set = (sel, key) => {
@@ -16,7 +32,6 @@ function applyChromeStrings() {
     if (el) el.textContent = localeLoader.get(key);
   };
   set(".chrome-header__name", "chrome.appName");
-  set(".chrome-header__language-switcher", "chrome.languageSwitcherPlaceholderEn");
   set(".chrome-footer__methodology-link", "chrome.footerMethodologyLink");
   set(".chrome-footer__discussions-link", "chrome.footerDiscussionsLink");
   set(".chrome-footer__citation-link", "chrome.footerCitationLink");
@@ -34,16 +49,23 @@ function buildStrings() {
       themeSystemLabel: localeLoader.get("chrome.themeSystemLabel"),
       themeLightLabel: localeLoader.get("chrome.themeLightLabel"),
       themeDarkLabel: localeLoader.get("chrome.themeDarkLabel"),
+      languageSwitcherLegend: localeLoader.get("chrome.languageSwitcherLegend"),
     },
   };
 }
 
 async function bootstrap() {
   try {
-    await localeLoader.load("en");
+    const locale = resolveBootLocale();
+    applyDocumentLocale(locale);
+    await localeLoader.load(locale);
     // Apply theme BEFORE routing.start() so no flash-of-light-theme occurs.
     const themeSlot = document.querySelector(".chrome-footer__theme-toggle");
     if (themeSlot) theme.init(themeSlot, buildStrings());
+    // Story 7.1 — render the keyboard-first locale switcher into the
+    // chrome-header slot (replaces the Story 6.4 placeholder span).
+    const switcherSlot = document.querySelector(".chrome-header__language-switcher");
+    if (switcherSlot) languageSwitcher.init(switcherSlot, { strings: buildStrings(), currentLocale: locale });
     applyChromeStrings();
     routing.start();
     // Re-render if router was started in a prior boot (idempotent-guard hop).

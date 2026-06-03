@@ -1,4 +1,11 @@
 {
+  "_meta": {
+    "locale": "pl",
+    "translationStatus": "in-progress",
+    "reviewer": "TBD",
+    "reviewerHandle": "@TBD-pl-reviewer",
+    "sourceHashEN": "725d7a825a841b790608f92118587d65a540f1df9c2d686151f6c2a4649b48e4"
+  },
   "chrome": {
     "titleAppDefault": "IQ-ME — a fluid-reasoning screener",
     "appName": "IQ-ME",

@@ -2,15 +2,15 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 2320463d5a898f356a5bc38c048d5dac1ef213a959e77a29f68ad59e6cae3806
+    sha256: 68d0ff3c65621049d1335b8cdb7e668fed827ac9b11a2048f99c8936515ff7f6
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:58:49.071Z
+    recorded_at: 2026-06-03T15:20:47.078Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 299092c8b77ffc36ef6d542a83a781edb3aaa60badb9093e4ed9dbecc80f6668
+    sha256: e616cb48b6b10eb899e33cd10422e38cf781f49d21734c883ad780a102d21733
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T15:20:00.855Z
+    recorded_at: 2026-06-03T15:40:27.228Z
     recorded_by: engineer
     story_id: 7-1-i18n-harness-locale-loading-language-switcher
   - artefact_class: A
@@ -93,12 +93,12 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: b07c868bcfd387c1f596828a4b1f7511c9df6c3f02b0d89177fa9a39807162a2
+    sha256: 376ad5a78c376a5f31dafc5e77d79b3d0d18de11f76b60c5513787c0fae3f46a
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:39:53.677Z
+    recorded_at: 2026-06-03T15:38:35.085Z
     recorded_by: engineer
-    story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
-    notes: "bridge-7-8-5: post-edit re-record after re-pinning app-modules-bytes ceiling 49152→48128"
+    story_id: 7-1-i18n-harness-locale-loading-language-switcher
+    notes: "story-7.1: app-modules-bytes ceiling 48128→55296 (i18n harness, anticipated bump per budget rationale)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
     sha256: 03af01b6c89b47714c6fb83be9b0d3d9aaa6eeba107c2bba32d9ecc508bf63a4
@@ -1255,8 +1255,32 @@ entries:
     story_id: bridge-7-8-5-post-epic-app-modules
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-1-i18n-harness-locale-loading-language-switcher.md
-    sha256: 5360f3cdf3f9a17179146b8285db192db3c7f7982c8f4e1455153e34f6a9b166
+    sha256: 6424404011a1455515f30452da4f9003a7e256301a8634b15dde26b8c64ee786
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T15:20:00.892Z
+    recorded_at: 2026-06-03T15:40:27.267Z
     recorded_by: engineer
     story_id: 7-1-i18n-harness-locale-loading-language-switcher
+  - artefact_class: A
+    file: tests/unit/i18n-harness.test.mjs
+    sha256: b4f291c4c5d9a468181e7661cbca793311fb35aa3a6091a60fd216ec8044153e
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T15:25:22.993Z
+    recorded_by: test-author
+    story_id: 7-1-i18n-harness-locale-loading-language-switcher
+    notes: story-7-1 frozen failing tests (i18n harness + language-switcher + 3-locale Playwright)
+  - artefact_class: A
+    file: tests/unit/language-switcher.test.mjs
+    sha256: ae6cded39107625e6c2a55f012c042297c298605530e8b7047b25f7f38956b01
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T15:26:12.402Z
+    recorded_by: test-author
+    story_id: 7-1-i18n-harness-locale-loading-language-switcher
+    notes: "story-7-1 test-review fix: complete document stub (createElement+listeners)"
+  - artefact_class: A
+    file: tests/playwright/i18n-locale-switch.spec.mjs
+    sha256: 817c32b8720ee950dab3eab358e656152290d641eb2a2212124a7c256d10ca11
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T15:25:22.993Z
+    recorded_by: test-author
+    story_id: 7-1-i18n-harness-locale-loading-language-switcher
+    notes: story-7-1 frozen failing tests (i18n harness + language-switcher + 3-locale Playwright)

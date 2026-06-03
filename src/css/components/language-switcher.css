@@ -1,0 +1,35 @@
+/* src/css/components/language-switcher.css
+ *
+ * Story 7.1 AC-3 — keyboard-first locale switcher (EN / RU / PL) per UX-DR9.
+ * Native <fieldset> + radio-group semantics (Tab to enter, arrow keys cycle),
+ * mirroring the theme-toggle pattern. Restraint-first chrome weight; no accent
+ * color on any locale (none is "primary"). Renders into the
+ * .chrome-header__language-switcher slot via src/assessment/language-switcher.js.
+ */
+
+.language-switcher {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.language-switcher__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  font-size: var(--font-size-200);
+  color: var(--color-text-muted);
+}
+
+.language-switcher__radio {
+  cursor: pointer;
+}
+
+.language-switcher__radio:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}
