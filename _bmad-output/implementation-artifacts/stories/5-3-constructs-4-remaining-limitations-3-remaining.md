@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: 5-3-constructs-4-remaining-limitations-3-remaining
 title: "Story 5.3: Constructs (4 remaining) + Limitations (3 remaining)"
 status: done

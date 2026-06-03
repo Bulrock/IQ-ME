@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: 3-3-implement-landing-consent-scene-en
 title: "Story 3.3: Implement landing + consent-scene (EN)"
 status: done

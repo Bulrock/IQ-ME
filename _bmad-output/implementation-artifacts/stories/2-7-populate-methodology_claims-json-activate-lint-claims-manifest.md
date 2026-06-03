@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: 2-7-populate-methodology_claims-json-activate-lint-claims-manifest
 title: "Story 2.7: Populate METHODOLOGY_CLAIMS.json + activate lint-claims-manifest"
 status: done

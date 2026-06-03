@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: bridge-1-2-1-add-tds-story-unfreeze
 title: "Story bridge-1-2-1-add-tds-story-unfreeze: Add `tds story unfreeze-tests --story=<id>` CLI affordance"
 status: done

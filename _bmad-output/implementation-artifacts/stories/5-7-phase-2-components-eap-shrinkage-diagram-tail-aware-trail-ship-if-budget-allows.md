@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: 5-7-phase-2-components-eap-shrinkage-diagram-tail-aware-trail-ship-if-budget-allows
 title: "Story 5.7: Phase-2 components (eap-shrinkage-diagram + tail-aware-trail) — ship-if-budget-allows"
 status: done

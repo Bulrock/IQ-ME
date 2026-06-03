@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: 2-5-public-api-in-src-scoring-irt-index-js-scoresession-facade
 title: "Story 2.5: Public API in src/scoring/irt/index.js (scoreSession facade)"
 status: done

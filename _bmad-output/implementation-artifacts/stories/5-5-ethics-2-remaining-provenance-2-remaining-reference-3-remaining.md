@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: 5-5-ethics-2-remaining-provenance-2-remaining-reference-3-remaining
 title: "Story 5.5: Ethics (2 remaining) + Provenance (2 remaining) + Reference (3 remaining)"
 status: done

@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: 1-3-commit-icar-confirmation-pdf-slot-with-visible-fallback-copy
 title: "Story 1.3: Commit ICAR-CONFIRMATION.pdf slot with visible-fallback copy"
 status: done

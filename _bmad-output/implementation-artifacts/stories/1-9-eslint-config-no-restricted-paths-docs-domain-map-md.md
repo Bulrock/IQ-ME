@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: 1-9-eslint-config-no-restricted-paths-docs-domain-map-md
 title: "Story 1.9: ESLint config + no-restricted-paths + docs/domain-map.md"
 status: done

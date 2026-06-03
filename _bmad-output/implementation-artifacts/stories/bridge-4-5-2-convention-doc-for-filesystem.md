@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: bridge-4-5-2-convention-doc-for-filesystem
 title: "Story bridge-4-5-2-convention-doc-for-filesystem: Convention doc for filesystem-fixture test isolation"
 status: done

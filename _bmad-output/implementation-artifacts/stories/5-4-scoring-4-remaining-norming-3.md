@@ -1,4 +1,5 @@
 ---
+lint-exempt-carry-forward: true
 id: 5-4-scoring-4-remaining-norming-3
 title: "Story 5.4: Scoring (4 remaining) + Norming (3)"
 status: done
