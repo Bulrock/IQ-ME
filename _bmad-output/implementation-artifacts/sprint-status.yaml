@@ -106,14 +106,14 @@ development_status:
   # Bridge 5→6: 1 story from 1 retro
   bridge-5-6: done
   bridge-5-6-1-extend-sweep-auto-record: done           # Extend sweep auto-record to sprint-status.yaml + emit autorecord telemetry event
-  epic-6: in-progress
-  6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion: review
-  6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile: review
-  6-3-mid-session-bail-out-with-discard-continue-choice: review      # review→rework: code-review Mode 2 blocker (mid-session-bail-out.spec.mjs unwired in CI; apply-verdict resolver drift fallback)
-  6-4-chrome-components-chrome-header-chrome-footer-theme-toggle: review
-  6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list: review
-  6-6-top-decile-tear-edge-overlay-cropping-fuzzer: review
-  6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page: review
+  epic-6: approved
+  6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion: approved
+  6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile: approved
+  6-3-mid-session-bail-out-with-discard-continue-choice: approved    # review→rework: code-review Mode 2 blocker (mid-session-bail-out.spec.mjs unwired in CI; apply-verdict resolver drift fallback)
+  6-4-chrome-components-chrome-header-chrome-footer-theme-toggle: approved
+  6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list: approved
+  6-6-top-decile-tear-edge-overlay-cropping-fuzzer: approved
+  6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page: approved
   epic-6-retrospective: optional
 
   # Bridge 6→7: 3 stories from 1 retro

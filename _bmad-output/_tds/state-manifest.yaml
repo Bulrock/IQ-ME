@@ -8,10 +8,10 @@ entries:
     recorded_by: frontend
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: cdcffc850fd2ea074429eb5dc1d58701553daf6a189ca8ba1f2540e03a913329
+    sha256: a5390f133d0306b9d6aa5406eeb6d1135705dd764a426e2ea35a75ab7d5ccfab
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:10:20.608Z
-    recorded_by: frontend
+    recorded_at: 2026-06-03T13:21:45.741Z
+    recorded_by: state-commit-autorecord
     story_id: 6-3-mid-session-bail-out-with-discard-continue-choice
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
