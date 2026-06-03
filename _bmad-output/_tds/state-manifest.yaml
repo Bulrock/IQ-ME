@@ -2,15 +2,15 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 26477dcf692f855c5d64fe2bbc7f714cd870b3a27be6afa1ae74fefba287d6e9
+    sha256: d88912dcb4d5a7a7204c309791a15f55136a0fd0fc21131f9b6ac26dc22d85a2
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T16:34:56.190Z
+    recorded_at: 2026-06-03T16:40:47.893Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 716060e92633a610cb9c8b34392fb4e35857ff5402b594c9e0d2e6b6ae638e23
+    sha256: ec2c3126382f26a3e1e708af3004c0f37f7e5f4db21a392716c1b6e1eac476c5
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T16:40:47.355Z
+    recorded_at: 2026-06-03T16:53:40.043Z
     recorded_by: engineer
     story_id: 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
   - artefact_class: A
@@ -747,12 +747,12 @@ entries:
     notes: Story 4-4 impl-phase frozen-test fixes (engineer commit 3306335) + CI matrix activations
   - artefact_class: A
     file: tests/unit/tools/lint-reading-level.test.mjs
-    sha256: 696633e166ef2e953453251653e77cfbdb03e865df8ad2e68bcfabac9811e640
+    sha256: 0343e8b0b6a3361c8ebb47be497447542ba07270e0e0021fe4284f8eea70225d
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T08:02:31.633Z
-    recorded_by: test-author
-    story_id: 4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment
-    notes: Story 4-8 red-phase failing tests + SPA fragment fixture
+    recorded_at: 2026-06-03T16:53:01.448Z
+    recorded_by: engineer
+    story_id: 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
+    notes: "story-7-5a: RU/PL page graded + i18n char-cap assertions replace deferred-Epic-7 WARN"
   - artefact_class: A
     file: tests/scaffold/lint-glossary-coverage.test.mjs
     sha256: 15ba363d794050afe6863452684abb5741363389753a84a4e12d39387f57c65a
@@ -1331,8 +1331,16 @@ entries:
     notes: story-7-4 frozen failing tests (PL methodology mirror parity AC-4)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis.md
-    sha256: 8c327ed6fae757e2faf574d5d6afa436ea1fdd469051e0002f44aeb204f93680
+    sha256: 9ade1c2ef42a4ced4f596c804015ff8682cffc90ca7b676117b6dcc1c94e6936
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T16:40:47.402Z
+    recorded_at: 2026-06-03T16:53:40.090Z
     recorded_by: engineer
     story_id: 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
+  - artefact_class: A
+    file: tests/unit/tools/lint-reading-level-calibration.test.mjs
+    sha256: 6e67b0e7f26816cf79330de8f4e441de5190e9d3ead7593a4ddf156d29de5ecf
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T16:43:14.784Z
+    recorded_by: test-author
+    story_id: 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
+    notes: story-7-5a frozen failing tests (RU Oborneva + PL Pisarek/Jasnopis calibration + translationStatus gating + i18n caps)

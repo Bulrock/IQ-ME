@@ -144,6 +144,85 @@ function fleschKincaidGrade({ words, sentences, syllables }) {
   return 0.39 * (words / sentences) + 11.8 * (syllables / words) - 15.59;
 }
 
+// ─── Story 7.5a: per-language calibration ──────────────────────────────────
+// RU — Oborneva (2006) adaptation of Flesch-Kincaid for Russian:
+//   grade = 0.5·(words/sentences) + 8.4·(syllables/words) − 15.59
+// Russian syllable count = number of vowels (each vowel ≈ one syllable, which
+// is accurate for Russian, more so than the EN vowel-group heuristic).
+const RU_VOWEL_RE = /[аеёиоуыэюя]/gi;
+const RU_WORD_RE = /[А-Яа-яЁё][А-Яа-яЁё'’-]*/g;
+function tokenizeRu(text) { return text.match(RU_WORD_RE) ?? []; }
+function countRuSyllables(w) {
+  const m = w.match(RU_VOWEL_RE);
+  return Math.max(1, m ? m.length : 0);
+}
+function obornevaGrade({ words, sentences, syllables }) {
+  if (sentences === 0 || words === 0) return null;
+  return 0.5 * (words / sentences) + 8.4 * (syllables / words) - 15.59;
+}
+
+// PL — Pisarek/Jasnopis-equivalent grade. We use a Gunning-FOG-style index
+// (the Jasnopis family weighs avg sentence length + the share of long words),
+// pure-JS, deterministic:
+//   grade = 0.4·( words/sentences + 100·(hardWords/words) )
+// where a "hard" word has ≥4 Polish syllables. Polish syllable count = vowels
+// (incl. ą ę ó), each vowel ≈ one syllable.
+const PL_VOWEL_RE = /[aeiouyąęó]/gi;
+const PL_WORD_RE = /[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż][A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż'’-]*/g;
+function tokenizePl(text) { return text.match(PL_WORD_RE) ?? []; }
+function countPlSyllables(w) {
+  const m = w.match(PL_VOWEL_RE);
+  return Math.max(1, m ? m.length : 0);
+}
+function pisarekGrade({ words, sentences, tokens }) {
+  if (sentences === 0 || words === 0) return null;
+  let hard = 0;
+  for (const t of tokens) if (countPlSyllables(t) >= 4) hard++;
+  return 0.4 * (words / sentences + 100 * (hard / words));
+}
+
+// Per-locale reading-level config. EN keeps the FK ≤12 contract (Story 4.4).
+const RL_THRESHOLD = THRESHOLD; // 12 — EN FK convention, reused per-locale (NFR28).
+const LOCALE_RL = {
+  en: { tokenize: tokenizeWords, syll: countSyllablesInWord, grade: fleschKincaidGrade, cap: RL_THRESHOLD, usesTokens: false },
+  ru: { tokenize: tokenizeRu, syll: countRuSyllables, grade: obornevaGrade, cap: RL_THRESHOLD, usesTokens: false },
+  pl: { tokenize: tokenizePl, syll: countPlSyllables, grade: pisarekGrade, cap: RL_THRESHOLD, usesTokens: true },
+};
+// NFR31 i18n sentence-length caps. EN keeps FK grading (Story 4.8); RU/PL use
+// per-string character caps.
+const I18N_CHAR_CAP = { ru: 180, pl: 160 };
+
+// Extract the frontmatter `translationStatus` scalar (or undefined).
+function frontmatterTranslationStatus(text) {
+  if (!text.startsWith("---")) return undefined;
+  const lines = text.split(/\r?\n/);
+  if (lines[0] !== "---") return undefined;
+  let end = -1;
+  for (let i = 1; i < lines.length; i++) { if (lines[i] === "---") { end = i; break; } }
+  if (end === -1) return undefined;
+  for (let i = 1; i < end; i++) {
+    const m = lines[i].match(/^translationStatus\s*:\s*(.*)$/);
+    if (m) {
+      let v = m[1].trim();
+      if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) v = v.slice(1, -1);
+      return v;
+    }
+  }
+  return undefined;
+}
+
+// Extract string values EXCLUDING the top-level `_meta` object (never graded).
+function extractStringsExcludingMeta(obj, out) {
+  if (obj && typeof obj === "object" && !Array.isArray(obj)) {
+    for (const k of Object.keys(obj)) {
+      if (k === "_meta") continue;
+      extractStringsRecursive(obj[k], out);
+    }
+  } else {
+    extractStringsRecursive(obj, out);
+  }
+}
+
 // ─── walk pages ──────────────────────────────────────────────────────────
 function* walkMd(dir) {
   let entries;
@@ -209,31 +288,27 @@ function extractStringsRecursive(value, out) {
   }
 }
 
+function gradePage({ lang, body }) {
+  const cfg = LOCALE_RL[lang];
+  const sentences = countSentences(body);
+  const tokens = cfg.tokenize(body);
+  if (sentences === 0 || tokens.length === 0) return { empty: true };
+  let syllables = 0;
+  for (const w of tokens) syllables += cfg.syll(w);
+  const grade = cfg.grade({ words: tokens.length, sentences, syllables, tokens });
+  if (grade === null) return { empty: true };
+  return { grade, cap: cfg.cap };
+}
+
 function main() {
   let failures = 0;
-  let enPages = 0;
-  const deferredLocales = new Set();
+  let gradedPages = 0;
+  const inProgressSkips = {}; // lang -> count (translationStatus: in-progress)
 
-  // Two passes: locale-deferred WARNs (one per locale present), and
-  // FK grading for EN pages.
   const allPages = [...walkMd(ROOT)];
   for (const fullPath of allPages) {
     const lang = detectLang(fullPath);
-    if (lang !== "en") {
-      if (lang) deferredLocales.add(lang);
-      continue;
-    }
-  }
-  for (const lang of [...deferredLocales].sort()) {
-    stderr.write(
-      `lint-reading-level: WARN ${lang} reading-level calibration not yet wired (Epic 7)\n`,
-    );
-  }
-
-  for (const fullPath of allPages) {
-    const lang = detectLang(fullPath);
-    if (lang !== "en") continue;
-    enPages++;
+    if (!lang || !LOCALE_RL[lang]) continue; // unknown locale dir — ignore
     const rel = relative(CWD, fullPath);
     let text;
     try {
@@ -243,52 +318,43 @@ function main() {
       failures++;
       continue;
     }
+    // Story 7.5a — enforcement gated on translationStatus for non-EN pages.
+    if (lang !== "en") {
+      const ts = frontmatterTranslationStatus(text);
+      if (ts === "in-progress") {
+        inProgressSkips[lang] = (inProgressSkips[lang] ?? 0) + 1;
+        continue;
+      }
+      // complete | unset → graded with the per-locale formula below.
+    }
     const body = stripMarkdown(stripFrontmatter(text));
-    const sentences = countSentences(body);
-    const words = tokenizeWords(body);
-    if (sentences === 0 || words.length === 0) {
+    const res = gradePage({ lang, body });
+    if (res.empty) {
       stderr.write(`lint-reading-level: WARN ${rel} — empty body (no readable prose)\n`);
       continue;
     }
-    let syllables = 0;
-    for (const w of words) syllables += countSyllablesInWord(w);
-    const grade = fleschKincaidGrade({
-      words: words.length,
-      sentences,
-      syllables,
-    });
-    if (grade === null) {
-      stderr.write(`lint-reading-level: WARN ${rel} — empty body (no readable prose)\n`);
-      continue;
-    }
-    const rounded = grade.toFixed(1);
-    stdout.write(`lint-reading-level: ${rel}: grade=${rounded}\n`);
-    if (grade > THRESHOLD) {
+    gradedPages++;
+    const rounded = res.grade.toFixed(1);
+    stdout.write(`lint-reading-level: ${rel}: grade=${rounded} (${lang})\n`);
+    if (res.grade > res.cap) {
       stderr.write(
-        `lint-reading-level: ${rel}: grade ${rounded} exceeds threshold ${THRESHOLD.toFixed(1)} (NFR28)\n`,
+        `lint-reading-level: ${rel}: ${lang.toUpperCase()} grade ${rounded} exceeds ${lang.toUpperCase()} cap ${res.cap.toFixed(1)} (NFR28)\n`,
       );
       failures++;
     }
   }
+  // One per-locale WARN for in-progress (placeholder) pages skipped (Story 7.5a).
+  for (const lang of Object.keys(inProgressSkips).sort()) {
+    stderr.write(
+      `lint-reading-level: WARN ${lang} reading-level: ${inProgressSkips[lang]} in-progress page(s) skipped — calibration active; enforcement awaits Gate-9c/9d completion\n`,
+    );
+  }
 
-  // ─── --include-i18n pass (Story 4-8 AC-2) ──────────────────────────
+  // ─── --include-i18n pass (Story 4-8 AC-2 + Story 7.5a NFR31 caps) ──────────
   let i18nFiles = 0;
   if (includeI18n && existsSync(I18N_ROOT)) {
-    const i18nDeferred = new Set();
+    const i18nInProgress = {}; // lang -> count
     for (const { lang, path: fullPath } of walkI18nJson(I18N_ROOT)) {
-      if (lang !== "en") {
-        i18nDeferred.add(lang);
-        continue;
-      }
-    }
-    for (const lang of [...i18nDeferred].sort()) {
-      stderr.write(
-        `lint-reading-level: WARN ${lang} reading-level calibration not yet wired (Epic 7)\n`,
-      );
-    }
-    for (const { lang, path: fullPath } of walkI18nJson(I18N_ROOT)) {
-      if (lang !== "en") continue;
-      i18nFiles++;
       const rel = relative(CWD, fullPath);
       let parsed;
       try {
@@ -298,52 +364,75 @@ function main() {
         failures++;
         continue;
       }
+      if (lang === "en") {
+        // EN — unchanged FK grading on concatenated string values (Story 4.8).
+        i18nFiles++;
+        const strings = [];
+        extractStringsRecursive(parsed, strings);
+        const body = strings
+          .map((s) => (s.trim().match(/[.!?]$/) ? s.trim() : `${s.trim()}.`))
+          .join(" ");
+        const sentences = countSentences(body);
+        const words = tokenizeWords(body);
+        if (sentences === 0 || words.length === 0) {
+          stderr.write(`lint-reading-level: WARN ${rel} — no readable prose\n`);
+          continue;
+        }
+        let syllables = 0;
+        for (const w of words) syllables += countSyllablesInWord(w);
+        const grade = fleschKincaidGrade({ words: words.length, sentences, syllables });
+        if (grade === null) {
+          stderr.write(`lint-reading-level: WARN ${rel} — no readable prose\n`);
+          continue;
+        }
+        const rounded = grade.toFixed(1);
+        stdout.write(`lint-reading-level: ${rel}: grade=${rounded}\n`);
+        if (grade > THRESHOLD) {
+          stderr.write(
+            `lint-reading-level: ${rel}: grade ${rounded} exceeds threshold ${THRESHOLD.toFixed(1)} (NFR28)\n`,
+          );
+          failures++;
+        }
+        continue;
+      }
+      // Non-EN — Story 7.5a. Skip in-progress bundles; else per-string char cap.
+      const ts = parsed && parsed._meta ? parsed._meta.translationStatus : undefined;
+      if (ts === "in-progress") {
+        i18nInProgress[lang] = (i18nInProgress[lang] ?? 0) + 1;
+        continue;
+      }
+      const cap = I18N_CHAR_CAP[lang];
+      if (cap === undefined) continue; // unknown non-EN locale — ignore
+      i18nFiles++;
       const strings = [];
-      extractStringsRecursive(parsed, strings);
-      // Treat each string as a separate sentence (append period if absent —
-      // many UI strings omit terminal punctuation).
-      const body = strings
-        .map((s) => (s.trim().match(/[.!?]$/) ? s.trim() : `${s.trim()}.`))
-        .join(" ");
-      const sentences = countSentences(body);
-      const words = tokenizeWords(body);
-      if (sentences === 0 || words.length === 0) {
-        stderr.write(`lint-reading-level: WARN ${rel} — no readable prose\n`);
-        continue;
+      extractStringsExcludingMeta(parsed, strings); // _meta never graded
+      for (const s of strings) {
+        if (typeof s === "string" && s.length > cap) {
+          stderr.write(
+            `lint-reading-level: ${rel}: ${lang.toUpperCase()} i18n string (${s.length} chars) exceeds ${lang.toUpperCase()} ${cap}-char cap (NFR31)\n`,
+          );
+          failures++;
+        }
       }
-      let syllables = 0;
-      for (const w of words) syllables += countSyllablesInWord(w);
-      const grade = fleschKincaidGrade({
-        words: words.length,
-        sentences,
-        syllables,
-      });
-      if (grade === null) {
-        stderr.write(`lint-reading-level: WARN ${rel} — no readable prose\n`);
-        continue;
-      }
-      const rounded = grade.toFixed(1);
-      stdout.write(`lint-reading-level: ${rel}: grade=${rounded}\n`);
-      if (grade > THRESHOLD) {
-        stderr.write(
-          `lint-reading-level: ${rel}: grade ${rounded} exceeds threshold ${THRESHOLD.toFixed(1)} (NFR28)\n`,
-        );
-        failures++;
-      }
+    }
+    for (const lang of Object.keys(i18nInProgress).sort()) {
+      stderr.write(
+        `lint-reading-level: WARN ${lang} reading-level: ${i18nInProgress[lang]} in-progress i18n bundle(s) skipped — enforcement awaits Gate-9c/9d completion\n`,
+      );
     }
   }
 
   if (failures > 0) {
     stderr.write(
-      `lint-reading-level: ${failures} surface(s) exceeded grade ${THRESHOLD} across ${enPages} EN page(s)` +
-        (includeI18n ? ` + ${i18nFiles} EN i18n file(s)` : "") +
+      `lint-reading-level: ${failures} surface(s) exceeded the per-locale cap across ${gradedPages} graded page(s)` +
+        (includeI18n ? ` + ${i18nFiles} i18n file(s)` : "") +
         "\n",
     );
     exit(1);
   }
   stdout.write(
-    `lint-reading-level: ${enPages} EN page(s) within grade ${THRESHOLD}` +
-      (includeI18n ? ` (+ ${i18nFiles} EN i18n file(s))` : "") +
+    `lint-reading-level: ${gradedPages} page(s) within per-locale reading-level limits` +
+      (includeI18n ? ` (+ ${i18nFiles} i18n file(s))` : "") +
       "\n",
   );
   exit(0);

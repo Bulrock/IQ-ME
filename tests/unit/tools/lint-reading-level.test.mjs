@@ -180,23 +180,25 @@ test("lint-reading-level: link text is preserved, URL is not counted", () => {
   });
 });
 
-// AC-6.8 — RU page → single per-locale WARN, exit 0.
-test("lint-reading-level: RU page emits one per-locale WARN, exit 0", () => {
+// AC-6.8 (updated by Story 7.5a) — RU page without translationStatus is now
+// graded under the Oborneva calibration (unset ≡ complete); easy prose passes.
+test("lint-reading-level: RU page is graded (Oborneva), easy prose exits 0", () => {
   withFixture((dir) => {
     writePage(dir, "ru", "page/index.md", "Кошка села на коврик.\n");
     const r = runLint([], dir);
     assert.equal(r.status, 0, `expected 0; stderr: ${r.stderr}; stdout: ${r.stdout}`);
-    assert.match(r.stderr + r.stdout, /WARN.*ru.*calibration.*Epic 7/);
+    assert.match(r.stdout + r.stderr, /ru\/page\/index\.md: grade=/);
   });
 });
 
-// AC-6.9 — PL page → one per-locale WARN.
-test("lint-reading-level: PL page emits one per-locale WARN, exit 0", () => {
+// AC-6.9 (updated by Story 7.5a) — PL page graded under the Pisarek/Jasnopis
+// calibration; easy prose passes.
+test("lint-reading-level: PL page is graded (Pisarek/Jasnopis), easy prose exits 0", () => {
   withFixture((dir) => {
     writePage(dir, "pl", "page/index.md", "Kot usiadł na macie.\n");
     const r = runLint([], dir);
     assert.equal(r.status, 0, `expected 0; stderr: ${r.stderr}; stdout: ${r.stdout}`);
-    assert.match(r.stderr + r.stdout, /WARN.*pl.*calibration.*Epic 7/);
+    assert.match(r.stdout + r.stderr, /pl\/page\/index\.md: grade=/);
   });
 });
 
@@ -319,13 +321,15 @@ test("lint-reading-level: --include-i18n EN polysyllabic prose fails grade > 12"
   });
 });
 
-// AC-2.4 — with --include-i18n: RU strings.json → per-locale WARN, no FK enforcement.
-test("lint-reading-level: --include-i18n RU strings emit per-locale WARN, no enforcement", () => {
+// AC-2.4 (updated by Story 7.5a) — with --include-i18n: a RU bundle without
+// _meta in-progress is enforced under the NFR31 180-char cap; a short string
+// passes (exit 0, no exceedance).
+test("lint-reading-level: --include-i18n RU short strings pass the 180-char cap", () => {
   withFixture((dir) => {
     writeI18n(dir, "ru", { a: "Кошка села на коврик." });
     const r = runLint(["--include-i18n"], dir);
     assert.equal(r.status, 0, `expected 0; stderr: ${r.stderr}; stdout: ${r.stdout}`);
-    assert.match(r.stderr + r.stdout, /WARN.*ru.*calibration.*Epic 7/);
+    assert.doesNotMatch(r.stderr + r.stdout, /exceeds RU 180-char cap/);
   });
 });
 

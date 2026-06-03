@@ -314,15 +314,17 @@ jobs:
   lint-reading-level:
     name: lint-reading-level
     runs-on: ubuntu-latest
-    # Activated in Story 4.4 (EN only — Flesch-Kincaid grade ≤ 12 per NFR28).
-    # Epic 7 extends to RU (Oborneva) + PL (Pisarek/Jasnopis) calibrations;
-    # RU/PL pages currently emit a single per-locale deferred WARN.
+    # Activated in Story 4.4 (EN Flesch-Kincaid ≤ 12 per NFR28). Story 7.5a
+    # added RU (Oborneva) + PL (Pisarek/Jasnopis) calibrations + NFR31 i18n
+    # char caps (RU 180 / PL 160) via --include-i18n. Enforcement is gated on
+    # translationStatus: in-progress (placeholder) RU/PL content is skipped
+    # with a per-locale WARN; it activates when Gate-9c/9d real prose lands.
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: node tools/lint-reading-level.mjs
+      - run: node tools/lint-reading-level.mjs --include-i18n
 
   lint-license-provenance:
     name: lint-license-provenance

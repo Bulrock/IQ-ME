@@ -41,7 +41,7 @@ lint: ## run all registered lints (negative assertions + budget + trust artifact
 	node tools/lint-claims-manifest.mjs --strict
 	node tools/lint-frontmatter.mjs
 	node tools/lint-glossary.mjs
-	node tools/lint-reading-level.mjs
+	node tools/lint-reading-level.mjs --include-i18n
 	node tools/lint-license-provenance.mjs
 	node tools/lint-translation-parity.mjs
 	node tools/lint-i18n-coverage.mjs

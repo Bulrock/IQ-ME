@@ -847,3 +847,14 @@ branches:
     last_synced_at: 2026-06-03T16:34:56.152Z
     notes: ""
     created_at: 2026-06-03T16:29:43.577Z
+  - branch: story/7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
+    story_id: 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
+    epic_id: null
+    base_branch: epic/7
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-06-03T16:40:47.870Z
