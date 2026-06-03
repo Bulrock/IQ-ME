@@ -116,7 +116,7 @@ function bindTriplet(root) {
   const trip = root.querySelector(".score-panel__triplet");
   if (!trip) return;
   for (const c of trip.children) {
-    const t = c.attrs && c.attrs["data-methodology-target"];
+    const t = c.getAttribute && c.getAttribute("data-methodology-target");
     if (!t) continue;
     on(c, "click", () => go(t));
     on(c, "keydown", (e) => { if (e && e.key === "Enter") go(t); });
