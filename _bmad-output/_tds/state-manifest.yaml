@@ -2,15 +2,15 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: a6672a9ec2e644d404b22c9ac5bb293a84ddcffbf0505c9c80b1adffc1e18ef6
+    sha256: 1f11954722f4732c28618ffef6059745f468e78fcec20fec69d3f63d1ad0ac52
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T16:53:46.835Z
+    recorded_at: 2026-06-03T16:55:07.498Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 49258b9a8e145d7a529da2c7ae6730842cd8ed4002b45b99a8e42a47bcd407d1
+    sha256: 91de7bffb53af3998d533fb22c43cbec267bf83f322926128232c8c8524e92f6
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T16:55:06.971Z
+    recorded_at: 2026-06-03T17:05:20.197Z
     recorded_by: engineer
     story_id: 7-5b-lint-translation-parity-full-coverage-graduation
   - artefact_class: A
@@ -186,12 +186,12 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/design-system.test.mjs
-    sha256: 92c271535c2eddf3fdfa1ec846508992296b3772c67c792fc5a95aecc43c0c5d
+    sha256: 66c551e491145e9fcfc678ed4b7d2841a0b22b680cc9955a75ddc81da244e550
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T09:48:43.982Z
-    recorded_by: test-author
-    story_id: 1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts
-    notes: story-1-10 frozen failing tests
+    recorded_at: 2026-06-03T17:04:38.985Z
+    recorded_by: engineer
+    story_id: 7-5b-lint-translation-parity-full-coverage-graduation
+    notes: "story-7-5b: graduated parity assertions + design-system AC-6 snapshot-update race fix (tmpdir redirect)"
   - artefact_class: A
     file: _bmad-output/_tds/sprint-status-extension.yaml
     sha256: a3ae5717dd9ff59561b24d0dd0cf4d010f79ccf6e5b043b8f80570f0bd974592
@@ -822,20 +822,20 @@ entries:
     story_id: 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
   - artefact_class: A
     file: tests/unit/tools/lint-translation-parity.test.mjs
-    sha256: 1f2e3db1a84690e3c6569939ac78f41e13a94c4c0cbc96adb21abda60c8cfcce
+    sha256: 258b4af247e90975f8eb20f6771c90f4b4eb7b2e4f8dab4ba3dbf4dbe085abcf
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:45:13.436Z
-    recorded_by: test-author
-    story_id: 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
-    notes: "Story 4-7 test-author Phase A: failing tests for lint-translation-parity stub + hatnote builder extensions"
+    recorded_at: 2026-06-03T17:04:38.984Z
+    recorded_by: engineer
+    story_id: 7-5b-lint-translation-parity-full-coverage-graduation
+    notes: "story-7-5b: graduated parity assertions + design-system AC-6 snapshot-update race fix (tmpdir redirect)"
   - artefact_class: A
     file: tests/scaffold/lint-translation-parity-coverage.test.mjs
-    sha256: 65aeed7bb211c02c57f8bc77a20ca22d0b9fb6571f2295f79a834a01a3e80692
+    sha256: 817e37a84069058150f939ba68f3b5699b48c8b88312d076e96a65eef9cd3265
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T16:34:07.007Z
+    recorded_at: 2026-06-03T17:04:38.985Z
     recorded_by: engineer
-    story_id: 7-4-full-pl-methodology-corpus-translation-30-pages
-    notes: "story-7-4: PL budget pin 30→45 + parity-coverage PL assertion"
+    story_id: 7-5b-lint-translation-parity-full-coverage-graduation
+    notes: "story-7-5b: graduated parity assertions + design-system AC-6 snapshot-update race fix (tmpdir redirect)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment.md
     sha256: 7642a7bcb363d1969db9f6dbb3ff2b4e0ce6f17a446a2c87d264fb9178f00312
@@ -1346,8 +1346,16 @@ entries:
     notes: story-7-5a frozen failing tests (RU Oborneva + PL Pisarek/Jasnopis calibration + translationStatus gating + i18n caps)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-5b-lint-translation-parity-full-coverage-graduation.md
-    sha256: 4f0762a60577197d768814babe843983fe55caf517e34682d5c7e06e44111f8a
+    sha256: 349de31655820e24271a59c2123e3d76c6eb82e57fe8ae3621389a084eabb4fa
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T16:55:07.013Z
+    recorded_at: 2026-06-03T17:05:20.240Z
     recorded_by: engineer
     story_id: 7-5b-lint-translation-parity-full-coverage-graduation
+  - artefact_class: A
+    file: tests/unit/tools/lint-translation-parity-graduation.test.mjs
+    sha256: 433c78b8a732285f769e4f399a46f5b49f7b3857b8c6658f589ad65015f2984f
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T16:56:46.143Z
+    recorded_by: test-author
+    story_id: 7-5b-lint-translation-parity-full-coverage-graduation
+    notes: "story-7-5b frozen failing tests (full-coverage parity: missing/orphan/stale + parity-green summary)"

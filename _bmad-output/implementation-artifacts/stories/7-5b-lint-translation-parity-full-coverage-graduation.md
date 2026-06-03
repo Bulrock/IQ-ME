@@ -1,7 +1,7 @@
 ---
 id: 7-5b-lint-translation-parity-full-coverage-graduation
 title: "Story 7.5b: lint-translation-parity full-coverage graduation"
-status: ready-for-dev
+status: review
 ---
 
 # Story 7.5b: lint-translation-parity full-coverage graduation
@@ -22,16 +22,16 @@ so that **a parity failure in RU or PL is debuggable on its own and the simultan
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: full-coverage parity logic** (AC: 1, 3)
-  - [ ] EN body-SHA256 (`enSourceHashFor` contract); per non-EN page: counterpart-exists + hash-match; collect missing/orphan/stale.
-- [ ] **Task 2: per-locale status output** (AC: 2)
-  - [ ] `EN: source-of-truth (N)`, `<LANG>: x/y pages parity-green`; name divergent pages on failure.
-- [ ] **Task 3: independent gate** (AC: 4)
-  - [ ] Confirm/retain the separate `pr-checks.yml` lint-translation-parity job.
-- [ ] **Task 4: update Story-4.7 tests + new coverage** (AC: 5)
-  - [ ] Update `lint-translation-parity.test.mjs` + `lint-translation-parity-coverage.test.mjs` for graduated behavior; add synthetic missing/orphan/stale/full-parity tests.
-- [ ] **Task 5: regression gate** (AC: 5)
-  - [ ] `make test`/`make lint`/`make build` green; in-repo RU+PL parity-green.
+- [x] **Task 1: full-coverage parity logic** (AC: 1, 3)
+  - [x] EN body-SHA256 (`enSourceHashFor` contract); per non-EN page: counterpart-exists + hash-match; collect missing/orphan/stale.
+- [x] **Task 2: per-locale status output** (AC: 2)
+  - [x] `EN: source-of-truth (N)`, `<LANG>: x/y pages parity-green`; name divergent pages on failure.
+- [x] **Task 3: independent gate** (AC: 4)
+  - [x] Confirm/retain the separate `pr-checks.yml` lint-translation-parity job.
+- [x] **Task 4: update Story-4.7 tests + new coverage** (AC: 5)
+  - [x] Update `lint-translation-parity.test.mjs` + `lint-translation-parity-coverage.test.mjs` for graduated behavior; add synthetic missing/orphan/stale/full-parity tests.
+- [x] **Task 5: regression gate** (AC: 5)
+  - [x] `make test`/`make lint`/`make build` green; in-repo RU+PL parity-green.
 
 ## Dev Notes
 
@@ -67,4 +67,35 @@ so that **a parity failure in RU or PL is debuggable on its own and the simultan
 
 ### Completion Notes List
 
+- Graduated parity to full tri-locale coverage (missing/orphan/stale + EN-hash match aligned to build isStale). In-repo EN35/RU35-35/PL35-35 parity-green exit 0. Updated obsolete Story-4.7 stub tests. Fixed pre-existing flaky design-system AC-6 snapshot-update race (redirect to tmpdir via IQME_SNAPSHOT_DIR) that Epic-7's 105 snapshots widened — 3x aggregate 1166 pass/0 fail. make lint+build exit 0.
+
 ### File List
+
+- tools/lint-translation-parity.mjs
+- tests/unit/tools/lint-translation-parity-graduation.test.mjs
+- tests/unit/tools/lint-translation-parity.test.mjs
+- tests/scaffold/lint-translation-parity-coverage.test.mjs
+- tests/scaffold/design-system.test.mjs
+
+## Specialist Self-Review
+
+## Specialist Self-Review — Story 7-5b (lint-translation-parity full-coverage graduation)
+
+**Decisions made:**
+- Graduated `tools/lint-translation-parity.mjs` from the Story-4.7 defensive stub to **full tri-locale parity**: per non-EN locale it checks (a) **missing** — every EN page must have a counterpart (exit 1 if not), (b) **orphan** — every non-EN page must have an EN counterpart, (c) **stale** — `sourceHashEN` must equal `SHA256(EN body)` computed exactly as `build-methodology.mjs` `enSourceHashFor` (so the lint's stale-detection is byte-aligned with the build's `data-translation-stale`/hatnote logic — AC-3). Retained the defensive 64-hex shape check. Emits `EN: source-of-truth (N)` + `<LANG>: green/total pages parity-green` summary; names divergent pages on failure.
+- In-repo result: `EN 35 / RU 35/35 parity-green / PL 35/35 parity-green`, exit 0 — the 7.3/7.4 mirrors are byte-parity with EN.
+
+**Cross-story test impact (Option-A pattern):**
+- Updated the Story-4.7 unit test (`lint-translation-parity.test.mjs`): the stub assertions ("no non-EN content WARN", "deferred to Epic 7", "not yet authored", "valid-64-hex → pass") are obsolete post-graduation. Rewrote them as graduated contracts — EN-only now FAILS (missing RU/PL counterparts), a complete tri-locale tree with matching `sourceHashEN` passes (computed in-test via a `bodySha256` helper mirroring `enSourceHashFor`), parity-green summary asserted.
+- Updated the scaffold coverage test (`lint-translation-parity-coverage.test.mjs`): in-repo now asserts `RU/PL N/N pages parity-green` + no "deferred to Epic 7".
+- All edits recorded via `tds integrity record --as=engineer` (owning story 4.7 done; no unfreeze ceremony). The dedicated 7.5b graduation test (`lint-translation-parity-graduation.test.mjs`, frozen by test-author) was NOT edited.
+
+**Flaky-test root-cause fix (regression-hardening, AC-5 reliability):** The full aggregate intermittently failed `methodology-snapshots.test.mjs` at file-level (passed in isolation; re-runs green). Provenance: NOT introduced by 7.5b (my changes don't touch snapshots/build) — it is a pre-existing race in `design-system.test.mjs` AC-6, which ran `make snapshot-update` against the SHARED real `tests/snapshots/` tree; once Epic-7 landed RU+PL (105 methodology snapshots) the clean+rewrite window widened enough to race, in the concurrent aggregate, with `methodology-snapshots.test.mjs` reading those files. Fixed surgically: AC-6 now redirects `make snapshot-update` to a `mkdtemp` dir via `IQME_SNAPSHOT_DIR` (which `snapshot-update.mjs` honors) and reads `tokens.hash.json` from there — idempotency check preserved, shared-state mutation eliminated. Verified: 3 consecutive full-aggregate runs = 1166 pass / 0 fail (was intermittently 1 fail). Fixing it here prevents the same flake from intermittently breaking 7.6/7.7 (which add more snapshots). Flagged for the auditor as a cross-story hardening edit (design-system is Story 1.10).
+
+**Framework gotchas avoided:**
+- The graduated "missing" enforcement means an EN-only tree now fails — semantically correct (tri-locale completeness is the Innovation-#7 invariant) and required by the frozen graduation test ("missing RU counterpart → exit 1"). The in-repo scaffold always mirrors completely (placeholders fill gaps), so completeness holds.
+
+**Areas of uncertainty:**
+- Whether "missing = hard fail" is too strict for a future genuinely-partial locale (the 7.5b AC example shows "28/30 parity-green"). Current design fails on any missing page; under infra-now every locale is fully mirrored so this never bites. If a partial-locale workflow is ever wanted, missing could be downgraded to WARN while orphan/stale stay hard-fail — a future tuning point. Flagged for the auditor.
+
+**Tested edge cases:** `tests/unit/tools/lint-translation-parity-graduation.test.mjs` (frozen) — full-parity→pass+parity-green, missing→fail, orphan→fail, stale-hash→fail, malformed-hash→fail. All synthetic tmpdir fixtures via `IQME_METHODOLOGY_ROOT`.

@@ -18,6 +18,7 @@
 //                          src/content/methodology). Used by unit tests.
 
 import { readFileSync, readdirSync, existsSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { dirname, join, resolve, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { argv, env, cwd, exit, stderr, stdout } from "node:process";
@@ -76,71 +77,87 @@ function extractFrontmatterValue(text, key) {
   return undefined;
 }
 
-function countMdPages(localeDir) {
-  let n = 0;
-  for (const _ of walkMd(localeDir)) n++;
-  return n;
+// Body = everything after the closing frontmatter `---` (matches
+// build-methodology.mjs enSourceHashFor + the 7.3/7.4 mirror generator).
+function pageBody(text) {
+  const lines = text.split(/\r?\n/);
+  if (lines[0] !== "---") return text;
+  let end = -1;
+  for (let i = 1; i < lines.length; i++) { if (lines[i] === "---") { end = i; break; } }
+  if (end === -1) return text;
+  return lines.slice(end + 1).join("\n");
+}
+function bodySha256(text) {
+  return createHash("sha256").update(pageBody(text), "utf8").digest("hex");
 }
 
+// Map relative-path → absolute for every .md under a locale dir.
+function localePageMap(localeDir) {
+  const m = new Map();
+  if (!existsSync(localeDir)) return m;
+  for (const abs of walkMd(localeDir)) m.set(relative(localeDir, abs), abs);
+  return m;
+}
+
+// Story 7.5b — full-coverage parity. Asserts tri-locale completeness (no
+// missing / no orphan) + EN-source-hash match (no stale), per Innovation #7.
 function main() {
   const violations = [];
-  const nonEnPages = [];
+  const enDir = join(ROOT, "en");
+  const enMap = localePageMap(enDir);
+  const enHash = new Map();
+  for (const [rel, abs] of enMap) enHash.set(rel, bodySha256(readFileSync(abs, "utf8")));
+
+  const summaries = [`EN: source-of-truth (${enMap.size} page(s))`];
 
   for (const locale of NON_EN) {
-    const localeDir = join(ROOT, locale);
-    if (!existsSync(localeDir)) continue;
-    for (const srcPath of walkMd(localeDir)) {
-      nonEnPages.push({ locale, srcPath });
-    }
-  }
+    const locDir = join(ROOT, locale);
+    const locMap = localePageMap(locDir);
+    const LU = locale.toUpperCase();
+    let green = 0;
 
-  if (nonEnPages.length === 0) {
-    stdout.write(
-      "lint-translation-parity: WARN no non-EN content yet (Epic 7 wires full coverage); skipped\n",
-    );
-  } else {
-    // Phase 2 defensive validation: sourceHashEN is present and 64-hex.
-    for (const { locale, srcPath } of nonEnPages) {
-      let text;
-      try {
-        text = readFileSync(srcPath, "utf8");
-      } catch (e) {
-        die(`reading ${srcPath}: ${e.message}`);
+    // (b) orphan + sourceHashEN shape + (c) stale hash.
+    for (const [rel, abs] of locMap) {
+      const relRepo = relative(REPO_ROOT, abs);
+      if (!enMap.has(rel)) {
+        violations.push(`${relRepo}: orphan — no EN counterpart at en/${rel}`);
+        continue;
       }
+      const text = readFileSync(abs, "utf8");
       const v = extractFrontmatterValue(text, "sourceHashEN");
-      const rel = relative(REPO_ROOT, srcPath);
       if (v === undefined) {
-        violations.push(`${rel}: missing frontmatter key 'sourceHashEN'`);
+        violations.push(`${relRepo}: missing frontmatter key 'sourceHashEN'`);
         continue;
       }
       if (!HEX64_RE.test(v)) {
-        violations.push(
-          `${rel}: malformed sourceHashEN — must be 64-char lowercase hex (got length ${v.length})`,
-        );
+        violations.push(`${relRepo}: malformed sourceHashEN — must be 64-char lowercase hex (got length ${v.length})`);
+        continue;
+      }
+      if (v !== enHash.get(rel)) {
+        violations.push(`${relRepo}: stale sourceHashEN — does not match current EN body hash for en/${rel} (drift: re-translate + bump sourceHashEN)`);
+        continue;
+      }
+      green++;
+    }
+
+    // (a) missing — every EN page must have a counterpart in this locale.
+    let missing = 0;
+    for (const rel of enMap.keys()) {
+      if (!locMap.has(rel)) {
+        violations.push(`${locale}/${rel}: missing — EN page en/${rel} has no ${LU} counterpart`);
+        missing++;
       }
     }
+    summaries.push(
+      `${LU}: ${green}/${enMap.size} pages parity-green` + (missing ? ` (${missing} missing)` : ""),
+    );
   }
 
-  // Per-locale summary (always emitted).
-  const enDir = join(ROOT, "en");
-  const enCount = existsSync(enDir) ? countMdPages(enDir) : 0;
-  stdout.write(`lint-translation-parity: EN: source-of-truth (${enCount} page(s))\n`);
-  for (const locale of NON_EN) {
-    const localeDir = join(ROOT, locale);
-    const count = existsSync(localeDir) ? countMdPages(localeDir) : 0;
-    if (count === 0) {
-      stdout.write(
-        `lint-translation-parity: ${locale.toUpperCase()}: not yet authored (Epic 7)\n`,
-      );
-    } else {
-      stdout.write(
-        `lint-translation-parity: ${locale.toUpperCase()}: ${count} page(s) found (deep parity check deferred to Epic 7)\n`,
-      );
-    }
-  }
+  for (const s of summaries) stdout.write(`lint-translation-parity: ${s}\n`);
 
   if (violations.length > 0) {
     for (const v of violations) stderr.write(`BREACH lint-translation-parity: ${v}\n`);
+    stderr.write(`lint-translation-parity: ${violations.length} parity violation(s) — measurement-equivalence invariant broken (NFR27)\n`);
     exit(1);
   }
   exit(0);

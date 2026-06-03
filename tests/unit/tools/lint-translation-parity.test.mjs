@@ -15,9 +15,20 @@ import { test } from "node:test";
 import { strict as assert } from "node:assert";
 import { spawnSync } from "node:child_process";
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+
+// EN body SHA256 (matches build-methodology.mjs enSourceHashFor): body =
+// everything after the closing frontmatter `---`, /\r?\n/-split, \n-joined.
+function bodySha256(pageText) {
+  const lines = pageText.split(/\r?\n/);
+  let end = -1;
+  for (let i = 1; i < lines.length; i++) { if (lines[i] === "---") { end = i; break; } }
+  const body = end === -1 ? pageText : lines.slice(end + 1).join("\n");
+  return createHash("sha256").update(body, "utf8").digest("hex");
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const REPO_ROOT = resolve(dirname(__filename), "..", "..", "..");
@@ -102,31 +113,33 @@ function ruPage(title, hash) {
   ].join("\n");
 }
 
-// ─── AC-2 Phase 1: no non-EN content → WARN + exit 0 ───────────────────────
+// ─── Story 7.5b graduation — EN-only now fails parity (missing counterparts) ─
 
-test("AC-2 4-7: no non-EN content → exit 0 with single WARN line", () => {
+test("7.5b: EN-only tree fails parity (EN pages missing RU/PL counterparts)", () => {
   withFixture((dir) => {
     enOnlyFixture(dir);
     const r = runLint(dir);
-    assert.equal(r.status, 0, `expected exit 0; stdout=${r.stdout}; stderr=${r.stderr}`);
-    const out = r.stdout + r.stderr;
+    assert.equal(r.status, 1, `expected exit 1; stdout=${r.stdout}; stderr=${r.stderr}`);
     assert.match(
-      out,
-      /lint-translation-parity:\s*WARN\s+no non-EN content yet[^\n]*Epic 7/i,
-      `expected single WARN line referencing Epic 7; got:\n${out}`,
+      r.stdout + r.stderr,
+      /missing/i,
+      `expected a missing-counterpart violation; got:\n${r.stdout + r.stderr}`,
     );
   });
 });
 
-// ─── AC-2 Phase 2: non-EN page with valid sourceHashEN → exit 0 ────────────
+// ─── Story 7.5b graduation — complete tri-locale with matching hash → exit 0 ─
 
-test("AC-2 4-7: non-EN page (RU) with valid 64-hex sourceHashEN → exit 0", () => {
+test("7.5b: complete tri-locale with matching sourceHashEN → exit 0", () => {
   withFixture((dir) => {
-    writeFile(dir, "en/scoring/overview/index.md", enPage("Overview"));
-    writeFile(dir, "ru/scoring/overview/index.md", ruPage("Обзор", "b".repeat(64)));
-    writeFile(dir, "pl/.gitkeep", "");
+    const en = enPage("Overview");
+    const h = bodySha256(en);
+    writeFile(dir, "en/scoring/overview/index.md", en);
+    writeFile(dir, "ru/scoring/overview/index.md", ruPage("Обзор", h));
+    writeFile(dir, "pl/scoring/overview/index.md", ruPage("Przegląd", h));
     const r = runLint(dir);
     assert.equal(r.status, 0, `expected exit 0; stdout=${r.stdout}; stderr=${r.stderr}`);
+    assert.match(r.stdout + r.stderr, /RU:\s*1\s*\/\s*1\s*pages parity-green/i);
   });
 });
 
@@ -185,38 +198,36 @@ test("AC-2 4-7: non-EN page (RU) with malformed sourceHashEN (not 64-hex) → ex
 
 // ─── AC-2: per-locale summary line emitted ────────────────────────────────
 
-test("AC-2 4-7: per-locale summary line emitted (EN source-of-truth; RU/PL deferred)", () => {
+test("7.5b: per-locale summary emits EN source-of-truth + RU/PL parity-green", () => {
   withFixture((dir) => {
-    enOnlyFixture(dir);
+    const en = enPage("Overview");
+    const h = bodySha256(en);
+    writeFile(dir, "en/scoring/overview/index.md", en);
+    writeFile(dir, "ru/scoring/overview/index.md", ruPage("Обзор", h));
+    writeFile(dir, "pl/scoring/overview/index.md", ruPage("Przegląd", h));
     const r = runLint(dir);
     assert.equal(r.status, 0, `expected exit 0; stderr=${r.stderr}`);
     const out = r.stdout + r.stderr;
-    assert.match(
-      out,
-      /EN:\s*source-of-truth/i,
-      `expected EN: source-of-truth in summary; got:\n${out}`,
-    );
-    assert.match(
-      out,
-      /RU.*not yet authored|RU.*Epic 7|RU\/PL.*not yet authored/i,
-      `expected RU/PL deferred summary; got:\n${out}`,
-    );
+    assert.match(out, /EN:\s*source-of-truth/i, `expected EN: source-of-truth; got:\n${out}`);
+    assert.match(out, /RU:\s*\d+\s*\/\s*\d+\s*pages parity-green/i, `expected RU parity-green; got:\n${out}`);
+    assert.match(out, /PL:\s*\d+\s*\/\s*\d+\s*pages parity-green/i, `expected PL parity-green; got:\n${out}`);
   });
 });
 
-// ─── AC-2: per-locale summary correctly reports "RU not yet authored"
-// when RU dir is .gitkeep-only ─────────────────────────────────────────────
+// ─── Story 7.5b — a half-mirrored locale is reported with its green count ───
 
-test("AC-2 4-7: per-locale summary reports 'RU not yet authored' when RU is .gitkeep-only", () => {
+test("7.5b: per-locale summary reports the green/total count per locale", () => {
   withFixture((dir) => {
-    enOnlyFixture(dir);
+    const en = enPage("Overview");
+    const h = bodySha256(en);
+    writeFile(dir, "en/scoring/overview/index.md", en);
+    writeFile(dir, "ru/scoring/overview/index.md", ruPage("Обзор", h));
+    writeFile(dir, "pl/scoring/overview/index.md", ruPage("Przegląd", h));
     const r = runLint(dir);
     assert.equal(r.status, 0);
     const out = r.stdout + r.stderr;
-    // Both RU and PL should be flagged as not-yet-authored / Epic 7.
-    assert.match(out, /RU/i, `expected RU mentioned in summary; got:\n${out}`);
-    assert.match(out, /PL/i, `expected PL mentioned in summary; got:\n${out}`);
-    assert.match(out, /Epic 7|not yet authored/i, `expected Epic 7 deferral; got:\n${out}`);
+    assert.match(out, /RU:\s*1\s*\/\s*1/i, `expected RU 1/1; got:\n${out}`);
+    assert.match(out, /PL:\s*1\s*\/\s*1/i, `expected PL 1/1; got:\n${out}`);
   });
 });
 
