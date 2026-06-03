@@ -433,3 +433,10 @@ frontend (Claude Opus 4.7) — `bmad-tds-frontend` specialist; HTML/CSS/JS autho
 - **Pre-existing scaffold failure (still surfaced):** `tests/scaffold/ci-matrix.test.mjs:159` AC-3 expects `lighthouse` job to carry `if: false`; Story 6.4 activated it. Same finding as 6.4 Self-Review. Recommend small follow-up bridge to update the scaffold expectation (or remove the `if:false` requirement for now-active jobs) — out of scope for 6.5 per execute-story halt-condition #7.
 
 - **Spec AC-13 class-A claim mismatch with ADR-0014 (recurring).** The spec said `tools/lint-frontmatter.mjs` is class-A; CLI rejects per ADR-0014 §B. Same pattern as Story 6.4's `.github/workflows/pr-checks.yml`. Recommend a spec-authoring guideline update: production source paths default to class-B unless they fall into ADR-0014 §A allowlist (state-manifest, branch-registry, lessons.yaml, sprint-status, story specs, sbom, runtime-manifest, claim-index).
+
+## Auditor Findings (round-1)
+
+### [info] Story 6.5 self-review discloses the test-author phase skipped the formal TEA clean-context subagent flow (Skill(bmad-testarch-atdd) + Skill(bmad-testarch-test-review)), authoring/freezing the new specs inline instead. Rationale given (frontend composition story, established sibling patterns, no security-critical surface) is reasonable, but this bypasses the independent test-author-vs-reviewer separation that is a deliberate peer-review invariant. Recorded for visibility — not a blocker (no security/integrity-critical code in 6.5; tests are present and green).
+
+- **Category:** process / peer-review invariant
+- **Suggested bridge:** `If the inline-test-author shortcut recurs across stories, add a lightweight gate (or retro lesson) clarifying when TEA clean-context subagent authoring is mandatory vs optional for low-risk frontend-composition stories.`
