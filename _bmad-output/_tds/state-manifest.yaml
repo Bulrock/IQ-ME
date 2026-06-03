@@ -2,16 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: acb1668de92e22d5fa50a1f49b448523f5db8b639a3f9e7eae08ea9713bf4c89
+    sha256: df35f9e473a36872d9b3c512e3206da841feacb716ba153f839901b942b6a196
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:28:43.868Z
+    recorded_at: 2026-06-03T13:50:53.000Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: a47218dfa6a8bdc7588d7fc6f1afd3b5769b77a48f439063772e207c65a838b7
+    sha256: b21601db60171fb5c354fcfa8a8cd1a14c85a15e21d850b89525ec2b870d6458
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:42:03.826Z
+    recorded_at: 2026-06-03T13:59:10.245Z
     recorded_by: engineer
+    story_id: bridge-7-8-1-changelog-discipline-for-sibling
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -1170,3 +1171,10 @@ entries:
     recorded_by: test-author
     story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
     notes: "story 6-7 frozen RED tests: save-result.js localStorage opt-in discipline + result.js save-button/retest-note render"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-7-8-1-changelog-discipline-for-sibling.md
+    sha256: 808a58808a42f60a73a7232716e7a50941179d42f068ae3700a91f0d1af08668
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T14:00:06.008Z
+    recorded_by: state-commit-autorecord
+    story_id: bridge-7-8-1-changelog-discipline-for-sibling

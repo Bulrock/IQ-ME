@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-03 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page: done'
+last_updated: '2026-06-03 bridge-7-8-1-changelog-discipline-for-sibling: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -134,8 +134,8 @@ development_status:
   epic-7-retrospective: optional
 
   # Bridge 7→8: 5 stories from 2 retros
-  bridge-7-8: backlog
-  bridge-7-8-1-changelog-discipline-for-sibling: backlog # CHANGELOG discipline for sibling installer-contract bumps
+  bridge-7-8: in-progress
+  bridge-7-8-1-changelog-discipline-for-sibling: review         # CHANGELOG discipline for sibling installer-contract bumps
   bridge-7-8-2-tighten-unfreeze-windows-yaml: backlog # Tighten unfreeze-windows.yaml schema lock
   bridge-7-8-3-replace-legacy-exempt-central: backlog # Replace LEGACY_EXEMPT central list with per-spec frontmatter flag
   bridge-7-8-4-de-binary-save-result: backlog # De-binary save-result.test.mjs: replace literal control bytes with \x escapes
