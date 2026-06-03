@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: ea6171bb42696774b45714010d62cf83272bd5a5ff80f6dd8cbe0c8a5add987f
+    sha256: 5cb68326adbfee74bc4b54fe643ca8f3e3ed2060e210f99dc1d8f0dc689f838d
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T16:27:19.489Z
+    recorded_at: 2026-06-03T16:29:39.356Z
     recorded_by: engineer
-    story_id: 7-3-full-ru-methodology-corpus-translation-30-pages
+    story_id: 7-4-full-pl-methodology-corpus-translation-30-pages
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1314,3 +1314,10 @@ entries:
     recorded_by: test-author
     story_id: 7-3-full-ru-methodology-corpus-translation-30-pages
     notes: story-7-3 frozen failing tests (RU methodology mirror parity AC-4)
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-4-full-pl-methodology-corpus-translation-30-pages.md
+    sha256: 7388556971404bb1548e5cac7d65e4c2555acdd2fd31b6af9e622d61c0d46e5a
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T16:29:39.398Z
+    recorded_by: engineer
+    story_id: 7-4-full-pl-methodology-corpus-translation-30-pages
