@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 944c50dc2b871983cb985678a0dc00670475b62c7839031b45961248159d6f04
+    sha256: 716060e92633a610cb9c8b34392fb4e35857ff5402b594c9e0d2e6b6ae638e23
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T16:34:49.482Z
+    recorded_at: 2026-06-03T16:40:47.355Z
     recorded_by: engineer
-    story_id: 7-4-full-pl-methodology-corpus-translation-30-pages
+    story_id: 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1329,3 +1329,10 @@ entries:
     recorded_by: test-author
     story_id: 7-4-full-pl-methodology-corpus-translation-30-pages
     notes: story-7-4 frozen failing tests (PL methodology mirror parity AC-4)
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis.md
+    sha256: 8c327ed6fae757e2faf574d5d6afa436ea1fdd469051e0002f44aeb204f93680
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T16:40:47.402Z
+    recorded_by: engineer
+    story_id: 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
