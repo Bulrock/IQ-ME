@@ -33,6 +33,16 @@ export function computeDifficultyCounts(pool, bands, responses, seedHex) {
 
 const beat = (s) => `<section class="result-scene" data-reveal-stage="anchor"><h1>${E(s.prerevealHeading)}</h1><p>${E(s.prerevealSubcopy)}</p><button type="button" class="rs-show">${E(s.showMeButton)}</button><button type="button" class="rs-not">${E(s.notYetButton)}</button></section>`;
 
+// Story 6.6 — top-decile tear-edge overlay (UX-DR25, FR24, UX Innovation #4).
+// Decorative SVG (aria-hidden, not focusable, no methodology target). Rendered
+// only inside .score-panel--top-decile, as the last child of the caveat so the
+// CSS in tail-scene-top.css can anchor it to the caveat box and straddle the
+// caveat↔triplet seam. Static markup — no interpolation, no external asset
+// (zero-third-party invariant). preserveAspectRatio="none" stretches the jagged
+// torn edge across the panel width; the stroke sits in the top sliver of the
+// (taller) element box so it renders at the seam while the box binds downward.
+const TEAR = `<svg class="score-panel__tear-edge" aria-hidden="true" focusable="false" preserveAspectRatio="none" viewBox="0 0 100 20"><path d="M0,3 L6,6 L12,2 L18,6 L24,3 L30,6 L36,2 L42,6 L48,3 L54,6 L60,2 L66,6 L72,3 L78,6 L84,2 L90,6 L96,3 L100,5" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>`;
+
 const DS = (s, c) => `<p class="score-panel__difficulty-sentence" aria-label="${E(s.difficultySentenceAria)}">${E(F(s.difficultySentenceTemplate, { hardN: c.totals.hard, medN: c.totals.medium, easyN: c.totals.easy, hardCorrect: c.correct.hard, medCorrect: c.correct.medium, easyCorrect: c.correct.easy }))}</p>`;
 
 function crisisList(crisis) {
@@ -53,7 +63,7 @@ function tailScene(variant, tailScenes, crisis) {
 function panel(s, sc, c, variant, tailScenes, crisis) {
   const p = Math.round(sc.percentile), a = sc.iqScale;
   const h = Math.round((sc.displayedBand.upper - sc.displayedBand.lower) / 2 * 15);
-  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h2 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h2><section class="score-panel score-panel--${variant}" aria-labelledby="score-panel-heading"><p class="score-panel__caveat" role="note">${E(s.caveat)}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }))}</div>${DS(s, c)}</section>${tailScene(variant, tailScenes, crisis)}</section>`;
+  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h2 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h2><section class="score-panel score-panel--${variant}" aria-labelledby="score-panel-heading"><p class="score-panel__caveat" role="note">${E(s.caveat)}${variant === "top-decile" ? TEAR : ""}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }))}</div>${DS(s, c)}</section>${tailScene(variant, tailScenes, crisis)}</section>`;
 }
 
 function on(el, type, fn) {

@@ -331,13 +331,38 @@ jobs:
     steps:
       - run: echo "stub — Activates in Epic 6"
 
+  tear-edge-overlay:
+    name: tear-edge-overlay
+    runs-on: ubuntu-latest
+    # Activated in Story 6.6 (Epic 6) — top-decile tear-edge overlay bbox
+    # invariant: the tear-edge SVG box overlaps the caveat and dips past the
+    # triplet top at every viewport width 320→1440px (UX-DR25, FR24,
+    # UX Innovation #4 — anti-credentialization by composition).
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: npx --yes playwright test tests/playwright/tear-edge-overlay.spec.mjs
+
   cropping-fuzzer:
     name: cropping-fuzzer
     runs-on: ubuntu-latest
-    # Activates in Epic 6
-    if: false
+    # Activated in Story 6.6 (Epic 6) — generates seeded synthetic crops of the
+    # rendered top-decile score-panel and asserts no clean score-only crop
+    # exists (the caveat/tear-edge survives cropping). The Playwright suite
+    # self-gates on corpus/manifest.json bankFrozen (Murat's bank-frozen-flag
+    # discipline — dormant while the bank is unfrozen, hard gate once frozen).
+    # The unit test pins the pure-geometry verdict logic unconditionally.
     steps:
-      - run: echo "stub — Activates in Epic 6 (Story 6.6)"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node --test tests/unit/cropping-fuzzer.test.mjs
+      - run: npx --yes playwright install --with-deps chromium
+      - run: npx --yes playwright test tests/playwright/cropping-fuzzer.spec.mjs
 
   lighthouse:
     name: lighthouse

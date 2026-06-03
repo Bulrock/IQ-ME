@@ -14,7 +14,31 @@
      from .tail-scene base is sufficient; no per-variant overrides this story. */
 }
 
-/* Story 6.6 will populate the tear-edge overlay rules under this selector. */
+/* Story 6.6 AC-2 — top-decile tear-edge overlay (UX-DR25, FR24, UX Innovation
+   #4: anti-credentialization by composition). The caveat is the positioning
+   context; the overlay box is anchored to the caveat's BOTTOM edge (not an
+   absolute pixel `top`) so the overlap invariant holds at every viewport width
+   320→1440px regardless of how the caveat wraps. The default off-state
+   (.score-panel__tear-edge { display: none; }) lives in score-panel.css. */
+.score-panel--top-decile .score-panel__caveat {
+  position: relative;
+}
+
 .score-panel--top-decile .score-panel__tear-edge {
-  /* placeholder selector; intentionally empty in Story 6.5. */
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* The box straddles the caveat↔triplet seam and dips ~0.6 of the triplet
+     height below it, so no crop capturing ≥50% of the score area can avoid the
+     tear (Story 6.6 cropping fuzzer). bottom offset (60px) > caveat margin
+     (--space-5, 24px) guarantees tearEdge.bottom > triplet.top; height (72px) >
+     offset so the box top dips back up into the caveat → bbox intersects the
+     caveat. The visible jagged stroke sits in the top sliver of the box (near
+     the seam); the rest of the box is transparent binding zone. */
+  height: calc(var(--space-7) + var(--space-5)); /* 72px */
+  bottom: calc(-1 * (var(--space-7) + var(--space-3))); /* -60px */
+  pointer-events: none;
+  color: var(--color-rule-divider);
+  z-index: 1;
 }
