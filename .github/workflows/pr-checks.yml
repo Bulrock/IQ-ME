@@ -212,6 +212,22 @@ jobs:
       - run: make build-methodology
       - run: npx --yes playwright test tests/playwright/difficulty-sentence.spec.mjs
 
+  mid-session-bail-out:
+    name: mid-session-bail-out
+    runs-on: ubuntu-latest
+    # Activated in Story 6.3 (Epic 6) — full mid-session bail-out cycle
+    # (Escape / Discard / Continue) driven through the SPA, plus the NFR9/FR4
+    # privacy invariant: a Storage.prototype.setItem spy asserts ZERO
+    # localStorage writes during the bail/discard cycle. SPA-only (landing →
+    # consent → item-runner); no methodology/build prerequisite.
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: npx --yes playwright test tests/playwright/mid-session-bail-out.spec.mjs
+
   chrome-components:
     name: chrome-components
     runs-on: ubuntu-latest
@@ -330,6 +346,24 @@ jobs:
     if: false
     steps:
       - run: echo "stub — Activates in Epic 6"
+
+  asymmetric-tail-scenes:
+    name: asymmetric-tail-scenes
+    runs-on: ubuntu-latest
+    # Activated in Story 6.5 (Epic 6) — asymmetric tail-scene composition
+    # (bottom/mid/top decile, silent-companion-line, crisis-resources,
+    # reveal-stage gate, zero-third-party). Mirrors the difficulty-sentence
+    # driving pattern; the result render fetches the build-generated
+    # src/items/item-difficulty-bands.json, so the bands build runs first.
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: make build-difficulty-bands
+      - run: make build-methodology
+      - run: npx --yes playwright test tests/playwright/asymmetric-tail-scenes.spec.mjs
 
   tear-edge-overlay:
     name: tear-edge-overlay
