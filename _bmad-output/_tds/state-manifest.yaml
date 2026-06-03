@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 6312fa7f25d439ebb87a848c14f5ff0ca736ba275e752908b8ed73910849ba83
+    sha256: ef00fa78cd4c3a8858fe4f68a480e8fdce7be671c9d104bc6e4eef540cf114af
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T15:48:40.717Z
+    recorded_at: 2026-06-03T16:05:31.914Z
     recorded_by: engineer
-    story_id: 7-2-locale-switch-blocker-hint-fr8-enforcement
+    story_id: 7-3-full-ru-methodology-corpus-translation-30-pages
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1299,3 +1299,10 @@ entries:
     recorded_by: test-author
     story_id: 7-2-locale-switch-blocker-hint-fr8-enforcement
     notes: story-7-2 frozen failing tests (locale-switch-blocker-hint)
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-3-full-ru-methodology-corpus-translation-30-pages.md
+    sha256: 2ea39aa4ac4d9cb8c768ee6d3d435b69966fb995f19314a66a7233a354dc833e
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T16:05:31.955Z
+    recorded_by: engineer
+    story_id: 7-3-full-ru-methodology-corpus-translation-30-pages
