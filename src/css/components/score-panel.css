@@ -62,3 +62,30 @@
 .score-panel__tear-edge {
   display: none;
 }
+
+/* Story 6.7 — opt-in "Save my result" button (FR26, NFR9) + retest-effect note
+   (FR27). Neither is a triplet member; the CSS-source co-equal lint
+   (lint-css-source-co-equal.mjs) ignores them. Restraint-first: the save button
+   is a quiet affordance, not a call-to-action. */
+.score-panel__save-button {
+  display: block;
+  margin-block-start: var(--space-5);
+  font-size: var(--font-size-200);
+  font-weight: var(--font-weight-regular);
+  font-family: var(--font-family-sans);
+}
+
+.score-panel__save-button[aria-pressed="true"] {
+  /* Saved state reads as confirmed, not celebratory. */
+  font-weight: var(--font-weight-medium);
+}
+
+.score-panel__retest-note {
+  margin-block-start: var(--space-4);
+  font-size: var(--font-size-100);
+  font-family: var(--font-family-sans);
+}
+
+.score-panel__retest-copy {
+  margin-block-end: var(--space-2);
+}

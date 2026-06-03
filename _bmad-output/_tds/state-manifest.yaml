@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 1e22e7300b31d988e8e62f1729a4237968a33c99c5ae1ad9142c6ef016a55862
+    sha256: fdc6174a7505543c584d3da685bbfc02c965c5172f583fb87d57921ccc8ae4fa
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T11:39:28.940Z
-    recorded_by: frontend
+    recorded_at: 2026-06-03T11:52:30.674Z
+    recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 801f209c6672b2cdd31f736f638d84624322e69cce1fe53aa4f2eec6bf690246
+    sha256: 885de1ba747e9669991e8a3813343a5e9da40afb5cf4d74dfd52769035ee3d1d
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T11:38:54.459Z
+    recorded_at: 2026-06-03T12:16:51.697Z
     recorded_by: frontend
-    story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
+    story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: a1b55cdc512c516e2307a974bf9c2b9b670262c79248c0c45acced14b52b3751
@@ -88,12 +88,12 @@ entries:
     story_id: 1-5-commit-budgets-json-lint-cognitive-load-budget-mjs
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: c15a21935a817ba350282bd351cfb00b27015d6646c9a782e9ffba18fe36a284
+    sha256: 0cf02860cd3ba0fcf1660213ae061835d60437efd6adeac2e6809243cdaf0ef0
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T20:14:32.069Z
-    recorded_by: frontend
+    recorded_at: 2026-06-03T12:14:43.198Z
+    recorded_by: engineer
     story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
-    notes: bump app-modules-bytes limit 40960→45056 per Story 6.5 AC-14
+    notes: "closed unfreeze: app-modules-bytes budget-pin 45056→49152 for Story 6.7 raise"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
     sha256: b200206425a1a3882b9d3243385bb218f872fe03f7e0147d83a871185b8d16a8
@@ -1149,3 +1149,26 @@ entries:
     recorded_at: 2026-06-03T11:31:32.132Z
     recorded_by: test-author
     story_id: 6-6-top-decile-tear-edge-overlay-cropping-fuzzer
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page.md
+    sha256: 5c8fccb8f96d0de2da97ce8b7c4c4ea0ab32d1bb44ecf50ecbcf28291e4dd0b0
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T12:19:01.732Z
+    recorded_by: state-commit-autorecord
+    story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
+  - artefact_class: A
+    file: tests/unit/save-result.test.mjs
+    sha256: 790a30ec9c6f9163f7de91a2065ef825d431739ea593e1c5d6293b7ba1e4dd39
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T12:11:34.726Z
+    recorded_by: engineer
+    story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
+    notes: "closed unfreeze window: removed unused eslint-disable directive (no-control-regex not enabled in flat config); assertion semantics unchanged, test green"
+  - artefact_class: A
+    file: tests/unit/result-save-retest.test.mjs
+    sha256: a364d508bee4c514381a19dcf4b1db34d83c1b0b4faf6bebafac5813bdd4296c
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T11:58:32.549Z
+    recorded_by: test-author
+    story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
+    notes: "story 6-7 frozen RED tests: save-result.js localStorage opt-in discipline + result.js save-button/retest-note render"

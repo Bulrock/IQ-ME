@@ -726,3 +726,14 @@ branches:
     last_synced_at: 2026-06-03T11:39:28.900Z
     notes: ""
     created_at: 2026-06-03T11:22:39.709Z
+  - branch: story/6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
+    story_id: 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page
+    epic_id: null
+    base_branch: epic/6
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-06-03T11:52:30.649Z

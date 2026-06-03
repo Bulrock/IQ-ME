@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-03 6-6-top-decile-tear-edge-overlay-cropping-fuzzer: review'
+last_updated: '2026-06-03 6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -113,7 +113,7 @@ development_status:
   6-4-chrome-components-chrome-header-chrome-footer-theme-toggle: review
   6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list: review
   6-6-top-decile-tear-edge-overlay-cropping-fuzzer: review
-  6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page: backlog
+  6-7-opt-in-localstorage-save-retest-effect-copy-on-result-page: review
   epic-6-retrospective: optional
 
   # Bridge 6→7: 3 stories from 1 retro

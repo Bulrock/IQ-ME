@@ -53,7 +53,11 @@
     "bandTemplate": "±{N}",
     "difficultySentenceTemplate": "Of the {hardN} hard, {medN} medium, and {easyN} easy items, you answered {hardCorrect} / {hardN}, {medCorrect} / {medN}, and {easyCorrect} / {easyN} correctly.",
     "difficultySentenceAria": "Per-difficulty breakdown.",
-    "fetchErrorMessage": "Could not load the item set. Try reloading."
+    "fetchErrorMessage": "Could not load the item set. Try reloading.",
+    "saveButton": "Save my result",
+    "saveButtonSaved": "Result saved",
+    "retestNote": "This screener draws from a small pool of matrix items. If you take it again soon, your second score will be correlated with this one rather than an independent estimate — you will partly be remembering these patterns, not re-measuring your reasoning from scratch. We enforce no technical cooldown: that would be a false guarantee in a browser-only app. We simply ask you to read this and decide honestly whether a quick retest tells you anything new.",
+    "retestNoteLinkLabel": "Read about retest effects"
   },
   "methodology": {
     "masthead": {

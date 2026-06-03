@@ -4,6 +4,7 @@ import { scoreSession } from "../scoring/irt/index.js";
 import * as rs from "./reveal-stage.js";
 import { selectSession } from "./item-selection.js";
 import { selectTailScene } from "./tail-scene-router.js";
+import { saveResult, isSaved } from "./save-result.js";
 
 const CV = "v0.1.0";
 const SS = 16;
@@ -60,10 +61,43 @@ function tailScene(variant, tailScenes, crisis) {
   return `<aside class="tail-scene tail-scene--${variant}" role="region" aria-labelledby="tail-scene-heading">${heading}${copy}${scl}${cr}</aside>`;
 }
 
+// Story 6.7 — opt-in "Save my result" button (FR26, NFR9) + retest-effect note
+// (FR27). The button renders in its unsaved default (aria-pressed="false", no
+// auto-save); bindSave() wires the click → save-result.js. The retest-note links
+// to the retest-effects methodology page via the same versioned+localed URL
+// convention as go() (NOT a bare /methodology/limitations/... path).
+const SAVE = (s) => `<button type="button" class="score-panel__save-button" aria-pressed="false">${E(s.saveButton)}</button>`;
+const RETEST = (s, locale) => `<div class="score-panel__retest-note"><p class="score-panel__retest-copy">${E(s.retestNote)}</p><a class="score-panel__retest-link" href="/methodology/${CV}/${locale}/limitations/retest-effects/">${E(s.retestNoteLinkLabel)}</a></div>`;
+
 function panel(s, sc, c, variant, tailScenes, crisis) {
   const p = Math.round(sc.percentile), a = sc.iqScale;
   const h = Math.round((sc.displayedBand.upper - sc.displayedBand.lower) / 2 * 15);
-  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h2 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h2><section class="score-panel score-panel--${variant}" aria-labelledby="score-panel-heading"><p class="score-panel__caveat" role="note">${E(s.caveat)}${variant === "top-decile" ? TEAR : ""}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }))}</div>${DS(s, c)}</section>${tailScene(variant, tailScenes, crisis)}</section>`;
+  const locale = state.getState().locale || "en";
+  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h2 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h2><section class="score-panel score-panel--${variant}" aria-labelledby="score-panel-heading"><p class="score-panel__caveat" role="note">${E(s.caveat)}${variant === "top-decile" ? TEAR : ""}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }))}</div>${DS(s, c)}${SAVE(s)}${RETEST(s, locale)}</section>${tailScene(variant, tailScenes, crisis)}</section>`;
+}
+
+// Wire the opt-in Save button. The browser-storage write lives entirely in
+// save-result.js (keeping this module grep-clean per result.test.mjs AC-9.15);
+// this only reflects state + guards against re-save (a second click is a no-op,
+// so exactly one write occurs per session). On render it reflects an
+// already-saved session (returning user) via the read-only isSaved() — no write
+// at render time (NFR9).
+function bindSave(root, sc, s) {
+  const btn = root.querySelector(".score-panel__save-button");
+  if (!btn) return;
+  const seed = state.getState().seed;
+  let saved = isSaved(seed);
+  const reflect = () => {
+    btn.setAttribute("aria-pressed", saved ? "true" : "false");
+    btn.textContent = saved ? s.saveButtonSaved : s.saveButton;
+  };
+  if (saved) reflect();
+  on(btn, "click", () => {
+    if (saved) return;
+    saveResult(seed, { percentile: Math.round(sc.percentile), iqScale: sc.iqScale, displayedBand: sc.displayedBand });
+    saved = true;
+    reflect();
+  });
 }
 
 function on(el, type, fn) {
@@ -126,6 +160,7 @@ export async function render(rootEl, strings) {
     detach(); m.ls = [];
     rootEl.innerHTML = panel(strings.result, score, counts, variant, tailScenes, crisis);
     bindTriplet(rootEl);
+    bindSave(rootEl, score, strings.result);
     rs.dispatchStage("band");
     rs.dispatchStage("interval");
     rs.dispatchStage("context");

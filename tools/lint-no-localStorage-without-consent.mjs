@@ -25,8 +25,13 @@ const FILES_GLOB = `${SCAN_DIR}/**/*.{js,mjs,ts,tsx,jsx,html}`;
 // unit test (tests/unit/theme.test.mjs AC-10.a) + Playwright spec
 // (tests/playwright/chrome-components.spec.mjs Test 2) assert zero writes
 // during bootstrap.
+// Story 6.7: save-result.js writes only inside the score-panel Save-button
+// click handler (an explicit user gesture, per NFR9 / FR26); the unit tests
+// (tests/unit/save-result.test.mjs AC-3 + tests/unit/result-save-retest.test.mjs
+// AC-3) assert zero writes at import/render time.
 const ALLOWLIST = new Set([
   resolve(REPO_ROOT, "src/assessment/theme.js"),
+  resolve(REPO_ROOT, "src/assessment/save-result.js"),
 ]);
 
 const files = globSync(FILES_GLOB);
