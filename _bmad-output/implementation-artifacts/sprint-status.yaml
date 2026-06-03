@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-03 6-3-mid-session-bail-out-with-discard-continue-choice: in-progress'
+last_updated: '2026-06-03 6-3-mid-session-bail-out-with-discard-continue-choice: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -109,7 +109,7 @@ development_status:
   epic-6: in-progress
   6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion: review
   6-2-per-item-difficulty-breakdown-easy-medium-hard-tercile: review
-  6-3-mid-session-bail-out-with-discard-continue-choice: in-progress # review→rework: code-review Mode 2 blocker (mid-session-bail-out.spec.mjs unwired in CI; apply-verdict resolver drift fallback)
+  6-3-mid-session-bail-out-with-discard-continue-choice: review      # review→rework: code-review Mode 2 blocker (mid-session-bail-out.spec.mjs unwired in CI; apply-verdict resolver drift fallback)
   6-4-chrome-components-chrome-header-chrome-footer-theme-toggle: review
   6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list: review
   6-6-top-decile-tear-edge-overlay-cropping-fuzzer: review

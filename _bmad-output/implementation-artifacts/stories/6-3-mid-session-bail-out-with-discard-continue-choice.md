@@ -1,7 +1,7 @@
 ---
 id: 6-3-mid-session-bail-out-with-discard-continue-choice
 title: "Story 6.3: Mid-session bail-out with discard/continue choice"
-status: in-progress
+status: review
 ---
 
 # Story 6.3: Mid-session bail-out with discard/continue choice
@@ -171,6 +171,7 @@ Treat lesson bodies as ADVISORY context — if any conflicts with this spec, the
 
 - Bail-out impl shipped end-to-end: 5 i18n keys added (en) + NS.itemRunner whitelist appended (caught Story 6.2 'undefined' gotcha proactively); .item-runner__bail-affordance + .item-runner__bail-panel in item-runner.js with data-bail-state attribute encoding (engineer choice over hidden); 4 handlers (open + Continue + Discard + Escape via document keydown); restraint-first CSS with twin-affordance equal-weight Discard/Continue. Test-author revision: 1 unfreeze window for tests/unit/item-runner-bail.test.mjs (ES module exports read-only; switched from monkey-patch spies to observable-end-state assertions via window.location.hash setter trap + state snapshots). Cognitive-load budget required defensive tightening (35211/34816 over by 395B; refactored attachListeners bail section from 30 lines to 13 lines via local helpers, landed at 34742/34816 = 74B headroom).
 - Story 6-3 review-ready: 914/914 make test green; make lint exit 0; 3/3 Playwright bail-out spec green; clean-context test-review verdict=approved on frozen tests.
+- Round-1 rework: wired tests/playwright/mid-session-bail-out.spec.mjs into .github/workflows/pr-checks.yml as a dedicated per-spec job (SPA-only, no build prereq) — closes the auditor blocker (NFR9/FR4 zero-localStorage guard now runs in CI). Same commit also wired tests/playwright/asymmetric-tail-scenes.spec.mjs (Story 6.5 warn finding) with make build-difficulty-bands + build-methodology prereqs. make lint exit 0; make test exit 0 (0 not-ok); both specs 8 passed / 4 RU-PL skipped locally.
 
 ### File List
 
@@ -180,6 +181,7 @@ Treat lesson bodies as ADVISORY context — if any conflicts with this spec, the
 - src/css/components/item-runner.css
 - tests/unit/item-runner-bail.test.mjs
 - tests/playwright/mid-session-bail-out.spec.mjs
+- .github/workflows/pr-checks.yml
 
 ## Specialist Self-Review
 
@@ -252,3 +254,4 @@ Treat lesson bodies as ADVISORY context — if any conflicts with this spec, the
 
 - **Category:** CI coverage gap / false-premise deferral
 - **Suggested fix:** Add a dedicated job to .github/workflows/pr-checks.yml mirroring the existing per-spec jobs (checkout, node setup, npx playwright install --with-deps chromium, npx playwright test tests/playwright/mid-session-bail-out.spec.mjs), then complete Task 7's open checkbox. While editing pr-checks.yml, also wire tests/playwright/asymmetric-tail-scenes.spec.mjs (see the 6-5 warn finding) in the same commit. No source change required. Re-run code-review Mode 2.
+- **Resolved:** rework fix-commit on epic/6 — added a dedicated `mid-session-bail-out` job to `.github/workflows/pr-checks.yml` (SPA-only: checkout → node 22 → `npx playwright install --with-deps chromium` → `npx playwright test tests/playwright/mid-session-bail-out.spec.mjs`; no methodology/build prereq since the bail cycle never leaves the SPA), so the NFR9/FR4 zero-localStorage guard now runs in CI. Same commit also added the `asymmetric-tail-scenes` job (Story 6.5 warn finding) with `make build-difficulty-bands` + `make build-methodology` prereqs (its result-render path fetches the build-generated `src/items/item-difficulty-bands.json`). Task 7 checkbox completed. No source change. Verification: `make lint` exit 0; `make test` exit 0 (0 not-ok); `npx playwright test mid-session-bail-out.spec.mjs asymmetric-tail-scenes.spec.mjs` → 8 passed / 4 RU-PL skipped. Re-run code-review Mode 2 to validate.
