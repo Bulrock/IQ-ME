@@ -1212,18 +1212,18 @@ entries:
     notes: "story 6-7 frozen RED tests: save-result.js localStorage opt-in discipline + result.js save-button/retest-note render"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-7-8-1-changelog-discipline-for-sibling.md
-    sha256: d641542849fafee5583512b90c041c90cf462bec15af39050b843b189ffcf9a1
+    sha256: 0cac1d021f3bb6dc95dd4b9c308402cb59b894bcc3e29bab2016a7a66ecb9a33
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:38:10.392Z
-    recorded_by: engineer
+    recorded_at: 2026-06-03T14:48:56.763Z
+    recorded_by: story-add-finding-autorecord
     story_id: bridge-7-8-1-changelog-discipline-for-sibling
     notes: "bridge-7-8-5 epic-compliance: backfill ### Carry-forward lessons section (create-bridge-from-retros stub gap)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-7-8-2-tighten-unfreeze-windows-yaml.md
-    sha256: 8c84b685fa42ef54614911d4ce2c0d7735217a0ad2dc40ebdc4c24f38b011583
+    sha256: 85d1d4929dc0a40ac8014b5ba035456ed76b131856320c21db461135a4977109
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:38:10.542Z
-    recorded_by: engineer
+    recorded_at: 2026-06-03T14:48:56.763Z
+    recorded_by: story-add-finding-autorecord
     story_id: bridge-7-8-2-tighten-unfreeze-windows-yaml
     notes: "bridge-7-8-5 epic-compliance: backfill ### Carry-forward lessons section (create-bridge-from-retros stub gap)"
   - artefact_class: A
@@ -1252,8 +1252,8 @@ entries:
     notes: "bridge-7-8-5 epic-compliance: backfill ### Carry-forward lessons section (create-bridge-from-retros stub gap)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-7-8-5-post-epic-app-modules.md
-    sha256: 856c01d11b2bca3e27cd5463e03d2208267982571e1ea5f20ee12a1bea4c9291
+    sha256: 7ee265647b60feb9c800fa231f336c9b2494ec0d244817bc9658b3d3af669c07
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:41:24.655Z
-    recorded_by: state-commit-autorecord
+    recorded_at: 2026-06-03T14:48:56.763Z
+    recorded_by: story-add-finding-autorecord
     story_id: bridge-7-8-5-post-epic-app-modules
