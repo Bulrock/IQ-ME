@@ -2,10 +2,10 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: fdc6174a7505543c584d3da685bbfc02c965c5172f583fb87d57921ccc8ae4fa
+    sha256: ae33797f0692cb17249edfdaae0ba57ba6a5d8e8834ea387696617a56dd90c7b
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T11:52:30.674Z
-    recorded_by: engineer
+    recorded_at: 2026-06-03T12:19:08.596Z
+    recorded_by: frontend
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
     sha256: 885de1ba747e9669991e8a3813343a5e9da40afb5cf4d74dfd52769035ee3d1d
