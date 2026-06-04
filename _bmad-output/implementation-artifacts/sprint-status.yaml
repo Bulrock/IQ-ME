@@ -121,16 +121,16 @@ development_status:
   bridge-6-7-1-extend-state-commit-sweep: done           # Extend state-commit sweep auto-record to spec-md touched by add-finding
   bridge-6-7-2-tds-deliver-mode-2: done           # tds deliver Mode 2 idempotent recovery on re-run for partial OH-07 finalize
   bridge-6-7-3-restore-carry-forward-lessons: done           # Restore Carry-forward-lessons injection in story-create plus pre-commit warning on class-A edits
-  epic-7: in-progress
-  7-1-i18n-harness-locale-loading-language-switcher: review
-  7-2-locale-switch-blocker-hint-fr8-enforcement: review
-  7-3-full-ru-methodology-corpus-translation-30-pages: review
-  7-4-full-pl-methodology-corpus-translation-30-pages: review
-  7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis: review
-  7-5b-lint-translation-parity-full-coverage-graduation: review
-  7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders: review
-  7-7-ru-pl-crisis-resource-lists-hreflang-declarations: review
-  7-8-codeowners-branch-protection-config-artifact-for-dual-approval: review
+  epic-7: approved
+  7-1-i18n-harness-locale-loading-language-switcher: approved
+  7-2-locale-switch-blocker-hint-fr8-enforcement: approved
+  7-3-full-ru-methodology-corpus-translation-30-pages: approved
+  7-4-full-pl-methodology-corpus-translation-30-pages: approved
+  7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis: approved
+  7-5b-lint-translation-parity-full-coverage-graduation: approved
+  7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders: approved
+  7-7-ru-pl-crisis-resource-lists-hreflang-declarations: approved
+  7-8-codeowners-branch-protection-config-artifact-for-dual-approval: approved
   epic-7-retrospective: optional
 
   # Bridge 7→8: 5 stories from 2 retros
