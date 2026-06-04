@@ -1400,10 +1400,10 @@ entries:
     notes: story-7-8 frozen failing tests (CODEOWNERS dual-ownership + branch-protection-config.md settings + synthetic-PR playbook)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-9a-1-isolate-concurrency-sensitive-coverage.md
-    sha256: f121c6ec722c1d8b74c5cff6ad513df99ae9277e2d480a101bdc7ab051486bd3
+    sha256: fe282ea8614985d8ee1f86f8d12667fc5aa7daa378be20d61806db559f099257
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T09:08:27.889Z
-    recorded_by: engineer
+    recorded_at: 2026-06-04T09:17:15.576Z
+    recorded_by: story-add-finding-autorecord
     story_id: bridge-9a-1-isolate-concurrency-sensitive-coverage
   - artefact_class: A
     file: tests/scaffold/lint-coverage-isolation.test.mjs
