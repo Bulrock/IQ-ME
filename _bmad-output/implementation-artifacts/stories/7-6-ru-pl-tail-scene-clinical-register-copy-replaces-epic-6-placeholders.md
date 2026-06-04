@@ -111,4 +111,4 @@ so that **the harm-mitigation surface is real for the primary underserved audien
 
 - **Category:** test-infrastructure
 - **Suggested bridge:** `Audit all coverage/lint tests that spawn make/lint against the real working tree under aggregate concurrency; isolate them to a tmpdir (as the design-system AC-6 tmpdir fix did) so concurrent make runs cannot cross- contaminate.`
-- **Bridged to:** `bridge-epic-9a-1-isolate-concurrency-sensitive-coverage`
+- **Bridged to:** `bridge-9a-1-isolate-concurrency-sensitive-coverage`

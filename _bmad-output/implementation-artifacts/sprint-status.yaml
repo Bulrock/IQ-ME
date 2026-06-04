@@ -151,9 +151,9 @@ development_status:
   8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path: backlog
   epic-8-retrospective: optional
 
-  # Bridge epic→9a: 1 story from 1 retro
-  bridge-epic-9a: backlog
-  bridge-epic-9a-1-isolate-concurrency-sensitive-coverage: backlog # Isolate concurrency-sensitive coverage/lint tests to tmpdir
+  # Bridge →9a: 1 story from 1 retro
+  bridge-9a: backlog
+  bridge-9a-1-isolate-concurrency-sensitive-coverage: backlog # Isolate concurrency-sensitive coverage/lint tests to tmpdir
   epic-9a: backlog
   9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log: backlog
   9a-2-icar-confirmation-arrival-licenses-md-reconciliation-slot-fulfillment: backlog

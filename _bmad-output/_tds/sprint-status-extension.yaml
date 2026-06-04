@@ -49,13 +49,13 @@ bridges:
       - bridge-7-8-4-de-binary-save-result
       - bridge-7-8-5-post-epic-app-modules
     status: backlog
-  - id: bridge-epic-9a
+  - id: bridge-9a
     type: tech-debt
     title_extended: Isolate concurrency-sensitive coverage/lint tests to tmpdir
     blocks_epic: epic-9a
     outcome_required: []
     stories:
-      - bridge-epic-9a-1-isolate-concurrency-sensitive-coverage
+      - bridge-9a-1-isolate-concurrency-sensitive-coverage
     status: backlog
 parents:
   1-1-bootstrap-repo-skeleton-makefile: epic-1
@@ -118,6 +118,6 @@ parents:
   bridge-7-8-3-replace-legacy-exempt-central: bridge-7-8
   bridge-7-8-4-de-binary-save-result: bridge-7-8
   bridge-7-8-5-post-epic-app-modules: bridge-7-8
-  bridge-epic-9a-1-isolate-concurrency-sensitive-coverage: bridge-epic-9a
+  bridge-9a-1-isolate-concurrency-sensitive-coverage: bridge-9a
 last_updated: 2026-06-04T08:27:44.615Z
 generated_by: bmad-tds-bridge-from-retros
