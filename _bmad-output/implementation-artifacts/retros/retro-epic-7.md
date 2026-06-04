@@ -88,3 +88,5 @@ All Gate-9c/9d items below are **content-gated on backlog gates** (no named RU/P
 - Epic delivered via #15 (`Epic 7: RU/PL localization infrastructure`).
 - Governing decision: `project_iqme_epic7_infra_now_decision` (infra-now, content-gated-on-9c/9d).
 - Bridge id will auto-derive when assembled via `tds epic create-bridge-from-retros` (next free `bridge-8-9` or accumulated with later retros).
+
+## Applied to bridge: bridge-epic-9a @ 2026-06-04T08:27:44.647Z

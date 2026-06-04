@@ -8,11 +8,10 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: d7ed1bbc3d667b3583dcc3530e6b25dfde74fc016b027e9868513dc8de26b8d5
+    sha256: 43838df07689b0ba80a6e624ffc749648f2b3a4eaa27566c542913a95a275dc3
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T08:20:42.257Z
-    recorded_by: state-commit-autorecord
-    story_id: 7-8-codeowners-branch-protection-config-artifact-for-dual-approval
+    recorded_at: 2026-06-04T08:27:44.598Z
+    recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -194,9 +193,9 @@ entries:
     notes: "story-7-5b: graduated parity assertions + design-system AC-6 snapshot-update race fix (tmpdir redirect)"
   - artefact_class: A
     file: _bmad-output/_tds/sprint-status-extension.yaml
-    sha256: a3ae5717dd9ff59561b24d0dd0cf4d010f79ccf6e5b043b8f80570f0bd974592
+    sha256: d459f0b1ef571943851a4034dc0b1ef710221f63169ff6d75e4dca94314c7daa
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T13:42:03.851Z
+    recorded_at: 2026-06-04T08:27:44.631Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-1-2-1-add-tds-story-unfreeze.md
@@ -1361,10 +1360,10 @@ entries:
     notes: "story-7-5b frozen failing tests (full-coverage parity: missing/orphan/stale + parity-green summary)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders.md
-    sha256: 3e37884169ac27329a5b3624f1ce81bd3d2aa9b7835113ddc23ae8ebaf4f612b
+    sha256: 98cc273f9aab3a1f5d55a23b4719da448d2c7cae512ddbe9207efad14a817d1e
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T08:06:40.069Z
-    recorded_by: story-add-finding-autorecord
+    recorded_at: 2026-06-04T08:29:29.064Z
+    recorded_by: state-commit-autorecord
     story_id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
   - artefact_class: A
     file: tests/unit/tail-scenes-i18n.test.mjs
