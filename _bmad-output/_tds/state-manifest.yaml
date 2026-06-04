@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: ce08ca989776c8f3953bd44fdf759c466e30d4dfde22171229c15109cf7a1621
+    sha256: 5096ef239fadfd42cd66512aef97d1960d0ed32eb24ba12e5da589a84001576d
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T07:46:19.566Z
+    recorded_at: 2026-06-04T07:48:11.299Z
     recorded_by: engineer
-    story_id: 7-7-ru-pl-crisis-resource-lists-hreflang-declarations
+    story_id: 7-8-codeowners-branch-protection-config-artifact-for-dual-approval
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1389,3 +1389,10 @@ entries:
     recorded_by: test-author
     story_id: 7-7-ru-pl-crisis-resource-lists-hreflang-declarations
     notes: story-7-7 frozen failing tests (RU/PL crisis placeholders no-fabricated-tel + crisisResourcesUrl FR20 no-EN-fallback + hreflang)
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-8-codeowners-branch-protection-config-artifact-for-dual-approval.md
+    sha256: 822b34e42aa39e1d24445c55b690b89575a7ca66cbd49be2806ba8c90ecc5b1a
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T07:48:11.341Z
+    recorded_by: engineer
+    story_id: 7-8-codeowners-branch-protection-config-artifact-for-dual-approval
