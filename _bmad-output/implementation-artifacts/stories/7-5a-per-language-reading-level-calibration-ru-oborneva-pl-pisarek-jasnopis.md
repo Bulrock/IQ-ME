@@ -102,3 +102,10 @@ so that **a reading-level failure in RU or PL is debuggable on its own without e
 - The Pisarek/Jasnopis FOG-equivalent is a documented approximation, not the proprietary Jasnopis model; flagged for the auditor.
 
 **Tested edge cases:** `tests/unit/tools/lint-reading-level-calibration.test.mjs` (frozen) — RU/PL hard-fail + easy-pass (complete), in-progress skip (methodology + i18n `_meta`), EN unchanged, i18n RU180/PL160 fail+pass, `_meta` never graded. All synthetic tmpdir fixtures (not the placeholder corpus).
+
+## Auditor Findings (round-1)
+
+### [info] Per-locale reading-level cap (12) is provisional (placeholder content is skipped; no real RU/PL prose graded yet), and the PL Pisarek/Jasnopis FOG-equivalent is a documented approximation, not the proprietary Jasnopis model.
+
+- **Category:** calibration
+- **Suggested bridge:** `When Gate-9c/9d real clinical-register prose lands, re-calibrate the per-locale reading-level caps against the actual graded register and reconcile the PL approximation against the reference model.`
