@@ -152,7 +152,7 @@ development_status:
   epic-8-retrospective: optional
 
   # Bridge →9a: 1 story from 1 retro
-  bridge-9a: in-progress
+  bridge-9a: approved
   bridge-9a-1-isolate-concurrency-sensitive-coverage: approved       # Isolate concurrency-sensitive coverage/lint tests to tmpdir
   epic-9a: backlog
   9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log: backlog
