@@ -245,18 +245,48 @@ test("AC-6: release.yml is activated (Story 8.1) — app-release + corpus-releas
   );
 });
 
-test("AC-6: scheduled.yml stub exists with `echo \"Activates in Epic 8\"`", () => {
+test("AC-6: scheduled.yml is activated (Story 8.3) — four health-check jobs + real failure→labeled-Issue routing, no stub placeholder", () => {
   assert.ok(existsSync(SCHEDULED), `scheduled.yml missing at ${SCHEDULED}`);
   const text = readFileSync(SCHEDULED, "utf8");
-  assert.match(
+  // Graduated in Story 8.3 (mirror of the release.yml AC-6 graduation by
+  // Story 8.1): scheduled.yml is activated, so the Epic-1 stub placeholder
+  // must be gone and the single `scheduled-check` echo job must be replaced by
+  // the four health-check jobs.
+  assert.doesNotMatch(
     text,
     /Activates in Epic 8/,
-    `scheduled.yml must contain "Activates in Epic 8" placeholder.`,
+    `scheduled.yml is activated in Story 8.3 — it must NOT contain the "Activates in Epic 8" stub placeholder.`,
   );
-  // Inline-comment mention of scheduled-check failure → labeled GitHub Issue routing.
+  assert.doesNotMatch(
+    text,
+    /^  scheduled-check:\s*$/m,
+    `scheduled.yml must no longer declare the Epic-1 stub "  scheduled-check:" echo job (graduated to the four health-check jobs).`,
+  );
+  // Activated structure: the four health-check jobs.
+  for (const job of [
+    "mirror-parity-check",
+    "internet-archive-snapshot-health",
+    "software-heritage-snapshot-health",
+    "zenodo-doi-resolution",
+  ]) {
+    assert.match(
+      text,
+      new RegExp(`^  ${job.replace(/-/g, "\\-")}:\\s*$`, "m"),
+      `scheduled.yml must declare the "  ${job}:" job (Story 8.3 activation).`,
+    );
+  }
+  // Failure → labeled GitHub Issue routing is now a REAL handler (gh issue
+  // create / actions/github-script) carrying the area:scheduled-check label —
+  // not merely an inline prose comment. Anchored to the real signatures so the
+  // stub's header-comment prose ("labeled GitHub Issue") cannot false-pass.
   assert.match(
     text,
-    /labeled.*Issue|GitHub Issue/i,
-    `scheduled.yml must document failure → labeled GitHub Issue routing inline.`,
+    /gh\s+issue\s+create|actions\/github-script|github\.rest\.issues|issues\.create/i,
+    `scheduled.yml must route failures to a GitHub Issue via a real handler (gh issue create / actions/github-script), not an inline comment (Story 8.3 activation).`,
+  );
+  assert.match(
+    text,
+    /area:scheduled-check/,
+    `scheduled.yml failure routing must carry the area:scheduled-check label (Story 8.3 activation).`,
   );
 });

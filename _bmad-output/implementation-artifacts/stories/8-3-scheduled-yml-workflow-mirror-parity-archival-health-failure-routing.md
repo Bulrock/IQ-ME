@@ -1,7 +1,7 @@
 ---
 id: 8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing
 title: "Story 8.3: scheduled.yml workflow — mirror parity + archival health + failure routing"
-status: ready-for-dev
+status: review
 ---
 
 # Story 8.3: scheduled.yml workflow — mirror parity + archival health + failure routing
@@ -28,23 +28,23 @@ so that **silent drift is caught (canonical and mirror diverging, IA snapshot 40
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: scheduled.yml weekly cron + 4 health-check jobs + per-job `area:` labels** (AC: 1, 2)
-  - [ ] Replace the Epic-1 stub `scheduled-check` job (`echo "Activates in Epic 8"`) with `on: schedule: cron: "0 6 * * 1"` (weekly) and four jobs: `mirror-parity-check`, `internet-archive-snapshot-health`, `software-heritage-snapshot-health`, `zenodo-doi-resolution`.
-  - [ ] Give each job a grep-able per-job `area:<check>` label token aligned with the Story-8.2 vocabulary (`area:mirror-health` / `area:archive-health` / `area:doi-health` — see Dev Notes for the SH label decision).
-  - [ ] `internet-archive-snapshot-health` + `software-heritage-snapshot-health` HEAD-request the URLs recorded in `docs/launch-readiness/{internet-archive,software-heritage}-snapshots.md`; `zenodo-doi-resolution` HEAD-requests the DOI from `CITATION.cff`. All probes inert in dev (gated behind the launch path / live-probe repo var).
-- [ ] **Task 2: self-gating mirror-parity (lands before Story 8.4)** (AC: 3)
-  - [ ] `mirror-parity-check` HEAD-requests the mirror URL first; on non-200 it SKIPS the body-only parity comparison and logs `"mirror not reachable — first deploy pending"` (the exact skip-notice string), and does NOT fail. Compare **response body only** (headers exempted) when the mirror is reachable. Inert in dev.
-- [ ] **Task 3: failure routing — open-or-append a labeled GitHub Issue** (AC: 4)
-  - [ ] Add the failure handler (a `needs:`-the-checks routing job OR per-job `if: failure()` step — pick one, document the choice): open a GitHub Issue labeled `area:scheduled-check` + the per-check specific label, body carrying the failure context + broken URL(s) + the action-run link; if an Issue with the same label set is already open, append a comment instead of duplicating. Live `gh`/github-script call gated behind the launch path (no API in dev).
-- [ ] **Task 4: finalize `docs/scheduled-yml-failure-routing.md` (NEW)** (AC: 5, 6)
-  - [ ] Create `docs/scheduled-yml-failure-routing.md` (it does NOT exist yet) in the plain-language docs style: weekly cadence, per-check labels, weekly-triage-no-notification discipline (NFR6/NFR8/NFR35), per-check mitigation playbooks, the response-body-only mirror check (headers exempted) + the self-gating "mirror not reachable" pre-8.4 behavior. No fabricated URLs/Issue numbers.
-  - [ ] Cross-link discipline: the FULL `CONTRIBUTING.md` reference is Story 8.6 — either add a single minimal reference line to CONTRIBUTING's "Expanded in Epic 8" section or leave the load-bearing cross-link to 8.6; do NOT block 8.3 on the 8.6 rewrite.
-- [ ] **Task 5 (test-author phase — NOT engineer): graduate frozen ci-matrix.test.mjs AC-6 scheduled.yml + add scheduled-workflow.test.mjs + re-register integrity** (AC: 7)
-  - [ ] Graduate `tests/scaffold/ci-matrix.test.mjs` **AC-6 scheduled.yml** test (`scheduled.yml stub exists with echo "Activates in Epic 8"`, ~lines 248–262): flip stub→activated — assert the `Activates in Epic 8` placeholder is GONE, the four check jobs are present, and the failure→labeled-Issue routing is still asserted (now a real handler). Leave the AC-6 **release.yml** test (already graduated by Story 8.1) untouched.
-  - [ ] Add `tests/scaffold/scheduled-workflow.test.mjs` (NEW): assert the four jobs, the per-job `area:` labels, the failure-routing labeled Issue (`area:scheduled-check` + a specific label) + the dedup-append pattern, the self-gating mirror HEAD-then-skip + its skip-notice string, and that `docs/scheduled-yml-failure-routing.md` exists.
-  - [ ] `tds integrity record --files=tests/scaffold/ci-matrix.test.mjs` (engineer) after the edit; re-grep `state-manifest.yaml` after the next state-commit sweep to confirm the new hash persisted (do NOT hand-edit the manifest).
-- [ ] **Task 6: regression gate** (AC: 7)
-  - [ ] `make test` / `make lint` / `make build` all green + deterministic; baseline-diff any ambiguous failure before labeling it pre-existing (lesson-2026-06-03-002).
+- [x] **Task 1: scheduled.yml weekly cron + 4 health-check jobs + per-job `area:` labels** (AC: 1, 2)
+  - [x] Replace the Epic-1 stub `scheduled-check` job (`echo "Activates in Epic 8"`) with `on: schedule: cron: "0 6 * * 1"` (weekly) and four jobs: `mirror-parity-check`, `internet-archive-snapshot-health`, `software-heritage-snapshot-health`, `zenodo-doi-resolution`.
+  - [x] Give each job a grep-able per-job `area:<check>` label token aligned with the Story-8.2 vocabulary (`area:mirror-health` / `area:archive-health` / `area:doi-health` — see Dev Notes for the SH label decision).
+  - [x] `internet-archive-snapshot-health` + `software-heritage-snapshot-health` HEAD-request the URLs recorded in `docs/launch-readiness/{internet-archive,software-heritage}-snapshots.md`; `zenodo-doi-resolution` HEAD-requests the DOI from `CITATION.cff`. All probes inert in dev (gated behind the launch path / live-probe repo var).
+- [x] **Task 2: self-gating mirror-parity (lands before Story 8.4)** (AC: 3)
+  - [x] `mirror-parity-check` HEAD-requests the mirror URL first; on non-200 it SKIPS the body-only parity comparison and logs `"mirror not reachable — first deploy pending"` (the exact skip-notice string), and does NOT fail. Compare **response body only** (headers exempted) when the mirror is reachable. Inert in dev.
+- [x] **Task 3: failure routing — open-or-append a labeled GitHub Issue** (AC: 4)
+  - [x] Add the failure handler (a `needs:`-the-checks routing job OR per-job `if: failure()` step — pick one, document the choice): open a GitHub Issue labeled `area:scheduled-check` + the per-check specific label, body carrying the failure context + broken URL(s) + the action-run link; if an Issue with the same label set is already open, append a comment instead of duplicating. Live `gh`/github-script call gated behind the launch path (no API in dev).
+- [x] **Task 4: finalize `docs/scheduled-yml-failure-routing.md` (NEW)** (AC: 5, 6)
+  - [x] Create `docs/scheduled-yml-failure-routing.md` (it does NOT exist yet) in the plain-language docs style: weekly cadence, per-check labels, weekly-triage-no-notification discipline (NFR6/NFR8/NFR35), per-check mitigation playbooks, the response-body-only mirror check (headers exempted) + the self-gating "mirror not reachable" pre-8.4 behavior. No fabricated URLs/Issue numbers.
+  - [x] Cross-link discipline: the FULL `CONTRIBUTING.md` reference is Story 8.6 — either add a single minimal reference line to CONTRIBUTING's "Expanded in Epic 8" section or leave the load-bearing cross-link to 8.6; do NOT block 8.3 on the 8.6 rewrite.
+- [x] **Task 5 (test-author phase — NOT engineer): graduate frozen ci-matrix.test.mjs AC-6 scheduled.yml + add scheduled-workflow.test.mjs + re-register integrity** (AC: 7)
+  - [x] Graduate `tests/scaffold/ci-matrix.test.mjs` **AC-6 scheduled.yml** test (`scheduled.yml stub exists with echo "Activates in Epic 8"`, ~lines 248–262): flip stub→activated — assert the `Activates in Epic 8` placeholder is GONE, the four check jobs are present, and the failure→labeled-Issue routing is still asserted (now a real handler). Leave the AC-6 **release.yml** test (already graduated by Story 8.1) untouched.
+  - [x] Add `tests/scaffold/scheduled-workflow.test.mjs` (NEW): assert the four jobs, the per-job `area:` labels, the failure-routing labeled Issue (`area:scheduled-check` + a specific label) + the dedup-append pattern, the self-gating mirror HEAD-then-skip + its skip-notice string, and that `docs/scheduled-yml-failure-routing.md` exists.
+  - [x] `tds integrity record --files=tests/scaffold/ci-matrix.test.mjs` (engineer) after the edit; re-grep `state-manifest.yaml` after the next state-commit sweep to confirm the new hash persisted (do NOT hand-edit the manifest).
+- [x] **Task 6: regression gate** (AC: 7)
+  - [x] `make test` / `make lint` / `make build` all green + deterministic; baseline-diff any ambiguous failure before labeling it pre-existing (lesson-2026-06-03-002).
 
 ## Dev Notes
 
@@ -92,6 +92,41 @@ so that **silent drift is caught (canonical and mirror diverging, IA snapshot 40
 
 ### Completion Notes List
 
+- scheduled.yml activated: weekly cron + 4 health-check jobs (mirror-parity/IA/SH/Zenodo) + area: labels; self-gating mirror; labeled-Issue failure routing + dedup; gated inert (vars.IQME_LIVE_SCHEDULED). docs/scheduled-yml-failure-routing.md created. Frozen 22/22 green; suite 1244 pass/0 fail; lint+build exit 0.
+- Promoted to review: 6/6 tasks complete; frozen scheduled-workflow + graduated ci-matrix AC-6 tests green; suite 1244 pass/0 fail; lint+build exit 0.
+
 ### File List
 
+- .github/workflows/scheduled.yml
+- docs/scheduled-yml-failure-routing.md
+- tests/scaffold/scheduled-workflow.test.mjs
+- tests/scaffold/ci-matrix.test.mjs
+
 ## Specialist Self-Review
+
+## Specialist Self-Review — Story 8-3 (scheduled.yml health checks + failure routing, infra-now)
+
+**Decisions made:**
+- Activated `scheduled.yml`: weekly cron `0 6 * * 1` (Monday), four health-check jobs — `mirror-parity-check`, `internet-archive-snapshot-health`, `software-heritage-snapshot-health`, `zenodo-doi-resolution` — each carrying its `area:<check>` label.
+- **Self-gating mirror-parity** (AC-3): HEAD the mirror URL first; if non-200 (mirror not yet deployed — Story 8.4), SKIP the parity comparison and log the literal `"mirror not reachable — first deploy pending"` rather than failing. Body-only comparison (`sha256sum`), headers exempted. This lets 8.3 land before 8.4 with no spurious failures.
+- **Failure routing** (AC-4): each job's failure handler opens-or-appends a GitHub Issue labeled `area:scheduled-check` + the per-check label (`area:mirror-health`/`area:archive-health`/`area:doi-health`), embeds the `actions/runs/$GITHUB_RUN_ID` link, and DEDUPS (`gh issue list --state open` → `gh issue comment` instead of a duplicate).
+- All live HTTP / `gh` calls gated INERT behind `vars.IQME_LIVE_SCHEDULED` (mirrors 8.2's `vars.IQME_LIVE_ARCHIVAL`); no live cron/probe/Issue runs until launch (Epic 10). `secrets.GITHUB_TOKEN` used only in `env:`, never a step `if:`.
+- `docs/scheduled-yml-failure-routing.md` created fresh (it did not pre-exist despite the epics' "Epic 1 stub" phrasing).
+
+**Alternatives considered:**
+- Daily cron `0 6 * * *` — rejected (AC mandates weekly; the frozen test's cron regex explicitly rejects the daily form).
+- `if: secrets.ZENODO_TOKEN != ''` style step gate — rejected (actionlint: `secrets.*` invalid in step `if:`, the error Story 8.2 hit). Gated on `vars.IQME_LIVE_SCHEDULED`.
+
+**Framework gotchas avoided:**
+- `vars.*` (not `secrets.*`) in step `if:` — actionlint-clean except the benign "context access might be invalid" warning on the launch-configured var (valid syntax; same as release.yml's `vars.IQME_LIVE_ARCHIVAL`).
+- Self-gating prevents the Winston-flagged "first scheduled run fails comparing-to-nothing" before the 8.4 mirror exists.
+- The new `tests/scaffold/scheduled-workflow.test.mjs` is auto-discovered by `make test`'s scaffold glob → needs NO per-spec pr-checks job (lesson-2026-06-03-001).
+
+**Areas of uncertainty:**
+- Live probing is not exercised in dev (gated inert) — first real weekly run is launch/Epic 10. The IA/SH health checks re-probe the URLs recorded in Story 8.2's `docs/launch-readiness/{internet-archive,software-heritage}-snapshots.md` (which carry PENDING markers in dev until real snapshots are captured at launch).
+- The "`docs/scheduled-yml-failure-routing.md` referenced from CONTRIBUTING.md" cross-link (AC-6) is Story 8.6's responsibility (full CONTRIBUTING.md) — deferred there, noted.
+
+**Tested edge cases:**
+- Frozen `tests/scaffold/scheduled-workflow.test.mjs` (weekly cron rejects daily; 4 jobs + `area:` labels; self-gating mirror HEAD + skip + literal skip-notice; failure routing → labeled Issue + run-link + dedup; `vars.*` gate / no `secrets.*` in `if:`; doc exists w/ cadence + labels + triage + body-only note).
+- Graduated `tests/scaffold/ci-matrix.test.mjs` AC-6 scheduled.yml (stub→activated: no "Activates in Epic 8", 4 jobs, real `gh issue create`/`github-script` handler + `area:scheduled-check`); the release.yml AC-6 (Story 8.1) left untouched.
+- Regression: full suite 1244 pass / 0 fail; `make lint` exit 0; `make build` exit 0 (deterministic). Provenance: net-new this story (baseline epic/8 scheduled.yml = the Epic-1 stub).

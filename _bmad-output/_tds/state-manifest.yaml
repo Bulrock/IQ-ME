@@ -2,15 +2,15 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 94888e876c5d5ef741462cac8701613d679e2a28aa529dd5be84ff99eedb87e2
+    sha256: 0d47e2331479e227b863d824d1b1e6ea79248516928095cd06c135a171da5e1e
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T10:44:27.121Z
+    recorded_at: 2026-06-04T10:48:58.798Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: b1f54aded9dfa28bf68d4ecc38aa65f4b35428864384a0441fa53e1742303ac2
+    sha256: 455e2b21b030a5b54dc9a75f563be37723dad91cc3cb89c22617531b629e1495
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T10:48:50.915Z
+    recorded_at: 2026-06-04T11:03:00.809Z
     recorded_by: engineer
     story_id: 8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing
   - artefact_class: A
@@ -107,12 +107,12 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: 5fb0918ff7e361594b8bfea296cfa356ffa129179dc0820a1b72cb80c8c2655d
+    sha256: 49fa3e00e0731744d21af45a21dd75197c50127839c202ad56c87782a2733a6c
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T10:01:26.982Z
+    recorded_at: 2026-06-04T10:53:10.134Z
     recorded_by: test-author
-    story_id: 8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment
-    notes: "story-8-1 red-phase: release.yml structural tests + ci-matrix AC-6 stub→activated graduation"
+    story_id: 8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing
+    notes: "story-8-3 red-phase: graduate ci-matrix AC-6 scheduled.yml + new scheduled-workflow.test.mjs"
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: 2c67dbd842aaf6c1d1fa235e982c057c934cb3d52c80afdcfae9dc360229a6e1
@@ -1445,8 +1445,16 @@ entries:
     notes: "story-8-2 test-review cycle1: add corpus/doi.json secondary-sink AC-6 assertion"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing.md
-    sha256: 02022673eaa12da674c3c0f81b6cc47a2354f47b2872caa0e97ff8d4d81539dc
+    sha256: 4091e0a26c138d886195eb8bdc40988bf95de1617f599eff83c79bf08931b12f
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T10:48:51.117Z
+    recorded_at: 2026-06-04T11:03:00.871Z
     recorded_by: engineer
-    notes: story-8-3 spec authored (create-story)
+    story_id: 8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing
+  - artefact_class: A
+    file: tests/scaffold/scheduled-workflow.test.mjs
+    sha256: b65a43d002e93192fe141776311a3a315b94fc52871e6f7228fefb0d59c06ba8
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T10:53:10.134Z
+    recorded_by: test-author
+    story_id: 8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing
+    notes: "story-8-3 red-phase: graduate ci-matrix AC-6 scheduled.yml + new scheduled-workflow.test.mjs"
