@@ -30,11 +30,18 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { env } from "node:process";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(HERE, "..");
 const INPUT_PATH = resolve(REPO_ROOT, "src", "items", "item-parameters.json");
-const OUTPUT_PATH = resolve(REPO_ROOT, "src", "items", "item-difficulty-bands.json");
+// IQME_DIFFICULTY_BANDS_OUT relocates the output file (Story bridge-9a-1 —
+// concurrency isolation). Lets a test redirect `make build` to a per-test
+// tmpdir so it never rewrites the shared src/items artefact that
+// item-difficulty-bands-contract.spec.mjs reads concurrently.
+const OUTPUT_PATH = env.IQME_DIFFICULTY_BANDS_OUT
+  ? resolve(REPO_ROOT, env.IQME_DIFFICULTY_BANDS_OUT)
+  : resolve(REPO_ROOT, "src", "items", "item-difficulty-bands.json");
 const SCHEMA_VERSION = "1.0";
 
 export function computeBands(pool) {

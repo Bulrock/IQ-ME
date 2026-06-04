@@ -891,3 +891,25 @@ branches:
     last_synced_at: 2026-06-04T07:53:26.866Z
     notes: ""
     created_at: 2026-06-04T07:48:11.807Z
+  - branch: epic/bridge-9a-bridge-9a-1-story-from-1-retro
+    story_id: null
+    epic_id: bridge-9a
+    base_branch: main
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-06-04T08:37:27.152Z
+  - branch: story/bridge-9a-1-isolate-concurrency-sensitive-coverage
+    story_id: bridge-9a-1-isolate-concurrency-sensitive-coverage
+    epic_id: null
+    base_branch: epic/bridge-9a-bridge-9a-1-story-from-1-retro
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-06-04T08:38:52.488Z

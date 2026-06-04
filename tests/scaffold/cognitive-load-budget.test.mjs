@@ -9,8 +9,17 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync, spawnSync } from "node:child_process";
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, mkdtempSync } from "node:fs";
 import { join } from "node:path";
+import { tmpdir } from "node:os";
+
+// Story bridge-9a-1 — concurrency isolation. `make lint` spawns lint-csp-source
+// (scans dist/methodology). Redirect that scan to a fresh per-invocation tmpdir
+// via IQME_DIST_DIR so a concurrent `make build` rewriting the shared dist/
+// cannot cross-contaminate these `make lint` assertions (lesson-2026-05-19-014).
+function makeLintEnv() {
+  return { ...process.env, IQME_DIST_DIR: mkdtempSync(join(tmpdir(), "iqme-clb-lint-")) };
+}
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const BUDGETS_PATH = join(REPO_ROOT, "BUDGETS.json");
@@ -206,6 +215,7 @@ test("AC-8: `make lint` exits 0 on the current tree", () => {
     cwd: REPO_ROOT,
     encoding: "utf8",
     stdio: ["ignore", "pipe", "pipe"],
+    env: makeLintEnv(),
   });
 });
 
@@ -214,6 +224,7 @@ test("AC-8: `make lint` invokes lint-cognitive-load-budget (visible OK line)", (
     cwd: REPO_ROOT,
     encoding: "utf8",
     stdio: ["ignore", "pipe", "pipe"],
+    env: makeLintEnv(),
   });
   // At minimum one budget's OK line should appear in make's output.
   assert.match(

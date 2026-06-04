@@ -14,24 +14,35 @@ import { test, expect } from "@playwright/test";
 import { execSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve, join } from "node:path";
-import { readdirSync, readFileSync, statSync, existsSync } from "node:fs";
+import { readdirSync, readFileSync, statSync, existsSync, mkdtempSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { createHash } from "node:crypto";
 
 import { hashTree, sortedReaddir, DETERMINISM } from "../../tools/determinism-harness.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(HERE, "..", "..");
-const DIST = resolve(REPO_ROOT, "dist");
 
-function runBuild() {
-  execSync("make clean && make build", {
+// Story bridge-9a-1 — concurrency isolation. This spec used to `make clean &&
+// make build` against the SHARED REPO_ROOT/dist tree, which a concurrent
+// `make test` reader could observe mid-rewrite (lesson-2026-05-19-014). Each
+// build now targets a fresh per-invocation tmpdir via IQME_DIST_DIR /
+// IQME_DIFFICULTY_BANDS_OUT, so the spec never touches a shared artefact. Two
+// independent fresh-tmpdir builds == two `make clean && make build` cycles, so
+// the byte-stability contract (NFR21) is unchanged.
+function runBuildToTmp() {
+  const distDir = mkdtempSync(join(tmpdir(), "iqme-byte-stable-"));
+  execSync("make build", {
     cwd: REPO_ROOT,
     stdio: ["ignore", "pipe", "pipe"],
     env: {
       ...process.env,
       SOURCE_DATE_EPOCH: String(DETERMINISM.SOURCE_DATE_EPOCH),
+      IQME_DIST_DIR: distDir,
+      IQME_DIFFICULTY_BANDS_OUT: join(distDir, "item-difficulty-bands.json"),
     },
   });
+  return distDir;
 }
 
 // Walk dist/ and produce a map of relative-path → sha256 for per-file diffing
@@ -52,13 +63,22 @@ function perFileHashes(root, rel = "") {
 }
 
 test("AC-1: `make clean && make build` produces byte-identical dist/ on repeated invocation", () => {
-  runBuild();
-  const hashA = hashTree(DIST);
-  const filesA = perFileHashes(DIST);
+  const distA = runBuildToTmp();
+  const distB = runBuildToTmp();
+  try {
+    runByteStableAssertion(distA, distB);
+  } finally {
+    rmSync(distA, { recursive: true, force: true });
+    rmSync(distB, { recursive: true, force: true });
+  }
+});
 
-  runBuild();
-  const hashB = hashTree(DIST);
-  const filesB = perFileHashes(DIST);
+function runByteStableAssertion(DIST_A, DIST_B) {
+  const hashA = hashTree(DIST_A);
+  const filesA = perFileHashes(DIST_A);
+
+  const hashB = hashTree(DIST_B);
+  const filesB = perFileHashes(DIST_B);
 
   if (hashA !== hashB) {
     const allKeys = new Set([...Object.keys(filesA), ...Object.keys(filesB)]);
@@ -77,4 +97,4 @@ test("AC-1: `make clean && make build` produces byte-identical dist/ on repeated
   }
 
   expect(hashA, "build is non-deterministic — dist/ hash changed between identical invocations").toBe(hashB);
-});
+}

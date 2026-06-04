@@ -32,7 +32,7 @@
 
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { resolve, join, relative } from "node:path";
-import { argv, cwd, stdout, stderr, exit } from "node:process";
+import { argv, cwd, stdout, stderr, exit, env } from "node:process";
 
 const CWD = cwd();
 
@@ -48,7 +48,11 @@ function defaultScope() {
   const files = [];
   const indexHtml = resolve(CWD, "src/index.html");
   if (existsSync(indexHtml)) files.push(indexHtml);
-  const distMeth = resolve(CWD, "dist/methodology");
+  // IQME_DIST_DIR relocates the dist/ root (Story bridge-9a-1 — concurrency
+  // isolation), mirroring build-methodology.mjs. Lets a caller (e.g. a test
+  // spawning `make lint`) point the scan at a per-test tmpdir instead of the
+  // shared dist/ a concurrent `make build` could be rewriting.
+  const distMeth = resolve(CWD, env.IQME_DIST_DIR || "dist", "methodology");
   if (existsSync(distMeth)) {
     files.push(...walkHtml(distMeth));
   } else {
