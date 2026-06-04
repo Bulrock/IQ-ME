@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 733fa2da0d462e43f0a25dacef4ef50d538e13e61ab06b56e991439496cb3523
+    sha256: 3d3b19b19575985b36ef1b22a48a5e4724b9f4f934902d49f4a5cdc7527ddc12
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T19:30:39.711Z
+    recorded_at: 2026-06-04T07:39:02.018Z
     recorded_by: engineer
-    story_id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
+    story_id: 7-7-ru-pl-crisis-resource-lists-hreflang-declarations
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1374,3 +1374,10 @@ entries:
     recorded_by: test-author
     story_id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
     notes: "story-7-6 tests revised (cycle 1): behavioral tailScenesUrl helper + fetch-coupling closes the AC-2 dead-string gap"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-7-ru-pl-crisis-resource-lists-hreflang-declarations.md
+    sha256: d70e3e22c14e350f9881349d547be5cf3a3c63302c4db2731d47536a06a50978
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T07:39:02.062Z
+    recorded_by: engineer
+    story_id: 7-7-ru-pl-crisis-resource-lists-hreflang-declarations
