@@ -8,9 +8,9 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 3ae8b938cba4445753d83549b1e1e2a4ef8739603361321b5bb135b7081d90c8
+    sha256: 240603096651817b57b8db0661537d9c565c366d753f871c690960aacdac0041
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T09:18:22.653Z
+    recorded_at: 2026-06-04T09:21:05.465Z
     recorded_by: state-commit-autorecord
     story_id: bridge-9a-1-isolate-concurrency-sensitive-coverage
   - artefact_class: A
