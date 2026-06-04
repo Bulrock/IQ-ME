@@ -64,8 +64,8 @@ build-methodology: ## render src/content/methodology/**.md to dist/methodology/v
 dev: ## start the interim dev-server on http://127.0.0.1:4173 (Ctrl-C to stop; Epic 4 lands live-reload)
 	node tools/dev-server.mjs
 
-clean: ## remove build outputs (idempotent)
-	rm -rf dist
+clean: ## remove build outputs (idempotent; honors IQME_DIST_DIR for per-test tmpdir isolation)
+	rm -rf "$${IQME_DIST_DIR:-dist}"
 
 snapshot-update: ## regenerate tests/snapshots/ tree (tokens.hash.json + methodology golden HTML — codified D→E write boundary)
 	# Run after deliberate changes to css tokens OR methodology source; commit the snapshot diff alongside the source change.

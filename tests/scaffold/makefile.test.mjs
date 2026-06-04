@@ -9,8 +9,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { readFileSync, existsSync, statSync } from "node:fs";
+import { readFileSync, existsSync, statSync, mkdtempSync } from "node:fs";
 import { join } from "node:path";
+import { tmpdir } from "node:os";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const REQUIRED_TARGETS = [
@@ -24,10 +25,17 @@ const REQUIRED_TARGETS = [
 ];
 
 function runMake(args) {
+  // Story bridge-9a-1 — concurrency isolation. `make lint` spawns
+  // lint-csp-source, which scans dist/methodology; redirect that scan to a
+  // fresh per-invocation tmpdir via IQME_DIST_DIR so a concurrent `make build`
+  // rewriting the shared dist/ can never cross-contaminate this test
+  // (lesson-2026-05-19-014). The empty tmpdir → lint-csp-source degraded mode
+  // (src/index.html only), which still exits 0.
   return execFileSync("make", args, {
     cwd: REPO_ROOT,
     encoding: "utf8",
     stdio: ["ignore", "pipe", "pipe"],
+    env: { ...process.env, IQME_DIST_DIR: mkdtempSync(join(tmpdir(), "iqme-makefile-lint-")) },
   });
 }
 

@@ -9,8 +9,17 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, mkdtempSync } from "node:fs";
 import { join } from "node:path";
+import { tmpdir } from "node:os";
+
+// Story bridge-9a-1 — concurrency isolation. `make lint` spawns lint-csp-source
+// (scans dist/methodology). Redirect that scan to a fresh per-invocation tmpdir
+// via IQME_DIST_DIR so a concurrent `make build` rewriting the shared dist/
+// cannot cross-contaminate the AC-5 `make lint` assertion (lesson-2026-05-19-014).
+function makeLintEnv() {
+  return { ...process.env, IQME_DIST_DIR: mkdtempSync(join(tmpdir(), "iqme-nal-lint-")) };
+}
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 
@@ -108,6 +117,7 @@ test("AC-5: `make lint` exits 0 and chains all 7 active negative-assertion + bud
   const r = spawnSync("make", ["lint"], {
     cwd: REPO_ROOT,
     encoding: "utf8",
+    env: makeLintEnv(),
   });
   assert.equal(r.status, 0, `make lint exit ${r.status}. stderr:\n${r.stderr}\nstdout:\n${r.stdout}`);
   // Each active lint should leave some visible footprint — either an OK line, an ok message, or just running

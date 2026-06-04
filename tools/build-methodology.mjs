@@ -29,7 +29,16 @@ import { render, MarkdownSubsetError } from "./markdown-subset.mjs";
 
 const CWD = cwd();
 const SRC_ROOT = resolve(CWD, env.IQME_BUILD_METHODOLOGY_SRC || "src/content/methodology");
-const OUT_ROOT = resolve(CWD, env.IQME_BUILD_METHODOLOGY_OUT || "dist/methodology");
+// Output root precedence (Story bridge-9a-1 — concurrency isolation):
+//   1. IQME_BUILD_METHODOLOGY_OUT — explicit per-test methodology override.
+//   2. <IQME_DIST_DIR>/methodology — relocates the whole dist/ root (lets a
+//      test redirect `make build` to a per-test tmpdir so a concurrent build
+//      never cross-contaminates the shared dist/).
+//   3. dist/methodology — shared default.
+const OUT_ROOT = resolve(
+  CWD,
+  env.IQME_BUILD_METHODOLOGY_OUT || join(env.IQME_DIST_DIR || "dist", "methodology"),
+);
 // Story 3-6 launched with EN only; Story 4-7 extends the builder so it can
 // walk RU/PL locale trees and apply the stale-translation hatnote hook. At
 // Epic 4 close, only EN content exists in-repo — RU/PL trees are

@@ -5,14 +5,36 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync, existsSync, rmSync } from "node:fs";
+import { readFileSync, existsSync, rmSync, mkdtempSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { join } from "node:path";
+import { tmpdir } from "node:os";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const HARNESS_PATH = join(REPO_ROOT, "tools", "determinism-harness.mjs");
-const MARKER_PATH = join(REPO_ROOT, "dist", ".build-determinism-check.json");
 const BYTE_STABLE_STUB = join(REPO_ROOT, "tests", "playwright", "byte-stable.spec.mjs");
+
+// Story bridge-9a-1 — concurrency isolation. AC-2 used to run
+// `make clean && make build` against the SHARED dist/ + src/items tree, which
+// raced any concurrent reader under `make test` file-parallelism (lint-csp-
+// source-coverage reading dist/, item-difficulty-bands-contract reading
+// src/items). Each AC-2 build now goes to a fresh per-test tmpdir via the
+// IQME_DIST_DIR / IQME_DIFFICULTY_BANDS_OUT overrides, so it never touches a
+// shared artefact (lesson-2026-05-19-014). The marker determinism contract is
+// unchanged — it is just verified against a hermetic build root.
+function makeBuildToTmp() {
+  const distDir = mkdtempSync(join(tmpdir(), "iqme-det-build-"));
+  const r = spawnSync("make", ["build"], {
+    cwd: REPO_ROOT,
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      IQME_DIST_DIR: distDir,
+      IQME_DIFFICULTY_BANDS_OUT: join(distDir, "item-difficulty-bands.json"),
+    },
+  });
+  return { distDir, markerPath: join(distDir, ".build-determinism-check.json"), result: r };
+}
 
 const HARNESS_URL = `file://${HARNESS_PATH}`;
 const EMPTY_TREE_SHA256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
@@ -116,25 +138,35 @@ test("AC-3: hashTree of empty directory returns documented sentinel hash", async
 // AC-2: make build produces deterministic marker
 // ─────────────────────────────────────────────────────────────────────
 
-test("AC-2: `make build` produces dist/.build-determinism-check.json", () => {
-  spawnSync("make", ["clean"], { cwd: REPO_ROOT });
-  const r = spawnSync("make", ["build"], { cwd: REPO_ROOT, encoding: "utf8" });
-  assert.equal(r.status, 0, `make build exited ${r.status}. stderr:\n${r.stderr}`);
-  assert.ok(existsSync(MARKER_PATH), `${MARKER_PATH} missing after make build`);
-  const marker = JSON.parse(readFileSync(MARKER_PATH, "utf8"));
-  assert.equal(typeof marker.sha256, "string", `marker.sha256 must be string`);
-  assert.equal(marker.frozen_epoch, 0, `marker.frozen_epoch must be 0`);
-  assert.equal(typeof marker.harness_version, "string", `marker.harness_version must be string`);
+test("AC-2: `make build` produces .build-determinism-check.json", () => {
+  const { distDir, markerPath, result: r } = makeBuildToTmp();
+  try {
+    assert.equal(r.status, 0, `make build exited ${r.status}. stderr:\n${r.stderr}`);
+    assert.ok(existsSync(markerPath), `${markerPath} missing after make build`);
+    const marker = JSON.parse(readFileSync(markerPath, "utf8"));
+    assert.equal(typeof marker.sha256, "string", `marker.sha256 must be string`);
+    assert.equal(marker.frozen_epoch, 0, `marker.frozen_epoch must be 0`);
+    assert.equal(typeof marker.harness_version, "string", `marker.harness_version must be string`);
+  } finally {
+    rmSync(distDir, { recursive: true, force: true });
+  }
 });
 
-test("AC-2: `make clean && make build` produces byte-identical marker across runs", () => {
-  spawnSync("make", ["clean"], { cwd: REPO_ROOT });
-  spawnSync("make", ["build"], { cwd: REPO_ROOT });
-  const first = readFileSync(MARKER_PATH, "utf8");
-  spawnSync("make", ["clean"], { cwd: REPO_ROOT });
-  spawnSync("make", ["build"], { cwd: REPO_ROOT });
-  const second = readFileSync(MARKER_PATH, "utf8");
-  assert.equal(first, second, `marker drifted between two clean builds:\nfirst:\n${first}\nsecond:\n${second}`);
+test("AC-2: two clean `make build` runs produce a byte-identical marker", () => {
+  // Two fresh tmpdir builds == two `make clean && make build` cycles, without
+  // mutating the shared tree. Byte-identical marker proves determinism (NFR17).
+  const a = makeBuildToTmp();
+  const b = makeBuildToTmp();
+  try {
+    assert.equal(a.result.status, 0, `first build failed: ${a.result.stderr}`);
+    assert.equal(b.result.status, 0, `second build failed: ${b.result.stderr}`);
+    const first = readFileSync(a.markerPath, "utf8");
+    const second = readFileSync(b.markerPath, "utf8");
+    assert.equal(first, second, `marker drifted between two clean builds:\nfirst:\n${first}\nsecond:\n${second}`);
+  } finally {
+    rmSync(a.distDir, { recursive: true, force: true });
+    rmSync(b.distDir, { recursive: true, force: true });
+  }
 });
 
 // ─────────────────────────────────────────────────────────────────────
