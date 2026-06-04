@@ -1,28 +1,104 @@
 name: Release
 
-# Activates in Epic 8.
+# Activated in Story 8.1 — decoupled tag namespaces (architecture D7).
 #
-# Orchestration plan (decoupled tag namespaces):
-#   - app-v*    — triggers SPA + scoring engine release (e.g. app-v1.0.0).
-#                 Builds dist/spa/, mints DOI for app, publishes to GitHub Pages
-#                 primary + Cloudflare Pages mirror; byte-identical artifact
-#                 verification per NFR17.
-#   - corpus-v* — triggers methodology corpus re-emit (e.g. corpus-v1.0.0).
-#                 Builds dist/methodology/, mints separate DOI for corpus,
-#                 archives to Zenodo + Internet Archive + Software Heritage.
+# Two tag-gated jobs:
+#   - app-release    (app-v*.*.*)    — assemble dist/, run the full lint+test
+#                                      gate + byte-stable assertion, deploy the
+#                                      SPA to GitHub Pages (gh-pages branch).
+#   - corpus-release (corpus-v*.*.*) — per-corpus-release re-emit (NFR25) of the
+#                                      methodology corpus + deploy, preserving
+#                                      prior version permalinks.
 #
-# Mirror cutover: both namespaces emit to GH Pages + Cloudflare Pages; mirror
-# parity is verified by the scheduled workflow (see scheduled.yml).
+# Deferred extension points (NOT implemented in Story 8.1 — markers only):
+#   - Story 8.2: corpus-release archival — Zenodo DOI mint + Internet Archive
+#     Save Page Now + Software Heritage save (appended to the corpus-release job).
+#   - Story 8.4: Codeberg / Cloudflare Pages byte-identical mirror (a separate
+#     job triggered by the same release tags).
+#
+# Dev-phase note: no live deploy runs until launch (Epic 10) when the repo has
+# GitHub Pages + secrets configured and real tags are pushed. Relative asset
+# paths only — the same artifact must run on the mirror (NFR17).
 
 on:
   push:
     tags:
-      - "app-v*"
-      - "corpus-v*"
+      - "app-v*.*.*"
+      - "corpus-v*.*.*"
+
+permissions:
+  contents: write # push the built artifact to the gh-pages branch
 
 jobs:
-  release:
-    name: release
+  app-release:
+    name: app-release
+    # Gate: run ONLY for app-v* tags (decoupled app namespace, architecture D7).
+    if: startsWith(github.ref, 'refs/tags/app-v')
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Activates in Epic 8"
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full tag history needed for `git describe`
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      # The single build-time version substitution touching the SPA shell: the
+      # footer methodology link resolves to the most-recent corpus version via
+      # `git describe --tags --match 'corpus-v*'` (architecture §596-597).
+      - name: Resolve corpus version for SPA footer link
+        run: echo "IQME_FOOTER_CORPUS=$(git describe --tags --match 'corpus-v*' --abbrev=0)" >> "$GITHUB_ENV"
+      # Deterministic dist/ assembly — NFR21 no-op transform (deployed JS tree
+      # equals source JS tree byte-for-byte; not a bundler/transpile step).
+      - name: Build dist/ artifact
+        run: make build
+      # Full lint + test gate — the same gate pr-checks.yml enforces. Aggregate
+      # make targets, NOT a glob (lesson-2026-06-03-001).
+      - name: Lint gate
+        run: make lint
+      - name: Test gate
+        run: make test
+      # Byte-stable build assertion (Epic 4) — a non-byte-stable artifact blocks
+      # the release.
+      - name: Byte-stable build verification
+        run: make test-byte-stable
+      # Deploy the dist/ artifact to GitHub Pages via the gh-pages branch
+      # (standard GitHub Pages pattern, architecture §860-862).
+      - name: Deploy SPA to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+
+  corpus-release:
+    name: corpus-release
+    # Gate: run ONLY for corpus-v* tags (decoupled corpus namespace, architecture D7).
+    if: startsWith(github.ref, 'refs/tags/corpus-v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      # Derive the corpus version from the tag into IQME_CORPUS_VERSION — the
+      # REAL version-injection mechanism that tools/build-methodology.mjs reads
+      # (NOT a --corpus-version flag). refs/tags/corpus-v1.2.0 -> v1.2.0.
+      - name: Derive corpus version from tag
+        run: echo "IQME_CORPUS_VERSION=${GITHUB_REF#refs/tags/corpus-}" >> "$GITHUB_ENV"
+      # Per-corpus-release re-emit (NFR25): every methodology page is re-emitted
+      # under dist/methodology/v<X.Y.Z>/, even unchanged pages.
+      - name: Build methodology corpus (per-corpus re-emit)
+        run: make build-methodology IQME_CORPUS_VERSION="$IQME_CORPUS_VERSION"
+      # Deploy the versioned dist/methodology tree to gh-pages WITHOUT clobbering
+      # prior dist/methodology/v<prior>/ permalinks — archaeological citations
+      # must keep resolving. keep_files preserves existing files on the branch.
+      - name: Deploy methodology corpus to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/methodology
+          destination_dir: methodology
+          keep_files: true # preserve prior version dirs (no wholesale clobber)
+      # --- Deferred to Story 8.2: append Zenodo DOI mint + Internet Archive
+      #     Save Page Now + Software Heritage save steps to this job. ---

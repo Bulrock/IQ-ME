@@ -2,15 +2,15 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 8311655b1a2c10fc29c24a8604de5ce6ca6752b6eb34e336e6875e7ee6eadce2
+    sha256: b77d7f14034031e5b8a155e335146b8fdef05900664c5b90da38fe8dbec4ddc7
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T09:44:12.075Z
+    recorded_at: 2026-06-04T09:55:38.994Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 94794627a322731d16ee3ea62a98fa1afc3d713726f2d97bbfe5fda47f1bb9d4
+    sha256: d377357bb7cbd05fe8d10768f8fba658290d799be65950defc3d7ebf85e9a150
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T09:52:48.368Z
+    recorded_at: 2026-06-04T10:18:07.996Z
     recorded_by: engineer
     story_id: 8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment
   - artefact_class: A
@@ -107,11 +107,12 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: fa9dce38596c387445fcde96b836da3c78506d6823d89edbc00dd713427182b9
+    sha256: 5fb0918ff7e361594b8bfea296cfa356ffa129179dc0820a1b72cb80c8c2655d
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:39:40.328Z
-    recorded_by: frontend
-    notes: reconcile EPIC_1_ACTIVE + ALL_JOBS with Story 6.4/6.6 CI activations (lighthouse, cropping-fuzzer, chrome-components, tear-edge-overlay)
+    recorded_at: 2026-06-04T10:01:26.982Z
+    recorded_by: test-author
+    story_id: 8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment
+    notes: "story-8-1 red-phase: release.yml structural tests + ci-matrix AC-6 stub→activated graduation"
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: 2c67dbd842aaf6c1d1fa235e982c057c934cb3d52c80afdcfae9dc360229a6e1
@@ -1414,8 +1415,16 @@ entries:
     story_id: bridge-9a-1-isolate-concurrency-sensitive-coverage
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment.md
-    sha256: 73760c38c8fd4fc49b4c40644153dcf7f0aeef64790103cf5195fb694b2bd101
+    sha256: 4f46faf0ffcab82c50b8bbbf14fd87aa01a65568db5b96e652123be9bd83ea3e
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T09:52:58.809Z
+    recorded_at: 2026-06-04T10:18:08.038Z
     recorded_by: engineer
-    notes: story-8-1 spec authored (create-story)
+    story_id: 8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment
+  - artefact_class: A
+    file: tests/scaffold/release-workflow.test.mjs
+    sha256: e2a7a38e194022a39585c37219a8a0b6258cd98a72408739178129ba0273d033
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T10:04:51.375Z
+    recorded_by: test-author
+    story_id: 8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment
+    notes: "story-8-1 test-review note: widen AC-3 preservation regex to also match keep_files underscore form"

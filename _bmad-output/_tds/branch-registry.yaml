@@ -924,3 +924,14 @@ branches:
     last_synced_at: null
     notes: ""
     created_at: 2026-06-04T09:44:12.050Z
+  - branch: story/8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment
+    story_id: 8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment
+    epic_id: null
+    base_branch: epic/8
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-06-04T09:55:38.966Z

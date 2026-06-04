@@ -1,7 +1,7 @@
 ---
 id: 8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment
 title: "Story 8.1: release.yml workflow — app-v* + corpus-v* tag triggers + deployment"
-status: ready-for-dev
+status: review
 ---
 
 # Story 8.1: release.yml workflow — app-v* + corpus-v* tag triggers + deployment
@@ -25,21 +25,21 @@ so that **the app and corpus version namespaces operate independently and the v1
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: release.yml triggers + two tag-gated jobs** (AC: 1)
-  - [ ] Replace the stub `echo` job with `on: push: { tags: ['app-v*.*.*', 'corpus-v*.*.*'] }` + `app-release` and `corpus-release` jobs, each gated by a job-level `if:` on the tag ref.
-- [ ] **Task 2: app-release job (build + full gate + Pages deploy + byte-stable)** (AC: 2, 4)
-  - [ ] checkout → `make build` → `make lint && make test` → `make test-byte-stable` → deploy `dist/` to `gh-pages` (relative paths only).
-- [ ] **Task 3: corpus-release job (IQME_CORPUS_VERSION re-emit + methodology deploy)** (AC: 3)
-  - [ ] Derive `IQME_CORPUS_VERSION=v<X.Y.Z>` from the `corpus-v*` tag ref; `make build-methodology IQME_CORPUS_VERSION=…`; deploy `dist/methodology/v<X.Y.Z>/` to gh-pages without clobbering prior version dirs.
-- [ ] **Task 4: footer corpus-version substitution + double-tag handling** (AC: 4)
-  - [ ] Substitute `git describe --tags --match 'corpus-v*' --abbrev=0` into the SPA shell footer link at build; document the coordinated `app-v1.0.0` + `corpus-v1.0.0` double-tag flow inline.
-  - [ ] Mark deferred extension points: Zenodo/IA/SH archival (Story 8.2), Codeberg/Cloudflare mirror deploy (Story 8.4).
-- [ ] **Task 5: structural contract test (no live deploy)** (AC: 5)
-  - [ ] `tests/scaffold/release-workflow.test.mjs` parses release.yml and asserts the AC-1…AC-4 contract + the deferred-marker presence; no tag push / no API / no deploy.
-- [ ] **Task 6: graduate frozen ci-matrix AC-6 + re-register integrity** (AC: 6)
-  - [ ] Update `tests/scaffold/ci-matrix.test.mjs` AC-6 release.yml assertions from stub-placeholder to activated-structure; keep scheduled.yml stub assertions; run `tds integrity record --files=tests/scaffold/ci-matrix.test.mjs` and verify it persists after the next state-commit sweep.
-- [ ] **Task 7: regression gate** (AC: 6)
-  - [ ] `make test` / `make lint` / `make build` all green + deterministic; baseline-diff any ambiguous failure before labeling pre-existing (lesson-2026-06-03-002).
+- [x] **Task 1: release.yml triggers + two tag-gated jobs** (AC: 1)
+  - [x] Replace the stub `echo` job with `on: push: { tags: ['app-v*.*.*', 'corpus-v*.*.*'] }` + `app-release` and `corpus-release` jobs, each gated by a job-level `if:` on the tag ref.
+- [x] **Task 2: app-release job (build + full gate + Pages deploy + byte-stable)** (AC: 2, 4)
+  - [x] checkout → `make build` → `make lint && make test` → `make test-byte-stable` → deploy `dist/` to `gh-pages` (relative paths only).
+- [x] **Task 3: corpus-release job (IQME_CORPUS_VERSION re-emit + methodology deploy)** (AC: 3)
+  - [x] Derive `IQME_CORPUS_VERSION=v<X.Y.Z>` from the `corpus-v*` tag ref; `make build-methodology IQME_CORPUS_VERSION=…`; deploy `dist/methodology/v<X.Y.Z>/` to gh-pages without clobbering prior version dirs.
+- [x] **Task 4: footer corpus-version substitution + double-tag handling** (AC: 4)
+  - [x] Substitute `git describe --tags --match 'corpus-v*' --abbrev=0` into the SPA shell footer link at build; document the coordinated `app-v1.0.0` + `corpus-v1.0.0` double-tag flow inline.
+  - [x] Mark deferred extension points: Zenodo/IA/SH archival (Story 8.2), Codeberg/Cloudflare mirror deploy (Story 8.4).
+- [x] **Task 5: structural contract test (no live deploy)** (AC: 5)
+  - [x] `tests/scaffold/release-workflow.test.mjs` parses release.yml and asserts the AC-1…AC-4 contract + the deferred-marker presence; no tag push / no API / no deploy.
+- [x] **Task 6: graduate frozen ci-matrix AC-6 + re-register integrity** (AC: 6)
+  - [x] Update `tests/scaffold/ci-matrix.test.mjs` AC-6 release.yml assertions from stub-placeholder to activated-structure; keep scheduled.yml stub assertions; run `tds integrity record --files=tests/scaffold/ci-matrix.test.mjs` and verify it persists after the next state-commit sweep.
+- [x] **Task 7: regression gate** (AC: 6)
+  - [x] `make test` / `make lint` / `make build` all green + deterministic; baseline-diff any ambiguous failure before labeling pre-existing (lesson-2026-06-03-002).
 
 ## Dev Notes
 
@@ -80,6 +80,40 @@ so that **the app and corpus version namespaces operate independently and the v1
 
 ### Completion Notes List
 
+- release.yml activated: app-release + corpus-release tag-gated jobs; IQME_CORPUS_VERSION re-emit + git describe footer + gh-pages keep_files deploy; 8.2/8.4 deferred markers. Frozen tests green; suite 1220 pass/0 fail; lint+build exit 0.
+- Promoted to review: 7/7 tasks complete; frozen release-workflow + ci-matrix AC-6 tests green; full suite 1220 pass/0 fail; lint+build exit 0.
+
 ### File List
 
+- .github/workflows/release.yml
+- tests/scaffold/release-workflow.test.mjs
+- tests/scaffold/ci-matrix.test.mjs
+
 ## Specialist Self-Review
+
+## Specialist Self-Review — Story 8-1 (release.yml app-release + corpus-release, infra-now)
+
+**Decisions made:**
+- **Two tag-gated jobs** `app-release` / `corpus-release`, each with a job-level `if: startsWith(github.ref, 'refs/tags/app-v'|'corpus-v')`. A single-namespace tag push runs exactly one job; the v1.0.0 coordinated `app-v1.0.0` + `corpus-v1.0.0` double-tag runs both independently (decoupled namespaces, architecture D7).
+- **Corpus version injection via the REAL mechanism:** `IQME_CORPUS_VERSION=${GITHUB_REF#refs/tags/corpus-}` env (→ `v1.2.0`), which `tools/build-methodology.mjs` reads (`/^v\d+\.\d+\.\d+$/`). Deliberately NOT the epics' loose `--corpus-version` flag (it doesn't exist — would silently fall through to `git describe`).
+- **gh-pages deploy via `peaceiris/actions-gh-pages@v4`** — matches architecture §860-862 ("push to the gh-pages branch"). corpus-release uses `keep_files: true` + `destination_dir: methodology` to preserve prior `dist/methodology/v<prior>/` permalinks (NFR25 — archaeological citations keep resolving).
+- **Footer corpus-version** resolved via `git describe --tags --match 'corpus-v*' --abbrev=0` (architecture §596-597) with `fetch-depth: 0` so tags are visible.
+- **Scope discipline:** Zenodo/IA/SH archival (Story 8.2) and Codeberg/Cloudflare mirror (Story 8.4) are comment markers / extension points only — NOT implemented.
+
+**Alternatives considered:**
+- `actions/deploy-pages` + `upload-pages-artifact` (the official Pages-artifact mechanism) instead of the gh-pages branch push — rejected because architecture §860-862 specifies the gh-pages branch pattern and Story 8.4's mirror reuses the same branch-push artifact model (byte-identical artifact across hosts, NFR17).
+- One combined `release` job with internal tag branching — rejected; per-namespace `if:`-gated jobs are clearer and let the coordinated double-tag run both in parallel.
+
+**Framework gotchas avoided:**
+- `${GITHUB_REF#refs/tags/corpus-}` yields `v1.2.0` (keeps the `v`, strips only `corpus-`) — matches build-methodology's version regex.
+- `fetch-depth: 0` on checkout so `git describe --match 'corpus-v*'` can see the tag history.
+- AC-5 absence-regex traps: marker comments name "Story 8.2"/"Story 8.4" and use "Software Heritage" (space), "Internet Archive Save Page Now", "Zenodo DOI mint", "Codeberg / Cloudflare Pages" — none of which match the forbidden implementation signatures (`uses:…zenodo`, `api.zenodo.org`, `web.archive.org/save`, `softwareheritage`, `deploy-to-mirror:`, `uses:…cloudflare`, `codeberg.org`, `wrangler pages deploy`).
+
+**Areas of uncertainty:**
+- No live deploy is exercised in the dev phase (no Pages config, no tag push, no gh API) — the workflow is verified STRUCTURALLY only; its runtime correctness (secrets, peaceiris behavior, gh-pages branch state, the actual coordinated-double-tag deploy) is first exercised at launch (Epic 10). This is the deliberate infra-now posture (same as Story 7.8).
+- `make test-byte-stable` runs Playwright/chromium in the app-release job — assumed present on the CI runner (already the case for the `byte-stable-build` pr-checks job).
+
+**Tested edge cases:**
+- Frozen `tests/scaffold/release-workflow.test.mjs` (AC-1: triggers + two if-gated jobs + stub `release:` gone; AC-2: make build/lint/test + byte-stable + gh-pages within app-release body; AC-3: IQME_CORPUS_VERSION + make build-methodology + dist/methodology + preservation hint within corpus-release body; AC-4: git describe --match 'corpus-v*'; AC-5: Story 8.2 + 8.4 markers present AND Zenodo/IA/SH + mirror implementation signatures absent).
+- Graduated `tests/scaffold/ci-matrix.test.mjs` AC-6 release.yml (stub→activated: no "Activates in Epic 8"; app-release + corpus-release present; app-v*/corpus-v* retained); scheduled.yml AC-6 left as the Story-8.3 stub assertion.
+- Regression: full suite 1220 pass / 0 fail; `make lint` exit 0; `make build` exit 0 (byte-stable, no artifact leak). Provenance: release.yml activation is net-new this story (baseline `git diff main -- .github/workflows/release.yml` = the stub→activated diff); no pre-existing failures touched.

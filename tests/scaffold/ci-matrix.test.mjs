@@ -211,24 +211,37 @@ test("AC-7: pr-checks.yml has top-level `on: pull_request:`", () => {
 // AC-6: release.yml + scheduled.yml stubs exist
 // ─────────────────────────────────────────────────────────────────────
 
-test("AC-6: release.yml stub exists with `echo \"Activates in Epic 8\"`", () => {
+test("AC-6: release.yml is activated (Story 8.1) — app-release + corpus-release jobs, no stub placeholder", () => {
   assert.ok(existsSync(RELEASE), `release.yml missing at ${RELEASE}`);
   const text = readFileSync(RELEASE, "utf8");
-  assert.match(
+  // Graduated in Story 8.1: release.yml is activated, so the Epic-1 stub
+  // placeholder must be gone.
+  assert.doesNotMatch(
     text,
     /Activates in Epic 8/,
-    `release.yml must contain "Activates in Epic 8" placeholder.`,
+    `release.yml is activated in Story 8.1 — it must NOT contain the "Activates in Epic 8" stub placeholder.`,
   );
-  // Inline-comment mention of app-v* + corpus-v* tag namespaces.
+  // Activated structure: two distinct tag-gated jobs.
+  assert.match(
+    text,
+    /^  app-release:\s*$/m,
+    `release.yml must declare the "app-release:" job (Story 8.1 activation).`,
+  );
+  assert.match(
+    text,
+    /^  corpus-release:\s*$/m,
+    `release.yml must declare the "corpus-release:" job (Story 8.1 activation).`,
+  );
+  // Decoupled app-v* + corpus-v* tag namespaces preserved (architecture D7).
   assert.match(
     text,
     /app-v\*/,
-    `release.yml must document app-v* tag namespace inline.`,
+    `release.yml must declare the app-v* tag namespace.`,
   );
   assert.match(
     text,
     /corpus-v\*/,
-    `release.yml must document corpus-v* tag namespace inline.`,
+    `release.yml must declare the corpus-v* tag namespace.`,
   );
 });
 
