@@ -891,3 +891,14 @@ branches:
     last_synced_at: 2026-06-04T07:46:27.865Z
     notes: ""
     created_at: 2026-06-04T07:39:02.495Z
+  - branch: story/7-8-codeowners-branch-protection-config-artifact-for-dual-approval
+    story_id: 7-8-codeowners-branch-protection-config-artifact-for-dual-approval
+    epic_id: null
+    base_branch: epic/7
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-06-04T07:48:11.807Z

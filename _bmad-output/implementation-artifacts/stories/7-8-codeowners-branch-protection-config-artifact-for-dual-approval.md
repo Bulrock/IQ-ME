@@ -1,7 +1,7 @@
 ---
 id: 7-8-codeowners-branch-protection-config-artifact-for-dual-approval
 title: "Story 7.8: CODEOWNERS + branch-protection-config artifact for dual-approval"
-status: ready-for-dev
+status: review
 ---
 
 # Story 7.8: CODEOWNERS + branch-protection-config artifact for dual-approval
@@ -24,16 +24,16 @@ so that **the dual-approval discipline is mechanical (not cultural) — even a m
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: CODEOWNERS maintainer co-ownership** (AC: 1, 4)
-  - [ ] Add `@Bulrock` co-owner to every non-EN path line (keep `@TBD-{ru,pl}-reviewer`); update header comment to reference branch-protection-config.md.
-- [ ] **Task 2: branch-protection-config.md settings doc** (AC: 2)
-  - [ ] Document the exact main-branch protection settings; mark the live YAML/JSON export PENDING (launch/Epic-10).
-- [ ] **Task 3: synthetic-PR regression-recovery playbook** (AC: 3)
-  - [ ] Document the pl/scoring/overview single-line synthetic-PR scenario + recovery steps.
-- [ ] **Task 4: tests** (AC: 5)
-  - [ ] CODEOWNERS dual-ownership per non-EN path; branch-protection-config.md required sections + playbook + PENDING marker.
-- [ ] **Task 5: regression gate** (AC: 5)
-  - [ ] `make test`/`make lint` (incl. lint-trust-artifacts) /`make build` green.
+- [x] **Task 1: CODEOWNERS maintainer co-ownership** (AC: 1, 4)
+  - [x] Add `@Bulrock` co-owner to every non-EN path line (keep `@TBD-{ru,pl}-reviewer`); update header comment to reference branch-protection-config.md.
+- [x] **Task 2: branch-protection-config.md settings doc** (AC: 2)
+  - [x] Document the exact main-branch protection settings; mark the live YAML/JSON export PENDING (launch/Epic-10).
+- [x] **Task 3: synthetic-PR regression-recovery playbook** (AC: 3)
+  - [x] Document the pl/scoring/overview single-line synthetic-PR scenario + recovery steps.
+- [x] **Task 4: tests** (AC: 5)
+  - [x] CODEOWNERS dual-ownership per non-EN path; branch-protection-config.md required sections + playbook + PENDING marker.
+- [x] **Task 5: regression gate** (AC: 5)
+  - [x] `make test`/`make lint` (incl. lint-trust-artifacts) /`make build` green.
 
 ## Dev Notes
 
@@ -68,4 +68,31 @@ so that **the dual-approval discipline is mechanical (not cultural) — even a m
 
 ### Completion Notes List
 
+- CODEOWNERS dual-ownership (@TBD-{ru,pl}-reviewer + @Bulrock co-owner) on all non-EN paths; @TBD handles retained (gated). branch-protection-config.md: full main-branch settings (require-PR, Code-Owners review, required status checks enumerated by job name, disable-force-push, no-bypass) + synthetic-PR playbook; live export marked PENDING. trust-artifacts 11/11 green. 1214 pass, lint+build exit 0.
+
 ### File List
+
+- .github/CODEOWNERS
+- docs/branch-protection-config.md
+- tests/scaffold/branch-protection-config.test.mjs
+
+## Specialist Self-Review
+
+## Specialist Self-Review — Story 7-8 (CODEOWNERS + branch-protection-config, infra-now)
+
+**Decisions made:**
+- **CODEOWNERS dual-ownership:** added `@Bulrock` as a trailing co-owner to every non-EN content-key path (`methodology/{ru,pl}/**`, `i18n/{ru,pl}/**`, `glossary/{ru,pl}.json`, `trails/{ru,pl}.json`, `crisis-resources/{ru,pl}.json`), keeping the gated `@TBD-{ru,pl}-reviewer` content owner. This is the dual-approval STRUCTURE (FR49). Did NOT replace the `@TBD-*` handles — they are gated on Gates 9c/9d and the CODEOWNERS/lint-trust-artifacts contract relies on them staying un-resolvable. Updated the header to reference the new doc + explain the co-owner.
+- **branch-protection-config.md:** documents the exact intended `main` settings — require-PR, require-review-from-Code-Owners, dismiss-stale, required status checks (enumerated by actual `pr-checks.yml` job name per lesson-2026-06-03-001, including the 7.5a/7.5b reading-level + parity jobs), require-conversation-resolution, disable-force-push, block-deletions, and **no-bypass (admins/maintainer not exempt)** — plus the dual-approval semantics explanation and the synthetic-PR regression-recovery playbook (single-line `pl/scoring/overview/index.md` PR blocked until both approve + recovery steps). The live rule export/screenshot is marked **PENDING** (launch/Epic-10) — not fabricated; no GitHub API called.
+
+**Cross-story compatibility:** verified the frozen `tests/scaffold/trust-artifacts.test.mjs` AC-5 stays green (11/11) — its `\s+@TBD-{lang}-reviewer` regex is not end-anchored, so appending `@Bulrock` keeps it matching. No cross-story frozen-test edit needed (no budget bump; doc/CODEOWNERS aren't class-A).
+
+**Test-review:** approved (cycle 0). Reviewer confirmed the AC-1 test parses CODEOWNERS per-line (keys on the exact path token, asserts both owners on THAT line — a wrong impl putting @Bulrock only on the `*` default would fail), and noted the doc test doesn't verify job-name enumeration (a looseness) — I enumerated the real job names anyway (lesson-2026-06-03-001).
+
+**Framework gotchas avoided:**
+- The required-status-checks doc assertion wants the literal phrase "required status checks"; my first draft said "Require status checks"/"required checks" → fixed the doc wording (the doc is mine, not frozen). Provenance: self-inflicted doc-wording, fixed directly.
+
+**Areas of uncertainty:**
+- A transient `lint-csp-source-coverage` aggregate-only failure appeared once during this story's gate run then cleared (2 consecutive clean full runs after; csp lint passes isolated + directly). Same class of concurrent-`make`-against-shared-tree flake noted in 7.6/7.5b — NOT caused by 7-8 (no CSP change). Re-flagged for a possible retro (audit coverage tests that spawn make/lint against the real tree under aggregate concurrency, like the design-system AC-6 fix in 7.5b).
+- GitHub's exact dual-approval enforcement (both vs either code-owner) is nuanced; the doc explains the mechanism (sole content-domain owner + no-bypass). The live synthetic-PR test at launch is the empirical confirmation.
+
+**Tested edge cases:** `tests/scaffold/branch-protection-config.test.mjs` (frozen) — CODEOWNERS dual-ownership per 6 non-EN paths, gated handles retained, doc settings (require-PR / Code-Owners-review / required-status-checks / disable-force-push / no-bypass), PENDING export marker, synthetic-PR playbook (pl/scoring/overview + dual-approval-blocked). Full suite 1214 pass / 0 fail (2 consecutive runs); make lint + build exit 0.

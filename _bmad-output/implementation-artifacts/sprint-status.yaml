@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-04 7-8-codeowners-branch-protection-config-artifact-for-dual-approval: ready-for-dev'
+last_updated: '2026-06-04 7-8-codeowners-branch-protection-config-artifact-for-dual-approval: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -130,7 +130,7 @@ development_status:
   7-5b-lint-translation-parity-full-coverage-graduation: review
   7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders: review
   7-7-ru-pl-crisis-resource-lists-hreflang-declarations: review
-  7-8-codeowners-branch-protection-config-artifact-for-dual-approval: ready-for-dev
+  7-8-codeowners-branch-protection-config-artifact-for-dual-approval: review
   epic-7-retrospective: optional
 
   # Bridge 7→8: 5 stories from 2 retros
