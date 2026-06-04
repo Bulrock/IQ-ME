@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: dbb17c073c3c7515a4628d5a6194e0046ce85134e7e8294edafd0b019943e995
+    sha256: 8311655b1a2c10fc29c24a8604de5ce6ca6752b6eb34e336e6875e7ee6eadce2
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T09:08:59.601Z
+    recorded_at: 2026-06-04T09:44:12.075Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 240603096651817b57b8db0661537d9c565c366d753f871c690960aacdac0041
+    sha256: 94794627a322731d16ee3ea62a98fa1afc3d713726f2d97bbfe5fda47f1bb9d4
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T09:21:05.465Z
-    recorded_by: state-commit-autorecord
-    story_id: bridge-9a-1-isolate-concurrency-sensitive-coverage
+    recorded_at: 2026-06-04T09:52:48.368Z
+    recorded_by: engineer
+    story_id: 8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1412,3 +1412,10 @@ entries:
     recorded_at: 2026-06-04T08:46:06.934Z
     recorded_by: test-author
     story_id: bridge-9a-1-isolate-concurrency-sensitive-coverage
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment.md
+    sha256: 73760c38c8fd4fc49b4c40644153dcf7f0aeef64790103cf5195fb694b2bd101
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T09:52:58.809Z
+    recorded_by: engineer
+    notes: story-8-1 spec authored (create-story)
