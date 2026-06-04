@@ -8,10 +8,10 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 60d617910b48e4bf666b4a6ce33b4a10b683a36e162479fd55f8675957d33ced
+    sha256: 147e8c2c82d21e1bf81edff6d03040b72a2b0abdab75f288ff3d9525745fafb3
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T09:08:27.848Z
-    recorded_by: engineer
+    recorded_at: 2026-06-04T09:17:23.735Z
+    recorded_by: auditor
     story_id: bridge-9a-1-isolate-concurrency-sensitive-coverage
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
@@ -1400,10 +1400,10 @@ entries:
     notes: story-7-8 frozen failing tests (CODEOWNERS dual-ownership + branch-protection-config.md settings + synthetic-PR playbook)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-9a-1-isolate-concurrency-sensitive-coverage.md
-    sha256: fe282ea8614985d8ee1f86f8d12667fc5aa7daa378be20d61806db559f099257
+    sha256: b269ab03a812b247f214b5c1c36de8af0f98ecc6c540972a4da5e0d3e1af9dd1
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T09:17:15.576Z
-    recorded_by: story-add-finding-autorecord
+    recorded_at: 2026-06-04T09:17:23.778Z
+    recorded_by: auditor
     story_id: bridge-9a-1-isolate-concurrency-sensitive-coverage
   - artefact_class: A
     file: tests/scaffold/lint-coverage-isolation.test.mjs

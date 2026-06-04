@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-04 bridge-9a-1-isolate-concurrency-sensitive-coverage: review'
+last_updated: '2026-06-04 bridge-9a-1-isolate-concurrency-sensitive-coverage: approved'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -153,7 +153,7 @@ development_status:
 
   # Bridge →9a: 1 story from 1 retro
   bridge-9a: in-progress
-  bridge-9a-1-isolate-concurrency-sensitive-coverage: review         # Isolate concurrency-sensitive coverage/lint tests to tmpdir
+  bridge-9a-1-isolate-concurrency-sensitive-coverage: approved       # Isolate concurrency-sensitive coverage/lint tests to tmpdir
   epic-9a: backlog
   9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log: backlog
   9a-2-icar-confirmation-arrival-licenses-md-reconciliation-slot-fulfillment: backlog

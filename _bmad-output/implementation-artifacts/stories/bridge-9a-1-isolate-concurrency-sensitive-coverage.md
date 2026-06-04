@@ -1,7 +1,7 @@
 ---
 id: bridge-9a-1-isolate-concurrency-sensitive-coverage
 title: "Story bridge-9a-1-isolate-concurrency-sensitive-coverage: Isolate concurrency-sensitive coverage/lint tests to tmpdir"
-status: review
+status: approved
 ---
 
 # Story bridge-9a-1-isolate-concurrency-sensitive-coverage: Isolate concurrency-sensitive coverage/lint tests to tmpdir
