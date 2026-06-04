@@ -99,3 +99,10 @@ so that **a parity failure in RU or PL is debuggable on its own and the simultan
 - Whether "missing = hard fail" is too strict for a future genuinely-partial locale (the 7.5b AC example shows "28/30 parity-green"). Current design fails on any missing page; under infra-now every locale is fully mirrored so this never bites. If a partial-locale workflow is ever wanted, missing could be downgraded to WARN while orphan/stale stay hard-fail — a future tuning point. Flagged for the auditor.
 
 **Tested edge cases:** `tests/unit/tools/lint-translation-parity-graduation.test.mjs` (frozen) — full-parity→pass+parity-green, missing→fail, orphan→fail, stale-hash→fail, malformed-hash→fail. All synthetic tmpdir fixtures via `IQME_METHODOLOGY_ROOT`.
+
+## Auditor Findings (round-1)
+
+### [info] Parity lint treats a missing non-EN page as a hard fail. Under infra-now every locale is fully mirrored so this never bites, but it would block a genuinely-partial future locale (the 7.5b AC example shows "28/30 parity-green").
+
+- **Category:** lint-policy
+- **Suggested bridge:** `If a partial-locale workflow is ever wanted, downgrade missing-page to WARN while keeping orphan + stale-hash as hard fails.`
