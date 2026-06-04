@@ -148,3 +148,10 @@ so that **the primary underserved audience (Russian- and Polish-speaking adults)
 - locale-loader: normalizeLocale primary-subtag + unsupported→en + junk input; resolveInitialLocale precedence (stored>nav>en); t/get agreement incl. bare-key literal; no-globals source invariant (tests/unit/i18n-harness.test.mjs).
 - language-switcher: render with current checked + zero setItem on init; not-in-session click → one setItem + reload; in-session click → no write/no reload + data-locale-switch-blocked + onBlockedAttempt; default-guard no-false-block (tests/unit/language-switcher.test.mjs).
 - Regression: all 992 node tests green; full `make lint` exit 0 (incl. new lint-i18n-coverage + localStorage-consent allowlist); `make build` byte-stable.
+
+## Auditor Findings (round-1)
+
+### [info] Playwright spec tests/playwright/i18n-locale-switch.spec.mjs was authored, frozen, and CI-wired (i18n-locale-switch job + make test-i18n-locale) but not executed locally (chromium download cost; repo convention excludes Playwright from make test — consistent with 6.4 AC-11). Browser-level reload + data-locale flip is unverified outside CI.
+
+- **Category:** test-coverage
+- **Suggested bridge:** `Confirm the i18n-locale-switch Playwright job passes on its first CI run (browser-level reload + data-locale attribute flip + persist).`
