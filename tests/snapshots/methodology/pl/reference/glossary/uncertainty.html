@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Uncertainty — IQ-ME methodology v0.1.0</title>
+<meta name="iqme-title" content="Uncertainty">
+<meta name="iqme-version" content="v0.1.0">
+<meta name="iqme-doi" content="">
+<meta name="iqme-last-reviewed" content="2026-06-03">
+<meta name="iqme-reviewer" content="TBD">
+<meta name="iqme-reviewer-handle" content="@TBD-pl-reviewer">
+<meta name="iqme-lang" content="pl">
+<meta name="iqme-url" content="/methodology/v0.1.0/pl/reference/glossary/uncertainty/">
+<link rel="alternate" hreflang="en" href="/methodology/v0.1.0/en/reference/glossary/uncertainty/">
+<link rel="alternate" hreflang="ru" href="/methodology/v0.1.0/ru/reference/glossary/uncertainty/">
+<link rel="alternate" hreflang="pl" href="/methodology/v0.1.0/pl/reference/glossary/uncertainty/">
+<link rel="stylesheet" href="/src/css/primitives.css">
+<link rel="stylesheet" href="/src/css/semantic.css">
+<link rel="stylesheet" href="/src/css/components/masthead.css">
+<link rel="stylesheet" href="/src/css/components/cite-this-page-widget.css">
+<link rel="stylesheet" href="/src/css/components/stale-translation-hatnote.css">
+<script type="module" src="/src/assessment/cite-this-page.js" defer></script>
+</head>
+<body data-lang="pl" data-translation-status="in-progress">
+<header class="methodology-masthead">
+<h1 class="methodology-masthead__title">Uncertainty</h1>
+<p class="methodology-masthead__version">v0.1.0</p>
+<p class="methodology-masthead__doi" data-doi-pending>DOI: pending v1.0.0 release</p>
+<p class="methodology-masthead__last-reviewed">Last reviewed: <time datetime="2026-06-03">2026-06-03</time></p>
+<p class="methodology-masthead__reviewer">Reviewer: TBD (@TBD-pl-reviewer)</p>
+</header>
+<aside class="stale-translation-hatnote" role="note">
+<p>This page may be out of date relative to its English source. <a href="/methodology/v0.1.0/en/../pl/reference/glossary/uncertainty/">View source EN page</a>.</p>
+</aside>
+<main>
+<p>Uncertainty in IQ-ME is the band around a score that captures what a single 16-item session can and cannot pin down.</p><p>The band combines two sources. The first is test noise, summarised by the SEM. The second is norming-sample noise, summarised by <code>SE_norming</code>. The full formula combines them as a root-sum-square: <code>SE_total = sqrt(SEM² + SE_norming²)</code>. The displayed band uses <code>SE_total</code> projected onto the IQ-scale.</p><p>For the v1 build of IQ-ME, <code>SE_norming</code> is set to zero. This is a placeholder pending psychometrician sign-off on the norming-sample SE values. The current band therefore reflects test noise only, not norming-sample noise. The band is narrower than the true band by an amount the project cannot yet quantify. The uncertainty page in the scoring section makes this caveat explicit; the page will be updated when the norming SE is finalised.</p><p>A score is never a point; it is a region. The band is the honest signal. A test-taker who treats the displayed number as exact is over-claiming the score.</p>
+</main>
+<aside class="cite-this-page-affordance"><div data-cite-widget></div></aside>
+</body>
+</html>

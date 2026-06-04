@@ -5,7 +5,7 @@
 
 .DEFAULT_GOAL := help
 
-.PHONY: help test test-network-trace test-full-slice test-byte-stable lint build build-methodology build-difficulty-bands dev clean snapshot-update test-contract
+.PHONY: help test test-network-trace test-full-slice test-byte-stable test-i18n-locale lint build build-methodology build-difficulty-bands dev clean snapshot-update test-contract
 
 help: ## list documented Make targets
 	@grep -hE '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) \
@@ -23,6 +23,9 @@ test-full-slice: build-methodology ## run Playwright full-slice spec (Story 3-7;
 test-byte-stable: ## run Playwright byte-stable build spec (Story 4.2; runs `make clean && make build` twice and compares dist/ hashes)
 	npx --yes playwright test tests/playwright/byte-stable.spec.mjs
 
+test-i18n-locale: ## run Playwright i18n locale-switch spec (Story 7.1; EN/RU/PL switcher + persist + reload)
+	npx --yes playwright test tests/playwright/i18n-locale-switch.spec.mjs
+
 test-contract: ## run contract tests only (tests/contract/**/*.spec.mjs)
 	node --test 'tests/contract/**/*.spec.mjs'
 
@@ -38,9 +41,10 @@ lint: ## run all registered lints (negative assertions + budget + trust artifact
 	node tools/lint-claims-manifest.mjs --strict
 	node tools/lint-frontmatter.mjs
 	node tools/lint-glossary.mjs
-	node tools/lint-reading-level.mjs
+	node tools/lint-reading-level.mjs --include-i18n
 	node tools/lint-license-provenance.mjs
 	node tools/lint-translation-parity.mjs
+	node tools/lint-i18n-coverage.mjs
 	node tools/lint-csp-source.mjs
 	node tools/lint-css-source-co-equal.mjs
 	node tools/lint-fr36-protection.mjs

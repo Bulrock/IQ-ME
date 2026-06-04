@@ -82,6 +82,18 @@ jobs:
           node-version: "22"
       - run: node tools/lint-no-localStorage-without-consent.mjs
 
+  lint-i18n-coverage:
+    name: lint-i18n-coverage
+    runs-on: ubuntu-latest
+    # Story 7.1 — every get()/t() key resolves to the EN bundle + no hardcoded
+    # prose in textContent (architecture line 838).
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-i18n-coverage.mjs
+
   lint-cognitive-load-budget:
     name: lint-cognitive-load-budget
     runs-on: ubuntu-latest
@@ -176,6 +188,19 @@ jobs:
       - run: npx --yes playwright install --with-deps chromium
       - run: make build-methodology
       - run: npx --yes playwright test tests/playwright/co-equal-triplet-computed-style.spec.mjs
+
+  i18n-locale-switch:
+    name: i18n-locale-switch
+    runs-on: ubuntu-latest
+    # Story 7.1 — language-switcher EN/RU/PL end-to-end (DOM, persist+reload,
+    # empty-storage first render, active-bundle resolution).
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: npx --yes playwright test tests/playwright/i18n-locale-switch.spec.mjs
 
   co-equal-triplet-css-source:
     name: co-equal-triplet-css-source
@@ -289,15 +314,17 @@ jobs:
   lint-reading-level:
     name: lint-reading-level
     runs-on: ubuntu-latest
-    # Activated in Story 4.4 (EN only — Flesch-Kincaid grade ≤ 12 per NFR28).
-    # Epic 7 extends to RU (Oborneva) + PL (Pisarek/Jasnopis) calibrations;
-    # RU/PL pages currently emit a single per-locale deferred WARN.
+    # Activated in Story 4.4 (EN Flesch-Kincaid ≤ 12 per NFR28). Story 7.5a
+    # added RU (Oborneva) + PL (Pisarek/Jasnopis) calibrations + NFR31 i18n
+    # char caps (RU 180 / PL 160) via --include-i18n. Enforcement is gated on
+    # translationStatus: in-progress (placeholder) RU/PL content is skipped
+    # with a per-locale WARN; it activates when Gate-9c/9d real prose lands.
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: node tools/lint-reading-level.mjs
+      - run: node tools/lint-reading-level.mjs --include-i18n
 
   lint-license-provenance:
     name: lint-license-provenance

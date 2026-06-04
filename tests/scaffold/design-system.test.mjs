@@ -7,9 +7,10 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, mkdtempSync, rmSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { join } from "node:path";
+import { tmpdir } from "node:os";
 
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const PRIMITIVES = join(REPO_ROOT, "src", "css", "primitives.css");
@@ -188,11 +189,24 @@ test("AC-6: Makefile declares snapshot-update target", () => {
 });
 
 test("AC-6: `make snapshot-update` is idempotent (two runs yield byte-identical tokens.hash.json)", () => {
-  const r1 = spawnSync("make", ["snapshot-update"], { cwd: REPO_ROOT, encoding: "utf8" });
-  assert.equal(r1.status, 0, `first make snapshot-update failed: ${r1.stderr}`);
-  const first = readFileSync(TOKENS_HASH_JSON, "utf8");
-  const r2 = spawnSync("make", ["snapshot-update"], { cwd: REPO_ROOT, encoding: "utf8" });
-  assert.equal(r2.status, 0, `second make snapshot-update failed: ${r2.stderr}`);
-  const second = readFileSync(TOKENS_HASH_JSON, "utf8");
-  assert.equal(first, second, `tokens.hash.json drifted between two runs:\nfirst:\n${first}\nsecond:\n${second}`);
+  // Redirect snapshot-update to a throwaway dir via IQME_SNAPSHOT_DIR so this
+  // test never mutates the real tests/snapshots/ tree. Story 7.5b: once Epic-7
+  // landed RU+PL (105 methodology snapshots), regenerating the shared tree here
+  // raced — concurrently in the aggregate run — with methodology-snapshots.test.mjs
+  // reading it (transient missing-file during the clean+rewrite window). Writing
+  // to a tmpdir removes the shared-state race while preserving the idempotency check.
+  const snapDir = mkdtempSync(join(tmpdir(), "ds-snap-idem-"));
+  const env = { ...process.env, IQME_SNAPSHOT_DIR: snapDir };
+  try {
+    const tokensPath = join(snapDir, "tokens.hash.json");
+    const r1 = spawnSync("make", ["snapshot-update"], { cwd: REPO_ROOT, encoding: "utf8", env });
+    assert.equal(r1.status, 0, `first make snapshot-update failed: ${r1.stderr}`);
+    const first = readFileSync(tokensPath, "utf8");
+    const r2 = spawnSync("make", ["snapshot-update"], { cwd: REPO_ROOT, encoding: "utf8", env });
+    assert.equal(r2.status, 0, `second make snapshot-update failed: ${r2.stderr}`);
+    const second = readFileSync(tokensPath, "utf8");
+    assert.equal(first, second, `tokens.hash.json drifted between two runs:\nfirst:\n${first}\nsecond:\n${second}`);
+  } finally {
+    rmSync(snapDir, { recursive: true, force: true });
+  }
 });

@@ -1,0 +1,94 @@
+{
+  "_meta": {
+    "locale": "ru",
+    "translationStatus": "in-progress",
+    "reviewer": "TBD",
+    "reviewerHandle": "@TBD-ru-reviewer",
+    "sourceHashEN": "a496c7804ad1fcb028ca531abd1cf6c6cea1deed04b56fee558f3e21ac92604b"
+  },
+  "chrome": {
+    "titleAppDefault": "IQ-ME — a fluid-reasoning screener",
+    "appName": "IQ-ME",
+    "errorFallbackMessage": "Something went wrong loading the page. Try reloading.",
+    "languageSwitcherPlaceholderEn": "EN",
+    "languageSwitcherLegend": "Language",
+    "footerMethodologyLink": "Read the methodology",
+    "footerDiscussionsLink": "Discussions",
+    "footerCitationLink": "Cite",
+    "themeToggleLegend": "Color theme",
+    "themeSystemLabel": "System",
+    "themeLightLabel": "Light",
+    "themeDarkLabel": "Dark"
+  },
+  "landing": {
+    "headline": "IQ-ME",
+    "intro": "IQ-ME is a fluid-reasoning screener that uses 16 visual matrix-reasoning items (ICAR-MR), takes about 25 minutes, runs entirely in your browser, and stores nothing on a server. It is not a clinical assessment, a credential, or a placement test — it is one calibrated screen of one narrow ability.",
+    "startTestButton": "Start the test",
+    "methodologyLink": "Read the methodology"
+  },
+  "consent": {
+    "headline": "Before you begin",
+    "measuresWhat": "This instrument measures fluid reasoning — your ability to identify visual-spatial patterns under no time pressure. It does not measure verbal reasoning, processing speed, working memory in isolation, or any clinical condition.",
+    "validityEnvelope": "IQ-ME is valid as a screener for fluid reasoning in adults who can complete a 16-item visual session unimpaired by acute distress, sleep deprivation, or substances. It is not valid as a diagnostic, as a measure under time pressure, or as a stand-in for a multi-domain IQ battery.",
+    "visuospatialDisclosure": "The matrix items are visual by construction. Screen-reader users cannot take this test equivalently — there is no synthetic alt-text that captures the patterns honestly. We disclose this rather than pretend otherwise.",
+    "continueButton": "Continue",
+    "notToday": "Not today"
+  },
+  "itemRunner": {
+    "headingTemplate": "Item {N} of {total}",
+    "progressTemplate": "Item {N} of {total}",
+    "optionsLegend": "Select the option that best completes the pattern",
+    "previousButton": "Previous",
+    "nextButton": "Next",
+    "submitButton": "Submit",
+    "fetchErrorMessage": "Could not load the item set. Try reloading.",
+    "bailButton": "End the test early",
+    "bailPanelHeading": "End the test early?",
+    "bailExplanation": "An incomplete test cannot produce a meaningful score.",
+    "bailDiscardButton": "Discard responses",
+    "bailContinueButton": "Continue"
+  },
+  "result": {
+    "scoreHeading": "Your result",
+    "prerevealHeading": "Your result is ready.",
+    "prerevealSubcopy": "It is one estimate with a range around it.",
+    "showMeButton": "Show me",
+    "notYetButton": "Not yet",
+    "caveat": "This screener is not a clinical assessment, not a credential, not an educational-placement tool, and not a basis for employment or legal decisions.",
+    "percentileAriaTemplate": "Your percentile, {N}.",
+    "anchorAriaTemplate": "Your IQ-scale equivalent, {N}.",
+    "bandAriaTemplate": "Uncertainty band, 95 percent confidence.",
+    "bandTemplate": "±{N}",
+    "difficultySentenceTemplate": "Of the {hardN} hard, {medN} medium, and {easyN} easy items, you answered {hardCorrect} / {hardN}, {medCorrect} / {medN}, and {easyCorrect} / {easyN} correctly.",
+    "difficultySentenceAria": "Per-difficulty breakdown.",
+    "fetchErrorMessage": "Could not load the item set. Try reloading.",
+    "saveButton": "Save my result",
+    "saveButtonSaved": "Result saved",
+    "retestNote": "This screener draws from a small pool of matrix items. If you take it again soon, your second score will be correlated with this one rather than an independent estimate — you will partly be remembering these patterns, not re-measuring your reasoning from scratch. We enforce no technical cooldown: that would be a false guarantee in a browser-only app. We simply ask you to read this and decide honestly whether a quick retest tells you anything new.",
+    "retestNoteLinkLabel": "Read about retest effects"
+  },
+  "localeSwitchBlockerHint": {
+    "message": "Switching language during a test changes what the test measures. Finish this session in your current language, or end early and restart in a different language.",
+    "bailLinkLabel": "End the test early",
+    "validityLinkLabel": "Why language is locked"
+  },
+  "methodology": {
+    "masthead": {
+      "translatedNoneYet": "Translated: none yet"
+    },
+    "translationInProgress": {
+      "heading": "Translation in progress",
+      "cta": "Help translate this page — see CONTRIBUTING.md"
+    }
+  },
+  "diagrams": {
+    "validityEnvelope": {
+      "title": "IQ-ME validity envelope",
+      "desc": "Three population zones labelled valid for, partial validity, and not valid for. The diagram shows IQ-ME applies as a screener of fluid reasoning in adults who can complete a 16-item visual session unimpaired; partial validity for users with mild fatigue or transient distraction; not valid for clinical diagnosis, time-pressured assessment, or stand-in multi-domain IQ batteries."
+    },
+    "eapShrinkage": {
+      "title": "EAP shrinkage at the tails",
+      "desc": "An EAP point estimate sits between a raw maximum-likelihood theta and the standard-normal prior centre at theta zero. At the tails, the prior pulls the estimate toward zero — visible shrinkage. Near the centre, the prior has little effect."
+    }
+  }
+}

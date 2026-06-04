@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 68575af3b2f92425491d5e001d2547870e739d2b45e55dc668c21d3f0f5cfaa1
+    sha256: 2864afd0fa8e3372577a14a55d2c87f9f811ed90c92907b7b02fbee3e500ca32
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:41:25.203Z
+    recorded_at: 2026-06-04T07:53:26.903Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: b3433eb4159f9dfbccf854d9b8ed95fafed11c75b15ae5c318a1925fb769cdff
+    sha256: 5c8fdcc3c4bfb338962b8fd1f5a00ca801635806efdcb1d1a7b7a95b68363a84
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:53:04.510Z
+    recorded_at: 2026-06-04T07:53:19.953Z
     recorded_by: engineer
-    story_id: bridge-7-8
+    story_id: 7-8-codeowners-branch-protection-config-artifact-for-dual-approval
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -93,12 +93,12 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: b07c868bcfd387c1f596828a4b1f7511c9df6c3f02b0d89177fa9a39807162a2
+    sha256: 0c620e75a35a851b64451f4c318c18bf85c1e71492ddf9e8e03facf2d8b3ede8
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:39:53.677Z
+    recorded_at: 2026-06-03T19:30:03.366Z
     recorded_by: engineer
-    story_id: 6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list
-    notes: "bridge-7-8-5: post-edit re-record after re-pinning app-modules-bytes ceiling 49152→48128"
+    story_id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
+    notes: "story-7-6: app-modules-bytes pin 57344→59392 (tail-scenes-url.js + result.js locale fetch)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
     sha256: 03af01b6c89b47714c6fb83be9b0d3d9aaa6eeba107c2bba32d9ecc508bf63a4
@@ -186,12 +186,12 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/design-system.test.mjs
-    sha256: 92c271535c2eddf3fdfa1ec846508992296b3772c67c792fc5a95aecc43c0c5d
+    sha256: 66c551e491145e9fcfc678ed4b7d2841a0b22b680cc9955a75ddc81da244e550
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T09:48:43.982Z
-    recorded_by: test-author
-    story_id: 1-10-design-system-foundation-primitives-css-semantic-css-dark-mode-overrides-tokens-spec-ts
-    notes: story-1-10 frozen failing tests
+    recorded_at: 2026-06-03T17:04:38.985Z
+    recorded_by: engineer
+    story_id: 7-5b-lint-translation-parity-full-coverage-graduation
+    notes: "story-7-5b: graduated parity assertions + design-system AC-6 snapshot-update race fix (tmpdir redirect)"
   - artefact_class: A
     file: _bmad-output/_tds/sprint-status-extension.yaml
     sha256: a3ae5717dd9ff59561b24d0dd0cf4d010f79ccf6e5b043b8f80570f0bd974592
@@ -747,12 +747,12 @@ entries:
     notes: Story 4-4 impl-phase frozen-test fixes (engineer commit 3306335) + CI matrix activations
   - artefact_class: A
     file: tests/unit/tools/lint-reading-level.test.mjs
-    sha256: 696633e166ef2e953453251653e77cfbdb03e865df8ad2e68bcfabac9811e640
+    sha256: 0343e8b0b6a3361c8ebb47be497447542ba07270e0e0021fe4284f8eea70225d
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T08:02:31.633Z
-    recorded_by: test-author
-    story_id: 4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment
-    notes: Story 4-8 red-phase failing tests + SPA fragment fixture
+    recorded_at: 2026-06-03T16:53:01.448Z
+    recorded_by: engineer
+    story_id: 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
+    notes: "story-7-5a: RU/PL page graded + i18n char-cap assertions replace deferred-Epic-7 WARN"
   - artefact_class: A
     file: tests/scaffold/lint-glossary-coverage.test.mjs
     sha256: 15ba363d794050afe6863452684abb5741363389753a84a4e12d39387f57c65a
@@ -822,20 +822,20 @@ entries:
     story_id: 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
   - artefact_class: A
     file: tests/unit/tools/lint-translation-parity.test.mjs
-    sha256: 1f2e3db1a84690e3c6569939ac78f41e13a94c4c0cbc96adb21abda60c8cfcce
+    sha256: 258b4af247e90975f8eb20f6771c90f4b4eb7b2e4f8dab4ba3dbf4dbe085abcf
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:45:13.436Z
-    recorded_by: test-author
-    story_id: 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
-    notes: "Story 4-7 test-author Phase A: failing tests for lint-translation-parity stub + hatnote builder extensions"
+    recorded_at: 2026-06-03T17:04:38.984Z
+    recorded_by: engineer
+    story_id: 7-5b-lint-translation-parity-full-coverage-graduation
+    notes: "story-7-5b: graduated parity assertions + design-system AC-6 snapshot-update race fix (tmpdir redirect)"
   - artefact_class: A
     file: tests/scaffold/lint-translation-parity-coverage.test.mjs
-    sha256: 5a31d6e4223e00a2547c487bb6e0dc50c78ee2a2bfdb7b296e74efc5e71fe4a4
+    sha256: 817e37a84069058150f939ba68f3b5699b48c8b88312d076e96a65eef9cd3265
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:45:13.436Z
-    recorded_by: test-author
-    story_id: 4-7-stale-translation-hatnote-component-lint-translation-parity-no-op-stub
-    notes: "Story 4-7 test-author Phase A: failing tests for lint-translation-parity stub + hatnote builder extensions"
+    recorded_at: 2026-06-03T17:04:38.985Z
+    recorded_by: engineer
+    story_id: 7-5b-lint-translation-parity-full-coverage-graduation
+    notes: "story-7-5b: graduated parity assertions + design-system AC-6 snapshot-update race fix (tmpdir redirect)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/4-8-exit-criterion-verification-linters-exercised-against-corpus-spa-fragment.md
     sha256: 7642a7bcb363d1969db9f6dbb3ff2b4e0ce6f17a446a2c87d264fb9178f00312
@@ -1253,3 +1253,154 @@ entries:
     recorded_at: 2026-06-03T14:53:04.313Z
     recorded_by: engineer
     story_id: bridge-7-8-5-post-epic-app-modules
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-1-i18n-harness-locale-loading-language-switcher.md
+    sha256: a83f1b23f6edb6a26c153d86ca0d2206e170406a7910102225d16d3f7b8e989e
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T08:06:40.068Z
+    recorded_by: story-add-finding-autorecord
+    story_id: 7-1-i18n-harness-locale-loading-language-switcher
+  - artefact_class: A
+    file: tests/unit/i18n-harness.test.mjs
+    sha256: b4f291c4c5d9a468181e7661cbca793311fb35aa3a6091a60fd216ec8044153e
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T15:25:22.993Z
+    recorded_by: test-author
+    story_id: 7-1-i18n-harness-locale-loading-language-switcher
+    notes: story-7-1 frozen failing tests (i18n harness + language-switcher + 3-locale Playwright)
+  - artefact_class: A
+    file: tests/unit/language-switcher.test.mjs
+    sha256: ae6cded39107625e6c2a55f012c042297c298605530e8b7047b25f7f38956b01
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T15:26:12.402Z
+    recorded_by: test-author
+    story_id: 7-1-i18n-harness-locale-loading-language-switcher
+    notes: "story-7-1 test-review fix: complete document stub (createElement+listeners)"
+  - artefact_class: A
+    file: tests/playwright/i18n-locale-switch.spec.mjs
+    sha256: 817c32b8720ee950dab3eab358e656152290d641eb2a2212124a7c256d10ca11
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T15:25:22.993Z
+    recorded_by: test-author
+    story_id: 7-1-i18n-harness-locale-loading-language-switcher
+    notes: story-7-1 frozen failing tests (i18n harness + language-switcher + 3-locale Playwright)
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-2-locale-switch-blocker-hint-fr8-enforcement.md
+    sha256: 7e0830d9d70ffcc9e58e30a03272de14b32747358c94e9915b9b59f3977a8e91
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T15:48:40.758Z
+    recorded_by: engineer
+    story_id: 7-2-locale-switch-blocker-hint-fr8-enforcement
+  - artefact_class: A
+    file: tests/unit/locale-switch-blocker-hint.test.mjs
+    sha256: c51c22b8b5738f61b81cfe0d6ab64e471d978d0ed0217868c709990aeaf92a20
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T15:44:41.449Z
+    recorded_by: test-author
+    story_id: 7-2-locale-switch-blocker-hint-fr8-enforcement
+    notes: story-7-2 frozen failing tests (locale-switch-blocker-hint)
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-3-full-ru-methodology-corpus-translation-30-pages.md
+    sha256: 9ffdc5b8d7057405a88ccc792e8f641924a88e30f74b8286c1653f8f6e1521f2
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T16:27:19.529Z
+    recorded_by: engineer
+    story_id: 7-3-full-ru-methodology-corpus-translation-30-pages
+  - artefact_class: A
+    file: tests/unit/tools/translation-mirror-ru.test.mjs
+    sha256: 133c9cc7d01c033094d6ab999e0d4e90d7dede2e3f5a42e3db0a9a47644d82d5
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T16:10:05.987Z
+    recorded_by: test-author
+    story_id: 7-3-full-ru-methodology-corpus-translation-30-pages
+    notes: story-7-3 frozen failing tests (RU methodology mirror parity AC-4)
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-4-full-pl-methodology-corpus-translation-30-pages.md
+    sha256: 45d29fe5d8bfa8bdc7de0b91825b7e855aa76f5abbf96116155a797a2950e97f
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T16:34:49.524Z
+    recorded_by: engineer
+    story_id: 7-4-full-pl-methodology-corpus-translation-30-pages
+  - artefact_class: A
+    file: tests/unit/tools/translation-mirror-pl.test.mjs
+    sha256: c9d39cffc6a96593da4da69830928fe956132a28b196fa1bcb49430442b654f5
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T16:31:20.683Z
+    recorded_by: test-author
+    story_id: 7-4-full-pl-methodology-corpus-translation-30-pages
+    notes: story-7-4 frozen failing tests (PL methodology mirror parity AC-4)
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis.md
+    sha256: 822206aac5addee6d0a35e3f5478d2efcd42733e26ff9c8a820f7376aaf0b523
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T08:06:40.068Z
+    recorded_by: story-add-finding-autorecord
+    story_id: 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
+  - artefact_class: A
+    file: tests/unit/tools/lint-reading-level-calibration.test.mjs
+    sha256: 6e67b0e7f26816cf79330de8f4e441de5190e9d3ead7593a4ddf156d29de5ecf
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T16:43:14.784Z
+    recorded_by: test-author
+    story_id: 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
+    notes: story-7-5a frozen failing tests (RU Oborneva + PL Pisarek/Jasnopis calibration + translationStatus gating + i18n caps)
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-5b-lint-translation-parity-full-coverage-graduation.md
+    sha256: a1bbcc711fce84c19a86ed116913724f57706cb6703e419db478af071a3b5048
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T08:06:40.069Z
+    recorded_by: story-add-finding-autorecord
+    story_id: 7-5b-lint-translation-parity-full-coverage-graduation
+  - artefact_class: A
+    file: tests/unit/tools/lint-translation-parity-graduation.test.mjs
+    sha256: 433c78b8a732285f769e4f399a46f5b49f7b3857b8c6658f589ad65015f2984f
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T16:56:46.143Z
+    recorded_by: test-author
+    story_id: 7-5b-lint-translation-parity-full-coverage-graduation
+    notes: "story-7-5b frozen failing tests (full-coverage parity: missing/orphan/stale + parity-green summary)"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders.md
+    sha256: 3e37884169ac27329a5b3624f1ce81bd3d2aa9b7835113ddc23ae8ebaf4f612b
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T08:06:40.069Z
+    recorded_by: story-add-finding-autorecord
+    story_id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
+  - artefact_class: A
+    file: tests/unit/tail-scenes-i18n.test.mjs
+    sha256: da44027bb351626e8617eb7cc4a3f787bc791db1e69cac3642e9485db3976d7e
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-03T19:26:54.160Z
+    recorded_by: test-author
+    story_id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
+    notes: "story-7-6 tests revised (cycle 1): behavioral tailScenesUrl helper + fetch-coupling closes the AC-2 dead-string gap"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-7-ru-pl-crisis-resource-lists-hreflang-declarations.md
+    sha256: fefc7326c24995f43f28d33e9a45d1e3917aec07e03b30c6d8e9604343ab8304
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T08:06:40.069Z
+    recorded_by: story-add-finding-autorecord
+    story_id: 7-7-ru-pl-crisis-resource-lists-hreflang-declarations
+  - artefact_class: A
+    file: tests/unit/crisis-resources-hreflang.test.mjs
+    sha256: 8ba3f07a9e79df8bf313f6c71baaf4e2467bea003338e3e12550d8241886bcf0
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T07:41:51.296Z
+    recorded_by: test-author
+    story_id: 7-7-ru-pl-crisis-resource-lists-hreflang-declarations
+    notes: story-7-7 frozen failing tests (RU/PL crisis placeholders no-fabricated-tel + crisisResourcesUrl FR20 no-EN-fallback + hreflang)
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/7-8-codeowners-branch-protection-config-artifact-for-dual-approval.md
+    sha256: f43a76ae6d36a50c3dc40924af603dfb5049af65a587d82703a1171de09ed218
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T07:53:19.998Z
+    recorded_by: engineer
+    story_id: 7-8-codeowners-branch-protection-config-artifact-for-dual-approval
+  - artefact_class: A
+    file: tests/scaffold/branch-protection-config.test.mjs
+    sha256: 5d1966ff439257166b2e91427671acb7383e030979b64ecf4a1909df36411ced
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T07:49:37.364Z
+    recorded_by: test-author
+    story_id: 7-8-codeowners-branch-protection-config-artifact-for-dual-approval
+    notes: story-7-8 frozen failing tests (CODEOWNERS dual-ownership + branch-protection-config.md settings + synthetic-PR playbook)

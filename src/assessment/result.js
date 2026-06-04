@@ -6,6 +6,8 @@ import { selectSession } from "./item-selection.js";
 import { selectTailScene } from "./tail-scene-router.js";
 import { saveResult, isSaved } from "./save-result.js";
 import { escapeAttr as E, fmt as F } from "./html-util.js";
+import { tailScenesUrl } from "./tail-scenes-url.js";
+import { crisisResourcesUrl } from "./crisis-resources-url.js";
 
 const CV = "v0.1.0";
 const SS = 16;
@@ -127,16 +129,23 @@ export async function render(rootEl, strings) {
   if (m) { detach(); m = null; }
   rs.resetRevealStage();
   let pool, bands = null, tailScenes = null;
+  const locale = state.getState().locale || "en";
   try {
     const [pr, br, tr] = await Promise.all([
       fetch("/src/items/item-parameters.json"),
       fetch("/src/items/item-difficulty-bands.json"),
-      fetch("/src/content/i18n/en/tail-scenes.json"),
+      fetch(tailScenesUrl(locale)),
     ]);
     if (!pr || !pr.ok) throw new Error("fetch failed");
     pool = await pr.json();
     if (br && br.ok) bands = await br.json();
-    if (tr && tr.ok) tailScenes = await tr.json();
+    if (tr && tr.ok) {
+      tailScenes = await tr.json();
+    } else if (locale !== "en") {
+      // Active-locale tail-scenes missing → fall back to the EN file.
+      const enTr = await fetch(tailScenesUrl("en"));
+      if (enTr && enTr.ok) tailScenes = await enTr.json();
+    }
   } catch { renderErrorFallback(rootEl, strings); return; }
   const score = scoreSession({
     responses: state.getState().responses.map((x) => x.response),
@@ -148,7 +157,9 @@ export async function render(rootEl, strings) {
   let crisis = null;
   if (variant === "bottom-decile") {
     try {
-      const cr = await fetch("/src/content/crisis-resources/en.json");
+      // FR20: load the active locale's crisis list; NO English fallback for
+      // RU/PL sessions (a distressed non-EN user must not get an EN-only list).
+      const cr = await fetch(crisisResourcesUrl(locale));
       if (cr && cr.ok) crisis = await cr.json();
     } catch {}
   }

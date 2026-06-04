@@ -1,0 +1,25 @@
+{
+  "_doc": "Story 7.7 (FR20) — RU crisis-resource list. PENDING placeholder awaiting the Gate-9c reviewer-of-record's curated, vetted Russian-language list. Per the Epic-7 infra-now decision this file ships honest placeholders that do NOT fabricate specific national hotline numbers (a wrong number is catastrophic for a distressed user) — it points to real internationally-recognized crisis-line directories the user can navigate to their own country/language, plus an explicit pending-vetting entry. NOT clinically vetted. The reviewer-of-record replaces these entries with the curated RU list at Gate-9c close; clinicalRegisterReviewed for tail-scenes and the CODEOWNERS handle flip at the same gate.",
+  "locale": "ru",
+  "lastUpdated": "2026-06-04",
+  "resources": [
+    {
+      "name": "Find A Helpline — international crisis-line directory",
+      "url": "https://findahelpline.com/",
+      "description": "Free, confidential crisis support lines searchable by country and language, including Russian-speaking regions. Interim resource while the curated Russian list is pending reviewer-of-record vetting (Gate 9c).",
+      "lastVerified": "2026-06-04"
+    },
+    {
+      "name": "IASP — international crisis-centre directory",
+      "url": "https://www.iasp.info/resources/Crisis_Centres/",
+      "description": "The International Association for Suicide Prevention's directory of crisis centres worldwide. Interim resource pending the curated Russian list.",
+      "lastVerified": "2026-06-04"
+    },
+    {
+      "name": "Russian-language crisis resources — pending reviewer-of-record vetting (Gate 9c)",
+      "url": "https://github.com/Bulrock/IQ-ME/blob/main/docs/launch-readiness/ru-translator-signoff.md",
+      "description": "The curated, reviewer-of-record-vetted Russian-language crisis-resource list is in progress (Gate 9c). Until it lands, please use the international directories above or contact your local emergency number.",
+      "lastVerified": "2026-06-04"
+    }
+  ]
+}

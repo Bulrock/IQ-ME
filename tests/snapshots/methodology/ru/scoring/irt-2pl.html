@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The IRT 2-parameter logistic model — IQ-ME methodology v0.1.0</title>
+<meta name="iqme-title" content="The IRT 2-parameter logistic model">
+<meta name="iqme-version" content="v0.1.0">
+<meta name="iqme-doi" content="">
+<meta name="iqme-last-reviewed" content="2026-06-03">
+<meta name="iqme-reviewer" content="TBD">
+<meta name="iqme-reviewer-handle" content="@TBD-ru-reviewer">
+<meta name="iqme-lang" content="ru">
+<meta name="iqme-url" content="/methodology/v0.1.0/ru/scoring/irt-2pl/">
+<link rel="alternate" hreflang="en" href="/methodology/v0.1.0/en/scoring/irt-2pl/">
+<link rel="alternate" hreflang="ru" href="/methodology/v0.1.0/ru/scoring/irt-2pl/">
+<link rel="alternate" hreflang="pl" href="/methodology/v0.1.0/pl/scoring/irt-2pl/">
+<link rel="stylesheet" href="/src/css/primitives.css">
+<link rel="stylesheet" href="/src/css/semantic.css">
+<link rel="stylesheet" href="/src/css/components/masthead.css">
+<link rel="stylesheet" href="/src/css/components/cite-this-page-widget.css">
+<link rel="stylesheet" href="/src/css/components/stale-translation-hatnote.css">
+<script type="module" src="/src/assessment/cite-this-page.js" defer></script>
+</head>
+<body data-lang="ru" data-translation-status="in-progress">
+<header class="methodology-masthead">
+<h1 class="methodology-masthead__title">The IRT 2-parameter logistic model</h1>
+<p class="methodology-masthead__version">v0.1.0</p>
+<p class="methodology-masthead__doi" data-doi-pending>DOI: pending v1.0.0 release</p>
+<p class="methodology-masthead__last-reviewed">Last reviewed: <time datetime="2026-06-03">2026-06-03</time></p>
+<p class="methodology-masthead__reviewer">Reviewer: TBD (@TBD-ru-reviewer)</p>
+</header>
+<aside class="stale-translation-hatnote" role="note">
+<p>This page may be out of date relative to its English source. <a href="/methodology/v0.1.0/en/../ru/scoring/irt-2pl/">View source EN page</a>.</p>
+</aside>
+<main>
+<p>IQ-ME scores responses using the 2-parameter logistic model from item response theory, or 2PL IRT for short. The model is one of the most widely used in psychometrics.</p><p>The model says the chance of a correct answer on an item depends on two things. The first is the test-taker's ability. The second is the item's properties.</p><p>The formula is: <code>P(correct | theta, a, b) = 1 / (1 + exp(-a(theta - b)))</code>.</p><p>Here <code>theta</code> is the test-taker's ability on a latent scale. The scale is centred at zero. Higher numbers mean higher ability. The parameter <code>a</code> is the item's discrimination. The parameter <code>b</code> is the item's difficulty. Both come from the calibration data for the ICAR-MR pool.</p><p>A higher <code>a</code> means the item separates abler test-takers from less able ones more sharply. A higher <code>b</code> means the item is harder. Two test-takers of equal ability still produce different answers because of response noise; the model accounts for that noise by predicting probabilities, not certainties.</p><p>The model is one of many possible scoring models. It was chosen because it is well-studied, has known limits, and produces estimates that align with the broader psychometric literature. The engine source at <code>src/scoring/irt/likelihood.js</code> implements the formula directly. A skeptic can read the source and verify the math in under ten minutes.</p>
+</main>
+<aside class="cite-this-page-affordance"><div data-cite-widget></div></aside>
+</body>
+</html>

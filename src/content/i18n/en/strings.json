@@ -4,6 +4,7 @@
     "appName": "IQ-ME",
     "errorFallbackMessage": "Something went wrong loading the page. Try reloading.",
     "languageSwitcherPlaceholderEn": "EN",
+    "languageSwitcherLegend": "Language",
     "footerMethodologyLink": "Read the methodology",
     "footerDiscussionsLink": "Discussions",
     "footerCitationLink": "Cite",
@@ -58,6 +59,11 @@
     "saveButtonSaved": "Result saved",
     "retestNote": "This screener draws from a small pool of matrix items. If you take it again soon, your second score will be correlated with this one rather than an independent estimate — you will partly be remembering these patterns, not re-measuring your reasoning from scratch. We enforce no technical cooldown: that would be a false guarantee in a browser-only app. We simply ask you to read this and decide honestly whether a quick retest tells you anything new.",
     "retestNoteLinkLabel": "Read about retest effects"
+  },
+  "localeSwitchBlockerHint": {
+    "message": "Switching language during a test changes what the test measures. Finish this session in your current language, or end early and restart in a different language.",
+    "bailLinkLabel": "End the test early",
+    "validityLinkLabel": "Why language is locked"
   },
   "methodology": {
     "masthead": {

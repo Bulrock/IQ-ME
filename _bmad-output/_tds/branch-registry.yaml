@@ -792,3 +792,113 @@ branches:
     last_synced_at: 2026-06-03T14:41:25.166Z
     notes: ""
     created_at: 2026-06-03T14:31:41.984Z
+  - branch: epic/7
+    story_id: null
+    epic_id: epic-7
+    base_branch: main
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-06-03T14:58:49.045Z
+  - branch: story/7-1-i18n-harness-locale-loading-language-switcher
+    story_id: 7-1-i18n-harness-locale-loading-language-switcher
+    epic_id: null
+    base_branch: epic/7
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-03T15:41:43.030Z
+    notes: ""
+    created_at: 2026-06-03T15:20:47.052Z
+  - branch: story/7-2-locale-switch-blocker-hint-fr8-enforcement
+    story_id: 7-2-locale-switch-blocker-hint-fr8-enforcement
+    epic_id: null
+    base_branch: epic/7
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-03T15:48:54.753Z
+    notes: ""
+    created_at: 2026-06-03T15:44:01.173Z
+  - branch: story/7-3-full-ru-methodology-corpus-translation-30-pages
+    story_id: 7-3-full-ru-methodology-corpus-translation-30-pages
+    epic_id: null
+    base_branch: epic/7
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-03T16:27:40.891Z
+    notes: ""
+    created_at: 2026-06-03T16:06:19.593Z
+  - branch: story/7-4-full-pl-methodology-corpus-translation-30-pages
+    story_id: 7-4-full-pl-methodology-corpus-translation-30-pages
+    epic_id: null
+    base_branch: epic/7
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-03T16:34:56.152Z
+    notes: ""
+    created_at: 2026-06-03T16:29:43.577Z
+  - branch: story/7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
+    story_id: 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
+    epic_id: null
+    base_branch: epic/7
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-03T16:53:46.787Z
+    notes: ""
+    created_at: 2026-06-03T16:40:47.870Z
+  - branch: story/7-5b-lint-translation-parity-full-coverage-graduation
+    story_id: 7-5b-lint-translation-parity-full-coverage-graduation
+    epic_id: null
+    base_branch: epic/7
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-03T17:05:26.690Z
+    notes: ""
+    created_at: 2026-06-03T16:55:07.472Z
+  - branch: story/7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
+    story_id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
+    epic_id: null
+    base_branch: epic/7
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-03T19:30:46.628Z
+    notes: ""
+    created_at: 2026-06-03T17:07:55.323Z
+  - branch: story/7-7-ru-pl-crisis-resource-lists-hreflang-declarations
+    story_id: 7-7-ru-pl-crisis-resource-lists-hreflang-declarations
+    epic_id: null
+    base_branch: epic/7
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-04T07:46:27.865Z
+    notes: ""
+    created_at: 2026-06-04T07:39:02.495Z
+  - branch: story/7-8-codeowners-branch-protection-config-artifact-for-dual-approval
+    story_id: 7-8-codeowners-branch-protection-config-artifact-for-dual-approval
+    epic_id: null
+    base_branch: epic/7
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-04T07:53:26.866Z
+    notes: ""
+    created_at: 2026-06-04T07:48:11.807Z

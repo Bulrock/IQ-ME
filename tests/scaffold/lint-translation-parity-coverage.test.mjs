@@ -1,12 +1,12 @@
 // Scaffold test: lint-translation-parity exits 0 against in-repo state.
-// Story 4-7 AC-2, AC-5, AC-7.
+// Story 4-7 AC-2/5/7 → Story 7.3/7.4 (RU/PL landed) → Story 7.5b (full coverage).
 //
-// At Epic 4 close, src/content/methodology/ contains EN content only; RU + PL
-// dirs are .gitkeep-only. The in-repo invocation `node
-// tools/lint-translation-parity.mjs` must:
-//   1. exit 0
-//   2. emit a single WARN line referencing Epic 7's deferred coverage
-//   3. emit a per-locale summary noting RU + PL are not yet authored
+// Story 7.5b graduated the lint to full tri-locale parity (no missing / no
+// orphan / EN-source-hash match). The in-repo RU+PL mirrors (7.3/7.4) are
+// byte-parity with EN, so the in-repo invocation must:
+//   1. exit 0 (full parity holds)
+//   2. emit the EN source-of-truth summary line
+//   3. emit a per-locale "N/N pages parity-green" summary for RU and PL
 
 import { test } from "node:test";
 import { strict as assert } from "node:assert";
@@ -18,7 +18,7 @@ const __filename = fileURLToPath(import.meta.url);
 const REPO_ROOT = resolve(dirname(__filename), "..", "..");
 const SCRIPT = resolve(REPO_ROOT, "tools/lint-translation-parity.mjs");
 
-test("lint-translation-parity: in-repo state → exit 0 with WARN + per-locale summary", () => {
+test("lint-translation-parity: in-repo state → exit 0, full tri-locale parity-green", () => {
   const r = spawnSync("node", [SCRIPT], { cwd: REPO_ROOT, encoding: "utf8" });
   assert.equal(
     r.status,
@@ -26,19 +26,32 @@ test("lint-translation-parity: in-repo state → exit 0 with WARN + per-locale s
     `expected exit 0; got ${r.status}\nstdout: ${r.stdout}\nstderr: ${r.stderr}`,
   );
   const all = r.stdout + r.stderr;
-  assert.match(
+  // Story 7.3/7.4 landed RU+PL → the "no non-EN content yet" WARN must NOT fire.
+  assert.doesNotMatch(
     all,
-    /lint-translation-parity:\s*WARN\s+no non-EN content yet/i,
-    `expected WARN line "no non-EN content yet"; got:\n${all}`,
+    /no non-EN content yet/i,
+    `RU+PL content is present — the "no non-EN content yet" WARN should not appear; got:\n${all}`,
+  );
+  // Story 7.5b graduated to full coverage → the deferral line is gone.
+  assert.doesNotMatch(
+    all,
+    /deferred to Epic 7/i,
+    `Story 7.5b graduated the lint — the "deferred to Epic 7" line should be gone; got:\n${all}`,
   );
   assert.match(
     all,
     /EN:\s*source-of-truth/i,
     `expected EN: source-of-truth summary line; got:\n${all}`,
   );
+  // RU + PL are full byte-parity with EN → per-locale parity-green summary.
   assert.match(
     all,
-    /RU.*Epic 7|RU.*not yet authored|RU\/PL.*not yet authored/i,
-    `expected RU deferred-to-Epic-7 summary; got:\n${all}`,
+    /RU:\s*\d+\s*\/\s*\d+\s*pages parity-green/i,
+    `expected RU "N/N pages parity-green" summary; got:\n${all}`,
+  );
+  assert.match(
+    all,
+    /PL:\s*\d+\s*\/\s*\d+\s*pages parity-green/i,
+    `expected PL "N/N pages parity-green" summary; got:\n${all}`,
   );
 });

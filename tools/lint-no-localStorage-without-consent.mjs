@@ -29,9 +29,14 @@ const FILES_GLOB = `${SCAN_DIR}/**/*.{js,mjs,ts,tsx,jsx,html}`;
 // click handler (an explicit user gesture, per NFR9 / FR26); the unit tests
 // (tests/unit/save-result.test.mjs AC-3 + tests/unit/result-save-retest.test.mjs
 // AC-3) assert zero writes at import/render time.
+// Story 7.1 AC-3/AC-11: language-switcher.js writes localStorage("locale")
+// only inside the radio-change handler AND only when no session is active
+// (FR8 guard); tests/unit/language-switcher.test.mjs AC-3.a asserts zero
+// writes during init(), AC-4.a asserts zero writes on an in-session attempt.
 const ALLOWLIST = new Set([
   resolve(REPO_ROOT, "src/assessment/theme.js"),
   resolve(REPO_ROOT, "src/assessment/save-result.js"),
+  resolve(REPO_ROOT, "src/assessment/language-switcher.js"),
 ]);
 
 const files = globSync(FILES_GLOB);
