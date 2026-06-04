@@ -1,7 +1,7 @@
 ---
 id: 7-7-ru-pl-crisis-resource-lists-hreflang-declarations
 title: "Story 7.7: RU + PL crisis-resource lists + hreflang declarations"
-status: ready-for-dev
+status: review
 ---
 
 # Story 7.7: RU + PL crisis-resource lists + hreflang declarations
@@ -24,16 +24,16 @@ so that **FR20 (per-language crisis resources, no geolocation, no English-only f
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: RU + PL crisis-resources honest placeholders** (AC: 1, 4)
-  - [ ] ru.json/pl.json: ≥3 schema-valid entries (international directories + pending-vetting entry), `_doc` pending marker, no fabricated national hotline numbers.
-- [ ] **Task 2: per-locale crisis loading (no EN fallback)** (AC: 2)
-  - [ ] `crisis-resources-url.js` helper; result.js bottom-decile fetch via `crisisResourcesUrl(locale)`, no en fallback for non-EN.
-- [ ] **Task 3: hreflang emission in build** (AC: 3)
-  - [ ] build-methodology emits `<link rel="alternate" hreflang="{en,ru,pl}">` per page from the per-locale `canonicalUrlFor`.
-- [ ] **Task 4: tests** (AC: 5)
-  - [ ] crisis schema + pending marker + no-fake-tel; crisisResourcesUrl mapping; result.js locale crisis fetch (no en fallback); build hreflang on a sampled page.
-- [ ] **Task 5: regression gate** (AC: 5)
-  - [ ] `make test`/`make lint`/`make build` green; budget bump + pin if needed.
+- [x] **Task 1: RU + PL crisis-resources honest placeholders** (AC: 1, 4)
+  - [x] ru.json/pl.json: ≥3 schema-valid entries (international directories + pending-vetting entry), `_doc` pending marker, no fabricated national hotline numbers.
+- [x] **Task 2: per-locale crisis loading (no EN fallback)** (AC: 2)
+  - [x] `crisis-resources-url.js` helper; result.js bottom-decile fetch via `crisisResourcesUrl(locale)`, no en fallback for non-EN.
+- [x] **Task 3: hreflang emission in build** (AC: 3)
+  - [x] build-methodology emits `<link rel="alternate" hreflang="{en,ru,pl}">` per page from the per-locale `canonicalUrlFor`.
+- [x] **Task 4: tests** (AC: 5)
+  - [x] crisis schema + pending marker + no-fake-tel; crisisResourcesUrl mapping; result.js locale crisis fetch (no en fallback); build hreflang on a sampled page.
+- [x] **Task 5: regression gate** (AC: 5)
+  - [x] `make test`/`make lint`/`make build` green; budget bump + pin if needed.
 
 ## Dev Notes
 
@@ -72,4 +72,37 @@ so that **FR20 (per-language crisis resources, no geolocation, no English-only f
 
 ### Completion Notes List
 
+- RU/PL crisis honest placeholders (real intl directories + pending-vetting entry, NO fabricated tel numbers, _doc pending); per-locale crisis loading via crisisResourcesUrl helper, FR20 no-EN-fallback; hreflang en/ru/pl on every methodology page (FR31). Snapshots regenerated (105 pages, hreflang-only diff verified). 1197 pass, lint+build exit 0.
+
 ### File List
+
+- src/assessment/crisis-resources-url.js
+- src/content/crisis-resources/ru.json
+- src/content/crisis-resources/pl.json
+- src/assessment/result.js
+- tools/build-methodology.mjs
+- tests/snapshots/methodology/**/*.html (105 pages, hreflang)
+- tests/unit/crisis-resources-hreflang.test.mjs
+
+## Specialist Self-Review
+
+## Specialist Self-Review — Story 7-7 (RU/PL crisis-resources + hreflang, infra-now)
+
+**Decisions made:**
+- **Crisis content (safety, user decision):** RU/PL crisis lists ship as honest pending-placeholders — `ru.json`/`pl.json` carry 3 schema-valid entries that do NOT fabricate specific national hotline numbers (a wrong number is catastrophic for a distressed user). They reference real internationally-recognized directories (Find A Helpline `findahelpline.com`, IASP crisis-centre directory) + an explicit "curated list pending Gate-9c/9d reviewer-of-record vetting" entry linking to the launch-readiness sign-off doc. `_doc` marks the file pending. `lastVerified`/`lastUpdated` = 2026-06-04 (the referenced directories are real + verified at scaffold time). The reviewer-of-record replaces these with the curated vetted list at gate close.
+- **FR20 no-EN-fallback:** factored crisis URL into a pure helper `src/assessment/crisis-resources-url.js` (`crisisResourcesUrl(locale)`); result.js bottom-decile path fetches `crisisResourcesUrl(locale)` (the `locale` const already declared for 7.6's tailScenesUrl) — an RU/PL session loads its own list, never EN. No cross-locale EN fallback.
+- **hreflang (FR31):** `build-methodology.mjs renderPage` emits `<link rel="alternate" hreflang="{en,ru,pl}">` per page, derived from a locale-independent dir path + the `canonicalUrlFor` versioned-permalink format (`/methodology/<version>/<L>/<dir>/`). Uniform across all locales.
+
+**Cross-story / snapshot impact:** hreflang changes every methodology page `<head>` → all 105 committed snapshots drift. Ran `make snapshot-update` and committed the regenerated snapshots; verified via `git diff` the ONLY change is the 3 hreflang links per page (105 files, 315 insertions, zero other lines) — provenance confirmed hreflang-only (lesson-2026-06-03-002). No budget bump needed (lint green; the small helper + import stayed under app-modules-bytes 59392, which 7.6 had already raised).
+
+**Test-review:** approved (cycle 0). The independent reviewer confirmed the helper-coupling rigor (dead-string attack closed, per the 7.6 lesson) and that the FR20 assertion does not false-reject the `|| "en"` locale-default idiom. Noted a minor brittleness (the test wants the bare `crisisResourcesUrl(locale)` token) — naturally satisfied because result.js already declares `const locale = state.getState().locale || "en"` (added in 7.6) and uses the same form for tailScenesUrl.
+
+**Framework gotchas avoided:**
+- Did NOT fabricate `tel:` hotline numbers (the test's safety assertion forbids `tel:` in RU/PL placeholders + requires ≥1 https directory) — the right call for a distressed-user surface.
+- hreflang URL built by deriving the dir path directly (NOT by calling `canonicalUrlFor` with a mismatched srcPath/lang, which would produce `../en/...` garbage).
+
+**Areas of uncertainty:**
+- The interim directories (Find A Helpline, IASP) are real and reputable but the reviewer-of-record should confirm they're the best interim pointer for RU vs PL audiences specifically; flagged in the sign-off docs as part of deliverable #6.
+- Whether the GitHub-blob link in the pending entry is the ideal "pending" target vs an on-site page — chose the launch-readiness sign-off doc as the honest source of truth for the pending state. Auditor may weigh in.
+
+**Tested edge cases:** `tests/unit/crisis-resources-hreflang.test.mjs` (frozen) — ru/pl schema-valid + _doc pending + no-fabricated-tel; `crisisResourcesUrl` behavioral mapping; result.js fetches crisis THROUGH the helper with no EN fallback (FR20); build emits hreflang en/ru/pl on a sampled built page (tmpdir build). Full suite 1197 pass / 0 fail / 1 skip; make lint + build exit 0.

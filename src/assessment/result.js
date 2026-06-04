@@ -7,6 +7,7 @@ import { selectTailScene } from "./tail-scene-router.js";
 import { saveResult, isSaved } from "./save-result.js";
 import { escapeAttr as E, fmt as F } from "./html-util.js";
 import { tailScenesUrl } from "./tail-scenes-url.js";
+import { crisisResourcesUrl } from "./crisis-resources-url.js";
 
 const CV = "v0.1.0";
 const SS = 16;
@@ -156,7 +157,9 @@ export async function render(rootEl, strings) {
   let crisis = null;
   if (variant === "bottom-decile") {
     try {
-      const cr = await fetch("/src/content/crisis-resources/en.json");
+      // FR20: load the active locale's crisis list; NO English fallback for
+      // RU/PL sessions (a distressed non-EN user must not get an EN-only list).
+      const cr = await fetch(crisisResourcesUrl(locale));
       if (cr && cr.ok) crisis = await cr.json();
     } catch {}
   }

@@ -264,6 +264,17 @@ function renderPage(srcPath, lang, fm, bodySrc, corpusVersion) {
     `<p>This page may be out of date relative to its English source. ` +
     `<a href="${enUrl}">View source EN page</a>.</p>\n` +
     `</aside>\n`;
+  // Story 7.7 (FR31) — hreflang alternates pointing to the equivalent page in
+  // every locale (same relative path, versioned-permalink contract). Derive the
+  // locale-independent dir path once from the current page, then build the
+  // per-locale permalink matching canonicalUrlFor's format.
+  const relFromLocale = relative(join(SRC_ROOT, lang), srcPath).replace(/\\/g, "/").replace(/\.md$/, "");
+  const hreflangDir = relFromLocale.endsWith("/index")
+    ? relFromLocale.slice(0, -"/index".length)
+    : relFromLocale;
+  const hreflangLinks = LOCALES.map(
+    (L) => `<link rel="alternate" hreflang="${L}" href="/methodology/${corpusVersion}/${L}/${hreflangDir}/">`,
+  ).join("\n") + "\n";
   return (
     `<!doctype html>\n` +
     `<html lang="${lang}">\n` +
@@ -279,6 +290,7 @@ function renderPage(srcPath, lang, fm, bodySrc, corpusVersion) {
     `<meta name="iqme-reviewer-handle" content="${reviewerHandle}">\n` +
     `<meta name="iqme-lang" content="${lang}">\n` +
     `<meta name="iqme-url" content="${url}">\n` +
+    hreflangLinks +
     `<link rel="stylesheet" href="/src/css/primitives.css">\n` +
     `<link rel="stylesheet" href="/src/css/semantic.css">\n` +
     `<link rel="stylesheet" href="/src/css/components/masthead.css">\n` +

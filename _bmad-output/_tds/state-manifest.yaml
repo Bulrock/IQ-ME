@@ -2,15 +2,15 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 30993716d6de6a62469d6985cd24efe15562c3c13127db61ee19c7a513544ce4
+    sha256: 867d5cb88ef9c2814ddd7014f4e63bfc5cff7583d8b28ea55127d77580931a7c
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T19:30:46.664Z
+    recorded_at: 2026-06-04T07:39:02.521Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 3d3b19b19575985b36ef1b22a48a5e4724b9f4f934902d49f4a5cdc7527ddc12
+    sha256: ce08ca989776c8f3953bd44fdf759c466e30d4dfde22171229c15109cf7a1621
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T07:39:02.018Z
+    recorded_at: 2026-06-04T07:46:19.566Z
     recorded_by: engineer
     story_id: 7-7-ru-pl-crisis-resource-lists-hreflang-declarations
   - artefact_class: A
@@ -1376,8 +1376,16 @@ entries:
     notes: "story-7-6 tests revised (cycle 1): behavioral tailScenesUrl helper + fetch-coupling closes the AC-2 dead-string gap"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-7-ru-pl-crisis-resource-lists-hreflang-declarations.md
-    sha256: d70e3e22c14e350f9881349d547be5cf3a3c63302c4db2731d47536a06a50978
+    sha256: 80fb369306c5980d023b5ba81c7e74103b92636cd7aa50c4bf0a7df8ca69e749
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T07:39:02.062Z
+    recorded_at: 2026-06-04T07:46:19.608Z
     recorded_by: engineer
     story_id: 7-7-ru-pl-crisis-resource-lists-hreflang-declarations
+  - artefact_class: A
+    file: tests/unit/crisis-resources-hreflang.test.mjs
+    sha256: 8ba3f07a9e79df8bf313f6c71baaf4e2467bea003338e3e12550d8241886bcf0
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T07:41:51.296Z
+    recorded_by: test-author
+    story_id: 7-7-ru-pl-crisis-resource-lists-hreflang-declarations
+    notes: story-7-7 frozen failing tests (RU/PL crisis placeholders no-fabricated-tel + crisisResourcesUrl FR20 no-EN-fallback + hreflang)
