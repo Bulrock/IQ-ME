@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: d377357bb7cbd05fe8d10768f8fba658290d799be65950defc3d7ebf85e9a150
+    sha256: c505c5373c211fd0c6d10ab7e6915d8215bea0a0e5257e3e1ccf07fb1df7c810
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T10:18:07.996Z
+    recorded_at: 2026-06-04T10:28:00.479Z
     recorded_by: engineer
-    story_id: 8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment
+    story_id: 8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1428,3 +1428,10 @@ entries:
     recorded_by: test-author
     story_id: 8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment
     notes: "story-8-1 test-review note: widen AC-3 preservation regex to also match keep_files underscore form"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v.md
+    sha256: 2aab4fb1e0a7120ff6a09b53ebf86db441c070cf1420295e246caf518f535225
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T10:28:00.690Z
+    recorded_by: engineer
+    notes: story-8-2 spec authored (create-story)
