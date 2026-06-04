@@ -2,16 +2,16 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 886dc01ace9e4b63a2d1a87d33ecc8f50f815cd64baf0567ff729685459b5144
+    sha256: 5036b9391c710eae2e04dde5b0a4342bb018eb68f9bace826364963bfb6cb5fb
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T08:08:54.592Z
+    recorded_at: 2026-06-04T08:10:38.157Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 5c8fdcc3c4bfb338962b8fd1f5a00ca801635806efdcb1d1a7b7a95b68363a84
+    sha256: 06883696f0f378e4e9cab428f5028c223d6e5718b8779014f3c3f0e34d7c9b6e
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T07:53:19.953Z
-    recorded_by: engineer
+    recorded_at: 2026-06-04T08:10:44.510Z
+    recorded_by: state-commit-autorecord
     story_id: 7-8-codeowners-branch-protection-config-artifact-for-dual-approval
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
