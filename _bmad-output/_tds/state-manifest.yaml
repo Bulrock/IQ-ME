@@ -1255,10 +1255,10 @@ entries:
     story_id: bridge-7-8-5-post-epic-app-modules
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-1-i18n-harness-locale-loading-language-switcher.md
-    sha256: 6424404011a1455515f30452da4f9003a7e256301a8634b15dde26b8c64ee786
+    sha256: a83f1b23f6edb6a26c153d86ca0d2206e170406a7910102225d16d3f7b8e989e
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T15:40:27.267Z
-    recorded_by: engineer
+    recorded_at: 2026-06-04T08:06:40.068Z
+    recorded_by: story-add-finding-autorecord
     story_id: 7-1-i18n-harness-locale-loading-language-switcher
   - artefact_class: A
     file: tests/unit/i18n-harness.test.mjs
@@ -1331,10 +1331,10 @@ entries:
     notes: story-7-4 frozen failing tests (PL methodology mirror parity AC-4)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis.md
-    sha256: 9ade1c2ef42a4ced4f596c804015ff8682cffc90ca7b676117b6dcc1c94e6936
+    sha256: 822206aac5addee6d0a35e3f5478d2efcd42733e26ff9c8a820f7376aaf0b523
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T16:53:40.090Z
-    recorded_by: engineer
+    recorded_at: 2026-06-04T08:06:40.068Z
+    recorded_by: story-add-finding-autorecord
     story_id: 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
   - artefact_class: A
     file: tests/unit/tools/lint-reading-level-calibration.test.mjs
@@ -1346,10 +1346,10 @@ entries:
     notes: story-7-5a frozen failing tests (RU Oborneva + PL Pisarek/Jasnopis calibration + translationStatus gating + i18n caps)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-5b-lint-translation-parity-full-coverage-graduation.md
-    sha256: 349de31655820e24271a59c2123e3d76c6eb82e57fe8ae3621389a084eabb4fa
+    sha256: a1bbcc711fce84c19a86ed116913724f57706cb6703e419db478af071a3b5048
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T17:05:20.240Z
-    recorded_by: engineer
+    recorded_at: 2026-06-04T08:06:40.069Z
+    recorded_by: story-add-finding-autorecord
     story_id: 7-5b-lint-translation-parity-full-coverage-graduation
   - artefact_class: A
     file: tests/unit/tools/lint-translation-parity-graduation.test.mjs
@@ -1361,10 +1361,10 @@ entries:
     notes: "story-7-5b frozen failing tests (full-coverage parity: missing/orphan/stale + parity-green summary)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders.md
-    sha256: 8541bf0aa762761b11a23039dd6f53c7d95bea84e36db324347a7df07f070db3
+    sha256: 3e37884169ac27329a5b3624f1ce81bd3d2aa9b7835113ddc23ae8ebaf4f612b
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T19:30:39.751Z
-    recorded_by: engineer
+    recorded_at: 2026-06-04T08:06:40.069Z
+    recorded_by: story-add-finding-autorecord
     story_id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
   - artefact_class: A
     file: tests/unit/tail-scenes-i18n.test.mjs
@@ -1376,10 +1376,10 @@ entries:
     notes: "story-7-6 tests revised (cycle 1): behavioral tailScenesUrl helper + fetch-coupling closes the AC-2 dead-string gap"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-7-ru-pl-crisis-resource-lists-hreflang-declarations.md
-    sha256: 80fb369306c5980d023b5ba81c7e74103b92636cd7aa50c4bf0a7df8ca69e749
+    sha256: fefc7326c24995f43f28d33e9a45d1e3917aec07e03b30c6d8e9604343ab8304
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T07:46:19.608Z
-    recorded_by: engineer
+    recorded_at: 2026-06-04T08:06:40.069Z
+    recorded_by: story-add-finding-autorecord
     story_id: 7-7-ru-pl-crisis-resource-lists-hreflang-declarations
   - artefact_class: A
     file: tests/unit/crisis-resources-hreflang.test.mjs

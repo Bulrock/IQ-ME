@@ -104,3 +104,10 @@ so that **the harm-mitigation surface is real for the primary underserved audien
 - A transient aggregate-only failure of `lint-csp-source-coverage` appeared once then cleared (2 consecutive clean full runs after; csp lint passes isolated + directly). Provenance: NOT 7-6 (no CSP-affecting change) — likely the same class of concurrent-`make`-against-shared-tree flake as the snapshot one fixed in 7.5b. Flagged for the auditor / a possible retro item (audit other coverage tests that spawn make/lint against the real tree under aggregate concurrency).
 
 **Tested edge cases:** `tests/unit/tail-scenes-i18n.test.mjs` (frozen) — RU/PL parity (scene keys derived from EN) + clinicalRegisterReviewed:false + _meta in-progress + reviewer handle; `tailScenesUrl` behavioral mapping; result.js fetches via helper + EN fallback; sign-off docs enumerate 7 deliverables + blocks-launch marker. Full suite 1185 pass / 0 fail (2 consecutive runs); make lint + build exit 0.
+
+## Auditor Findings (round-1)
+
+### [info] Transient lint-csp-source-coverage aggregate-only failure observed once under concurrent make-against-shared-tree, then self-cleared (NOT caused by 7-6; no CSP change). Same flake class as the design-system AC-6 snapshot issue fixed in 7.5b.
+
+- **Category:** test-infrastructure
+- **Suggested bridge:** `Audit all coverage/lint tests that spawn make/lint against the real working tree under aggregate concurrency; isolate them to a tmpdir (as the design-system AC-6 tmpdir fix did) so concurrent make runs cannot cross- contaminate.`
