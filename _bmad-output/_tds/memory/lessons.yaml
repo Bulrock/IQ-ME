@@ -675,3 +675,46 @@ lessons:
     severity: medium
     status: active
     superseded_by: null
+  - id: lesson-2026-06-04-001
+    created_during: epic-7
+    created_at: 2026-06-04T08:18:56.477Z
+    created_by: writer
+    story_refs:
+      - 7-1-i18n-harness-locale-loading-language-switcher
+      - 7-3-full-ru-methodology-corpus-translation-30-pages
+      - 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
+      - 7-5b-lint-translation-parity-full-coverage-graduation
+    category: technical
+    tags:
+      - i18n
+      - lint
+      - parity
+      - infra-now
+      - gating
+    summary: A machine-readable status discriminator (translationStatus:in-progress + sourceHashEN) keeps a parity/quality lint fully enforced (key parity + hash drift) while human-gated content is deferred — without faking authorship
+    lesson: "Epic-7 shipped RU/PL as full-parity EN-placeholder scaffolds carrying _meta.translationStatus:in-progress + sourceHashEN. The same discriminator let every gate (lint-translation-parity, lint-reading-level, NFR31 caps) stay meaningful: full key/file parity and hash-drift are always hard-enforced, while content-grading is skipped on in-progress and enforced on complete. No authorship was faked (ACs of 7.3/7.4/7.6 forbid AI translation). Generalizes beyond i18n — any deferred-content surface can stay lint-covered via a status marker rather than disabling the lint."
+    avoid_pattern: Disable/skip the quality lint for not-yet-authored content (loses parity + drift enforcement), or fabricate AI content just to pass it
+    preferred_pattern: "Ship full-parity placeholder scaffolds carrying a machine-readable status (in-progress/complete) + a provenance hash (sourceHashEN); lint always enforces structure/parity/drift, grades content only on complete. Verifiable: in-progress skipped w/ WARN, complete graded+fail, key-parity + hash-drift always hard-fail"
+    severity: medium
+    status: active
+    superseded_by: null
+  - id: lesson-2026-06-04-002
+    created_during: epic-7
+    created_at: 2026-06-04T08:19:04.833Z
+    created_by: writer
+    story_refs:
+      - 7-7-ru-pl-crisis-resource-lists-hreflang-declarations
+    category: process
+    tags:
+      - safety
+      - crisis
+      - placeholder
+      - harm-mitigation
+      - i18n
+    summary: "Harm-critical placeholder content (crisis hotlines) must never fabricate specifics; ship real internationally-recognized fallback directories + an explicit pending-vetting marker, test-guarded against fabricated tel:"
+    lesson: "Story 7-7 scaffolded RU/PL crisis-resource placeholders WITHOUT inventing national hotline numbers — a wrong number is catastrophic for a distressed user. Instead: 3 schema-valid entries pointing at real intl directories (Find A Helpline, IASP) + an explicit 'curated list pending Gate-9c/9d reviewer-of-record vetting' entry, FR20 no-EN-fallback preserved. The frozen test forbids tel: in non-EN placeholders and requires >=1 https directory."
+    avoid_pattern: "Fill a harm-critical placeholder schema (crisis hotlines) with invented tel: numbers to satisfy structure"
+    preferred_pattern: "Placeholder safety content references real verified directories + an explicit pending-vetting entry; add a frozen test forbidding fabricated specifics (no tel:) and requiring a real fallback (>=1 https directory). Verifiable: grep the test for the no-tel: + >=1-https assertion on RU/PL crisis files"
+    severity: high
+    status: active
+    superseded_by: null

@@ -131,7 +131,7 @@ development_status:
   7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders: done
   7-7-ru-pl-crisis-resource-lists-hreflang-declarations: done
   7-8-codeowners-branch-protection-config-artifact-for-dual-approval: done
-  epic-7-retrospective: optional
+  epic-7-retrospective: done
 
   # Bridge 7→8: 5 stories from 2 retros
   bridge-7-8: done
