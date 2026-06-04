@@ -100,5 +100,73 @@ jobs:
           publish_dir: ./dist/methodology
           destination_dir: methodology
           keep_files: true # preserve prior version dirs (no wholesale clobber)
-      # --- Deferred to Story 8.2: append Zenodo DOI mint + Internet Archive
-      #     Save Page Now + Software Heritage save steps to this job. ---
+
+      # ── Archival steps (Story 8.2) — appended AFTER deploy (a page must be
+      # live to be snapshotted). Infra-now: INERT in dev — every live call is
+      # gated behind `vars.IQME_LIVE_ARCHIVAL`, firing first at launch (Epic 10).
+      # AC-1/AC-6 — Zenodo DOI. The one-time GitHub–Zenodo integration mints the
+      # DOI on the Release; this step FETCHES it from the Zenodo API and writes
+      # the canonical sink CITATION.cff (doi:, read into fm.doi by build-
+      # methodology.mjs) + the secondary corpus/doi.json. It does NOT mint here.
+      - name: Fetch + record Zenodo DOI (zenodo-doi)
+        id: zenodo-doi
+        if: ${{ vars.IQME_LIVE_ARCHIVAL == 'true' }}
+        env:
+          ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
+        run: |
+          set -euo pipefail
+          tag="${GITHUB_REF#refs/tags/}" # fetch via the Zenodo REST API (api.zenodo.org)
+          doi="$(curl -fsSL "https://api.zenodo.org/api/records?q=related_identifiers.identifier:${tag}&access_token=${ZENODO_TOKEN}" \
+            | python3 -c 'import sys,json; r=json.load(sys.stdin).get("hits",{}).get("hits",[]); print(r[0]["doi"] if r else "")')"
+          [ -n "$doi" ] || { echo "::warning::Zenodo DOI not yet available for ${tag}"; exit 0; }
+          # Canonical sink CITATION.cff (yq-style update of the doi: field):
+          npx --yes yq@4 -i ".doi = \"${doi}\"" CITATION.cff || sed -i -E "s|^doi:.*$|doi: \"${doi}\"|" CITATION.cff
+          # Secondary machine-readable record corpus/doi.json:
+          python3 -c "import json; d=json.load(open('corpus/doi.json')); d.update({'doi':'${doi}','status':'minted'}); json.dump(d, open('corpus/doi.json','w'), indent=2)"
+
+      # AC-2 — Internet Archive Save Page Now (best-effort, non-fatal): snapshots
+      # corpus root + key pages via web.archive.org/save/<url>, records to the IA
+      # record file. A failed snapshot must NOT fail the release.
+      - name: Snapshot to Internet Archive (Save Page Now)
+        id: snapshot-to-internet-archive
+        if: ${{ vars.IQME_LIVE_ARCHIVAL == 'true' }}
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          base="https://iq-me.org/methodology/${IQME_CORPUS_VERSION}/en/"
+          for page in "" "citation/" "reference/"; do
+            curl -fsSL "https://web.archive.org/save/${base}${page}" >> docs/launch-readiness/internet-archive-snapshots.md
+          done
+
+      # AC-3 — Software Heritage save (best-effort, non-fatal): SH save endpoint
+      # (origin/save); records the save-request URL in the SH record file.
+      - name: Archive to Software Heritage (origin/save)
+        id: archive-to-software-heritage
+        if: ${{ vars.IQME_LIVE_ARCHIVAL == 'true' }}
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          repo="https://github.com/${GITHUB_REPOSITORY}"
+          curl -fsSL -X POST \
+            "https://archive.softwareheritage.org/api/1/origin/save/git/url/${repo}/" \
+            >> docs/launch-readiness/software-heritage-snapshots.md
+
+      # AC-2/AC-3 — Failure routing (replaces Slack/PagerDuty per NFR8/NFR35).
+      # If EITHER best-effort archival step failed, open/append a labeled GitHub
+      # Issue (archival-health) per the scheduled.yml pattern (Story 8.3 probes
+      # the same URLs). Inert in dev — guarded behind the live-archival flag, so
+      # no gh API call runs without a real tag + configured repo.
+      - name: Route archival failure to a labeled Issue (archival-health)
+        if: ${{ failure() && vars.IQME_LIVE_ARCHIVAL == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          gh issue create \
+            --label "archival-health" \
+            --title "archival-health: best-effort snapshot failed for ${GITHUB_REF#refs/tags/}" \
+            --body "Internet Archive Save-Page-Now and/or Software Heritage save failed for $GITHUB_REF. Best-effort archival is non-fatal; this issue records the drift for posterity (NFR35). See the run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+
+      # --- Deferred to Story 8.4: Codeberg / Cloudflare Pages byte-identical
+      #     mirror (a separate deploy-to-mirror job triggered by the same release
+      #     tags). NOT implemented here — see the header comment. ---

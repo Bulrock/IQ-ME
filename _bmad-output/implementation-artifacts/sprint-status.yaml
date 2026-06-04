@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-04 8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v: ready-for-dev'
+last_updated: '2026-06-04 8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -142,7 +142,7 @@ development_status:
   bridge-7-8-5-post-epic-app-modules: done           # Post-epic app-modules-bytes trim pass + re-establish principled ceiling
   epic-8: in-progress
   8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment: review
-  8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v: ready-for-dev
+  8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v: review
   8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing: backlog
   8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification: backlog
   8-5-full-playwright-trust-verification-suite-consolidation: backlog

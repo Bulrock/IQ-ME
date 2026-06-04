@@ -1,7 +1,7 @@
 ---
 id: 8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v
 title: "Story 8.2: Zenodo DOI minting + Internet Archive + Software Heritage on corpus-v*"
-status: ready-for-dev
+status: review
 ---
 
 # Story 8.2: Zenodo DOI minting + Internet Archive + Software Heritage on corpus-v*
@@ -30,23 +30,23 @@ so that **the citability vision (Journey 5) operates at scale (Wikipedia editors
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Zenodo DOI step (write CITATION.cff sink; doi.json secondary)** (AC: 1, 6)
-  - [ ] In `corpus-release`, REPLACE the `# --- Deferred to Story 8.2 … ---` marker with a `mint-and-record-zenodo-doi` step: comment the GitHub–Zenodo integration (mints on Release), fetch the DOI via the Zenodo API, write it to `CITATION.cff` `doi:` (canonical sink) + update `corpus/doi.json` (secondary). The live API call must be inert in dev (no secrets → not executed); the dev artifact is the step + the sink files.
-  - [ ] Land `corpus/doi.json` (NEW) with a PENDING placeholder noting CITATION.cff is canonical. Do NOT touch CITATION.cff's `doi: ""` placeholder or its comment.
-- [ ] **Task 2: Internet Archive Save-Page-Now step (best-effort + failure-routed)** (AC: 2, 5)
-  - [ ] Add a `snapshot-to-internet-archive` step targeting `https://web.archive.org/save/<url>` for the corpus root + key pages; record snapshot URLs in `docs/launch-readiness/internet-archive-snapshots.md`. Mark the step non-fatal (`continue-on-error: true`); on failure route to a labeled GitHub Issue (`area:archival-health`) per the `scheduled.yml` pattern (Story 8.3). Live snapshot + live issue creation guarded behind the launch path (not run in dev).
-- [ ] **Task 3: Software Heritage save step (best-effort + failure-routed)** (AC: 3, 5)
-  - [ ] Add an `archive-to-software-heritage` step targeting `https://archive.softwareheritage.org/api/1/origin/save/git/url/<repo-url>`; record the response in `docs/launch-readiness/software-heritage-snapshots.md`. Same non-fatal + labeled-Issue routing as Task 2.
-- [ ] **Task 4: preserve deploy + Story 8.4 mirror marker** (AC: 4)
-  - [ ] Keep `make build-methodology` + the `peaceiris/actions-gh-pages` methodology deploy (`keep_files: true`) unchanged; append the three archival steps AFTER deploy. Keep the **Story 8.4** Codeberg/Cloudflare mirror as an explicit deferred-extension comment marker — do NOT implement the mirror.
-- [ ] **Task 5: launch-readiness record files (NEW)** (AC: 5)
-  - [ ] Create `docs/launch-readiness/internet-archive-snapshots.md` + `docs/launch-readiness/software-heritage-snapshots.md` in the launch-readiness plain-language style (PENDING blockquote header, cadence, best-effort + failure-routing note, where URLs get logged). No fabricated URLs.
-- [ ] **Task 6 (test-author phase — NOT engineer): graduate frozen release-workflow.test.mjs AC-5 + add release-archival.test.mjs + re-register integrity** (AC: 7)
-  - [ ] Graduate `tests/scaffold/release-workflow.test.mjs` AC-5: flip archival-absence → archival-PRESENT (Zenodo/IA/SH steps now required); KEEP the Story-8.4 mirror-absence + "Story 8.4" marker assertions.
-  - [ ] Add `tests/scaffold/release-archival.test.mjs` (NEW): assert the three archival steps in the `corpus-release` body, the best-effort/failure-routing markers, the two record files exist, and `corpus/doi.json` exists + is valid JSON with a PENDING placeholder.
-  - [ ] `tds integrity record --files=tests/scaffold/release-workflow.test.mjs` (engineer) after the edit; re-grep `state-manifest.yaml` after the next state-commit sweep to confirm the new hash persisted (do NOT hand-edit the manifest).
-- [ ] **Task 7: regression gate** (AC: 7)
-  - [ ] `make test` / `make lint` (incl. `lint-trust-artifacts`) / `make build` all green + deterministic; baseline-diff any ambiguous failure before labeling it pre-existing (lesson-2026-06-03-002).
+- [x] **Task 1: Zenodo DOI step (write CITATION.cff sink; doi.json secondary)** (AC: 1, 6)
+  - [x] In `corpus-release`, REPLACE the `# --- Deferred to Story 8.2 … ---` marker with a `mint-and-record-zenodo-doi` step: comment the GitHub–Zenodo integration (mints on Release), fetch the DOI via the Zenodo API, write it to `CITATION.cff` `doi:` (canonical sink) + update `corpus/doi.json` (secondary). The live API call must be inert in dev (no secrets → not executed); the dev artifact is the step + the sink files.
+  - [x] Land `corpus/doi.json` (NEW) with a PENDING placeholder noting CITATION.cff is canonical. Do NOT touch CITATION.cff's `doi: ""` placeholder or its comment.
+- [x] **Task 2: Internet Archive Save-Page-Now step (best-effort + failure-routed)** (AC: 2, 5)
+  - [x] Add a `snapshot-to-internet-archive` step targeting `https://web.archive.org/save/<url>` for the corpus root + key pages; record snapshot URLs in `docs/launch-readiness/internet-archive-snapshots.md`. Mark the step non-fatal (`continue-on-error: true`); on failure route to a labeled GitHub Issue (`area:archival-health`) per the `scheduled.yml` pattern (Story 8.3). Live snapshot + live issue creation guarded behind the launch path (not run in dev).
+- [x] **Task 3: Software Heritage save step (best-effort + failure-routed)** (AC: 3, 5)
+  - [x] Add an `archive-to-software-heritage` step targeting `https://archive.softwareheritage.org/api/1/origin/save/git/url/<repo-url>`; record the response in `docs/launch-readiness/software-heritage-snapshots.md`. Same non-fatal + labeled-Issue routing as Task 2.
+- [x] **Task 4: preserve deploy + Story 8.4 mirror marker** (AC: 4)
+  - [x] Keep `make build-methodology` + the `peaceiris/actions-gh-pages` methodology deploy (`keep_files: true`) unchanged; append the three archival steps AFTER deploy. Keep the **Story 8.4** Codeberg/Cloudflare mirror as an explicit deferred-extension comment marker — do NOT implement the mirror.
+- [x] **Task 5: launch-readiness record files (NEW)** (AC: 5)
+  - [x] Create `docs/launch-readiness/internet-archive-snapshots.md` + `docs/launch-readiness/software-heritage-snapshots.md` in the launch-readiness plain-language style (PENDING blockquote header, cadence, best-effort + failure-routing note, where URLs get logged). No fabricated URLs.
+- [x] **Task 6 (test-author phase — NOT engineer): graduate frozen release-workflow.test.mjs AC-5 + add release-archival.test.mjs + re-register integrity** (AC: 7)
+  - [x] Graduate `tests/scaffold/release-workflow.test.mjs` AC-5: flip archival-absence → archival-PRESENT (Zenodo/IA/SH steps now required); KEEP the Story-8.4 mirror-absence + "Story 8.4" marker assertions.
+  - [x] Add `tests/scaffold/release-archival.test.mjs` (NEW): assert the three archival steps in the `corpus-release` body, the best-effort/failure-routing markers, the two record files exist, and `corpus/doi.json` exists + is valid JSON with a PENDING placeholder.
+  - [x] `tds integrity record --files=tests/scaffold/release-workflow.test.mjs` (engineer) after the edit; re-grep `state-manifest.yaml` after the next state-commit sweep to confirm the new hash persisted (do NOT hand-edit the manifest).
+- [x] **Task 7: regression gate** (AC: 7)
+  - [x] `make test` / `make lint` (incl. `lint-trust-artifacts`) / `make build` all green + deterministic; baseline-diff any ambiguous failure before labeling it pre-existing (lesson-2026-06-03-002).
 
 ## Dev Notes
 
@@ -92,6 +92,43 @@ so that **the citability vision (Journey 5) operates at scale (Wikipedia editors
 
 ### Completion Notes List
 
+- Zenodo DOI->CITATION.cff + corpus/doi.json; IA + SH best-effort archival w/ archival-health failure-routing; live calls gated inert (vars.IQME_LIVE_ARCHIVAL); docs record files PENDING. Frozen 12/12 green; suite 1228 pass/0 fail; lint+build exit 0.
+- Promoted to review: 7/7 tasks complete; frozen archival + graduated AC-5 tests green; suite 1228 pass/0 fail; lint+build exit 0.
+
 ### File List
 
+- .github/workflows/release.yml
+- corpus/doi.json
+- docs/launch-readiness/internet-archive-snapshots.md
+- docs/launch-readiness/software-heritage-snapshots.md
+- tests/scaffold/release-archival.test.mjs
+- tests/scaffold/release-workflow.test.mjs
+
 ## Specialist Self-Review
+
+## Specialist Self-Review — Story 8-2 (Zenodo DOI + Internet Archive + Software Heritage on corpus-v*, infra-now)
+
+**Decisions made:**
+- Appended three archival steps to the `corpus-release` job (after the methodology deploy): a Zenodo DOI step that fetches the GitHub–Zenodo-minted DOI via `api.zenodo.org` and writes the **canonical sink CITATION.cff** (plus the secondary `corpus/doi.json`); an Internet Archive Save-Page-Now step (`web.archive.org/save`); a Software Heritage `origin/save` step (`archive.softwareheritage.org`). A final `if: failure()` step routes any archival failure to a GitHub Issue labeled **`archival-health`** (the label Story 8.3's scheduled.yml also uses).
+- **IA + SH are best-effort** (`continue-on-error: true`) — a snapshot failure does NOT fail the release (mirror/archival is non-blocking per the spec); only the labeled Issue records the drift.
+- **All live calls are gated INERT in dev** behind `vars.IQME_LIVE_ARCHIVAL` (+ an in-script empty-token guard) — no DOI is minted, no IA/SH call is made, no Issue is opened until launch (Epic 10) configures the repo var + `ZENODO_TOKEN`. Same infra-now posture as 8.1/7.8.
+- **CITATION.cff `doi:` left empty** (`doi: ""`) — the field stays present (lint-trust-artifacts green) and is populated by the workflow at the first real corpus-v* release.
+- **Mirror still absent** — no Codeberg/Cloudflare/`deploy-to-mirror` (deferred to Story 8.4); the Story-8.4 marker comment is preserved.
+
+**Alternatives considered:**
+- `corpus/doi.json` as the PRIMARY DOI sink — rejected: the cite-this-page widget reads the build-injected `<meta iqme-doi>` from frontmatter `fm.doi`, and CITATION.cff is the existing populated source (with a "populated by Epic 8 release.yml" comment) that lint-trust-artifacts already lints. `corpus/doi.json` has no runtime consumer, so it's the secondary machine-readable record only.
+- Gating the Zenodo step on `if: secrets.ZENODO_TOKEN != ''` — rejected: `secrets.*` is not a valid step-level `if:` context (actionlint error). Gated on `vars.IQME_LIVE_ARCHIVAL` with the empty-token as an in-script second guard.
+
+**Framework gotchas avoided:**
+- `secrets.*` invalid in step `if:` → `vars.*` gate (actionlint clean except benign "context access might be invalid" warnings for launch-configured vars/secrets, which are valid syntax).
+- `release-workflow.test.mjs` AC-5 slices the corpus-release body with a FIXED 80-line window — the `archive.softwareheritage.org` reference must land within 79 lines of `  corpus-release:`. Compressed the archival-block comments (load-bearing tokens preserved) so the SH host sits at delta 79, inside the window.
+- Verified `corpus/doi.json` placement trips no lint: only `lint-frontmatter`/`markdown-subset` scan `corpus/` and only `.md` (lint-frontmatter validates `.json` only under `src/content/crisis-resources/`); eslint lints only `.js/.mjs`. No corpus lint touches the new JSON.
+
+**Areas of uncertainty:**
+- Live archival is not exercised in dev (gated inert) — first real run is launch/Epic 10 (real `ZENODO_TOKEN` + `vars.IQME_LIVE_ARCHIVAL=true`). The labeled-Issue failure routing shares the `archival-health` label with Story 8.3's scheduled.yml, which formalizes the weekly health-check routing; 8.2 only emits on a release-time archival failure.
+- End-to-end "masthead shows the real DOI" also needs the build to read a populated `fm.doi` — that pipeline wiring is a launch concern, out of scope here; this story lands the sink + the workflow write step.
+
+**Tested edge cases:**
+- Frozen `tests/scaffold/release-archival.test.mjs`: Zenodo step → CITATION.cff sink; CITATION.cff has `doi:` field; `corpus/doi.json` exists + valid JSON + PENDING; IA Save-Page-Now best-effort + `archival-health` failure-routed Issue; SH `origin/save` best-effort; both `docs/launch-readiness/{internet-archive,software-heritage}-snapshots.md` exist with PENDING markers.
+- Graduated `tests/scaffold/release-workflow.test.mjs` AC-5: corpus-release now CONTAINS the Zenodo/IA/SH steps; the Story-8.4 mirror stays absent (mirror-absence + 8.4-marker assertions kept green).
+- Regression: full suite 1228 pass / 0 fail; `make lint` exit 0; `make build` exit 0 (deterministic, 105 methodology pages). Provenance: net-new this story (baseline epic/8 corpus-release had only the `# Deferred to Story 8.2` marker — `git diff` against the merge base confirms).

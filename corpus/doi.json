@@ -1,0 +1,5 @@
+{
+  "doi": null,
+  "status": "pending",
+  "note": "Optional secondary machine-readable DOI record. Canonical sink is CITATION.cff. Populated by .github/workflows/release.yml at the first corpus-v* release (launch / Epic 10). No DOI minted yet — do not fabricate."
+}

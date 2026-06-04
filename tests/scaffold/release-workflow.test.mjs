@@ -205,35 +205,58 @@ test("AC-4: workflow resolves the footer methodology link via git describe --mat
 });
 
 // ─────────────────────────────────────────────────────────────────────
-// AC-5: deferred extension markers present; archival/mirror steps absent
+// AC-5: archival steps now PRESENT (graduated by Story 8.2); Story 8.4
+// mirror remains a deferred extension point (still absent).
+//
+// GRADUATED in Story 8.2: this story OWNS the archival activation, so the
+// 8.1-era archival-ABSENCE assertions flip to archival-PRESENCE here. The
+// Story-8.4 mirror-deferral assertions are KEPT unchanged (the
+// Codeberg/Cloudflare mirror is still Story 8.4). Detailed per-step
+// archival contract lives in release-archival.test.mjs.
 // ─────────────────────────────────────────────────────────────────────
 
-test("AC-5: Story 8.2 (Zenodo/IA/SH) + Story 8.4 (mirror) are marked deferred extension points, not implemented", () => {
+test("AC-5: corpus-release implements the Zenodo/IA/SH archival steps (graduated by Story 8.2); Story 8.4 mirror still deferred", () => {
   const text = loadRelease();
+  const { idx, body } = jobBody(text, "corpus-release", 80);
+  assert.notEqual(idx, -1, `corpus-release job declaration not found.`);
 
-  // Story 8.2 archival extension point named as a comment/TODO.
+  // GRADUATED: the Story-8.2 archival steps are now PRESENT in the
+  // corpus-release body (was: archival ABSENT + a "Story 8.2" marker). We
+  // assert the REAL endpoint/sink signatures (api.zenodo.org / CITATION.cff
+  // write, web.archive.org/save, archive.softwareheritage.org) rather than the
+  // bare service names — the bare names also appeared in the 8.1-era
+  // "Deferred to Story 8.2 …" prose marker, so matching them would false-pass
+  // against the un-graduated workflow. (Detailed per-step contract lives in
+  // release-archival.test.mjs.)
+  // Zenodo DOI step → fetches via the Zenodo API and writes the CITATION.cff sink.
   assert.match(
-    text,
-    /(8\.2|8-2|Story\s*8\.2)/i,
-    `release.yml must mark a deferred extension point naming Story 8.2 (Zenodo DOI + Internet Archive + Software Heritage archival). Got:\n${text}`,
+    body,
+    /api\.zenodo\.org|CITATION\.cff/,
+    `corpus-release must now implement a Zenodo DOI step (Zenodo API fetch + CITATION.cff sink write), graduated by Story 8.2. Body:\n${body}`,
+  );
+  // Internet Archive Save Page Now step → the web.archive.org/save endpoint.
+  assert.match(
+    body,
+    /web\.archive\.org\/save/i,
+    `corpus-release must now implement an Internet Archive Save-Page-Now step targeting web.archive.org/save (graduated by Story 8.2). Body:\n${body}`,
+  );
+  // Software Heritage save step → the SH save endpoint.
+  assert.match(
+    body,
+    /archive\.softwareheritage\.org|softwareheritage\.org\/api/i,
+    `corpus-release must now implement a Software Heritage save step targeting archive.softwareheritage.org (graduated by Story 8.2). Body:\n${body}`,
   );
 
-  // Story 8.4 mirror extension point named as a comment/TODO.
+  // KEPT (still deferred to Story 8.4): the mirror extension point named as
+  // a comment/TODO.
   assert.match(
     text,
     /(8\.4|8-4|Story\s*8\.4)/i,
     `release.yml must mark a deferred extension point naming Story 8.4 (Codeberg/Cloudflare mirror deploy). Got:\n${text}`,
   );
 
-  // The actual archival/mirror steps must be ABSENT (8-1 leaves markers only).
-  // No Zenodo / Internet Archive / Software Heritage upload step.
-  assert.doesNotMatch(
-    text,
-    /uses:[^\n]*zenodo|api\.zenodo\.org|web\.archive\.org\/save|softwareheritage|archive\.softwareheritage\.org/i,
-    `release.yml must NOT implement Zenodo/IA/Software Heritage archival steps (deferred to Story 8.2). Got:\n${text}`,
-  );
-
-  // No mirror deploy job/step (Codeberg / Cloudflare Pages).
+  // KEPT (still deferred to Story 8.4): no mirror deploy job/step
+  // (Codeberg / Cloudflare Pages).
   assert.doesNotMatch(
     text,
     /^\s*deploy-to-mirror:|uses:[^\n]*cloudflare|codeberg\.org|wrangler\s+pages\s+deploy/im,
