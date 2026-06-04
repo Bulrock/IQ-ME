@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: f0a891c4bd3fe34bba7da106b9db0f0e91a7962c19b3da151f08ba5b0ed7263e
+    sha256: b1f54aded9dfa28bf68d4ecc38aa65f4b35428864384a0441fa53e1742303ac2
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T10:44:13.059Z
+    recorded_at: 2026-06-04T10:48:50.915Z
     recorded_by: engineer
-    story_id: 8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v
+    story_id: 8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1443,3 +1443,10 @@ entries:
     recorded_by: test-author
     story_id: 8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v
     notes: "story-8-2 test-review cycle1: add corpus/doi.json secondary-sink AC-6 assertion"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing.md
+    sha256: 02022673eaa12da674c3c0f81b6cc47a2354f47b2872caa0e97ff8d4d81539dc
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T10:48:51.117Z
+    recorded_by: engineer
+    notes: story-8-3 spec authored (create-story)
