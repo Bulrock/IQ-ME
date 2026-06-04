@@ -797,10 +797,10 @@ branches:
     epic_id: epic-7
     base_branch: main
     created_by: tds-branch-start
-    status: active
+    status: merged
     pr_url: null
     pr_number: null
-    last_synced_at: null
+    last_synced_at: 2026-06-04T08:08:54.555Z
     notes: ""
     created_at: 2026-06-03T14:58:49.045Z
   - branch: story/7-1-i18n-harness-locale-loading-language-switcher
