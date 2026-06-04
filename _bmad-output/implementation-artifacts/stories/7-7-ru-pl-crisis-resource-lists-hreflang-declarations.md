@@ -106,3 +106,10 @@ so that **FR20 (per-language crisis resources, no geolocation, no English-only f
 - Whether the GitHub-blob link in the pending entry is the ideal "pending" target vs an on-site page — chose the launch-readiness sign-off doc as the honest source of truth for the pending state. Auditor may weigh in.
 
 **Tested edge cases:** `tests/unit/crisis-resources-hreflang.test.mjs` (frozen) — ru/pl schema-valid + _doc pending + no-fabricated-tel; `crisisResourcesUrl` behavioral mapping; result.js fetches crisis THROUGH the helper with no EN fallback (FR20); build emits hreflang en/ru/pl on a sampled built page (tmpdir build). Full suite 1197 pass / 0 fail / 1 skip; make lint + build exit 0.
+
+## Auditor Findings (round-1)
+
+### [info] Interim RU/PL crisis directories (Find A Helpline, IASP) and the pending- entry GitHub-blob link are reputable but should be confirmed by the reviewer-of-record as the best interim pointers for RU vs PL audiences specifically. Tracked in the launch-readiness sign-off docs (Gate 9c/9d).
+
+- **Category:** content-vetting
+- **Suggested bridge:** `Gate-9c/9d reviewer-of-record validates the interim crisis directories per locale and replaces them with the curated, vetted RU/PL lists.`
