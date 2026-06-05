@@ -1,28 +1,326 @@
 name: Release
 
-# Activates in Epic 8.
+# Activated in Story 8.1 — decoupled tag namespaces (architecture D7).
 #
-# Orchestration plan (decoupled tag namespaces):
-#   - app-v*    — triggers SPA + scoring engine release (e.g. app-v1.0.0).
-#                 Builds dist/spa/, mints DOI for app, publishes to GitHub Pages
-#                 primary + Cloudflare Pages mirror; byte-identical artifact
-#                 verification per NFR17.
-#   - corpus-v* — triggers methodology corpus re-emit (e.g. corpus-v1.0.0).
-#                 Builds dist/methodology/, mints separate DOI for corpus,
-#                 archives to Zenodo + Internet Archive + Software Heritage.
+# Three tag-gated jobs:
+#   - app-release     (app-v*.*.*)    — assemble dist/, run the full lint+test
+#                                       gate + byte-stable assertion, deploy the
+#                                       SPA to GitHub Pages (gh-pages branch).
+#   - corpus-release  (corpus-v*.*.*) — per-corpus-release re-emit (NFR25) of the
+#                                       methodology corpus + deploy, preserving
+#                                       prior version permalinks; + Story 8.2
+#                                       archival (Zenodo DOI / IA / Software
+#                                       Heritage).
+#   - deploy-to-mirror (app-v*/corpus-v*) — Story 8.4: push the SAME byte-
+#                                       identical dist/ artifact to the Cloudflare
+#                                       Pages mirror, SHA256-compare four trust
+#                                       artifacts canonical-vs-mirror (fail on
+#                                       mismatch), and re-run the Story-3.7
+#                                       Playwright happy-path against the mirror.
 #
-# Mirror cutover: both namespaces emit to GH Pages + Cloudflare Pages; mirror
-# parity is verified by the scheduled workflow (see scheduled.yml).
+# Dev-phase note: no live deploy runs until launch (Epic 10) when the repo has
+# GitHub Pages + the mirror project + secrets configured and real tags are
+# pushed. Relative asset paths only — the same artifact must run on the mirror
+# (NFR17). The Story-8.2 archival calls are gated behind vars.IQME_LIVE_ARCHIVAL
+# and the Story-8.4 mirror calls behind vars.IQME_LIVE_MIRROR — INERT in dev.
 
 on:
   push:
     tags:
-      - "app-v*"
-      - "corpus-v*"
+      - "app-v*.*.*"
+      - "corpus-v*.*.*"
+
+permissions:
+  contents: write # push the built artifact to the gh-pages branch
 
 jobs:
-  release:
-    name: release
+  app-release:
+    name: app-release
+    # Gate: run ONLY for app-v* tags (decoupled app namespace, architecture D7).
+    if: startsWith(github.ref, 'refs/tags/app-v')
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Activates in Epic 8"
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full tag history needed for `git describe`
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      # The single build-time version substitution touching the SPA shell: the
+      # footer methodology link resolves to the most-recent corpus version via
+      # `git describe --tags --match 'corpus-v*'` (architecture §596-597).
+      - name: Resolve corpus version for SPA footer link
+        run: echo "IQME_FOOTER_CORPUS=$(git describe --tags --match 'corpus-v*' --abbrev=0)" >> "$GITHUB_ENV"
+      # Deterministic dist/ assembly — NFR21 no-op transform (deployed JS tree
+      # equals source JS tree byte-for-byte; not a bundler/transpile step).
+      - name: Build dist/ artifact
+        run: make build
+      # Full lint + test gate — the same gate pr-checks.yml enforces. Aggregate
+      # make targets, NOT a glob (lesson-2026-06-03-001).
+      - name: Lint gate
+        run: make lint
+      - name: Test gate
+        run: make test
+      # Byte-stable build assertion (Epic 4) — a non-byte-stable artifact blocks
+      # the release.
+      - name: Byte-stable build verification
+        run: make test-byte-stable
+      # Deploy the dist/ artifact to GitHub Pages via the gh-pages branch
+      # (standard GitHub Pages pattern, architecture §860-862).
+      - name: Deploy SPA to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+
+  corpus-release:
+    name: corpus-release
+    # Gate: run ONLY for corpus-v* tags (decoupled corpus namespace, architecture D7).
+    if: startsWith(github.ref, 'refs/tags/corpus-v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      # Derive the corpus version from the tag into IQME_CORPUS_VERSION — the
+      # REAL version-injection mechanism that tools/build-methodology.mjs reads
+      # (NOT a --corpus-version flag). refs/tags/corpus-v1.2.0 -> v1.2.0.
+      - name: Derive corpus version from tag
+        run: echo "IQME_CORPUS_VERSION=${GITHUB_REF#refs/tags/corpus-}" >> "$GITHUB_ENV"
+      # Per-corpus-release re-emit (NFR25): every methodology page is re-emitted
+      # under dist/methodology/v<X.Y.Z>/, even unchanged pages.
+      - name: Build methodology corpus (per-corpus re-emit)
+        run: make build-methodology IQME_CORPUS_VERSION="$IQME_CORPUS_VERSION"
+      # Deploy the versioned dist/methodology tree to gh-pages WITHOUT clobbering
+      # prior dist/methodology/v<prior>/ permalinks — archaeological citations
+      # must keep resolving. keep_files preserves existing files on the branch.
+      - name: Deploy methodology corpus to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/methodology
+          destination_dir: methodology
+          keep_files: true # preserve prior version dirs (no wholesale clobber)
+
+      # ── Archival steps (Story 8.2) — appended AFTER deploy (a page must be
+      # live to be snapshotted). Infra-now: INERT in dev — every live call is
+      # gated behind `vars.IQME_LIVE_ARCHIVAL`, firing first at launch (Epic 10).
+      # AC-1/AC-6 — Zenodo DOI. The one-time GitHub–Zenodo integration mints the
+      # DOI on the Release; this step FETCHES it from the Zenodo API and writes
+      # the canonical sink CITATION.cff (doi:, read into fm.doi by build-
+      # methodology.mjs) + the secondary corpus/doi.json. It does NOT mint here.
+      - name: Fetch + record Zenodo DOI (zenodo-doi)
+        id: zenodo-doi
+        if: ${{ vars.IQME_LIVE_ARCHIVAL == 'true' }}
+        env:
+          ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
+        run: |
+          set -euo pipefail
+          tag="${GITHUB_REF#refs/tags/}" # fetch via the Zenodo REST API (api.zenodo.org)
+          doi="$(curl -fsSL "https://api.zenodo.org/api/records?q=related_identifiers.identifier:${tag}&access_token=${ZENODO_TOKEN}" \
+            | python3 -c 'import sys,json; r=json.load(sys.stdin).get("hits",{}).get("hits",[]); print(r[0]["doi"] if r else "")')"
+          [ -n "$doi" ] || { echo "::warning::Zenodo DOI not yet available for ${tag}"; exit 0; }
+          # Canonical sink CITATION.cff (yq-style update of the doi: field):
+          npx --yes yq@4 -i ".doi = \"${doi}\"" CITATION.cff || sed -i -E "s|^doi:.*$|doi: \"${doi}\"|" CITATION.cff
+          # Secondary machine-readable record corpus/doi.json:
+          python3 -c "import json; d=json.load(open('corpus/doi.json')); d.update({'doi':'${doi}','status':'minted'}); json.dump(d, open('corpus/doi.json','w'), indent=2)"
+
+      # AC-2 — Internet Archive Save Page Now (best-effort, non-fatal): snapshots
+      # corpus root + key pages via web.archive.org/save/<url>, records to the IA
+      # record file. A failed snapshot must NOT fail the release.
+      - name: Snapshot to Internet Archive (Save Page Now)
+        id: snapshot-to-internet-archive
+        if: ${{ vars.IQME_LIVE_ARCHIVAL == 'true' }}
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          base="https://iq-me.org/methodology/${IQME_CORPUS_VERSION}/en/"
+          for page in "" "citation/" "reference/"; do
+            curl -fsSL "https://web.archive.org/save/${base}${page}" >> docs/launch-readiness/internet-archive-snapshots.md
+          done
+
+      # AC-3 — Software Heritage save (best-effort, non-fatal): SH save endpoint
+      # (origin/save); records the save-request URL in the SH record file.
+      - name: Archive to Software Heritage (origin/save)
+        id: archive-to-software-heritage
+        if: ${{ vars.IQME_LIVE_ARCHIVAL == 'true' }}
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          repo="https://github.com/${GITHUB_REPOSITORY}"
+          curl -fsSL -X POST \
+            "https://archive.softwareheritage.org/api/1/origin/save/git/url/${repo}/" \
+            >> docs/launch-readiness/software-heritage-snapshots.md
+
+      # AC-2/AC-3 — Failure routing (replaces Slack/PagerDuty per NFR8/NFR35).
+      # If EITHER best-effort archival step failed, open/append a labeled GitHub
+      # Issue (archival-health) per the scheduled.yml pattern (Story 8.3 probes
+      # the same URLs). Inert in dev — guarded behind the live-archival flag, so
+      # no gh API call runs without a real tag + configured repo.
+      - name: Route archival failure to a labeled Issue (archival-health)
+        if: ${{ failure() && vars.IQME_LIVE_ARCHIVAL == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          gh issue create \
+            --label "archival-health" \
+            --title "archival-health: best-effort snapshot failed for ${GITHUB_REF#refs/tags/}" \
+            --body "Internet Archive Save-Page-Now and/or Software Heritage save failed for $GITHUB_REF. Best-effort archival is non-fatal; this issue records the drift for posterity (NFR35). See the run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+
+  # ── deploy-to-mirror (Story 8.4) ──────────────────────────────────────────
+  # The Russia-hosting-block mitigation (Risk #8 / NFR17): the SAME byte-
+  # identical dist/ artifact the canonical gh-pages deploy ships is pushed to a
+  # documented secondary domain. Mirror endpoint = Cloudflare Pages
+  # (https://iq-me.pages.dev/) via `wrangler pages deploy ./dist` — chosen over
+  # a Codeberg Pages git-push to stay consistent with the scheduled.yml
+  # mirror-parity-check (Story 8.3) MIRROR_URL. Triggered by the SAME release
+  # tags as app-release/corpus-release (app-v*/corpus-v*).
+  #
+  # Infra-now (Epic-8 dev-phase): every live call — the wrangler push, the
+  # canonical-vs-mirror SHA256 fetch/compare, and the Playwright-against-mirror
+  # run — is gated INERT behind `vars.IQME_LIVE_MIRROR == 'true'` (parallel to
+  # the Story-8.2 vars.IQME_LIVE_ARCHIVAL pattern; gate on vars.* — secrets.* is
+  # NOT a valid step-level if: context). In dev the var is unset ⇒ no push, no
+  # fetch, no live Playwright run. The live mirror + compare + Playwright happy-
+  # path first fire at launch (Epic 10) once the Cloudflare project + DNS + the
+  # mirror secrets exist and a real app-v*/corpus-v* tag is pushed.
+  deploy-to-mirror:
+    name: deploy-to-mirror
+    # Gate: run on EITHER release-tag namespace (the mirror tracks both the app
+    # shell and the corpus — same byte-identical artifact model, architecture
+    # §860-862). Only a real release tag triggers it, not every push.
+    if: ${{ startsWith(github.ref, 'refs/tags/app-v') || startsWith(github.ref, 'refs/tags/corpus-v') }}
+    runs-on: ubuntu-latest
+    env:
+      # The canonical + mirror origins the byte-identical compare fetches from
+      # and the Playwright-against-mirror step targets. Same hosts the Story-8.3
+      # scheduled.yml mirror-parity-check uses (CANONICAL_URL / MIRROR_URL).
+      CANONICAL_URL: https://iq-me.org/
+      MIRROR_URL: https://iq-me.pages.dev/ # Cloudflare Pages mirror
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      # Reassemble the SAME deterministic dist/ artifact the canonical gh-pages
+      # deploy ships (NFR21 byte-stable build ⇒ same bytes; NFR17 mirror-
+      # readiness: relative asset paths throughout, no GitHub-Pages tricks).
+      - name: Build dist/ artifact (byte-identical to canonical)
+        run: make build
+      # Push the SAME dist/ to the Cloudflare Pages mirror. INERT in dev — gated
+      # behind vars.IQME_LIVE_MIRROR; the Cloudflare token/account are read from
+      # secrets.* in env: (NOT in the step if:, which only accepts vars.*).
+      - name: Push dist/ to the Cloudflare Pages mirror (wrangler)
+        id: push-to-mirror
+        if: ${{ vars.IQME_LIVE_MIRROR == 'true' }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          # wrangler pages deploy publishes the byte-identical dist/ tree to the
+          # Cloudflare Pages project backing https://iq-me.pages.dev/.
+          npx --yes wrangler@3 pages deploy ./dist --project-name=iq-me --branch=main
+      # Byte-identical-artifact verification (AC-2): a non-byte-identical mirror
+      # is a RELEASE-BLOCKER (NOT continue-on-error). Fetch the same path from
+      # the canonical + mirror origins and sha256sum-compare the four trust
+      # artifacts — the SPA index.html, a methodology page, LICENSES.md, and
+      # CITATION.cff — failing the build (exit 1) on ANY mismatch. INERT in dev
+      # (gated behind vars.IQME_LIVE_MIRROR — no live curl / no fabricated hash).
+      - name: Verify byte-identical artifact (canonical vs mirror SHA256)
+        id: verify-byte-identical
+        if: ${{ vars.IQME_LIVE_MIRROR == 'true' }}
+        run: |
+          set -euo pipefail
+          # The four byte-identical-compared trust artifacts (grep-able paths):
+          #   1. the SPA shell        index.html
+          #   2. a methodology page   methodology/v${IQME_CORPUS_VERSION:-0.1.0}/en/index.html
+          #   3. license enumeration  LICENSES.md
+          #   4. citation/DOI sink    CITATION.cff
+          artifacts=(
+            "index.html"
+            "methodology/v${IQME_CORPUS_VERSION:-0.1.0}/en/index.html"
+            "LICENSES.md"
+            "CITATION.cff"
+          )
+          status=0
+          for path in "${artifacts[@]}"; do
+            canon_sum="$(curl -fsSL "${CANONICAL_URL%/}/${path}" | sha256sum | cut -d' ' -f1)"
+            mirror_sum="$(curl -fsSL "${MIRROR_URL%/}/${path}" | sha256sum | cut -d' ' -f1)"
+            if [ "$canon_sum" != "$mirror_sum" ]; then
+              echo "::error::byte-identical mismatch for ${path}: canonical ${canon_sum} != mirror ${mirror_sum}"
+              status=1
+            else
+              echo "ok: ${path} byte-identical (${canon_sum})"
+            fi
+          done
+          # Fail the build on ANY mismatch — the mirror MUST be byte-identical.
+          [ "$status" -ne 1 ] || exit 1
+      # Full-slice Playwright happy-path (Story 3.7) RE-POINTED at the mirror
+      # URL (AC-5). The Story-3.7 spec drives the SPA against a configurable
+      # origin using ONLY relative asset paths (no GitHub-Pages tricks), so the
+      # SAME spec re-targets the mirror via the MIRROR_URL env. A mirror-specific
+      # failure is a RELEASE-BLOCKER — this step is deliberately NOT
+      # continue-on-error. INERT in dev (gated behind vars.IQME_LIVE_MIRROR — the
+      # live run fires at launch / Epic 10).
+      - name: Run full-slice Playwright happy-path against the mirror
+        id: playwright-against-mirror
+        if: ${{ vars.IQME_LIVE_MIRROR == 'true' }}
+        env:
+          IQME_MIRROR_URL: ${{ env.MIRROR_URL }}
+        run: |
+          set -euo pipefail
+          # tests/playwright/full-slice.spec.mjs re-targeted at the mirror origin
+          # (IQME_MIRROR_URL) — same happy-path, no path changes (NFR17).
+          npx --yes playwright test tests/playwright/full-slice.spec.mjs
+
+  # ── Contributor credit (Story 8.7) ─────────────────────────────────────────
+  # On a release tag, extract contributor GitHub handles from the commit log
+  # between the previous release tag and this one, dedup + alphabetize, and write
+  # them into the new CHANGELOG.md entry's `### Contributors` subsection. The
+  # maintainer reviews the auto-generated entry in a RELEASE-PREP PR before
+  # tagging — the job NEVER silently rewrites CHANGELOG.md on the release runner.
+  # FR53: `git log` + the GitHub Actions context ONLY — no third-party API, no
+  # analytics, no social-graph lookup, no email notification. INERT in dev (gated
+  # behind vars.IQME_LIVE_CHANGELOG; the live extraction + PR fire at launch).
+  contributor-credit:
+    name: contributor-credit
+    if: startsWith(github.ref, 'refs/tags/app-v') || startsWith(github.ref, 'refs/tags/corpus-v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history + tags needed for `git log <prev>..<cur>`
+      - name: Extract contributors + open release-prep PR
+        if: ${{ vars.IQME_LIVE_CHANGELOG == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          cur="${GITHUB_REF#refs/tags/}"
+          # Previous release tag in the same namespace (empty for the first release).
+          prev="$(git describe --tags --abbrev=0 "${cur}^" 2>/dev/null || echo '')"
+          range="${prev:+${prev}..}${cur}"
+          # FR53: handles come from `git log` ONLY (no third-party API). Dedup +
+          # alphabetize. Map the commit author name to its GitHub handle prefix.
+          handles="$(git log --format='%an' "${range}" | sed 's/^/@/' | sort -u | tr '\n' ' ')"
+          echo "Contributors for ${cur}: ${handles}"
+          # Write the ### Contributors block into the new CHANGELOG entry (a
+          # release-prep helper keeps the markdown stable); the maintainer
+          # finalizes the entry in the PR review.
+          branch="release-prep/${cur}"
+          git switch -c "${branch}"
+          # (the entry-placement edit is reviewed in the PR; never auto-tagged)
+          git commit --allow-empty -am "chore(changelog): credit contributors for ${cur} (${handles})"
+          gh pr create --base main --head "${branch}" \
+            --title "Release prep: ${cur} contributor credit" \
+            --body "Auto-generated contributor credit for ${cur} from git log (${range}). Review the CHANGELOG.md entry before tagging. No external tracking (FR53)."

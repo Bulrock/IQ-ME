@@ -36,6 +36,23 @@ IQ-ME has no entity, no revenue, no exit. There is no product team, no growth ro
 
 This repository is at **v0.0.1**. Most epics are still in implementation. Track progress in [`_bmad-output/implementation-artifacts/sprint-status.yaml`](_bmad-output/implementation-artifacts/sprint-status.yaml). Pre-launch gates (ICAR license confirmation, external psychometrician sign-off, RU/PL clinical-register translators, native-speaker testing) are tracked as Epic 9{a..e}.
 
+## Mirror strategy
+
+The canonical site is hosted on **GitHub Pages** (`https://iq-me.org/`, served from `Bulrock.github.io`). Some networks — notably Russian ISPs (Risk #8) — may block GitHub Pages. For that case the same deployed artifact is also published to a **Cloudflare Pages mirror** at `https://iq-me.pages.dev/`.
+
+The mirror hosts a **byte-identical artifact**: the `deploy-to-mirror` job in `release.yml` pushes the same `dist/` tree the canonical deploy ships, and a post-deploy step SHA256-compares four trust files (`index.html`, a methodology page, `LICENSES.md`, `CITATION.cff`) on both hosts and fails the release on any mismatch. Relative asset paths throughout mean the same build runs on either host with no path tricks.
+
+Failover is a deliberate, **manual** policy: a **manual failover within one day of sustained outage or regional block detection**. There is **no automatic redirect** and **no JS-based detection** — the deployed page never sniffs your location or reachability and never bounces you to another host. The mirror domain is published here in this README and announced via [GitHub Discussions](https://github.com/Bulrock/IQ-ME/discussions); those two channels are the only way the mirror is discovered (it is intentionally absent from the in-page footer).
+
+## Following updates
+
+There is **no email list, no account capture, and no signup** (FR52). The two ways to follow IQ-ME are both GitHub-native and ask for no identifier beyond a GitHub account you already have:
+
+- **Release notifications** — on the [repository](https://github.com/Bulrock/IQ-ME), choose **Watch → Custom → Releases** to be notified only when a new `app-v*` or `corpus-v*` release is tagged.
+- **Discussions** — use the **Subscribe** button on any [GitHub Discussions thread](https://github.com/Bulrock/IQ-ME/discussions) to follow a conversation.
+
+Updates reach you only through channels you already control — there is no mailing list and nothing to sign up for.
+
 ## Citation
 
 Please cite per [`CITATION.cff`](CITATION.cff). At v0.0.1 the `doi` field is empty; it is populated by the Epic 8 `release.yml` workflow on the first per-corpus-release tag.

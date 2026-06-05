@@ -1,28 +1,223 @@
 name: Scheduled Checks
 
-# Activates in Epic 8.
+# Activated in Story 8.3 — weekly mirror-parity + archival-health verification.
 #
-# Purpose: continuous mirror parity + archival health verification.
-#   - Compare GH Pages primary vs Cloudflare Pages mirror — byte-identical
-#     artifact assertion (NFR17). If divergent → open labeled GitHub Issue
-#     (label: "mirror-divergence") routed to CODEOWNERS for maintainer
-#     attention. Failure to address within 7 days = mirror-failover trigger.
-#   - Probe Zenodo DOI resolves + Internet Archive snapshot reachability.
-#     Failure routes to a labeled GitHub Issue (label: "archival-health")
-#     rather than paging — outlast-the-maintainer property (NFR35) means
-#     archival drift is recorded for posterity, not silently fixed.
+# Purpose: continuous mirror parity + archival health verification, with
+# failures routed to labeled GitHub Issues (replacing Slack/PagerDuty per
+# NFR8 — zero IP-based logging; NFR35 — no host-account-binding runtime
+# dependencies). The maintainer triages the open Issues weekly; there is no
+# email/Slack notification (NFR6 — solo project, no third-party monitoring).
 #
-# Failure → labeled GitHub Issue routing replaces traditional Slack/PagerDuty
-# alerting (NFR8 — zero IP-based logging; NFR35 — no host-account-binding
-# runtime dependencies).
+# Four health-check jobs (each carries a per-job area:<check> label — the same
+# label the routed Issue receives, so it is grep-able from the workflow text):
+#   - mirror-parity-check               (area:mirror-health)
+#   - internet-archive-snapshot-health  (area:archive-health)
+#   - software-heritage-snapshot-health (area:archive-health)
+#   - zenodo-doi-resolution             (area:doi-health)
+#
+# Self-gating mirror-parity (Winston's intra-epic sequencing concern): the
+# Story 8.4 Codeberg/Cloudflare mirror does not exist yet, so mirror-parity-check
+# HEAD-requests the mirror FIRST and, on a non-200, SKIPS the body-only parity
+# comparison and logs "mirror not reachable — first deploy pending" rather than
+# failing. This lets Story 8.3 land cleanly before Story 8.4.
+#
+# Dev-phase posture (infra-now — same as Story 8.1 / 8.2 / 7.8): the weekly cron
+# never fires locally, and EVERY live HTTP HEAD/curl + the gh issue API call is
+# gated behind the launch repo var `vars.IQME_LIVE_SCHEDULED` (mirroring the 8.2
+# `vars.IQME_LIVE_ARCHIVAL` pattern). In dev these steps are inert: the record
+# files carry only PENDING placeholders and CITATION.cff's doi: is empty until
+# the first corpus-v* release (Epic 10). NB: secrets.* is NOT a valid step-level
+# if: context (actionlint error Story 8.2 hit) — the gate is always vars.*, and
+# secrets.GITHUB_TOKEN appears only in env:/with:, never in a step if:.
 
 on:
   schedule:
-    - cron: "0 6 * * *" # daily at 06:00 UTC
+    # WEEKLY — Monday 06:00 UTC (the Epic-1 stub's daily "0 6 * * *" is changed
+    # to weekly per the epics AC "runs weekly via cron").
+    - cron: "0 6 * * 1"
+
+permissions:
+  contents: read
+  issues: write # failure routing opens / comments on labeled Issues
 
 jobs:
-  scheduled-check:
-    name: scheduled-check
+  # ── mirror-parity-check (area:mirror-health) ──────────────────────────────
+  # Compares the RESPONSE BODY ONLY of the canonical GitHub Pages page against
+  # the Codeberg/Cloudflare mirror (headers exempted per NFR17 — mirror hosts
+  # set different headers; only the artifact body must be byte-identical).
+  # Self-gating: HEAD the mirror first; non-200 ⇒ skip + log the skip-notice.
+  mirror-parity-check:
+    name: mirror-parity-check
     runs-on: ubuntu-latest
+    env:
+      AREA_LABEL: area:mirror-health # routed-Issue per-check label
+      CANONICAL_URL: https://iq-me.org/
+      MIRROR_URL: https://iq-me.pages.dev/ # Cloudflare Pages mirror (Story 8.4)
     steps:
-      - run: echo "Activates in Epic 8"
+      - uses: actions/checkout@v4
+      # Self-gating body-only parity. INERT in dev — gated behind
+      # vars.IQME_LIVE_SCHEDULED; the Story 8.4 mirror does not exist until then.
+      - name: Mirror parity (body-only, self-gating)
+        id: mirror-parity
+        if: ${{ vars.IQME_LIVE_SCHEDULED == 'true' }}
+        run: |
+          set -euo pipefail
+          # Self-gate: HEAD-request the mirror FIRST. If it is not yet deployed
+          # (Story 8.4) the HEAD is non-200 ⇒ SKIP the parity comparison and log
+          # the literal skip-notice rather than failing.
+          mirror_status="$(curl -I --silent --output /dev/null --write-out '%{http_code}' "$MIRROR_URL" || echo 000)"
+          if [ "$mirror_status" != "200" ]; then
+            echo "mirror not reachable — first deploy pending (HEAD ${mirror_status}); skipping parity comparison"
+            exit 0
+          fi
+          # Body-only comparison: fetch each side with curl --silent and diff the
+          # response BODY via sha256sum (headers are excluded — never fetched).
+          canon_sum="$(curl --silent "$CANONICAL_URL" | sha256sum | cut -d' ' -f1)"
+          mirror_sum="$(curl --silent "$MIRROR_URL" | sha256sum | cut -d' ' -f1)"
+          if [ "$canon_sum" != "$mirror_sum" ]; then
+            echo "::error::mirror body diverges from canonical (${CANONICAL_URL} vs ${MIRROR_URL})"
+            exit 1
+          fi
+      - name: Route failure to a labeled Issue (area:mirror-health)
+        if: ${{ failure() && vars.IQME_LIVE_SCHEDULED == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          labels="area:scheduled-check,area:mirror-health"
+          title="area:mirror-health: canonical/mirror parity drift"
+          body="The weekly mirror-parity-check failed. Canonical: ${CANONICAL_URL} — Mirror: ${MIRROR_URL}. See the action run: ${RUN_URL}"
+          # Dedup (open-or-append): look up an already-open Issue with the same
+          # label set; append a comment if one exists, else open a new Issue.
+          existing="$(gh issue list --state open --label "area:scheduled-check" --label "area:mirror-health" --json number --jq '.[0].number // empty')"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --label "area:scheduled-check" --label "area:mirror-health" --title "$title" --body "$body"
+          fi
+
+  # ── internet-archive-snapshot-health (area:archive-health) ────────────────
+  # HEAD-probes the web.archive.org snapshot URLs recorded by Story 8.2 in
+  # docs/launch-readiness/internet-archive-snapshots.md and asserts HTTP 200.
+  internet-archive-snapshot-health:
+    name: internet-archive-snapshot-health
+    runs-on: ubuntu-latest
+    env:
+      AREA_LABEL: area:archive-health # routed-Issue per-check label
+      IA_RECORD: docs/launch-readiness/internet-archive-snapshots.md
+    steps:
+      - uses: actions/checkout@v4
+      # HEAD-probe the recorded IA snapshot URLs. INERT in dev — gated behind
+      # vars.IQME_LIVE_SCHEDULED; the record file carries only PENDING rows
+      # until the first corpus-v* release (no fabricated URLs).
+      - name: Probe Internet Archive snapshots (HEAD ⇒ 200)
+        id: ia-health
+        if: ${{ vars.IQME_LIVE_SCHEDULED == 'true' }}
+        run: |
+          set -euo pipefail
+          # Read the recorded web.archive.org snapshot URLs from the record file
+          # (Story 8.2 appends them; do NOT embed fabricated URLs here).
+          urls="$(grep -oE 'https://web\.archive\.org/web/[^ )|]+' "$IA_RECORD" || true)"
+          [ -n "$urls" ] || { echo "no recorded Internet Archive snapshot URLs yet (PENDING); nothing to probe"; exit 0; }
+          for u in $urls; do
+            status="$(curl -I --silent --output /dev/null --write-out '%{http_code}' "$u" || echo 000)"
+            [ "$status" = "200" ] || { echo "::error::Internet Archive snapshot ${u} returned ${status} (expected 200)"; exit 1; }
+          done
+      - name: Route failure to a labeled Issue (area:archive-health)
+        if: ${{ failure() && vars.IQME_LIVE_SCHEDULED == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          body="The weekly internet-archive-snapshot-health check failed (a recorded web.archive.org snapshot did not return 200). Recorded URLs source: ${IA_RECORD}. See the action run: ${RUN_URL}"
+          existing="$(gh issue list --state open --label "area:scheduled-check" --label "area:archive-health" --json number --jq '.[0].number // empty')"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --label "area:scheduled-check" --label "area:archive-health" --title "area:archive-health: Internet Archive snapshot unreachable" --body "$body"
+          fi
+
+  # ── software-heritage-snapshot-health (area:archive-health) ───────────────
+  # HEAD-probes the archive.softwareheritage.org save/archived-origin URLs
+  # recorded by Story 8.2 in docs/launch-readiness/software-heritage-snapshots.md.
+  software-heritage-snapshot-health:
+    name: software-heritage-snapshot-health
+    runs-on: ubuntu-latest
+    env:
+      AREA_LABEL: area:archive-health # routed-Issue per-check label (shared with IA)
+      SH_RECORD: docs/launch-readiness/software-heritage-snapshots.md
+    steps:
+      - uses: actions/checkout@v4
+      # HEAD-probe the recorded Software Heritage URLs. INERT in dev — gated
+      # behind vars.IQME_LIVE_SCHEDULED; the record file is PENDING until launch.
+      - name: Probe Software Heritage archives (HEAD ⇒ 200)
+        id: sh-health
+        if: ${{ vars.IQME_LIVE_SCHEDULED == 'true' }}
+        run: |
+          set -euo pipefail
+          # Read the recorded archive.softwareheritage.org URLs from the record
+          # file (Story 8.2 appends them; no fabricated URLs here).
+          urls="$(grep -oE 'https://archive\.softwareheritage\.org/[^ )|]+' "$SH_RECORD" || true)"
+          [ -n "$urls" ] || { echo "no recorded Software Heritage URLs yet (PENDING); nothing to probe"; exit 0; }
+          for u in $urls; do
+            status="$(curl -I --silent --output /dev/null --write-out '%{http_code}' "$u" || echo 000)"
+            [ "$status" = "200" ] || { echo "::error::Software Heritage archive ${u} returned ${status} (expected 200)"; exit 1; }
+          done
+      - name: Route failure to a labeled Issue (area:archive-health)
+        if: ${{ failure() && vars.IQME_LIVE_SCHEDULED == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          body="The weekly software-heritage-snapshot-health check failed (a recorded archive.softwareheritage.org URL did not return 200). Recorded URLs source: ${SH_RECORD}. See the action run: ${RUN_URL}"
+          existing="$(gh issue list --state open --label "area:scheduled-check" --label "area:archive-health" --json number --jq '.[0].number // empty')"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --label "area:scheduled-check" --label "area:archive-health" --title "area:archive-health: Software Heritage archive unreachable" --body "$body"
+          fi
+
+  # ── zenodo-doi-resolution (area:doi-health) ───────────────────────────────
+  # Reads the DOI from the canonical sink CITATION.cff (doi:, wired by Story 8.2)
+  # and HEAD-probes that it resolves to a real Zenodo record (doi.org redirect /
+  # api.zenodo.org). In dev CITATION.cff has doi: "" until the first corpus-v*
+  # release, so there is nothing to resolve — another reason the probe is gated.
+  zenodo-doi-resolution:
+    name: zenodo-doi-resolution
+    runs-on: ubuntu-latest
+    env:
+      AREA_LABEL: area:doi-health # routed-Issue per-check label
+      CITATION_FILE: CITATION.cff
+    steps:
+      - uses: actions/checkout@v4
+      # HEAD-probe the DOI resolves. INERT in dev — gated behind
+      # vars.IQME_LIVE_SCHEDULED; CITATION.cff doi: is empty until launch.
+      - name: Resolve Zenodo DOI (HEAD doi.org ⇒ real record)
+        id: doi-health
+        if: ${{ vars.IQME_LIVE_SCHEDULED == 'true' }}
+        run: |
+          set -euo pipefail
+          # Read the DOI from the canonical sink CITATION.cff (doi: field).
+          doi="$(grep -oE '^doi:[[:space:]]*"?[^"[:space:]]+' CITATION.cff | sed -E 's/^doi:[[:space:]]*"?//' || true)"
+          [ -n "$doi" ] || { echo "CITATION.cff doi: is empty (PENDING until first corpus-v* release); nothing to resolve"; exit 0; }
+          # The DOI resolver (doi.org) redirects to the real Zenodo record; a
+          # secondary check could hit api.zenodo.org/api/records directly.
+          status="$(curl -I --silent --location --output /dev/null --write-out '%{http_code}' "https://doi.org/${doi}" || echo 000)"
+          [ "$status" = "200" ] || { echo "::error::Zenodo DOI https://doi.org/${doi} did not resolve (HEAD ${status}); cross-check https://api.zenodo.org/api/records"; exit 1; }
+      - name: Route failure to a labeled Issue (area:doi-health)
+        if: ${{ failure() && vars.IQME_LIVE_SCHEDULED == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          body="The weekly zenodo-doi-resolution check failed (the DOI read from CITATION.cff did not resolve via doi.org / api.zenodo.org). See the action run: ${RUN_URL}"
+          existing="$(gh issue list --state open --label "area:scheduled-check" --label "area:doi-health" --json number --jq '.[0].number // empty')"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --label "area:scheduled-check" --label "area:doi-health" --title "area:doi-health: Zenodo DOI not resolving" --body "$body"
+          fi

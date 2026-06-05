@@ -57,6 +57,10 @@ const ALL_JOBS = [
   "chrome-components",
   // Story 6.6 — top-decile tear-edge overlay bbox-overlap invariant.
   "tear-edge-overlay",
+  // Story 8.5 — net-new consolidated full-suite job (network-trace + CSP-violation
+  // + viewport-overflow over the full happy-path). No Epic-1 stub to flip — this
+  // story OWNS adding it (see story 8-5 reconciliation table).
+  "trust-verification-full",
 ];
 
 const EPIC_1_ACTIVE = new Set([
@@ -123,6 +127,22 @@ const EPIC_1_ACTIVE = new Set([
   // cropping-fuzzer activated in Story 6.6 — seeded synthetic-crop assertion that
   // no clean score-only screenshot is possible (gated on corpus bankFrozen).
   "cropping-fuzzer",
+  // trust-verification-full ADDED + active in Story 8.5 — net-new consolidated
+  // job running tests/playwright/trust-verification.spec.mjs (network-trace + CSP
+  // + viewport-overflow legs over the full SPA happy-path).
+  "trust-verification-full",
+  // csp-violation-count activated in Story 8.5 — graduated deferred→active
+  // (was if: false "Activates in Epic 3"); now runs a real Playwright CSP-violation
+  // assertion (no echo stub).
+  "csp-violation-count",
+  // viewport-overflow activated in Story 8.5 — graduated deferred→active (was
+  // if: false "Activates in Epic 6"); now runs a real no-horizontal-scroll
+  // assertion across the seven viewport widths.
+  "viewport-overflow",
+  // axe-core-pa11y activated in Story 8.5 — graduated deferred→active (was if:
+  // false "Activates in Epic 6"); now runs tests/a11y/*.spec.mjs (axe-core
+  // against methodology + SPA surfaces, pa11y fallback).
+  "axe-core-pa11y",
 ]);
 
 function loadPrChecks() {
@@ -211,39 +231,82 @@ test("AC-7: pr-checks.yml has top-level `on: pull_request:`", () => {
 // AC-6: release.yml + scheduled.yml stubs exist
 // ─────────────────────────────────────────────────────────────────────
 
-test("AC-6: release.yml stub exists with `echo \"Activates in Epic 8\"`", () => {
+test("AC-6: release.yml is activated (Story 8.1) — app-release + corpus-release jobs, no stub placeholder", () => {
   assert.ok(existsSync(RELEASE), `release.yml missing at ${RELEASE}`);
   const text = readFileSync(RELEASE, "utf8");
-  assert.match(
+  // Graduated in Story 8.1: release.yml is activated, so the Epic-1 stub
+  // placeholder must be gone.
+  assert.doesNotMatch(
     text,
     /Activates in Epic 8/,
-    `release.yml must contain "Activates in Epic 8" placeholder.`,
+    `release.yml is activated in Story 8.1 — it must NOT contain the "Activates in Epic 8" stub placeholder.`,
   );
-  // Inline-comment mention of app-v* + corpus-v* tag namespaces.
+  // Activated structure: two distinct tag-gated jobs.
+  assert.match(
+    text,
+    /^  app-release:\s*$/m,
+    `release.yml must declare the "app-release:" job (Story 8.1 activation).`,
+  );
+  assert.match(
+    text,
+    /^  corpus-release:\s*$/m,
+    `release.yml must declare the "corpus-release:" job (Story 8.1 activation).`,
+  );
+  // Decoupled app-v* + corpus-v* tag namespaces preserved (architecture D7).
   assert.match(
     text,
     /app-v\*/,
-    `release.yml must document app-v* tag namespace inline.`,
+    `release.yml must declare the app-v* tag namespace.`,
   );
   assert.match(
     text,
     /corpus-v\*/,
-    `release.yml must document corpus-v* tag namespace inline.`,
+    `release.yml must declare the corpus-v* tag namespace.`,
   );
 });
 
-test("AC-6: scheduled.yml stub exists with `echo \"Activates in Epic 8\"`", () => {
+test("AC-6: scheduled.yml is activated (Story 8.3) — four health-check jobs + real failure→labeled-Issue routing, no stub placeholder", () => {
   assert.ok(existsSync(SCHEDULED), `scheduled.yml missing at ${SCHEDULED}`);
   const text = readFileSync(SCHEDULED, "utf8");
-  assert.match(
+  // Graduated in Story 8.3 (mirror of the release.yml AC-6 graduation by
+  // Story 8.1): scheduled.yml is activated, so the Epic-1 stub placeholder
+  // must be gone and the single `scheduled-check` echo job must be replaced by
+  // the four health-check jobs.
+  assert.doesNotMatch(
     text,
     /Activates in Epic 8/,
-    `scheduled.yml must contain "Activates in Epic 8" placeholder.`,
+    `scheduled.yml is activated in Story 8.3 — it must NOT contain the "Activates in Epic 8" stub placeholder.`,
   );
-  // Inline-comment mention of scheduled-check failure → labeled GitHub Issue routing.
+  assert.doesNotMatch(
+    text,
+    /^  scheduled-check:\s*$/m,
+    `scheduled.yml must no longer declare the Epic-1 stub "  scheduled-check:" echo job (graduated to the four health-check jobs).`,
+  );
+  // Activated structure: the four health-check jobs.
+  for (const job of [
+    "mirror-parity-check",
+    "internet-archive-snapshot-health",
+    "software-heritage-snapshot-health",
+    "zenodo-doi-resolution",
+  ]) {
+    assert.match(
+      text,
+      new RegExp(`^  ${job.replace(/-/g, "\\-")}:\\s*$`, "m"),
+      `scheduled.yml must declare the "  ${job}:" job (Story 8.3 activation).`,
+    );
+  }
+  // Failure → labeled GitHub Issue routing is now a REAL handler (gh issue
+  // create / actions/github-script) carrying the area:scheduled-check label —
+  // not merely an inline prose comment. Anchored to the real signatures so the
+  // stub's header-comment prose ("labeled GitHub Issue") cannot false-pass.
   assert.match(
     text,
-    /labeled.*Issue|GitHub Issue/i,
-    `scheduled.yml must document failure → labeled GitHub Issue routing inline.`,
+    /gh\s+issue\s+create|actions\/github-script|github\.rest\.issues|issues\.create/i,
+    `scheduled.yml must route failures to a GitHub Issue via a real handler (gh issue create / actions/github-script), not an inline comment (Story 8.3 activation).`,
+  );
+  assert.match(
+    text,
+    /area:scheduled-check/,
+    `scheduled.yml failure routing must carry the area:scheduled-check label (Story 8.3 activation).`,
   );
 });

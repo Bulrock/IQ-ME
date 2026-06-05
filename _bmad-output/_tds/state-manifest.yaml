@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: dbb17c073c3c7515a4628d5a6194e0046ce85134e7e8294edafd0b019943e995
+    sha256: 169f1d7401b63fe86537bae64a5ff3cae05e848ee44e9916a0b44c13754eb16d
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T09:08:59.601Z
+    recorded_at: 2026-06-05T11:31:18.420Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 240603096651817b57b8db0661537d9c565c366d753f871c690960aacdac0041
+    sha256: 20b16fd715109db15bd7b62547bed9418c50d3fda9c283f87f4ecb3bb56c6209
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T09:21:05.465Z
-    recorded_by: state-commit-autorecord
-    story_id: bridge-9a-1-isolate-concurrency-sensitive-coverage
+    recorded_at: 2026-06-05T11:31:17.725Z
+    recorded_by: engineer
+    story_id: 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -44,12 +44,12 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/trust-artifacts.test.mjs
-    sha256: ab889c611d6e92d7f68b5c6b2d6c3609213b49eee6b94cd181ba16d1feac92cd
+    sha256: cfc2931ba3fd5e00240a4cc459786b38ac82cc431e4815b7aa43d268b825c959
     canonical_form: raw-bytes
-    recorded_at: 2026-05-18T21:22:33.070Z
+    recorded_at: 2026-06-05T11:12:36.283Z
     recorded_by: test-author
-    story_id: 1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners
-    notes: story-1-2 frozen tests
+    story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
+    notes: "story-8-6 red-phase: graduate trust-artifacts AC-4 + new contributing-docs.test.mjs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-3-commit-icar-confirmation-pdf-slot-with-visible-fallback-copy.md
     sha256: 8568871f7214b9aaca4748e1cb14fa61bff630eaa3929015c44aee3c359d99ce
@@ -107,11 +107,12 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: fa9dce38596c387445fcde96b836da3c78506d6823d89edbc00dd713427182b9
+    sha256: bce24153d34372020d28901a27bc0fec6a4312201d000802bdcaffd0a78d8d52
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T12:39:40.328Z
-    recorded_by: frontend
-    notes: reconcile EPIC_1_ACTIVE + ALL_JOBS with Story 6.4/6.6 CI activations (lighthouse, cropping-fuzzer, chrome-components, tear-edge-overlay)
+    recorded_at: 2026-06-05T08:34:07.383Z
+    recorded_by: test-author
+    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
+    notes: "story-8-5 red-phase: graduate ci-matrix (activate trust-verification-full/csp/viewport/axe) + new trust-verification-suite.test.mjs"
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: 2c67dbd842aaf6c1d1fa235e982c057c934cb3d52c80afdcfae9dc360229a6e1
@@ -190,10 +191,11 @@ entries:
     notes: "story-7-5b: graduated parity assertions + design-system AC-6 snapshot-update race fix (tmpdir redirect)"
   - artefact_class: A
     file: _bmad-output/_tds/sprint-status-extension.yaml
-    sha256: d459f0b1ef571943851a4034dc0b1ef710221f63169ff6d75e4dca94314c7daa
+    sha256: 56a7a6793aba22b69c09b698d5b769548c351418a5aa04b1c66863c21260470c
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T08:27:44.631Z
+    recorded_at: 2026-06-05T11:33:24.173Z
     recorded_by: engineer
+    notes: "clear inherited pre-epic-8 drift: extension file == main; stale hash predates bridge-9a final write (provenance: no epic/8 commit touched it)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-1-2-1-add-tds-story-unfreeze.md
     sha256: 09a87b20e669594c49bfec90ff634fb82a075b8d22378e068f9b9399e2d6e386
@@ -1412,3 +1414,145 @@ entries:
     recorded_at: 2026-06-04T08:46:06.934Z
     recorded_by: test-author
     story_id: bridge-9a-1-isolate-concurrency-sensitive-coverage
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment.md
+    sha256: 4f46faf0ffcab82c50b8bbbf14fd87aa01a65568db5b96e652123be9bd83ea3e
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T10:18:08.038Z
+    recorded_by: engineer
+    story_id: 8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment
+  - artefact_class: A
+    file: tests/scaffold/release-workflow.test.mjs
+    sha256: 3e5aebeb1e864ff23385e2678b4edbdea746bd5690bd7df424925ffc89425776
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T08:13:59.544Z
+    recorded_by: test-author
+    story_id: 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification
+    notes: "story-8-4 red-phase: graduate release-workflow AC-5 (mirror present) + new mirror-deploy.test.mjs"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v.md
+    sha256: bc4ac84a8682a3282efeef50fb228d69d7438b0231a283683615b93206bb1413
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T10:44:13.102Z
+    recorded_by: engineer
+    story_id: 8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v
+  - artefact_class: A
+    file: tests/scaffold/release-archival.test.mjs
+    sha256: 9662b2fa73e8a7a484d2329e60eeb728cd654f4a333f0833ee086e8cb4d19467
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T10:35:45.189Z
+    recorded_by: test-author
+    story_id: 8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v
+    notes: "story-8-2 test-review cycle1: add corpus/doi.json secondary-sink AC-6 assertion"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing.md
+    sha256: 4091e0a26c138d886195eb8bdc40988bf95de1617f599eff83c79bf08931b12f
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T11:03:00.871Z
+    recorded_by: engineer
+    story_id: 8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing
+  - artefact_class: A
+    file: tests/scaffold/scheduled-workflow.test.mjs
+    sha256: b65a43d002e93192fe141776311a3a315b94fc52871e6f7228fefb0d59c06ba8
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-04T10:53:10.134Z
+    recorded_by: test-author
+    story_id: 8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing
+    notes: "story-8-3 red-phase: graduate ci-matrix AC-6 scheduled.yml + new scheduled-workflow.test.mjs"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification.md
+    sha256: 9cc28322123c5ed0612c470932a99ab2a596b57e157c31a6263ba3c32f63fa4b
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T08:24:19.805Z
+    recorded_by: engineer
+    story_id: 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification
+  - artefact_class: A
+    file: tests/scaffold/mirror-deploy.test.mjs
+    sha256: d881ff556a87ca5fce6f35d988e3bfa61827e0c74fac928e564d5bd07e8623ab
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T08:13:59.545Z
+    recorded_by: test-author
+    story_id: 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification
+    notes: "story-8-4 red-phase: graduate release-workflow AC-5 (mirror present) + new mirror-deploy.test.mjs"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/8-5-full-playwright-trust-verification-suite-consolidation.md
+    sha256: 5cf012fa2fdad77058cdc6817707228747046032a8b2f76205f65b71048a15cd
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T08:45:04.140Z
+    recorded_by: engineer
+    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
+  - artefact_class: A
+    file: tests/scaffold/trust-verification-suite.test.mjs
+    sha256: c7fc833e659adf636a3c277921eca26b3692cbfdfd6ee9834bbff94575a673bd
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T08:34:07.384Z
+    recorded_by: test-author
+    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
+    notes: "story-8-5 red-phase: graduate ci-matrix (activate trust-verification-full/csp/viewport/axe) + new trust-verification-suite.test.mjs"
+  - artefact_class: A
+    file: tests/playwright/trust-verification.spec.mjs
+    sha256: 76be444c4bcb5547b72bebe7c84676f0dd0d9d6fbefc455631e5e80bae9e4fe0
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T08:43:51.972Z
+    recorded_by: engineer
+    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
+    notes: "story-8-5: consolidated trust-verification Playwright spec + a11y spec + lighthouserc budgets"
+  - artefact_class: A
+    file: tests/a11y/trust-a11y.spec.mjs
+    sha256: 208c102c13f13b5bce43bbba13fcbd6d31115c115386a26ef13f70012ab768d3
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T08:43:51.972Z
+    recorded_by: engineer
+    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
+    notes: "story-8-5: consolidated trust-verification Playwright spec + a11y spec + lighthouserc budgets"
+  - artefact_class: A
+    file: tests/perf/lighthouserc.json
+    sha256: 2297f751508213d365b77c664dd80a1c964ba796d90a5b82190f71c635b7f99f
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T08:43:51.973Z
+    recorded_by: engineer
+    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
+    notes: "story-8-5: consolidated trust-verification Playwright spec + a11y spec + lighthouserc budgets"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs.md
+    sha256: 23f27b8db88dee2a5bfe6708dcc260c18788f1be51aeee2987413007099ccc53
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T11:17:21.571Z
+    recorded_by: engineer
+    story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
+  - artefact_class: A
+    file: tests/scaffold/contributing-docs.test.mjs
+    sha256: 55273d4d8db894c65f5a3e419130c7f17d004b331af99422cfbdc53a4921be11
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T11:15:49.323Z
+    recorded_by: engineer
+    story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle.md
+    sha256: 66ae1eed5392af59f25f137d34853aa13abae6be8e18ec93f170539b357e6cfd
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T11:40:17.000Z
+    recorded_by: story-add-finding-autorecord
+    story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
+  - artefact_class: A
+    file: tests/scaffold/changelog-release.test.mjs
+    sha256: 91c7c723b917e93bec37c007700fd2a375aa38f72d4a6fcf868289d2e38048e4
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T11:23:48.811Z
+    recorded_by: engineer
+    story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path.md
+    sha256: 4cbc95725765f83f4cbe9461351818167dbb97fe75e8c84dcf49d040691030b8
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T11:40:17.000Z
+    recorded_by: story-add-finding-autorecord
+    story_id: 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path
+  - artefact_class: A
+    file: tests/scaffold/discussions-footer.test.mjs
+    sha256: e9622635339df850d98859ed877cebf72212a2d9f9bfcb5119f01cc1ab7d2a9c
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T11:28:39.205Z
+    recorded_by: test-author
+    story_id: 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path
+    notes: "story-8-8 red-phase: footer Discussions + README subscription path + FR52 no-email structural test"

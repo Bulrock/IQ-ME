@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-04 bridge-9a-1-isolate-concurrency-sensitive-coverage: approved'
+last_updated: '2026-06-05 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -140,15 +140,15 @@ development_status:
   bridge-7-8-3-replace-legacy-exempt-central: done           # Replace LEGACY_EXEMPT central list with per-spec frontmatter flag
   bridge-7-8-4-de-binary-save-result: done           # De-binary save-result.test.mjs: replace literal control bytes with \x escapes
   bridge-7-8-5-post-epic-app-modules: done           # Post-epic app-modules-bytes trim pass + re-establish principled ceiling
-  epic-8: backlog
-  8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment: backlog
-  8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v: backlog
-  8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing: backlog
-  8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification: backlog
-  8-5-full-playwright-trust-verification-suite-consolidation: backlog
-  8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs: backlog
-  8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle: backlog
-  8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path: backlog
+  epic-8: approved
+  8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment: approved
+  8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v: approved
+  8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing: approved
+  8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification: approved
+  8-5-full-playwright-trust-verification-suite-consolidation: approved
+  8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs: approved
+  8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle: approved
+  8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path: approved
   epic-8-retrospective: optional
 
   # Bridge →9a: 1 story from 1 retro
