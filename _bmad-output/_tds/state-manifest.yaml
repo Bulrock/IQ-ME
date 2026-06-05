@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 3a6d11162f0045e2121fbcb210a340cfd41b5777e6903348890960890b537b2c
+    sha256: b99f0739c1697c2d1919be0afb12958e0af229e9bbaf5a27b6e1c8abe64e5bec
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:30:59.219Z
-    recorded_by: engineer
-    story_id: bridge-epic-9b-2-refresh-stale-readme-contributing
+    recorded_at: 2026-06-05T12:40:10.344Z
+    recorded_by: state-commit-autorecord
+    story_id: bridge-9b-2-refresh-stale-readme-contributing
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1528,11 +1528,11 @@ entries:
     story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle.md
-    sha256: 7ceb23ed3c26903ee9d2fe8e0d1a0e159cc1ab641a0c4643fc910b53e4d88099
+    sha256: 1ebfec95e9c270a7f954516c5b2ee8d6177c1a5baf674fcd8d100f4ccedea0e9
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:00:40.850Z
-    recorded_by: state-commit-autorecord
-    story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
+    recorded_at: 2026-06-05T12:40:10.207Z
+    recorded_by: engineer
+    notes: update Bridged-to ref bridge-epic-9b → bridge-9b (rename alignment)
   - artefact_class: A
     file: tests/scaffold/changelog-release.test.mjs
     sha256: 91c7c723b917e93bec37c007700fd2a375aa38f72d4a6fcf868289d2e38048e4
@@ -1542,11 +1542,11 @@ entries:
     story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path.md
-    sha256: e36df555d16764bfd6641739fa77e10b5692678701bbe9a4490a02886838c9f0
+    sha256: 0179e3b57a6b429bb9cf01919e95b902f0e419cf3cc58d214817b73d851af9df
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:00:40.850Z
-    recorded_by: state-commit-autorecord
-    story_id: 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path
+    recorded_at: 2026-06-05T12:40:10.207Z
+    recorded_by: engineer
+    notes: update Bridged-to ref bridge-epic-9b → bridge-9b (rename alignment)
   - artefact_class: A
     file: tests/scaffold/discussions-footer.test.mjs
     sha256: e9622635339df850d98859ed877cebf72212a2d9f9bfcb5119f01cc1ab7d2a9c
@@ -1556,30 +1556,30 @@ entries:
     story_id: 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path
     notes: "story-8-8 red-phase: footer Discussions + README subscription path + FR52 no-email structural test"
   - artefact_class: A
-    file: _bmad-output/implementation-artifacts/stories/bridge-epic-9b-1-cross-link-corpus-reference.md
-    sha256: 65e724a7eceea43bcc75af58598902bfa2b2bbc7d82307bb8f1a3a40e2e7b663
+    file: _bmad-output/implementation-artifacts/stories/bridge-9b-1-cross-link-corpus-reference.md
+    sha256: 2e1dc8348781635d2ac412f47931a25aa1eaa2de6124bbf21f8ddddb207a74ec
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:30:59.028Z
+    recorded_at: 2026-06-05T12:38:56.870Z
     recorded_by: engineer
-    story_id: bridge-epic-9b-1-cross-link-corpus-reference
+    notes: rename bridge-epic-9b → bridge-9b (drop literal epic token; align bridge naming)
   - artefact_class: A
-    file: tests/scaffold/bridge-epic-9b-1-corpus-changelog-crosslink.test.mjs
-    sha256: acd00cc3705e835fff33aea19a600f6fe8590ea24ff9c69be1bad7b14367a1b3
+    file: tests/scaffold/bridge-9b-1-corpus-changelog-crosslink.test.mjs
+    sha256: 608c95df44729c9e96ed61a6743c7ce2c563b6625a0569ca4fdce93cf361ff0d
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:08:51.806Z
-    recorded_by: test-author
-    story_id: bridge-epic-9b-1-cross-link-corpus-reference
-  - artefact_class: A
-    file: _bmad-output/implementation-artifacts/stories/bridge-epic-9b-2-refresh-stale-readme-contributing.md
-    sha256: 7c4d18c76b2fe41c44f21f689cca76010c045244c941b7017ae886fd8f403117
-    canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:30:59.261Z
+    recorded_at: 2026-06-05T12:38:56.870Z
     recorded_by: engineer
-    story_id: bridge-epic-9b-2-refresh-stale-readme-contributing
+    notes: rename bridge-epic-9b → bridge-9b (drop literal epic token; align bridge naming)
   - artefact_class: A
-    file: tests/scaffold/bridge-epic-9b-2-readme-contributing.test.mjs
-    sha256: 7e902a33a3d5ea308e0bb70a194ff2ef2a53367459ce02eb02b72bd9a9d0fb86
+    file: _bmad-output/implementation-artifacts/stories/bridge-9b-2-refresh-stale-readme-contributing.md
+    sha256: 14865aa5608dc13615fcd94f992647e7940a4c11c55ba8022227667e46d52980
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:21:00.414Z
-    recorded_by: test-author
-    story_id: bridge-epic-9b-2-refresh-stale-readme-contributing
+    recorded_at: 2026-06-05T12:38:56.870Z
+    recorded_by: engineer
+    notes: rename bridge-epic-9b → bridge-9b (drop literal epic token; align bridge naming)
+  - artefact_class: A
+    file: tests/scaffold/bridge-9b-2-readme-contributing.test.mjs
+    sha256: cf78cf7c886d18e0ccdb7afa45bdd3e7c11a0e7a485625b97800d3d2a0438bbb
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T12:38:56.870Z
+    recorded_by: engineer
+    notes: rename bridge-epic-9b → bridge-9b (drop literal epic token; align bridge naming)

@@ -57,14 +57,14 @@ bridges:
     stories:
       - bridge-9a-1-isolate-concurrency-sensitive-coverage
     status: backlog
-  - id: bridge-epic-9b
+  - id: bridge-9b
     type: tech-debt
     title_extended: Cross-link corpus /reference/changelog/ to root CHANGELOG.md + Refresh stale README '## Contributing' framing post-8.6
     blocks_epic: epic-9b
     outcome_required: []
     stories:
-      - bridge-epic-9b-1-cross-link-corpus-reference
-      - bridge-epic-9b-2-refresh-stale-readme-contributing
+      - bridge-9b-1-cross-link-corpus-reference
+      - bridge-9b-2-refresh-stale-readme-contributing
     status: backlog
 parents:
   1-1-bootstrap-repo-skeleton-makefile: epic-1
@@ -128,7 +128,7 @@ parents:
   bridge-7-8-4-de-binary-save-result: bridge-7-8
   bridge-7-8-5-post-epic-app-modules: bridge-7-8
   bridge-9a-1-isolate-concurrency-sensitive-coverage: bridge-9a
-  bridge-epic-9b-1-cross-link-corpus-reference: bridge-epic-9b
-  bridge-epic-9b-2-refresh-stale-readme-contributing: bridge-epic-9b
+  bridge-9b-1-cross-link-corpus-reference: bridge-9b
+  bridge-9b-2-refresh-stale-readme-contributing: bridge-9b
 last_updated: 2026-06-05T11:55:30.096Z
 generated_by: bmad-tds-bridge-from-retros

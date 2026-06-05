@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-05 bridge-epic-9b-2-refresh-stale-readme-contributing: done'
+last_updated: '2026-06-05 bridge-9b-2-refresh-stale-readme-contributing: done'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -159,10 +159,10 @@ development_status:
   9a-2-icar-confirmation-arrival-licenses-md-reconciliation-slot-fulfillment: backlog
   epic-9a-retrospective: optional
 
-  # Bridge epic→9b: 2 stories from 1 retro
-  bridge-epic-9b: done
-  bridge-epic-9b-1-cross-link-corpus-reference: done           # Cross-link corpus /reference/changelog/ to root CHANGELOG.md
-  bridge-epic-9b-2-refresh-stale-readme-contributing: done           # Refresh stale README '## Contributing' framing post-8.6
+  # Bridge 9a→9b: 2 stories from 1 retro
+  bridge-9b: done
+  bridge-9b-1-cross-link-corpus-reference: done           # Cross-link corpus /reference/changelog/ to root CHANGELOG.md
+  bridge-9b-2-refresh-stale-readme-contributing: done           # Refresh stale README '## Contributing' framing post-8.6
   epic-9b: backlog
   9b-1-psychometrician-recruitment-scoring-spec-methodology-corpus-result-page-sign-off: backlog
   epic-9b-retrospective: optional

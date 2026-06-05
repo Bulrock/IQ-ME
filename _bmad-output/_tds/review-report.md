@@ -1,15 +1,15 @@
-# Code Review Report — bridge-epic-9b
+# Code Review Report — bridge-9b
 
 **Verdict:** approved-with-deferred
-**Scope:** cumulative epic diff `epic/bridge-epic-9b-bridge-epic-9b-2-stories-from-1-retro` vs `main` (2 stories, 4 commits)
+**Scope:** cumulative epic diff `epic/bridge-9b-bridge-9b-2-stories-from-1-retro` vs `main` (2 stories, 4 commits)
 **Reviewed by:** Auditor (clean-context), 2026-06-05
 
 ## Stories
 
 | Story | Outcome | Notes |
 |-------|---------|-------|
-| bridge-epic-9b-1-cross-link-corpus-reference | approved | EN corpus changelog cross-linked to root CHANGELOG.md (repo-relative); PL/RU stubs mirrored + sourceHashEN bumped (NFR27 parity); golden snapshot regen; byte-stable. |
-| bridge-epic-9b-2-refresh-stale-readme-contributing | approved | README `## Contributing` refreshed post-8.6; surgical 1-line edit; scaffold guard added. |
+| bridge-9b-1-cross-link-corpus-reference | approved | EN corpus changelog cross-linked to root CHANGELOG.md (repo-relative); PL/RU stubs mirrored + sourceHashEN bumped (NFR27 parity); golden snapshot regen; byte-stable. |
+| bridge-9b-2-refresh-stale-readme-contributing | approved | README `## Contributing` refreshed post-8.6; surgical 1-line edit; scaffold guard added. |
 
 ## Acceptance criteria
 

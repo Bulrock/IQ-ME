@@ -99,4 +99,4 @@ candidates:
 - Bridge id will auto-derive when assembled via `tds epic create-bridge-from-retros` (next free `bridge-8-9`, or accumulated with later retros before the next main epic).
 - B3 is a launch-runbook (Epic 10) note rather than near-term dev tech-debt; it is carried in the Bridge Plan for traceability but is best actioned in the Epic-10 launch sign-off, not a pre-epic dev bridge.
 
-## Applied to bridge: bridge-epic-9b @ 2026-06-05T11:55:30.126Z
+## Applied to bridge: bridge-9b @ 2026-06-05T11:55:30.126Z
