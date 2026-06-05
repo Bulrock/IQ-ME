@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 68fe345d349f6e640df83c5aa667ff9f74959034f52c63a4024ff0c86db701df
+    sha256: 9066944de17f95bbc094241ead8ca4320dcefdde40eefa6876c3d3953f7c2d42
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:19:14.573Z
+    recorded_at: 2026-06-05T12:19:55.027Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: b689fb6ddd3005b921e5b0bc9e3aa70e3cf73f1eaad92ebc48bb51e67b7391e2
+    sha256: 92d743cee7146458690425e9272ab393d2fb1d7fdfc6790e30862d921d08f16a
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:17:34.502Z
+    recorded_at: 2026-06-05T12:22:25.010Z
     recorded_by: engineer
-    story_id: bridge-epic-9b-1-cross-link-corpus-reference
+    story_id: bridge-epic-9b-2-refresh-stale-readme-contributing
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1569,3 +1569,17 @@ entries:
     recorded_at: 2026-06-05T12:08:51.806Z
     recorded_by: test-author
     story_id: bridge-epic-9b-1-cross-link-corpus-reference
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-epic-9b-2-refresh-stale-readme-contributing.md
+    sha256: c377dce93c9f43fa510fda72ed7377f7093b80455b8714c3085cda924536485e
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T12:22:25.054Z
+    recorded_by: engineer
+    story_id: bridge-epic-9b-2-refresh-stale-readme-contributing
+  - artefact_class: A
+    file: tests/scaffold/bridge-epic-9b-2-readme-contributing.test.mjs
+    sha256: 7e902a33a3d5ea308e0bb70a194ff2ef2a53367459ce02eb02b72bd9a9d0fb86
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T12:21:00.414Z
+    recorded_by: test-author
+    story_id: bridge-epic-9b-2-refresh-stale-readme-contributing

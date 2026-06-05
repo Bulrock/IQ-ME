@@ -59,4 +59,4 @@ Please cite per [`CITATION.cff`](CITATION.cff). At v0.0.1 the `doi` field is emp
 
 ## Contributing
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md). The contribution surface is slim at v0.0.1 (Epic 1) and is expanded in Epic 8 once the per-language reviewer-of-record discipline is enforced via branch protection.
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) — the full contribution guide, including the per-language reviewer-of-record discipline enforced via branch protection.
