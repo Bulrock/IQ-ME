@@ -34,3 +34,18 @@
 body[data-route="#/test"] .chrome-header {
   display: none;
 }
+
+/* Honest in-progress banner shown on non-EN locales (no translated UI yet). */
+.translation-notice {
+  padding-block: var(--space-2);
+  padding-inline: var(--space-5);
+  font-size: var(--font-size-100);
+  text-align: center;
+  color: var(--color-text-attention-body);
+  background-color: var(--color-surface-attention);
+  border-block-end: var(--border-width-hairline) solid var(--color-rule-divider);
+}
+
+body[data-route="#/test"] .translation-notice {
+  display: none;
+}

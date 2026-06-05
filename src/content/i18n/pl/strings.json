@@ -12,6 +12,7 @@
     "errorFallbackMessage": "Something went wrong loading the page. Try reloading.",
     "languageSwitcherPlaceholderEn": "EN",
     "languageSwitcherLegend": "Language",
+    "translationInProgress": "Trwa tłumaczenie — ta strona jest na razie wyświetlana po angielsku.",
     "footerMethodologyLink": "Read the methodology",
     "footerDiscussionsLink": "Discussions",
     "footerCitationLink": "Cite",

@@ -38,6 +38,22 @@ function applyChromeStrings() {
   set(".chrome-footer__citation-link", "chrome.footerCitationLink");
 }
 
+// Non-EN locales have no translated UI yet (gated on the 9c/9d reviewer of
+// record). Surface an honest in-progress notice so a locale switch visibly
+// registers instead of looking like a no-op. EN renders nothing.
+function renderTranslationNotice(locale) {
+  const prev = document.querySelector(".translation-notice");
+  if (prev) prev.remove();
+  if (locale === "en") return;
+  const header = document.querySelector(".chrome-header");
+  if (!header || typeof header.insertAdjacentElement !== "function") return;
+  const el = document.createElement("div");
+  el.className = "translation-notice";
+  el.setAttribute("role", "status");
+  el.textContent = localeLoader.get("chrome.translationInProgress");
+  header.insertAdjacentElement("afterend", el);
+}
+
 let inFlight = null;
 
 function buildStrings() {
@@ -82,6 +98,7 @@ async function bootstrap() {
       });
     }
     applyChromeStrings();
+    renderTranslationNotice(locale);
     routing.start();
     // Re-render if router was started in a prior boot (idempotent-guard hop).
     const appEl = document.getElementById("app");

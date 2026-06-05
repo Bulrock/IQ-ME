@@ -5,6 +5,7 @@
     "errorFallbackMessage": "Something went wrong loading the page. Try reloading.",
     "languageSwitcherPlaceholderEn": "EN",
     "languageSwitcherLegend": "Language",
+    "translationInProgress": "Translation in progress — this page is shown in English for now.",
     "footerMethodologyLink": "Read the methodology",
     "footerDiscussionsLink": "Discussions",
     "footerCitationLink": "Cite",
