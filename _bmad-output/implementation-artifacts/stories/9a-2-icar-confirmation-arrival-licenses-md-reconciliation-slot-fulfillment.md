@@ -28,7 +28,7 @@ so that the FR45 artifact slot is filled, the Epic-1 visible-fallback is removed
 ## Tasks / Subtasks
 
 - [ ] **Task 1 (BLOCKED — human deliverable): receive the ICAR/SAPA written reply.** Send the Story 9a-1 draft, run the follow-up cadence (4wk reminder / 8wk secondary contact / 12wk fallback activation), and obtain a PDF or signed-email export. No agent action possible until this completes.
-- [ ] **Task 2: author/extend the trust-artifact guard** asserting the committed `ICAR-CONFIRMATION.pdf` is non-empty, has a `last-modified` frontmatter date, and is not the placeholder; confirm RED against the placeholder. (test-author phase — executable once the reply exists)
+- [x] **Task 2: author/extend the trust-artifact guard** asserting the committed `ICAR-CONFIRMATION.pdf` is non-empty, has a `last-modified` frontmatter date, and is not the placeholder; confirm RED against the placeholder. (test-author phase — executable once the reply exists)
 - [ ] **Task 3: commit the real artifact** to repo root as `ICAR-CONFIRMATION.pdf`, replacing the placeholder (AC 1, AC 2). (impl phase)
 - [ ] **Task 4: reconcile constraints** into `LICENSES.md` + `provenance/icar-license` (EN+RU+PL parity) + item pipeline if required (AC 3); replace the visible-fallback copy (AC 4). (impl phase)
 - [ ] **Task 5: close-out** — update `icar-outreach-log.md` attempts table with the real outcome, add the `CHANGELOG.md` gate-close entry (AC 5). (impl phase)
@@ -64,4 +64,8 @@ so that the FR45 artifact slot is filled, the Epic-1 visible-fallback is removed
 
 ### Completion Notes List
 
+- Task 2 done: guard RED 8/8 against placeholder — fails on size (1058 B), placeholder title/body strings, pending outreach log, pending: true in EN/RU/PL icar-license.md. Will flip green when real reply arrives and Story 9a-2 impl runs.
+
 ### File List
+
+- tests/scaffold/9a-2-icar-gate-closed.test.mjs
