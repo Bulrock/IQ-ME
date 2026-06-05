@@ -1,7 +1,7 @@
 ---
 id: 9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields
 title: "Story 9d-2: PL clinical-register sign-off + CODEOWNERS finalization + masthead reviewer fields"
-status: ready-for-dev
+status: tests-pending
 ---
 
 # Story 9d-2: PL clinical-register sign-off + CODEOWNERS finalization + masthead reviewer fields

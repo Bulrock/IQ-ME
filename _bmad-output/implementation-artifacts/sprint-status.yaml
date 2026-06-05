@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-05 9a-2-icar-confirmation-arrival-licenses-md-reconciliation-slot-fulfillment: tests-pending'
+last_updated: '2026-06-05 9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields: tests-pending'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -171,7 +171,7 @@ development_status:
   epic-9c-retrospective: optional
   epic-9d: backlog
   9d-1-pl-clinical-register-translator-recruitment-initial-engagement: done
-  9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields: ready-for-dev
+  9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields: tests-pending
   epic-9d-retrospective: optional
   epic-9e: backlog
   9e-1-native-speaker-tester-recruitment-credibility-validation-iteration-loop: done
