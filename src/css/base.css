@@ -1,0 +1,73 @@
+/* src/css/base.css
+ *
+ * Foundational element styling — applies the semantic-token contract to the
+ * document and bare HTML elements. Components style themselves; this file only
+ * sets the inherited defaults (font, color, rhythm) so an unstyled element
+ * already reads as the project's "scientific-instrument" register rather than
+ * the browser's serif default.
+ *
+ * Tokens only (no literal hex / px / font-family) per UX-DR1. Page background
+ * lives on `html` (surface-base); `body` stays transparent by design — the
+ * theme contract is the --color-surface-base swap at :root, asserted by the
+ * Playwright chrome-components spec.
+ */
+
+html {
+  background-color: var(--color-surface-base);
+  color-scheme: light dark;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-200);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-base);
+  color: var(--color-text-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* Headings — tighter rhythm, balanced wrapping. Sizes are set per-component
+   where they carry semantic weight; bare headings get a sensible default. */
+h1, h2, h3, h4, h5, h6 {
+  line-height: var(--line-height-tight);
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--font-size-700); }
+h2 { font-size: var(--font-size-600); }
+h3 { font-size: var(--font-size-500); }
+h4 { font-size: var(--font-size-400); }
+h5 { font-size: var(--font-size-300); }
+h6 { font-size: var(--font-size-200); }
+
+p {
+  text-wrap: pretty;
+}
+
+/* Links — accent only on interactive affordance (UX-DR2). */
+a {
+  color: var(--color-text-link);
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  color: var(--color-text-link-hover);
+}
+
+a:active {
+  color: var(--color-text-link-active);
+}
+
+/* Consistent, visible keyboard focus for any interactive element that does
+   not define its own (components may override with offset tuning). */
+:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}
+
+::selection {
+  background-color: var(--color-accent-300);
+  color: var(--color-neutral-0);
+}

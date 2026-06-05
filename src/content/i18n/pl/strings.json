@@ -38,6 +38,7 @@
     "headingTemplate": "Item {N} of {total}",
     "progressTemplate": "Item {N} of {total}",
     "optionsLegend": "Select the option that best completes the pattern",
+    "optionLabelTemplate": "Option {N}",
     "previousButton": "Previous",
     "nextButton": "Next",
     "submitButton": "Submit",

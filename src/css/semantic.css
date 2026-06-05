@@ -31,6 +31,11 @@
   /* Focus ring */
   --color-focus-ring:          var(--color-accent-500);
 
+  /* Primary action (the single forward affordance per scene) */
+  --color-action-bg:           var(--color-accent-500);
+  --color-action-bg-hover:     var(--color-accent-700);
+  --color-action-text:         var(--color-neutral-0);
+
   /* Semantic spacing tokens */
   --space-prose-paragraph-gap: var(--space-4);
   --space-section-gap:         var(--space-7);
@@ -39,6 +44,15 @@
   --space-score-triplet-gap:   var(--space-5);
   --space-tail-scene-top:      var(--space-6);
   --space-trail-step-gap:      var(--space-3);
+
+  /* Semantic radius tokens */
+  --radius-control:            var(--radius-2);
+  --radius-surface:            var(--radius-3);
+  --radius-input:              var(--radius-1);
+
+  /* Semantic elevation tokens */
+  --shadow-elevated:           var(--shadow-1);
+  --shadow-overlay:            var(--shadow-2);
 }
 
 /* ─── UX-DR6 — Dark mode (explicit opt-in) ───────────────────────────── */

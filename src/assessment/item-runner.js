@@ -45,7 +45,12 @@ async function ensureSession(rootEl, strings) {
 function buildMarkup(cache, currentItem, strings) {
   const selectedIds = cache.selection.items;
   const item = cache.pool.items.find((p) => p.id === selectedIds[currentItem]);
-  const aug = cache.selection.augmentations[currentItem];
+  // The anti-leakage augmentation is still computed (and tested) in
+  // item-selection; we just don't *render* it on the placeholder pool, whose
+  // generic option tiles can't be authored to match a rotated/flipped puzzle.
+  // Auto-re-enables when the real ICAR pool (no _note marker) lands in 9a-2.
+  const isStubPool = typeof cache.pool._note === "string";
+  const aug = isStubPool ? "none" : cache.selection.augmentations[currentItem];
   const N = currentItem + 1;
   const heading = fmt(strings.itemRunner.headingTemplate, { N, total: SESSION_SIZE });
   const progress = fmt(strings.itemRunner.progressTemplate, { N, total: SESSION_SIZE });
@@ -56,11 +61,19 @@ function buildMarkup(cache, currentItem, strings) {
   const isLast = currentItem === SESSION_SIZE - 1;
   const nextLabel = isLast ? strings.itemRunner.submitButton : strings.itemRunner.nextButton;
 
+  const optionLabel = strings.itemRunner.optionLabelTemplate || "Option {N}";
   const optionsHtml = item.options
-    .map((opt) => {
+    .map((opt, i) => {
       const checked = recorded === 1 && opt === item.correct ? ' checked=""' : "";
+      // Image-tile option when the value is an SVG asset (matrix candidate
+      // tile); plain-text option otherwise (forward/backward compatible).
+      const isAsset = /\.svg$/.test(opt);
+      const visible = isAsset
+        ? '<img class="item-runner__option-image" src="/src/items/' + esc(opt) + '" alt="" />'
+          + '<span class="visually-hidden">' + esc(fmt(optionLabel, { N: i + 1 })) + '</span>'
+        : '<span>' + esc(opt) + '</span>';
       return '<label class="item-runner__option"><input type="radio" name="item-' + N
-        + '" value="' + esc(opt) + '"' + checked + ' /><span>' + esc(opt) + '</span></label>';
+        + '" value="' + esc(opt) + '"' + checked + ' />' + visible + '</label>';
     })
     .join("");
 

@@ -63,16 +63,79 @@
   display: none;
 }
 
+/* Pre-reveal scene (beat) — heading + subcopy + the reveal decision. The
+   reveal ("Show me") is the one prominent affordance on the scene; "Not yet"
+   is a quiet secondary. Centered column so the decision reads clearly. */
+.result-scene[data-reveal-stage="anchor"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-4);
+  padding-block: var(--space-7);
+}
+
+.rs-show,
+.rs-not {
+  font-size: var(--font-size-200);
+  line-height: var(--line-height-base);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-6);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease, color 120ms ease;
+}
+
+/* Primary — reveal the result. */
+.rs-show {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-action-text);
+  background-color: var(--color-action-bg);
+  border: 1px solid var(--color-action-bg);
+  box-shadow: var(--shadow-elevated);
+}
+
+.rs-show:hover {
+  background-color: var(--color-action-bg-hover);
+  border-color: var(--color-action-bg-hover);
+  box-shadow: var(--shadow-overlay);
+}
+
+/* Secondary — defer. Quiet, no fill. */
+.rs-not {
+  color: var(--color-text-muted);
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+
+.rs-not:hover {
+  color: var(--color-text-body);
+  border-color: var(--color-rule-divider);
+}
+
 /* Story 6.7 — opt-in "Save my result" button (FR26, NFR9) + retest-effect note
    (FR27). Neither is a triplet member; the CSS-source co-equal lint
    (lint-css-source-co-equal.mjs) ignores them. Restraint-first: the save button
-   is a quiet affordance, not a call-to-action. */
+   is a quiet affordance, not a call-to-action — an outlined, not filled, button. */
 .score-panel__save-button {
-  display: block;
+  display: inline-block;
   margin-block-start: var(--space-5);
   font-size: var(--font-size-200);
   font-weight: var(--font-weight-regular);
   font-family: var(--font-family-sans);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-5);
+  border-radius: var(--radius-control);
+  border: 1px solid var(--color-rule-strong);
+  background-color: var(--color-surface-base);
+  color: var(--color-text-body);
+  cursor: pointer;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.score-panel__save-button:hover {
+  border-color: var(--color-focus-ring);
+  box-shadow: var(--shadow-elevated);
 }
 
 .score-panel__save-button[aria-pressed="true"] {
