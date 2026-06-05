@@ -1078,3 +1078,14 @@ branches:
     last_synced_at: 2026-06-05T14:26:45.295Z
     notes: ""
     created_at: 2026-06-05T14:18:55.258Z
+  - branch: story/10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification
+    story_id: 10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification
+    epic_id: null
+    base_branch: epic/10
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-05T14:32:07.458Z
+    notes: ""
+    created_at: 2026-06-05T14:29:17.505Z

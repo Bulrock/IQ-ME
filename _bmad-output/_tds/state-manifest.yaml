@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 3c4bf2895d5ca381a364a16ea9af89a7fdf50d6c103d5a1fe0d19367fcfca22a
+    sha256: 7fa299827cc5b8020a80cbf55d3389eee243a63c2ea0a7ca712db4e124c900cf
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T14:26:45.333Z
+    recorded_at: 2026-06-05T14:32:07.499Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 8e7eb9830f79cf82010134600c0783c5a5b44bf3ea2b0e214afa6874cecc8c71
+    sha256: 23867f4b91ef4f51860209ea77a41760dfdcfa3e3b82e9808203efbb9cde1457
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T14:29:13.525Z
-    recorded_by: state-commit-autorecord
-    story_id: 10-1-pre-launch-readiness-checklist-final-smoke-test
+    recorded_at: 2026-06-05T14:32:00.204Z
+    recorded_by: engineer
+    story_id: 10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1678,3 +1678,17 @@ entries:
     recorded_at: 2026-06-05T14:20:54.192Z
     recorded_by: test-author
     story_id: 10-1-pre-launch-readiness-checklist-final-smoke-test
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification.md
+    sha256: 92d9fdb05855d7639f16b04a3017ec8420c9fe8fea483a7463d3030fe5007558
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T14:32:00.264Z
+    recorded_by: engineer
+    story_id: 10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification
+  - artefact_class: A
+    file: tests/scaffold/10-2-launch-postscript.test.mjs
+    sha256: 2f89e82e99edcd269dcc8d4f63b90bd6e3bbfdafa16a42310aac3518a66d9515
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T14:30:28.918Z
+    recorded_by: test-author
+    story_id: 10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification
