@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 4ba65011eb06449b3bceda21ce73f130bf780f5a857b538b6eaa356baba3c819
+    sha256: 4f199c3e110b0a07fcba68944b23ee6f1e072609ede11fb997464b6d9281fd14
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:24:19.764Z
+    recorded_at: 2026-06-05T08:30:05.833Z
     recorded_by: engineer
-    story_id: 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification
+    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1473,3 +1473,10 @@ entries:
     recorded_by: test-author
     story_id: 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification
     notes: "story-8-4 red-phase: graduate release-workflow AC-5 (mirror present) + new mirror-deploy.test.mjs"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/8-5-full-playwright-trust-verification-suite-consolidation.md
+    sha256: ccfbdfdf1a29ee3cdaea228b2be5cb98e84cacfd41e8b0cb419be527b0195101
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T08:30:06.048Z
+    recorded_by: engineer
+    notes: story-8-5 spec authored (create-story)
