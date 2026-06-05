@@ -1,7 +1,7 @@
 ---
 id: 10-1-pre-launch-readiness-checklist-final-smoke-test
 title: "Story 10-1: Pre-launch readiness checklist + final smoke test"
-status: ready-for-dev
+status: review
 ---
 
 # Story 10-1: Pre-launch readiness checklist + final smoke test
@@ -32,25 +32,25 @@ The **agent-executable deliverables** are: authoring `docs/launch-readiness/v1.0
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1:** Author `docs/launch-readiness/v1.0.0-checklist.md` — the master pre-launch checklist (AC 1, AC 2, AC 5).
-  - [ ] **Subtask 1.1:** Section A — Dev-epic merges (Epics 1–8): list each epic + its exit criterion reference + sign-off field.
-  - [ ] **Subtask 1.2:** Section B — Gate-epic closures (9a–9e): list each gate with artifact path, threshold, and sign-off field.
-  - [ ] **Subtask 1.3:** Section C — CI gates: enumerate all `pr-checks.yml` job names (reference `docs/required-ci-checks.md`), add "no `if: false` stubs remaining" assertion, sign-off field.
-  - [ ] **Subtask 1.4:** Section D — Manual smoke test matrix: EN/RU/PL × Chrome/Firefox/Safari(+Yandex Browser), happy-path steps (consent → 16 items → result → methodology click), FR41 30-second zero-third-party DevTools check, score panel co-equal triplet visual check, bottom/top decile tail-scenes per locale, `hreflang` navigation, cite-this-page widget citation validation, sign-off fields.
-  - [ ] **Subtask 1.5:** Section E — Byte-stable build assertion: `make test-byte-stable` green, sign-off field.
-  - [ ] **Subtask 1.6:** Verify the checklist cross-references `docs/launch-readiness/v1.0.0-rollback-runbook.md`.
-- [ ] **Task 2:** Author `docs/launch-readiness/v1.0.0-rollback-runbook.md` — pre-launch emergency rollback runbook (AC 3).
-  - [ ] **Subtask 2.1:** Step-by-step: `git tag -d app-v1.0.0` + `git push origin --delete app-v1.0.0` (allowed for emergency only), redeploy prior gh-pages artifact from known-good branch.
-  - [ ] **Subtask 2.2:** Zenodo DOI withdrawal: link to Zenodo "Mark as withdrawal" docs, note process.
-  - [ ] **Subtask 2.3:** Internet Archive correction notice: document the `https://web.archive.org/` `Save Page Now` re-run + IA correction-note process.
-  - [ ] **Subtask 2.4:** Add "dry-run validation" checklist inside the runbook itself (each step annotated with the verification command/check, for Story 10.3 validation).
-- [ ] **Task 3:** Author `docs/launch-readiness/v1.0.0-no-enshittification-baseline.md` template (AC 4).
-  - [ ] **Subtask 3.1:** Fields: capture date, zero-analytics verdict (network-trace snapshot reference), zero-third-party fetches (CSP violation count = 0), no-signup assertion, deployed-tree SHA vs `main`-branch source-tree SHA, `LICENSES.md` sha256 hash, `CITATION.cff` sha256 hash.
-  - [ ] **Subtask 3.2:** Audit schedule section: T+6 months, T+12 months, T+24 months — per-field re-verification protocol (each field has a "current value" + "audit result" pair).
-  - [ ] **Subtask 3.3:** Note that this template is committed now; actual baseline values are filled in during Story 10.2 execution at real launch.
-- [ ] **Task 4:** Verify `make lint` exit 0 and `make build` exit 0 on the branch after authoring these docs (AC 6).
-  - [ ] **Subtask 4.1:** Run `make lint` — confirm exit 0.
-  - [ ] **Subtask 4.2:** Run `make build` — confirm exit 0.
+- [x] **Task 1:** Author `docs/launch-readiness/v1.0.0-checklist.md` — the master pre-launch checklist (AC 1, AC 2, AC 5).
+  - [x] **Subtask 1.1:** Section A — Dev-epic merges (Epics 1–8): list each epic + its exit criterion reference + sign-off field.
+  - [x] **Subtask 1.2:** Section B — Gate-epic closures (9a–9e): list each gate with artifact path, threshold, and sign-off field.
+  - [x] **Subtask 1.3:** Section C — CI gates: enumerate all `pr-checks.yml` job names (reference `docs/required-ci-checks.md`), add "no `if: false` stubs remaining" assertion, sign-off field.
+  - [x] **Subtask 1.4:** Section D — Manual smoke test matrix: EN/RU/PL × Chrome/Firefox/Safari(+Yandex Browser), happy-path steps (consent → 16 items → result → methodology click), FR41 30-second zero-third-party DevTools check, score panel co-equal triplet visual check, bottom/top decile tail-scenes per locale, `hreflang` navigation, cite-this-page widget citation validation, sign-off fields.
+  - [x] **Subtask 1.5:** Section E — Byte-stable build assertion: `make test-byte-stable` green, sign-off field.
+  - [x] **Subtask 1.6:** Verify the checklist cross-references `docs/launch-readiness/v1.0.0-rollback-runbook.md`.
+- [x] **Task 2:** Author `docs/launch-readiness/v1.0.0-rollback-runbook.md` — pre-launch emergency rollback runbook (AC 3).
+  - [x] **Subtask 2.1:** Step-by-step: `git tag -d app-v1.0.0` + `git push origin --delete app-v1.0.0` (allowed for emergency only), redeploy prior gh-pages artifact from known-good branch.
+  - [x] **Subtask 2.2:** Zenodo DOI withdrawal: link to Zenodo "Mark as withdrawal" docs, note process.
+  - [x] **Subtask 2.3:** Internet Archive correction notice: document the `https://web.archive.org/` `Save Page Now` re-run + IA correction-note process.
+  - [x] **Subtask 2.4:** Add "dry-run validation" checklist inside the runbook itself (each step annotated with the verification command/check, for Story 10.3 validation).
+- [x] **Task 3:** Author `docs/launch-readiness/v1.0.0-no-enshittification-baseline.md` template (AC 4).
+  - [x] **Subtask 3.1:** Fields: capture date, zero-analytics verdict (network-trace snapshot reference), zero-third-party fetches (CSP violation count = 0), no-signup assertion, deployed-tree SHA vs `main`-branch source-tree SHA, `LICENSES.md` sha256 hash, `CITATION.cff` sha256 hash.
+  - [x] **Subtask 3.2:** Audit schedule section: T+6 months, T+12 months, T+24 months — per-field re-verification protocol (each field has a "current value" + "audit result" pair).
+  - [x] **Subtask 3.3:** Note that this template is committed now; actual baseline values are filled in during Story 10.2 execution at real launch.
+- [x] **Task 4:** Verify `make lint` exit 0 and `make build` exit 0 on the branch after authoring these docs (AC 6).
+  - [x] **Subtask 4.1:** Run `make lint` — confirm exit 0.
+  - [x] **Subtask 4.2:** Run `make build` — confirm exit 0.
 
 ## Dev Notes
 
@@ -111,4 +111,11 @@ The **agent-executable deliverables** are: authoring `docs/launch-readiness/v1.0
 
 ### Completion Notes List
 
+- All 3 launch-readiness docs authored; 14/14 scaffold tests green; make lint exit 0; make build exit 0
+
 ### File List
+
+- docs/launch-readiness/v1.0.0-checklist.md
+- docs/launch-readiness/v1.0.0-rollback-runbook.md
+- docs/launch-readiness/v1.0.0-no-enshittification-baseline.md
+- tests/scaffold/10-1-pre-launch-checklist.test.mjs
