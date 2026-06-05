@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 455e2b21b030a5b54dc9a75f563be37723dad91cc3cb89c22617531b629e1495
+    sha256: b26f36becdb4b31543bd9b0055347cfba999ccf68954ddd0d6cd9da763f62c76
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T11:03:00.809Z
+    recorded_at: 2026-06-05T08:08:53.919Z
     recorded_by: engineer
-    story_id: 8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing
+    story_id: 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1458,3 +1458,10 @@ entries:
     recorded_by: test-author
     story_id: 8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing
     notes: "story-8-3 red-phase: graduate ci-matrix AC-6 scheduled.yml + new scheduled-workflow.test.mjs"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification.md
+    sha256: 91dc5dc9599bc730b8f3d4308244ff0955043e9b2347a7455858c4069a4c592c
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T08:08:54.138Z
+    recorded_by: engineer
+    notes: story-8-4 spec authored (create-story)

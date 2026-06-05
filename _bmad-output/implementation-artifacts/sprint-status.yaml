@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-04 8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing: review'
+last_updated: '2026-06-05 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification: ready-for-dev'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -144,7 +144,7 @@ development_status:
   8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment: review
   8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v: review
   8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing: review
-  8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification: backlog
+  8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification: ready-for-dev
   8-5-full-playwright-trust-verification-suite-consolidation: backlog
   8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs: backlog
   8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle: backlog
