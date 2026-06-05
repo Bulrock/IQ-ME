@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: fce208e92cf83c0dbca2cf29b64f41338c9c44c4ff71e66048d584bafbcf6794
+    sha256: ce7cdd60d54dea28027ffb01f3d5db5291829ae11b9926c316aad4a10b00f61c
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T13:55:32.841Z
+    recorded_at: 2026-06-05T14:09:48.258Z
     recorded_by: engineer
-    story_id: 9e-1-native-speaker-tester-recruitment-credibility-validation-iteration-loop
+    story_id: 9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1650,3 +1650,17 @@ entries:
     recorded_at: 2026-06-05T13:55:32.884Z
     recorded_by: engineer
     story_id: 9e-1-native-speaker-tester-recruitment-credibility-validation-iteration-loop
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/9a-2-icar-confirmation-arrival-licenses-md-reconciliation-slot-fulfillment.md
+    sha256: 5ac089037b477746e328df30d2480416fe43f1edd925a191486f1c9b7aa49970
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T14:09:48.258Z
+    recorded_by: engineer
+    story_id: 9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields.md
+    sha256: 3461fc1295cc8fb36d4973e120e36e3b145fb0dd7de31875cee324a91c3844b8
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T14:09:48.258Z
+    recorded_by: engineer
+    story_id: 9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields

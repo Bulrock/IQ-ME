@@ -1,7 +1,7 @@
 ---
 id: 9a-2-icar-confirmation-arrival-licenses-md-reconciliation-slot-fulfillment
 title: "Story 9a-2: ICAR confirmation arrival + LICENSES.md reconciliation + slot fulfillment"
-status: tests-pending
+status: tests-approved
 ---
 
 # Story 9a-2: ICAR confirmation arrival + LICENSES.md reconciliation + slot fulfillment

@@ -156,7 +156,7 @@ development_status:
   bridge-9a-1-isolate-concurrency-sensitive-coverage: done           # Isolate concurrency-sensitive coverage/lint tests to tmpdir
   epic-9a: in-progress
   9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log: done
-  9a-2-icar-confirmation-arrival-licenses-md-reconciliation-slot-fulfillment: tests-pending
+  9a-2-icar-confirmation-arrival-licenses-md-reconciliation-slot-fulfillment: tests-approved
   epic-9a-retrospective: optional
 
   # Bridge 9a→9b: 2 stories from 1 retro
@@ -171,7 +171,7 @@ development_status:
   epic-9c-retrospective: optional
   epic-9d: backlog
   9d-1-pl-clinical-register-translator-recruitment-initial-engagement: done
-  9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields: tests-pending
+  9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields: tests-approved
   epic-9d-retrospective: optional
   epic-9e: backlog
   9e-1-native-speaker-tester-recruitment-credibility-validation-iteration-loop: done
