@@ -1,7 +1,7 @@
 ---
 id: 7-8-codeowners-branch-protection-config-artifact-for-dual-approval
 title: "Story 7.8: CODEOWNERS + branch-protection-config artifact for dual-approval"
-status: review
+status: done
 ---
 
 # Story 7.8: CODEOWNERS + branch-protection-config artifact for dual-approval

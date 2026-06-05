@@ -1,7 +1,7 @@
 ---
 id: 10-3-48-hour-post-launch-monitoring-window
 title: "Story 10-3: 48-hour post-launch monitoring window"
-status: review
+status: done
 ---
 
 # Story 10-3: 48-hour post-launch monitoring window

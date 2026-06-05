@@ -1,7 +1,7 @@
 ---
 id: 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification
 title: "Story 8.4: Mirror failover deployment to Codeberg/Cloudflare (byte-identical artifact verification)"
-status: review
+status: done
 ---
 
 # Story 8.4: Mirror failover deployment to Codeberg/Cloudflare (byte-identical artifact verification)

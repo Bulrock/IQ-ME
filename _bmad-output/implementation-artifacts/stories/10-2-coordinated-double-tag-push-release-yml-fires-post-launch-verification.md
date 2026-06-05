@@ -1,7 +1,7 @@
 ---
 id: 10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification
 title: "Story 10-2: Coordinated double-tag push + release.yml fires + post-launch verification"
-status: review
+status: done
 ---
 
 # Story 10-2: Coordinated double-tag push + release.yml fires + post-launch verification

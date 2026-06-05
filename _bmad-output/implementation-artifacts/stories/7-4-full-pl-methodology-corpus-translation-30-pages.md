@@ -1,7 +1,7 @@
 ---
 id: 7-4-full-pl-methodology-corpus-translation-30-pages
 title: "Story 7.4: Full PL methodology corpus translation (30 pages)"
-status: review
+status: done
 ---
 
 # Story 7.4: Full PL methodology corpus translation (30 pages)

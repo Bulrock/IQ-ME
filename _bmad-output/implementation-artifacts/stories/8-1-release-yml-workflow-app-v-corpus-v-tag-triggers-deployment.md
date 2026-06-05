@@ -1,7 +1,7 @@
 ---
 id: 8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment
 title: "Story 8.1: release.yml workflow — app-v* + corpus-v* tag triggers + deployment"
-status: review
+status: done
 ---
 
 # Story 8.1: release.yml workflow — app-v* + corpus-v* tag triggers + deployment

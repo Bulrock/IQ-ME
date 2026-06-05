@@ -1,7 +1,7 @@
 ---
 id: 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path
 title: "Story 8.8: GitHub Discussions link in chrome-footer + release-notification subscription path"
-status: review
+status: done
 ---
 
 # Story 8.8: GitHub Discussions link + release-notification subscription path

@@ -1,7 +1,7 @@
 ---
 id: 10-1-pre-launch-readiness-checklist-final-smoke-test
 title: "Story 10-1: Pre-launch readiness checklist + final smoke test"
-status: review
+status: done
 ---
 
 # Story 10-1: Pre-launch readiness checklist + final smoke test

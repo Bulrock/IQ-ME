@@ -1,7 +1,7 @@
 ---
 id: 7-2-locale-switch-blocker-hint-fr8-enforcement
 title: "Story 7.2: locale-switch-blocker-hint + FR8 enforcement"
-status: review
+status: done
 ---
 
 # Story 7.2: locale-switch-blocker-hint + FR8 enforcement

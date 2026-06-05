@@ -1251,11 +1251,11 @@ entries:
     story_id: bridge-7-8-5-post-epic-app-modules
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-1-i18n-harness-locale-loading-language-switcher.md
-    sha256: a83f1b23f6edb6a26c153d86ca0d2206e170406a7910102225d16d3f7b8e989e
+    sha256: a68e1ed3b4d38cc1787db1e16289c18a0b3dd39f3760fb73f550249eebdc680a
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T08:06:40.068Z
-    recorded_by: story-add-finding-autorecord
-    story_id: 7-1-i18n-harness-locale-loading-language-switcher
+    recorded_at: 2026-06-05T14:56:49.421Z
+    recorded_by: engineer
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/unit/i18n-harness.test.mjs
     sha256: b4f291c4c5d9a468181e7661cbca793311fb35aa3a6091a60fd216ec8044153e
@@ -1282,11 +1282,11 @@ entries:
     notes: story-7-1 frozen failing tests (i18n harness + language-switcher + 3-locale Playwright)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-2-locale-switch-blocker-hint-fr8-enforcement.md
-    sha256: 7e0830d9d70ffcc9e58e30a03272de14b32747358c94e9915b9b59f3977a8e91
+    sha256: 3e2fc366909c3f143d4e9221c5032cf0fb490853d886ce28b155b9aba6d0c5a0
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T15:48:40.758Z
+    recorded_at: 2026-06-05T14:56:49.421Z
     recorded_by: engineer
-    story_id: 7-2-locale-switch-blocker-hint-fr8-enforcement
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/unit/locale-switch-blocker-hint.test.mjs
     sha256: c51c22b8b5738f61b81cfe0d6ab64e471d978d0ed0217868c709990aeaf92a20
@@ -1297,11 +1297,11 @@ entries:
     notes: story-7-2 frozen failing tests (locale-switch-blocker-hint)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-3-full-ru-methodology-corpus-translation-30-pages.md
-    sha256: 9ffdc5b8d7057405a88ccc792e8f641924a88e30f74b8286c1653f8f6e1521f2
+    sha256: 24056f2046da165c9715d86fa585b6f45abb83390c51b740e6daabf2539b7f10
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T16:27:19.529Z
+    recorded_at: 2026-06-05T14:56:49.421Z
     recorded_by: engineer
-    story_id: 7-3-full-ru-methodology-corpus-translation-30-pages
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/unit/tools/translation-mirror-ru.test.mjs
     sha256: 133c9cc7d01c033094d6ab999e0d4e90d7dede2e3f5a42e3db0a9a47644d82d5
@@ -1312,11 +1312,11 @@ entries:
     notes: story-7-3 frozen failing tests (RU methodology mirror parity AC-4)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-4-full-pl-methodology-corpus-translation-30-pages.md
-    sha256: 45d29fe5d8bfa8bdc7de0b91825b7e855aa76f5abbf96116155a797a2950e97f
+    sha256: 588379ebb5e54029121f8f3e251c59a553b77c3869097156ebd4b732e00956af
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T16:34:49.524Z
+    recorded_at: 2026-06-05T14:56:49.421Z
     recorded_by: engineer
-    story_id: 7-4-full-pl-methodology-corpus-translation-30-pages
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/unit/tools/translation-mirror-pl.test.mjs
     sha256: c9d39cffc6a96593da4da69830928fe956132a28b196fa1bcb49430442b654f5
@@ -1327,11 +1327,11 @@ entries:
     notes: story-7-4 frozen failing tests (PL methodology mirror parity AC-4)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis.md
-    sha256: 822206aac5addee6d0a35e3f5478d2efcd42733e26ff9c8a820f7376aaf0b523
+    sha256: 3349de12a3019d64af4c0d06623c7f5c0f322800002ff55b488c957cc11f954b
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T08:06:40.068Z
-    recorded_by: story-add-finding-autorecord
-    story_id: 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
+    recorded_at: 2026-06-05T14:56:49.422Z
+    recorded_by: engineer
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/unit/tools/lint-reading-level-calibration.test.mjs
     sha256: 6e67b0e7f26816cf79330de8f4e441de5190e9d3ead7593a4ddf156d29de5ecf
@@ -1342,11 +1342,11 @@ entries:
     notes: story-7-5a frozen failing tests (RU Oborneva + PL Pisarek/Jasnopis calibration + translationStatus gating + i18n caps)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-5b-lint-translation-parity-full-coverage-graduation.md
-    sha256: a1bbcc711fce84c19a86ed116913724f57706cb6703e419db478af071a3b5048
+    sha256: c88a821ae6259e8477e8526af53c495a7c63f50c4c7efa60fbd4dfc696091b68
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T08:06:40.069Z
-    recorded_by: story-add-finding-autorecord
-    story_id: 7-5b-lint-translation-parity-full-coverage-graduation
+    recorded_at: 2026-06-05T14:56:49.422Z
+    recorded_by: engineer
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/unit/tools/lint-translation-parity-graduation.test.mjs
     sha256: 433c78b8a732285f769e4f399a46f5b49f7b3857b8c6658f589ad65015f2984f
@@ -1357,11 +1357,11 @@ entries:
     notes: "story-7-5b frozen failing tests (full-coverage parity: missing/orphan/stale + parity-green summary)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders.md
-    sha256: 337cb21e135ffc52771fc03b6032a6bd0d2a10baae33d4a00967cffaf95aac21
+    sha256: f86f907adecebad6d22c7cc22e031757fc6bdd0b3cbb0e24fd83a45d4c50207a
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T09:08:53.011Z
-    recorded_by: state-commit-autorecord
-    story_id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
+    recorded_at: 2026-06-05T14:56:49.422Z
+    recorded_by: engineer
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/unit/tail-scenes-i18n.test.mjs
     sha256: da44027bb351626e8617eb7cc4a3f787bc791db1e69cac3642e9485db3976d7e
@@ -1372,11 +1372,11 @@ entries:
     notes: "story-7-6 tests revised (cycle 1): behavioral tailScenesUrl helper + fetch-coupling closes the AC-2 dead-string gap"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-7-ru-pl-crisis-resource-lists-hreflang-declarations.md
-    sha256: fefc7326c24995f43f28d33e9a45d1e3917aec07e03b30c6d8e9604343ab8304
+    sha256: c2a1beef6c6442cb485d98fdddb8c28d735151b62261fc549e891de1da450685
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T08:06:40.069Z
-    recorded_by: story-add-finding-autorecord
-    story_id: 7-7-ru-pl-crisis-resource-lists-hreflang-declarations
+    recorded_at: 2026-06-05T14:56:49.422Z
+    recorded_by: engineer
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/unit/crisis-resources-hreflang.test.mjs
     sha256: 8ba3f07a9e79df8bf313f6c71baaf4e2467bea003338e3e12550d8241886bcf0
@@ -1387,11 +1387,11 @@ entries:
     notes: story-7-7 frozen failing tests (RU/PL crisis placeholders no-fabricated-tel + crisisResourcesUrl FR20 no-EN-fallback + hreflang)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-8-codeowners-branch-protection-config-artifact-for-dual-approval.md
-    sha256: f43a76ae6d36a50c3dc40924af603dfb5049af65a587d82703a1171de09ed218
+    sha256: 3de4dd9ed5c99e093a98f6114ad729d567cdd06fd3679c0a24980bbc29ea744f
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T07:53:19.998Z
+    recorded_at: 2026-06-05T14:56:49.423Z
     recorded_by: engineer
-    story_id: 7-8-codeowners-branch-protection-config-artifact-for-dual-approval
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/branch-protection-config.test.mjs
     sha256: 5d1966ff439257166b2e91427671acb7383e030979b64ecf4a1909df36411ced
@@ -1416,11 +1416,11 @@ entries:
     story_id: bridge-9a-1-isolate-concurrency-sensitive-coverage
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment.md
-    sha256: 4f46faf0ffcab82c50b8bbbf14fd87aa01a65568db5b96e652123be9bd83ea3e
+    sha256: cd577c07e2543fce4a73fe4d47f958fd5425d5102566fc57dd312af505b4bfbd
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T10:18:08.038Z
+    recorded_at: 2026-06-05T14:56:49.423Z
     recorded_by: engineer
-    story_id: 8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/release-workflow.test.mjs
     sha256: 3e5aebeb1e864ff23385e2678b4edbdea746bd5690bd7df424925ffc89425776
@@ -1431,11 +1431,11 @@ entries:
     notes: "story-8-4 red-phase: graduate release-workflow AC-5 (mirror present) + new mirror-deploy.test.mjs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v.md
-    sha256: bc4ac84a8682a3282efeef50fb228d69d7438b0231a283683615b93206bb1413
+    sha256: 8fbfc20d45ca5aefb919a703f977692539ee63b7c1f3f78d49bf3dc5031a460d
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T10:44:13.102Z
+    recorded_at: 2026-06-05T14:56:49.423Z
     recorded_by: engineer
-    story_id: 8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/release-archival.test.mjs
     sha256: 9662b2fa73e8a7a484d2329e60eeb728cd654f4a333f0833ee086e8cb4d19467
@@ -1446,11 +1446,11 @@ entries:
     notes: "story-8-2 test-review cycle1: add corpus/doi.json secondary-sink AC-6 assertion"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing.md
-    sha256: 4091e0a26c138d886195eb8bdc40988bf95de1617f599eff83c79bf08931b12f
+    sha256: 06cdf79c467f3424d9fdf1d0530e18be1d72b2fdb09d398e7672a56dc0464017
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T11:03:00.871Z
+    recorded_at: 2026-06-05T14:56:49.423Z
     recorded_by: engineer
-    story_id: 8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/scheduled-workflow.test.mjs
     sha256: b65a43d002e93192fe141776311a3a315b94fc52871e6f7228fefb0d59c06ba8
@@ -1461,11 +1461,11 @@ entries:
     notes: "story-8-3 red-phase: graduate ci-matrix AC-6 scheduled.yml + new scheduled-workflow.test.mjs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification.md
-    sha256: 9cc28322123c5ed0612c470932a99ab2a596b57e157c31a6263ba3c32f63fa4b
+    sha256: 420d6b8bad677234c0500b3bb4d950e0da1abf1d04666d3b6cfe9d6fa8fd502b
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:24:19.805Z
+    recorded_at: 2026-06-05T14:56:49.423Z
     recorded_by: engineer
-    story_id: 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/mirror-deploy.test.mjs
     sha256: d881ff556a87ca5fce6f35d988e3bfa61827e0c74fac928e564d5bd07e8623ab
@@ -1476,11 +1476,11 @@ entries:
     notes: "story-8-4 red-phase: graduate release-workflow AC-5 (mirror present) + new mirror-deploy.test.mjs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-5-full-playwright-trust-verification-suite-consolidation.md
-    sha256: 5cf012fa2fdad77058cdc6817707228747046032a8b2f76205f65b71048a15cd
+    sha256: 7c407c2944ee4d515db26055f638c9d428aa87d61dc58906bd3517010d37954e
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:45:04.140Z
+    recorded_at: 2026-06-05T14:56:49.423Z
     recorded_by: engineer
-    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/trust-verification-suite.test.mjs
     sha256: c7fc833e659adf636a3c277921eca26b3692cbfdfd6ee9834bbff94575a673bd
@@ -1515,11 +1515,11 @@ entries:
     notes: "story-8-5: consolidated trust-verification Playwright spec + a11y spec + lighthouserc budgets"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs.md
-    sha256: 23f27b8db88dee2a5bfe6708dcc260c18788f1be51aeee2987413007099ccc53
+    sha256: 911cb7210c0b607deb242b2b5d373a032678e4ec0cc82e907afda76555b0e4f3
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:17:21.571Z
+    recorded_at: 2026-06-05T14:56:49.424Z
     recorded_by: engineer
-    story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/contributing-docs.test.mjs
     sha256: 55273d4d8db894c65f5a3e419130c7f17d004b331af99422cfbdc53a4921be11
@@ -1529,11 +1529,11 @@ entries:
     story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle.md
-    sha256: 1ebfec95e9c270a7f954516c5b2ee8d6177c1a5baf674fcd8d100f4ccedea0e9
+    sha256: abd15871a2ce03edd7e813570f8acd529a66fc091975bd78cfcda39ec7d78e7e
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:40:10.207Z
+    recorded_at: 2026-06-05T14:56:49.424Z
     recorded_by: engineer
-    notes: update Bridged-to ref to bridge-9b (rename alignment)
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/changelog-release.test.mjs
     sha256: 91c7c723b917e93bec37c007700fd2a375aa38f72d4a6fcf868289d2e38048e4
@@ -1543,11 +1543,11 @@ entries:
     story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path.md
-    sha256: 0179e3b57a6b429bb9cf01919e95b902f0e419cf3cc58d214817b73d851af9df
+    sha256: bce277f0550c3087584010c8d78be6ff52db491a0f4853aa6689756dc62437cd
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:40:10.207Z
+    recorded_at: 2026-06-05T14:56:49.424Z
     recorded_by: engineer
-    notes: update Bridged-to ref to bridge-9b (rename alignment)
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/discussions-footer.test.mjs
     sha256: e9622635339df850d98859ed877cebf72212a2d9f9bfcb5119f01cc1ab7d2a9c
@@ -1666,11 +1666,11 @@ entries:
     story_id: 9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/10-1-pre-launch-readiness-checklist-final-smoke-test.md
-    sha256: 13db82378a77066236af877403d6ef2525b46ca0aa41a7bbaac613ac2f7bc35b
+    sha256: 18ff257341c72c6671ca48594dee7747e8293537563e927c478bec4eaa8d9ccb
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T14:43:45.230Z
-    recorded_by: story-add-finding-autorecord
-    story_id: 10-1-pre-launch-readiness-checklist-final-smoke-test
+    recorded_at: 2026-06-05T14:56:49.420Z
+    recorded_by: engineer
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/10-1-pre-launch-checklist.test.mjs
     sha256: 4397969e6493e1033c05168b1d72f1e8b68c95ac65e8408a03c032ab1340c031
@@ -1680,11 +1680,11 @@ entries:
     story_id: 10-1-pre-launch-readiness-checklist-final-smoke-test
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification.md
-    sha256: 92d9fdb05855d7639f16b04a3017ec8420c9fe8fea483a7463d3030fe5007558
+    sha256: 5dc044b702f1d7142db41e38313da86751db5adcce7c2b7249b5a61c929ab4c7
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T14:32:00.264Z
+    recorded_at: 2026-06-05T14:56:49.420Z
     recorded_by: engineer
-    story_id: 10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/10-2-launch-postscript.test.mjs
     sha256: 2f89e82e99edcd269dcc8d4f63b90bd6e3bbfdafa16a42310aac3518a66d9515
@@ -1694,11 +1694,11 @@ entries:
     story_id: 10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/10-3-48-hour-post-launch-monitoring-window.md
-    sha256: 7edf95959f520c31d54004d975e1628adb41dbe132b2cab25962dc873debf17d
+    sha256: a7b13a2660a3619237ce284c97e9e7214458d417d93448b79a6c731dd8edf7fe
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T14:37:10.840Z
+    recorded_at: 2026-06-05T14:56:49.420Z
     recorded_by: engineer
-    story_id: 10-3-48-hour-post-launch-monitoring-window
+    notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/10-3-post-launch-monitoring.test.mjs
     sha256: cc49252de430d09f46ed41dd76010588010cf54582b95ef47211b7c3feb81c4d

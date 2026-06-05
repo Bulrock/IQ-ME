@@ -1,7 +1,7 @@
 ---
 id: 7-5b-lint-translation-parity-full-coverage-graduation
 title: "Story 7.5b: lint-translation-parity full-coverage graduation"
-status: review
+status: done
 ---
 
 # Story 7.5b: lint-translation-parity full-coverage graduation

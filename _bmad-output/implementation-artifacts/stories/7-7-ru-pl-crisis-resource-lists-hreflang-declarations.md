@@ -1,7 +1,7 @@
 ---
 id: 7-7-ru-pl-crisis-resource-lists-hreflang-declarations
 title: "Story 7.7: RU + PL crisis-resource lists + hreflang declarations"
-status: review
+status: done
 ---
 
 # Story 7.7: RU + PL crisis-resource lists + hreflang declarations

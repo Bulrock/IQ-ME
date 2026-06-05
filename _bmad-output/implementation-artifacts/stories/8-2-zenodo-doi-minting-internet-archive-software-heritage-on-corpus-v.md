@@ -1,7 +1,7 @@
 ---
 id: 8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v
 title: "Story 8.2: Zenodo DOI minting + Internet Archive + Software Heritage on corpus-v*"
-status: review
+status: done
 ---
 
 # Story 8.2: Zenodo DOI minting + Internet Archive + Software Heritage on corpus-v*

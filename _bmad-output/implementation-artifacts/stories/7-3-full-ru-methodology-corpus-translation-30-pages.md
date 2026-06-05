@@ -1,7 +1,7 @@
 ---
 id: 7-3-full-ru-methodology-corpus-translation-30-pages
 title: "Story 7.3: Full RU methodology corpus translation (30 pages)"
-status: review
+status: done
 ---
 
 # Story 7.3: Full RU methodology corpus translation (30 pages)

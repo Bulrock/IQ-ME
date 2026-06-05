@@ -1,7 +1,7 @@
 ---
 id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
 title: "Story 8.6: Full CONTRIBUTING.md + branch-protection + required-ci-checks + scheduled-yml-failure-routing docs"
-status: review
+status: done
 ---
 
 # Story 8.6: Full CONTRIBUTING.md + required-ci-checks docs + cross-links

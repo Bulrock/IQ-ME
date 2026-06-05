@@ -1,7 +1,7 @@
 ---
 id: 8-5-full-playwright-trust-verification-suite-consolidation
 title: "Story 8.5: Full Playwright trust-verification suite consolidation"
-status: review
+status: done
 ---
 
 # Story 8.5: Full Playwright trust-verification suite consolidation

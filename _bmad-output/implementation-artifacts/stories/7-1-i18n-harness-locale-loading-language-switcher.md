@@ -1,7 +1,7 @@
 ---
 id: 7-1-i18n-harness-locale-loading-language-switcher
 title: "Story 7.1: i18n harness + locale loading + language-switcher"
-status: review
+status: done
 ---
 
 # Story 7.1: i18n harness + locale loading + language-switcher

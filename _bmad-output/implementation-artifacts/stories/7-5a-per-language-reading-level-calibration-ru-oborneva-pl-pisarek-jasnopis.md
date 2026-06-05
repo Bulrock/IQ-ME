@@ -1,7 +1,7 @@
 ---
 id: 7-5a-per-language-reading-level-calibration-ru-oborneva-pl-pisarek-jasnopis
 title: "Story 7.5a: Per-language reading-level calibration (RU Oborneva + PL Pisarek/Jasnopis)"
-status: review
+status: done
 ---
 
 # Story 7.5a: Per-language reading-level calibration (RU Oborneva + PL Pisarek/Jasnopis)

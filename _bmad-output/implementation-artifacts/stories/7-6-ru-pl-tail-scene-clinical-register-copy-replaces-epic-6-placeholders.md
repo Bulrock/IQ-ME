@@ -1,7 +1,7 @@
 ---
 id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
 title: "Story 7.6: RU + PL tail-scene clinical-register copy (replaces Epic 6 placeholders)"
-status: review
+status: done
 ---
 
 # Story 7.6: RU + PL tail-scene clinical-register copy (replaces Epic 6 placeholders)

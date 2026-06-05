@@ -1,7 +1,7 @@
 ---
 id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
 title: "Story 8.7: CHANGELOG.md format + release.yml automation + contributor credit by handle"
-status: review
+status: done
 ---
 
 # Story 8.7: CHANGELOG.md format + release.yml contributor-credit automation

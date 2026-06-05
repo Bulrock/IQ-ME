@@ -1,7 +1,7 @@
 ---
 id: 8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing
 title: "Story 8.3: scheduled.yml workflow — mirror parity + archival health + failure routing"
-status: review
+status: done
 ---
 
 # Story 8.3: scheduled.yml workflow — mirror parity + archival health + failure routing
