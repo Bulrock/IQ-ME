@@ -97,3 +97,10 @@ so that **the structural no-signup / no-email posture holds and updates reach in
 **Tested edge cases:**
 - Frozen `tests/scaffold/discussions-footer.test.mjs`: footer has the real public GitHub Discussions `<a href>`; the anchor carries no prefetch/preload rel; no `<link rel="preconnect"/"dns-prefetch">` to github in `src/index.html`; README documents Watch-→-Releases-only + Discussions-Subscribe and has no email-signup/newsletter CTA; CONTRIBUTING.md states the same subscription path.
 - Regression: full suite 1275 pass / 0 fail; `make lint` exit 0; `make build` exit 0 (deterministic; README is not a corpus page). Provenance: the README "Following updates" section is net-new this story.
+
+## Auditor Findings (round-1)
+
+### [info] The 8-8 self-review honestly discloses a stale README "## Contributing" line that still says the surface is "slim … expanded in Epic 8" — inaccurate after Story 8.6 rewrote CONTRIBUTING.md to the full guide. No test covers that line so it is out of 8-8's scope; left untouched per scope discipline. Minor documentation drift, info-level follow-up.
+
+- **Category:** doc-staleness
+- **Suggested bridge:** `Tiny doc fix: update the README "## Contributing" sentence to drop the "expanded in Epic 8" framing now that CONTRIBUTING.md is the full guide.`
