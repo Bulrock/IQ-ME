@@ -160,7 +160,7 @@ development_status:
   epic-9a-retrospective: optional
 
   # Bridge epic→9b: 2 stories from 1 retro
-  bridge-epic-9b: in-progress
+  bridge-epic-9b: approved
   bridge-epic-9b-1-cross-link-corpus-reference: approved       # Cross-link corpus /reference/changelog/ to root CHANGELOG.md
   bridge-epic-9b-2-refresh-stale-readme-contributing: approved       # Refresh stale README '## Contributing' framing post-8.6
   epic-9b: backlog
