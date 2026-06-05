@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 2d9fe2a44fdc8ca8c306a54b64bbc005bdb040f83f20a9c5ffe53c60cfcb6d21
+    sha256: 3ead1b8d43becbdbcd94ef47ee9dd66ccd3021005f8e6998455d46bcb1baf4bb
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:17:21.529Z
+    recorded_at: 2026-06-05T11:19:55.673Z
     recorded_by: engineer
-    story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
+    story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1526,3 +1526,10 @@ entries:
     recorded_at: 2026-06-05T11:15:49.323Z
     recorded_by: engineer
     story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle.md
+    sha256: eeb11a6cd0f82d0610707a30c8845434214527892c462ccef6822b7624f721ec
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T11:19:55.878Z
+    recorded_by: engineer
+    notes: story-8-7 spec authored (create-story)
