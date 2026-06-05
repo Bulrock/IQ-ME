@@ -1,7 +1,7 @@
 ---
 id: 9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log
 title: "Story 9a-1: ICAR/SAPA outreach drafting — initial contact + outreach log"
-status: ready-for-dev
+status: review
 ---
 
 # Story 9a-1: ICAR/SAPA outreach drafting — initial contact + outreach log
@@ -26,10 +26,10 @@ Epic 9a is a **stakeholder-outreach gate epic — no code-write of product surfa
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: author the scaffold guard** (`tests/scaffold/9a-1-icar-outreach.test.mjs`) encoding AC 4 — existence of both artifacts, PENDING marker, no `tel:`, no fabricated-confirmation phrase, CC BY-NC-SA + slot reference in the draft, OpenPsychometrics fallback named in the log; confirm it fails against the current tree. (test-author phase)
-- [ ] **Task 2: write the outreach draft** (`docs/launch-readiness/icar-outreach-draft.md`) satisfying AC 1 + AC 2 — real verifiable basis, TBD placeholders for unknown specifics, no fabricated confirmation. (impl phase)
-- [ ] **Task 3: write the outreach log** (`docs/launch-readiness/icar-outreach-log.md`) satisfying AC 3 — PENDING banner, attempts table (all pending), OpenPsychometrics fallback, pointer to Story 9a-2. (impl phase)
-- [ ] **Task 4: verification** — guard GREEN, `make lint` exit 0, `make build` exit 0, full suite passes; confirm no product/corpus surface touched. (integration phase)
+- [x] **Task 1: author the scaffold guard** (`tests/scaffold/9a-1-icar-outreach.test.mjs`) encoding AC 4 — existence of both artifacts, PENDING marker, no `tel:`, no fabricated-confirmation phrase, CC BY-NC-SA + slot reference in the draft, OpenPsychometrics fallback named in the log; confirm it fails against the current tree. (test-author phase)
+- [x] **Task 2: write the outreach draft** (`docs/launch-readiness/icar-outreach-draft.md`) satisfying AC 1 + AC 2 — real verifiable basis, TBD placeholders for unknown specifics, no fabricated confirmation. (impl phase)
+- [x] **Task 3: write the outreach log** (`docs/launch-readiness/icar-outreach-log.md`) satisfying AC 3 — PENDING banner, attempts table (all pending), OpenPsychometrics fallback, pointer to Story 9a-2. (impl phase)
+- [x] **Task 4: verification** — guard GREEN, `make lint` exit 0, `make build` exit 0, full suite passes; confirm no product/corpus surface touched. (integration phase)
 
 ## Dev Notes
 
@@ -64,4 +64,31 @@ Epic 9a is a **stakeholder-outreach gate epic — no code-write of product surfa
 
 ### Completion Notes List
 
+- No-code-write gate story: ICAR outreach draft + log under docs/launch-readiness/ + scaffold guard. lint 0, build 0, test 0. Reworded to satisfy frozen no-fabrication guard. Arrival/reconciliation deferred to 9a-2.
+
 ### File List
+
+- tests/scaffold/9a-1-icar-outreach.test.mjs
+- docs/launch-readiness/icar-outreach-draft.md
+- docs/launch-readiness/icar-outreach-log.md
+
+## Specialist Self-Review
+
+**Decisions made:**
+- Treated Epic 9a as a no-code-write stakeholder-outreach gate: deliverables are two Markdown artifacts under `docs/launch-readiness/` (outreach draft + tracking log) plus a structural scaffold guard. No product/runtime/corpus surface touched.
+- Followed the existing pending-artifact convention (`docs/launch-readiness/*-signoff.md`): explicit STATUS banner, `TBD`/`pending` for every unknown specific, no fabricated names/addresses/dates.
+- Scoped strictly to drafting + logging; arrival, `LICENSES.md` reconciliation, and `ICAR-CONFIRMATION.pdf` slot fulfillment are explicitly deferred to Story 9a-2 (the human-gated half).
+
+**Alternatives considered:**
+- Inventing a concrete recipient email for William Revelle / the ICAR project: rejected per lesson-2026-06-04-002 — fabricating contact specifics in a trust-critical pending artifact. Used `TBD / pending` and pointed to the project's published contact channel instead.
+- Full TEA clean-context ATDD/test-review subagent pair: judged disproportionate for a 4-assertion structural doc-existence guard with no hidden implementation to over-fit; authored + reviewed the frozen guard in-phase.
+
+**Framework gotchas avoided:**
+- The frozen guard's `FABRICATED_CONFIRMATION` regex matches the literal substring "confirmation … received/granted" regardless of negation, so honest pending phrasing like "no confirmation has been received" tripped it. Reworded the docs to "no reply has arrived" — satisfies both the letter and intent of the frozen test without unfreezing it (correct TDS direction: adapt impl to frozen tests).
+- `tds integrity record` rejects `docs/**` (CLASS_NOT_ALLOWED, ADR-0014) — production source is git-tamper-evidence, not class-A. Only the test file is integrity-recorded.
+
+**Areas of uncertainty:**
+- The exact ICAR project contact channel/address is intentionally left `TBD` — it must be confirmed from the project's published contact page at actual send time, not guessed here.
+
+**Tested edge cases:**
+- AC1 (CC BY-NC-SA + ICAR-CONFIRMATION.pdf slot + ICAR-MR named in draft), AC2 (no fabricated confirmation, no `tel:`), AC3 (PENDING banner + OpenPsychometrics fallback + 9a-2 pointer in log), AC2/AC3 (same no-fabrication checks on the log) — all RED before impl, GREEN after. `make lint` 0, `make build` 0, full `make test` 0.

@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-05 bridge-9b-2-refresh-stale-readme-contributing: done'
+last_updated: '2026-06-05 9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -155,7 +155,7 @@ development_status:
   bridge-9a: done
   bridge-9a-1-isolate-concurrency-sensitive-coverage: done           # Isolate concurrency-sensitive coverage/lint tests to tmpdir
   epic-9a: in-progress
-  9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log: ready-for-dev
+  9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log: review
   9a-2-icar-confirmation-arrival-licenses-md-reconciliation-slot-fulfillment: backlog
   epic-9a-retrospective: optional
 
