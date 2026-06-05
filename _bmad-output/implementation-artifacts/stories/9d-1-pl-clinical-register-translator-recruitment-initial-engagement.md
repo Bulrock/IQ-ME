@@ -27,11 +27,11 @@ The **recruitment outreach draft + outreach log** are doable now. The **PL clini
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: author the scaffold guard** (`tests/scaffold/9d-1-pl-translator-outreach.test.mjs`) encoding AC 5; confirm RED. (test-author phase)
-- [ ] **Task 2: write the recruitment outreach draft** (AC 1). (impl phase)
-- [ ] **Task 3: write the outreach log** (AC 2), back-link from `pl-translator-signoff.md` if appropriate (AC 3). (impl phase)
-- [ ] **Task 4 (BLOCKED — human deliverable): engage the translator** (AC 4). No agent action; finalization is Story 9d-2.
-- [ ] **Task 5: verification** — guard GREEN, `make lint`/`make build`/`make test` green (AC 6). (integration phase)
+- [x] **Task 1: author the scaffold guard** (`tests/scaffold/9d-1-pl-translator-outreach.test.mjs`) encoding AC 5; confirm RED. (test-author phase)
+- [x] **Task 2: write the recruitment outreach draft** (AC 1). (impl phase)
+- [x] **Task 3: write the outreach log** (AC 2), back-link from `pl-translator-signoff.md` if appropriate (AC 3). (impl phase)
+- [-] **Task 4 (BLOCKED — human deliverable): engage the translator** (AC 4). No agent action; finalization is Story 9d-2. _(deferred: Blocked on real external PL bilingual translator; no agent action possible)_
+- [-] **Task 5: verification** — guard GREEN, `make lint`/`make build`/`make test` green (AC 6). (integration phase) _(deferred: Deferred to integration phase after Task 4 unblocks; scaffold test GREEN already)_
 
 ## Dev Notes
 
@@ -62,4 +62,10 @@ The **recruitment outreach draft + outreach log** are doable now. The **PL clini
 
 ### Completion Notes List
 
+- Doable half complete: scaffold guard (5 tests GREEN), outreach draft, outreach log authored. Existing pl-translator-signoff.md left PENDING. Independent-isolation note in log. Task 4 deferred pending real reviewer.
+
 ### File List
+
+- tests/scaffold/9d-1-pl-translator-outreach.test.mjs
+- docs/launch-readiness/pl-translator-outreach-draft.md
+- docs/launch-readiness/pl-translator-outreach-log.md
