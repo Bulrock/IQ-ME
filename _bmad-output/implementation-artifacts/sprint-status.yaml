@@ -158,6 +158,11 @@ development_status:
   9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log: backlog
   9a-2-icar-confirmation-arrival-licenses-md-reconciliation-slot-fulfillment: backlog
   epic-9a-retrospective: optional
+
+  # Bridge epic→9b: 2 stories from 1 retro
+  bridge-epic-9b: backlog
+  bridge-epic-9b-1-cross-link-corpus-reference: backlog # Cross-link corpus /reference/changelog/ to root CHANGELOG.md
+  bridge-epic-9b-2-refresh-stale-readme-contributing: backlog # Refresh stale README '## Contributing' framing post-8.6
   epic-9b: backlog
   9b-1-psychometrician-recruitment-scoring-spec-methodology-corpus-result-page-sign-off: backlog
   epic-9b-retrospective: optional

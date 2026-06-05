@@ -9,11 +9,10 @@ entries:
     notes: "epic-8 OH-07 finalization recovery: approved→done flips + epic/8 merged marking"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 3cba897dd66e85905d3067da56315c6d84e6375c64d4c7c8d6161a691b7f4d23
+    sha256: 3275c6d640a79f6af0ca63f3d0d2a8d9e1bd00c9c6c87ee53e81a5c15f66366e
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:51:15.972Z
-    recorded_by: state-commit-autorecord
-    notes: "epic-8 OH-07 finalization recovery: approved→done flips + epic/8 merged marking"
+    recorded_at: 2026-06-05T11:55:30.081Z
+    recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -192,11 +191,10 @@ entries:
     notes: "story-7-5b: graduated parity assertions + design-system AC-6 snapshot-update race fix (tmpdir redirect)"
   - artefact_class: A
     file: _bmad-output/_tds/sprint-status-extension.yaml
-    sha256: 56a7a6793aba22b69c09b698d5b769548c351418a5aa04b1c66863c21260470c
+    sha256: c41f95cf01cc9e85a22526fe8fe00a6baa170f8ffa24c3b44ebf693609cbc2a3
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:33:24.173Z
+    recorded_at: 2026-06-05T11:55:30.111Z
     recorded_by: engineer
-    notes: "clear inherited pre-epic-8 drift: extension file == main; stale hash predates bridge-9a final write (provenance: no epic/8 commit touched it)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-1-2-1-add-tds-story-unfreeze.md
     sha256: 09a87b20e669594c49bfec90ff634fb82a075b8d22378e068f9b9399e2d6e386
@@ -1530,10 +1528,10 @@ entries:
     story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle.md
-    sha256: 66ae1eed5392af59f25f137d34853aa13abae6be8e18ec93f170539b357e6cfd
+    sha256: 7ceb23ed3c26903ee9d2fe8e0d1a0e159cc1ab641a0c4643fc910b53e4d88099
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:40:17.000Z
-    recorded_by: story-add-finding-autorecord
+    recorded_at: 2026-06-05T12:00:40.850Z
+    recorded_by: state-commit-autorecord
     story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
   - artefact_class: A
     file: tests/scaffold/changelog-release.test.mjs
@@ -1544,10 +1542,10 @@ entries:
     story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path.md
-    sha256: 4cbc95725765f83f4cbe9461351818167dbb97fe75e8c84dcf49d040691030b8
+    sha256: e36df555d16764bfd6641739fa77e10b5692678701bbe9a4490a02886838c9f0
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:40:17.000Z
-    recorded_by: story-add-finding-autorecord
+    recorded_at: 2026-06-05T12:00:40.850Z
+    recorded_by: state-commit-autorecord
     story_id: 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path
   - artefact_class: A
     file: tests/scaffold/discussions-footer.test.mjs

@@ -106,6 +106,7 @@ so that **contribution is visible and recognized in the project's permanent reco
 
 - **Category:** ac-partial-deferred
 - **Suggested bridge:** `Post-merge bridge: add the short note + relative link from src/content/methodology/en/reference/changelog/index.md to the root CHANGELOG.md, handling the golden-snapshot regen + byte-stable + external-link-policy lint in a controlled corpus-edit story.`
+- **Bridged to:** `bridge-epic-9b-1-cross-link-corpus-reference`
 
 ## Auditor Findings (round-2)
 
