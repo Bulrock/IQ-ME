@@ -33,7 +33,8 @@
     "validityEnvelope": "IQ-ME jest trafny jako test przesiewowy rozumowania płynnego u dorosłych, którzy mogą ukończyć sesję 16 zadań wizualnych bez wpływu ostrego stresu, niedoboru snu lub substancji. Nie jest trafny jako narzędzie diagnostyczne, jako pomiar pod presją czasu ani jako zamiennik wielodomenowej baterii testów IQ.",
     "visuospatialDisclosure": "Zadania matrycowe są z założenia wizualne. Osoby korzystające z czytników ekranu nie mogą wykonać tego testu równoważnie — nie istnieje syntetyczny tekst alternatywny, który uczciwie oddaje te wzorce. Ujawniamy to, zamiast udawać, że jest inaczej.",
     "continueButton": "Kontynuuj",
-    "notToday": "Nie dziś"
+    "notToday": "Nie dziś",
+    "dwellHint": "Poświęć chwilę na powyższy tekst — przycisk „Kontynuuj” odblokuje się za kilka sekund."
   },
   "itemRunner": {
     "headingTemplate": "Zadanie {N} z {total}",

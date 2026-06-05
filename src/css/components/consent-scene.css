@@ -93,3 +93,15 @@
   outline: var(--space-1) solid var(--color-focus-ring);
   outline-offset: var(--space-1);
 }
+
+/* FR12 dwell-gate hint — explains the temporarily-disabled Continue button.
+   Removed (hidden) by consent.js when the gate flips. */
+.consent-scene__dwell-hint {
+  margin-block-start: var(--space-3);
+  font-size: var(--font-size-100);
+  color: var(--color-text-muted);
+}
+
+.consent-scene__dwell-hint[hidden] {
+  display: none;
+}

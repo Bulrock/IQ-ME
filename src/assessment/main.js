@@ -38,9 +38,7 @@ function applyChromeStrings() {
   set(".chrome-footer__citation-link", "chrome.footerCitationLink");
 }
 
-// Non-EN locales have no translated UI yet (gated on the 9c/9d reviewer of
-// record). Surface an honest in-progress notice so a locale switch visibly
-// registers instead of looking like a no-op. EN renders nothing.
+// Draft-translation banner on non-EN locales (content is unreviewed; 9c/9d).
 function renderTranslationNotice(locale) {
   const prev = document.querySelector(".translation-notice");
   if (prev) prev.remove();

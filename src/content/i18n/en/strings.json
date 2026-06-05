@@ -26,7 +26,8 @@
     "validityEnvelope": "IQ-ME is valid as a screener for fluid reasoning in adults who can complete a 16-item visual session unimpaired by acute distress, sleep deprivation, or substances. It is not valid as a diagnostic, as a measure under time pressure, or as a stand-in for a multi-domain IQ battery.",
     "visuospatialDisclosure": "The matrix items are visual by construction. Screen-reader users cannot take this test equivalently — there is no synthetic alt-text that captures the patterns honestly. We disclose this rather than pretend otherwise.",
     "continueButton": "Continue",
-    "notToday": "Not today"
+    "notToday": "Not today",
+    "dwellHint": "Take a moment to read the above — Continue unlocks in a few seconds."
   },
   "itemRunner": {
     "headingTemplate": "Item {N} of {total}",
