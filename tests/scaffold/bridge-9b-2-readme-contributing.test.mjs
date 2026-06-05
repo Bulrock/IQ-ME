@@ -1,4 +1,4 @@
-// Story bridge-epic-9b-2 — Acceptance test guarding the README '## Contributing'
+// Story bridge-9b-2 — Acceptance test guarding the README '## Contributing'
 // section against the stale "expanded in Epic 8" framing (AC 1, AC 2).
 //
 // Authored in test-author phase (frozen during specialist impl).

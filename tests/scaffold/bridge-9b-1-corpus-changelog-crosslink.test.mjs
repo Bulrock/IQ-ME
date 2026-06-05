@@ -1,4 +1,4 @@
-// Story bridge-epic-9b-1 — Acceptance test for cross-linking the en corpus
+// Story bridge-9b-1 — Acceptance test for cross-linking the en corpus
 // changelog page to the root CHANGELOG.md (AC 2).
 //
 // Authored in test-author phase (frozen during specialist impl).
