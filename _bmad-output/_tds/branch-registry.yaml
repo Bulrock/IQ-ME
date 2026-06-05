@@ -1012,17 +1012,6 @@ branches:
     last_synced_at: 2026-06-05T11:31:18.384Z
     notes: ""
     created_at: 2026-06-05T11:27:46.434Z
-  - branch: epic/bridge-epic-9b-bridge-epic-9b-2-stories-from-1-retro
-    story_id: null
-    epic_id: bridge-epic-9b
-    base_branch: main
-    created_by: tds-branch-start
-    status: merged
-    pr_url: null
-    pr_number: null
-    last_synced_at: 2026-06-05T12:30:21.261Z
-    notes: ""
-    created_at: 2026-06-05T12:03:01.801Z
   - branch: story/bridge-epic-9b-1-cross-link-corpus-reference
     story_id: bridge-epic-9b-1-cross-link-corpus-reference
     epic_id: null
