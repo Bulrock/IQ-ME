@@ -37,7 +37,7 @@
   margin-block-end: 0;
   padding: var(--space-5);
   background-color: var(--color-surface-elevated);
-  border: 1px solid var(--color-rule-divider);
+  border: var(--border-width-hairline) solid var(--color-rule-divider);
   border-radius: var(--radius-surface);
   box-shadow: var(--shadow-elevated);
 }
@@ -58,7 +58,7 @@
   padding-block: var(--space-3);
   padding-inline: var(--space-4);
   background-color: var(--color-surface-elevated);
-  border: 1px solid var(--color-rule-divider);
+  border: var(--border-width-hairline) solid var(--color-rule-divider);
   border-inline-start: var(--space-1) solid var(--color-rule-divider);
   border-radius: var(--radius-control);
   cursor: pointer;
@@ -66,7 +66,7 @@
 }
 
 .item-runner__option:hover {
-  border-inline-start-color: var(--color-accent-300);
+  border-inline-start-color: var(--color-option-hover-accent);
   box-shadow: var(--shadow-elevated);
 }
 
@@ -114,7 +114,7 @@
 .item-runner__prev {
   background-color: var(--color-surface-elevated);
   color: var(--color-text-body);
-  border: 1px solid var(--color-rule-strong);
+  border: var(--border-width-hairline) solid var(--color-rule-strong);
 }
 
 .item-runner__prev:hover {
@@ -133,7 +133,7 @@
 .item-runner__next {
   background-color: var(--color-action-bg);
   color: var(--color-action-text);
-  border: 1px solid var(--color-action-bg);
+  border: var(--border-width-hairline) solid var(--color-action-border);
   box-shadow: var(--shadow-elevated);
 }
 
@@ -146,12 +146,12 @@
 /* AC-9 — augmentation rules via attribute selectors. CSS transform is
    browser-native + zero-runtime-cost; preserves NFR2 per-item ≤50 KB
    budget (no 6× server-side variants required). */
-[data-augmentation="none"]    { transform: none; }
-[data-augmentation="rot90"]   { transform: rotate(90deg);  transform-origin: center; }
-[data-augmentation="rot180"]  { transform: rotate(180deg); transform-origin: center; }
-[data-augmentation="rot270"]  { transform: rotate(270deg); transform-origin: center; }
-[data-augmentation="flip-h"]  { transform: scaleX(-1);     transform-origin: center; }
-[data-augmentation="flip-v"]  { transform: scaleY(-1);     transform-origin: center; }
+.item-runner__image[data-augmentation="none"]    { transform: none; }
+.item-runner__image[data-augmentation="rot90"]   { transform: rotate(90deg);  transform-origin: center; }
+.item-runner__image[data-augmentation="rot180"]  { transform: rotate(180deg); transform-origin: center; }
+.item-runner__image[data-augmentation="rot270"]  { transform: rotate(270deg); transform-origin: center; }
+.item-runner__image[data-augmentation="flip-h"]  { transform: scaleX(-1);     transform-origin: center; }
+.item-runner__image[data-augmentation="flip-v"]  { transform: scaleY(-1);     transform-origin: center; }
 
 /* Story 6.3 — mid-session bail-out affordance + in-place explanation panel.
    Restraint-first per UX-DR3: the affordance reads as small + neutral
@@ -199,7 +199,7 @@
   padding-block: var(--space-section-gap);
   padding-inline: var(--space-5);
   background-color: var(--color-surface-elevated);
-  border: 1px solid var(--color-rule-divider);
+  border: var(--border-width-hairline) solid var(--color-rule-divider);
   border-radius: var(--radius-surface);
   box-shadow: var(--shadow-overlay);
 }
@@ -229,7 +229,7 @@
   padding-inline: var(--space-5);
   background-color: var(--color-surface-base);
   color: var(--color-text-body);
-  border: 1px solid var(--color-rule-strong);
+  border: var(--border-width-hairline) solid var(--color-rule-strong);
   border-radius: var(--radius-control);
   cursor: pointer;
   transition: border-color 120ms ease, box-shadow 120ms ease;

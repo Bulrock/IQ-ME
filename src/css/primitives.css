@@ -84,6 +84,9 @@
   --space-8: 4rem;     /* 64px — page padding top/bottom mobile */
   --space-9: 6rem;     /* 96px — page padding desktop, hero margins */
 
+  /* ─── Border-width primitives ────────────────────────────────────── */
+  --border-width-1: 1px;  /* hairline — control + surface outlines */
+
   /* ─── Radius primitives (soften the flat-box register) ───────────── */
   --radius-1: 0.25rem;  /* 4px — inputs, small controls */
   --radius-2: 0.5rem;   /* 8px — buttons, option tiles */
