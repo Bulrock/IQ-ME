@@ -1557,10 +1557,10 @@ entries:
     notes: "story-8-8 red-phase: footer Discussions + README subscription path + FR52 no-email structural test"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-epic-9b-1-cross-link-corpus-reference.md
-    sha256: 562a2adc29f5f5843042a7094e93e04083d271b0f3092c064a406444b8b70fe7
+    sha256: 2ae563fdbfcc310617e3becbf688ec78ed5844f0a3261711d8eb92271434a7d9
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:19:08.049Z
-    recorded_by: state-commit-autorecord
+    recorded_at: 2026-06-05T12:28:11.491Z
+    recorded_by: story-add-finding-autorecord
     story_id: bridge-epic-9b-1-cross-link-corpus-reference
   - artefact_class: A
     file: tests/scaffold/bridge-epic-9b-1-corpus-changelog-crosslink.test.mjs
