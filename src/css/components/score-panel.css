@@ -33,6 +33,30 @@
   font-size: var(--font-size-600);
   font-weight: var(--font-weight-regular);
   font-family: var(--font-family-sans);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Under-label naming each metric (Percentile / IQ-scale equivalent / Range)
+   so the bare number is no longer unexplained. Subordinate to the number. */
+.score-panel__metric-label {
+  font-size: var(--font-size-100);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-base);
+  color: var(--color-text-muted);
+  margin-block-start: var(--space-1);
+}
+
+/* One-line plain-language explainer of what the result is. */
+.score-panel__explainer {
+  max-width: 34rem;
+  margin-block: var(--space-4);
+  margin-inline: auto;
+  font-size: var(--font-size-200);
+  line-height: var(--line-height-base);
+  color: var(--color-text-muted);
+  text-align: center;
 }
 
 /* Story 6.2 — FR22 per-item-difficulty breakdown sentence. UX-DR Step 5

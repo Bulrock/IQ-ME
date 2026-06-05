@@ -59,7 +59,11 @@
     "saveButton": "Save my result",
     "saveButtonSaved": "Result saved",
     "retestNote": "This screener draws from a small pool of matrix items. If you take it again soon, your second score will be correlated with this one rather than an independent estimate — you will partly be remembering these patterns, not re-measuring your reasoning from scratch. We enforce no technical cooldown: that would be a false guarantee in a browser-only app. We simply ask you to read this and decide honestly whether a quick retest tells you anything new.",
-    "retestNoteLinkLabel": "Read about retest effects"
+    "retestNoteLinkLabel": "Read about retest effects",
+    "percentileLabel": "Percentile",
+    "anchorLabel": "IQ-scale equivalent",
+    "bandLabel": "Range",
+    "resultExplainer": "This is one estimate from a short 16-item screener, shown three ways: your percentile, the same result on the IQ scale, and the range it could vary by. A brief test cannot pin one exact number — read the result as the range, not the single figure."
   },
   "localeSwitchBlockerHint": {
     "message": "Switching language during a test changes what the test measures. Finish this session in your current language, or end early and restart in a different language.",

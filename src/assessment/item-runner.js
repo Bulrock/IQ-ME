@@ -45,10 +45,8 @@ async function ensureSession(rootEl, strings) {
 function buildMarkup(cache, currentItem, strings) {
   const selectedIds = cache.selection.items;
   const item = cache.pool.items.find((p) => p.id === selectedIds[currentItem]);
-  // The anti-leakage augmentation is still computed (and tested) in
-  // item-selection; we just don't *render* it on the placeholder pool, whose
-  // generic option tiles can't be authored to match a rotated/flipped puzzle.
-  // Auto-re-enables when the real ICAR pool (no _note marker) lands in 9a-2.
+  // Don't render augmentation on the stub pool (generic options can't match a
+  // rotated puzzle); still computed+tested. Auto-re-enables for the 9a-2 pool.
   const isStubPool = typeof cache.pool._note === "string";
   const aug = isStubPool ? "none" : cache.selection.augmentations[currentItem];
   const N = currentItem + 1;
