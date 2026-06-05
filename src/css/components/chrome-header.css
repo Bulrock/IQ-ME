@@ -30,6 +30,17 @@
   color: var(--color-text-muted);
 }
 
+/* Language switcher appears only on the landing scene — choose language before
+   starting, so locale never changes mid-session or on the result page. The
+   landing route is data-route="#/" (renderRoute coerces ""/"#/" → "#/"). */
+.chrome-header__language-switcher {
+  display: none;
+}
+
+body[data-route="#/"] .chrome-header__language-switcher {
+  display: revert;
+}
+
 /* UX-DR8: item-runner is a focus surface; chrome must not distract. */
 body[data-route="#/test"] .chrome-header {
   display: none;
