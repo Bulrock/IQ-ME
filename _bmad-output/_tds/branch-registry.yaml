@@ -1056,3 +1056,14 @@ branches:
     last_synced_at: 2026-06-05T13:05:57.296Z
     notes: ""
     created_at: 2026-06-05T13:00:52.006Z
+  - branch: epic/10
+    story_id: null
+    epic_id: epic-10
+    base_branch: main
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-06-05T14:15:07.999Z

@@ -2,16 +2,16 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 316dbc438fbda43ddb666ac89457cdd72ccd518f5d90e3ade91379367d47bdf4
+    sha256: 0155fc2f80cec9a57ab49282bd4d8fd527ce5182a846512f33b6018a5355fae9
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T13:05:57.334Z
+    recorded_at: 2026-06-05T14:15:08.027Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: ce7cdd60d54dea28027ffb01f3d5db5291829ae11b9926c316aad4a10b00f61c
+    sha256: 4f2120e56146c2e69b7cb10ca783885e46097ad57ab132751edfec6b67c78f79
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T14:09:48.258Z
-    recorded_by: engineer
+    recorded_at: 2026-06-05T14:18:43.462Z
+    recorded_by: state-commit-autorecord
     story_id: 9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
