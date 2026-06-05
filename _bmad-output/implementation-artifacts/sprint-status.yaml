@@ -154,8 +154,8 @@ development_status:
   # Bridge →9a: 1 story from 1 retro
   bridge-9a: done
   bridge-9a-1-isolate-concurrency-sensitive-coverage: done           # Isolate concurrency-sensitive coverage/lint tests to tmpdir
-  epic-9a: backlog
-  9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log: backlog
+  epic-9a: in-progress
+  9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log: ready-for-dev
   9a-2-icar-confirmation-arrival-licenses-md-reconciliation-slot-fulfillment: backlog
   epic-9a-retrospective: optional
 

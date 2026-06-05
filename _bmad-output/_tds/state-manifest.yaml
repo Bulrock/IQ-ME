@@ -2,16 +2,15 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: c46ff3e9bbf6f9baca783424ec428c76b3ef54f2646fdd856f989e1b7f29f0b5
+    sha256: 9fab3e57dc60e51b8092486c6468a1d0a52e21b1600cb244887b903237b1bb6b
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:40:33.220Z
+    recorded_at: 2026-06-05T12:57:12.115Z
     recorded_by: engineer
-    notes: re-record after rename sweep settle
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: b99f0739c1697c2d1919be0afb12958e0af229e9bbaf5a27b6e1c8abe64e5bec
+    sha256: 7f0f012f55e70fdc6371c193eef8b83393c1fec8949d8b388307020e66b0504e
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:40:10.344Z
+    recorded_at: 2026-06-05T13:00:45.838Z
     recorded_by: state-commit-autorecord
     story_id: bridge-9b-2-refresh-stale-readme-contributing
   - artefact_class: A
