@@ -22,6 +22,14 @@ Story 8-8 honestly disclosed that the README '## Contributing' sentence still sa
 - [ ] Task 2 — edit `README.md:62`: drop the "expanded in Epic 8" framing; state that `CONTRIBUTING.md` is now the full contribution guide (AC 1, AC 2). (impl phase)
 - [ ] Task 3 — verification: `make lint` and `make build` green; full suite passes; visual diff confirms only the one sentence changed (AC 2, AC 3). (integration phase)
 
+## Dev Notes
+
+### Carry-forward lessons
+
+- lesson-2026-05-20-007 (high): every new story spec must carry this section; stories touching a class-A frozen test must also re-register integrity for it. Apply: if Task 1 ships a README guard test under `tests/scaffold/`, integrity-record it as test-author; if the guard is judged disproportionate for a one-line fix, record that decision in Completion Notes (per Task 1's explicit allowance).
+- lesson-2026-06-03-002 (high): verify regression provenance with a baseline diff before labeling a failure pre-existing-vs-introduced. Apply: confirm any new README guard test is RED against the current `README.md` before the impl edit.
+- lesson-2026-06-03-001 (high): `pr-checks.yml` wires tests per-job, not via a greedy glob. Apply (verified non-applicable for scaffold tests): a `tests/scaffold/**` guard is globbed directly by `make test`; no per-spec CI job needed.
+
 ## Dev Agent Record
 
 ### Completion Notes List

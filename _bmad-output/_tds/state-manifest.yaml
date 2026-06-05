@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: b555c1eb86974fa422284e39d2e68629a07d9a34bd9e06d80f154707f17b8806
+    sha256: 2ca84acd3c90c15cf9064e95dd8b6d58f80cead6405763912fa823dfb4d69494
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:45:17.714Z
+    recorded_at: 2026-06-05T12:04:17.900Z
     recorded_by: engineer
-    notes: "epic-8 OH-07 finalization recovery: approved→done flips + epic/8 merged marking"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 3275c6d640a79f6af0ca63f3d0d2a8d9e1bd00c9c6c87ee53e81a5c15f66366e
+    sha256: b689fb6ddd3005b921e5b0bc9e3aa70e3cf73f1eaad92ebc48bb51e67b7391e2
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:55:30.081Z
+    recorded_at: 2026-06-05T12:17:34.502Z
     recorded_by: engineer
+    story_id: bridge-epic-9b-1-cross-link-corpus-reference
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1555,3 +1555,17 @@ entries:
     recorded_by: test-author
     story_id: 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path
     notes: "story-8-8 red-phase: footer Discussions + README subscription path + FR52 no-email structural test"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-epic-9b-1-cross-link-corpus-reference.md
+    sha256: 562a2adc29f5f5843042a7094e93e04083d271b0f3092c064a406444b8b70fe7
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T12:19:08.049Z
+    recorded_by: state-commit-autorecord
+    story_id: bridge-epic-9b-1-cross-link-corpus-reference
+  - artefact_class: A
+    file: tests/scaffold/bridge-epic-9b-1-corpus-changelog-crosslink.test.mjs
+    sha256: acd00cc3705e835fff33aea19a600f6fe8590ea24ff9c69be1bad7b14367a1b3
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T12:08:51.806Z
+    recorded_by: test-author
+    story_id: bridge-epic-9b-1-cross-link-corpus-reference

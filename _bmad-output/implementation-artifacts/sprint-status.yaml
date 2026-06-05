@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-05 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path: review'
+last_updated: '2026-06-05 bridge-epic-9b-1-cross-link-corpus-reference: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -160,8 +160,8 @@ development_status:
   epic-9a-retrospective: optional
 
   # Bridge epic→9b: 2 stories from 1 retro
-  bridge-epic-9b: backlog
-  bridge-epic-9b-1-cross-link-corpus-reference: backlog # Cross-link corpus /reference/changelog/ to root CHANGELOG.md
+  bridge-epic-9b: in-progress
+  bridge-epic-9b-1-cross-link-corpus-reference: review         # Cross-link corpus /reference/changelog/ to root CHANGELOG.md
   bridge-epic-9b-2-refresh-stale-readme-contributing: backlog # Refresh stale README '## Contributing' framing post-8.6
   epic-9b: backlog
   9b-1-psychometrician-recruitment-scoring-spec-methodology-corpus-result-page-sign-off: backlog

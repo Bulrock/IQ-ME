@@ -6,13 +6,15 @@ reviewer: "TBD"
 reviewerHandle: "@TBD-pl-reviewer"
 asserts: []
 glossaryRefs: []
-sourceHashEN: "a486808fd1a99c05e6a667476bfcd903eff319ff507b50df5f1b2f3170cbe788"
+sourceHashEN: "239a0d107eb59eefa1ad2d5e7e12998d9e1f599a6565d3a10070d334e23be4e3"
 translationStatus: "in-progress"
 ---
 
 # Methodology corpus changelog
 
 The changelog records every corpus-version change that affects a citation. Each entry includes the version tag, the release date, and the substance of the change. The format follows the loose conventions of Keep-a-Changelog.
+
+This page is the citation changelog for the methodology corpus. It is distinct from the project's root [CHANGELOG.md](../../../../../../CHANGELOG.md), which is the development and release log for the application. Cite this page for corpus-version history; read the root log for code and release notes.
 
 ## v1.0.0 — pending
 
