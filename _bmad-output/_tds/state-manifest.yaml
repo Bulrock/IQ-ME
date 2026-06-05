@@ -1586,10 +1586,10 @@ entries:
     notes: integrity re-record for bridge-9b rename (align bridge naming)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log.md
-    sha256: 02a480ca8bf469d672c1a58bff2ac8033a0c4879bcaed5d19a6b6dc12fa5c24a
+    sha256: f6f0a010d82800fe614441cd3daec296afea698c3741ba4c4f35a54dd83ced1a
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T13:05:52.021Z
-    recorded_by: engineer
+    recorded_at: 2026-06-05T13:43:44.477Z
+    recorded_by: story-add-finding-autorecord
     story_id: 9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log
   - artefact_class: A
     file: tests/scaffold/9a-1-icar-outreach.test.mjs

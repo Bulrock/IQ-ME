@@ -92,3 +92,11 @@ Epic 9a is a **stakeholder-outreach gate epic — no code-write of product surfa
 
 **Tested edge cases:**
 - AC1 (CC BY-NC-SA + ICAR-CONFIRMATION.pdf slot + ICAR-MR named in draft), AC2 (no fabricated confirmation, no `tel:`), AC3 (PENDING banner + OpenPsychometrics fallback + 9a-2 pointer in log), AC2/AC3 (same no-fabrication checks on the log) — all RED before impl, GREEN after. `make lint` 0, `make build` 0, full `make test` 0.
+
+## Auditor Findings (round-1)
+
+### [warn] The five new no-fabrication scaffold guards (tests/scaffold/9a-1..9e-1) run in CI only via 'make test' in release.yml (tag-push). pr-checks.yml hand-picks per-file test jobs and never runs 'make test' nor globs tests/scaffold/**, so on a normal PR to main the trust guards (no fabricated confirmation / signoff / passing tally) do NOT execute. A future PR that edits psychometrician-signoff.md or tester-credibility-report.md to fabricate a closure would pass PR checks and only be caught at the release gate. This is the exact failure mode lesson-2026-06-03-001 (high) flagged; the per-story carry-forward asked to grep pr-checks.yml to confirm wiring. Non-blocking: all ACs met, guards pass under 'make test', and the release boundary still enforces them. Pre-existing project-wide pattern (all tests/scaffold guards are PR-unwired), not introduced by these stories.
+
+- **Category:** ci-wiring / defense-in-depth (lesson-2026-06-03-001)
+- **Suggested fix:** Recommended: add a single pr-checks.yml job that runs the structural-guard suite on PRs, e.g. 'node --test tests/scaffold/**/*.test.mjs' (or 'make test'), so the no-fabrication trust guards gate PRs to main, not just release tags. Scope this as a cross-cutting bridge story rather than reworking the 5 gate stories, since it hardens all existing scaffold guards equally.
+- **Suggested bridge:** `Add a tests/scaffold PR-gate job to pr-checks.yml so structural/no-fabrication guards run on every PR to main (not only release.yml make test)`
