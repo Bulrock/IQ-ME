@@ -2,16 +2,16 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 19763ae8060b83d4fdced2184c2bc6d822e8f01d8deda7fd1144e577ad0d3d69
+    sha256: 4698d2b1f4bbb56b3165ab37c143ecad3639194fd9f27307b761edfcbd33c2e7
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:22:37.210Z
+    recorded_at: 2026-06-05T12:30:21.304Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: bf0c2cc54f1bd6780a5653588e5e0a598b155ddca1e43606f55012be5c2c0830
+    sha256: 3a6d11162f0045e2121fbcb210a340cfd41b5777e6903348890960890b537b2c
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:29:44.813Z
-    recorded_by: state-commit-autorecord
+    recorded_at: 2026-06-05T12:30:59.219Z
+    recorded_by: engineer
     story_id: bridge-epic-9b-2-refresh-stale-readme-contributing
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
@@ -1557,10 +1557,10 @@ entries:
     notes: "story-8-8 red-phase: footer Discussions + README subscription path + FR52 no-email structural test"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-epic-9b-1-cross-link-corpus-reference.md
-    sha256: 5ccf247941b31c7e99080d7242af6d312588fac3216564b5ec62cc55fc7e7c7c
+    sha256: 65e724a7eceea43bcc75af58598902bfa2b2bbc7d82307bb8f1a3a40e2e7b663
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:28:34.922Z
-    recorded_by: auditor
+    recorded_at: 2026-06-05T12:30:59.028Z
+    recorded_by: engineer
     story_id: bridge-epic-9b-1-cross-link-corpus-reference
   - artefact_class: A
     file: tests/scaffold/bridge-epic-9b-1-corpus-changelog-crosslink.test.mjs
@@ -1571,10 +1571,10 @@ entries:
     story_id: bridge-epic-9b-1-cross-link-corpus-reference
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-epic-9b-2-refresh-stale-readme-contributing.md
-    sha256: b31b791d3b4777820378ddffbf3e98776db73b2f51dfe76200509b7e76133fbd
+    sha256: 7c4d18c76b2fe41c44f21f689cca76010c045244c941b7017ae886fd8f403117
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:28:35.039Z
-    recorded_by: auditor
+    recorded_at: 2026-06-05T12:30:59.261Z
+    recorded_by: engineer
     story_id: bridge-epic-9b-2-refresh-stale-readme-contributing
   - artefact_class: A
     file: tests/scaffold/bridge-epic-9b-2-readme-contributing.test.mjs

@@ -1,7 +1,7 @@
 ---
 id: bridge-epic-9b-2-refresh-stale-readme-contributing
 title: "Story bridge-epic-9b-2-refresh-stale-readme-contributing: Refresh stale README '## Contributing' framing post-8.6"
-status: approved
+status: done
 ---
 
 # Story bridge-epic-9b-2-refresh-stale-readme-contributing: Refresh stale README '## Contributing' framing post-8.6
