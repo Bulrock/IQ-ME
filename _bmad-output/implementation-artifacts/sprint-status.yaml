@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-05 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path: review'
+last_updated: '2026-06-05 bridge-epic-9b-2-refresh-stale-readme-contributing: approved'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -149,7 +149,7 @@ development_status:
   8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs: done
   8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle: done
   8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path: done
-  epic-8-retrospective: optional
+  epic-8-retrospective: done
 
   # Bridge →9a: 1 story from 1 retro
   bridge-9a: done
@@ -158,6 +158,11 @@ development_status:
   9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log: backlog
   9a-2-icar-confirmation-arrival-licenses-md-reconciliation-slot-fulfillment: backlog
   epic-9a-retrospective: optional
+
+  # Bridge epic→9b: 2 stories from 1 retro
+  bridge-epic-9b: approved
+  bridge-epic-9b-1-cross-link-corpus-reference: approved       # Cross-link corpus /reference/changelog/ to root CHANGELOG.md
+  bridge-epic-9b-2-refresh-stale-readme-contributing: approved       # Refresh stale README '## Contributing' framing post-8.6
   epic-9b: backlog
   9b-1-psychometrician-recruitment-scoring-spec-methodology-corpus-result-page-sign-off: backlog
   epic-9b-retrospective: optional

@@ -104,3 +104,4 @@ so that **the structural no-signup / no-email posture holds and updates reach in
 
 - **Category:** doc-staleness
 - **Suggested bridge:** `Tiny doc fix: update the README "## Contributing" sentence to drop the "expanded in Epic 8" framing now that CONTRIBUTING.md is the full guide.`
+- **Bridged to:** `bridge-epic-9b-2-refresh-stale-readme-contributing`

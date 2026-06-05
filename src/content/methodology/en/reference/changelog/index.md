@@ -13,6 +13,8 @@ sourceHashEN: "0000000000000000000000000000000000000000000000000000000000000000"
 
 The changelog records every corpus-version change that affects a citation. Each entry includes the version tag, the release date, and the substance of the change. The format follows the loose conventions of Keep-a-Changelog.
 
+This page is the citation changelog for the methodology corpus. It is distinct from the project's root [CHANGELOG.md](../../../../../../CHANGELOG.md), which is the development and release log for the application. Cite this page for corpus-version history; read the root log for code and release notes.
+
 ## v1.0.0 — pending
 
 The v1.0.0 release will tag the methodology corpus and engine as ready for citation by external academic and wiki-encyclopaedic work. The release will land after the Gate-9 sequence completes (ICAR license sign-off, external psychometrician review, clinical-register reviewer-of-record sign-off for the bottom-decile and top-decile tail scenes, and the hallway-test comprehension recording).

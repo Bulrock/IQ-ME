@@ -718,3 +718,47 @@ lessons:
     severity: high
     status: active
     superseded_by: null
+  - id: lesson-2026-06-05-001
+    created_during: epic-8
+    created_at: 2026-06-05T11:49:40.966Z
+    created_by: writer
+    story_refs:
+      - 8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment
+      - 8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v
+      - 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification
+    category: process
+    tags:
+      - retro:epic-8
+      - workflow
+      - ci
+      - scope-discipline
+      - deferred-marker
+    summary: "Sequential workflow activation across stories: Story N plants '# Deferred to Story M' markers in a shared CI file + structural tests assert active-present AND deferred-absent-but-marked; Story M replaces the marker and flips the assertion (absence→presence)"
+    lesson: Epic-8 activated release.yml incrementally across 4 stories (8.1 deploy, 8.2 archival, 8.4 mirror) on a single shared file. Story 8.1 planted in-file '# --- Deferred to Story 8.X ---' comment markers and the frozen structural test asserted both the active steps' presence AND the deferred steps' marked-absence. Each later story replaced its marker with the real steps and graduated the matching test assertion from absence to presence. Zero merge collisions, zero scope ambiguity, and the test set always encodes exactly what is live vs deferred.
+    avoid_pattern: Each story freely rewriting a shared workflow file with no in-file deferral markers and no test asserting what is intentionally absent — produces merge collisions, scope ambiguity, and silent gaps where a deferred step is neither present nor tracked.
+    preferred_pattern: Plant '# Deferred to Story M' markers in the shared file up front; structural test asserts (a) active steps present, (b) deferred steps absent-but-marked. The owning later story replaces its marker and flips its assertion absence→presence in the same change.
+    severity: low
+    status: active
+    superseded_by: null
+  - id: lesson-2026-06-05-002
+    created_during: epic-8
+    created_at: 2026-06-05T11:49:55.487Z
+    created_by: writer
+    story_refs:
+      - 8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment
+      - 8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v
+      - 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification
+    category: technical
+    tags:
+      - retro:epic-8
+      - github-actions
+      - launch-gating
+      - vars
+      - workflow
+    summary: "Gate live external side-effects (deploy/DOI-mint/archival/mirror) behind a vars.IQME_LIVE_* step-if — secrets.* is invalid in a step-level if: — so dev asserts the workflow STEPS structurally while the live run defers to launch"
+    lesson: "Epic-8 wired every live side-effect (gh-pages deploy, Zenodo DOI mint, IA/SH archival snapshots, Codeberg/Cloudflare mirror, contributor-credit) but kept them inert in dev by gating each step on a vars.IQME_LIVE_* boolean in the step-level if:. GitHub does NOT expose secrets.* inside a step if: expression, so gating on secret presence silently never fires — vars.* is the correct gate. Dev-phase frozen tests assert the steps exist structurally (the contract), and the live execution flips on at launch (Epic 10) by setting the repo variable. This keeps the full launch pipeline test-covered and reviewable months before any live tag push."
+    avoid_pattern: "Gating a live workflow step on secrets.* in a step-level if: (silently always-false), or omitting the step entirely until launch so no dev-phase structural test covers the launch contract."
+    preferred_pattern: Wire the live step now, gate it on a vars.IQME_LIVE_<feature> repo variable in the step if:; frozen structural test asserts step presence/shape; launch flips the variable to enable real execution.
+    severity: medium
+    status: active
+    superseded_by: null

@@ -2,18 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: b555c1eb86974fa422284e39d2e68629a07d9a34bd9e06d80f154707f17b8806
+    sha256: 19763ae8060b83d4fdced2184c2bc6d822e8f01d8deda7fd1144e577ad0d3d69
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:45:17.714Z
+    recorded_at: 2026-06-05T12:22:37.210Z
     recorded_by: engineer
-    notes: "epic-8 OH-07 finalization recovery: approved→done flips + epic/8 merged marking"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: b2f33419e645e2fc1c30f026214b02b152e90bac3ea8525a0ed5da1812501246
+    sha256: bf0c2cc54f1bd6780a5653588e5e0a598b155ddca1e43606f55012be5c2c0830
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:45:17.714Z
-    recorded_by: engineer
-    notes: "epic-8 OH-07 finalization recovery: approved→done flips + epic/8 merged marking"
+    recorded_at: 2026-06-05T12:29:44.813Z
+    recorded_by: state-commit-autorecord
+    story_id: bridge-epic-9b-2-refresh-stale-readme-contributing
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -31,9 +30,9 @@ entries:
     story_id: 1-1-bootstrap-repo-skeleton-makefile
   - artefact_class: A
     file: _bmad-output/_tds/memory/lessons.yaml
-    sha256: 7f0f21a2badfa7fe5ed7fcc4c022ad810f2cf47ceb10decca04fec78bbbcc3db
+    sha256: 5c71e5738c74322eef37cdeb86d8d15614b0fd6395e0a2eaa512847280693ca6
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T08:19:04.860Z
+    recorded_at: 2026-06-05T11:49:55.516Z
     recorded_by: writer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners.md
@@ -192,11 +191,10 @@ entries:
     notes: "story-7-5b: graduated parity assertions + design-system AC-6 snapshot-update race fix (tmpdir redirect)"
   - artefact_class: A
     file: _bmad-output/_tds/sprint-status-extension.yaml
-    sha256: 56a7a6793aba22b69c09b698d5b769548c351418a5aa04b1c66863c21260470c
+    sha256: c41f95cf01cc9e85a22526fe8fe00a6baa170f8ffa24c3b44ebf693609cbc2a3
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:33:24.173Z
+    recorded_at: 2026-06-05T11:55:30.111Z
     recorded_by: engineer
-    notes: "clear inherited pre-epic-8 drift: extension file == main; stale hash predates bridge-9a final write (provenance: no epic/8 commit touched it)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-1-2-1-add-tds-story-unfreeze.md
     sha256: 09a87b20e669594c49bfec90ff634fb82a075b8d22378e068f9b9399e2d6e386
@@ -1530,10 +1528,10 @@ entries:
     story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle.md
-    sha256: 66ae1eed5392af59f25f137d34853aa13abae6be8e18ec93f170539b357e6cfd
+    sha256: 7ceb23ed3c26903ee9d2fe8e0d1a0e159cc1ab641a0c4643fc910b53e4d88099
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:40:17.000Z
-    recorded_by: story-add-finding-autorecord
+    recorded_at: 2026-06-05T12:00:40.850Z
+    recorded_by: state-commit-autorecord
     story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
   - artefact_class: A
     file: tests/scaffold/changelog-release.test.mjs
@@ -1544,10 +1542,10 @@ entries:
     story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path.md
-    sha256: 4cbc95725765f83f4cbe9461351818167dbb97fe75e8c84dcf49d040691030b8
+    sha256: e36df555d16764bfd6641739fa77e10b5692678701bbe9a4490a02886838c9f0
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:40:17.000Z
-    recorded_by: story-add-finding-autorecord
+    recorded_at: 2026-06-05T12:00:40.850Z
+    recorded_by: state-commit-autorecord
     story_id: 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path
   - artefact_class: A
     file: tests/scaffold/discussions-footer.test.mjs
@@ -1557,3 +1555,31 @@ entries:
     recorded_by: test-author
     story_id: 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path
     notes: "story-8-8 red-phase: footer Discussions + README subscription path + FR52 no-email structural test"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-epic-9b-1-cross-link-corpus-reference.md
+    sha256: 5ccf247941b31c7e99080d7242af6d312588fac3216564b5ec62cc55fc7e7c7c
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T12:28:34.922Z
+    recorded_by: auditor
+    story_id: bridge-epic-9b-1-cross-link-corpus-reference
+  - artefact_class: A
+    file: tests/scaffold/bridge-epic-9b-1-corpus-changelog-crosslink.test.mjs
+    sha256: acd00cc3705e835fff33aea19a600f6fe8590ea24ff9c69be1bad7b14367a1b3
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T12:08:51.806Z
+    recorded_by: test-author
+    story_id: bridge-epic-9b-1-cross-link-corpus-reference
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/bridge-epic-9b-2-refresh-stale-readme-contributing.md
+    sha256: b31b791d3b4777820378ddffbf3e98776db73b2f51dfe76200509b7e76133fbd
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T12:28:35.039Z
+    recorded_by: auditor
+    story_id: bridge-epic-9b-2-refresh-stale-readme-contributing
+  - artefact_class: A
+    file: tests/scaffold/bridge-epic-9b-2-readme-contributing.test.mjs
+    sha256: 7e902a33a3d5ea308e0bb70a194ff2ef2a53367459ce02eb02b72bd9a9d0fb86
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T12:21:00.414Z
+    recorded_by: test-author
+    story_id: bridge-epic-9b-2-refresh-stale-readme-contributing
