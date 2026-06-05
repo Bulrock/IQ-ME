@@ -27,12 +27,12 @@ The **recruitment outreach draft + outreach log + signoff tracker scaffold** are
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: author the scaffold guard** (`tests/scaffold/9b-1-psychometrician-outreach.test.mjs`) encoding AC 5; confirm RED. (test-author phase)
-- [ ] **Task 2: write the recruitment outreach draft** (AC 1). (impl phase)
-- [ ] **Task 3: write the outreach log** (AC 2). (impl phase)
-- [ ] **Task 4: write the signoff PENDING stub** (AC 3) per the `*-signoff.md` convention. (impl phase)
-- [ ] **Task 5 (BLOCKED — human deliverable): obtain the real sign-off** — recruit, share artifacts, iterate, document final sign-off (AC 4). No agent action until a real reviewer engages.
-- [ ] **Task 6: verification** — guard GREEN, `make lint`/`make build`/`make test` green (AC 6). (integration phase)
+- [x] **Task 1: author the scaffold guard** (`tests/scaffold/9b-1-psychometrician-outreach.test.mjs`) encoding AC 5; confirm RED. (test-author phase)
+- [x] **Task 2: write the recruitment outreach draft** (AC 1). (impl phase)
+- [x] **Task 3: write the outreach log** (AC 2). (impl phase)
+- [x] **Task 4: write the signoff PENDING stub** (AC 3) per the `*-signoff.md` convention. (impl phase)
+- [-] **Task 5 (BLOCKED — human deliverable): obtain the real sign-off** — recruit, share artifacts, iterate, document final sign-off (AC 4). No agent action until a real reviewer engages. _(deferred: Blocked on real external psychometrician; no agent action possible)_
+- [-] **Task 6: verification** — guard GREEN, `make lint`/`make build`/`make test` green (AC 6). (integration phase) _(deferred: Deferred to integration phase after Task 5 unblocks; scaffold test GREEN already)_
 
 ## Dev Notes
 
@@ -64,4 +64,11 @@ The **recruitment outreach draft + outreach log + signoff tracker scaffold** are
 
 ### Completion Notes List
 
+- Doable half complete: scaffold guard (6 tests GREEN), outreach draft, outreach log, PENDING signoff stub all authored. Task 5 deferred pending real reviewer.
+
 ### File List
+
+- tests/scaffold/9b-1-psychometrician-outreach.test.mjs
+- docs/launch-readiness/psychometrician-outreach-draft.md
+- docs/launch-readiness/psychometrician-outreach-log.md
+- docs/launch-readiness/psychometrician-signoff.md
