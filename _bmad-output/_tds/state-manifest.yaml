@@ -8,10 +8,10 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: f2e0b349afc5329e6a3b157d5643e401f198120a8ae10ae25e657348108e35bf
+    sha256: 8e7eb9830f79cf82010134600c0783c5a5b44bf3ea2b0e214afa6874cecc8c71
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T14:26:38.938Z
-    recorded_by: engineer
+    recorded_at: 2026-06-05T14:29:13.525Z
+    recorded_by: state-commit-autorecord
     story_id: 10-1-pre-launch-readiness-checklist-final-smoke-test
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
