@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 88bb09de6319b3f90dd4d4e1efd46d9053ff97d5a6f55c934f5f05e3f40d3f13
+    sha256: f7d036dc04e4b306bf4505c766c42827e5cd34cb586a891d3e34d1024614d481
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:25:51.421Z
+    recorded_at: 2026-06-05T11:27:45.706Z
     recorded_by: engineer
-    story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
+    story_id: 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1540,3 +1540,10 @@ entries:
     recorded_at: 2026-06-05T11:23:48.811Z
     recorded_by: engineer
     story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path.md
+    sha256: d6b7edb2ff293d55f0dcbc50619126a33d453b4e4d2c93c18a039ef67ae86513
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T11:27:45.915Z
+    recorded_by: engineer
+    notes: story-8-8 spec authored (create-story)
