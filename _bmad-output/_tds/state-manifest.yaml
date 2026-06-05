@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 0155fc2f80cec9a57ab49282bd4d8fd527ce5182a846512f33b6018a5355fae9
+    sha256: 3c4bf2895d5ca381a364a16ea9af89a7fdf50d6c103d5a1fe0d19367fcfca22a
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T14:15:08.027Z
+    recorded_at: 2026-06-05T14:26:45.333Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 4f2120e56146c2e69b7cb10ca783885e46097ad57ab132751edfec6b67c78f79
+    sha256: f2e0b349afc5329e6a3b157d5643e401f198120a8ae10ae25e657348108e35bf
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T14:18:43.462Z
-    recorded_by: state-commit-autorecord
-    story_id: 9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields
+    recorded_at: 2026-06-05T14:26:38.938Z
+    recorded_by: engineer
+    story_id: 10-1-pre-launch-readiness-checklist-final-smoke-test
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1664,3 +1664,17 @@ entries:
     recorded_at: 2026-06-05T14:09:48.258Z
     recorded_by: engineer
     story_id: 9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/10-1-pre-launch-readiness-checklist-final-smoke-test.md
+    sha256: ffce1de1a52cda19435551cb0d51f1ef35b39bb22bf50c6c8ae75a4f3f27eae1
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T14:26:38.984Z
+    recorded_by: engineer
+    story_id: 10-1-pre-launch-readiness-checklist-final-smoke-test
+  - artefact_class: A
+    file: tests/scaffold/10-1-pre-launch-checklist.test.mjs
+    sha256: 4397969e6493e1033c05168b1d72f1e8b68c95ac65e8408a03c032ab1340c031
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T14:20:54.192Z
+    recorded_by: test-author
+    story_id: 10-1-pre-launch-readiness-checklist-final-smoke-test

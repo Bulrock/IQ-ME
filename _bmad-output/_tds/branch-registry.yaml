@@ -1067,3 +1067,14 @@ branches:
     last_synced_at: null
     notes: ""
     created_at: 2026-06-05T14:15:07.999Z
+  - branch: story/10-1-pre-launch-readiness-checklist-final-smoke-test
+    story_id: 10-1-pre-launch-readiness-checklist-final-smoke-test
+    epic_id: null
+    base_branch: epic/10
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-05T14:26:45.295Z
+    notes: ""
+    created_at: 2026-06-05T14:18:55.258Z
