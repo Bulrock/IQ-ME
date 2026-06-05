@@ -176,8 +176,8 @@ development_status:
   epic-9e: backlog
   9e-1-native-speaker-tester-recruitment-credibility-validation-iteration-loop: done
   epic-9e-retrospective: optional
-  epic-10: in-progress
-  10-1-pre-launch-readiness-checklist-final-smoke-test: review
-  10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification: review
-  10-3-48-hour-post-launch-monitoring-window: review
+  epic-10: approved
+  10-1-pre-launch-readiness-checklist-final-smoke-test: approved
+  10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification: approved
+  10-3-48-hour-post-launch-monitoring-window: approved
   epic-10-retrospective: optional
