@@ -1034,3 +1034,25 @@ branches:
     last_synced_at: 2026-06-05T12:22:37.172Z
     notes: ""
     created_at: 2026-06-05T12:19:54.999Z
+  - branch: epic/9a
+    story_id: null
+    epic_id: epic-9a
+    base_branch: main
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-06-05T12:57:12.084Z
+  - branch: story/9a-1-icar-outreach
+    story_id: 9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log
+    epic_id: null
+    base_branch: epic/9a
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-05T13:05:57.296Z
+    notes: ""
+    created_at: 2026-06-05T13:00:52.006Z
