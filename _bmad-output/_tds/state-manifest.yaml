@@ -2,15 +2,15 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 1c935d348a2a2d55593913a638b017b0dfe790bc45b67fbf93c22bba41e4ecad
+    sha256: b2b419ca8932e8e32289382f768006d6c7f76d6b3b4428f8da86cca36ae34953
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:45:10.875Z
+    recorded_at: 2026-06-05T11:10:51.029Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 050d1a79b9fed818130324642650e992664a72e7d5f79c5b1449df47180c80b7
+    sha256: 2d9fe2a44fdc8ca8c306a54b64bbc005bdb040f83f20a9c5ffe53c60cfcb6d21
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:10:45.034Z
+    recorded_at: 2026-06-05T11:17:21.529Z
     recorded_by: engineer
     story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
   - artefact_class: A
@@ -44,12 +44,12 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/trust-artifacts.test.mjs
-    sha256: ab889c611d6e92d7f68b5c6b2d6c3609213b49eee6b94cd181ba16d1feac92cd
+    sha256: cfc2931ba3fd5e00240a4cc459786b38ac82cc431e4815b7aa43d268b825c959
     canonical_form: raw-bytes
-    recorded_at: 2026-05-18T21:22:33.070Z
+    recorded_at: 2026-06-05T11:12:36.283Z
     recorded_by: test-author
-    story_id: 1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners
-    notes: story-1-2 frozen tests
+    story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
+    notes: "story-8-6 red-phase: graduate trust-artifacts AC-4 + new contributing-docs.test.mjs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-3-commit-icar-confirmation-pdf-slot-with-visible-fallback-copy.md
     sha256: 8568871f7214b9aaca4748e1cb14fa61bff630eaa3929015c44aee3c359d99ce
@@ -1514,8 +1514,15 @@ entries:
     notes: "story-8-5: consolidated trust-verification Playwright spec + a11y spec + lighthouserc budgets"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs.md
-    sha256: 00c2b534699a6728ae2f90175a441c42a388e61bf34090af16bd599154d35444
+    sha256: 23f27b8db88dee2a5bfe6708dcc260c18788f1be51aeee2987413007099ccc53
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:10:45.393Z
+    recorded_at: 2026-06-05T11:17:21.571Z
     recorded_by: engineer
-    notes: story-8-6 spec authored (create-story)
+    story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
+  - artefact_class: A
+    file: tests/scaffold/contributing-docs.test.mjs
+    sha256: 55273d4d8db894c65f5a3e419130c7f17d004b331af99422cfbdc53a4921be11
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T11:15:49.323Z
+    recorded_by: engineer
+    story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs

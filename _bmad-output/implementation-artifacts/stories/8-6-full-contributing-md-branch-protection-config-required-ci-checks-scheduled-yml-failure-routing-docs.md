@@ -1,7 +1,7 @@
 ---
 id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
 title: "Story 8.6: Full CONTRIBUTING.md + branch-protection + required-ci-checks + scheduled-yml-failure-routing docs"
-status: ready-for-dev
+status: review
 ---
 
 # Story 8.6: Full CONTRIBUTING.md + required-ci-checks docs + cross-links
@@ -23,16 +23,16 @@ so that **a translator like Marek can find the workflow, see who the reviewer-of
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Author the full CONTRIBUTING.md** (AC: 1)
-  - [ ] Replace the slim stub with the full guide: fork/branch/PR workflow; CI-checks section; dual-approval (FR49) section; reviewer-of-record section; propose-translation-improvements; propose-corpus-changes (claims-manifest coupling). Plain language. Keep the CODEOWNERS pointer.
-- [ ] **Task 2: Author docs/required-ci-checks.md enumeration** (AC: 2)
-  - [ ] Enumerate every pr-checks.yml + scheduled.yml (+ release.yml) job by REAL name with enforces/trigger/failure/fix + a link to the `tools/lint-*.mjs` or `tests/**/*.spec.mjs` source (lesson-2026-06-03-001).
-- [ ] **Task 3: Cross-link the four docs from CONTRIBUTING.md** (AC: 3)
-  - [ ] required-ci-checks.md (CI step), branch-protection-config.md (dual-approval step), scheduled-yml-failure-routing.md, CODEOWNERS — each at the right moment.
-- [ ] **Task 4 (test-author phase): Graduate frozen trust-artifacts AC-4 + add contributing-docs test + re-register integrity** (AC: 4)
-  - [ ] Graduate `tests/scaffold/trust-artifacts.test.mjs` AC-4 (drop "Epic 8 expansion timing", keep exists + CODEOWNERS pointer, assert full-guide presence) + add `tests/scaffold/contributing-docs.test.mjs` (sections + cross-links + required-ci-checks enumeration) + `tds integrity record` the edited trust-artifacts.test.mjs; re-grep manifest post-sweep.
-- [ ] **Task 5: Regression gate** (AC: 4)
-  - [ ] `make test`/`make lint`/`make build` green + deterministic; baseline-diff any ambiguous failure (lesson-2026-06-03-002).
+- [x] **Task 1: Author the full CONTRIBUTING.md** (AC: 1)
+  - [x] Replace the slim stub with the full guide: fork/branch/PR workflow; CI-checks section; dual-approval (FR49) section; reviewer-of-record section; propose-translation-improvements; propose-corpus-changes (claims-manifest coupling). Plain language. Keep the CODEOWNERS pointer.
+- [x] **Task 2: Author docs/required-ci-checks.md enumeration** (AC: 2)
+  - [x] Enumerate every pr-checks.yml + scheduled.yml (+ release.yml) job by REAL name with enforces/trigger/failure/fix + a link to the `tools/lint-*.mjs` or `tests/**/*.spec.mjs` source (lesson-2026-06-03-001).
+- [x] **Task 3: Cross-link the four docs from CONTRIBUTING.md** (AC: 3)
+  - [x] required-ci-checks.md (CI step), branch-protection-config.md (dual-approval step), scheduled-yml-failure-routing.md, CODEOWNERS — each at the right moment.
+- [x] **Task 4 (test-author phase): Graduate frozen trust-artifacts AC-4 + add contributing-docs test + re-register integrity** (AC: 4)
+  - [x] Graduate `tests/scaffold/trust-artifacts.test.mjs` AC-4 (drop "Epic 8 expansion timing", keep exists + CODEOWNERS pointer, assert full-guide presence) + add `tests/scaffold/contributing-docs.test.mjs` (sections + cross-links + required-ci-checks enumeration) + `tds integrity record` the edited trust-artifacts.test.mjs; re-grep manifest post-sweep.
+- [x] **Task 5: Regression gate** (AC: 4)
+  - [x] `make test`/`make lint`/`make build` green + deterministic; baseline-diff any ambiguous failure (lesson-2026-06-03-002).
 
 ## Dev Notes
 
@@ -69,6 +69,38 @@ so that **a translator like Marek can find the workflow, see who the reviewer-of
 
 ### Completion Notes List
 
+- Full CONTRIBUTING.md (fork/PR + dual-approval + reviewer-of-record + translation + corpus-change + 4 cross-links) + docs/required-ci-checks.md (real pr-checks/scheduled/release jobs by name + source links). Graduated trust-artifacts AC-4; fixed own test regex via unfreeze. Suite 1266 pass/0 fail; lint+build exit 0.
+- Promoted to review: 5/5 tasks; frozen contributing-docs + graduated trust-artifacts AC-4 green; suite 1266 pass/0 fail; lint+build exit 0.
+
 ### File List
 
+- CONTRIBUTING.md
+- docs/required-ci-checks.md
+- tests/scaffold/trust-artifacts.test.mjs
+- tests/scaffold/contributing-docs.test.mjs
+
 ## Specialist Self-Review
+
+## Specialist Self-Review — Story 8-6 (full CONTRIBUTING.md + required-ci-checks.md, docs)
+
+**Decisions made:**
+- Rewrote `CONTRIBUTING.md` from the Epic-1 slim stub to the full guide: fork/branch/PR workflow + the minimum bar; a CI-checks section linking `docs/required-ci-checks.md`; a dual-approval (FR49) section linking `docs/branch-protection-config.md`; a reviewer-of-record section linking `.github/CODEOWNERS`; how-to-propose-translation-improvements (EN-source-of-truth + sourceHashEN + harm-sensitive-placeholder caution); how-to-propose-methodology-corpus-changes (claims-manifest coupling); plus the `docs/scheduled-yml-failure-routing.md` cross-link and the no-email/no-signup posture.
+- Authored `docs/required-ci-checks.md`: enumerates the REAL job set grouped (negative-assertion lints / corpus lints / scoring+build-integrity / Playwright trust+UI / a11y+perf / scheduled health checks / release jobs), each named with enforces + trigger + failure + fix and a link to its `tools/lint-*.mjs` or `tests/**/*.spec.mjs` source (lesson-2026-06-03-001 — real names, no glob).
+
+**Alternatives considered:**
+- Keep the slim-stub "expanded in Epic 8" framing — rejected; the full guide IS that expansion (FR47).
+- Shoehorn an irrelevant no-hyphen test path into the doc to satisfy the (buggy) frozen regex — rejected in favour of fixing the regex (see gotchas), since the doc should link the genuine CI sources.
+
+**Framework gotchas avoided:**
+- Graduated the frozen class-A `tests/scaffold/trust-artifacts.test.mjs` AC-4 (slim "Epic 8 expansion timing" assertion → full-guide `dual-approval` signal; kept exists + CODEOWNERS pointer) + integrity re-recorded.
+- **Self-caught test bug:** my new `contributing-docs.test.mjs` AC-2 `tests/`-source-link regex was `/tests\/[a-z/]+\.(spec|test)\.mjs/` — it excluded hyphens/digits, but every real spec filename has a hyphen (`byte-stable`, `state-shape`, …), so it could never go green. The sibling `tools/lint-[a-z-]+` regex already allowed hyphens. Fixed via the per-file `tds story unfreeze-tests` affordance (engineer-opened window, closed by `tds integrity record`) → `/tests\/[a-z0-9/-]+\.(spec|test)\.mjs/`. Did not weaken any other assertion.
+- Enumerated by real job name (lesson-2026-06-03-001); the frozen test pins 7 pr-checks + 4 scheduled names so a future rename surfaces here.
+
+**Areas of uncertainty:**
+- `docs/required-ci-checks.md` reflects the job set as of epic/8 (incl. the Story-8.5 `trust-verification-full`/`csp-violation-count`/`viewport-overflow`/`axe-core-pa11y` additions). A future workflow rename must update this doc in lockstep — the contributing-docs test enforces the names it pins, but the doc lists more jobs than the test checks.
+- A few Playwright jobs (co-equal-triplet, reveal-stage, difficulty-sentence, tear-edge-overlay, cropping-fuzzer, asymmetric-tail-scenes) share `tests/playwright/` and I linked the directory rather than guess a 1:1 spec filename for each; the canonical specs (network-trace, full-slice, byte-stable, trust-verification, i18n, chrome-components, a11y, lighthouse, golden parity, state-shape) are linked precisely.
+
+**Tested edge cases:**
+- Frozen `tests/scaffold/contributing-docs.test.mjs`: CONTRIBUTING.md has fork/branch/PR + dual-approval + reviewer-of-record + translation + claims-manifest sections; the four cross-links (required-ci-checks / branch-protection-config / scheduled-yml-failure-routing / CODEOWNERS); `docs/required-ci-checks.md` enumerates `trust-verification-full`/`byte-stable-build`/`golden-vector-parity`/`network-trace`/`lint-trust-artifacts`/`axe-core-pa11y`/`lighthouse` + the 4 scheduled health checks + `tools/lint-*.mjs` + `tests/**/*.spec.mjs` source links.
+- Graduated `tests/scaffold/trust-artifacts.test.mjs` AC-4 (dual-approval + CODEOWNERS pointer).
+- Regression: full suite 1266 pass / 0 fail; `make lint` exit 0; `make build` exit 0. Provenance: net-new this story (the slim stub → full guide diff against the merge base).

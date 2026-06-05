@@ -110,13 +110,16 @@ test("AC-3: README.md first 200 words mention no-telemetry, no-signup, source-on
   );
 });
 
-test("AC-4: CONTRIBUTING.md exists with slim/Epic-8 timing note + CODEOWNERS pointer", () => {
+test("AC-4: CONTRIBUTING.md (full guide) documents dual-approval + CODEOWNERS pointer", () => {
+  // Graduated by Story 8.6: the slim Epic-1 stub ("expanded in Epic 8") is
+  // replaced by the full contributing guide, so the old "Epic 8 expansion
+  // timing" assertion is retired in favour of a full-guide signal.
   assert.equal(existsSync(join(REPO_ROOT, "CONTRIBUTING.md")), true);
   const txt = read("CONTRIBUTING.md");
   assert.match(
     txt,
-    /(epic\s*8|epic-8|full\s+contributing|expanded\s+in)/i,
-    "CONTRIBUTING.md must reference Epic 8 expansion timing",
+    /dual[-\s]?approval/i,
+    "CONTRIBUTING.md (full guide) must document the dual-approval requirement for non-EN content-key changes (FR49)",
   );
   assert.match(
     txt,
