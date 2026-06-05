@@ -149,7 +149,7 @@ development_status:
   8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs: done
   8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle: done
   8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path: done
-  epic-8-retrospective: optional
+  epic-8-retrospective: done
 
   # Bridge →9a: 1 story from 1 retro
   bridge-9a: done

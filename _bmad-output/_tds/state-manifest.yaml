@@ -9,10 +9,10 @@ entries:
     notes: "epic-8 OH-07 finalization recovery: approved→done flips + epic/8 merged marking"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: b2f33419e645e2fc1c30f026214b02b152e90bac3ea8525a0ed5da1812501246
+    sha256: 3cba897dd66e85905d3067da56315c6d84e6375c64d4c7c8d6161a691b7f4d23
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:45:17.714Z
-    recorded_by: engineer
+    recorded_at: 2026-06-05T11:51:15.972Z
+    recorded_by: state-commit-autorecord
     notes: "epic-8 OH-07 finalization recovery: approved→done flips + epic/8 merged marking"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
@@ -31,9 +31,9 @@ entries:
     story_id: 1-1-bootstrap-repo-skeleton-makefile
   - artefact_class: A
     file: _bmad-output/_tds/memory/lessons.yaml
-    sha256: 7f0f21a2badfa7fe5ed7fcc4c022ad810f2cf47ceb10decca04fec78bbbcc3db
+    sha256: 5c71e5738c74322eef37cdeb86d8d15614b0fd6395e0a2eaa512847280693ca6
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T08:19:04.860Z
+    recorded_at: 2026-06-05T11:49:55.516Z
     recorded_by: writer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-2-author-licenses-md-citation-cff-readme-forking-ethics-slim-contributing-md-codeowners.md
