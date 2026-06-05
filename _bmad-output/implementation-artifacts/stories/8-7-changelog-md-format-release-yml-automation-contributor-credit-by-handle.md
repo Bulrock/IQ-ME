@@ -99,3 +99,16 @@ so that **contribution is visible and recognized in the project's permanent reco
 **Tested edge cases:**
 - Frozen `tests/scaffold/changelog-release.test.mjs`: CHANGELOG.md Keep-a-Changelog header + `[Unreleased]` + the six categories + a `### Contributors` subsection (with a real `@handle`) + the preserved Story-4.5 entry + a `v0.1.0` entry; release.yml has a `contributor-credit` step using `git log` + a release-prep-PR gate + the `vars.IQME_LIVE*` inert gate; and no third-party contributor/analytics/social-graph API.
 - Regression: full suite 1270 pass / 0 fail; `make lint` exit 0; `make build` exit 0 (deterministic — CHANGELOG.md is not a corpus page, so byte-stable is unaffected). Provenance: net-new this story.
+
+## Auditor Findings (round-1)
+
+### [warn] AC-4's corpus /reference/changelog/ cross-reference to the root CHANGELOG.md is not delivered. Task 3 is explicitly marked deferred ([-]) in the spec with rationale (forces golden-snapshot regen + risks external-link-policy lint + byte-stable for optional non-test-gated polish). The two changelogs are documented as distinct (root=dev/release, corpus=citation). This is an honest, documented defer (Completion Notes + task marker), not a silent drop — so it is a warn carried to the retro/bridge, not a blocker. The other AC-4 deliverables (Keep-a-Changelog format, contributor-credit step, structural test) are present and green.
+
+- **Category:** ac-partial-deferred
+- **Suggested bridge:** `Post-merge bridge: add the short note + relative link from src/content/methodology/en/reference/changelog/index.md to the root CHANGELOG.md, handling the golden-snapshot regen + byte-stable + external-link-policy lint in a controlled corpus-edit story.`
+
+## Auditor Findings (round-2)
+
+### [info] The contributor-credit job maps git-log author names to handles via `git log --format='%an' | sed 's/^/@/'` — this @-prefixes the commit author display name, which is NOT a guaranteed GitHub handle. FR53 (no third-party API / social-graph) is correctly honored, and the spec acknowledges the maintainer's release-prep PR review is the real handle-resolution step. Inert in dev (vars.IQME_LIVE_CHANGELOG). Flagging only so the launch (Epic 10) runbook expects the PR-review reconciliation of author-name vs real handle.
+
+- **Category:** launch-correctness-note

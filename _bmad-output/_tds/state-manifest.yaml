@@ -1529,10 +1529,10 @@ entries:
     story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle.md
-    sha256: 3bde418bf90b467d2ac55d26b690a59ffa92c698c09803ea7be3a73421b35246
+    sha256: 66ae1eed5392af59f25f137d34853aa13abae6be8e18ec93f170539b357e6cfd
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:25:51.463Z
-    recorded_by: engineer
+    recorded_at: 2026-06-05T11:40:17.000Z
+    recorded_by: story-add-finding-autorecord
     story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
   - artefact_class: A
     file: tests/scaffold/changelog-release.test.mjs
@@ -1543,10 +1543,10 @@ entries:
     story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path.md
-    sha256: ce9d61ba21f64582f5ccd0f47a82b9907af04018849d3c1836380716da7f622d
+    sha256: 4cbc95725765f83f4cbe9461351818167dbb97fe75e8c84dcf49d040691030b8
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:31:17.768Z
-    recorded_by: engineer
+    recorded_at: 2026-06-05T11:40:17.000Z
+    recorded_by: story-add-finding-autorecord
     story_id: 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path
   - artefact_class: A
     file: tests/scaffold/discussions-footer.test.mjs
