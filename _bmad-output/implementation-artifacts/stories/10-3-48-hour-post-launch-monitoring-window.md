@@ -1,7 +1,7 @@
 ---
 id: 10-3-48-hour-post-launch-monitoring-window
 title: "Story 10-3: 48-hour post-launch monitoring window"
-status: ready-for-dev
+status: review
 ---
 
 # Story 10-3: 48-hour post-launch monitoring window
@@ -33,18 +33,18 @@ The monitoring checkpoints themselves (T+1h, T+6h, T+24h, T+48h) require human p
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1:** Author `docs/launch-readiness/v1.0.0-post-launch-monitoring.md` scaffold (AC 1, AC 2, AC 5).
-  - [ ] **Subtask 1.1:** Header with launch date field + "48-hour window closes at" field.
-  - [ ] **Subtask 1.2:** Per-checkpoint log table (T+1h / T+6h / T+24h / T+48h) — each row: timestamp (UTC), checks (canonical URL / mirror / Zenodo / IA / SH / Discussions / scheduled.yml), anomalies, action taken.
-  - [ ] **Subtask 1.3:** Zero-analytics notice section (NFR6 compliance).
-  - [ ] **Subtask 1.4:** T+48h closure section: post-launch report fields + steady-state declaration.
-- [ ] **Task 2:** Dry-run validate `docs/launch-readiness/v1.0.0-rollback-runbook.md` (AC 3).
-  - [ ] **Subtask 2.1:** Execute each dry-run-safe command from the rollback runbook (Step 1a local tag check, Step 1b remote tag check, Step 2a log check, Step 2b build check, Step 3c Zenodo dashboard access, Step 4a IA access).
-  - [ ] **Subtask 2.2:** Fill in the dry-run validation table in the runbook with results.
-  - [ ] **Subtask 2.3:** Sign off the dry-run validation block.
-- [ ] **Task 3:** Verify `make lint` exit 0 and `make build` exit 0 (AC 6).
-  - [ ] **Subtask 3.1:** Run `make lint` — confirm exit 0.
-  - [ ] **Subtask 3.2:** Run `make build` — confirm exit 0.
+- [x] **Task 1:** Author `docs/launch-readiness/v1.0.0-post-launch-monitoring.md` scaffold (AC 1, AC 2, AC 5).
+  - [x] **Subtask 1.1:** Header with launch date field + "48-hour window closes at" field.
+  - [x] **Subtask 1.2:** Per-checkpoint log table (T+1h / T+6h / T+24h / T+48h) — each row: timestamp (UTC), checks (canonical URL / mirror / Zenodo / IA / SH / Discussions / scheduled.yml), anomalies, action taken.
+  - [x] **Subtask 1.3:** Zero-analytics notice section (NFR6 compliance).
+  - [x] **Subtask 1.4:** T+48h closure section: post-launch report fields + steady-state declaration.
+- [x] **Task 2:** Dry-run validate `docs/launch-readiness/v1.0.0-rollback-runbook.md` (AC 3).
+  - [x] **Subtask 2.1:** Execute each dry-run-safe command from the rollback runbook (Step 1a local tag check, Step 1b remote tag check, Step 2a log check, Step 2b build check, Step 3c Zenodo dashboard access, Step 4a IA access).
+  - [x] **Subtask 2.2:** Fill in the dry-run validation table in the runbook with results.
+  - [x] **Subtask 2.3:** Sign off the dry-run validation block.
+- [x] **Task 3:** Verify `make lint` exit 0 and `make build` exit 0 (AC 6).
+  - [x] **Subtask 3.1:** Run `make lint` — confirm exit 0.
+  - [x] **Subtask 3.2:** Run `make build` — confirm exit 0.
 
 ## Dev Notes
 
@@ -84,4 +84,10 @@ The monitoring checkpoints themselves (T+1h, T+6h, T+24h, T+48h) require human p
 
 ### Completion Notes List
 
+- Monitoring log scaffold + rollback runbook dry-run complete; 8/8 tests green; make lint + build exit 0
+
 ### File List
+
+- docs/launch-readiness/v1.0.0-post-launch-monitoring.md
+- docs/launch-readiness/v1.0.0-rollback-runbook.md
+- tests/scaffold/10-3-post-launch-monitoring.test.mjs
