@@ -2,15 +2,15 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 1d63d42e472c297ea81b63c0d96742dcb884b3e29d90ad512943bc76d80cbd65
+    sha256: fe92d08ab8775714aae0bb7b0dba1c3b3689bd8e1bfafd4c1f5b0c95c4415c09
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:24:30.645Z
+    recorded_at: 2026-06-05T08:30:13.821Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 4f199c3e110b0a07fcba68944b23ee6f1e072609ede11fb997464b6d9281fd14
+    sha256: a232a11e4814db30ba217c71fcc59c033d7be295c486f6e9e86aa0f89877995b
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:30:05.833Z
+    recorded_at: 2026-06-05T08:45:04.096Z
     recorded_by: engineer
     story_id: 8-5-full-playwright-trust-verification-suite-consolidation
   - artefact_class: A
@@ -107,12 +107,12 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: 49fa3e00e0731744d21af45a21dd75197c50127839c202ad56c87782a2733a6c
+    sha256: bce24153d34372020d28901a27bc0fec6a4312201d000802bdcaffd0a78d8d52
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T10:53:10.134Z
+    recorded_at: 2026-06-05T08:34:07.383Z
     recorded_by: test-author
-    story_id: 8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing
-    notes: "story-8-3 red-phase: graduate ci-matrix AC-6 scheduled.yml + new scheduled-workflow.test.mjs"
+    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
+    notes: "story-8-5 red-phase: graduate ci-matrix (activate trust-verification-full/csp/viewport/axe) + new trust-verification-suite.test.mjs"
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: 2c67dbd842aaf6c1d1fa235e982c057c934cb3d52c80afdcfae9dc360229a6e1
@@ -1475,8 +1475,40 @@ entries:
     notes: "story-8-4 red-phase: graduate release-workflow AC-5 (mirror present) + new mirror-deploy.test.mjs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-5-full-playwright-trust-verification-suite-consolidation.md
-    sha256: ccfbdfdf1a29ee3cdaea228b2be5cb98e84cacfd41e8b0cb419be527b0195101
+    sha256: 5cf012fa2fdad77058cdc6817707228747046032a8b2f76205f65b71048a15cd
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:30:06.048Z
+    recorded_at: 2026-06-05T08:45:04.140Z
     recorded_by: engineer
-    notes: story-8-5 spec authored (create-story)
+    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
+  - artefact_class: A
+    file: tests/scaffold/trust-verification-suite.test.mjs
+    sha256: c7fc833e659adf636a3c277921eca26b3692cbfdfd6ee9834bbff94575a673bd
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T08:34:07.384Z
+    recorded_by: test-author
+    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
+    notes: "story-8-5 red-phase: graduate ci-matrix (activate trust-verification-full/csp/viewport/axe) + new trust-verification-suite.test.mjs"
+  - artefact_class: A
+    file: tests/playwright/trust-verification.spec.mjs
+    sha256: 76be444c4bcb5547b72bebe7c84676f0dd0d9d6fbefc455631e5e80bae9e4fe0
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T08:43:51.972Z
+    recorded_by: engineer
+    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
+    notes: "story-8-5: consolidated trust-verification Playwright spec + a11y spec + lighthouserc budgets"
+  - artefact_class: A
+    file: tests/a11y/trust-a11y.spec.mjs
+    sha256: 208c102c13f13b5bce43bbba13fcbd6d31115c115386a26ef13f70012ab768d3
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T08:43:51.972Z
+    recorded_by: engineer
+    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
+    notes: "story-8-5: consolidated trust-verification Playwright spec + a11y spec + lighthouserc budgets"
+  - artefact_class: A
+    file: tests/perf/lighthouserc.json
+    sha256: 2297f751508213d365b77c664dd80a1c964ba796d90a5b82190f71c635b7f99f
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T08:43:51.973Z
+    recorded_by: engineer
+    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
+    notes: "story-8-5: consolidated trust-verification Playwright spec + a11y spec + lighthouserc budgets"

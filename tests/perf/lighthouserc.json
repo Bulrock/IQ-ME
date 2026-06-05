@@ -1,0 +1,46 @@
+{
+  "//": "Story 8.5 — LHCI perf-budget config (NFR1). @lhci/cli reads this via `lhci autorun --config=tests/perf/lighthouserc.json`. Collect against a mid-tier-Android mobile form-factor on a Slow-4G throttle profile; assert FCP < 1.5s, LCP < 2.5s, TTI (interactive) < 3.0s, CLS < 0.05. Timing budgets are maxNumericValue in milliseconds; CLS is unitless.",
+  "ci": {
+    "collect": {
+      "numberOfRuns": 3,
+      "startServerCommand": "node tools/dev-server.mjs",
+      "startServerReadyPattern": "listening on",
+      "url": ["http://127.0.0.1:4173/"],
+      "settings": {
+        "//": "mid-tier Android emulation on a Slow-4G connection (mobile form-factor).",
+        "preset": "perf",
+        "formFactor": "mobile",
+        "throttlingMethod": "simulate",
+        "throttling": {
+          "//": "Lighthouse Slow-4G preset: 150ms RTT, 1.6 Mbps down / 750 Kbps up, 4x CPU (mid-tier Android).",
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.56,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "screenEmulation": {
+          "mobile": true,
+          "width": 360,
+          "height": 640,
+          "deviceScaleFactor": 2.625,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36"
+      }
+    },
+    "assert": {
+      "//": "The four NFR1 perf budgets. Slow-4G/mobile throttle profile is set in ci.collect.settings above.",
+      "assertions": {
+        "first-contentful-paint": ["error", { "maxNumericValue": 1500 }],
+        "largest-contentful-paint": ["error", { "maxNumericValue": 2500 }],
+        "interactive": ["error", { "maxNumericValue": 3000 }],
+        "cumulative-layout-shift": ["error", { "maxNumericValue": 0.05 }]
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

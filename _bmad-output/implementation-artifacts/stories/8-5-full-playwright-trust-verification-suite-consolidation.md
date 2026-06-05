@@ -1,7 +1,7 @@
 ---
 id: 8-5-full-playwright-trust-verification-suite-consolidation
 title: "Story 8.5: Full Playwright trust-verification suite consolidation"
-status: ready-for-dev
+status: review
 ---
 
 # Story 8.5: Full Playwright trust-verification suite consolidation
@@ -46,29 +46,29 @@ so that **every PR mechanically asserts the project remains *as-described*: zero
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Author the consolidated trust-verification spec** (AC: 1)
-  - [ ] Create `tests/playwright/trust-verification.spec.mjs` driving the full happy-path via the `window.__IQME_TEST__` `?test=1` hook + `tools/dev-server.mjs` (mirror `full-slice.spec.mjs` setup/teardown + seeded 16-item session, NOT physical click-through, for the <90s budget).
-  - [ ] Leg A network-trace: zero non-same-origin requests + zero `FORBIDDEN_DOMAINS` hits across the path incl >=1 methodology page (reuse the `full-slice.spec.mjs` FORBIDDEN_DOMAINS list).
-  - [ ] Leg B CSP-violation count: `page.on('pageerror')` + console-CSP collector → assert zero CSP violations across the happy-path incl methodology pages.
-  - [ ] Leg C viewport-overflow: iterate widths 320/375/414/768/1024/1280/1440, assert `scrollWidth <= clientWidth` (1px tolerance) on each rendered surface.
-- [ ] **Task 2: Add the trust-verification-full job to pr-checks.yml** (AC: 2)
-  - [ ] Declare a NEW active `trust-verification-full:` job (no `if: false`) per-spec wired (chromium install + `make build-methodology` + `npx playwright test tests/playwright/trust-verification.spec.mjs`); mirror the existing Playwright job shape. Verify via grep that the spec filename appears in pr-checks.yml (lesson-2026-06-03-001).
-- [ ] **Task 3: Populate lighthouserc.json + wire lhci autorun** (AC: 3)
-  - [ ] Create `tests/perf/lighthouserc.json` with `ci.assert` for FCP<1.5s, LCP<2.5s, TTI<3.0s, CLS<0.05 + `ci.collect.settings` mid-tier-Android Slow-4G mobile profile.
-  - [ ] Wire `npx --yes lhci autorun` (config at `tests/perf/lighthouserc.json`) into the EXISTING already-active `lighthouse` job as a perf-budget leg; preserve the Story-6.4 light/dark accessibility legs untouched. Do NOT flip an `if:` (there is none) and do NOT add a new job.
-- [ ] **Task 4: Author a11y specs + activate axe-core-pa11y** (AC: 4)
-  - [ ] Create `tests/a11y/<name>.spec.mjs` running axe-core against every methodology page + every SPA surface (landing/consent/item-runner/result/tail-scenes); document pa11y fallback.
-  - [ ] Activate the `axe-core-pa11y` job in pr-checks.yml: remove `if: false`, wire the real per-spec run (chromium install + `make build-methodology` + `npx playwright test tests/a11y/<name>.spec.mjs`). Verify spec filename present in pr-checks.yml.
-- [ ] **Task 5: Activate csp-violation-count + viewport-overflow jobs** (AC: 5)
-  - [ ] Remove `if: false` from both deferred jobs; wire each to a real Playwright run (either the consolidated `trust-verification.spec.mjs` legs or dedicated specs — engineer's call), per-spec, no echo stub.
-- [ ] **Task 6: Confirm cropping-fuzzer forward-running** (AC: 6)
-  - [ ] No edit to `cropping-fuzzer.spec.mjs`; confirm it is active + self-gates on `bankFrozen: true` (already true) and is asserted present+active by the new structural test.
-- [ ] **Task 7: Graduate ci-matrix + add structural suite test + re-register integrity** (AC: 7) — TEST-AUTHOR PHASE, class-A frozen edit
-  - [ ] Edit `tests/scaffold/ci-matrix.test.mjs`: add `trust-verification-full` to `ALL_JOBS`; add `trust-verification-full`, `csp-violation-count`, `viewport-overflow`, `axe-core-pa11y` to the `EPIC_1_ACTIVE` set (leave `lighthouse` + `cropping-fuzzer` as-is — already active).
-  - [ ] Create `tests/scaffold/trust-verification-suite.test.mjs` (structural: trust-verification.spec.mjs exists + has network-trace/pageerror-CSP/seven viewport widths; lighthouserc.json parses + has the 4 budgets + Slow-4G profile; >=1 tests/a11y/*.spec.mjs exists + references axe; pr-checks.yml has the active per-spec jobs).
-  - [ ] `tds integrity record --files=tests/scaffold/ci-matrix.test.mjs --reason="story-8-5: add trust-verification-full + graduate csp/viewport/axe deferred→active"` as engineer; re-grep `state-manifest.yaml` after the next state-commit sweep to confirm the new hash persisted (do NOT hand-edit state-manifest.yaml).
-- [ ] **Task 8: Regression gate + provenance discipline** (AC: 8)
-  - [ ] `make test` / `make lint` green; `make build` deterministic. Land the ci-matrix graduation + pr-checks activations together so AC-2/AC-3 both stay green. Baseline-diff (`git diff main -- <file>`) any ambiguous failure before labeling it pre-existing (lesson-2026-06-03-002).
+- [x] **Task 1: Author the consolidated trust-verification spec** (AC: 1)
+  - [x] Create `tests/playwright/trust-verification.spec.mjs` driving the full happy-path via the `window.__IQME_TEST__` `?test=1` hook + `tools/dev-server.mjs` (mirror `full-slice.spec.mjs` setup/teardown + seeded 16-item session, NOT physical click-through, for the <90s budget).
+  - [x] Leg A network-trace: zero non-same-origin requests + zero `FORBIDDEN_DOMAINS` hits across the path incl >=1 methodology page (reuse the `full-slice.spec.mjs` FORBIDDEN_DOMAINS list).
+  - [x] Leg B CSP-violation count: `page.on('pageerror')` + console-CSP collector → assert zero CSP violations across the happy-path incl methodology pages.
+  - [x] Leg C viewport-overflow: iterate widths 320/375/414/768/1024/1280/1440, assert `scrollWidth <= clientWidth` (1px tolerance) on each rendered surface.
+- [x] **Task 2: Add the trust-verification-full job to pr-checks.yml** (AC: 2)
+  - [x] Declare a NEW active `trust-verification-full:` job (no `if: false`) per-spec wired (chromium install + `make build-methodology` + `npx playwright test tests/playwright/trust-verification.spec.mjs`); mirror the existing Playwright job shape. Verify via grep that the spec filename appears in pr-checks.yml (lesson-2026-06-03-001).
+- [x] **Task 3: Populate lighthouserc.json + wire lhci autorun** (AC: 3)
+  - [x] Create `tests/perf/lighthouserc.json` with `ci.assert` for FCP<1.5s, LCP<2.5s, TTI<3.0s, CLS<0.05 + `ci.collect.settings` mid-tier-Android Slow-4G mobile profile.
+  - [x] Wire `npx --yes lhci autorun` (config at `tests/perf/lighthouserc.json`) into the EXISTING already-active `lighthouse` job as a perf-budget leg; preserve the Story-6.4 light/dark accessibility legs untouched. Do NOT flip an `if:` (there is none) and do NOT add a new job.
+- [x] **Task 4: Author a11y specs + activate axe-core-pa11y** (AC: 4)
+  - [x] Create `tests/a11y/<name>.spec.mjs` running axe-core against every methodology page + every SPA surface (landing/consent/item-runner/result/tail-scenes); document pa11y fallback.
+  - [x] Activate the `axe-core-pa11y` job in pr-checks.yml: remove `if: false`, wire the real per-spec run (chromium install + `make build-methodology` + `npx playwright test tests/a11y/<name>.spec.mjs`). Verify spec filename present in pr-checks.yml.
+- [x] **Task 5: Activate csp-violation-count + viewport-overflow jobs** (AC: 5)
+  - [x] Remove `if: false` from both deferred jobs; wire each to a real Playwright run (either the consolidated `trust-verification.spec.mjs` legs or dedicated specs — engineer's call), per-spec, no echo stub.
+- [x] **Task 6: Confirm cropping-fuzzer forward-running** (AC: 6)
+  - [x] No edit to `cropping-fuzzer.spec.mjs`; confirm it is active + self-gates on `bankFrozen: true` (already true) and is asserted present+active by the new structural test.
+- [x] **Task 7: Graduate ci-matrix + add structural suite test + re-register integrity** (AC: 7) — TEST-AUTHOR PHASE, class-A frozen edit
+  - [x] Edit `tests/scaffold/ci-matrix.test.mjs`: add `trust-verification-full` to `ALL_JOBS`; add `trust-verification-full`, `csp-violation-count`, `viewport-overflow`, `axe-core-pa11y` to the `EPIC_1_ACTIVE` set (leave `lighthouse` + `cropping-fuzzer` as-is — already active).
+  - [x] Create `tests/scaffold/trust-verification-suite.test.mjs` (structural: trust-verification.spec.mjs exists + has network-trace/pageerror-CSP/seven viewport widths; lighthouserc.json parses + has the 4 budgets + Slow-4G profile; >=1 tests/a11y/*.spec.mjs exists + references axe; pr-checks.yml has the active per-spec jobs).
+  - [x] `tds integrity record --files=tests/scaffold/ci-matrix.test.mjs --reason="story-8-5: add trust-verification-full + graduate csp/viewport/axe deferred→active"` as engineer; re-grep `state-manifest.yaml` after the next state-commit sweep to confirm the new hash persisted (do NOT hand-edit state-manifest.yaml).
+- [x] **Task 8: Regression gate + provenance discipline** (AC: 8)
+  - [x] `make test` / `make lint` green; `make build` deterministic. Land the ci-matrix graduation + pr-checks activations together so AC-2/AC-3 both stay green. Baseline-diff (`git diff main -- <file>`) any ambiguous failure before labeling it pre-existing (lesson-2026-06-03-002).
 
 ## Dev Notes
 
@@ -127,6 +127,43 @@ preferred_pattern: Add a dedicated per-spec job to .github/workflows/pr-checks.y
 
 ### Completion Notes List
 
+- Consolidated trust-verification.spec.mjs (network-trace+CSP+7 viewport widths) + lighthouserc.json (4 budgets, Slow-4G) + trust-a11y.spec.mjs (axe+pa11y); pr-checks: trust-verification-full added + lhci leg + csp/viewport/axe activated per-spec; cropping-fuzzer confirmed. Frozen 20/20; suite 1263 pass/0 fail; lint+build exit 0.
+- Promoted to review: 8/8 tasks complete; frozen trust-verification-suite + graduated ci-matrix green; suite 1263 pass/0 fail; lint+build exit 0.
+
 ### File List
 
+- tests/playwright/trust-verification.spec.mjs
+- tests/perf/lighthouserc.json
+- tests/a11y/trust-a11y.spec.mjs
+- .github/workflows/pr-checks.yml
+- tests/scaffold/trust-verification-suite.test.mjs
+- tests/scaffold/ci-matrix.test.mjs
+
 ## Specialist Self-Review
+
+## Specialist Self-Review — Story 8-5 (Full Playwright trust-verification suite consolidation)
+
+**Decisions made:**
+- `tests/playwright/trust-verification.spec.mjs` consolidates three legs over the seeded happy-path: (A) network-trace zero-third-party (incl ≥1 methodology page, reusing network-trace.spec.mjs's FORBIDDEN-domain/same-origin approach); (B) CSP-violation count via `page.on('pageerror')` + console + a `securitypolicyviolation` forwarder, asserting zero; (C) viewport-overflow across 320/375/414/768/1024/1280/1440 (`setViewportSize`, `scrollWidth - clientWidth <= 1`).
+- `tests/perf/lighthouserc.json`: LHCI assertions FCP<1500 / LCP<2500 / `interactive`<3000 / CLS<0.05, mobile + Slow-4G throttle (mid-tier Android).
+- `tests/a11y/trust-a11y.spec.mjs`: `@axe-core/playwright` AxeBuilder against every SPA surface + all 26 EN methodology pages; pa11y documented as the fallback runner.
+- pr-checks.yml: ADDED active `trust-verification-full` job (per-spec); ADDED `lhci autorun --config=tests/perf/lighthouserc.json` perf leg to the existing `lighthouse` job (a11y light/dark legs preserved); ACTIVATED `csp-violation-count` + `viewport-overflow` + `axe-core-pa11y` (removed `if: false`/echo stubs → real per-spec `npx playwright`/axe runs); confirmed `cropping-fuzzer` active + bankFrozen-gated.
+
+**Alternatives considered:**
+- Separate viewport-overflow/CSP specs vs one consolidated `trust-verification.spec.mjs` — consolidated per the epics AC ("the full suite is consolidated").
+- `trust-verification-full` reconciliation: the AC calls it "the slot from Epic 1", but NO such stub exists in pr-checks.yml or ci-matrix `ALL_JOBS`. Resolved by adding it as a net-new active job this story owns + graduating ci-matrix `ALL_JOBS`/`EPIC_1_ACTIVE` (documented in the spec's reconciliation table for the auditor). lesson-2026-06-03-002's "activate-with-frozen-set-together" mandates the ci-matrix edit regardless.
+
+**Framework gotchas avoided:**
+- Per-spec CI wiring (lesson-2026-06-03-001): `trust-verification.spec.mjs`, `trust-a11y.spec.mjs`, and `tests/perf/lighthouserc.json` each appear explicitly in pr-checks.yml — no greedy glob.
+- eslint `--max-warnings 0`: an `// eslint-disable-next-line no-console` directive was flagged UNUSED (the flat config never enables `no-console`); removed it (existing specs prove bare `console.*` is clean). Did not weaken eslint config.
+- No `no-unresolved` rule, so `@axe-core/playwright` / `@playwright/test` imports (resolved via `npx` at CI runtime, no local package.json) lint clean.
+- ci-matrix graduation kept AC-3 satisfiable: the remaining deferred set `{lint-css-link-order, co-equal-triplet-css-source}` still carries `if: false` + Activates-in comments.
+
+**Areas of uncertainty:**
+- The live runs (90s Playwright trust suite, `lhci autorun`, full-page axe over 26+ surfaces) are CI-only — not exercised in dev (`make test` globs scaffold/contract/unit/exit-criteria, not playwright/a11y; no browser launched). First real run is the next PR's CI. The lighthouserc budgets + Slow-4G profile are authored to the AC numbers but not empirically validated against the live SPA (launch/CI confirms).
+- `@axe-core/playwright` + pa11y are devDeps invoked via `npx --yes` at CI time (no local install in dev), matching the repo's no-package.json / npx-pinned convention.
+
+**Tested edge cases:**
+- Frozen `tests/scaffold/trust-verification-suite.test.mjs`: spec exists w/ the 3 legs + 7 width literals; lighthouserc.json valid w/ the 4 budgets + Slow-4G; a11y spec references axe-core + pa11y + methodology + SPA surfaces; pr-checks has active `trust-verification-full` (per-spec) + `lhci` leg + active `axe-core-pa11y`/`csp-violation-count`/`viewport-overflow`; cropping-fuzzer active+bankFrozen.
+- Graduated `tests/scaffold/ci-matrix.test.mjs`: `trust-verification-full` in ALL_JOBS; trust-verification-full + csp + viewport + axe in EPIC_1_ACTIVE (AC-2 active / no `if:false`); AC-3 intact for remaining deferred jobs.
+- Regression: full suite 1263 pass / 0 fail; `make lint` exit 0; `make build` exit 0 (deterministic). Provenance: net-new this story.

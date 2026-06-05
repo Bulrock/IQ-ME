@@ -57,6 +57,10 @@ const ALL_JOBS = [
   "chrome-components",
   // Story 6.6 — top-decile tear-edge overlay bbox-overlap invariant.
   "tear-edge-overlay",
+  // Story 8.5 — net-new consolidated full-suite job (network-trace + CSP-violation
+  // + viewport-overflow over the full happy-path). No Epic-1 stub to flip — this
+  // story OWNS adding it (see story 8-5 reconciliation table).
+  "trust-verification-full",
 ];
 
 const EPIC_1_ACTIVE = new Set([
@@ -123,6 +127,22 @@ const EPIC_1_ACTIVE = new Set([
   // cropping-fuzzer activated in Story 6.6 — seeded synthetic-crop assertion that
   // no clean score-only screenshot is possible (gated on corpus bankFrozen).
   "cropping-fuzzer",
+  // trust-verification-full ADDED + active in Story 8.5 — net-new consolidated
+  // job running tests/playwright/trust-verification.spec.mjs (network-trace + CSP
+  // + viewport-overflow legs over the full SPA happy-path).
+  "trust-verification-full",
+  // csp-violation-count activated in Story 8.5 — graduated deferred→active
+  // (was if: false "Activates in Epic 3"); now runs a real Playwright CSP-violation
+  // assertion (no echo stub).
+  "csp-violation-count",
+  // viewport-overflow activated in Story 8.5 — graduated deferred→active (was
+  // if: false "Activates in Epic 6"); now runs a real no-horizontal-scroll
+  // assertion across the seven viewport widths.
+  "viewport-overflow",
+  // axe-core-pa11y activated in Story 8.5 — graduated deferred→active (was if:
+  // false "Activates in Epic 6"); now runs tests/a11y/*.spec.mjs (axe-core
+  // against methodology + SPA surfaces, pa11y fallback).
+  "axe-core-pa11y",
 ]);
 
 function loadPrChecks() {

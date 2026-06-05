@@ -270,10 +270,18 @@ jobs:
   csp-violation-count:
     name: csp-violation-count
     runs-on: ubuntu-latest
-    # Activates in Epic 3
-    if: false
+    # Activated in Story 8.5 (Epic 8) — runs the consolidated trust-verification
+    # spec's CSP-violation leg: a page.on('pageerror') + page.on('console')
+    # collector asserts ZERO Content-Security-Policy violations across the full
+    # SPA happy-path including >=1 methodology corpus page (so build first).
     steps:
-      - run: echo "stub — Activates in Epic 3"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: make build-methodology
+      - run: npx --yes playwright test tests/playwright/trust-verification.spec.mjs
 
   state-shape-contract:
     name: state-shape-contract
@@ -369,10 +377,18 @@ jobs:
   viewport-overflow:
     name: viewport-overflow
     runs-on: ubuntu-latest
-    # Activates in Epic 6
-    if: false
+    # Activated in Story 8.5 (Epic 8) — runs the consolidated trust-verification
+    # spec's viewport-overflow leg: iterates widths 320/375/414/768/1024/1280/1440
+    # and asserts no horizontal scroll (scrollWidth <= clientWidth) on every
+    # rendered surface incl a built methodology page (NFR1).
     steps:
-      - run: echo "stub — Activates in Epic 6"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: make build-methodology
+      - run: npx --yes playwright test tests/playwright/trust-verification.spec.mjs
 
   asymmetric-tail-scenes:
     name: asymmetric-tail-scenes
@@ -465,14 +481,48 @@ jobs:
           # Extract the accessibility score; halt if below 0.9.
           node -e "const r = require('./lh-${{ matrix.theme }}.json'); const s = r.categories.accessibility.score; console.log('accessibility=' + s); if (s < 0.9) { console.error('Lighthouse accessibility score ' + s + ' < 0.90'); process.exit(1); }"
           kill $SERVER_PID || true
+      # Story 8.5 perf-budget leg (ADDED — the accessibility legs above are
+      # preserved). lhci autorun loads tests/perf/lighthouserc.json (mid-tier
+      # Android Slow-4G mobile profile) and enforces FCP<1.5s / LCP<2.5s /
+      # TTI<3.0s / CLS<0.05 (NFR1). Run once (matrix-independent perf budgets).
+      - name: Lighthouse perf budgets (lhci autorun)
+        if: matrix.theme == 'light'
+        run: npx --yes @lhci/cli@0.14.x autorun --config=tests/perf/lighthouserc.json
+
+  trust-verification-full:
+    name: trust-verification-full
+    runs-on: ubuntu-latest
+    # Story 8.5 (Epic 8) — net-new consolidated full trust-verification suite
+    # (FR41). Runs tests/playwright/trust-verification.spec.mjs: network-trace
+    # (zero third-party) + CSP-violation count (zero) + viewport-overflow (no
+    # horizontal scroll at 320→1440) over the full SPA happy-path including >=1
+    # methodology corpus page (so build the corpus first). Per-spec wired
+    # (lesson-2026-06-03-001): the spec filename appears explicitly below.
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: make build-methodology
+      - run: npx --yes playwright test tests/playwright/trust-verification.spec.mjs
 
   axe-core-pa11y:
     name: axe-core-pa11y
     runs-on: ubuntu-latest
-    # Activates in Epic 6
-    if: false
+    # Activated in Story 8.5 (Epic 8) — runs tests/a11y/trust-a11y.spec.mjs:
+    # axe-core (via @axe-core/playwright) against every methodology corpus page
+    # AND every SPA surface (landing/consent/item-runner/result/tail-scenes),
+    # asserting zero contrast/keyboard/landmark/aria violations (WCAG 2.2 AA,
+    # NFR12). pa11y is the documented fallback runner (see the spec header).
     steps:
-      - run: echo "stub — Activates in Epic 6"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npx --yes playwright install --with-deps chromium
+      - run: make build-methodology
+      - run: npx --yes playwright test tests/a11y/trust-a11y.spec.mjs
 
   lint-translation-parity:
     name: lint-translation-parity
