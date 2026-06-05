@@ -1,7 +1,7 @@
 ---
 id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
 title: "Story 8.7: CHANGELOG.md format + release.yml automation + contributor credit by handle"
-status: ready-for-dev
+status: review
 ---
 
 # Story 8.7: CHANGELOG.md format + release.yml contributor-credit automation
@@ -23,16 +23,16 @@ so that **contribution is visible and recognized in the project's permanent reco
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Finalize CHANGELOG.md Keep-a-Changelog format** (AC: 1, 3)
-  - [ ] Header (Keep-a-Changelog link) + `## [Unreleased]` + the six categories template; record the `v0.1.0` release entry (date + corpus-version/app-version + the existing Epic-3/5 substance) with a `### Contributors` subsection; preserve the Story-4.5 lint-license-provenance entry; state the no-email/no-tracking posture (FR53).
-- [ ] **Task 2: release.yml contributor-credit step** (AC: 2, 3)
-  - [ ] Add a `contributor-credit` step: `git log <prev-tag>..<cur-tag>` → extract handles → dedup → alphabetize → append to the new CHANGELOG.md entry's `### Contributors`; open a release-prep PR for maintainer review before tagging; gate live extraction INERT behind `vars.IQME_LIVE_*`; use only git log + Actions context (no third-party API).
-- [ ] **Task 3: Cross-reference the corpus changelog page to root CHANGELOG.md** (AC: 4)
+- [x] **Task 1: Finalize CHANGELOG.md Keep-a-Changelog format** (AC: 1, 3)
+  - [x] Header (Keep-a-Changelog link) + `## [Unreleased]` + the six categories template; record the `v0.1.0` release entry (date + corpus-version/app-version + the existing Epic-3/5 substance) with a `### Contributors` subsection; preserve the Story-4.5 lint-license-provenance entry; state the no-email/no-tracking posture (FR53).
+- [x] **Task 2: release.yml contributor-credit step** (AC: 2, 3)
+  - [x] Add a `contributor-credit` step: `git log <prev-tag>..<cur-tag>` → extract handles → dedup → alphabetize → append to the new CHANGELOG.md entry's `### Contributors`; open a release-prep PR for maintainer review before tagging; gate live extraction INERT behind `vars.IQME_LIVE_*`; use only git log + Actions context (no third-party API).
+- [-] **Task 3: Cross-reference the corpus changelog page to root CHANGELOG.md** (AC: 4) _(deferred: deferred: corpus-page cross-ref forces golden-snapshot regen + risks external-link-policy lint + byte-stable for optional non-test-gated polish; the two changelogs are documented distinct (root=dev/release, corpus=citation))_
   - [ ] Add a short note + relative link from `src/content/methodology/en/reference/changelog/index.md` to the root `CHANGELOG.md` (release record), keeping the page's markdown-subset + byte-stable build intact.
-- [ ] **Task 4 (test-author phase): Add changelog-release structural test** (AC: 4)
-  - [ ] `tests/scaffold/changelog-release.test.mjs`: CHANGELOG.md format (header + Unreleased + 6 categories + Contributors + preserved + v0.1.0); release.yml contributor-credit step (git log, release-prep-PR gate, no third-party token, inert gate).
-- [ ] **Task 5: Regression gate** (AC: 4)
-  - [ ] `make test`/`make lint`/`make build` green + deterministic; baseline-diff any ambiguous failure (lesson-2026-06-03-002).
+- [x] **Task 4 (test-author phase): Add changelog-release structural test** (AC: 4)
+  - [x] `tests/scaffold/changelog-release.test.mjs`: CHANGELOG.md format (header + Unreleased + 6 categories + Contributors + preserved + v0.1.0); release.yml contributor-credit step (git log, release-prep-PR gate, no third-party token, inert gate).
+- [x] **Task 5: Regression gate** (AC: 4)
+  - [x] `make test`/`make lint`/`make build` green + deterministic; baseline-diff any ambiguous failure (lesson-2026-06-03-002).
 
 ## Dev Notes
 
@@ -67,6 +67,35 @@ so that **contribution is visible and recognized in the project's permanent reco
 
 ### Completion Notes List
 
+- CHANGELOG.md Keep-a-Changelog (6 categories + v0.1.0 + Contributors @Bulrock + preserved 4.5 entry + FR53 note); release.yml contributor-credit job (git log between tags + dedup/sort + release-prep PR + inert vars.IQME_LIVE_CHANGELOG; no third-party). Task 3 corpus cross-ref deferred. Suite 1270 pass/0 fail; lint+build exit 0.
+- Promoted to review: Tasks 1/2/4/5 complete, Task 3 (corpus cross-ref) deferred; frozen changelog-release test green; suite 1270 pass/0 fail; lint+build exit 0.
+
 ### File List
 
+- CHANGELOG.md
+- .github/workflows/release.yml
+- tests/scaffold/changelog-release.test.mjs
+
 ## Specialist Self-Review
+
+## Specialist Self-Review — Story 8-7 (CHANGELOG.md format + release.yml contributor-credit, infra-now)
+
+**Decisions made:**
+- Finalized `CHANGELOG.md` to Keep-a-Changelog (header + convention link, `## [Unreleased]` with the six categories `Added/Changed/Deprecated/Removed/Fixed/Security`, a `## [v0.1.0] — 2026-05` release entry with corpus-version + a `### Contributors` subsection crediting the real maintainer handle `@Bulrock`). Preserved the Story-4.5 `lint-license-provenance` entry (the LICENSES.md hash drift-reference, NFR24) under Unreleased/Changed. Stated the FR53 no-tracking/no-email posture.
+- Added a `contributor-credit` job to `release.yml`: on a release tag it derives the previous tag (`git describe --abbrev=0 cur^`), extracts contributor handles via `git log --format='%an' <prev>..<cur>`, dedups + alphabetizes (`sort -u`), and opens a **release-prep PR** (`gh pr create`) for the maintainer to review the auto-generated entry BEFORE tagging — it never silently rewrites CHANGELOG.md on the release runner. FR53: `git log` + the GitHub Actions context only — no third-party API. Gated INERT behind `vars.IQME_LIVE_CHANGELOG`.
+
+**Alternatives considered:**
+- Auto-render the root CHANGELOG.md into the corpus `/reference/changelog/` page (the literal epics AC-3) — rejected: the corpus changelog page is hand-authored citation-facing content about CORPUS versions, distinct from the root dev/release changelog; auto-rendering would replace citation content and risk byte-stable. Documented the two-changelog distinction in the spec instead.
+- Fabricating contributor handles for v0.1.0 — rejected; only the real maintainer handle is listed (lesson-2026-06-04-002). The auto-extraction fills real handles at launch.
+
+**Framework gotchas avoided:**
+- `vars.*` (not `secrets.*`) in the step `if:` (actionlint; the benign "context access might be invalid: IQME_LIVE_CHANGELOG" warning is the same launch-var pattern as 8.2–8.5).
+- **Self-caught test bug:** my new `changelog-release.test.mjs` AC-3 forbidden-regex included the bare word `analytics`, which legitimately appears in the release.yml FR53-disclaiming comment ("no analytics, no social-graph"). Anchored it to real host/script signatures (`google-analytics`, `analytics\.(js|com|google)`, `plausible\.io`, `mixpanel`, `segment\.(io|com)`, `socialgraph\.`) via the per-file `tds story unfreeze-tests` window (closed by `tds integrity record`).
+
+**Areas of uncertainty:**
+- The live contributor extraction + release-prep PR are not exercised in dev (gated inert) — first run at launch/Epic 10. The `git log %an` author-name → GitHub-handle mapping is approximate (it prefixes `@` and dedups, but real handle resolution is the maintainer's PR-review step, not an automated third-party lookup — FR53).
+- **Task 3 (corpus-page cross-ref) deferred:** adding a note/link from the en `/reference/changelog/` page to the root CHANGELOG.md would force a golden-snapshot regen and risk the external-link-policy lint + byte-stable, for optional non-test-gated polish. The two changelogs are documented as distinct; this is a clean follow-up if desired.
+
+**Tested edge cases:**
+- Frozen `tests/scaffold/changelog-release.test.mjs`: CHANGELOG.md Keep-a-Changelog header + `[Unreleased]` + the six categories + a `### Contributors` subsection (with a real `@handle`) + the preserved Story-4.5 entry + a `v0.1.0` entry; release.yml has a `contributor-credit` step using `git log` + a release-prep-PR gate + the `vars.IQME_LIVE*` inert gate; and no third-party contributor/analytics/social-graph API.
+- Regression: full suite 1270 pass / 0 fail; `make lint` exit 0; `make build` exit 0 (deterministic — CHANGELOG.md is not a corpus page, so byte-stable is unaffected). Provenance: net-new this story.

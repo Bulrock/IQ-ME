@@ -2,15 +2,15 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 500fb10b64fee967be8a3351bf0c7dc61862074fd15956ee0dbc3f9bd4249898
+    sha256: f3e91f1debd0e64ed6dd909708d2038f232671f5f46987f697efd78e255d5820
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:17:22.274Z
+    recorded_at: 2026-06-05T11:19:56.380Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 3ead1b8d43becbdbcd94ef47ee9dd66ccd3021005f8e6998455d46bcb1baf4bb
+    sha256: 88bb09de6319b3f90dd4d4e1efd46d9053ff97d5a6f55c934f5f05e3f40d3f13
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:19:55.673Z
+    recorded_at: 2026-06-05T11:25:51.421Z
     recorded_by: engineer
     story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
   - artefact_class: A
@@ -1528,8 +1528,15 @@ entries:
     story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle.md
-    sha256: eeb11a6cd0f82d0610707a30c8845434214527892c462ccef6822b7624f721ec
+    sha256: 3bde418bf90b467d2ac55d26b690a59ffa92c698c09803ea7be3a73421b35246
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:19:55.878Z
+    recorded_at: 2026-06-05T11:25:51.463Z
     recorded_by: engineer
-    notes: story-8-7 spec authored (create-story)
+    story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
+  - artefact_class: A
+    file: tests/scaffold/changelog-release.test.mjs
+    sha256: 91c7c723b917e93bec37c007700fd2a375aa38f72d4a6fcf868289d2e38048e4
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T11:23:48.811Z
+    recorded_by: engineer
+    story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle

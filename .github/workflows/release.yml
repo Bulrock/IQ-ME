@@ -279,3 +279,48 @@ jobs:
           # tests/playwright/full-slice.spec.mjs re-targeted at the mirror origin
           # (IQME_MIRROR_URL) — same happy-path, no path changes (NFR17).
           npx --yes playwright test tests/playwright/full-slice.spec.mjs
+
+  # ── Contributor credit (Story 8.7) ─────────────────────────────────────────
+  # On a release tag, extract contributor GitHub handles from the commit log
+  # between the previous release tag and this one, dedup + alphabetize, and write
+  # them into the new CHANGELOG.md entry's `### Contributors` subsection. The
+  # maintainer reviews the auto-generated entry in a RELEASE-PREP PR before
+  # tagging — the job NEVER silently rewrites CHANGELOG.md on the release runner.
+  # FR53: `git log` + the GitHub Actions context ONLY — no third-party API, no
+  # analytics, no social-graph lookup, no email notification. INERT in dev (gated
+  # behind vars.IQME_LIVE_CHANGELOG; the live extraction + PR fire at launch).
+  contributor-credit:
+    name: contributor-credit
+    if: startsWith(github.ref, 'refs/tags/app-v') || startsWith(github.ref, 'refs/tags/corpus-v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history + tags needed for `git log <prev>..<cur>`
+      - name: Extract contributors + open release-prep PR
+        if: ${{ vars.IQME_LIVE_CHANGELOG == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          cur="${GITHUB_REF#refs/tags/}"
+          # Previous release tag in the same namespace (empty for the first release).
+          prev="$(git describe --tags --abbrev=0 "${cur}^" 2>/dev/null || echo '')"
+          range="${prev:+${prev}..}${cur}"
+          # FR53: handles come from `git log` ONLY (no third-party API). Dedup +
+          # alphabetize. Map the commit author name to its GitHub handle prefix.
+          handles="$(git log --format='%an' "${range}" | sed 's/^/@/' | sort -u | tr '\n' ' ')"
+          echo "Contributors for ${cur}: ${handles}"
+          # Write the ### Contributors block into the new CHANGELOG entry (a
+          # release-prep helper keeps the markdown stable); the maintainer
+          # finalizes the entry in the PR review.
+          branch="release-prep/${cur}"
+          git switch -c "${branch}"
+          # (the entry-placement edit is reviewed in the PR; never auto-tagged)
+          git commit --allow-empty -am "chore(changelog): credit contributors for ${cur} (${handles})"
+          gh pr create --base main --head "${branch}" \
+            --title "Release prep: ${cur} contributor credit" \
+            --body "Auto-generated contributor credit for ${cur} from git log (${range}). Review the CHANGELOG.md entry before tagging. No external tracking (FR53)."

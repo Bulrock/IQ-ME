@@ -990,3 +990,14 @@ branches:
     last_synced_at: 2026-06-05T11:17:22.237Z
     notes: ""
     created_at: 2026-06-05T11:10:51.000Z
+  - branch: story/8-7-changelog
+    story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
+    epic_id: null
+    base_branch: epic/8
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-06-05T11:19:56.354Z
