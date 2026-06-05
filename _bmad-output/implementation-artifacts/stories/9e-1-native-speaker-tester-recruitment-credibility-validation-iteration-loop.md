@@ -27,12 +27,12 @@ The **recruitment-post draft + recruitment log + credibility-report scaffold** a
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: author the scaffold guard** (`tests/scaffold/9e-1-tester-credibility.test.mjs`) encoding AC 5; confirm RED. (test-author phase)
-- [ ] **Task 2: write the recruitment-post draft** (AC 1). (impl phase)
-- [ ] **Task 3: write the recruitment log** (AC 2). (impl phase)
-- [ ] **Task 4: write the credibility-report PENDING scaffold** (AC 3). (impl phase)
-- [ ] **Task 5 (BLOCKED — human deliverable): collect real tester verdicts + iterate + finalize report** (AC 4). No agent action until real testers respond.
-- [ ] **Task 6: verification** — guard GREEN, `make lint`/`make build`/`make test` green (AC 6). (integration phase)
+- [x] **Task 1: author the scaffold guard** (`tests/scaffold/9e-1-tester-credibility.test.mjs`) encoding AC 5; confirm RED. (test-author phase)
+- [x] **Task 2: write the recruitment-post draft** (AC 1). (impl phase)
+- [x] **Task 3: write the recruitment log** (AC 2). (impl phase)
+- [x] **Task 4: write the credibility-report PENDING scaffold** (AC 3). (impl phase)
+- [-] **Task 5 (BLOCKED — human deliverable): collect real tester verdicts + iterate + finalize report** (AC 4). No agent action until real testers respond. _(deferred: Blocked on real human testers; no agent action possible)_
+- [-] **Task 6: verification** — guard GREEN, `make lint`/`make build`/`make test` green (AC 6). (integration phase) _(deferred: Deferred to integration phase after Task 5 unblocks; scaffold test GREEN already)_
 
 ## Dev Notes
 
@@ -64,4 +64,11 @@ The **recruitment-post draft + recruitment log + credibility-report scaffold** a
 
 ### Completion Notes List
 
+- Doable half complete: scaffold guard (6 tests GREEN), recruitment draft, recruitment log, credibility-report PENDING scaffold authored. Task 5 deferred pending real testers.
+
 ### File List
+
+- tests/scaffold/9e-1-tester-credibility.test.mjs
+- docs/launch-readiness/tester-recruitment-draft.md
+- docs/launch-readiness/tester-recruitment-log.md
+- docs/launch-readiness/tester-credibility-report.md
