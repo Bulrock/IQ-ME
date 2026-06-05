@@ -918,10 +918,10 @@ branches:
     epic_id: epic-8
     base_branch: main
     created_by: tds-branch-start
-    status: active
-    pr_url: null
-    pr_number: null
-    last_synced_at: null
+    status: merged
+    pr_url: https://github.com/Bulrock/IQ-ME/pull/17
+    pr_number: 17
+    last_synced_at: 2026-06-05T11:42:29.277Z
     notes: ""
     created_at: 2026-06-04T09:44:12.050Z
   - branch: story/8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment

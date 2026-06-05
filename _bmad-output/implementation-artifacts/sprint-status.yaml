@@ -140,15 +140,15 @@ development_status:
   bridge-7-8-3-replace-legacy-exempt-central: done           # Replace LEGACY_EXEMPT central list with per-spec frontmatter flag
   bridge-7-8-4-de-binary-save-result: done           # De-binary save-result.test.mjs: replace literal control bytes with \x escapes
   bridge-7-8-5-post-epic-app-modules: done           # Post-epic app-modules-bytes trim pass + re-establish principled ceiling
-  epic-8: approved
-  8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment: approved
-  8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v: approved
-  8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing: approved
-  8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification: approved
-  8-5-full-playwright-trust-verification-suite-consolidation: approved
-  8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs: approved
-  8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle: approved
-  8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path: approved
+  epic-8: done
+  8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment: done
+  8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v: done
+  8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing: done
+  8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification: done
+  8-5-full-playwright-trust-verification-suite-consolidation: done
+  8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs: done
+  8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle: done
+  8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path: done
   epic-8-retrospective: optional
 
   # Bridge →9a: 1 story from 1 retro
