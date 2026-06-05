@@ -1,7 +1,7 @@
 ---
 id: bridge-epic-9b-1-cross-link-corpus-reference
 title: "Story bridge-epic-9b-1-cross-link-corpus-reference: Cross-link corpus /reference/changelog/ to root CHANGELOG.md"
-status: review
+status: approved
 ---
 
 # Story bridge-epic-9b-1-cross-link-corpus-reference: Cross-link corpus /reference/changelog/ to root CHANGELOG.md

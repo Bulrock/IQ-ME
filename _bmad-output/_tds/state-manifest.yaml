@@ -8,10 +8,10 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 92d743cee7146458690425e9272ab393d2fb1d7fdfc6790e30862d921d08f16a
+    sha256: 7e9ea142a4ed2fb516ab25760383528292d4ff7100c84b820dc80eae2f9ccbbf
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:22:25.010Z
-    recorded_by: engineer
+    recorded_at: 2026-06-05T12:28:35.010Z
+    recorded_by: auditor
     story_id: bridge-epic-9b-2-refresh-stale-readme-contributing
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
@@ -1557,10 +1557,10 @@ entries:
     notes: "story-8-8 red-phase: footer Discussions + README subscription path + FR52 no-email structural test"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-epic-9b-1-cross-link-corpus-reference.md
-    sha256: 2ae563fdbfcc310617e3becbf688ec78ed5844f0a3261711d8eb92271434a7d9
+    sha256: 5ccf247941b31c7e99080d7242af6d312588fac3216564b5ec62cc55fc7e7c7c
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:28:11.491Z
-    recorded_by: story-add-finding-autorecord
+    recorded_at: 2026-06-05T12:28:34.922Z
+    recorded_by: auditor
     story_id: bridge-epic-9b-1-cross-link-corpus-reference
   - artefact_class: A
     file: tests/scaffold/bridge-epic-9b-1-corpus-changelog-crosslink.test.mjs
@@ -1571,10 +1571,10 @@ entries:
     story_id: bridge-epic-9b-1-cross-link-corpus-reference
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-epic-9b-2-refresh-stale-readme-contributing.md
-    sha256: c377dce93c9f43fa510fda72ed7377f7093b80455b8714c3085cda924536485e
+    sha256: b31b791d3b4777820378ddffbf3e98776db73b2f51dfe76200509b7e76133fbd
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:22:25.054Z
-    recorded_by: engineer
+    recorded_at: 2026-06-05T12:28:35.039Z
+    recorded_by: auditor
     story_id: bridge-epic-9b-2-refresh-stale-readme-contributing
   - artefact_class: A
     file: tests/scaffold/bridge-epic-9b-2-readme-contributing.test.mjs
