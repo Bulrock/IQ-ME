@@ -2,17 +2,18 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 169f1d7401b63fe86537bae64a5ff3cae05e848ee44e9916a0b44c13754eb16d
+    sha256: b555c1eb86974fa422284e39d2e68629a07d9a34bd9e06d80f154707f17b8806
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:31:18.420Z
+    recorded_at: 2026-06-05T11:45:17.714Z
     recorded_by: engineer
+    notes: "epic-8 OH-07 finalization recovery: approved→done flips + epic/8 merged marking"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 20b16fd715109db15bd7b62547bed9418c50d3fda9c283f87f4ecb3bb56c6209
+    sha256: b2f33419e645e2fc1c30f026214b02b152e90bac3ea8525a0ed5da1812501246
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:31:17.725Z
+    recorded_at: 2026-06-05T11:45:17.714Z
     recorded_by: engineer
-    story_id: 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path
+    notes: "epic-8 OH-07 finalization recovery: approved→done flips + epic/8 merged marking"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
