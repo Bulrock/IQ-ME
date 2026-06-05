@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: a232a11e4814db30ba217c71fcc59c033d7be295c486f6e9e86aa0f89877995b
+    sha256: 050d1a79b9fed818130324642650e992664a72e7d5f79c5b1449df47180c80b7
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:45:04.096Z
+    recorded_at: 2026-06-05T11:10:45.034Z
     recorded_by: engineer
-    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
+    story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1512,3 +1512,10 @@ entries:
     recorded_by: engineer
     story_id: 8-5-full-playwright-trust-verification-suite-consolidation
     notes: "story-8-5: consolidated trust-verification Playwright spec + a11y spec + lighthouserc budgets"
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs.md
+    sha256: 00c2b534699a6728ae2f90175a441c42a388e61bf34090af16bd599154d35444
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T11:10:45.393Z
+    recorded_by: engineer
+    notes: story-8-6 spec authored (create-story)
