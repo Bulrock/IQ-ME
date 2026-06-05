@@ -300,8 +300,10 @@ function renderPage(srcPath, lang, fm, bodySrc, corpusVersion) {
     `<meta name="iqme-lang" content="${lang}">\n` +
     `<meta name="iqme-url" content="${url}">\n` +
     hreflangLinks +
+    `<link rel="stylesheet" href="/src/css/reset.css">\n` +
     `<link rel="stylesheet" href="/src/css/primitives.css">\n` +
     `<link rel="stylesheet" href="/src/css/semantic.css">\n` +
+    `<link rel="stylesheet" href="/src/css/base.css">\n` +
     `<link rel="stylesheet" href="/src/css/components/masthead.css">\n` +
     `<link rel="stylesheet" href="/src/css/components/cite-this-page-widget.css">\n` +
     `<link rel="stylesheet" href="/src/css/components/stale-translation-hatnote.css">\n` +

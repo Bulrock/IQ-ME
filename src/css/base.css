@@ -25,7 +25,18 @@ body {
   color: var(--color-text-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Sticky-footer column: the scene region grows to fill the viewport so the
+     footer (chrome-footer) sits at the bottom even on short pages. */
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The SPA scene region fills the space between header and footer. */
+#app {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Headings — tighter rhythm, balanced wrapping. Sizes are set per-component
