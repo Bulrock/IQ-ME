@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 316dbc438fbda43ddb666ac89457cdd72ccd518f5d90e3ade91379367d47bdf4
+    sha256: d6116bbc9d389dd277197a4bfb16389a0fc85d4b9d51fa7bc8777c3f8232b3bc
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T13:05:57.334Z
+    recorded_at: 2026-06-05T14:37:16.367Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: ce7cdd60d54dea28027ffb01f3d5db5291829ae11b9926c316aad4a10b00f61c
+    sha256: fcd830f0ba5f30b2fb7a757100ffa1b4b1dae36c61f3f64e5dfd910753389c37
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T14:09:48.258Z
+    recorded_at: 2026-06-05T14:37:10.795Z
     recorded_by: engineer
-    story_id: 9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields
+    story_id: 10-3-48-hour-post-launch-monitoring-window
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1664,3 +1664,45 @@ entries:
     recorded_at: 2026-06-05T14:09:48.258Z
     recorded_by: engineer
     story_id: 9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/10-1-pre-launch-readiness-checklist-final-smoke-test.md
+    sha256: 13db82378a77066236af877403d6ef2525b46ca0aa41a7bbaac613ac2f7bc35b
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T14:43:45.230Z
+    recorded_by: story-add-finding-autorecord
+    story_id: 10-1-pre-launch-readiness-checklist-final-smoke-test
+  - artefact_class: A
+    file: tests/scaffold/10-1-pre-launch-checklist.test.mjs
+    sha256: 4397969e6493e1033c05168b1d72f1e8b68c95ac65e8408a03c032ab1340c031
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T14:20:54.192Z
+    recorded_by: test-author
+    story_id: 10-1-pre-launch-readiness-checklist-final-smoke-test
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification.md
+    sha256: 92d9fdb05855d7639f16b04a3017ec8420c9fe8fea483a7463d3030fe5007558
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T14:32:00.264Z
+    recorded_by: engineer
+    story_id: 10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification
+  - artefact_class: A
+    file: tests/scaffold/10-2-launch-postscript.test.mjs
+    sha256: 2f89e82e99edcd269dcc8d4f63b90bd6e3bbfdafa16a42310aac3518a66d9515
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T14:30:28.918Z
+    recorded_by: test-author
+    story_id: 10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/10-3-48-hour-post-launch-monitoring-window.md
+    sha256: 7edf95959f520c31d54004d975e1628adb41dbe132b2cab25962dc873debf17d
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T14:37:10.840Z
+    recorded_by: engineer
+    story_id: 10-3-48-hour-post-launch-monitoring-window
+  - artefact_class: A
+    file: tests/scaffold/10-3-post-launch-monitoring.test.mjs
+    sha256: cc49252de430d09f46ed41dd76010588010cf54582b95ef47211b7c3feb81c4d
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T14:34:25.661Z
+    recorded_by: test-author
+    story_id: 10-3-48-hour-post-launch-monitoring-window

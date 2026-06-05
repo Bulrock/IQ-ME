@@ -1056,3 +1056,47 @@ branches:
     last_synced_at: 2026-06-05T13:05:57.296Z
     notes: ""
     created_at: 2026-06-05T13:00:52.006Z
+  - branch: epic/10
+    story_id: null
+    epic_id: epic-10
+    base_branch: main
+    created_by: tds-branch-start
+    status: active
+    pr_url: null
+    pr_number: null
+    last_synced_at: null
+    notes: ""
+    created_at: 2026-06-05T14:15:07.999Z
+  - branch: story/10-1-pre-launch-readiness-checklist-final-smoke-test
+    story_id: 10-1-pre-launch-readiness-checklist-final-smoke-test
+    epic_id: null
+    base_branch: epic/10
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-05T14:26:45.295Z
+    notes: ""
+    created_at: 2026-06-05T14:18:55.258Z
+  - branch: story/10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification
+    story_id: 10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification
+    epic_id: null
+    base_branch: epic/10
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-05T14:32:07.458Z
+    notes: ""
+    created_at: 2026-06-05T14:29:17.505Z
+  - branch: story/10-3-48-hour-post-launch-monitoring-window
+    story_id: 10-3-48-hour-post-launch-monitoring-window
+    epic_id: null
+    base_branch: epic/10
+    created_by: tds-branch-start
+    status: merged
+    pr_url: null
+    pr_number: null
+    last_synced_at: 2026-06-05T14:37:16.328Z
+    notes: ""
+    created_at: 2026-06-05T14:33:35.151Z
