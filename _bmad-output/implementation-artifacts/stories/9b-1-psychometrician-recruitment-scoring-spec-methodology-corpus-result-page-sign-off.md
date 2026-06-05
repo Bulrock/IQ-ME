@@ -1,7 +1,7 @@
 ---
 id: 9b-1-psychometrician-recruitment-scoring-spec-methodology-corpus-result-page-sign-off
 title: "Story 9b-1: Psychometrician recruitment + scoring-spec / methodology-corpus / result-page sign-off"
-status: review
+status: done
 ---
 
 # Story 9b-1: Psychometrician recruitment + scoring-spec / methodology-corpus / result-page sign-off

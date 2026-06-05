@@ -1,7 +1,7 @@
 ---
 id: 9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log
 title: "Story 9a-1: ICAR/SAPA outreach drafting — initial contact + outreach log"
-status: review
+status: done
 ---
 
 # Story 9a-1: ICAR/SAPA outreach drafting — initial contact + outreach log
