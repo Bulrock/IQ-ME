@@ -336,11 +336,70 @@ function outputPathFor(srcPath, lang, corpusVersion, latest = false) {
   return join(OUT_ROOT, versionSegment, lang, htmlRel);
 }
 
+// Story interim-demo — auto-generated corpus table-of-contents. The footer's
+// "Read the methodology" links to /methodology/<ver>/<lang>/, which had no
+// page. This emits one index.html per lang (versioned + latest) listing every
+// built page, grouped by top-level section. Generated artifact (not source
+// markdown) → exempt from the frontmatter / reading-level / parity corpus lints.
+const SECTION_ORDER = [
+  "constructs", "scoring", "norming", "limitations",
+  "ethics", "provenance", "reference", "tails",
+];
+
+function humanizeSection(seg) {
+  return seg.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+function buildIndexHtml(lang, versionSegment, displayVersion, pages) {
+  const bySection = new Map();
+  for (const p of pages) {
+    const relDir = p.htmlRel.replace(/index\.html$/, "").replace(/\.html$/, "");
+    const section = relDir.split("/")[0];
+    if (!bySection.has(section)) bySection.set(section, []);
+    bySection.get(section).push({ url: `/methodology/${versionSegment}/${lang}/${relDir}`, title: p.title });
+  }
+  const sections = [...bySection.keys()].sort((a, b) => {
+    const ia = SECTION_ORDER.indexOf(a), ib = SECTION_ORDER.indexOf(b);
+    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b);
+  });
+  let body = "";
+  for (const s of sections) {
+    const items = bySection.get(s).sort((a, b) => a.title.localeCompare(b.title));
+    body += `<section class="methodology-index__section"><h2 class="methodology-index__heading">${esc(humanizeSection(s))}</h2><ul class="methodology-index__list">`;
+    for (const it of items) body += `<li><a href="${esc(it.url)}">${esc(it.title)}</a></li>`;
+    body += `</ul></section>`;
+  }
+  const hreflang = LOCALES.map(
+    (L) => `<link rel="alternate" hreflang="${L}" href="/methodology/${versionSegment}/${L}/">`,
+  ).join("\n");
+  return (
+    `<!doctype html>\n<html lang="${lang}">\n<head>\n` +
+    `<meta charset="utf-8">\n` +
+    `<meta name="viewport" content="width=device-width,initial-scale=1">\n` +
+    `<title>IQ-ME methodology ${esc(displayVersion)}</title>\n` +
+    hreflang + `\n` +
+    `<link rel="stylesheet" href="/src/css/reset.css">\n` +
+    `<link rel="stylesheet" href="/src/css/primitives.css">\n` +
+    `<link rel="stylesheet" href="/src/css/semantic.css">\n` +
+    `<link rel="stylesheet" href="/src/css/base.css">\n` +
+    `<link rel="stylesheet" href="/src/css/components/masthead.css">\n` +
+    `</head>\n<body data-lang="${lang}">\n` +
+    `<header class="methodology-masthead">\n` +
+    `<h1 class="methodology-masthead__title">IQ-ME methodology</h1>\n` +
+    `<p class="methodology-masthead__version">${esc(displayVersion)}</p>\n` +
+    `</header>\n` +
+    `<main class="methodology-index">\n` +
+    `<p class="methodology-index__lede">What IRT is, where the validity envelope ends, and why a 16-item screener is not a clinical evaluation.</p>\n` +
+    body + `\n</main>\n</body>\n</html>\n`
+  );
+}
+
 function main() {
   const corpusVersion = resolveCorpusVersion();
   let count = 0;
   for (const lang of LOCALES) {
     const localeRoot = join(SRC_ROOT, lang);
+    const pages = [];
     for (const srcPath of walkMd(localeRoot)) {
       let text;
       try {
@@ -378,10 +437,23 @@ function main() {
       } catch (e) {
         die(`writing output: ${e.message}`);
       }
+      pages.push({ htmlRel: relative(localeRoot, srcPath).replace(/\.md$/, ".html"), title: parsed.fm.title });
       count++;
     }
+    // Emit the per-locale table-of-contents index (versioned + latest).
+    if (pages.length) {
+      for (const seg of [corpusVersion, "latest"]) {
+        const idxOut = join(OUT_ROOT, seg, lang, "index.html");
+        try {
+          mkdirSync(dirname(idxOut), { recursive: true });
+          writeFileSync(idxOut, buildIndexHtml(lang, seg, corpusVersion, pages));
+        } catch (e) {
+          die(`writing index: ${e.message}`);
+        }
+      }
+    }
   }
-  stdout.write(`build-methodology: built ${count} pages → ${OUT_ROOT}/{${corpusVersion},latest}/<lang>/\n`);
+  stdout.write(`build-methodology: built ${count} pages + ${LOCALES.length} indexes → ${OUT_ROOT}/{${corpusVersion},latest}/<lang>/\n`);
 }
 
 main();
