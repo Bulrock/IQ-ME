@@ -1,7 +1,7 @@
 ---
 id: 9d-1-pl-clinical-register-translator-recruitment-initial-engagement
 title: "Story 9d-1: PL clinical-register translator recruitment + initial engagement"
-status: ready-for-dev
+status: review
 ---
 
 # Story 9d-1: PL clinical-register translator recruitment + initial engagement

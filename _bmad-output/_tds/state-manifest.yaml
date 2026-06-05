@@ -8,9 +8,9 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 7b719b6be1f55b667d6db1744d73402fd639b45f43c697c15e46a5ec1bd1c810
+    sha256: 50ccc4c1d4c3ef3b4cda104d88990c924db8ff9f40f101a33246e3d506c5885a
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T13:12:07.362Z
+    recorded_at: 2026-06-05T13:30:37.975Z
     recorded_by: state-commit-autorecord
     story_id: 9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log
   - artefact_class: A
@@ -1598,3 +1598,27 @@ entries:
     recorded_at: 2026-06-05T13:02:41.174Z
     recorded_by: test-author
     story_id: 9a-1-icar-sapa-outreach-drafting-initial-contact-outreach-log
+  - artefact_class: A
+    file: tests/scaffold/9b-1-psychometrician-outreach.test.mjs
+    sha256: a9c685b6eb5c8f41888b3c91874c3808016de68bec026fefaa192e9423e96469
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T13:23:36.323Z
+    recorded_by: engineer
+  - artefact_class: A
+    file: tests/scaffold/9c-1-ru-translator-outreach.test.mjs
+    sha256: 8fc6fd0e1978b1de4e83881964ded5e15276b5f136db29a1a0dcfcd8a373fd91
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T13:25:35.415Z
+    recorded_by: engineer
+  - artefact_class: A
+    file: tests/scaffold/9d-1-pl-translator-outreach.test.mjs
+    sha256: 24a6efa78cb848f5f8a575e417742236861424cdf50d74e1078208664782c91d
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T13:27:36.582Z
+    recorded_by: engineer
+  - artefact_class: A
+    file: tests/scaffold/9e-1-tester-credibility.test.mjs
+    sha256: d92dfb3856db99d9cb5b9e0d75e8b9b32de9e0bdaf58f8abb2719c99ea8931dc
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T13:30:05.906Z
+    recorded_by: engineer

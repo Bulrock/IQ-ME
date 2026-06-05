@@ -1,7 +1,7 @@
 ---
 id: 9c-1-ru-clinical-register-translator-recruitment-tail-scene-methodology-corpus-sign-off
 title: "Story 9c-1: RU clinical-register translator recruitment + tail-scene + methodology-corpus sign-off"
-status: ready-for-dev
+status: review
 ---
 
 # Story 9c-1: RU clinical-register translator recruitment + tail-scene + methodology-corpus sign-off

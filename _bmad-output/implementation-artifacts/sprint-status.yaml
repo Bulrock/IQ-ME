@@ -164,17 +164,17 @@ development_status:
   bridge-9b-1-cross-link-corpus-reference: done           # Cross-link corpus /reference/changelog/ to root CHANGELOG.md
   bridge-9b-2-refresh-stale-readme-contributing: done           # Refresh stale README '## Contributing' framing post-8.6
   epic-9b: backlog
-  9b-1-psychometrician-recruitment-scoring-spec-methodology-corpus-result-page-sign-off: ready-for-dev
+  9b-1-psychometrician-recruitment-scoring-spec-methodology-corpus-result-page-sign-off: review
   epic-9b-retrospective: optional
   epic-9c: backlog
-  9c-1-ru-clinical-register-translator-recruitment-tail-scene-methodology-corpus-sign-off: ready-for-dev
+  9c-1-ru-clinical-register-translator-recruitment-tail-scene-methodology-corpus-sign-off: review
   epic-9c-retrospective: optional
   epic-9d: backlog
-  9d-1-pl-clinical-register-translator-recruitment-initial-engagement: ready-for-dev
+  9d-1-pl-clinical-register-translator-recruitment-initial-engagement: review
   9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields: ready-for-dev
   epic-9d-retrospective: optional
   epic-9e: backlog
-  9e-1-native-speaker-tester-recruitment-credibility-validation-iteration-loop: ready-for-dev
+  9e-1-native-speaker-tester-recruitment-credibility-validation-iteration-loop: review
   epic-9e-retrospective: optional
   epic-10: backlog
   10-1-pre-launch-readiness-checklist-final-smoke-test: backlog

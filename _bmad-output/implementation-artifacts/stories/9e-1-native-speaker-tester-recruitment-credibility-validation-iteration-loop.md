@@ -1,7 +1,7 @@
 ---
 id: 9e-1-native-speaker-tester-recruitment-credibility-validation-iteration-loop
 title: "Story 9e-1: Native-speaker tester recruitment + credibility validation + iteration loop"
-status: ready-for-dev
+status: review
 ---
 
 # Story 9e-1: Native-speaker tester recruitment + credibility validation + iteration loop
