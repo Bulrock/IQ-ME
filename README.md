@@ -44,6 +44,15 @@ The mirror hosts a **byte-identical artifact**: the `deploy-to-mirror` job in `r
 
 Failover is a deliberate, **manual** policy: a **manual failover within one day of sustained outage or regional block detection**. There is **no automatic redirect** and **no JS-based detection** — the deployed page never sniffs your location or reachability and never bounces you to another host. The mirror domain is published here in this README and announced via [GitHub Discussions](https://github.com/Bulrock/IQ-ME/discussions); those two channels are the only way the mirror is discovered (it is intentionally absent from the in-page footer).
 
+## Following updates
+
+There is **no email list, no account capture, and no signup** (FR52). The two ways to follow IQ-ME are both GitHub-native and ask for no identifier beyond a GitHub account you already have:
+
+- **Release notifications** — on the [repository](https://github.com/Bulrock/IQ-ME), choose **Watch → Custom → Releases** to be notified only when a new `app-v*` or `corpus-v*` release is tagged.
+- **Discussions** — use the **Subscribe** button on any [GitHub Discussions thread](https://github.com/Bulrock/IQ-ME/discussions) to follow a conversation.
+
+Updates reach you only through channels you already control — there is no mailing list and nothing to sign up for.
+
 ## Citation
 
 Please cite per [`CITATION.cff`](CITATION.cff). At v0.0.1 the `doi` field is empty; it is populated by the Epic 8 `release.yml` workflow on the first per-corpus-release tag.

@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-05 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path: ready-for-dev'
+last_updated: '2026-06-05 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -148,7 +148,7 @@ development_status:
   8-5-full-playwright-trust-verification-suite-consolidation: review
   8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs: review
   8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle: review
-  8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path: ready-for-dev
+  8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path: review
   epic-8-retrospective: optional
 
   # Bridge →9a: 1 story from 1 retro

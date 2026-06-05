@@ -2,15 +2,15 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 7e0ffa0be706f0eb13ab038c1c201e5353b64c62730589837f35246f23c5a923
+    sha256: 0ccf5e4500f90428864af022ce5ad19688b71c6925c6905a62df01b930e4293b
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:26:01.102Z
+    recorded_at: 2026-06-05T11:27:46.469Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: f7d036dc04e4b306bf4505c766c42827e5cd34cb586a891d3e34d1024614d481
+    sha256: 20b16fd715109db15bd7b62547bed9418c50d3fda9c283f87f4ecb3bb56c6209
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:27:45.706Z
+    recorded_at: 2026-06-05T11:31:17.725Z
     recorded_by: engineer
     story_id: 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path
   - artefact_class: A
@@ -1542,8 +1542,16 @@ entries:
     story_id: 8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path.md
-    sha256: d6b7edb2ff293d55f0dcbc50619126a33d453b4e4d2c93c18a039ef67ae86513
+    sha256: ce9d61ba21f64582f5ccd0f47a82b9907af04018849d3c1836380716da7f622d
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:27:45.915Z
+    recorded_at: 2026-06-05T11:31:17.768Z
     recorded_by: engineer
-    notes: story-8-8 spec authored (create-story)
+    story_id: 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path
+  - artefact_class: A
+    file: tests/scaffold/discussions-footer.test.mjs
+    sha256: e9622635339df850d98859ed877cebf72212a2d9f9bfcb5119f01cc1ab7d2a9c
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T11:28:39.205Z
+    recorded_by: test-author
+    story_id: 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path
+    notes: "story-8-8 red-phase: footer Discussions + README subscription path + FR52 no-email structural test"

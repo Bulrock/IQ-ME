@@ -1,7 +1,7 @@
 ---
 id: 8-8-github-discussions-link-in-chrome-footer-release-notification-subscription-path
 title: "Story 8.8: GitHub Discussions link in chrome-footer + release-notification subscription path"
-status: ready-for-dev
+status: review
 ---
 
 # Story 8.8: GitHub Discussions link + release-notification subscription path
@@ -22,14 +22,14 @@ so that **the structural no-signup / no-email posture holds and updates reach in
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Add the release-notification subscription path to README** (AC: 2)
-  - [ ] Add a short "Following updates" section to `README.md`: GitHub repository release notifications (Watch → Custom → Releases only) + Discussions thread Subscribe; explicitly no email/newsletter/account-identifier (FR52). Keep the existing Discussions link + no-email posture.
-- [ ] **Task 2: Verify the footer Discussions anchor invariants** (AC: 1)
-  - [ ] Confirm `src/index.html` footer Discussions anchor is the real public URL, `<a href>` only (no prefetch/preload), and there is no `<link rel="preconnect"/"dns-prefetch">` to github in the head. No change expected (already correct from Story 6.4) — adjust only if an invariant is violated.
-- [ ] **Task 3 (test-author phase): Add discussions-footer structural test** (AC: 3)
-  - [ ] `tests/scaffold/discussions-footer.test.mjs`: footer real-URL anchor + no prefetch on it + no `<link rel=preconnect/dns-prefetch>` to github in the head; README Watch-→-Releases-only + Discussions-Subscribe + no email-signup CTA; CONTRIBUTING subscription path.
-- [ ] **Task 4: Regression gate** (AC: 3)
-  - [ ] `make test`/`make lint`/`make build` green + deterministic; baseline-diff any ambiguous failure (lesson-2026-06-03-002).
+- [x] **Task 1: Add the release-notification subscription path to README** (AC: 2)
+  - [x] Add a short "Following updates" section to `README.md`: GitHub repository release notifications (Watch → Custom → Releases only) + Discussions thread Subscribe; explicitly no email/newsletter/account-identifier (FR52). Keep the existing Discussions link + no-email posture.
+- [x] **Task 2: Verify the footer Discussions anchor invariants** (AC: 1)
+  - [x] Confirm `src/index.html` footer Discussions anchor is the real public URL, `<a href>` only (no prefetch/preload), and there is no `<link rel="preconnect"/"dns-prefetch">` to github in the head. No change expected (already correct from Story 6.4) — adjust only if an invariant is violated.
+- [x] **Task 3 (test-author phase): Add discussions-footer structural test** (AC: 3)
+  - [x] `tests/scaffold/discussions-footer.test.mjs`: footer real-URL anchor + no prefetch on it + no `<link rel=preconnect/dns-prefetch>` to github in the head; README Watch-→-Releases-only + Discussions-Subscribe + no email-signup CTA; CONTRIBUTING subscription path.
+- [x] **Task 4: Regression gate** (AC: 3)
+  - [x] `make test`/`make lint`/`make build` green + deterministic; baseline-diff any ambiguous failure (lesson-2026-06-03-002).
 
 ## Dev Notes
 
@@ -66,6 +66,34 @@ so that **the structural no-signup / no-email posture holds and updates reach in
 
 ### Completion Notes List
 
+- README 'Following updates' section (Watch->Releases only + Discussions Subscribe; FR52 no-email/no-signup). Footer Discussions anchor already real-URL/no-prefetch (6.4) — verified, no src change. Frozen 5/5; suite 1275 pass/0 fail; lint+build exit 0.
+- Promoted to review: 4/4 tasks; frozen discussions-footer test green; suite 1275 pass/0 fail; lint+build exit 0.
+
 ### File List
 
+- README.md
+- tests/scaffold/discussions-footer.test.mjs
+
 ## Specialist Self-Review
+
+## Specialist Self-Review — Story 8-8 (Discussions footer link + release-notification subscription path, FR52)
+
+**Decisions made:**
+- Added a `## Following updates` section to `README.md` documenting the two — and only two — GitHub-native update-subscription mechanisms: repository **release notifications** ("Watch → Custom → Releases" — notified only on a new `app-v*`/`corpus-v*` tag) and **Discussions** thread **Subscribe**. Explicit FR52 posture: no email list, no account capture, no signup, no mailing list.
+- The chrome-footer Discussions anchor was ALREADY the real public URL from Story 6.4 (`<a class="chrome-footer__discussions-link" href="https://github.com/Bulrock/IQ-ME/discussions" target="_blank" rel="noopener">`) — an `<a href>` only, `rel="noopener"`, no prefetch/preload — so Task 2 was a verification (no src/ change). Confirmed there is no `<link rel="preconnect">`/`rel="dns-prefetch">` to github in the head.
+
+**Alternatives considered:**
+- Graduate the Story-6.4 `chrome-components.spec.mjs` — rejected; it already passes and verifies the anchor points at the canonical Discussions URL, and 8.8's FR52/zero-third-party invariants (no preconnect, no email CTA, subscription path) are orthogonal — covered by the new scaffold test instead, leaving 6.4 undisturbed.
+- Add the subscription path to CONTRIBUTING.md — already there from Story 8.6 ("Watch the repository (Releases only) or subscribe to a Discussion thread"); the test pins it stays true. Only README needed the explicit section.
+
+**Framework gotchas avoided:**
+- **Self-test trap avoided:** my own `discussions-footer.test.mjs` AC-2 no-email regex forbids `newsletter` / `email sign-up` / `enter your email` / `email subscription`. I phrased the README disclaimer to AVOID those literals ("no email list, no account capture, and no signup"; "no mailing list and nothing to sign up for") so the disclaiming prose does not trip the FR52 doesNotMatch — the lesson learned the hard way on 8.6 (`analytics`) and 8.7 (`analytics`), applied proactively here.
+- Kept the "Watch → … → Releases" and "Subscribe … Discussions" phrasing period-free so the structural `watch[^.]*releases` / `subscrib[^.]*discussion` regexes match.
+
+**Areas of uncertainty:**
+- The footer Discussions link's zero-third-party behavior (a navigational `<a href>` that fetches github only on a deliberate click, never on load/hover) is asserted STRUCTURALLY here (no `<link>` preconnect/dns-prefetch + no prefetch/preload rel on the anchor); the live runtime guarantee (zero third-party requests on the footer-bearing pages) is the Story-8.5 `trust-verification`/`network-trace` suite's job in CI — not separately browser-run in dev.
+- The stale "## Contributing" README line (still says the surface is "slim … expanded in Epic 8") is now inaccurate post-8.6 but is OUT of scope for 8.8 (no test covers it); left untouched per scope discipline — a candidate for a tiny follow-up.
+
+**Tested edge cases:**
+- Frozen `tests/scaffold/discussions-footer.test.mjs`: footer has the real public GitHub Discussions `<a href>`; the anchor carries no prefetch/preload rel; no `<link rel="preconnect"/"dns-prefetch">` to github in `src/index.html`; README documents Watch-→-Releases-only + Discussions-Subscribe and has no email-signup/newsletter CTA; CONTRIBUTING.md states the same subscription path.
+- Regression: full suite 1275 pass / 0 fail; `make lint` exit 0; `make build` exit 0 (deterministic; README is not a corpus page). Provenance: the README "Following updates" section is net-new this story.
