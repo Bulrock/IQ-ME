@@ -28,7 +28,7 @@ so that the PL gate visibly closes (separately from the RU gate, per Mary's acco
 ## Tasks / Subtasks
 
 - [ ] **Task 1 (BLOCKED — human deliverable): receive finished PL copy + reviewer identity + sign-off** from Story 9d-1's engagement. No agent action until this exists.
-- [ ] **Task 2: author the gate-closed guard** (`tests/scaffold/9d-2-pl-gate-closed.test.mjs`) encoding AC 5; confirm it is RED while the gate is open. (test-author phase — executable once the reviewer delivers)
+- [x] **Task 2: author the gate-closed guard** (`tests/scaffold/9d-2-pl-gate-closed.test.mjs`) encoding AC 5; confirm it is RED while the gate is open. (test-author phase — executable once the reviewer delivers)
 - [ ] **Task 3: finalize the signoff** with real name/handle/date/scope/deliverables (AC 1). (impl phase)
 - [ ] **Task 4: finalize CODEOWNERS + masthead** — replace `@TBD-pl-reviewer`, populate masthead reviewer fields on PL pages (AC 2, AC 3). (impl phase)
 - [ ] **Task 5: gate close-out** — flip the Epic 10 dashboard PL gate to closed, add `CHANGELOG.md` entry (AC 4). (impl phase)
@@ -64,4 +64,8 @@ so that the PL gate visibly closes (separately from the RU gate, per Mary's acco
 
 ### Completion Notes List
 
+- Task 2 done: guard RED 6/6 against current state — fails on PENDING signoff, missing reviewer name/handle/date, @TBD-pl-reviewer in CODEOWNERS, and 35 PL methodology pages with TBD reviewer fields. Will flip green when real reviewer delivers and Story 9d-2 impl runs.
+
 ### File List
+
+- tests/scaffold/9d-2-pl-gate-closed.test.mjs
