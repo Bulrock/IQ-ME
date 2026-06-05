@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-05 10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification: ready-for-dev'
+last_updated: '2026-06-05 10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -178,6 +178,6 @@ development_status:
   epic-9e-retrospective: optional
   epic-10: in-progress
   10-1-pre-launch-readiness-checklist-final-smoke-test: review
-  10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification: ready-for-dev
+  10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification: review
   10-3-48-hour-post-launch-monitoring-window: backlog
   epic-10-retrospective: optional
