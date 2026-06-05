@@ -1,7 +1,7 @@
 ---
 id: 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification
 title: "Story 8.4: Mirror failover deployment to Codeberg/Cloudflare (byte-identical artifact verification)"
-status: ready-for-dev
+status: review
 ---
 
 # Story 8.4: Mirror failover deployment to Codeberg/Cloudflare (byte-identical artifact verification)
@@ -27,23 +27,23 @@ so that **the Russia hosting block (Risk #8 / NFR17 mirror-readiness) is mitigat
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: `deploy-to-mirror` job — push the same `dist/` to Codeberg/Cloudflare, tag-triggered, dev-inert** (AC: 1)
-  - [ ] Add a `deploy-to-mirror` job to `.github/workflows/release.yml` triggered by the same release tags (`app-v*`/`corpus-v*` — the existing `on: push: tags:` block already covers both). Checkout + `make build` to assemble the same `dist/` artifact (the byte-identical artifact, NFR17/architecture §860-862).
-  - [ ] Push `dist/` to the mirror endpoint via the real mechanism (e.g. `wrangler pages deploy ./dist` for Cloudflare Pages, OR a Codeberg Pages git-push of the `dist/` tree to the Pages branch). Gate the live push INERT behind `if: ${{ vars.IQME_LIVE_MIRROR == 'true' }}` (mirror the Story-8.2 `vars.IQME_LIVE_ARCHIVAL` pattern; gate on `vars.*` NOT `secrets.*` — the 8.2 actionlint gotcha). Document the Codeberg-vs-Cloudflare choice in Dev Notes / the job comment.
-  - [ ] Replace the `# --- Deferred to Story 8.4 … ---` marker comment (header ~lines 16-17 + tail ~lines 170-172) with the real job + a header note that the live deploy fires at launch (Epic 10).
-- [ ] **Task 2: byte-identical-artifact verification step — SHA256-compare four named artifacts, fail on mismatch** (AC: 2)
-  - [ ] Add a post-deploy verification step that fetches the same path from the canonical URL + the mirror URL and SHA256-compares the four named artifacts: the SPA `index.html`, at least one methodology page, `LICENSES.md`, `CITATION.cff`. Name all four paths in the step text (grep-able). Fail the build on ANY mismatch (a non-byte-identical mirror is a release-blocker).
-  - [ ] Gate the live `curl` fetch + `sha256sum` compare INERT behind `if: ${{ vars.IQME_LIVE_MIRROR == 'true' }}` (no live fetch / no fabricated hash in dev — lesson-2026-06-04-002).
-- [ ] **Task 3: README mirror-strategy section** (AC: 3)
-  - [ ] Add a mirror-strategy section to `README.md` documenting: the canonical URL (GitHub Pages); the mirror URL (Codeberg/Cloudflare secondary domain); the trigger-policy ("manual failover within one day of sustained outage or regional block detection"); and an explicit "no automatic redirect, no JS-based detection" statement. Note discoverability is via README/Discussions only. Keep the project's plain-language style. No fabricated live URL beyond the documented secondary-domain placeholder.
-- [ ] **Task 4: mirror Playwright happy-path STEP (structural — launch-time live run)** (AC: 5)
-  - [ ] In the `deploy-to-mirror` job, declare a structural step that runs the Story-3.7 full happy-path (`tests/playwright/full-slice.spec.mjs`) against the mirror URL, gated INERT behind `if: ${{ vars.IQME_LIVE_MIRROR == 'true' }}`. The step is a **release-blocker** — NOT `continue-on-error` — so a mirror-specific failure fails the job (epics AC). NO live Playwright run against a mirror executes in dev; the dev artifact is the structurally-correct step. Note in the job comment that the relative-asset-path requirement (no GH-Pages-specific tricks) is already satisfied by the Story-3.7 spec.
-- [ ] **Task 5 (test-author phase — NOT engineer): GRADUATE frozen release-workflow.test.mjs AC-5 (mirror absent→present) + add mirror-deploy.test.mjs + re-register integrity** (AC: 6)
-  - [ ] Graduate `tests/scaffold/release-workflow.test.mjs` **AC-5** (class-A, ~lines 218-265): (i) flip the mirror-ABSENCE assertion (`assert.doesNotMatch(text, /^\s*deploy-to-mirror:|uses:[^\n]*cloudflare|codeberg\.org|wrangler\s+pages\s+deploy/im, …)`, ~lines 260-264) to a mirror-PRESENCE assertion — the `deploy-to-mirror` job is present + the byte-identical SHA256 compare names the four artifacts; (ii) drop/replace the Story-8.4 marker assertion (`assert.match(text, /(8\.4|8-4|Story\s*8\.4)/i, …)`, ~lines 252-256) — the marker is now a real job. LEAVE the Story-8.2 archival-PRESENT assertions (Zenodo `api.zenodo.org`/`CITATION.cff`, IA `web.archive.org/save`, SH `archive.softwareheritage.org`, ~lines 232-248) UNTOUCHED.
-  - [ ] Add `tests/scaffold/mirror-deploy.test.mjs` (NEW): assert the `deploy-to-mirror` job present + tag-triggered; the byte-identical SHA256 step naming the four artifacts (`index.html` / methodology page / `LICENSES.md` / `CITATION.cff`) + canonical-vs-mirror compare + fail-on-mismatch; the live calls gated behind `vars.IQME_LIVE_MIRROR`; the `README.md` mirror section (no-auto-redirect + "manual failover within one day" trigger-policy + canonical/mirror URLs); the `src/index.html` chrome-footer block has NO mirror/Codeberg/Cloudflare anchor; the mirror Playwright step present + release-blocker (not `continue-on-error`).
-  - [ ] `tds integrity record --files=tests/scaffold/release-workflow.test.mjs` (engineer) after the edit; re-grep `state-manifest.yaml` after the next state-commit sweep to confirm the new hash persisted (do NOT hand-edit the manifest — lesson-2026-05-19-013).
-- [ ] **Task 6: regression gate** (AC: 6)
-  - [ ] `make test` / `make lint` / `make build` all green + deterministic; baseline-diff any ambiguous failure before labeling it pre-existing (lesson-2026-06-03-002 — e.g. `git diff main -- .github/workflows/release.yml`).
+- [x] **Task 1: `deploy-to-mirror` job — push the same `dist/` to Codeberg/Cloudflare, tag-triggered, dev-inert** (AC: 1)
+  - [x] Add a `deploy-to-mirror` job to `.github/workflows/release.yml` triggered by the same release tags (`app-v*`/`corpus-v*` — the existing `on: push: tags:` block already covers both). Checkout + `make build` to assemble the same `dist/` artifact (the byte-identical artifact, NFR17/architecture §860-862).
+  - [x] Push `dist/` to the mirror endpoint via the real mechanism (e.g. `wrangler pages deploy ./dist` for Cloudflare Pages, OR a Codeberg Pages git-push of the `dist/` tree to the Pages branch). Gate the live push INERT behind `if: ${{ vars.IQME_LIVE_MIRROR == 'true' }}` (mirror the Story-8.2 `vars.IQME_LIVE_ARCHIVAL` pattern; gate on `vars.*` NOT `secrets.*` — the 8.2 actionlint gotcha). Document the Codeberg-vs-Cloudflare choice in Dev Notes / the job comment.
+  - [x] Replace the `# --- Deferred to Story 8.4 … ---` marker comment (header ~lines 16-17 + tail ~lines 170-172) with the real job + a header note that the live deploy fires at launch (Epic 10).
+- [x] **Task 2: byte-identical-artifact verification step — SHA256-compare four named artifacts, fail on mismatch** (AC: 2)
+  - [x] Add a post-deploy verification step that fetches the same path from the canonical URL + the mirror URL and SHA256-compares the four named artifacts: the SPA `index.html`, at least one methodology page, `LICENSES.md`, `CITATION.cff`. Name all four paths in the step text (grep-able). Fail the build on ANY mismatch (a non-byte-identical mirror is a release-blocker).
+  - [x] Gate the live `curl` fetch + `sha256sum` compare INERT behind `if: ${{ vars.IQME_LIVE_MIRROR == 'true' }}` (no live fetch / no fabricated hash in dev — lesson-2026-06-04-002).
+- [x] **Task 3: README mirror-strategy section** (AC: 3)
+  - [x] Add a mirror-strategy section to `README.md` documenting: the canonical URL (GitHub Pages); the mirror URL (Codeberg/Cloudflare secondary domain); the trigger-policy ("manual failover within one day of sustained outage or regional block detection"); and an explicit "no automatic redirect, no JS-based detection" statement. Note discoverability is via README/Discussions only. Keep the project's plain-language style. No fabricated live URL beyond the documented secondary-domain placeholder.
+- [x] **Task 4: mirror Playwright happy-path STEP (structural — launch-time live run)** (AC: 5)
+  - [x] In the `deploy-to-mirror` job, declare a structural step that runs the Story-3.7 full happy-path (`tests/playwright/full-slice.spec.mjs`) against the mirror URL, gated INERT behind `if: ${{ vars.IQME_LIVE_MIRROR == 'true' }}`. The step is a **release-blocker** — NOT `continue-on-error` — so a mirror-specific failure fails the job (epics AC). NO live Playwright run against a mirror executes in dev; the dev artifact is the structurally-correct step. Note in the job comment that the relative-asset-path requirement (no GH-Pages-specific tricks) is already satisfied by the Story-3.7 spec.
+- [x] **Task 5 (test-author phase — NOT engineer): GRADUATE frozen release-workflow.test.mjs AC-5 (mirror absent→present) + add mirror-deploy.test.mjs + re-register integrity** (AC: 6)
+  - [x] Graduate `tests/scaffold/release-workflow.test.mjs` **AC-5** (class-A, ~lines 218-265): (i) flip the mirror-ABSENCE assertion (`assert.doesNotMatch(text, /^\s*deploy-to-mirror:|uses:[^\n]*cloudflare|codeberg\.org|wrangler\s+pages\s+deploy/im, …)`, ~lines 260-264) to a mirror-PRESENCE assertion — the `deploy-to-mirror` job is present + the byte-identical SHA256 compare names the four artifacts; (ii) drop/replace the Story-8.4 marker assertion (`assert.match(text, /(8\.4|8-4|Story\s*8\.4)/i, …)`, ~lines 252-256) — the marker is now a real job. LEAVE the Story-8.2 archival-PRESENT assertions (Zenodo `api.zenodo.org`/`CITATION.cff`, IA `web.archive.org/save`, SH `archive.softwareheritage.org`, ~lines 232-248) UNTOUCHED.
+  - [x] Add `tests/scaffold/mirror-deploy.test.mjs` (NEW): assert the `deploy-to-mirror` job present + tag-triggered; the byte-identical SHA256 step naming the four artifacts (`index.html` / methodology page / `LICENSES.md` / `CITATION.cff`) + canonical-vs-mirror compare + fail-on-mismatch; the live calls gated behind `vars.IQME_LIVE_MIRROR`; the `README.md` mirror section (no-auto-redirect + "manual failover within one day" trigger-policy + canonical/mirror URLs); the `src/index.html` chrome-footer block has NO mirror/Codeberg/Cloudflare anchor; the mirror Playwright step present + release-blocker (not `continue-on-error`).
+  - [x] `tds integrity record --files=tests/scaffold/release-workflow.test.mjs` (engineer) after the edit; re-grep `state-manifest.yaml` after the next state-commit sweep to confirm the new hash persisted (do NOT hand-edit the manifest — lesson-2026-05-19-013).
+- [x] **Task 6: regression gate** (AC: 6)
+  - [x] `make test` / `make lint` / `make build` all green + deterministic; baseline-diff any ambiguous failure before labeling it pre-existing (lesson-2026-06-03-002 — e.g. `git diff main -- .github/workflows/release.yml`).
 
 ## Dev Notes
 
@@ -94,6 +94,42 @@ so that **the Russia hosting block (Risk #8 / NFR17 mirror-readiness) is mitigat
 
 ### Completion Notes List
 
+- deploy-to-mirror job (Cloudflare Pages wrangler) + byte-identical SHA256 verify of 4 artifacts (release-blocker, no continue-on-error) + Playwright-against-mirror step; gated inert vars.IQME_LIVE_MIRROR. README mirror-strategy (no-auto-redirect). chrome-footer untouched. Frozen 10/10; suite 1249 pass/0 fail; lint+build exit 0.
+- Promoted to review: 6/6 tasks complete; frozen mirror-deploy + graduated release-workflow AC-5 green; suite 1249 pass/0 fail; lint+build exit 0.
+
 ### File List
 
+- .github/workflows/release.yml
+- README.md
+- tests/scaffold/mirror-deploy.test.mjs
+- tests/scaffold/release-workflow.test.mjs
+
 ## Specialist Self-Review
+
+## Specialist Self-Review — Story 8-4 (Codeberg/Cloudflare mirror failover + byte-identical verification, infra-now)
+
+**Decisions made:**
+- Added a `deploy-to-mirror` job to release.yml (tag-triggered, same release tags as app/corpus): `make build` then `npx --yes wrangler@3 pages deploy ./dist` to **Cloudflare Pages**. Chose Cloudflare (not Codeberg) to match the existing `scheduled.yml` mirror-parity-check `MIRROR_URL: https://iq-me.pages.dev/`.
+- **Byte-identical-artifact verification**: fetches each path from `CANONICAL_URL` + `MIRROR_URL` via `curl` and `sha256sum`-compares the four named artifacts (`index.html`, a `methodology/v.../en/index.html` page, `LICENSES.md`, `CITATION.cff`), emitting `::error::… mismatch` + `exit 1` on any divergence. **NOT `continue-on-error`** — a mirror mismatch is a release-blocker (NFR17).
+- **Playwright-against-mirror** step runs `tests/playwright/full-slice.spec.mjs` (Story 3.7 happy-path) with `IQME_MIRROR_URL`, also a release-blocker.
+- All three live actions gated INERT behind `vars.IQME_LIVE_MIRROR` (mirrors 8.2/8.3 `vars.IQME_LIVE_*`); `secrets.*` only in `env:`/`with:`, never a step `if:`.
+- README gains a `## Mirror strategy` section: canonical (`iq-me.org` / GitHub Pages) + mirror (`iq-me.pages.dev`), the manual-failover trigger-policy ("within one day of sustained outage or regional block detection"), and explicit "no automatic redirect" + "no JS-based detection". Discoverability via README/Discussions only.
+- `src/index.html` `<footer class="chrome-footer">` left untouched — NO mirror link (AC-4 invariant).
+
+**Alternatives considered:**
+- Codeberg Pages git-push instead of Cloudflare wrangler — rejected: the 8.3 mirror-parity-check already targets the Cloudflare `iq-me.pages.dev` host, so Cloudflare keeps the canonical/mirror pair consistent across stories.
+- `if: secrets.CLOUDFLARE_API_TOKEN != ''` step gate — rejected (actionlint: `secrets.*` invalid in step `if:`). Gated on `vars.IQME_LIVE_MIRROR`.
+
+**Framework gotchas avoided:**
+- `vars.*` gate, `secrets.*` only in `env:` (actionlint, the 8.2 lesson).
+- Mirror deploy/verify/Playwright steps are NOT `continue-on-error` — mirror divergence/failure must block the release (vs 8.2's best-effort IA/SH archival which is explicitly non-blocking). Different criticality, different posture.
+- Did NOT add a mirror link to the chrome-footer (AC-4) — the frozen `mirror-deploy.test.mjs` AC-4 slices the footer and forbids `codeberg|cloudflare|mirror`; verified it stays green.
+
+**Areas of uncertainty:**
+- Live mirror deploy + byte-identical fetch + Playwright-against-mirror are not exercised in dev (gated inert) — first real run is launch/Epic 10 with a real Cloudflare Pages project + `vars.IQME_LIVE_MIRROR=true` + `secrets.CLOUDFLARE_*`. The `iq-me.pages.dev` mirror URL is the planned host (consistent with scheduled.yml) pending the real project.
+- This story gives Story 8.3's self-gating mirror-parity-check a real mirror to compare against at launch (before launch it self-skips as "first deploy pending").
+
+**Tested edge cases:**
+- Frozen `tests/scaffold/mirror-deploy.test.mjs`: deploy-to-mirror job pushes `dist/` to the endpoint (gated); SHA256 byte-identical compare of the 4 artifacts with fail-on-mismatch; README mirror section (URLs + manual-failover + no-auto-redirect); chrome-footer has NO mirror link (sliced, non-vacuous); Playwright-against-mirror step present + release-blocker.
+- Graduated `tests/scaffold/release-workflow.test.mjs` AC-5: mirror now PRESENT (deploy-to-mirror + SHA256 of index/methodology/LICENSES.md/CITATION.cff); the Story-8.2 Zenodo/IA/SH archival-present assertions stay green.
+- Regression: full suite 1249 pass / 0 fail; `make lint` exit 0; `make build` exit 0 (deterministic). Provenance: net-new this story (no `deploy-to-mirror` on the merge base).

@@ -2,15 +2,15 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: 7f2a0c5e5abc5a4272e0cbb49c69469aa1c524eb9978ab8b4d48475986cecbc8
+    sha256: b9a481227527dfd7c8e49e1508807c45cb0ace7a1c71f8d68b94c08ac5d1b635
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T11:03:09.363Z
+    recorded_at: 2026-06-05T08:09:52.828Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: b26f36becdb4b31543bd9b0055347cfba999ccf68954ddd0d6cd9da763f62c76
+    sha256: 4ba65011eb06449b3bceda21ce73f130bf780f5a857b538b6eaa356baba3c819
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:08:53.919Z
+    recorded_at: 2026-06-05T08:24:19.764Z
     recorded_by: engineer
     story_id: 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification
   - artefact_class: A
@@ -1422,12 +1422,12 @@ entries:
     story_id: 8-1-release-yml-workflow-app-v-corpus-v-tag-triggers-deployment
   - artefact_class: A
     file: tests/scaffold/release-workflow.test.mjs
-    sha256: 9b8304f633fd687751bde7a295e97e5bbdcb75ab9d791ecfbf7418bc261911dd
+    sha256: 3e5aebeb1e864ff23385e2678b4edbdea746bd5690bd7df424925ffc89425776
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T10:32:50.733Z
+    recorded_at: 2026-06-05T08:13:59.544Z
     recorded_by: test-author
-    story_id: 8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v
-    notes: "story-8-2 red-phase: graduate release-workflow AC-5 (archival present) + new release-archival.test.mjs"
+    story_id: 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification
+    notes: "story-8-4 red-phase: graduate release-workflow AC-5 (mirror present) + new mirror-deploy.test.mjs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v.md
     sha256: bc4ac84a8682a3282efeef50fb228d69d7438b0231a283683615b93206bb1413
@@ -1460,8 +1460,16 @@ entries:
     notes: "story-8-3 red-phase: graduate ci-matrix AC-6 scheduled.yml + new scheduled-workflow.test.mjs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification.md
-    sha256: 91dc5dc9599bc730b8f3d4308244ff0955043e9b2347a7455858c4069a4c592c
+    sha256: 9cc28322123c5ed0612c470932a99ab2a596b57e157c31a6263ba3c32f63fa4b
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:08:54.138Z
+    recorded_at: 2026-06-05T08:24:19.805Z
     recorded_by: engineer
-    notes: story-8-4 spec authored (create-story)
+    story_id: 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification
+  - artefact_class: A
+    file: tests/scaffold/mirror-deploy.test.mjs
+    sha256: d881ff556a87ca5fce6f35d988e3bfa61827e0c74fac928e564d5bd07e8623ab
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-05T08:13:59.545Z
+    recorded_by: test-author
+    story_id: 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification
+    notes: "story-8-4 red-phase: graduate release-workflow AC-5 (mirror present) + new mirror-deploy.test.mjs"

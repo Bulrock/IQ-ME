@@ -2,23 +2,27 @@ name: Release
 
 # Activated in Story 8.1 — decoupled tag namespaces (architecture D7).
 #
-# Two tag-gated jobs:
-#   - app-release    (app-v*.*.*)    — assemble dist/, run the full lint+test
-#                                      gate + byte-stable assertion, deploy the
-#                                      SPA to GitHub Pages (gh-pages branch).
-#   - corpus-release (corpus-v*.*.*) — per-corpus-release re-emit (NFR25) of the
-#                                      methodology corpus + deploy, preserving
-#                                      prior version permalinks.
-#
-# Deferred extension points (NOT implemented in Story 8.1 — markers only):
-#   - Story 8.2: corpus-release archival — Zenodo DOI mint + Internet Archive
-#     Save Page Now + Software Heritage save (appended to the corpus-release job).
-#   - Story 8.4: Codeberg / Cloudflare Pages byte-identical mirror (a separate
-#     job triggered by the same release tags).
+# Three tag-gated jobs:
+#   - app-release     (app-v*.*.*)    — assemble dist/, run the full lint+test
+#                                       gate + byte-stable assertion, deploy the
+#                                       SPA to GitHub Pages (gh-pages branch).
+#   - corpus-release  (corpus-v*.*.*) — per-corpus-release re-emit (NFR25) of the
+#                                       methodology corpus + deploy, preserving
+#                                       prior version permalinks; + Story 8.2
+#                                       archival (Zenodo DOI / IA / Software
+#                                       Heritage).
+#   - deploy-to-mirror (app-v*/corpus-v*) — Story 8.4: push the SAME byte-
+#                                       identical dist/ artifact to the Cloudflare
+#                                       Pages mirror, SHA256-compare four trust
+#                                       artifacts canonical-vs-mirror (fail on
+#                                       mismatch), and re-run the Story-3.7
+#                                       Playwright happy-path against the mirror.
 #
 # Dev-phase note: no live deploy runs until launch (Epic 10) when the repo has
-# GitHub Pages + secrets configured and real tags are pushed. Relative asset
-# paths only — the same artifact must run on the mirror (NFR17).
+# GitHub Pages + the mirror project + secrets configured and real tags are
+# pushed. Relative asset paths only — the same artifact must run on the mirror
+# (NFR17). The Story-8.2 archival calls are gated behind vars.IQME_LIVE_ARCHIVAL
+# and the Story-8.4 mirror calls behind vars.IQME_LIVE_MIRROR — INERT in dev.
 
 on:
   push:
@@ -167,6 +171,111 @@ jobs:
             --title "archival-health: best-effort snapshot failed for ${GITHUB_REF#refs/tags/}" \
             --body "Internet Archive Save-Page-Now and/or Software Heritage save failed for $GITHUB_REF. Best-effort archival is non-fatal; this issue records the drift for posterity (NFR35). See the run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
 
-      # --- Deferred to Story 8.4: Codeberg / Cloudflare Pages byte-identical
-      #     mirror (a separate deploy-to-mirror job triggered by the same release
-      #     tags). NOT implemented here — see the header comment. ---
+  # ── deploy-to-mirror (Story 8.4) ──────────────────────────────────────────
+  # The Russia-hosting-block mitigation (Risk #8 / NFR17): the SAME byte-
+  # identical dist/ artifact the canonical gh-pages deploy ships is pushed to a
+  # documented secondary domain. Mirror endpoint = Cloudflare Pages
+  # (https://iq-me.pages.dev/) via `wrangler pages deploy ./dist` — chosen over
+  # a Codeberg Pages git-push to stay consistent with the scheduled.yml
+  # mirror-parity-check (Story 8.3) MIRROR_URL. Triggered by the SAME release
+  # tags as app-release/corpus-release (app-v*/corpus-v*).
+  #
+  # Infra-now (Epic-8 dev-phase): every live call — the wrangler push, the
+  # canonical-vs-mirror SHA256 fetch/compare, and the Playwright-against-mirror
+  # run — is gated INERT behind `vars.IQME_LIVE_MIRROR == 'true'` (parallel to
+  # the Story-8.2 vars.IQME_LIVE_ARCHIVAL pattern; gate on vars.* — secrets.* is
+  # NOT a valid step-level if: context). In dev the var is unset ⇒ no push, no
+  # fetch, no live Playwright run. The live mirror + compare + Playwright happy-
+  # path first fire at launch (Epic 10) once the Cloudflare project + DNS + the
+  # mirror secrets exist and a real app-v*/corpus-v* tag is pushed.
+  deploy-to-mirror:
+    name: deploy-to-mirror
+    # Gate: run on EITHER release-tag namespace (the mirror tracks both the app
+    # shell and the corpus — same byte-identical artifact model, architecture
+    # §860-862). Only a real release tag triggers it, not every push.
+    if: ${{ startsWith(github.ref, 'refs/tags/app-v') || startsWith(github.ref, 'refs/tags/corpus-v') }}
+    runs-on: ubuntu-latest
+    env:
+      # The canonical + mirror origins the byte-identical compare fetches from
+      # and the Playwright-against-mirror step targets. Same hosts the Story-8.3
+      # scheduled.yml mirror-parity-check uses (CANONICAL_URL / MIRROR_URL).
+      CANONICAL_URL: https://iq-me.org/
+      MIRROR_URL: https://iq-me.pages.dev/ # Cloudflare Pages mirror
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      # Reassemble the SAME deterministic dist/ artifact the canonical gh-pages
+      # deploy ships (NFR21 byte-stable build ⇒ same bytes; NFR17 mirror-
+      # readiness: relative asset paths throughout, no GitHub-Pages tricks).
+      - name: Build dist/ artifact (byte-identical to canonical)
+        run: make build
+      # Push the SAME dist/ to the Cloudflare Pages mirror. INERT in dev — gated
+      # behind vars.IQME_LIVE_MIRROR; the Cloudflare token/account are read from
+      # secrets.* in env: (NOT in the step if:, which only accepts vars.*).
+      - name: Push dist/ to the Cloudflare Pages mirror (wrangler)
+        id: push-to-mirror
+        if: ${{ vars.IQME_LIVE_MIRROR == 'true' }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          # wrangler pages deploy publishes the byte-identical dist/ tree to the
+          # Cloudflare Pages project backing https://iq-me.pages.dev/.
+          npx --yes wrangler@3 pages deploy ./dist --project-name=iq-me --branch=main
+      # Byte-identical-artifact verification (AC-2): a non-byte-identical mirror
+      # is a RELEASE-BLOCKER (NOT continue-on-error). Fetch the same path from
+      # the canonical + mirror origins and sha256sum-compare the four trust
+      # artifacts — the SPA index.html, a methodology page, LICENSES.md, and
+      # CITATION.cff — failing the build (exit 1) on ANY mismatch. INERT in dev
+      # (gated behind vars.IQME_LIVE_MIRROR — no live curl / no fabricated hash).
+      - name: Verify byte-identical artifact (canonical vs mirror SHA256)
+        id: verify-byte-identical
+        if: ${{ vars.IQME_LIVE_MIRROR == 'true' }}
+        run: |
+          set -euo pipefail
+          # The four byte-identical-compared trust artifacts (grep-able paths):
+          #   1. the SPA shell        index.html
+          #   2. a methodology page   methodology/v${IQME_CORPUS_VERSION:-0.1.0}/en/index.html
+          #   3. license enumeration  LICENSES.md
+          #   4. citation/DOI sink    CITATION.cff
+          artifacts=(
+            "index.html"
+            "methodology/v${IQME_CORPUS_VERSION:-0.1.0}/en/index.html"
+            "LICENSES.md"
+            "CITATION.cff"
+          )
+          status=0
+          for path in "${artifacts[@]}"; do
+            canon_sum="$(curl -fsSL "${CANONICAL_URL%/}/${path}" | sha256sum | cut -d' ' -f1)"
+            mirror_sum="$(curl -fsSL "${MIRROR_URL%/}/${path}" | sha256sum | cut -d' ' -f1)"
+            if [ "$canon_sum" != "$mirror_sum" ]; then
+              echo "::error::byte-identical mismatch for ${path}: canonical ${canon_sum} != mirror ${mirror_sum}"
+              status=1
+            else
+              echo "ok: ${path} byte-identical (${canon_sum})"
+            fi
+          done
+          # Fail the build on ANY mismatch — the mirror MUST be byte-identical.
+          [ "$status" -ne 1 ] || exit 1
+      # Full-slice Playwright happy-path (Story 3.7) RE-POINTED at the mirror
+      # URL (AC-5). The Story-3.7 spec drives the SPA against a configurable
+      # origin using ONLY relative asset paths (no GitHub-Pages tricks), so the
+      # SAME spec re-targets the mirror via the MIRROR_URL env. A mirror-specific
+      # failure is a RELEASE-BLOCKER — this step is deliberately NOT
+      # continue-on-error. INERT in dev (gated behind vars.IQME_LIVE_MIRROR — the
+      # live run fires at launch / Epic 10).
+      - name: Run full-slice Playwright happy-path against the mirror
+        id: playwright-against-mirror
+        if: ${{ vars.IQME_LIVE_MIRROR == 'true' }}
+        env:
+          IQME_MIRROR_URL: ${{ env.MIRROR_URL }}
+        run: |
+          set -euo pipefail
+          # tests/playwright/full-slice.spec.mjs re-targeted at the mirror origin
+          # (IQME_MIRROR_URL) — same happy-path, no path changes (NFR17).
+          npx --yes playwright test tests/playwright/full-slice.spec.mjs
