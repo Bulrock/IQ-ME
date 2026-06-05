@@ -92,11 +92,10 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: 2f194c284fae8884ba94b49e8c96de434e3b053def70466c5a9a5409776741ad
+    sha256: 17724200788170cb8afc14c9d6e4b6685643d8de07f4144e7788ce92c27ddb28
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T09:05:31.147Z
+    recorded_at: 2026-06-05T17:18:44.485Z
     recorded_by: engineer
-    story_id: 7-6-ru-pl-tail-scene-clinical-register-copy-replaces-epic-6-placeholders
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
     sha256: 03af01b6c89b47714c6fb83be9b0d3d9aaa6eeba107c2bba32d9ecc508bf63a4
@@ -511,12 +510,10 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/unit/result.test.mjs
-    sha256: 08450303e25c56c6e1ed7bf271b283a31d75bcbaa69d790236c3772b0f32d484
+    sha256: 5e316f607593de63304e820191103d7f4b56577c57e9512886b1dcc824c95347
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T15:59:41.107Z
-    recorded_by: frontend
-    story_id: 6-1-full-5-beat-iqme-reveal-stage-event-score-panel-computed-style-playwright-assertion
-    notes: "Story 6.1 AC-9.3 graduation: 2-event handoff assertions replaced with 6-stage ADR-3-1 sequence (matching reveal-stage.test.mjs cycle-2 graduation) — lesson-2026-05-19-001"
+    recorded_at: 2026-06-05T17:18:44.485Z
+    recorded_by: engineer
   - artefact_class: A
     file: tests/unit/lint-css-source-co-equal.test.mjs
     sha256: a628b2d44b17a31e8ba67b9087742512b5612d9402a4850cb34f4838a18b08a5
