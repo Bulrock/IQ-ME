@@ -119,3 +119,10 @@ The **agent-executable deliverables** are: authoring `docs/launch-readiness/v1.0
 - docs/launch-readiness/v1.0.0-rollback-runbook.md
 - docs/launch-readiness/v1.0.0-no-enshittification-baseline.md
 - tests/scaffold/10-1-pre-launch-checklist.test.mjs
+
+## Auditor Findings (round-1)
+
+### [info] Epic-10 deliverables (5 launch-readiness docs + 3 scaffold tests) were integrity-recorded during the dev phase but never git-committed — they sat untracked in the working tree until clean-context code-review caught them. Root cause: the "chore(tds): state sweep" commits only stage TDS-managed path globs (state-manifest, branch-registry, sprint-status, story specs); production deliverables under docs/ and tests/scaffold/ fall outside those globs and were never `git add`ed. Preflight `dirty-tds-state` and `tds integrity verify` both stayed green because the files exist on disk and are hash-recorded — neither guard checks git tracking state. Had this not been caught, `tds deliver` would have squash-merged an epic missing its own deliverables. Resolved in-review: committed as 3 per-story commits onto epic/10 before auditor delegation.
+
+- **Category:** workflow-gap
+- **Suggested bridge:** `execute-story / engineer should git-add + commit production deliverables in each story's File List (not only integrity-record them), OR the state-sweep glob should widen to include committed File List paths. Add a preflight check that flags File-List paths present on disk + integrity-recorded but untracked/uncommitted in git, so the gap surfaces at story close rather than at epic delivery.`

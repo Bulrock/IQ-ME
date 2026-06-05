@@ -1666,10 +1666,10 @@ entries:
     story_id: 9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/10-1-pre-launch-readiness-checklist-final-smoke-test.md
-    sha256: ffce1de1a52cda19435551cb0d51f1ef35b39bb22bf50c6c8ae75a4f3f27eae1
+    sha256: 13db82378a77066236af877403d6ef2525b46ca0aa41a7bbaac613ac2f7bc35b
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T14:26:38.984Z
-    recorded_by: engineer
+    recorded_at: 2026-06-05T14:43:45.230Z
+    recorded_by: story-add-finding-autorecord
     story_id: 10-1-pre-launch-readiness-checklist-final-smoke-test
   - artefact_class: A
     file: tests/scaffold/10-1-pre-launch-checklist.test.mjs
