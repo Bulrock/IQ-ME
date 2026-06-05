@@ -9,14 +9,14 @@
       "b": -2,
       "asset": "stub-001.svg",
       "options": [
-        "opt-1.svg",
-        "opt-2.svg",
-        "opt-3.svg",
-        "opt-4.svg",
-        "opt-5.svg",
-        "opt-6.svg"
+        "opt-001-1.svg",
+        "opt-001-2.svg",
+        "opt-001-3.svg",
+        "opt-001-4.svg",
+        "opt-001-5.svg",
+        "opt-001-6.svg"
       ],
-      "correct": "opt-1.svg"
+      "correct": "opt-001-2.svg"
     },
     {
       "id": "stub-002",
@@ -24,14 +24,14 @@
       "b": -1.75,
       "asset": "stub-002.svg",
       "options": [
-        "opt-1.svg",
-        "opt-2.svg",
-        "opt-3.svg",
-        "opt-4.svg",
-        "opt-5.svg",
-        "opt-6.svg"
+        "opt-002-1.svg",
+        "opt-002-2.svg",
+        "opt-002-3.svg",
+        "opt-002-4.svg",
+        "opt-002-5.svg",
+        "opt-002-6.svg"
       ],
-      "correct": "opt-2.svg"
+      "correct": "opt-002-3.svg"
     },
     {
       "id": "stub-003",
@@ -39,14 +39,14 @@
       "b": -1.5,
       "asset": "stub-003.svg",
       "options": [
-        "opt-1.svg",
-        "opt-2.svg",
-        "opt-3.svg",
-        "opt-4.svg",
-        "opt-5.svg",
-        "opt-6.svg"
+        "opt-003-1.svg",
+        "opt-003-2.svg",
+        "opt-003-3.svg",
+        "opt-003-4.svg",
+        "opt-003-5.svg",
+        "opt-003-6.svg"
       ],
-      "correct": "opt-3.svg"
+      "correct": "opt-003-4.svg"
     },
     {
       "id": "stub-004",
@@ -54,14 +54,14 @@
       "b": -1.25,
       "asset": "stub-004.svg",
       "options": [
-        "opt-1.svg",
-        "opt-2.svg",
-        "opt-3.svg",
-        "opt-4.svg",
-        "opt-5.svg",
-        "opt-6.svg"
+        "opt-004-1.svg",
+        "opt-004-2.svg",
+        "opt-004-3.svg",
+        "opt-004-4.svg",
+        "opt-004-5.svg",
+        "opt-004-6.svg"
       ],
-      "correct": "opt-4.svg"
+      "correct": "opt-004-5.svg"
     },
     {
       "id": "stub-005",
@@ -69,14 +69,14 @@
       "b": -1,
       "asset": "stub-005.svg",
       "options": [
-        "opt-1.svg",
-        "opt-2.svg",
-        "opt-3.svg",
-        "opt-4.svg",
-        "opt-5.svg",
-        "opt-6.svg"
+        "opt-005-1.svg",
+        "opt-005-2.svg",
+        "opt-005-3.svg",
+        "opt-005-4.svg",
+        "opt-005-5.svg",
+        "opt-005-6.svg"
       ],
-      "correct": "opt-5.svg"
+      "correct": "opt-005-6.svg"
     },
     {
       "id": "stub-006",
@@ -84,14 +84,14 @@
       "b": -0.75,
       "asset": "stub-006.svg",
       "options": [
-        "opt-1.svg",
-        "opt-2.svg",
-        "opt-3.svg",
-        "opt-4.svg",
-        "opt-5.svg",
-        "opt-6.svg"
+        "opt-006-1.svg",
+        "opt-006-2.svg",
+        "opt-006-3.svg",
+        "opt-006-4.svg",
+        "opt-006-5.svg",
+        "opt-006-6.svg"
       ],
-      "correct": "opt-6.svg"
+      "correct": "opt-006-1.svg"
     },
     {
       "id": "stub-007",
@@ -99,14 +99,14 @@
       "b": -0.5,
       "asset": "stub-007.svg",
       "options": [
-        "opt-1.svg",
-        "opt-2.svg",
-        "opt-3.svg",
-        "opt-4.svg",
-        "opt-5.svg",
-        "opt-6.svg"
+        "opt-007-1.svg",
+        "opt-007-2.svg",
+        "opt-007-3.svg",
+        "opt-007-4.svg",
+        "opt-007-5.svg",
+        "opt-007-6.svg"
       ],
-      "correct": "opt-1.svg"
+      "correct": "opt-007-2.svg"
     },
     {
       "id": "stub-008",
@@ -114,14 +114,14 @@
       "b": -0.25,
       "asset": "stub-008.svg",
       "options": [
-        "opt-1.svg",
-        "opt-2.svg",
-        "opt-3.svg",
-        "opt-4.svg",
-        "opt-5.svg",
-        "opt-6.svg"
+        "opt-008-1.svg",
+        "opt-008-2.svg",
+        "opt-008-3.svg",
+        "opt-008-4.svg",
+        "opt-008-5.svg",
+        "opt-008-6.svg"
       ],
-      "correct": "opt-2.svg"
+      "correct": "opt-008-3.svg"
     },
     {
       "id": "stub-009",
@@ -129,14 +129,14 @@
       "b": 0,
       "asset": "stub-009.svg",
       "options": [
-        "opt-1.svg",
-        "opt-2.svg",
-        "opt-3.svg",
-        "opt-4.svg",
-        "opt-5.svg",
-        "opt-6.svg"
+        "opt-009-1.svg",
+        "opt-009-2.svg",
+        "opt-009-3.svg",
+        "opt-009-4.svg",
+        "opt-009-5.svg",
+        "opt-009-6.svg"
       ],
-      "correct": "opt-3.svg"
+      "correct": "opt-009-4.svg"
     },
     {
       "id": "stub-010",
@@ -144,14 +144,14 @@
       "b": 0.25,
       "asset": "stub-010.svg",
       "options": [
-        "opt-1.svg",
-        "opt-2.svg",
-        "opt-3.svg",
-        "opt-4.svg",
-        "opt-5.svg",
-        "opt-6.svg"
+        "opt-010-1.svg",
+        "opt-010-2.svg",
+        "opt-010-3.svg",
+        "opt-010-4.svg",
+        "opt-010-5.svg",
+        "opt-010-6.svg"
       ],
-      "correct": "opt-4.svg"
+      "correct": "opt-010-5.svg"
     },
     {
       "id": "stub-011",
@@ -159,14 +159,14 @@
       "b": 0.5,
       "asset": "stub-011.svg",
       "options": [
-        "opt-1.svg",
-        "opt-2.svg",
-        "opt-3.svg",
-        "opt-4.svg",
-        "opt-5.svg",
-        "opt-6.svg"
+        "opt-011-1.svg",
+        "opt-011-2.svg",
+        "opt-011-3.svg",
+        "opt-011-4.svg",
+        "opt-011-5.svg",
+        "opt-011-6.svg"
       ],
-      "correct": "opt-5.svg"
+      "correct": "opt-011-6.svg"
     },
     {
       "id": "stub-012",
@@ -174,14 +174,14 @@
       "b": 0.75,
       "asset": "stub-012.svg",
       "options": [
-        "opt-1.svg",
-        "opt-2.svg",
-        "opt-3.svg",
-        "opt-4.svg",
-        "opt-5.svg",
-        "opt-6.svg"
+        "opt-012-1.svg",
+        "opt-012-2.svg",
+        "opt-012-3.svg",
+        "opt-012-4.svg",
+        "opt-012-5.svg",
+        "opt-012-6.svg"
       ],
-      "correct": "opt-6.svg"
+      "correct": "opt-012-1.svg"
     },
     {
       "id": "stub-013",
@@ -189,14 +189,14 @@
       "b": 1,
       "asset": "stub-013.svg",
       "options": [
-        "opt-1.svg",
-        "opt-2.svg",
-        "opt-3.svg",
-        "opt-4.svg",
-        "opt-5.svg",
-        "opt-6.svg"
+        "opt-013-1.svg",
+        "opt-013-2.svg",
+        "opt-013-3.svg",
+        "opt-013-4.svg",
+        "opt-013-5.svg",
+        "opt-013-6.svg"
       ],
-      "correct": "opt-1.svg"
+      "correct": "opt-013-2.svg"
     },
     {
       "id": "stub-014",
@@ -204,14 +204,14 @@
       "b": 1.25,
       "asset": "stub-014.svg",
       "options": [
-        "opt-1.svg",
-        "opt-2.svg",
-        "opt-3.svg",
-        "opt-4.svg",
-        "opt-5.svg",
-        "opt-6.svg"
+        "opt-014-1.svg",
+        "opt-014-2.svg",
+        "opt-014-3.svg",
+        "opt-014-4.svg",
+        "opt-014-5.svg",
+        "opt-014-6.svg"
       ],
-      "correct": "opt-2.svg"
+      "correct": "opt-014-3.svg"
     },
     {
       "id": "stub-015",
@@ -219,14 +219,14 @@
       "b": 1.5,
       "asset": "stub-015.svg",
       "options": [
-        "opt-1.svg",
-        "opt-2.svg",
-        "opt-3.svg",
-        "opt-4.svg",
-        "opt-5.svg",
-        "opt-6.svg"
+        "opt-015-1.svg",
+        "opt-015-2.svg",
+        "opt-015-3.svg",
+        "opt-015-4.svg",
+        "opt-015-5.svg",
+        "opt-015-6.svg"
       ],
-      "correct": "opt-3.svg"
+      "correct": "opt-015-4.svg"
     },
     {
       "id": "stub-016",
@@ -234,14 +234,14 @@
       "b": 1.75,
       "asset": "stub-016.svg",
       "options": [
-        "opt-1.svg",
-        "opt-2.svg",
-        "opt-3.svg",
-        "opt-4.svg",
-        "opt-5.svg",
-        "opt-6.svg"
+        "opt-016-1.svg",
+        "opt-016-2.svg",
+        "opt-016-3.svg",
+        "opt-016-4.svg",
+        "opt-016-5.svg",
+        "opt-016-6.svg"
       ],
-      "correct": "opt-4.svg"
+      "correct": "opt-016-5.svg"
     }
   ]
 }
