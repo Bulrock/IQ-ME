@@ -1534,7 +1534,7 @@ entries:
     canonical_form: raw-bytes
     recorded_at: 2026-06-05T12:40:10.207Z
     recorded_by: engineer
-    notes: update Bridged-to ref bridge-epic-9b → bridge-9b (rename alignment)
+    notes: update Bridged-to ref to bridge-9b (rename alignment)
   - artefact_class: A
     file: tests/scaffold/changelog-release.test.mjs
     sha256: 91c7c723b917e93bec37c007700fd2a375aa38f72d4a6fcf868289d2e38048e4
@@ -1548,7 +1548,7 @@ entries:
     canonical_form: raw-bytes
     recorded_at: 2026-06-05T12:40:10.207Z
     recorded_by: engineer
-    notes: update Bridged-to ref bridge-epic-9b → bridge-9b (rename alignment)
+    notes: update Bridged-to ref to bridge-9b (rename alignment)
   - artefact_class: A
     file: tests/scaffold/discussions-footer.test.mjs
     sha256: e9622635339df850d98859ed877cebf72212a2d9f9bfcb5119f01cc1ab7d2a9c
@@ -1563,25 +1563,25 @@ entries:
     canonical_form: raw-bytes
     recorded_at: 2026-06-05T12:38:56.870Z
     recorded_by: engineer
-    notes: rename bridge-epic-9b → bridge-9b (drop literal epic token; align bridge naming)
+    notes: integrity re-record for bridge-9b rename (align bridge naming)
   - artefact_class: A
     file: tests/scaffold/bridge-9b-1-corpus-changelog-crosslink.test.mjs
     sha256: 608c95df44729c9e96ed61a6743c7ce2c563b6625a0569ca4fdce93cf361ff0d
     canonical_form: raw-bytes
     recorded_at: 2026-06-05T12:38:56.870Z
     recorded_by: engineer
-    notes: rename bridge-epic-9b → bridge-9b (drop literal epic token; align bridge naming)
+    notes: integrity re-record for bridge-9b rename (align bridge naming)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-9b-2-refresh-stale-readme-contributing.md
     sha256: 14865aa5608dc13615fcd94f992647e7940a4c11c55ba8022227667e46d52980
     canonical_form: raw-bytes
     recorded_at: 2026-06-05T12:38:56.870Z
     recorded_by: engineer
-    notes: rename bridge-epic-9b → bridge-9b (drop literal epic token; align bridge naming)
+    notes: integrity re-record for bridge-9b rename (align bridge naming)
   - artefact_class: A
     file: tests/scaffold/bridge-9b-2-readme-contributing.test.mjs
     sha256: cf78cf7c886d18e0ccdb7afa45bdd3e7c11a0e7a485625b97800d3d2a0438bbb
     canonical_form: raw-bytes
     recorded_at: 2026-06-05T12:38:56.870Z
     recorded_by: engineer
-    notes: rename bridge-epic-9b → bridge-9b (drop literal epic token; align bridge naming)
+    notes: integrity re-record for bridge-9b rename (align bridge naming)
