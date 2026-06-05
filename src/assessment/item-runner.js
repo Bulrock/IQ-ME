@@ -45,8 +45,7 @@ async function ensureSession(rootEl, strings) {
 function buildMarkup(cache, currentItem, strings) {
   const selectedIds = cache.selection.items;
   const item = cache.pool.items.find((p) => p.id === selectedIds[currentItem]);
-  // Don't render augmentation on the stub pool (generic options can't match a
-  // rotated puzzle); still computed+tested. Auto-re-enables for the 9a-2 pool.
+  // Stub pool: don't render augmentation (still computed+tested); re-enables at 9a-2.
   const isStubPool = typeof cache.pool._note === "string";
   const aug = isStubPool ? "none" : cache.selection.augmentations[currentItem];
   const N = currentItem + 1;
@@ -63,8 +62,7 @@ function buildMarkup(cache, currentItem, strings) {
   const optionsHtml = item.options
     .map((opt, i) => {
       const checked = recorded === 1 && opt === item.correct ? ' checked=""' : "";
-      // Image-tile option when the value is an SVG asset (matrix candidate
-      // tile); plain-text option otherwise (forward/backward compatible).
+      // .svg value → image-tile option; plain string → text (back-compatible).
       const isAsset = /\.svg$/.test(opt);
       const visible = isAsset
         ? '<img class="item-runner__option-image" src="/src/items/' + esc(opt) + '" alt="" />'

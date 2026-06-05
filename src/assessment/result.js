@@ -1,5 +1,6 @@
 import { renderErrorFallback } from "./error-fallback.js";
 import * as state from "./state.js";
+import * as routing from "./routing.js";
 import { scoreSession } from "../scoring/irt/index.js";
 import * as rs from "./reveal-stage.js";
 import { selectSession } from "./item-selection.js";
@@ -12,7 +13,6 @@ import { crisisResourcesUrl } from "./crisis-resources-url.js";
 const CV = "v0.1.0";
 const SS = 16;
 let m = null;
-// number + aria-hidden under-label (span's aria-label already names it).
 const SP = (n, p, l, x, vis) => `<span class="score-panel__${n}" tabindex="0" data-methodology-target="scoring/${p}" aria-label="${E(l)}">${E(x)}<span class="score-panel__metric-label" aria-hidden="true">${E(vis)}</span></span>`;
 const go = (t) => window.location.assign(`/methodology/${CV}/${state.getState().locale || "en"}/${t}/`);
 const HB = (h) => { const o = new Uint8Array(h.length / 2); for (let i = 0; i < o.length; i++) o[i] = parseInt(h.substr(i * 2, 2), 16); return o; };
@@ -129,6 +129,11 @@ const Z = { totals: { easy: 0, medium: 0, hard: 0 }, correct: { easy: 0, medium:
 export async function render(rootEl, strings) {
   if (m) { detach(); m = null; }
   rs.resetRevealStage();
+  // No completed session (direct nav / reload) → nothing to score; go home.
+  if (state.getState().responses.length !== SS) {
+    routing.navigate("");
+    return;
+  }
   let pool, bands = null, tailScenes = null;
   const locale = state.getState().locale || "en";
   try {
