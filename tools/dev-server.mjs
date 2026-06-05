@@ -55,7 +55,9 @@ async function serveFile(res, filePath) {
       return serveFile(res, idx);
     }
     const body = await readFile(filePath);
-    res.writeHead(200, { "content-type": contentTypeFor(filePath) });
+    // Dev-server: never let the browser cache modules/assets, so source edits
+    // always show on a normal reload (no stale cached ES modules).
+    res.writeHead(200, { "content-type": contentTypeFor(filePath), "cache-control": "no-store" });
     res.end(body);
     return true;
   } catch (e) {
