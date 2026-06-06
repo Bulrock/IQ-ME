@@ -106,12 +106,11 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: bce24153d34372020d28901a27bc0fec6a4312201d000802bdcaffd0a78d8d52
+    sha256: dfbc289b32f0adf932bf7e8951b9b98620a1126597c4232f29c45d2d94ef1ce2
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:34:07.383Z
-    recorded_by: test-author
-    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
-    notes: "story-8-5 red-phase: graduate ci-matrix (activate trust-verification-full/csp/viewport/axe) + new trust-verification-suite.test.mjs"
+    recorded_at: 2026-06-06T08:02:36.205Z
+    recorded_by: engineer
+    notes: activate co-equal-triplet-css-source + lint-css-link-order (move to EPIC_1_ACTIVE)
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: 2c67dbd842aaf6c1d1fa235e982c057c934cb3d52c80afdcfae9dc360229a6e1
