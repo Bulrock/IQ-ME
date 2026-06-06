@@ -6,7 +6,7 @@ reviewer: "TBD"
 reviewerHandle: "@TBD-pl-reviewer"
 asserts: []
 glossaryRefs: []
-sourceHashEN: "43d055dab2efc96ddb2f219a9c133221d4ce866d7f4b7db0845cfcf915d6f169"
+sourceHashEN: "a2405580b789550e14bbf8162a920118bc40a958b3af5f16cda7e2ea5d9f2bab"
 translationStatus: "in-progress"
 ---
 
@@ -18,7 +18,7 @@ IQ-ME udostępnia dwa szablony cytowania na każdej stronie metodologicznej: wpi
 
 Wpis w stylu APA ma postać: `IQ-ME Project. (YYYY-MM-DD). Title of page. IQ-ME methodology v<version>. <permalink>`. Trwały link (permalink) odpowiada wzorcowi URL z numerem wersji `/methodology/v<X>.<Y>.<Z>/<lang>/<path>/`.
 
-Wpis w formacie szablonu Wikipedii ma postać: `{{cite web | title= | url= | website=IQ-ME | date= | access-date= | version= }}`. Autor korzystający z MediaWiki może wkleić blok bezpośrednio do listy przypisów.
+Wpis w formacie szablonu Wikipedii korzysta z szablonu MediaWiki `cite web` z polami title, url, website (IQ-ME), date, access-date i version. Autor korzystający z MediaWiki może wkleić gotowy blok bezpośrednio do listy przypisów.
 
 Format BibTeX jest opcjonalnym udogodnieniem dla prac naukowych. Nie jest uwzględniony w wersji v1; trafi do następczej aktualizacji v1.0.1. Plik CITATION.cff w katalogu głównym repozytorium zawiera podstawowe metadane cytowania w formie czytelnej maszynowo. Menedżer cytowań obsługujący format CFF może na jego podstawie wygenerować BibTeX.
 

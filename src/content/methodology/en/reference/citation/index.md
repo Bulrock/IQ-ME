@@ -6,7 +6,7 @@ reviewer: "TBD"
 reviewerHandle: "@TBD-en-reviewer"
 asserts: []
 glossaryRefs: []
-sourceHashEN: "43d055dab2efc96ddb2f219a9c133221d4ce866d7f4b7db0845cfcf915d6f169"
+sourceHashEN: "a2405580b789550e14bbf8162a920118bc40a958b3af5f16cda7e2ea5d9f2bab"
 ---
 
 # How to cite IQ-ME
@@ -17,7 +17,7 @@ IQ-ME ships two citation templates on every methodology page: an APA-style entry
 
 The APA-style entry uses the form: `IQ-ME Project. (YYYY-MM-DD). Title of page. IQ-ME methodology v<version>. <permalink>`. The permalink is the versioned URL pattern `/methodology/v<X>.<Y>.<Z>/<lang>/<path>/`.
 
-The Wikipedia-template entry uses the form: `{{cite web | title= | url= | website=IQ-ME | date= | access-date= | version= }}`. A citer in MediaWiki can paste the block directly into a reference list.
+The Wikipedia-template entry uses the MediaWiki `cite web` template, populated with the title, url, website (IQ-ME), date, access-date, and version fields. A citer in MediaWiki can paste the generated block directly into a reference list.
 
 The BibTeX format is a nice-to-have for academic work. It is not in the v1 launch; it will land in a v1.0.1 follow-up. The CITATION.cff file at the repository root provides the underlying citation metadata in a machine-readable form. A citation-manager that reads CFF can produce BibTeX from it.
 

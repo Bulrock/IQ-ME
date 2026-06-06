@@ -6,7 +6,7 @@ reviewer: "TBD"
 reviewerHandle: "@TBD-ru-reviewer"
 asserts: []
 glossaryRefs: []
-sourceHashEN: "43d055dab2efc96ddb2f219a9c133221d4ce866d7f4b7db0845cfcf915d6f169"
+sourceHashEN: "a2405580b789550e14bbf8162a920118bc40a958b3af5f16cda7e2ea5d9f2bab"
 translationStatus: "in-progress"
 ---
 
@@ -18,7 +18,7 @@ IQ-ME предоставляет два шаблона цитирования н
 
 Запись в стиле APA имеет вид: `IQ-ME Project. (YYYY-MM-DD). Title of page. IQ-ME methodology v<version>. <permalink>`. Постоянная ссылка использует версионированный шаблон URL `/methodology/v<X>.<Y>.<Z>/<lang>/<path>/`.
 
-Запись в формате шаблона Wikipedia имеет вид: `{{cite web | title= | url= | website=IQ-ME | date= | access-date= | version= }}`. Автор в MediaWiki может вставить блок непосредственно в список ссылок.
+Запись в формате шаблона Wikipedia использует шаблон MediaWiki `cite web` с полями title, url, website (IQ-ME), date, access-date и version. Автор в MediaWiki может вставить готовый блок непосредственно в список ссылок.
 
 Формат BibTeX является желательным дополнением для академических работ. В выпуске v1 он отсутствует; его планируется добавить в релизе v1.0.1. Файл CITATION.cff в корне репозитория содержит базовые метаданные цитирования в машиночитаемой форме. Менеджер цитирования, поддерживающий CFF, может сформировать BibTeX на его основе.
 
