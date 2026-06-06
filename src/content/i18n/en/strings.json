@@ -5,6 +5,7 @@
     "errorFallbackMessage": "Something went wrong loading the page. Try reloading.",
     "languageSwitcherPlaceholderEn": "EN",
     "languageSwitcherLegend": "Language",
+    "translationInProgress": "Draft translation — not yet reviewed by a native-speaker translator.",
     "footerMethodologyLink": "Read the methodology",
     "footerDiscussionsLink": "Discussions",
     "footerCitationLink": "Cite",
@@ -25,12 +26,14 @@
     "validityEnvelope": "IQ-ME is valid as a screener for fluid reasoning in adults who can complete a 16-item visual session unimpaired by acute distress, sleep deprivation, or substances. It is not valid as a diagnostic, as a measure under time pressure, or as a stand-in for a multi-domain IQ battery.",
     "visuospatialDisclosure": "The matrix items are visual by construction. Screen-reader users cannot take this test equivalently — there is no synthetic alt-text that captures the patterns honestly. We disclose this rather than pretend otherwise.",
     "continueButton": "Continue",
-    "notToday": "Not today"
+    "notToday": "Not today",
+    "dwellHint": "Take a moment to read the above — Continue unlocks in a few seconds."
   },
   "itemRunner": {
     "headingTemplate": "Item {N} of {total}",
     "progressTemplate": "Item {N} of {total}",
     "optionsLegend": "Select the option that best completes the pattern",
+    "optionLabelTemplate": "Option {N}",
     "previousButton": "Previous",
     "nextButton": "Next",
     "submitButton": "Submit",
@@ -58,7 +61,13 @@
     "saveButton": "Save my result",
     "saveButtonSaved": "Result saved",
     "retestNote": "This screener draws from a small pool of matrix items. If you take it again soon, your second score will be correlated with this one rather than an independent estimate — you will partly be remembering these patterns, not re-measuring your reasoning from scratch. We enforce no technical cooldown: that would be a false guarantee in a browser-only app. We simply ask you to read this and decide honestly whether a quick retest tells you anything new.",
-    "retestNoteLinkLabel": "Read about retest effects"
+    "retestNoteLinkLabel": "Read about retest effects",
+    "percentileLabel": "Percentile",
+    "anchorLabel": "IQ-scale equivalent",
+    "bandLabel": "Range",
+    "resultExplainer": "This is one estimate from a short 16-item screener, shown three ways: your percentile, the same result on the IQ scale, and the range it could vary by. A brief test cannot pin one exact number — read the result as the range, not the single figure.",
+    "printButton": "Download / Print result",
+    "printTitle": "IQ-ME — fluid-reasoning result summary (not a certificate)"
   },
   "localeSwitchBlockerHint": {
     "message": "Switching language during a test changes what the test measures. Finish this session in your current language, or end early and restart in a different language.",

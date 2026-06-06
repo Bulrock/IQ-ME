@@ -9,44 +9,88 @@
 
 .item-runner {
   max-width: 38rem;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
   margin-inline: auto;
-  padding-block: var(--space-page-padding-y);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* Tighten vertical rhythm on short viewports so the whole item fits without
+     scrolling; relax toward the design spacing on tall screens. */
+  padding-block: clamp(var(--space-4), 4vh, var(--space-page-padding-y));
   padding-inline: var(--space-5);
+  gap: clamp(var(--space-4), 3vh, var(--space-section-gap));
   color: var(--color-text-body);
   background-color: var(--color-surface-base);
 }
 
 .item-runner__image {
   display: block;
-  width: 100%;
-  max-width: 24rem;
+  width: auto;
+  max-width: min(24rem, 100%);
+  /* Bind the puzzle to viewport height so it never pushes the options
+     off-screen; aspect-ratio keeps it square as it shrinks. */
+  max-height: 42vh;
+  aspect-ratio: 1 / 1;
   margin-inline: auto;
-  margin-block-end: var(--space-section-gap);
+  margin-block-end: 0;
+  padding: var(--space-5);
   background-color: var(--color-surface-elevated);
+  border: var(--border-width-hairline) solid var(--color-rule-divider);
+  border-radius: var(--radius-surface);
+  box-shadow: var(--shadow-elevated);
 }
 
 .item-runner__options {
   border: none;
   padding: 0;
-  margin-block-end: var(--space-section-gap);
+  margin-block-end: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
-  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: var(--space-3);
 }
 
 .item-runner__option {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding-block: var(--space-2);
-  padding-inline: var(--space-3);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
   background-color: var(--color-surface-elevated);
+  border: var(--border-width-hairline) solid var(--color-rule-divider);
   border-inline-start: var(--space-1) solid var(--color-rule-divider);
+  border-radius: var(--radius-control);
   cursor: pointer;
+  transition: border-color 120ms ease, background-color 120ms ease, box-shadow 120ms ease;
+}
+
+.item-runner__option:hover {
+  border-inline-start-color: var(--color-option-hover-accent);
+  box-shadow: var(--shadow-elevated);
 }
 
 .item-runner__option:focus-within {
   border-inline-start-color: var(--color-focus-ring);
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Selected state — the checked radio's tile reads as chosen. */
+.item-runner__option:has(input:checked) {
+  border-color: var(--color-focus-ring);
+  border-inline-start-color: var(--color-focus-ring);
+}
+
+/* Image-tile option (matrix candidate). The radio stays at the inline-start;
+   the tile fills the remaining width and centers, sized to read at roughly
+   the same visual weight as a single cell of the puzzle grid above. */
+.item-runner__option-image {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: clamp(4rem, 9vh, 7rem);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin-inline: auto;
 }
 
 .item-runner__nav {
@@ -59,29 +103,55 @@
 .item-runner__next {
   font-size: var(--font-size-200);
   line-height: var(--line-height-base);
-  padding-block: var(--space-2);
-  padding-inline: var(--space-5);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-6);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease, color 120ms ease;
+}
+
+/* Previous — secondary (neutral, outlined). */
+.item-runner__prev {
   background-color: var(--color-surface-elevated);
   color: var(--color-text-body);
-  border: var(--space-1) solid var(--color-rule-strong);
-  cursor: pointer;
+  border: var(--border-width-hairline) solid var(--color-rule-strong);
+}
+
+.item-runner__prev:hover {
+  border-color: var(--color-focus-ring);
+  box-shadow: var(--shadow-elevated);
 }
 
 .item-runner__prev[aria-disabled="true"] {
   color: var(--color-text-link-disabled);
   border-color: var(--color-rule-divider);
+  box-shadow: none;
   cursor: not-allowed;
+}
+
+/* Next — primary forward affordance (accent fill). */
+.item-runner__next {
+  background-color: var(--color-action-bg);
+  color: var(--color-action-text);
+  border: var(--border-width-hairline) solid var(--color-action-border);
+  box-shadow: var(--shadow-elevated);
+}
+
+.item-runner__next:hover {
+  background-color: var(--color-action-bg-hover);
+  border-color: var(--color-action-bg-hover);
+  box-shadow: var(--shadow-overlay);
 }
 
 /* AC-9 — augmentation rules via attribute selectors. CSS transform is
    browser-native + zero-runtime-cost; preserves NFR2 per-item ≤50 KB
    budget (no 6× server-side variants required). */
-[data-augmentation="none"]    { transform: none; }
-[data-augmentation="rot90"]   { transform: rotate(90deg);  transform-origin: center; }
-[data-augmentation="rot180"]  { transform: rotate(180deg); transform-origin: center; }
-[data-augmentation="rot270"]  { transform: rotate(270deg); transform-origin: center; }
-[data-augmentation="flip-h"]  { transform: scaleX(-1);     transform-origin: center; }
-[data-augmentation="flip-v"]  { transform: scaleY(-1);     transform-origin: center; }
+.item-runner__image[data-augmentation="none"]    { transform: none; }
+.item-runner__image[data-augmentation="rot90"]   { transform: rotate(90deg);  transform-origin: center; }
+.item-runner__image[data-augmentation="rot180"]  { transform: rotate(180deg); transform-origin: center; }
+.item-runner__image[data-augmentation="rot270"]  { transform: rotate(270deg); transform-origin: center; }
+.item-runner__image[data-augmentation="flip-h"]  { transform: scaleX(-1);     transform-origin: center; }
+.item-runner__image[data-augmentation="flip-v"]  { transform: scaleY(-1);     transform-origin: center; }
 
 /* Story 6.3 — mid-session bail-out affordance + in-place explanation panel.
    Restraint-first per UX-DR3: the affordance reads as small + neutral
@@ -114,13 +184,24 @@
   outline-offset: var(--space-1);
 }
 
+.item-runner__bail-affordance {
+  border-radius: var(--radius-input);
+}
+
+.item-runner__bail-affordance:hover {
+  color: var(--color-text-body);
+  background-color: var(--color-surface-elevated);
+}
+
 .item-runner__bail-panel {
   display: none;
   margin-block-start: var(--space-section-gap);
   padding-block: var(--space-section-gap);
   padding-inline: var(--space-5);
   background-color: var(--color-surface-elevated);
-  border: var(--space-1) solid var(--color-rule-divider);
+  border: var(--border-width-hairline) solid var(--color-rule-divider);
+  border-radius: var(--radius-surface);
+  box-shadow: var(--shadow-overlay);
 }
 
 .item-runner[data-bail-state="open"] .item-runner__bail-panel {
@@ -144,12 +225,20 @@
 .item-runner__bail-continue {
   font-size: var(--font-size-200);
   line-height: var(--line-height-base);
-  padding-block: var(--space-2);
+  padding-block: var(--space-3);
   padding-inline: var(--space-5);
   background-color: var(--color-surface-base);
   color: var(--color-text-body);
-  border: var(--space-1) solid var(--color-rule-strong);
+  border: var(--border-width-hairline) solid var(--color-rule-strong);
+  border-radius: var(--radius-control);
   cursor: pointer;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.item-runner__bail-discard:hover,
+.item-runner__bail-continue:hover {
+  border-color: var(--color-focus-ring);
+  box-shadow: var(--shadow-elevated);
 }
 
 .item-runner__bail-discard:focus-visible,

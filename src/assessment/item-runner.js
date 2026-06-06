@@ -1,3 +1,5 @@
+// fallow-ignore-file circular-dependencies
+// routing<->scene cycle is by design (runtime navigate via `import * as`)
 // src/assessment/item-runner.js
 //
 // Story 3.4 AC-3 — item-runner scene (FR2/FR3/FR5/FR7; UX-DR20, UX-DR32).
@@ -45,7 +47,9 @@ async function ensureSession(rootEl, strings) {
 function buildMarkup(cache, currentItem, strings) {
   const selectedIds = cache.selection.items;
   const item = cache.pool.items.find((p) => p.id === selectedIds[currentItem]);
-  const aug = cache.selection.augmentations[currentItem];
+  // Stub pool: don't render augmentation (still computed+tested); re-enables at 9a-2.
+  const isStubPool = typeof cache.pool._note === "string";
+  const aug = isStubPool ? "none" : cache.selection.augmentations[currentItem];
   const N = currentItem + 1;
   const heading = fmt(strings.itemRunner.headingTemplate, { N, total: SESSION_SIZE });
   const progress = fmt(strings.itemRunner.progressTemplate, { N, total: SESSION_SIZE });
@@ -56,11 +60,18 @@ function buildMarkup(cache, currentItem, strings) {
   const isLast = currentItem === SESSION_SIZE - 1;
   const nextLabel = isLast ? strings.itemRunner.submitButton : strings.itemRunner.nextButton;
 
+  const optionLabel = strings.itemRunner.optionLabelTemplate || "Option {N}";
   const optionsHtml = item.options
-    .map((opt) => {
+    .map((opt, i) => {
       const checked = recorded === 1 && opt === item.correct ? ' checked=""' : "";
+      // .svg value → image-tile option; plain string → text (back-compatible).
+      const isAsset = /\.svg$/.test(opt);
+      const visible = isAsset
+        ? '<img class="item-runner__option-image" src="/src/items/' + esc(opt) + '" alt="" />'
+          + '<span class="visually-hidden">' + esc(fmt(optionLabel, { N: i + 1 })) + '</span>'
+        : '<span>' + esc(opt) + '</span>';
       return '<label class="item-runner__option"><input type="radio" name="item-' + N
-        + '" value="' + esc(opt) + '"' + checked + ' /><span>' + esc(opt) + '</span></label>';
+        + '" value="' + esc(opt) + '"' + checked + ' />' + visible + '</label>';
     })
     .join("");
 

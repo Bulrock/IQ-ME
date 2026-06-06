@@ -16,4 +16,4 @@ export function dispatchStage(stage) {
 }
 
 export const resetRevealStage = () => fired.clear();
-export const revealStageTimings = timings;
+const revealStageTimings = timings;

@@ -7,6 +7,12 @@ dist/
 __pycache__/
 *.pyc
 
+# Local-dev convenience: symlink so VS Code Live Server (workspace-rooted)
+# resolves /methodology/ → dist/methodology/. The project dev-server
+# (`make dev`) maps this path itself and needs no symlink.
+/methodology
+
 # Story 6.2: regenerable difficulty-band assignments — produced by
 # `make build-difficulty-bands` from src/items/item-parameters.json.
 src/items/item-difficulty-bands.json
+.fallow/

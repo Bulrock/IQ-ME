@@ -336,7 +336,9 @@ test("AC-9.5: percentile ∈ [0,100], anchor ∈ [40,200], band matches /^±\\d+
   const a = parseInt(anchor.textContent, 10);
   assert.ok(Number.isInteger(p) && p >= 0 && p <= 100, `percentile must be integer in [0,100]; got '${percentile.textContent}' → ${p}`);
   assert.ok(Number.isInteger(a) && a >= 40 && a <= 200, `anchor must be integer in [40,200]; got '${anchor.textContent}' → ${a}`);
-  assert.ok(/^±\d+$/.test(band.textContent), `band must match /^±\\d+$/; got '${band.textContent}'`);
+  // The metric value leads the span; a visible (aria-hidden) under-label may
+  // follow it, so the format is anchored at the start, not the end.
+  assert.ok(/^±\d+/.test(band.textContent), `band must start with ±\\d+; got '${band.textContent}'`);
 });
 
 // ─── AC-9.6: data-methodology-target on each triplet span ────────────────

@@ -102,7 +102,7 @@ export function init(slot, opts = {}) {
   attach(slot, { isSessionActive, onBlockedAttempt, reload });
 }
 
-export function detach() {
+function detach() {
   for (const { el, type, fn } of listeners) {
     if (el && typeof el.removeEventListener === "function") el.removeEventListener(type, fn);
   }

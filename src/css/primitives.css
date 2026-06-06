@@ -65,6 +65,8 @@
 
   /* ─── UX-DR3 — Font weights (Story 3.5 introducer) ──────────────── */
   --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
 
   /* ─── UX-DR3 — Line heights ──────────────────────────────────────── */
   --line-height-tight: 1.15;   /* score triplet, large headings */
@@ -81,6 +83,23 @@
   --space-7: 3rem;     /* 48px — between-section major */
   --space-8: 4rem;     /* 64px — page padding top/bottom mobile */
   --space-9: 6rem;     /* 96px — page padding desktop, hero margins */
+
+  /* ─── Border-width primitives ────────────────────────────────────── */
+  --border-width-1: 1px;  /* hairline — control + surface outlines */
+
+  /* ─── Radius primitives (soften the flat-box register) ───────────── */
+  --radius-1: 0.25rem;  /* 4px — inputs, small controls */
+  --radius-2: 0.5rem;   /* 8px — buttons, option tiles */
+  --radius-3: 0.75rem;  /* 12px — cards, panels, item image */
+  --radius-pill: 9999px;
+
+  /* ─── Elevation primitives (subtle neutral shadows; honest depth) ── */
+  --shadow-1:
+    0 1px 2px rgba(10, 13, 18, 0.06),
+    0 1px 3px rgba(10, 13, 18, 0.08);
+  --shadow-2:
+    0 2px 4px rgba(10, 13, 18, 0.06),
+    0 6px 16px rgba(10, 13, 18, 0.10);
 }
 
 /* ─── UX-DR5 — Responsive breakpoints (@custom-media) ──────────────── */

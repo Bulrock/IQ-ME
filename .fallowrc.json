@@ -1,0 +1,59 @@
+{
+  "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
+  "entry": [
+    "src/index.html",
+    "src/assessment/cite-this-page.js",
+    "src/css/components/masthead.css",
+    "src/css/components/cite-this-page-widget.css",
+    "src/css/components/stale-translation-hatnote.css",
+    "tools/build-determinism-marker.mjs",
+    "tools/build-methodology.mjs",
+    "tools/compute-difficulty-bands.mjs",
+    "tools/cropping-fuzzer.mjs",
+    "tools/lint-css-source-co-equal.mjs",
+    "tools/lint-spec-carry-forward.mjs",
+    "tools/snapshot-update.mjs",
+    "tools/generate-full-vectors.mjs",
+    "tools/generate-icar-stub-pdf.mjs",
+    "tools/scaffold-translation-mirror.mjs",
+    "tests/**/*.test.mjs",
+    "tests/**/*.spec.mjs"
+  ],
+  "ignorePatterns": [
+    "_bmad/**",
+    "tests/fixtures/**",
+    "tests/snapshots/**",
+    "tests/golden/**"
+  ],
+  "duplicates": {
+    "minOccurrences": 3,
+    "ignore": [
+      "**/_*/**",
+      "**/.*/**",
+      "**/tests/**",
+      "**/tools/**"
+    ]
+  },
+  "rules": {
+    "duplicate-exports": "off"
+  },
+  "ignoreExportsUsedInFile": true,
+  "ignoreExports": [
+    {
+      "file": "src/assessment/i18n/locale-loader.js",
+      "exports": ["getCurrentLocale", "t"]
+    },
+    {
+      "file": "src/assessment/locale-switch-blocker-hint.js",
+      "exports": ["clear"]
+    },
+    {
+      "file": "src/assessment/theme.js",
+      "exports": ["detach"]
+    },
+    {
+      "file": "src/scoring/irt/index.js",
+      "exports": ["*"]
+    }
+  ]
+}

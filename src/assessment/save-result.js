@@ -11,6 +11,7 @@ const KEY_PREFIX = "iqme:saved-result:";
 
 // FNV-1a 32-bit — deterministic, dependency-free, key-safe hex suffix from the
 // in-memory session seed. Not a security primitive.
+// Exported for the save-result unit test (auto-suppressed via ignoreExportsUsedInFile).
 export function hashSeed(seed) {
   const s = String(seed);
   let h = 0x811c9dc5;

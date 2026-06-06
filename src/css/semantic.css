@@ -31,6 +31,17 @@
   /* Focus ring */
   --color-focus-ring:          var(--color-accent-500);
 
+  /* Primary action (the single forward affordance per scene) */
+  --color-action-bg:           var(--color-accent-500);
+  --color-action-bg-hover:     var(--color-accent-700);
+  --color-action-text:         var(--color-neutral-0);
+  --color-action-border:       var(--color-action-bg);
+
+  /* Interaction accents (option-tile hover + text selection) */
+  --color-option-hover-accent: var(--color-accent-300);
+  --color-selection-bg:        var(--color-accent-300);
+  --color-selection-text:      var(--color-neutral-0);
+
   /* Semantic spacing tokens */
   --space-prose-paragraph-gap: var(--space-4);
   --space-section-gap:         var(--space-7);
@@ -39,6 +50,18 @@
   --space-score-triplet-gap:   var(--space-5);
   --space-tail-scene-top:      var(--space-6);
   --space-trail-step-gap:      var(--space-3);
+
+  /* Semantic radius tokens */
+  --radius-control:            var(--radius-2);
+  --radius-surface:            var(--radius-3);
+  --radius-input:              var(--radius-1);
+
+  /* Semantic elevation tokens */
+  --shadow-elevated:           var(--shadow-1);
+  --shadow-overlay:            var(--shadow-2);
+
+  /* Semantic border-width token */
+  --border-width-hairline:     var(--border-width-1);
 }
 
 /* ─── UX-DR6 — Dark mode (explicit opt-in) ───────────────────────────── */
@@ -49,6 +72,10 @@
   --color-surface-elevated: var(--color-neutral-800);
   --color-rule-divider:     var(--color-neutral-700);
   --color-text-link:        var(--color-accent-300);
+  /* Lighter focus ring + action edge so they clear WCAG 1.4.11 (≥3:1)
+     against the dark surfaces (accent-500 is only ~2:1 here). */
+  --color-focus-ring:       var(--color-accent-300);
+  --color-action-border:    var(--color-accent-300);
 }
 
 /* ─── UX-DR6 — Dark mode (system pref, when no explicit light opt-out) ─── */
@@ -60,5 +87,7 @@
     --color-surface-elevated: var(--color-neutral-800);
     --color-rule-divider:     var(--color-neutral-700);
     --color-text-link:        var(--color-accent-300);
+    --color-focus-ring:       var(--color-accent-300);
+    --color-action-border:    var(--color-accent-300);
   }
 }

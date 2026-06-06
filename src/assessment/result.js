@@ -1,5 +1,8 @@
+// fallow-ignore-file circular-dependencies
+// routing<->scene cycle is by design (runtime navigate via `import * as`)
 import { renderErrorFallback } from "./error-fallback.js";
 import * as state from "./state.js";
+import * as routing from "./routing.js";
 import { scoreSession } from "../scoring/irt/index.js";
 import * as rs from "./reveal-stage.js";
 import { selectSession } from "./item-selection.js";
@@ -12,7 +15,7 @@ import { crisisResourcesUrl } from "./crisis-resources-url.js";
 const CV = "v0.1.0";
 const SS = 16;
 let m = null;
-const SP = (n, p, l, x) => `<span class="score-panel__${n}" tabindex="0" data-methodology-target="scoring/${p}" aria-label="${E(l)}">${E(x)}</span>`;
+const SP = (n, p, l, x, vis) => `<span class="score-panel__${n}" tabindex="0" data-methodology-target="scoring/${p}" aria-label="${E(l)}">${E(x)}<span class="score-panel__metric-label" aria-hidden="true">${E(vis)}</span></span>`;
 const go = (t) => window.location.assign(`/methodology/${CV}/${state.getState().locale || "en"}/${t}/`);
 const HB = (h) => { const o = new Uint8Array(h.length / 2); for (let i = 0; i < o.length; i++) o[i] = parseInt(h.substr(i * 2, 2), 16); return o; };
 
@@ -67,13 +70,17 @@ function tailScene(variant, tailScenes, crisis) {
 // to the retest-effects methodology page via the same versioned+localed URL
 // convention as go() (NOT a bare /methodology/limitations/... path).
 const SAVE = (s) => `<button type="button" class="score-panel__save-button" aria-pressed="false">${E(s.saveButton)}</button>`;
+// Honest print-to-PDF summary (NOT a certificate — the panel's caveat prints
+// with it). Zero-dep: opens the browser print dialog over a print-styled view.
+const PRINT = (s) => `<button type="button" class="result-print-btn">${E(s.printButton)}</button>`;
+const PRINT_HEAD = (s) => `<div class="result-print-only"><p class="result-print-only__title">${E(s.printTitle)}</p><p class="result-print-only__date">${E(new Date().toISOString().slice(0, 10))}</p></div>`;
 const RETEST = (s, locale) => `<div class="score-panel__retest-note"><p class="score-panel__retest-copy">${E(s.retestNote)}</p><a class="score-panel__retest-link" href="/methodology/${CV}/${locale}/limitations/retest-effects/">${E(s.retestNoteLinkLabel)}</a></div>`;
 
 function panel(s, sc, c, variant, tailScenes, crisis) {
   const p = Math.round(sc.percentile), a = sc.iqScale;
   const h = Math.round((sc.displayedBand.upper - sc.displayedBand.lower) / 2 * 15);
   const locale = state.getState().locale || "en";
-  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h2 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h2><section class="score-panel score-panel--${variant}" aria-labelledby="score-panel-heading"><p class="score-panel__caveat" role="note">${E(s.caveat)}${variant === "top-decile" ? TEAR : ""}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }))}</div>${DS(s, c)}${SAVE(s)}${RETEST(s, locale)}</section>${tailScene(variant, tailScenes, crisis)}</section>`;
+  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h2 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h2><section class="score-panel score-panel--${variant}" aria-labelledby="score-panel-heading">${PRINT_HEAD(s)}<p class="score-panel__caveat" role="note">${E(s.caveat)}${variant === "top-decile" ? TEAR : ""}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p, s.percentileLabel)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a, s.anchorLabel)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }), s.bandLabel)}</div><p class="score-panel__explainer">${E(s.resultExplainer)}</p>${DS(s, c)}${SAVE(s)}${PRINT(s)}${RETEST(s, locale)}</section>${tailScene(variant, tailScenes, crisis)}</section>`;
 }
 
 // Wire the opt-in Save button. The browser-storage write lives entirely in
@@ -98,6 +105,12 @@ function bindSave(root, sc, s) {
     saved = true;
     reflect();
   });
+}
+
+function bindPrint(root) {
+  const btn = root.querySelector(".result-print-btn");
+  if (!btn) return;
+  on(btn, "click", () => { if (typeof window !== "undefined" && window.print) window.print(); });
 }
 
 function on(el, type, fn) {
@@ -128,6 +141,11 @@ const Z = { totals: { easy: 0, medium: 0, hard: 0 }, correct: { easy: 0, medium:
 export async function render(rootEl, strings) {
   if (m) { detach(); m = null; }
   rs.resetRevealStage();
+  // No completed session (direct nav / reload) → nothing to score; go home.
+  if (state.getState().responses.length !== SS) {
+    routing.navigate("");
+    return;
+  }
   let pool, bands = null, tailScenes = null;
   const locale = state.getState().locale || "en";
   try {
@@ -170,6 +188,7 @@ export async function render(rootEl, strings) {
     rootEl.innerHTML = panel(strings.result, score, counts, variant, tailScenes, crisis);
     bindTriplet(rootEl);
     bindSave(rootEl, score, strings.result);
+    bindPrint(rootEl);
     rs.dispatchStage("band");
     rs.dispatchStage("interval");
     rs.dispatchStage("context");

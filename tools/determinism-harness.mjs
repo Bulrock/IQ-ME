@@ -27,6 +27,8 @@ export function sortedReaddir(dir) {
   return readdirSync(dir).sort();
 }
 
+// Exported for the AC-5 harness contract (test asserts mod.frozenStat is a function).
+// fallow-ignore-next-line unused-export
 export function frozenStat(path) {
   const st = statSync(path);
   return {
@@ -57,4 +59,6 @@ export function hashTree(rootDir) {
   return hash.digest("hex");
 }
 
+// Default export is the AC-5 harness contract (test asserts default === DETERMINISM).
+// fallow-ignore-next-line unused-export
 export default DETERMINISM;
