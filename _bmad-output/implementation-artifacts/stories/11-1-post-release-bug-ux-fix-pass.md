@@ -25,7 +25,7 @@ so that **the screener feels finished and trustworthy rather than rough around t
 
 ## Acceptance Criteria
 
-1. **(PR-1) Favicon.** `src/index.html` `<head>` references `favicon.ico`, `favicon-16x16.png`, `favicon-32x32.png`, `apple-touch-icon.png`, and `site.webmanifest` from the deployed asset path (no 404 in the network trace); `src/assets/favicon_io/site.webmanifest` has `name` and `short_name` set to "IQ-ME". The tab shows the IQ-ME mark on every route.
+1. **(PR-1) Favicon.** `src/index.html` `<head>` references `favicon.ico`, `favicon-16x16.png`, `favicon-32x32.png`, `apple-touch-icon.png`, and `site.webmanifest` from the deployed asset path (no 404 in the network trace). `src/assets/favicon_io/site.webmanifest` already has `name`/`short_name` = "IQ-ME" and root-absolute icon paths (`/src/assets/favicon_io/…`); the dev must confirm those paths resolve 404-free in the deployed build. The tab shows the IQ-ME mark on every route.
 2. **(PR-2a) Mobile header overlap.** At mobile widths, Previous / Next / "Finish test early" controls do not overlap the "Item N of 16" header region — no element overlap at the documented mobile breakpoints.
 3. **(PR-2b) Option sizing.** Answer-option buttons are reduced in size while their inner figure icons are enlarged/normalized to be size-consistent with the matrix-grid cells above, so each option is clearly distinguishable.
 4. **(PR-2c) Sticky nav + scroll.** Previous/Next are sticky/fixed and always reachable; the answer-options region scrolls within its own container when content exceeds viewport height; at common mobile sizes the full item fits on screen without page scroll wherever layout allows.
@@ -39,7 +39,7 @@ so that **the screener feels finished and trustworthy rather than rough around t
 12. **(PR-10) No horizontal scroll.** With the "Continue" button locked, the helper caption beneath it (including the longest PL string) wraps/constrains within viewport width — no horizontal page scroll at any supported width/locale; the timed unlock behavior is unchanged.
 13. **(PR-11) Methodology sidebar.** `/methodology` presents its section list in a sidebar with in-page anchor navigation — clicking scrolls to a section on a single scrollable page (no separate-page navigation); anchors are deep-linkable and keyboard-accessible.
 14. **(PR-12a) Methodology condensed.** The `/methodology` content is analyzed and significantly condensed; EN body edits are mirrored to PL/RU with `sourceHashEN` bumped (NFR27), `lint-translation-parity` green.
-15. **(PR-12b) No dead links.** Every methodology link across EN/RU/PL resolves to real content — no "Cannot GET"/404 routes (e.g. `/methodology/v0.1.0/en/scoring/eap`) — verified by an automated link-completeness check.
+15. **(PR-12b) No dead links.** Every methodology link across EN/RU/PL resolves to real content — no "Cannot GET"/404 — verified by an automated link-completeness check. Note the likely failure class is route-shape, not absent content: e.g. `scoring/eap.md` exists in all three locales and renders to `…/scoring/eap/` (trailing slash), so a link to `…/scoring/eap` (no slash) 404s while the page is present; the check must catch this.
 16. **(PR-13) Disclaimer collapse.** The result-page explanatory disclaimer collapses to its first line with an expand/collapse toggle, defaulting collapsed, keyboard- and screen-reader-operable, without breaking PR-5 centering.
 17. **(PR-14) Saved-results management.** With ≥1 saved result (`iqme:saved-result:<id>`), a "View saved results" entry point appears to the right of "Start the test", opening a screen that lists all saved results, lets the user open an individual result, and offers a "delete all" action plus per-result checkboxes to delete only selected ones — entirely client-side, no server/telemetry. The entry point is hidden when no results exist; deletions reflect immediately.
 18. **Gates green.** `make lint` exit 0, `make build` exit 0, the Playwright/axe-core/network-trace suites pass, and the byte-stable build assertion holds on the branch.
@@ -48,8 +48,8 @@ so that **the screener feels finished and trustworthy rather than rough around t
 
 - [ ] **Task 1:** (PR-1) Wire favicon + manifest. (AC 1)
   - [ ] Add icon/manifest `<link>`s to `src/index.html` head; resolve served asset path.
-  - [ ] Set `name`/`short_name` = "IQ-ME" in `src/assets/favicon_io/site.webmanifest`.
-  - [ ] Confirm no 404 for icon requests in the network trace.
+  - [x] Set `name`/`short_name` = "IQ-ME" + root-absolute icon paths in `src/assets/favicon_io/site.webmanifest`. _(done 2026-06-06 in the spec-fix pass)_
+  - [ ] Confirm no 404 for icon requests in the network trace (manifest icon paths included).
 - [ ] **Task 2:** (PR-2a/2b/2c) Fix mobile test-screen layout. (AC 2, 3, 4)
   - [ ] Resolve nav/header overlap in `src/css/components/item-runner.css` / `progress-indicator.css`.
   - [ ] Shrink option buttons; enlarge/normalize option icons to match matrix cells.
@@ -100,3 +100,4 @@ _(to be populated during implementation)_
 
 ### Change Log
 - 2026-06-06 — Story authored from maintainer post-release triage (PR-1 … PR-14).
+- 2026-06-06 — Spec-fix pass (post adversarial review): `site.webmanifest` `name`/`short_name` set to "IQ-ME" + icon paths corrected to `/src/assets/favicon_io/…`; AC1/Task 1 updated to reflect that; AC15/PR-12b dead-link example corrected (source `eap.md` exists in all locales — failure class is trailing-slash route shape, not absent content).

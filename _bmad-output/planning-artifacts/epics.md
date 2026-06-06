@@ -13,8 +13,8 @@ postReleaseAppend:
   appendedAt: '2026-06-06'
   source: 'maintainer post-release bug/enhancement triage'
   epicsAdded: ['epic-11', 'epic-12', 'epic-13']
-  requirements: 'PR-1 … PR-16'
-  note: 'Append-only — Epics 1–10 (v1.0.0) untouched.'
+  requirements: 'PR-1 … PR-17'
+  note: 'Append-only — Epics 1–10 (v1.0.0 scope) untouched. NB: app-v1.0.0/corpus-v1.0.0 launch tags are not yet cut.'
 partyModeRounds:
   - round: 1
     participants: [John, Winston, Sally, Murat, Amelia, Mary]
@@ -2457,13 +2457,13 @@ So that **any launch-day surprise (DNS issue, mirror sync failure, broken method
 
 # IQ-ME — Post-Release Epics (v1.0.1+)
 
-> **Appended 2026-06-06**, after the v1.0.0 release, from maintainer post-release bug/enhancement triage. Append-only: Epics 1–10 above are the shipped v1.0.0 record and are not modified. Requirements are tagged `PR-N` (Post-Release) rather than `FR-N` to keep them distinct from the canonical PRD functional requirements.
+> **Appended 2026-06-06**, against the completed v1.0.0 scope (Epics 1–10, tracker-`done`; note the coordinated `app-v1.0.0`/`corpus-v1.0.0` launch tags are not yet cut in this repo), from maintainer post-release/launch bug/enhancement triage. Append-only: Epics 1–10 above are the v1.0.0-scope record and are not modified. Requirements are tagged `PR-N` (Post-Release) rather than `FR-N` to keep them distinct from the canonical PRD functional requirements.
 
 ## Post-Release Requirements Inventory
 
 ### Bug & UX Requirements (Epic 11)
 
-- **PR-1:** The browser tab MUST show the IQ-ME favicon. Assets exist at `src/assets/favicon_io/` (`favicon.ico`, `favicon-16x16.png`, `favicon-32x32.png`, `android-chrome-192x192.png`, `android-chrome-512x512.png`, `apple-touch-icon.png`, `site.webmanifest`). The manifest `name`/`short_name` (currently empty) MUST be set to "IQ-ME".
+- **PR-1:** The browser tab MUST show the IQ-ME favicon. Assets exist at `src/assets/favicon_io/` (`favicon.ico`, `favicon-16x16.png`, `favicon-32x32.png`, `android-chrome-192x192.png`, `android-chrome-512x512.png`, `apple-touch-icon.png`, `site.webmanifest`). The manifest `name`/`short_name` are set to "IQ-ME" and the icon `src` paths point at `/src/assets/favicon_io/…` (root-absolute, matching the `index.html` asset convention) — the remaining work is the `index.html` `<head>` wiring and confirming the deployed build serves these paths 404-free.
 - **PR-2:** The test (matrix-reasoning) screen MUST be mobile-correct: (2a) Previous/Next/"Finish test early" controls MUST NOT overlap the "Item N of 16" header; (2b) answer-option buttons MUST be smaller while their inner icons MUST be enlarged/normalized to be size-consistent with the matrix grid above; (2c) Previous/Next MUST be sticky/fixed and answer options scrollable when content overflows viewport height, with the layout aiming to fit on-screen without scroll where possible.
 - **PR-3:** Advancing items (Next) MUST NOT flicker/full-repaint; transitions MUST be smooth (preload next-item imagery, stable keys/layout, no container unmount).
 - **PR-4:** Submitting on the final (16th) item — including with skipped/unanswered items — MUST finalize the session and route to the result, never reset to the landing page. The final item's primary action MUST read "Submit test".
@@ -2474,7 +2474,7 @@ So that **any launch-day surprise (DNS issue, mirror sync failure, broken method
 - **PR-9:** The `/methodology` route MUST honor the selected theme (it currently stays dark under Light).
 - **PR-10:** No horizontal page scroll while the "Continue" button is locked; the helper caption beneath it MUST wrap/constrain within width (notably the longer PL string).
 - **PR-11:** `/methodology` MUST present its section list in a sidebar with in-page anchor navigation (single scrollable page; clicking does not navigate away).
-- **PR-12:** `/methodology` content MUST be (12a) analyzed and significantly condensed, and (12b) link-complete — every methodology link across EN/RU/PL MUST resolve to real content (no "Cannot GET"/404 routes such as `/methodology/v0.1.0/en/scoring/eap`).
+- **PR-12:** `/methodology` content MUST be (12a) analyzed and significantly condensed, and (12b) link-complete — every methodology link across EN/RU/PL MUST resolve to real content (no "Cannot GET"/404). The audit must establish whether reported 404s are missing content or route-shape mismatches: e.g. the source `src/content/methodology/{en,ru,pl}/scoring/eap.md` exists and renders to `/methodology/v0.1.0/en/scoring/eap/` (trailing slash), so a link to `/methodology/v0.1.0/en/scoring/eap` (no slash) is the likely class of failure to find and fix, not absent content.
 - **PR-13:** The result-page explanatory disclaimer MUST collapse to its first line with an expand/collapse toggle.
 - **PR-14:** Saved results (localStorage `iqme:saved-result:<id>`) MUST be viewable and deletable from the UI: a "View saved results" entry point beside "Start the test" (shown when results exist); a saved-results list screen; per-result view; a "delete all" action AND per-result checkboxes to delete only selected.
 
@@ -2519,7 +2519,7 @@ So that **the screener feels finished and trustworthy rather than rough around t
 
 **Acceptance Criteria:**
 
-**Given** the favicon assets exist at `src/assets/favicon_io/` and the manifest `name`/`short_name` are currently empty (PR-1),
+**Given** the favicon assets exist at `src/assets/favicon_io/` and `site.webmanifest` already carries `name`/`short_name` = "IQ-ME" with root-absolute icon paths (PR-1),
 **When** any page of the SPA loads,
 **Then** `src/index.html` `<head>` declares `favicon.ico` + `favicon-16x16.png` + `favicon-32x32.png` + `apple-touch-icon.png` + the web manifest, the browser tab shows the IQ-ME mark, and `site.webmanifest` has `name` and `short_name` set to "IQ-ME"
 **And** the assets are served at a path the deployed build resolves (no 404 on the icon requests in the network trace).
