@@ -7,8 +7,14 @@ inputDocuments:
 status: 'complete'
 createdAt: '2026-05-18'
 completedAt: '2026-05-18'
-epicCount: 14
-storyCount: 75
+epicCount: 17
+storyCount: 86
+postReleaseAppend:
+  appendedAt: '2026-06-06'
+  source: 'maintainer post-release bug/enhancement triage'
+  epicsAdded: ['epic-11', 'epic-12', 'epic-13']
+  requirements: 'PR-1 … PR-16'
+  note: 'Append-only — Epics 1–10 (v1.0.0) untouched.'
 partyModeRounds:
   - round: 1
     participants: [John, Winston, Sally, Murat, Amelia, Mary]
@@ -2446,3 +2452,310 @@ So that **any launch-day surprise (DNS issue, mirror sync failure, broken method
 **When** a user reports an issue via GitHub Discussions in the 48h window,
 **Then** the maintainer engages, diagnoses (with the user's voluntary participation), and decides: hotfix immediately + tag v1.0.1, OR document as known-issue + queue for v1.1
 **And** no automated error reporting, no Sentry/LogRocket/etc., no telemetry — per the project's load-bearing trust posture.
+
+---
+
+# IQ-ME — Post-Release Epics (v1.0.1+)
+
+> **Appended 2026-06-06**, after the v1.0.0 release, from maintainer post-release bug/enhancement triage. Append-only: Epics 1–10 above are the shipped v1.0.0 record and are not modified. Requirements are tagged `PR-N` (Post-Release) rather than `FR-N` to keep them distinct from the canonical PRD functional requirements.
+
+## Post-Release Requirements Inventory
+
+### Bug & UX Requirements (Epic 11)
+
+- **PR-1:** The browser tab MUST show the IQ-ME favicon. Assets exist at `src/assets/favicon_io/` (`favicon.ico`, `favicon-16x16.png`, `favicon-32x32.png`, `android-chrome-192x192.png`, `android-chrome-512x512.png`, `apple-touch-icon.png`, `site.webmanifest`). The manifest `name`/`short_name` (currently empty) MUST be set to "IQ-ME".
+- **PR-2:** The test (matrix-reasoning) screen MUST be mobile-correct: (2a) Previous/Next/"Finish test early" controls MUST NOT overlap the "Item N of 16" header; (2b) answer-option buttons MUST be smaller while their inner icons MUST be enlarged/normalized to be size-consistent with the matrix grid above; (2c) Previous/Next MUST be sticky/fixed and answer options scrollable when content overflows viewport height, with the layout aiming to fit on-screen without scroll where possible.
+- **PR-3:** Advancing items (Next) MUST NOT flicker/full-repaint; transitions MUST be smooth (preload next-item imagery, stable keys/layout, no container unmount).
+- **PR-4:** Submitting on the final (16th) item — including with skipped/unanswered items — MUST finalize the session and route to the result, never reset to the landing page. The final item's primary action MUST read "Submit test".
+- **PR-5:** The result page content MUST be vertically centered/balanced (no top-hugging with large empty space below).
+- **PR-6:** The theme control MUST be a classic toggle/segmented switcher (replacing the 3 radio buttons) located top-right in the header.
+- **PR-7:** The language control MUST be a custom dropdown with country flags (replacing the 3 radio buttons).
+- **PR-8:** The header MUST show the app logo/icon beside the "IQ-ME" wordmark.
+- **PR-9:** The `/methodology` route MUST honor the selected theme (it currently stays dark under Light).
+- **PR-10:** No horizontal page scroll while the "Continue" button is locked; the helper caption beneath it MUST wrap/constrain within width (notably the longer PL string).
+- **PR-11:** `/methodology` MUST present its section list in a sidebar with in-page anchor navigation (single scrollable page; clicking does not navigate away).
+- **PR-12:** `/methodology` content MUST be (12a) analyzed and significantly condensed, and (12b) link-complete — every methodology link across EN/RU/PL MUST resolve to real content (no "Cannot GET"/404 routes such as `/methodology/v0.1.0/en/scoring/eap`).
+- **PR-13:** The result-page explanatory disclaimer MUST collapse to its first line with an expand/collapse toggle.
+- **PR-14:** Saved results (localStorage `iqme:saved-result:<id>`) MUST be viewable and deletable from the UI: a "View saved results" entry point beside "Start the test" (shown when results exist); a saved-results list screen; per-result view; a "delete all" action AND per-result checkboxes to delete only selected.
+
+### Feature Requirements (Epics 12–13)
+
+- **PR-15:** The screener MUST go beyond geometric matrix reasoning. The current geometric test becomes the "short" variant; "full"/extended variants MUST be added per multiple established methodologies. Before starting, the user MUST choose a methodology and a variant (short/full). Methodology selection and comparison (by accuracy and popularity) MUST be grounded in research, and the methodology corpus MUST describe each test. *(Research-first.)*
+- **PR-16:** The site MUST adopt a cohesive glassmorphism visual system, with a creative, modern-motion homepage, grounded in a researched design direction. *(Research/design-first. Reworks surfaces touched by PR-2/5/6/7/11/13.)*
+- **PR-17:** The downloadable/printable result (the `@media print` / export view of `/#/result`) MUST be redesigned — the current output looks poor. It MUST be a clean, intentional document layout (typography, spacing, the co-equal percentile/IQ-scale/range triplet, the band-by-difficulty line, the not-a-certificate disclaimer) consistent with the glassmorphism-era visual identity while remaining print-legible (ink-economical, high-contrast on white).
+
+## Post-Release Epic List
+
+### Epic 11: Post-Release Bug & UX Fixes
+A user landing on IQ-ME after v1.0.0 gets a polished, mobile-correct, brand-complete experience: favicon + header logo present; the test screen lays out correctly on phones with no overlap or flicker; submit always reaches a result; theme/language are first-class header controls; the methodology page respects theme and has no dead links or overflow; saved results are viewable and deletable.
+**Requirements covered:** PR-1, PR-2, PR-3, PR-4, PR-5, PR-6, PR-7, PR-8, PR-9, PR-10, PR-11, PR-12, PR-13, PR-14
+**Delivery:** Single story 11.1 (maintainer decision). **Standalone:** Yes — fixes on existing surfaces; no dependency on Epics 12/13.
+
+### Epic 12: Methodology Expansion — Multi-Test Battery + Full/Short Variants
+A user can choose which established methodology to take and how deep (short vs full), going beyond geometric matrix reasoning; the methodology pages explain each test and compare them by accuracy and popularity, grounded in real research.
+**Requirements covered:** PR-15
+**Delivery:** Research-first (one domain-research story gates the implementation stories). **Standalone:** Yes — builds on the existing engine but functions independently.
+
+### Epic 13: Glassmorphism Redesign + Creative Homepage
+The whole site adopts a cohesive glassmorphism visual system with a creative, modern-motion homepage, grounded in a researched design direction — including a redesigned downloadable/printable result document.
+**Requirements covered:** PR-16, PR-17
+**Delivery:** Research/design-first (one design-direction story gates implementation). **Standalone:** Yes. **⚠️ Sequencing:** reworks surfaces touched by Epic 11 (PR-2/5/6/7/11/13); recommended order **Epic 11 → Epic 13** so the glass restyle absorbs the fixed layouts rather than forcing rework. Epic 12 is orthogonal and may run in parallel after Epic 11.
+
+### Post-Release Requirements Coverage Map
+
+- **PR-1 … PR-14** → Epic 11 (Story 11.1)
+- **PR-15** → Epic 12
+- **PR-16, PR-17** → Epic 13
+
+## Epic 11: Post-Release Bug & UX Fixes
+
+> Single-story epic (maintainer decision): all 14 fixes ship as **Story 11.1**. Touches the assessment SPA (`src/assessment/*`, `src/css/*`) and the methodology build/render path. Assets for PR-1/PR-8 already present at `src/assets/favicon_io/`. Where a fix edits EN methodology corpus bodies (PR-12a), the NFR27 parity cascade applies (mirror to PL/RU + bump `sourceHashEN`).
+
+### Story 11.1: Post-release bug & UX fix pass (PR-1 … PR-14)
+
+As a **first-time visitor arriving at IQ-ME just after the v1.0.0 release**,
+I want **the brand, mobile layout, test flow, controls, methodology pages, and saved-result handling to all behave correctly**,
+So that **the screener feels finished and trustworthy rather than rough around the edges**.
+
+**Acceptance Criteria:**
+
+**Given** the favicon assets exist at `src/assets/favicon_io/` and the manifest `name`/`short_name` are currently empty (PR-1),
+**When** any page of the SPA loads,
+**Then** `src/index.html` `<head>` declares `favicon.ico` + `favicon-16x16.png` + `favicon-32x32.png` + `apple-touch-icon.png` + the web manifest, the browser tab shows the IQ-ME mark, and `site.webmanifest` has `name` and `short_name` set to "IQ-ME"
+**And** the assets are served at a path the deployed build resolves (no 404 on the icon requests in the network trace).
+
+**Given** the test screen on a narrow (mobile) viewport (PR-2a),
+**When** the item runner renders ([item-runner.js](src/assessment/item-runner.js) / [item-runner.css](src/css/components/item-runner.css) / [progress-indicator.css](src/css/components/progress-indicator.css)),
+**Then** the Previous / Next / "Finish test early" controls do NOT overlap the "Item N of 16" header region at any mobile width
+**And** there is no element overlap at the documented mobile breakpoints.
+
+**Given** the same mobile test screen (PR-2b),
+**When** answer options render,
+**Then** the answer-option buttons are reduced in size while the figure icons inside them are enlarged/normalized so they are size-consistent with the matrix-grid cells above, making each option visually distinguishable
+**And** the option icons and matrix-cell icons share a consistent rendering scale.
+
+**Given** content that may exceed viewport height on mobile (PR-2c),
+**When** the test screen is shown,
+**Then** Previous/Next are sticky/fixed (always reachable) and the answer-options region scrolls within its own container when needed
+**And** at common mobile sizes the full item (matrix + options + nav) fits on screen without page scroll wherever layout allows.
+
+**Given** the user advances with Next (PR-3),
+**When** the next item's matrix and option imagery swap in,
+**Then** there is no full-screen flicker/repaint — next-item imagery is preloaded and the item container is updated in place (stable keys, no unmount/remount flash)
+**And** the transition is visually smooth.
+
+**Given** the user is on the final (16th) item, including with one or more items left unanswered (PR-4),
+**When** they activate the primary action (which reads "Submit test" on the last item),
+**Then** the session finalizes and routes to `/#/result` with unanswered items handled deterministically by the scoring path
+**And** the app never resets to the landing page on submit.
+
+**Given** the result page renders (PR-5),
+**When** `/#/result` is shown ([result.js](src/assessment/result.js) / [score-panel.css](src/css/components/score-panel.css)),
+**Then** the content is vertically centered/balanced rather than hugging the top with large empty space below
+**And** the co-equal percentile/IQ-scale/range triplet remains visually co-equal (no regression of the Epic-3 score-panel invariant).
+
+**Given** the theme control is currently three radio buttons in the footer (PR-6),
+**When** the chrome renders ([theme.js](src/assessment/theme.js) / [theme-toggle.css](src/css/components/theme-toggle.css) / [chrome-header.css](src/css/components/chrome-header.css)),
+**Then** the theme control is a classic toggle/segmented switcher positioned top-right in the header, still offering System/Light/Dark, persisting selection as today
+**And** keyboard operability and the existing theme-persistence behavior are preserved (WCAG 2.2 AA).
+
+**Given** the language control is currently three radio buttons (PR-7),
+**When** the chrome renders ([language-switcher.js](src/assessment/language-switcher.js) / [language-switcher.css](src/css/components/language-switcher.css)),
+**Then** language selection is a custom dropdown showing country flags for EN/RU/PL, keyboard- and screen-reader-accessible, preserving the locale-switch behavior (incl. the in-test locale-switch blocker hint, FR8)
+**And** the existing locale persistence and `hreflang` behavior are unchanged.
+
+**Given** the header beside the "IQ-ME" wordmark (PR-8),
+**When** the chrome renders,
+**Then** the app logo (from `src/assets/favicon_io/`, appropriately sized) appears next to the wordmark without layout shift, and the chrome-footer narrow-width wrap fix (PR #24) is not regressed
+**And** the logo has an appropriate accessible name / is correctly marked decorative.
+
+**Given** Light theme is selected and the user opens `/methodology` (PR-9),
+**When** the methodology page renders,
+**Then** it honors the selected theme (System/Light/Dark) consistently with the SPA — it does NOT stay dark under Light
+**And** theme selection round-trips between the SPA and the methodology surface.
+
+**Given** the consent/continue screen with a locked "Continue" button and a helper caption beneath it (PR-10),
+**When** the longest localized caption (notably PL) renders ([consent.js](src/assessment/consent.js) / [locale-switch-blocker-hint.js](src/assessment/locale-switch-blocker-hint.js) / [consent-scene.css](src/css/components/consent-scene.css)),
+**Then** the caption wraps/constrains within the viewport width and no horizontal page scroll appears at any supported width or locale
+**And** the timed unlock behavior of the button is unchanged.
+
+**Given** the `/methodology` page lists sections (Constructs/Scoring/Norming…) as links (PR-11),
+**When** the methodology page renders,
+**Then** the section list is presented in a sidebar with in-page anchor navigation — clicking an entry scrolls to that section on a single scrollable page rather than navigating to a separate page
+**And** anchors are deep-linkable and keyboard-accessible.
+
+**Given** the `/methodology` content is oversized and some links 404 (PR-12),
+**When** the methodology corpus and routes are audited,
+**Then** (12a) the content is analyzed and significantly condensed, and (12b) every methodology link across EN/RU/PL resolves to real content — no "Cannot GET"/404 routes (e.g. `/methodology/v0.1.0/en/scoring/eap`), verified by an automated link-completeness check
+**And** any EN corpus-body edits are mirrored into PL/RU with `sourceHashEN` bumped per NFR27, keeping `lint-translation-parity` green.
+
+**Given** the result-page explanatory disclaimer block (PR-13),
+**When** the result page renders,
+**Then** the disclaimer collapses to its first line with an expand/collapse toggle, defaulting collapsed, fully keyboard- and screen-reader-operable
+**And** the collapsed/expanded state does not break the vertical centering from PR-5.
+
+**Given** results can be saved to localStorage under `iqme:saved-result:<id>` but are currently unviewable/undeletable (PR-14),
+**When** the user is on the landing page with one or more saved results ([save-result.js](src/assessment/save-result.js) / [landing.js](src/assessment/landing.js) / [routing.js](src/assessment/routing.js)),
+**Then** a "View saved results" entry point appears to the right of "Start the test", opening a saved-results screen that lists all saved results, lets the user open an individual result, and offers both a "delete all" action and per-result checkboxes to delete only the selected ones — all client-side, no server, no telemetry (NFR6)
+**And** the entry point is hidden when no saved results exist, and deletions are reflected immediately.
+
+## Epic 12: Methodology Expansion — Multi-Test Battery + Full/Short Variants
+
+> **Research-first.** Story 12.1 (domain research) gates the implementation stories — the exact set of additional methodologies and item sources is an output of 12.1, so further per-methodology implementation stories (12.5+) are created once 12.1 lands. Builds on the existing IRT scoring engine (`src/scoring/irt/*`) and item infrastructure (`src/assessment/item-*`).
+
+### Story 12.1: Methodology landscape research — candidate tests, accuracy & popularity comparison
+
+As a **maintainer deciding how to expand IQ-ME beyond geometric matrix reasoning**,
+I want **a researched, sourced comparison of established intelligence-test methodologies (e.g. Raven's Progressive Matrices, Eysenck, Wechsler/WAIS, Stanford–Binet, ICAR subscales) by validity/accuracy, popularity, and feasibility for a client-side browser screener**,
+So that **the choice of which tests to add, and the short/full item-count design, is evidence-based rather than arbitrary**.
+
+**Acceptance Criteria:**
+
+**Given** the need for an evidence base,
+**When** the research is conducted (e.g. via `bmad-domain-research`),
+**Then** a research artifact is produced under `_bmad-output/planning-artifacts/` enumerating candidate methodologies with: construct measured, validity/accuracy evidence (with citations), popularity/recognition, licensing/openness for reuse, and browser-feasibility notes
+**And** every accuracy and popularity claim is sourced (consistent with the project's claims-manifest discipline).
+
+**Given** the comparison data,
+**When** the research concludes,
+**Then** it recommends a concrete shortlist of methodologies to implement, each with a proposed short and full variant (item counts + difficulty spread), and flags any that are unsuitable (e.g. proprietary/licensed, not browser-feasible)
+**And** it identifies which content must enter the methodology corpus (descriptions + accuracy/popularity comparison) for PR-15.
+
+**Given** this gates implementation,
+**When** 12.1 is approved,
+**Then** the follow-on implementation stories (selector, variant engine, per-methodology modules, corpus pages) are created/refined from its output
+**And** no implementation story proceeds on an unsourced methodology.
+
+### Story 12.2: Pre-test methodology + variant (short/full) selection
+
+As a **user about to start the screener**,
+I want **to choose which methodology to take and whether to take the short or full variant before the test begins**,
+So that **I can pick the depth and type of reasoning task that suits me**.
+
+**Acceptance Criteria:**
+
+**Given** the approved shortlist from Story 12.1,
+**When** the user starts a test,
+**Then** a pre-test selection step lets them choose a methodology and a variant (short/full), with the existing geometric matrix-reasoning test offered as one methodology and its current 16-item form as its "short" variant
+**And** the selection is carried into the session state ([state.js](src/assessment/state.js)) and reflected in scoring/result.
+
+**Given** localization (EN/RU/PL) and accessibility requirements,
+**When** the selection step renders,
+**Then** it is fully localized and WCAG 2.2 AA operable, and defaults sensibly so a user can proceed quickly
+**And** the existing consent/ceremony flow is preserved.
+
+### Story 12.3: Short/Full variant engine for the geometric matrix-reasoning test
+
+As a **user who picked the geometric test**,
+I want **a longer "full" variant in addition to the existing short 16-item screen**,
+So that **I can get a more thorough estimate when I want one**.
+
+**Acceptance Criteria:**
+
+**Given** the selection from Story 12.2 ([item-selection.js](src/assessment/item-selection.js) / [item-runner.js](src/assessment/item-runner.js) / `src/scoring/irt/*`),
+**When** the user picks short vs full,
+**Then** the item set, item-count, progress indicator, and scoring adapt to the chosen variant while preserving the deterministic seeding (FR7) and the auditable scoring path (golden-vector parity must still hold for each variant)
+**And** the result page communicates which methodology + variant produced the estimate.
+
+### Story 12.4: First additional (non-geometric) methodology — end-to-end vertical slice
+
+As a **user wanting a non-geometric option**,
+I want **at least one researched non-geometric methodology fully playable end-to-end (select → items → score → result)**,
+So that **IQ-ME is no longer limited to matrix reasoning**.
+
+**Acceptance Criteria:**
+
+**Given** the top-recommended non-geometric methodology from Story 12.1,
+**When** it is implemented,
+**Then** it runs end-to-end through the existing flow (selection, item runner, scoring, result) in short and full variants, with sourced items and a scoring approach appropriate to its construct
+**And** it carries the same anti-credentialization framing and not-a-clinical-assessment posture as the existing test.
+
+> Additional per-methodology stories (12.5, 12.6, …) are created from Story 12.1's shortlist after it is approved.
+
+### Story 12.5: Methodology corpus — per-test descriptions + accuracy/popularity comparison pages
+
+As a **reader of the methodology pages**,
+I want **a description of each available test plus a comparison of the tests by accuracy and popularity**,
+So that **I understand what each methodology measures and how they relate before choosing one**.
+
+**Acceptance Criteria:**
+
+**Given** the sourced research from Story 12.1,
+**When** the methodology corpus is updated,
+**Then** new corpus pages describe each implemented methodology and present the accuracy/popularity comparison, authored in EN and mirrored to PL/RU with `sourceHashEN` bumps per NFR27, keeping `lint-translation-parity`, `lint-claims-manifest`, and reading-level lints green
+**And** the new pages are linked from the methodology sidebar (consistent with PR-11) with no broken links (consistent with PR-12b).
+
+## Epic 13: Glassmorphism Redesign + Creative Homepage
+
+> **Research/design-first.** Story 13.1 (design direction) gates the rest. **⚠️ Sequencing:** reworks surfaces also touched by Epic 11 (PR-2/5/6/7/11/13) and the print/export surface — run **after Epic 11** so the restyle absorbs the fixed layouts rather than forcing rework. Extends `src/css/primitives.css` / `src/css/semantic.css` / component CSS, and `src/css/print.css` for the downloadable result. All NFRs (zero third-party, WCAG 2.2 AA, byte-stable build, contrast) must survive the restyle.
+
+### Story 13.1: Glassmorphism + motion design-direction research & spec
+
+As a **maintainer redesigning IQ-ME**,
+I want **a researched, documented glassmorphism + modern-motion design direction (tokens, surface treatments, motion principles, accessibility/perf guardrails)**,
+So that **the redesign is cohesive and intentional rather than ad-hoc, and respects the project's constraints**.
+
+**Acceptance Criteria:**
+
+**Given** the need for a cohesive direction,
+**When** the research/spec is produced under `_bmad-output/planning-artifacts/`,
+**Then** it defines the glass visual language (blur/transparency/layering tokens, light & dark behavior), a motion vocabulary (durations/easing, `prefers-reduced-motion` handling), and guardrails for contrast (WCAG 2.2 AA), performance, and the zero-third-party constraint (no external font/CSS/JS CDNs, NFR)
+**And** it explicitly addresses how glass surfaces behave in Light vs Dark themes (tie-in with PR-9).
+
+**Given** this gates implementation,
+**When** 13.1 is approved,
+**Then** the implementation stories (design system, homepage, surface rollout, print result) proceed from its tokens and principles
+**And** the spec notes which Epic-11 surfaces it will restyle to avoid duplicate work.
+
+### Story 13.2: Glass design system — tokens + reusable glass surface primitives
+
+As a **developer applying the new look consistently**,
+I want **glass tokens and reusable glass-surface primitives in the design system**,
+So that **every surface can adopt the look without bespoke CSS**.
+
+**Acceptance Criteria:**
+
+**Given** the direction from Story 13.1 ([primitives.css](src/css/primitives.css) / [semantic.css](src/css/semantic.css)),
+**When** the design-system layer is implemented,
+**Then** glass tokens and primitive classes exist, work in Light and Dark, pass the contrast lint / tokens spec, and are documented for reuse
+**And** the byte-stable build assertion and existing token tests stay green.
+
+### Story 13.3: Creative homepage redesign with modern motion
+
+As a **first-time visitor**,
+I want **a creative, modern homepage that feels current**,
+So that **my first impression of IQ-ME is strong while staying honest and non-marketing in tone**.
+
+**Acceptance Criteria:**
+
+**Given** the glass design system from Story 13.2 ([landing.js](src/assessment/landing.js) / [landing.css](src/css/components/landing.css)),
+**When** the homepage is redesigned,
+**Then** it applies the researched motion/visual trends, respects `prefers-reduced-motion`, keeps "Start the test" (and the PR-14 "View saved results" entry point) prominent, and preserves the project's anti-marketing copy tone
+**And** it remains WCAG 2.2 AA, zero-third-party, and performant.
+
+### Story 13.4: Roll out the glass system across remaining surfaces
+
+As a **user moving through the app**,
+I want **the test runner, result page, methodology pages, and header/footer controls to share the new cohesive look**,
+So that **the experience feels like one designed product end-to-end**.
+
+**Acceptance Criteria:**
+
+**Given** the glass system and the completed Epic-11 fixes,
+**When** the remaining surfaces are restyled,
+**Then** the test runner, result page, methodology pages, and the header theme/language controls (PR-6/PR-7) adopt the glass look without regressing the Epic-11 fixes (mobile layout PR-2, result centering PR-5, methodology sidebar PR-11, disclaimer collapse PR-13)
+**And** all surfaces remain WCAG 2.2 AA, zero-third-party, byte-stable, and theme-correct in Light and Dark.
+
+### Story 13.5: Redesign the downloadable / printable result document
+
+As a **user who downloads or prints their result**,
+I want **a clean, well-designed result document**,
+So that **the saved/printed output looks intentional and legible rather than poor**.
+
+**Acceptance Criteria:**
+
+**Given** the current print/export view of `/#/result` looks poor (PR-17) ([print.css](src/css/print.css) / [result.js](src/assessment/result.js)),
+**When** the result is printed or exported to PDF,
+**Then** the document has an intentional layout — clear typographic hierarchy, balanced spacing, the co-equal percentile/IQ-scale/range triplet, the band-by-difficulty line, the date, and the not-a-certificate/not-a-clinical-assessment disclaimer — consistent with the glassmorphism-era identity but print-legible (ink-economical, high-contrast on white, no clipped content)
+**And** it renders correctly across EN/RU/PL and does not leak interactive-only chrome (nav, toggles) into print
+**And** the co-equal triplet invariant and disclaimer presence are preserved in print.

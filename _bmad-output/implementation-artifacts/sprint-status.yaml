@@ -181,3 +181,21 @@ development_status:
   10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification: done
   10-3-48-hour-post-launch-monitoring-window: done
   epic-10-retrospective: optional
+
+  # Post-release wave (appended 2026-06-06): epics 11-13, requirements PR-1..PR-17
+  epic-11: in-progress
+  11-1-post-release-bug-ux-fix-pass: ready-for-dev           # PR-1..PR-14 (single story per maintainer decision)
+  epic-11-retrospective: optional
+  epic-12: backlog
+  12-1-methodology-landscape-research-accuracy-popularity-comparison: backlog           # PR-15 research gate
+  12-2-pre-test-methodology-variant-selection: backlog           # PR-15
+  12-3-short-full-variant-engine-geometric-test: backlog           # PR-15
+  12-4-first-additional-non-geometric-methodology-vertical-slice: backlog           # PR-15
+  12-5-methodology-corpus-per-test-descriptions-comparison: backlog           # PR-15
+  epic-12-retrospective: optional
+  epic-13: backlog
+  13-1-glassmorphism-motion-design-direction-research-spec: backlog           # PR-16 design gate
+  13-2-glass-design-system-tokens-surface-primitives: backlog           # PR-16
+  13-3-creative-homepage-redesign-motion: backlog           # PR-16
+  13-4-glass-system-rollout-remaining-surfaces: backlog           # PR-16
+  13-5-redesign-downloadable-printable-result: backlog           # PR-17
