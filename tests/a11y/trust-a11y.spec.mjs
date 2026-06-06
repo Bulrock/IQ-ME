@@ -89,7 +89,14 @@ test.afterAll(async () => {
 // Run axe against the live page and assert zero violations in the WCAG tag set.
 // `label` names the audited surface in the failure message.
 async function expectNoA11yViolations(page, label) {
-  const results = await new AxeBuilder({ page }).withTags(WCAG_TAGS).analyze();
+  // `cat.color` pulls in axe's AAA-only `color-contrast-enhanced` (7:1) rule,
+  // which is out of scope for this AC's documented WCAG 2.2 AA standard (the AA
+  // `color-contrast` 4.5:1 rule from `wcag2aa` stays active). Disable the AAA
+  // leak so the audit enforces exactly the AA bar it claims.
+  const results = await new AxeBuilder({ page })
+    .withTags(WCAG_TAGS)
+    .disableRules(["color-contrast-enhanced"])
+    .analyze();
   const violations = results.violations.map((v) => ({
     id: v.id,
     impact: v.impact,
