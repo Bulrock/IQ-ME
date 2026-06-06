@@ -256,6 +256,14 @@ function updateItemInPlace(rootEl, cache, strings) {
     img.setAttribute("data-augmentation", aug);
   }
 
+  // Story 11-1 fix: update the reused radio group in TWO passes. Mutating each
+  // radio's name + checked interleaved (PR-3 in-place reuse) leaves the browser
+  // radio group in an inconsistent state mid-loop, so the selected option
+  // re-displays only sometimes. Pass 1 re-establishes the group (name/value) and
+  // clears every radio; pass 2 checks exactly the option the user picked (`sel`),
+  // falling back to the correct answer only for legacy payloads with no stored
+  // selection.
+  const want = sel != null ? sel : (recorded === 1 ? item.correct : null);
   const optionEls = rootEl.querySelectorAll(".item-runner__option");
   item.options.forEach((opt, i) => {
     const labelEl = optionEls[i];
@@ -264,13 +272,17 @@ function updateItemInPlace(rootEl, cache, strings) {
     if (radio) {
       radio.setAttribute("name", "item-" + N);
       radio.setAttribute("value", opt);
-      const checked = sel != null ? opt === sel : recorded === 1 && opt === item.correct;
-      radio.checked = checked;
-      if (checked) radio.setAttribute("checked", ""); else radio.removeAttribute("checked");
+      radio.checked = false;
+      radio.removeAttribute("checked");
     }
     const optImg = labelEl.querySelector(".item-runner__option-image");
     if (optImg && /\.svg$/.test(opt)) optImg.setAttribute("src", "/src/items/" + opt);
   });
+  if (want != null) {
+    const idx = item.options.indexOf(want);
+    const radio = idx >= 0 && optionEls[idx] ? optionEls[idx].querySelector("input") : null;
+    if (radio) { radio.checked = true; radio.setAttribute("checked", ""); }
+  }
 
   const prev = rootEl.querySelector("#prev-btn");
   if (prev) { if (isFirst) prev.setAttribute("aria-disabled", "true"); else prev.removeAttribute("aria-disabled"); }
