@@ -5,7 +5,7 @@
 
 .DEFAULT_GOAL := help
 
-.PHONY: help test test-network-trace test-full-slice test-byte-stable test-i18n-locale lint build build-methodology build-difficulty-bands dev clean snapshot-update test-contract
+.PHONY: help test test-network-trace test-full-slice test-byte-stable test-i18n-locale lint fallow fallow-health build build-methodology build-difficulty-bands dev clean snapshot-update test-contract
 
 help: ## list documented Make targets
 	@grep -hE '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) \
@@ -50,6 +50,12 @@ lint: ## run all registered lints (negative assertions + budget + trust artifact
 	node tools/lint-fr36-protection.mjs
 	node tools/lint-spec-carry-forward.mjs --ignore-old
 	npx --yes eslint@^9.16.0 --max-warnings 0 .
+
+fallow: ## run fallow per .fallowrc.json — dead-code + duplication gate (complexity is advisory; see fallow-health)
+	npx --yes fallow --skip health
+
+fallow-health: ## fallow complexity / maintainability report (advisory only — never fails the build)
+	-npx --yes fallow health
 
 build: build-difficulty-bands build-methodology ## alias to build-difficulty-bands + build-methodology + emit determinism marker (NFR17 prep)
 	node tools/build-determinism-marker.mjs

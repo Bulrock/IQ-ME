@@ -1,3 +1,5 @@
+// fallow-ignore-file circular-dependencies
+// routing<->scene cycle is by design (runtime navigate via `import * as`)
 // src/assessment/landing.js
 //
 // Story 3.3 AC-4 — EN-only landing scene with "Start the test" CTA and a

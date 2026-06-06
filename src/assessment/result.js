@@ -1,3 +1,5 @@
+// fallow-ignore-file circular-dependencies
+// routing<->scene cycle is by design (runtime navigate via `import * as`)
 import { renderErrorFallback } from "./error-fallback.js";
 import * as state from "./state.js";
 import * as routing from "./routing.js";

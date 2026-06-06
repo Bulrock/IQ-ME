@@ -1,3 +1,5 @@
+// fallow-ignore-file circular-dependencies
+// routing<->scene cycle is by design (runtime navigate via `import * as`)
 // src/assessment/item-runner.js
 //
 // Story 3.4 AC-3 — item-runner scene (FR2/FR3/FR5/FR7; UX-DR20, UX-DR32).

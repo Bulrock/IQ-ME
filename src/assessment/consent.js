@@ -1,3 +1,5 @@
+// fallow-ignore-file circular-dependencies
+// routing<->scene cycle is by design (runtime navigate via `import * as`)
 // src/assessment/consent.js
 //
 // Story 3.3 AC-5 — consent scene with validity envelope, visuospatial
