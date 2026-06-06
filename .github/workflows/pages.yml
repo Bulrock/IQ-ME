@@ -1,0 +1,71 @@
+# Deploy the IQ-ME app (SPA + built methodology) to GitHub Pages.
+#
+# Source must be set to "GitHub Actions" in Settings → Pages (this replaces the
+# legacy Jekyll-from-branch build, which is wrong for this repo — it isn't a
+# Jekyll site, and it crashed on the methodology corpus).
+#
+# Project pages serve under `/IQ-ME/`, but the SPA + methodology use
+# domain-root-absolute paths (`/src/…`, `/methodology/…`). We assemble the
+# deployable tree and prefix those paths with the base path in the DEPLOYED
+# artifact ONLY — the source keeps `/src/` so the repo-root dev server
+# (`make dev`) still works. To move to a root custom domain later, set
+# `BASE_PATH: ""` + add a CNAME (the same rewrite then becomes a no-op).
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; never cancel an in-progress production deploy.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      BASE_PATH: "/IQ-ME" # project-pages base; set to "" for a root custom domain
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Build methodology corpus (dist/methodology)
+        run: make build
+      - name: Assemble the deployable site (_site)
+        run: |
+          set -euo pipefail
+          rm -rf _site && mkdir -p _site
+          # SPA at the site root + its /src/ asset tree, and the built methodology.
+          cp src/index.html _site/index.html
+          cp -r src _site/src
+          cp -r dist/methodology _site/methodology
+          # Prefix the domain-root-absolute paths with the base path in the
+          # deployed artifact only. Idempotent — the source never contains the base.
+          if [ -n "${BASE_PATH}" ]; then
+            find _site -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.json' -o -name '*.webmanifest' \) -print0 \
+              | xargs -0 sed -i \
+                  -e "s#/src/#${BASE_PATH}/src/#g" \
+                  -e "s#/methodology/#${BASE_PATH}/methodology/#g"
+          fi
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
