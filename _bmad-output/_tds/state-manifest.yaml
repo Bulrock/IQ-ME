@@ -8,11 +8,11 @@ entries:
     recorded_by: frontend
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 8f74b04ec5ed987dbeaf49408a1ee4104d67105860953b7923835fa5fb354292
+    sha256: 04c9abbb6d7a5cf2ed32d128687d64938ae1a0f1b4b90709e25bd3387d07a628
     canonical_form: raw-bytes
-    recorded_at: 2026-06-06T15:38:38.022Z
-    recorded_by: state-commit-autorecord
-    story_id: 11-1-post-release-bug-ux-fix-pass
+    recorded_at: 2026-06-06T16:56:35.966Z
+    recorded_by: engineer
+    story_id: epic-11
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1696,11 +1696,11 @@ entries:
     story_id: 10-3-48-hour-post-launch-monitoring-window
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/11-1-post-release-bug-ux-fix-pass.md
-    sha256: 842ea3b6325c1af32fc59be7c46ce3df1da64c8aabb46d4c6b2b9a7036fc2b91
+    sha256: a3c33767c234549effeae9201e2c352546217a8408e08c130d740575b752bc38
     canonical_form: raw-bytes
-    recorded_at: 2026-06-06T16:52:27.269Z
+    recorded_at: 2026-06-06T16:56:35.742Z
     recorded_by: engineer
-    notes: "11-1 pre-deliver tidy: File List backfill (new modules) + resume-follow-up Change Log entry (auditor finding 1)"
+    story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: tests/playwright/pr1-favicon.spec.mjs
     sha256: 1ff1083f4c35c56e45db54ff6f70453670ca8b13758ed2754d512848b6ff4b07

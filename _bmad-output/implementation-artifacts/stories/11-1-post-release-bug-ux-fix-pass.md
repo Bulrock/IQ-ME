@@ -1,7 +1,7 @@
 ---
 id: 11-1-post-release-bug-ux-fix-pass
 title: "Story 11-1: Post-release bug & UX fix pass (PR-1 … PR-14)"
-status: review
+status: done
 ---
 
 # Story 11-1: Post-release bug & UX fix pass (PR-1 … PR-14)
