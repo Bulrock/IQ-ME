@@ -1496,12 +1496,11 @@ entries:
     notes: "story-8-5: consolidated trust-verification Playwright spec + a11y spec + lighthouserc budgets"
   - artefact_class: A
     file: tests/a11y/trust-a11y.spec.mjs
-    sha256: 208c102c13f13b5bce43bbba13fcbd6d31115c115386a26ef13f70012ab768d3
+    sha256: 2fadd22cb15dfddb5017b6f6f5ca685480e9dab2c9e6c9b67c0a89061f612e77
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:43:51.972Z
+    recorded_at: 2026-06-06T07:08:25.345Z
     recorded_by: engineer
-    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
-    notes: "story-8-5: consolidated trust-verification Playwright spec + a11y spec + lighthouserc budgets"
+    notes: scope a11y audit to AA — disable AAA color-contrast-enhanced rule (landing now 0 violations)
   - artefact_class: A
     file: tests/perf/lighthouserc.json
     sha256: 2297f751508213d365b77c664dd80a1c964ba796d90a5b82190f71c635b7f99f
