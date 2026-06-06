@@ -92,10 +92,11 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: 2b875e563b0f516a07c63abe84784193a39368fe0f15dcbbdd90e6cf77dff610
+    sha256: 6483238ef1a34af54ab6a0bda88d7d8a34a9438a8949c8840c203628875f0993
     canonical_form: raw-bytes
-    recorded_at: 2026-06-06T15:22:07.129Z
-    recorded_by: frontend
+    recorded_at: 2026-06-06T16:33:34.989Z
+    recorded_by: engineer
+    notes: "11-1: app-modules-bytes budget pin 88064→90112 (multi-session resume re-pin, documented in BUDGETS.json)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
     sha256: 03af01b6c89b47714c6fb83be9b0d3d9aaa6eeba107c2bba32d9ecc508bf63a4
