@@ -41,7 +41,10 @@ function migrateLegacy() {
 export function saveProgress(state, selectedOptions) {
   try {
     if (!state || state.startedAt === 0 || !state.seed || state.seed === INITIAL_SEED) return;
-    if (Array.isArray(state.responses) && state.responses.length >= SESSION_SIZE) return;
+    // Nothing answered yet → don't persist an empty session (avoids a fresh mount
+    // creating a junk "Unfinished — item 1 of 16" entry with no responses).
+    if (!Array.isArray(state.responses) || state.responses.length === 0) return;
+    if (state.responses.length >= SESSION_SIZE) return;
     window.localStorage.setItem(keyFor(state.seed), JSON.stringify({
       seed: state.seed,
       currentItem: state.currentItem,
@@ -61,12 +64,17 @@ export function loadProgress(seed) {
   } catch (_e) { return null; }
 }
 
-// All in-progress sessions, most-recently-saved first (the "Unfinished" list).
+// All resumable in-progress sessions, most-recently-saved first (the
+// "Unfinished" list). A session with zero answers isn't resumable — drop those
+// (and unparseable blobs) so stale empty entries don't clutter storage or the UI.
 export function listProgress() {
   migrateLegacy();
   const out = [];
   for (const k of progressKeys()) {
-    try { const p = JSON.parse(window.localStorage.getItem(k)); if (p && p.seed) out.push(p); } catch (_e) { /* skip */ }
+    let p = null;
+    try { p = JSON.parse(window.localStorage.getItem(k)); } catch (_e) { /* junk */ }
+    if (p && p.seed && Array.isArray(p.responses) && p.responses.length > 0) out.push(p);
+    else { try { window.localStorage.removeItem(k); } catch (_e) { /* swallow */ } }
   }
   return out.sort((a, b) => (b.savedAt || 0) - (a.savedAt || 0));
 }
@@ -80,8 +88,7 @@ export function clearProgress(seed) {
   } catch (_e) { /* swallow */ }
 }
 
-// True iff ≥1 in-progress session exists (landing entry-point gate).
+// True iff ≥1 resumable (answered) in-progress session exists (landing gate).
 export function hasProgress() {
-  migrateLegacy();
-  return progressKeys().length > 0;
+  return listProgress().length > 0;
 }

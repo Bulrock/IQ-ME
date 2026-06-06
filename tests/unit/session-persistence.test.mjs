@@ -113,9 +113,24 @@ test("legacy single-slot iqme:in-progress migrates into a keyed entry", () => {
   assert.ok(store.has(PREFIX + SEED_A), "migrated to the seed-keyed slot");
 });
 
-test("saveProgress is a no-op before a real session (startedAt 0 / initial seed)", () => {
+test("listProgress hides + cleans zero-answer junk entries (abandoned fresh starts)", () => {
   store.clear();
-  persistence.saveProgress(freshState(SEED_A, { startedAt: 0 }), { 0: "x.svg" });
-  persistence.saveProgress(freshState("0".repeat(32)), { 0: "x.svg" });
-  assert.equal(persistence.listProgress().length, 0, "nothing written before the session truly starts");
+  persistence.saveProgress(freshState(SEED_A), { 0: "opt-001-2.svg" }); // real (2 responses)
+  store.set(PREFIX + SEED_B, JSON.stringify({ // junk: started, never answered
+    seed: SEED_B, currentItem: 0, responses: [], selectedOptions: {}, startedAt: 1, savedAt: 2,
+  }));
+  const list = persistence.listProgress();
+  assert.equal(list.length, 1, "only the answered session is listed");
+  assert.equal(list[0].seed, SEED_A);
+  assert.equal(store.has(PREFIX + SEED_B), false, "the empty junk entry is removed from storage on read");
+  assert.equal(persistence.hasProgress(), true, "hasProgress reflects only real sessions");
+});
+
+test("saveProgress is a no-op before a real, answered session", () => {
+  store.clear();
+  persistence.saveProgress(freshState(SEED_A, { startedAt: 0 }), { 0: "x.svg" }); // not started
+  persistence.saveProgress(freshState("0".repeat(32)), { 0: "x.svg" });           // no real seed
+  persistence.saveProgress(freshState(SEED_A, { responses: [] }), {});            // started but unanswered
+  assert.equal(persistence.listProgress().length, 0,
+    "no empty session is persisted — a fresh mount with zero answers must not create a junk entry");
 });
