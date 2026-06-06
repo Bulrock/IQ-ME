@@ -105,7 +105,6 @@ so that **the screener feels finished and trustworthy rather than rough around t
 
 ### File List
 
-_(to be populated during implementation)_
 - src/index.html
 - src/assessment/item-runner.js
 - src/assessment/result.js
@@ -128,10 +127,18 @@ _(to be populated during implementation)_
 - src/assessment/routing.js
 - src/css/components/landing.css
 - src/css/components/saved-results.css
+- src/assessment/session-persistence.js
+- src/assessment/methodology-theme.js
+- src/assessment/methodology-locale.js
+- tools/lint-no-localStorage-without-consent.mjs
+- BUDGETS.json
+- tests/unit/session-persistence.test.mjs
+- _(generated/regenerated)_ methodology corpus + build output (`src/content/methodology/**`, `dist/methodology/**`), golden HTML snapshots (`tests/snapshots/**`), per-PR Playwright specs (`tests/playwright/pr*.spec.mjs`), and cross-story test rewrites (`tests/scaffold/**`, `tests/unit/{theme,language-switcher}.test.mjs`, `tests/playwright/{chrome-components,i18n-locale-switch}.spec.mjs`).
 
 ### Change Log
 - 2026-06-06 — Story authored from maintainer post-release triage (PR-1 … PR-14).
 - 2026-06-06 — Spec-fix pass (post adversarial review): `site.webmanifest` `name`/`short_name` set to "IQ-ME" + icon paths corrected to `/src/assets/favicon_io/…`; AC1/Task 1 updated to reflect that; AC15/PR-12b dead-link example corrected (source `eap.md` exists in all locales — failure class is trailing-slash route shape, not absent content).
+- 2026-06-06 — Post-review resume follow-up (maintainer-found bugs): persist the actual selected option per item (not just the 0/1 score) so Previous/resume re-displays it via a two-pass radio update in `updateItemInPlace`; multi-session resume — each started test keyed by its seed (`iqme:in-progress:<seed>`); "Unfinished tests" lists every one (resume/delete each); empty/unanswered sessions are never persisted and stale empties self-clean. `app-modules-bytes` re-pinned 88064→90112 with documented rationale. Added `src/assessment/session-persistence.js` + `tests/unit/session-persistence.test.mjs`.
 
 ## Specialist Self-Review
 

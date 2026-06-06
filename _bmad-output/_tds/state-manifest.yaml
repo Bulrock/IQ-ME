@@ -1696,11 +1696,11 @@ entries:
     story_id: 10-3-48-hour-post-launch-monitoring-window
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/11-1-post-release-bug-ux-fix-pass.md
-    sha256: 696d567accdee4c17922d0cfa6217b2ced83515347c1059d449f6bd96aa14f53
+    sha256: 842ea3b6325c1af32fc59be7c46ce3df1da64c8aabb46d4c6b2b9a7036fc2b91
     canonical_form: raw-bytes
-    recorded_at: 2026-06-06T15:34:36.226Z
-    recorded_by: story-add-finding-autorecord
-    story_id: 11-1-post-release-bug-ux-fix-pass
+    recorded_at: 2026-06-06T16:52:27.269Z
+    recorded_by: engineer
+    notes: "11-1 pre-deliver tidy: File List backfill (new modules) + resume-follow-up Change Log entry (auditor finding 1)"
   - artefact_class: A
     file: tests/playwright/pr1-favicon.spec.mjs
     sha256: 1ff1083f4c35c56e45db54ff6f70453670ca8b13758ed2754d512848b6ff4b07
