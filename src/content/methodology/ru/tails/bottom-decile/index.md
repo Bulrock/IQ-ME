@@ -1,5 +1,5 @@
 ---
-title: "Bottom-decile result — what it means and what to do next"
+title: "Результат нижнего дециля — что это означает и что делать дальше"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -10,28 +10,28 @@ sourceHashEN: "f8593bc95e33984b12ed88f81cb8e034075dff81fa8927f7c789ed83ec85b08b"
 translationStatus: "in-progress"
 ---
 
-# Bottom-decile result — what it means and what to do next
+# Результат нижнего дециля — что это означает и что делать дальше
 
-**EN placeholder — awaiting clinical-register-reviewer-of-record sign-off via Gate-9b/9c.** This page exists so the methodology-handoff click from a bottom-decile result resolves to a real page while the canonical clinical-register-reviewed content is in flight via the Gate-9 reviewer process.
+**Временная заглушка EN — ожидается подтверждение ответственного рецензента клинического реестра через Gate-9b/9c.** Эта страница существует для того, чтобы переход из результата нижнего дециля вёл на реальную страницу, пока канонический контент, прошедший проверку клинического реестра, находится в процессе рассмотрения через Gate-9.
 
-## What a low percentile means
+## Что означает низкий перцентиль
 
-A percentile below 10 on this screener means a fluid-reasoning estimate that sits below the 10th percentile of the SAPA norming sample. The uncertainty band around the estimate is wider at the tails than at the centre. A score this low is one signal from one short test; it is not a measurement of capacity for a life.
+Перцентиль ниже 10 в этом скрининге означает, что оценка подвижного мышления находится ниже 10-го перцентиля нормировочной выборки SAPA. Полоса неопределённости вокруг оценки шире на хвостах распределения, чем в центре. Столь низкий результат — это один сигнал одного короткого теста; он не является измерением жизненного потенциала человека.
 
-## What it does not mean
+## Что это не означает
 
-The result does not measure intelligence as a whole-person property. It does not measure verbal reasoning, working memory in isolation, learned skill, persistence, judgment, or any of the other dimensions of a working mind. The validity envelope page documents what is and is not in scope.
+Результат не измеряет интеллект как свойство личности в целом. Он не измеряет вербальное мышление, рабочую память в изоляции, приобретённые навыки, настойчивость, суждение или любое другое измерение работающего разума. Страница границ валидности документирует, что входит и что не входит в область применения инструмента.
 
-A low result also does not indicate any clinical condition. The screener does not diagnose. A reader concerned about cognitive functioning should consult a qualified clinician, not act on this number.
+Низкий результат также не указывает на какое-либо клиническое состояние. Скрининг не ставит диагнозов. Читатель, обеспокоенный состоянием когнитивных функций, должен обратиться к квалифицированному специалисту, а не руководствоваться этим числом.
 
-## If you are in distress right now
+## Если вам сейчас плохо
 
-If you are reading this page in immediate distress, please reach out. The list below is a curated set of English-language crisis-support resources. The resources serve callers regardless of test result.
+Если вы читаете эту страницу в состоянии острого стресса, пожалуйста, обратитесь за помощью. Список ниже — подборка ресурсов кризисной поддержки. Эти ресурсы помогают независимо от результата теста.
 
-The crisis-resource list is maintained at `src/content/crisis-resources/en.json` and rendered into this page by the build pipeline (full inline-rendering deferred to Epic 6 result-page wiring). The list includes phone, text, and online chat options.
+Список кризисных ресурсов хранится в `src/content/crisis-resources/en.json` и встраивается в эту страницу при сборке (полное встроенное отображение отложено до Epic 6 с подключением страницы результатов). Список включает варианты связи по телефону, SMS и онлайн-чату.
 
-## Where to read more
+## Где читать дальше
 
-The retest-effects page describes what taking the test again means for the score. The cultural-variance page describes the norming-sample skew that affects the percentile anchor. The validity-envelope page describes the population and conditions the instrument is calibrated for.
+Страница эффектов повторного тестирования описывает, что означает прохождение теста заново для результата. Страница культурной вариативности описывает смещение нормировочной выборки, влияющее на привязку перцентиля. Страница границ валидности описывает популяцию и условия, для которых калиброван инструмент.
 
-A score is one signal. The methodology corpus exists so the signal can be read in context.
+Результат — один сигнал. Корпус методологии существует для того, чтобы этот сигнал можно было прочитать в контексте.

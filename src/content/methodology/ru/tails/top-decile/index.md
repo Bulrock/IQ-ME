@@ -1,5 +1,5 @@
 ---
-title: "Top-decile result — what it means and what to do next"
+title: "Результат верхнего дециля — что это означает и что делать дальше"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -10,28 +10,28 @@ sourceHashEN: "0df15f34a4f2a2aa0b304b26464ca3cafa213ad105f77b8624178d5a40053e52"
 translationStatus: "in-progress"
 ---
 
-# Top-decile result — what it means and what to do next
+# Результат верхнего дециля — что это означает и что делать дальше
 
-**EN placeholder — awaiting clinical-register-reviewer-of-record sign-off via Gate-9b/9c.** This page exists so the methodology-handoff click from a top-decile result resolves to a real page while the canonical clinical-register-reviewed content is in flight via the Gate-9 reviewer process.
+**Временная заглушка EN — ожидается подтверждение ответственного рецензента клинического реестра через Gate-9b/9c.** Эта страница существует для того, чтобы переход из результата верхнего дециля вёл на реальную страницу, пока канонический контент, прошедший проверку клинического реестра, находится в процессе рассмотрения через Gate-9.
 
-## What a high percentile means
+## Что означает высокий перцентиль
 
-A percentile above 90 on this screener means a fluid-reasoning estimate that sits above the 90th percentile of the SAPA norming sample. The uncertainty band at the tails is wider than at the centre. A high score is one signal from one short test taken once.
+Перцентиль выше 90 в этом скрининге означает, что оценка подвижного мышления находится выше 90-го перцентиля нормировочной выборки SAPA. Полоса неопределённости на хвостах распределения шире, чем в центре. Высокий результат — это один сигнал одного короткого теста, пройденного один раз.
 
-## What it does not mean
+## Что это не означает
 
-The result is not a credential. The anti-credentialization page documents the design choices that make this so: no share button, no certificate, no badge, no leaderboard. A high score is a private fact between the test-taker and the methodology corpus.
+Результат не является свидетельством о квалификации. Страница об антикредентализации документирует проектные решения, обеспечивающие это: нет кнопки поделиться, нет сертификата, нет значка, нет таблицы лидеров. Высокий результат — это частный факт между испытуемым и корпусом методологии.
 
-The result is also not a measurement of intelligence as a whole-person property. The g-factor page documents what fluid reasoning is and is not. A score on this screener correlates with broader g-factor measures because of the shared variance the g-factor names, but it does not measure g.
+Результат также не является измерением интеллекта как свойства личности в целом. Страница о g-факторе документирует, что представляет собой подвижное мышление, а что — нет. Результат на данном скрининге коррелирует с более широкими мерами g-фактора за счёт общей дисперсии, которую называет g-фактор, однако не измеряет g.
 
-## Retest caveat
+## Оговорка о повторном тестировании
 
-The retest-effects page describes what taking the test again means for the score. A test-taker who has taken the screener before sees inflated scores on later sessions because they have practiced the matrix-item format. The first session is the cleanest measurement. A high result on a first session is more informative than a high result on a tenth session.
+Страница эффектов повторного тестирования описывает, что означает прохождение теста заново для результата. Испытуемый, прошедший скрининг ранее, получает завышенные результаты на последующих сессиях, поскольку уже отработал формат матричных заданий. Первая сессия даёт наиболее чистое измерение. Высокий результат на первой сессии более информативен, чем высокий результат на десятой.
 
-## What to do next
+## Что делать дальше
 
-A high result is not an instruction to act. It is a number to read with the methodology corpus, weight against the validity envelope, and then set aside. People build lives on persistence, judgment, repair, learning, and care for what matters. A screener of one narrow ability is a small data point.
+Высокий результат — не руководство к действию. Это число, которое нужно прочитать вместе с корпусом методологии, соотнести с границами валидности и затем отложить в сторону. Люди строят жизнь на настойчивости, суждении, способности исправлять ошибки, учиться и заботиться о том, что важно. Скрининг одной узкой способности — это малозначимая точка данных.
 
-## Where to read more
+## Где читать дальше
 
-The validity-envelope page describes the population and conditions the instrument is calibrated for. The norming-sample-bias page describes the skew in the calibration data. The ethics section documents the project's posture on what a screener should and should not do.
+Страница границ валидности описывает популяцию и условия, для которых калиброван инструмент. Страница о смещении нормировочной выборки описывает перекос в калибровочных данных. Раздел этики документирует позицию проекта относительно того, что скрининг должен и не должен делать.

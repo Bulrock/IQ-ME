@@ -1,5 +1,5 @@
 ---
-title: "Bottom-decile result — what it means and what to do next"
+title: "Wynik z dolnego decyla — co oznacza i co zrobić dalej"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -10,28 +10,28 @@ sourceHashEN: "f8593bc95e33984b12ed88f81cb8e034075dff81fa8927f7c789ed83ec85b08b"
 translationStatus: "in-progress"
 ---
 
-# Bottom-decile result — what it means and what to do next
+# Wynik z dolnego decyla — co oznacza i co zrobić dalej
 
-**EN placeholder — awaiting clinical-register-reviewer-of-record sign-off via Gate-9b/9c.** This page exists so the methodology-handoff click from a bottom-decile result resolves to a real page while the canonical clinical-register-reviewed content is in flight via the Gate-9 reviewer process.
+**Tymczasowy szkielet — oczekuje na zatwierdzenie przez klinicznego recenzenta rejestrowego w ramach Gate-9b/9c.** Strona ta istnieje po to, aby kliknięcie prowadzące do przekazania metodologii z wyniku w dolnym decylu prowadziło do rzeczywistej strony, podczas gdy kanoniczne treści zatwierdzone przez klinicznego recenzenta rejestrowego są w trakcie opracowywania w ramach procesu recenzenta Gate-9.
 
-## What a low percentile means
+## Co oznacza niski percentyl
 
-A percentile below 10 on this screener means a fluid-reasoning estimate that sits below the 10th percentile of the SAPA norming sample. The uncertainty band around the estimate is wider at the tails than at the centre. A score this low is one signal from one short test; it is not a measurement of capacity for a life.
+Percentyl poniżej 10 w tym przesiewowym badaniu oznacza szacunkowy wynik płynnego rozumowania, który plasuje się poniżej 10. percentyla próby normalizacyjnej SAPA. Przedział niepewności wokół szacunku jest szerszy na ogonach rozkładu niż w jego centrum. Tak niski wynik to jeden sygnał z jednego krótkiego testu; nie jest to pomiar możliwości całego życia.
 
-## What it does not mean
+## Czego wynik nie oznacza
 
-The result does not measure intelligence as a whole-person property. It does not measure verbal reasoning, working memory in isolation, learned skill, persistence, judgment, or any of the other dimensions of a working mind. The validity envelope page documents what is and is not in scope.
+Wynik nie mierzy inteligencji jako właściwości całej osoby. Nie mierzy rozumowania werbalnego, pamięci roboczej w izolacji, nabytych umiejętności, wytrwałości, oceny sytuacji ani żadnego innego wymiaru sprawnie działającego umysłu. Strona dotycząca zakresu ważności dokumentuje, co wchodzi, a co nie wchodzi w zakres pomiaru.
 
-A low result also does not indicate any clinical condition. The screener does not diagnose. A reader concerned about cognitive functioning should consult a qualified clinician, not act on this number.
+Niski wynik nie wskazuje również na żaden stan kliniczny. Badanie przesiewowe nie stawia diagnozy. Czytelnik zaniepokojony funkcjonowaniem poznawczym powinien skonsultować się z wykwalifikowanym klinicystą, a nie podejmować działania na podstawie tej liczby.
 
-## If you are in distress right now
+## Jeśli teraz przeżywasz kryzys
 
-If you are reading this page in immediate distress, please reach out. The list below is a curated set of English-language crisis-support resources. The resources serve callers regardless of test result.
+Jeśli czytasz tę stronę w stanie bezpośredniego kryzysu, prosimy — zgłoś się po pomoc. Poniższa lista to wyselekcjonowany zestaw anglojęzycznych zasobów wsparcia kryzysowego. Zasoby te są dostępne dla dzwoniących niezależnie od wyniku testu.
 
-The crisis-resource list is maintained at `src/content/crisis-resources/en.json` and rendered into this page by the build pipeline (full inline-rendering deferred to Epic 6 result-page wiring). The list includes phone, text, and online chat options.
+Lista zasobów kryzysowych jest utrzymywana w `src/content/crisis-resources/en.json` i renderowana na tej stronie przez potok budowania (pełne renderowanie śródliniowe odroczone do etapu wiring strony wyników w Epic 6). Lista obejmuje opcje kontaktu telefonicznego, tekstowego i czatu online.
 
-## Where to read more
+## Gdzie przeczytać więcej
 
-The retest-effects page describes what taking the test again means for the score. The cultural-variance page describes the norming-sample skew that affects the percentile anchor. The validity-envelope page describes the population and conditions the instrument is calibrated for.
+Strona dotycząca efektów retestowania opisuje, co ponowne przystąpienie do testu oznacza dla wyniku. Strona dotycząca zmienności kulturowej opisuje skrzywienie próby normalizacyjnej wpływające na punkt odniesienia percentyla. Strona dotycząca zakresu ważności opisuje populację i warunki, dla których instrument jest skalibrowany.
 
-A score is one signal. The methodology corpus exists so the signal can be read in context.
+Wynik to jeden sygnał. Korpus metodologiczny istnieje po to, aby ten sygnał można było odczytać w kontekście.

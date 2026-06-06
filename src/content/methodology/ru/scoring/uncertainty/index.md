@@ -1,5 +1,5 @@
 ---
-title: "What the uncertainty band means"
+title: "Что означает полоса неопределённости"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -13,18 +13,18 @@ sourceHashEN: "4e8e50ac409dde634f6e8a1c4843c396a8ed028771fa0ec2ca9ed344053dcd23"
 translationStatus: "in-progress"
 ---
 
-# What the uncertainty band means
+# Что означает полоса неопределённости
 
-Your score is one estimate. The uncertainty band around it shows the range of plausible scores given the precision of the measurement.
+Ваш балл — это одна оценка. Полоса неопределённости вокруг неё показывает диапазон правдоподобных баллов с учётом точности измерения.
 
-We display the band as `±N`. Read it this way: your true latent score is plausibly within roughly N points either way of the displayed number, at approximately 95% confidence.
+Мы отображаем полосу как `±N`. Читайте её так: ваш истинный латентный балл правдоподобно находится примерно в пределах N пунктов в обе стороны от отображаемого числа при примерно 95%-ном доверии.
 
-The band combines two sources of uncertainty. The first is the test itself: a 16-item screening session leaves room for response noise. We summarize this with the standard error of measurement, or SEM, computed from the posterior variance of the ability estimate. The second is the norming sample: the percentile-to-IQ-scale conversion was calibrated against one finite reference group, and that sample has its own uncertainty, called SE_norming.
+Полоса объединяет два источника неопределённости. Первый — сам тест: скрининговая сессия из 16 заданий оставляет место для шума реакции. Мы суммируем это стандартной ошибкой измерения (SEM), вычисленной из апостериорной дисперсии оценки способности. Второй — нормировочная выборка: преобразование из процентиля в шкалу IQ калибровалось по одной конечной референсной группе, и у этой выборки есть собственная неопределённость, называемая SE_norming.
 
-The full formula combines them: `SE_total = sqrt(SEM² + SE_norming²)`. The band you see on the result panel uses `SE_total` projected onto the IQ scale.
+Полная формула объединяет их: `SE_total = sqrt(SEM² + SE_norming²)`. Полоса на панели результатов использует `SE_total`, спроецированную на шкалу IQ.
 
-For the v1 build of this screener, `SE_norming` is set to 0. This is a placeholder pending psychometrician sign-off on the norming-sample SE values. The current band therefore reflects test noise only, not norming-sample noise. The displayed band is narrower than the true band by an amount we cannot yet quantify. We will update this page when the norming SE is finalized.
+Для сборки v1 данного скринера `SE_norming` установлено в 0. Это заглушка, ожидающая подтверждения психометриста по значениям SE нормировочной выборки. Текущая полоса поэтому отражает только шум теста, а не шум нормировочной выборки. Отображаемая полоса уже истинной на величину, которую мы пока не можем количественно определить. Мы обновим эту страницу после окончательного определения нормировочного SE.
 
-The uncertainty band is the honest signal. A score is never a point; it is a region. A test-taker who sees `124 ± 7` should think of the score as somewhere between 117 and 131, with the displayed value as a midpoint estimate.
+Полоса неопределённости — это честный сигнал. Балл никогда не является точкой; это область. Тестируемый, видящий `124 ± 7`, должен воспринимать балл как значение где-то между 117 и 131, где отображаемое значение является оценкой срединной точки.
 
-[Back to IQ-ME](/)
+[На главную IQ-ME](/)

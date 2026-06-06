@@ -1,5 +1,5 @@
 ---
-title: "EAP estimation — turning responses into a score"
+title: "Estymacja EAP — przeliczanie odpowiedzi na wynik"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -14,16 +14,16 @@ sourceHashEN: "c2a8dd3b6f6385874ab1eb7642c620b734324658229ee142ecd72c81fa120a69"
 translationStatus: "in-progress"
 ---
 
-# EAP estimation — turning responses into a score
+# Estymacja EAP — przeliczanie odpowiedzi na wynik
 
-After a session of 16 responses, IQ-ME computes the test-taker's ability with expected a posteriori estimation, or EAP. EAP is a Bayesian method. It produces a point estimate and a measure of how uncertain that estimate is.
+Po sesji składającej się z 16 odpowiedzi IQ-ME oblicza zdolność osoby badanej metodą estymacji oczekiwanej a posteriori, czyli EAP. EAP to metoda bayesowska. Daje ona estymator punktowy oraz miarę niepewności tego estymatora.
 
-The formula is: `theta_EAP = sum_i nodes[i] * L(nodes[i] | r) * weights[i] / sum_i L(nodes[i] | r) * weights[i]`.
+Wzór ma postać: `theta_EAP = sum_i nodes[i] * L(nodes[i] | r) * weights[i] / sum_i L(nodes[i] | r) * weights[i]`.
 
-The intuition: the engine considers a set of candidate ability values along the theta scale. For each candidate, it computes the likelihood that the test-taker's pattern of responses came from someone at that ability. It then takes a weighted average of the candidates. The weights combine the likelihood with a prior on what ability values are plausible at all.
+Intuicja stojąca za metodą: silnik rozważa zbiór kandydatów na wartość zdolności wzdłuż skali theta. Dla każdego kandydata oblicza prawdopodobieństwo, że zaobserwowany wzorzec odpowiedzi osoby badanej pochodzi od kogoś o takiej właśnie zdolności. Następnie wyznacza ważoną średnią tych kandydatów. Wagi łączą wiarygodność z priorem określającym, które wartości zdolności są w ogóle wiarygodne.
 
-Three numerical choices pin the implementation down. The first is the number of candidate ability values, called quadrature points. IQ-ME uses `quadpts = 61`. The second is the range those candidates span. IQ-ME uses `theta_lim = [-6, 6]` — six standard deviations either side of the mean covers the full plausible ability range. The third is the prior. IQ-ME uses the standard normal: `weights[i] = phi(nodes[i]) / sum_j phi(nodes[j])`, where `phi` is the standard-normal PDF.
+Trzy wybory numeryczne precyzują implementację. Pierwszym jest liczba kandydatów na wartości zdolności, zwana punktami kwadratury. IQ-ME używa `quadpts = 61`. Drugim jest zakres, który te kandydatury obejmują. IQ-ME używa `theta_lim = [-6, 6]` — sześć odchyleń standardowych po obu stronach średniej pokrywa pełen wiarygodny zakres zdolności. Trzecim jest prior. IQ-ME stosuje standardowe rozkład normalny: `weights[i] = phi(nodes[i]) / sum_j phi(nodes[j])`, gdzie `phi` jest gęstością standardowego rozkładu normalnego.
 
-The standard-normal prior assumes the population's ability is distributed normally around the mean. That assumption is approximately true for the SAPA reference sample. It is exactly true on the scale the model defines.
+Prior oparty na standardowym rozkładzie normalnym zakłada, że zdolności w populacji rozkładają się normalnie wokół średniej. To założenie jest w przybliżeniu prawdziwe dla próby referencyjnej SAPA. Na skali zdefiniowanej przez model jest ono ścisłe.
 
-The engine source at `src/scoring/irt/eap.js` and `src/scoring/irt/quadrature.js` implements EAP and the supporting quadrature. A skeptic can run the unit tests at `tests/unit/scoring/irt/eap.test.mjs` and confirm the implementation matches the math.
+Silnik zawarty w plikach `src/scoring/irt/eap.js` oraz `src/scoring/irt/quadrature.js` implementuje EAP i wspierającą go kwadraturę. Sceptyk może uruchomić testy jednostkowe pod ścieżką `tests/unit/scoring/irt/eap.test.mjs` i zweryfikować, że implementacja odpowiada matematyce.

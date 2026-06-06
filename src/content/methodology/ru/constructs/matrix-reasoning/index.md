@@ -1,5 +1,5 @@
 ---
-title: "Matrix reasoning items"
+title: "Задания на матричное мышление"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -10,12 +10,12 @@ sourceHashEN: "cbf09505075ee7c2be84481ada9cd248e4d9f8b34f62643405e83a559a366817"
 translationStatus: "in-progress"
 ---
 
-# Matrix reasoning items
+# Задания на матричное мышление
 
-A matrix-reasoning item is a grid of figures with one cell missing. The test-taker selects the option that completes the pattern. The form has been used in cognitive testing for nearly a century and is one of the most-studied surfaces of fluid reasoning.
+Задание на матричное мышление — это сетка фигур с одной пропущенной ячейкой. Тестируемый выбирает вариант, завершающий закономерность. Эта форма используется в когнитивном тестировании уже почти столетие и является одной из наиболее изученных граней подвижного интеллекта.
 
-The pattern logic in a matrix item can vary. Some items vary one feature across the grid; some vary two; some require detecting a transformation between cells. The 16 items in IQ-ME span a difficulty range calibrated so the screening session pins the test-taker's ability with reasonable precision in the middle of the distribution.
+Логика закономерности в матричном задании может варьироваться. В одних заданиях по сетке меняется один признак, в других — два; некоторые требуют выявления преобразования между ячейками. 16 заданий IQ-ME охватывают диапазон трудности, откалиброванный так, чтобы скрининговая сессия фиксировала способность тестируемого с достаточной точностью в середине распределения.
 
-A test-taker who has never seen a matrix item before may need a moment to learn what the format is asking. The session has no time pressure and no penalty for revisiting the first few items as the format becomes familiar. The pattern-recognition surface is what the test measures; familiarity with the format itself is not the construct of interest.
+Тестируемый, который никогда прежде не видел матричных заданий, может потратить мгновение на то, чтобы понять, что от него требует формат. Сессия не имеет ограничений по времени и не предусматривает штрафа за возврат к первым нескольким заданиям по мере знакомства с форматом. Поверхность распознавания закономерностей — это то, что тест измеряет; знакомство с самим форматом не является конструктом интереса.
 
-Matrix items are visual by construction. They cannot be made screen-reader-equivalent. The consent scene declares this honestly rather than offering a synthetic alt-text that would mislead. The instrument's validity envelope is part of the product copy, not an accessibility workaround.
+Матричные задания по своей природе визуальны. Они не могут быть приведены к эквиваленту для программ чтения с экрана. Сцена согласия заявляет об этом честно, а не предлагает синтетический альтернативный текст, который вводил бы в заблуждение. Рамка валидности инструмента является частью текстов продукта, а не обходным решением для обеспечения доступности.

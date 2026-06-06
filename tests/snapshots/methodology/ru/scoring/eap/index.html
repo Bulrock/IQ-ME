@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script src="/src/assessment/methodology-theme.js"></script>
-<title>EAP estimation — turning responses into a score — IQ-ME methodology v0.1.0</title>
-<meta name="iqme-title" content="EAP estimation — turning responses into a score">
+<title>EAP-оценивание — перевод ответов в балл — IQ-ME methodology v0.1.0</title>
+<meta name="iqme-title" content="EAP-оценивание — перевод ответов в балл">
 <meta name="iqme-version" content="v0.1.0">
 <meta name="iqme-doi" content="">
 <meta name="iqme-last-reviewed" content="2026-06-03">
@@ -27,7 +27,7 @@
 </head>
 <body data-lang="ru" data-translation-status="in-progress">
 <header class="methodology-masthead">
-<h1 class="methodology-masthead__title">EAP estimation — turning responses into a score</h1>
+<h1 class="methodology-masthead__title">EAP-оценивание — перевод ответов в балл</h1>
 <p class="methodology-masthead__version">v0.1.0</p>
 <p class="methodology-masthead__doi" data-doi-pending>DOI: pending v1.0.0 release</p>
 <p class="methodology-masthead__last-reviewed">Last reviewed: <time datetime="2026-06-03">2026-06-03</time></p>
@@ -37,7 +37,7 @@
 <p>This page may be out of date relative to its English source. <a href="/methodology/v0.1.0/en/../ru/scoring/eap/">View source EN page</a>.</p>
 </aside>
 <main>
-<p>After a session of 16 responses, IQ-ME computes the test-taker's ability with expected a posteriori estimation, or EAP. EAP is a Bayesian method. It produces a point estimate and a measure of how uncertain that estimate is.</p><p>The formula is: <code>theta_EAP = sum_i nodes[i] * L(nodes[i] | r) * weights[i] / sum_i L(nodes[i] | r) * weights[i]</code>.</p><p>The intuition: the engine considers a set of candidate ability values along the theta scale. For each candidate, it computes the likelihood that the test-taker's pattern of responses came from someone at that ability. It then takes a weighted average of the candidates. The weights combine the likelihood with a prior on what ability values are plausible at all.</p><p>Three numerical choices pin the implementation down. The first is the number of candidate ability values, called quadrature points. IQ-ME uses <code>quadpts = 61</code>. The second is the range those candidates span. IQ-ME uses <code>theta_lim = [-6, 6]</code> — six standard deviations either side of the mean covers the full plausible ability range. The third is the prior. IQ-ME uses the standard normal: <code>weights[i] = phi(nodes[i]) / sum_j phi(nodes[j])</code>, where <code>phi</code> is the standard-normal PDF.</p><p>The standard-normal prior assumes the population's ability is distributed normally around the mean. That assumption is approximately true for the SAPA reference sample. It is exactly true on the scale the model defines.</p><p>The engine source at <code>src/scoring/irt/eap.js</code> and <code>src/scoring/irt/quadrature.js</code> implements EAP and the supporting quadrature. A skeptic can run the unit tests at <code>tests/unit/scoring/irt/eap.test.mjs</code> and confirm the implementation matches the math.</p>
+<p>После сессии из 16 ответов IQ-ME вычисляет способность тестируемого методом ожидаемой апостериорной оценки (expected a posteriori, или EAP). EAP — байесовский метод. Он даёт точечную оценку и меру неопределённости этой оценки.</p><p>Формула: <code>theta_EAP = sum_i nodes[i] * L(nodes[i] | r) * weights[i] / sum_i L(nodes[i] | r) * weights[i]</code>.</p><p>Интуиция: движок рассматривает набор кандидатных значений способности вдоль шкалы тета. Для каждого кандидата вычисляется правдоподобие того, что паттерн ответов тестируемого принадлежит человеку с данным уровнем способности. Затем берётся взвешенное среднее кандидатов. Веса объединяют правдоподобие с априорным распределением допустимых значений способности.</p><p>Реализацию фиксируют три числовых выбора. Первый — количество кандидатных значений способности, называемых точками квадратуры. IQ-ME использует <code>quadpts = 61</code>. Второй — диапазон этих кандидатов. IQ-ME использует <code>theta_lim = [-6, 6]</code> — шесть стандартных отклонений по обе стороны от среднего охватывают весь правдоподобный диапазон способностей. Третий — априорное распределение. IQ-ME использует стандартное нормальное: <code>weights[i] = phi(nodes[i]) / sum_j phi(nodes[j])</code>, где <code>phi</code> — плотность стандартного нормального распределения (PDF).</p><p>Стандартное нормальное априорное распределение предполагает, что способности популяции распределены нормально относительно среднего. Это предположение приблизительно верно для референсной выборки SAPA. На шкале, определяемой моделью, оно точно выполняется.</p><p>Исходный код движка в <code>src/scoring/irt/eap.js</code> и <code>src/scoring/irt/quadrature.js</code> реализует EAP и вспомогательную квадратуру. Скептик может запустить модульные тесты в <code>tests/unit/scoring/irt/eap.test.mjs</code> и убедиться, что реализация соответствует математике.</p>
 </main>
 <aside class="cite-this-page-affordance"><div data-cite-widget></div></aside>
 </body>

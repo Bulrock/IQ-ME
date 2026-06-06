@@ -1,5 +1,5 @@
 ---
-title: "Cultural variance and the norming sample"
+title: "Культурная вариативность и нормативная выборка"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -10,20 +10,20 @@ sourceHashEN: "34d294bfdc5742a5a878fd0bb33aecd98d01ff20fcf0cc83aad0d9764d3b8d85"
 translationStatus: "in-progress"
 ---
 
-# Cultural variance and the norming sample
+# Культурная вариативность и нормативная выборка
 
-Fluid reasoning is more nearly culture-fair than verbal reasoning. A matrix item asks the test-taker to spot a visual pattern. It does not test words, cultural knowledge, or a specific cognitive register.
+Флюидное мышление в большей мере культурно нейтрально по сравнению с вербальным рассуждением. Матричное задание предлагает испытуемому обнаружить визуальный паттерн. Оно не проверяет словарный запас, культурные знания или специфический когнитивный регистр.
 
-That makes matrix items a fairer surface across populations than most cognitive tests.
+Это делает матричные задания более справедливым измерительным инструментом в межпопуляционном отношении, чем большинство когнитивных тестов.
 
-That relative fairness does not erase cultural variance. The percentile-to-IQ-scale transform in IQ-ME was calibrated against a specific norming sample. The sample came from the SAPA Project. SAPA is an online cognitive-research platform.
+Тем не менее относительная нейтральность не устраняет культурную вариативность. Преобразование процентилей в шкалу IQ в IQ-ME было откалибровано на конкретной нормативной выборке. Эта выборка получена из проекта SAPA. SAPA — онлайн-платформа для когнитивных исследований.
 
-The sample skews young, online, English-speaking, and educated. It is not representative of any global population.
+Выборка смещена в сторону молодых, интернет-активных, англоязычных и образованных участников. Она не репрезентативна для какой-либо глобальной популяции.
 
-A test-taker in a different population can still take the test. Their responses still produce a valid ability estimate on the underlying scale.
+Испытуемый из иной популяции по-прежнему может пройти тест. Его ответы по-прежнему дают валидную оценку способностей на базовой шкале.
 
-What changes is the percentile anchor. A 70th percentile in the SAPA sample is not the 70th percentile in a Russian-language general population. The same caveat holds for Polish, for any other population, and for any sub-group the calibration data did not cover.
+Изменяется процентильный ориентир. 70-й процентиль по выборке SAPA — это не 70-й процентиль в русскоязычной генеральной совокупности населения. Та же оговорка применима к польской популяции, к любой другой и к любой подгруппе, которая не была представлена в калибровочных данных.
 
-The screener documents this honestly. The result page caveats the score. The norming-sample page in the limitations section makes the skew explicit. It lists the demographics of the calibration data. The provenance section links to the SAPA documentation. A reader can verify the claim.
+Скринер фиксирует это честно. Страница результатов сопровождает балл оговоркой. Страница нормативной выборки в разделе ограничений эксплицирует это смещение: в ней перечислены демографические характеристики калибровочных данных. В разделе провенанса приводятся ссылки на документацию SAPA. Читатель может проверить данное утверждение самостоятельно.
 
-The instrument's posture on cultural variance is the same as its posture on every other limit. Surface it in the methodology. Do not paper over it in the result.
+Позиция инструмента в отношении культурной вариативности такая же, как и в отношении любого другого ограничения: обозначить его в методологии и не замалчивать на странице результатов.

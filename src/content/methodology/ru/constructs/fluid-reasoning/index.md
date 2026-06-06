@@ -1,5 +1,5 @@
 ---
-title: "Fluid reasoning — what IQ-ME measures"
+title: "Подвижный интеллект — что измеряет IQ-ME"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -11,14 +11,14 @@ sourceHashEN: "db9d146bf5cb2c3140e8b4b683b70486085124d89ac2043a777681022b1748eb"
 translationStatus: "in-progress"
 ---
 
-# Fluid reasoning — what IQ-ME measures
+# Подвижный интеллект — что измеряет IQ-ME
 
-Fluid reasoning is the ability to identify patterns in new material under no time pressure. It is a narrow construct, not a single number that explains a person.
+Подвижный интеллект — это способность выявлять закономерности в новом материале без ограничения по времени. Это узкий конструкт, а не единственное число, которое объясняет человека.
 
-IQ-ME measures one narrow surface of fluid reasoning. The instrument uses 16 visual matrix-reasoning items drawn from the ICAR-MR pool. Each item shows a grid of figures with one cell missing. The test-taker selects the option that completes the pattern. The session takes about 25 minutes and runs entirely in the browser, with no time limits per item.
+IQ-ME измеряет одну узкую грань подвижного интеллекта. Инструмент использует 16 визуальных заданий на матричное мышление из пула ICAR-MR. Каждое задание показывает сетку фигур с одной пропущенной ячейкой. Тестируемый выбирает вариант, завершающий закономерность. Сессия занимает около 25 минут и выполняется полностью в браузере, без ограничения времени на отдельное задание.
 
-Fluid reasoning sits inside the broader cognitive landscape called the g-factor — a statistical construct, not a thing in the head. The g-factor names the shared variance across many cognitive tests; fluid reasoning is one of the strongest contributors to it. Most readers know fluid reasoning through tasks like Raven's Progressive Matrices, which IQ-ME's matrix items resemble in structure.
+Подвижный интеллект находится внутри более широкого когнитивного ландшафта, называемого g-фактором, — это статистический конструкт, а не «вещь в голове». g-фактор обозначает общую дисперсию по множеству когнитивных тестов; подвижный интеллект — один из сильнейших его вкладчиков. Большинству читателей подвижный интеллект знаком по задачам вроде «Прогрессивных матриц Равена», на которые матричные задания IQ-ME похожи по структуре.
 
-The instrument's validity envelope is narrow on purpose. It is calibrated for adults who can complete a 16-item visual session unimpaired by acute distress, sleep deprivation, or substances. It is not a diagnostic. It is not a stand-in for a multi-domain IQ battery such as the Wechsler scales. It is not a measure of speed, working memory in isolation, verbal reasoning, processing speed, or any clinical condition.
+Рамка валидности инструмента узкая намеренно. Он откалиброван для взрослых, способных пройти сессию из 16 визуальных заданий без помех со стороны острого дистресса, недосыпа или психоактивных веществ. Это не диагностический инструмент. Это не замена многодоменной батарее IQ, такой как шкалы Векслера. Это не измерение скорости, рабочей памяти в изоляции, вербального мышления, скорости обработки или какого-либо клинического состояния.
 
-What you should take away from a session is one estimate with a range around it. The range is the honest signal. A score is never a point; it is a region. Read the result page and the uncertainty band together; they speak as one sentence.
+Что вам следует вынести из сессии — это одна оценка с диапазоном вокруг неё. Диапазон — это честный сигнал. Оценка никогда не точка; это область. Читайте страницу результата и полосу неопределённости вместе; они говорят как одно предложение.

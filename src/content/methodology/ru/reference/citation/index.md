@@ -1,5 +1,5 @@
 ---
-title: "How to cite IQ-ME"
+title: "Как цитировать IQ-ME"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -10,18 +10,18 @@ sourceHashEN: "43d055dab2efc96ddb2f219a9c133221d4ce866d7f4b7db0845cfcf915d6f169"
 translationStatus: "in-progress"
 ---
 
-# How to cite IQ-ME
+# Как цитировать IQ-ME
 
-A citer who refers to IQ-ME in academic, journalistic, or wiki-encyclopaedic work should cite the specific corpus version they read, not a generic project reference. The corpus version anchors the citation to a frozen state of the methodology that the reader can verify.
+Автор, ссылающийся на IQ-ME в академической, журналистской или вики-энциклопедической работе, должен указывать конкретную версию корпуса, которую он читал, а не общую ссылку на проект. Версия корпуса привязывает цитату к зафиксированному состоянию методологии, которое читатель может проверить.
 
-IQ-ME ships two citation templates on every methodology page: an APA-style entry and a Wikipedia-template entry. Both are filled in by the cite-this-page widget at the foot of each page. The widget reads the page's frontmatter for the version, last-reviewed date, and reviewer, and produces a copy-pasteable citation block.
+IQ-ME предоставляет два шаблона цитирования на каждой странице методологии: запись в стиле APA и запись в формате шаблона Wikipedia. Оба заполняются виджетом «процитировать эту страницу» в нижней части каждой страницы. Виджет считывает метаданные страницы (frontmatter): версию, дату последней проверки и рецензента, — и формирует готовый блок для копирования.
 
-The APA-style entry uses the form: `IQ-ME Project. (YYYY-MM-DD). Title of page. IQ-ME methodology v<version>. <permalink>`. The permalink is the versioned URL pattern `/methodology/v<X>.<Y>.<Z>/<lang>/<path>/`.
+Запись в стиле APA имеет вид: `IQ-ME Project. (YYYY-MM-DD). Title of page. IQ-ME methodology v<version>. <permalink>`. Постоянная ссылка использует версионированный шаблон URL `/methodology/v<X>.<Y>.<Z>/<lang>/<path>/`.
 
-The Wikipedia-template entry uses the form: `{{cite web | title= | url= | website=IQ-ME | date= | access-date= | version= }}`. A citer in MediaWiki can paste the block directly into a reference list.
+Запись в формате шаблона Wikipedia имеет вид: `{{cite web | title= | url= | website=IQ-ME | date= | access-date= | version= }}`. Автор в MediaWiki может вставить блок непосредственно в список ссылок.
 
-The BibTeX format is a nice-to-have for academic work. It is not in the v1 launch; it will land in a v1.0.1 follow-up. The CITATION.cff file at the repository root provides the underlying citation metadata in a machine-readable form. A citation-manager that reads CFF can produce BibTeX from it.
+Формат BibTeX является желательным дополнением для академических работ. В выпуске v1 он отсутствует; его планируется добавить в релизе v1.0.1. Файл CITATION.cff в корне репозитория содержит базовые метаданные цитирования в машиночитаемой форме. Менеджер цитирования, поддерживающий CFF, может сформировать BibTeX на его основе.
 
-The DOI permanence guarantee in the project's non-functional requirements means a corpus version, once released, has a stable URL. The Internet Archive and Software Heritage archival redundancy commitment means the URL will continue to resolve even if the project's primary hosting fails. Citers can rely on the version permalink as a long-term reference.
+Гарантия постоянства DOI, закреплённая в нефункциональных требованиях проекта, означает, что версия корпуса после выпуска имеет стабильный URL. Обязательство по архивному резервированию через Internet Archive и Software Heritage означает, что URL будет продолжать разрешаться даже в случае отказа основного хостинга проекта. Авторы могут полагаться на постоянную ссылку версии как на долгосрочную ссылку.
 
-The full per-corpus-release versioning policy lives in the changelog. A new version is cut when the methodology corpus changes in a way that affects a citation. Patch releases for typographic fixes do not change the citation; minor releases that add content do; major releases that change a claim require a corresponding bump of the engine version.
+Полная политика версионирования для каждого выпуска корпуса описана в журнале изменений. Новая версия создаётся, когда корпус методологии изменяется таким образом, что это влияет на цитирование. Патч-релизы для исправления опечаток не меняют цитату; минорные релизы, добавляющие содержание, — меняют; мажорные релизы, изменяющие какое-либо утверждение, требуют соответствующего повышения версии движка.

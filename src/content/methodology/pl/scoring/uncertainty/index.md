@@ -1,5 +1,5 @@
 ---
-title: "What the uncertainty band means"
+title: "Co oznacza pasmo niepewności"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -13,18 +13,18 @@ sourceHashEN: "4e8e50ac409dde634f6e8a1c4843c396a8ed028771fa0ec2ca9ed344053dcd23"
 translationStatus: "in-progress"
 ---
 
-# What the uncertainty band means
+# Co oznacza pasmo niepewności
 
-Your score is one estimate. The uncertainty band around it shows the range of plausible scores given the precision of the measurement.
+Twój wynik to jeden estymator. Pasmo niepewności wokół niego pokazuje zakres wiarygodnych wyników przy danej precyzji pomiaru.
 
-We display the band as `±N`. Read it this way: your true latent score is plausibly within roughly N points either way of the displayed number, at approximately 95% confidence.
+Wyświetlamy pasmo jako `±N`. Odczytaj je w następujący sposób: Twój prawdziwy wynik ukryty mieści się wiarygodnie w przybliżeniu w odległości N punktów w każdą stronę od wyświetlonej liczby, przy około 95-procentowym poziomie ufności.
 
-The band combines two sources of uncertainty. The first is the test itself: a 16-item screening session leaves room for response noise. We summarize this with the standard error of measurement, or SEM, computed from the posterior variance of the ability estimate. The second is the norming sample: the percentile-to-IQ-scale conversion was calibrated against one finite reference group, and that sample has its own uncertainty, called SE_norming.
+Pasmo łączy dwa źródła niepewności. Pierwszym jest sam test: sesja przesiewowa złożona z 16 pozycji pozostawia miejsce na szum odpowiedzi. Podsumowujemy to standardowym błędem pomiaru, czyli SEM, obliczonym z wariancji posteriori estymatora zdolności. Drugim jest próba normalizacyjna: konwersja percentyla na skalę IQ była kalibrowana względem jednej skończonej grupy referencyjnej, a ta próba ma własną niepewność, zwaną SE_norming.
 
-The full formula combines them: `SE_total = sqrt(SEM² + SE_norming²)`. The band you see on the result panel uses `SE_total` projected onto the IQ scale.
+Pełny wzór łączy je obie: `SE_total = sqrt(SEM² + SE_norming²)`. Pasmo widoczne na panelu wyników używa `SE_total` rzutowanego na skalę IQ.
 
-For the v1 build of this screener, `SE_norming` is set to 0. This is a placeholder pending psychometrician sign-off on the norming-sample SE values. The current band therefore reflects test noise only, not norming-sample noise. The displayed band is narrower than the true band by an amount we cannot yet quantify. We will update this page when the norming SE is finalized.
+W wersji v1 niniejszego narzędzia przesiewowego `SE_norming` jest ustawione na 0. Jest to wartość zastępcza oczekująca na zatwierdzenie przez psychometryka wartości SE próby normalizacyjnej. Bieżące pasmo odzwierciedla zatem wyłącznie szum testowy, a nie szum próby normalizacyjnej. Wyświetlane pasmo jest węższe od prawdziwego o wielkość, której nie możemy jeszcze oszacować. Zaktualizujemy tę stronę po sfinalizowaniu SE normalizacji.
 
-The uncertainty band is the honest signal. A score is never a point; it is a region. A test-taker who sees `124 ± 7` should think of the score as somewhere between 117 and 131, with the displayed value as a midpoint estimate.
+Pasmo niepewności jest rzetelnym sygnałem. Wynik nigdy nie jest punktem; jest obszarem. Osoba badana, która widzi `124 ± 7`, powinna traktować swój wynik jako mieszczący się gdzieś między 117 a 131, przy czym wyświetlona wartość stanowi estymator środkowego punktu.
 
-[Back to IQ-ME](/)
+[Powrót do IQ-ME](/)

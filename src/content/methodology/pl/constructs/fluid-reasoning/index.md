@@ -1,5 +1,5 @@
 ---
-title: "Fluid reasoning — what IQ-ME measures"
+title: "Myślenie płynne — co mierzy IQ-ME"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -11,14 +11,14 @@ sourceHashEN: "db9d146bf5cb2c3140e8b4b683b70486085124d89ac2043a777681022b1748eb"
 translationStatus: "in-progress"
 ---
 
-# Fluid reasoning — what IQ-ME measures
+# Myślenie płynne — co mierzy IQ-ME
 
-Fluid reasoning is the ability to identify patterns in new material under no time pressure. It is a narrow construct, not a single number that explains a person.
+Myślenie płynne to zdolność do rozpoznawania wzorców w nowym materiale bez presji czasu. Jest to konstrukt o wąskim zakresie, a nie pojedyncza liczba wyjaśniająca osobę.
 
-IQ-ME measures one narrow surface of fluid reasoning. The instrument uses 16 visual matrix-reasoning items drawn from the ICAR-MR pool. Each item shows a grid of figures with one cell missing. The test-taker selects the option that completes the pattern. The session takes about 25 minutes and runs entirely in the browser, with no time limits per item.
+IQ-ME mierzy jeden wąski aspekt myślenia płynnego. Narzędzie wykorzystuje 16 wzrokowo-matrycowych zadań rozumowania, zaczerpniętych z puli ICAR-MR. Każde zadanie przedstawia siatkę figur z brakującą komórką. Osoba badana wybiera opcję, która uzupełnia wzorzec. Sesja trwa około 25 minut i odbywa się w całości w przeglądarce, bez limitów czasowych na poszczególne zadania.
 
-Fluid reasoning sits inside the broader cognitive landscape called the g-factor — a statistical construct, not a thing in the head. The g-factor names the shared variance across many cognitive tests; fluid reasoning is one of the strongest contributors to it. Most readers know fluid reasoning through tasks like Raven's Progressive Matrices, which IQ-ME's matrix items resemble in structure.
+Myślenie płynne wpisuje się w szerszy krajobraz poznawczy zwany g-czynnikiem — konstruktem statystycznym, a nie czymś istniejącym w głowie. G-czynnik opisuje wspólną wariancję wielu testów poznawczych; myślenie płynne jest jednym z jego najsilniejszych składników. Większość czytelników zna myślenie płynne poprzez zadania takie jak Progresywne Matryce Ravena, którym matrycowe zadania IQ-ME odpowiadają strukturalnie.
 
-The instrument's validity envelope is narrow on purpose. It is calibrated for adults who can complete a 16-item visual session unimpaired by acute distress, sleep deprivation, or substances. It is not a diagnostic. It is not a stand-in for a multi-domain IQ battery such as the Wechsler scales. It is not a measure of speed, working memory in isolation, verbal reasoning, processing speed, or any clinical condition.
+Zakres ważności narzędzia jest celowo wąski. Jest ono skalibrowane dla dorosłych, którzy mogą ukończyć 16-zadaniową sesję wzrokową bez zakłóceń wywołanych ostrym stresem, deprywacją snu lub substancjami psychoaktywnymi. Nie jest to narzędzie diagnostyczne. Nie zastępuje wielodziedzinowej baterii IQ, takiej jak skale Wechslera. Nie mierzy szybkości, pamięci roboczej w izolacji, rozumowania werbalnego, szybkości przetwarzania ani żadnego stanu klinicznego.
 
-What you should take away from a session is one estimate with a range around it. The range is the honest signal. A score is never a point; it is a region. Read the result page and the uncertainty band together; they speak as one sentence.
+Z sesji powinieneś wynieść jeden szacunek z przedziałem wokół niego. Przedział ten jest rzetelnym sygnałem. Wynik nigdy nie jest punktem — jest obszarem. Czytaj stronę wyników i pasmo niepewności łącznie; mówią one jednym zdaniem.

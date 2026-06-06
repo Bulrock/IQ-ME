@@ -1,5 +1,5 @@
 ---
-title: "The IRT 2-parameter logistic model"
+title: "Dwuparametryczny model logistyczny IRT"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -11,16 +11,16 @@ sourceHashEN: "35f151c85951d1356f35cf8696c65e67da0a42a78cd466836fc80ba81f65b7db"
 translationStatus: "in-progress"
 ---
 
-# The IRT 2-parameter logistic model
+# Dwuparametryczny model logistyczny IRT
 
-IQ-ME scores responses using the 2-parameter logistic model from item response theory, or 2PL IRT for short. The model is one of the most widely used in psychometrics.
+IQ-ME ocenia odpowiedzi za pomocą dwuparametrycznego modelu logistycznego z teorii odpowiedzi na pozycje testowe, w skrócie 2PL IRT. Model ten należy do najszerzej stosowanych w psychometrii.
 
-The model says the chance of a correct answer on an item depends on two things. The first is the test-taker's ability. The second is the item's properties.
+Model stwierdza, że szansa udzielenia poprawnej odpowiedzi na pozycję testową zależy od dwóch rzeczy. Pierwszą jest zdolność osoby badanej. Drugą są właściwości pozycji testowej.
 
-The formula is: `P(correct | theta, a, b) = 1 / (1 + exp(-a(theta - b)))`.
+Wzór ma postać: `P(correct | theta, a, b) = 1 / (1 + exp(-a(theta - b)))`.
 
-Here `theta` is the test-taker's ability on a latent scale. The scale is centred at zero. Higher numbers mean higher ability. The parameter `a` is the item's discrimination. The parameter `b` is the item's difficulty. Both come from the calibration data for the ICAR-MR pool.
+Tutaj `theta` oznacza zdolność osoby badanej na skali ukrytej. Skala jest wyśrodkowana w zerze. Wyższe wartości oznaczają wyższą zdolność. Parametr `a` to dyskryminacja pozycji. Parametr `b` to trudność pozycji. Oba parametry pochodzą z danych kalibracyjnych dla puli ICAR-MR.
 
-A higher `a` means the item separates abler test-takers from less able ones more sharply. A higher `b` means the item is harder. Two test-takers of equal ability still produce different answers because of response noise; the model accounts for that noise by predicting probabilities, not certainties.
+Wyższe `a` oznacza, że pozycja ostrzej rozróżnia osoby o wyższej zdolności od tych o niższej. Wyższe `b` oznacza, że pozycja jest trudniejsza. Dwie osoby o równej zdolności i tak udzielają różnych odpowiedzi z powodu szumu odpowiedzi; model uwzględnia ten szum, przewidując prawdopodobieństwa, a nie pewności.
 
-The model is one of many possible scoring models. It was chosen because it is well-studied, has known limits, and produces estimates that align with the broader psychometric literature. The engine source at `src/scoring/irt/likelihood.js` implements the formula directly. A skeptic can read the source and verify the math in under ten minutes.
+Model jest jednym z wielu możliwych modeli punktacyjnych. Wybrano go, ponieważ jest dobrze zbadany, ma znane ograniczenia i daje estymaty zgodne z szerszą literaturą psychometryczną. Kod silnika w pliku `src/scoring/irt/likelihood.js` implementuje wzór bezpośrednio. Sceptyk może przeczytać kod źródłowy i zweryfikować matematykę w mniej niż dziesięć minut.

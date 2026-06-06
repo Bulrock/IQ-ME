@@ -1,5 +1,5 @@
 ---
-title: "Anti-leakage — item-set integrity"
+title: "Ochrona przed wyciekiem — integralność zbioru zadań"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -10,18 +10,18 @@ sourceHashEN: "c2d76f8c82a41decf4d5d8486bd664f39c68fc41e2ebc37f79017d98083ca793"
 translationStatus: "in-progress"
 ---
 
-# Anti-leakage — item-set integrity
+# Ochrona przed wyciekiem — integralność zbioru zadań
 
-A cognitive screener's items are calibrated against a population that has not seen them. When the item set leaks — into practice corpora, into AI-training data, into widely-shared answer keys — the calibration silently breaks. A practiced test-taker scores higher not because their ability is higher but because the items are no longer novel to them.
+Zadania przesiewowego narzędzia poznawczego są kalibrowane na populacji, która wcześniej ich nie widziała. Gdy zbiór zadań wycieknie — do zbiorów ćwiczeniowych, do danych treningowych AI, do powszechnie udostępnianych kluczy odpowiedzi — kalibracja po cichu traci ważność. Przećwiczony uczestnik testu uzyskuje wyższy wynik nie dlatego, że jego zdolności są wyższe, lecz dlatego, że zadania przestały być dla niego nowe.
 
-IQ-ME ships with a public item set. The screener cannot prevent leakage in principle; the items are visible to anyone who runs the screener. Pretending otherwise would be dishonest.
+IQ-ME jest dostarczany z publicznym zbiorem zadań. Screener nie może z zasady zapobiec wyciekowi; zadania są widoczne dla każdego, kto uruchomi screener. Twierdzenie czegoś przeciwnego byłoby nieuczciwe.
 
-The screener takes three steps to slow leakage and surface it when it happens.
+Screener podejmuje trzy kroki, by spowolnić wyciek i ujawnić go, gdy do niego dojdzie.
 
-The first step is design discipline. The screener does not show correct answers after items. There is no per-item feedback during the session. The result page does not list which items the test-taker got right or wrong. A test-taker can build a private corpus of items by taking the screener many times, but the screener does not help.
+Pierwszym krokiem jest dyscyplina projektowa. Screener nie pokazuje poprawnych odpowiedzi po zadaniach. W trakcie sesji nie ma informacji zwrotnej do poszczególnych zadań. Strona wyników nie wymienia, które zadania uczestnik rozwiązał poprawnie, a które błędnie. Uczestnik może wielokrotnie przystępując do screener zbudować prywatny korpus zadań, lecz screener mu w tym nie pomaga.
 
-The second step is observable evidence. The project monitors discussion of IQ-ME items in practice forums and AI-training-data dumps where feasible. Surfaces that aggregate items will be linked from this page so a reader can verify the claim of practice exposure for any specific item.
+Drugim krokiem jest obserwowalna dokumentacja. Projekt monitoruje — w miarę możliwości — dyskusje na temat zadań IQ-ME na forach ćwiczeniowych i w zrzutach danych treningowych AI. Strony agregujące zadania zostaną podlinkowane z tej strony, aby czytelnik mógł zweryfikować twierdzenie o ekspozycji ćwiczeniowej dla każdego konkretnego zadania.
 
-The third step is honest documentation. This page declares the leakage risk explicitly so a reader can factor that risk into how seriously to take a high score. The retest-effects page describes what happens to scores when a test-taker has practiced. The result page caveats the score with the most load-bearing of these boundaries.
+Trzecim krokiem jest uczciwa dokumentacja. Niniejsza strona wprost deklaruje ryzyko wycieku, tak aby czytelnik mógł uwzględnić to ryzyko przy ocenie, jak poważnie traktować wysoki wynik. Strona poświęcona efektom ponownego testowania opisuje, co dzieje się z wynikami, gdy uczestnik wcześniej ćwiczył. Strona wyników opatruje wynik zastrzeżeniami dotyczącymi najbardziej istotnych spośród tych ograniczeń.
 
-A test-taker who has not encountered the IQ-ME item set before a session is the population the calibration covers. A test-taker who has practiced is outside that population, and their score should be read with that context.
+Uczestnik, który przed sesją nie zetknął się wcześniej ze zbiorem zadań IQ-ME, należy do populacji objętej kalibracją. Uczestnik, który ćwiczył, wykracza poza tę populację i jego wynik należy odczytywać z uwzględnieniem tego kontekstu.

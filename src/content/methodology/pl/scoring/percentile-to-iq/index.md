@@ -1,5 +1,5 @@
 ---
-title: "What a percentile means"
+title: "Co oznacza percentyl"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -12,18 +12,18 @@ sourceHashEN: "d45a80aaee241eb457540d181b94d353403d8a08354e96874ac09037e2afd1ec"
 translationStatus: "in-progress"
 ---
 
-# What a percentile means
+# Co oznacza percentyl
 
-Your percentile is a ranking. It places your score relative to a reference group of test-takers, on a scale from 0 to 100.
+Twój percentyl to pozycja w rankingu. Umieszcza Twój wynik względem grupy referencyjnej osób badanych na skali od 0 do 100.
 
-A percentile of 58 means roughly 58 out of every 100 similar test-takers scored at or below your score. A percentile of 5 places your score near the bottom of the reference group. A percentile of 95 places it near the top.
+Percentyl 58 oznacza, że mniej więcej 58 na każde 100 podobnych osób badanych uzyskało wynik równy Twojemu lub niższy. Percentyl 5 plasuje Twój wynik blisko dolnej granicy grupy referencyjnej. Percentyl 95 plasuje go blisko górnej granicy.
 
-Percentiles compress a continuous score onto a familiar ranking scale. The underlying score is a latent-ability estimate from item response theory; the percentile is a transform of that estimate through the standard-normal cumulative distribution function. The formula is `percentile = 100 × Φ(theta)`, where `theta` is your ability estimate and `Φ` is the standard-normal CDF.
+Percentyle kompresują ciągły wynik na znajomą skalę rankingową. Bazowy wynik to estymator zdolności ukrytej z teorii odpowiedzi na pozycje testowe; percentyl jest przekształceniem tego estymatora przez dystrybuantę standardowego rozkładu normalnego. Wzór ma postać `percentile = 100 × Φ(theta)`, gdzie `theta` to Twój estymator zdolności, a `Φ` to dystrybuanta standardowego rozkładu normalnego.
 
-The reference group matters. This percentile is computed against a norming sample drawn from the SAPA project, which over-represents literate, online, English-speaking adults. If your background differs from that sample, your percentile estimate is less precise than the same score from a closer-matching sample.
+Grupa referencyjna ma znaczenie. Niniejszy percentyl jest obliczany względem próby normalizacyjnej pochodzącej z projektu SAPA, która nadreprezentuje piśmiennych, korzystających z internetu dorosłych anglojęzycznych. Jeśli Twoje środowisko różni się od tej próby, Twój estymator percentyla jest mniej precyzyjny niż ten sam wynik z próby lepiej do Ciebie dopasowanej.
 
-A percentile is not a verdict. It is a ranking against one specific group, computed with one specific method, on one short screening test. Two test-takers who differ by one percentile point are not meaningfully different in ability; the measurement noise is wider than that.
+Percentyl nie jest werdyktem. Jest to ranking względem jednej konkretnej grupy, obliczony jedną konkretną metodą, na podstawie jednego krótkiego testu przesiewowego. Dwie osoby badane różniące się o jeden punkt percentylowy nie różnią się znacząco zdolnościami; szum pomiarowy jest szerszy niż taka różnica.
 
-You can read about how the underlying ability score is computed, and how it is converted to an IQ-scale anchor, on the other scoring pages in this corpus.
+Możesz przeczytać o tym, jak obliczany jest bazowy wynik zdolności i jak jest on przekształcany na kotwicę skali IQ, na pozostałych stronach punktacyjnych tego korpusu.
 
-[Back to IQ-ME](/)
+[Powrót do IQ-ME](/)

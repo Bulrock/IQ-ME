@@ -1,5 +1,5 @@
 ---
-title: "Top-decile result — what it means and what to do next"
+title: "Wynik z górnego decyla — co oznacza i co zrobić dalej"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -10,28 +10,28 @@ sourceHashEN: "0df15f34a4f2a2aa0b304b26464ca3cafa213ad105f77b8624178d5a40053e52"
 translationStatus: "in-progress"
 ---
 
-# Top-decile result — what it means and what to do next
+# Wynik z górnego decyla — co oznacza i co zrobić dalej
 
-**EN placeholder — awaiting clinical-register-reviewer-of-record sign-off via Gate-9b/9c.** This page exists so the methodology-handoff click from a top-decile result resolves to a real page while the canonical clinical-register-reviewed content is in flight via the Gate-9 reviewer process.
+**Tymczasowy szkielet — oczekuje na zatwierdzenie przez klinicznego recenzenta rejestrowego w ramach Gate-9b/9c.** Strona ta istnieje po to, aby kliknięcie prowadzące do przekazania metodologii z wyniku w górnym decylu prowadziło do rzeczywistej strony, podczas gdy kanoniczne treści zatwierdzone przez klinicznego recenzenta rejestrowego są w trakcie opracowywania w ramach procesu recenzenta Gate-9.
 
-## What a high percentile means
+## Co oznacza wysoki percentyl
 
-A percentile above 90 on this screener means a fluid-reasoning estimate that sits above the 90th percentile of the SAPA norming sample. The uncertainty band at the tails is wider than at the centre. A high score is one signal from one short test taken once.
+Percentyl powyżej 90 w tym przesiewowym badaniu oznacza szacunkowy wynik płynnego rozumowania, który plasuje się powyżej 90. percentyla próby normalizacyjnej SAPA. Przedział niepewności na ogonach rozkładu jest szerszy niż w jego centrum. Wysoki wynik to jeden sygnał z jednego krótkiego testu, przeprowadzonego jednorazowo.
 
-## What it does not mean
+## Czego wynik nie oznacza
 
-The result is not a credential. The anti-credentialization page documents the design choices that make this so: no share button, no certificate, no badge, no leaderboard. A high score is a private fact between the test-taker and the methodology corpus.
+Wynik nie jest poświadczeniem kwalifikacji. Strona dotycząca zakazu uwierzytelniania dokumentuje wybory projektowe, które to zapewniają: brak przycisku udostępniania, certyfikatu, odznaki ani rankingu. Wysoki wynik jest prywatnym faktem pomiędzy osobą przystępującą do testu a korpusem metodologicznym.
 
-The result is also not a measurement of intelligence as a whole-person property. The g-factor page documents what fluid reasoning is and is not. A score on this screener correlates with broader g-factor measures because of the shared variance the g-factor names, but it does not measure g.
+Wynik nie jest również pomiarem inteligencji jako właściwości całej osoby. Strona dotycząca czynnika g dokumentuje, czym jest, a czym nie jest płynne rozumowanie. Wynik w tym badaniu przesiewowym koreluje z szerszymi miarami czynnika g ze względu na wspólną wariancję, którą czynnik g opisuje, jednak nie mierzy g.
 
-## Retest caveat
+## Zastrzeżenie dotyczące retestowania
 
-The retest-effects page describes what taking the test again means for the score. A test-taker who has taken the screener before sees inflated scores on later sessions because they have practiced the matrix-item format. The first session is the cleanest measurement. A high result on a first session is more informative than a high result on a tenth session.
+Strona dotycząca efektów retestowania opisuje, co ponowne przystąpienie do testu oznacza dla wyniku. Osoba, która wcześniej wykonywała to badanie przesiewowe, uzyskuje zawyżone wyniki w kolejnych sesjach, ponieważ ćwiczyła format zadań matrycowych. Pierwsza sesja dostarcza najczystszego pomiaru. Wysoki wynik w pierwszej sesji jest bardziej informatywny niż wysoki wynik w dziesiątej sesji.
 
-## What to do next
+## Co zrobić dalej
 
-A high result is not an instruction to act. It is a number to read with the methodology corpus, weight against the validity envelope, and then set aside. People build lives on persistence, judgment, repair, learning, and care for what matters. A screener of one narrow ability is a small data point.
+Wysoki wynik nie jest instrukcją do działania. Jest liczbą, którą należy odczytać w kontekście korpusu metodologicznego, zestawić z zakresem ważności, a następnie odłożyć na bok. Ludzie budują życie na wytrwałości, ocenie sytuacji, naprawianiu błędów, uczeniu się i trosce o to, co ważne. Badanie przesiewowe jednej wąskiej zdolności to mały punkt danych.
 
-## Where to read more
+## Gdzie przeczytać więcej
 
-The validity-envelope page describes the population and conditions the instrument is calibrated for. The norming-sample-bias page describes the skew in the calibration data. The ethics section documents the project's posture on what a screener should and should not do.
+Strona dotycząca zakresu ważności opisuje populację i warunki, dla których instrument jest skalibrowany. Strona dotycząca stronniczości próby normalizacyjnej opisuje skrzywienie w danych kalibracyjnych. Sekcja etyczna dokumentuje stanowisko projektu w kwestii tego, co badanie przesiewowe powinno, a czego nie powinno robić.
