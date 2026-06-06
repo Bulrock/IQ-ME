@@ -22,10 +22,8 @@ const ITEM_PARAMS_URL = "/src/items/item-parameters.json";
 
 let sessionCache = null;
 let mounted = null;
-// Story 11-1 fix: the scored session state keeps only correctness (0/1), never
-// which option the user picked. Track the actual choice per item (itemIndex →
-// option value) so Previous/resume re-displays the real selection until it's
-// changed. Mirrored into the iqme:in-progress payload; restored on mount by seed.
+// Story 11-1: the user's actual pick per item (itemIndex → option value). Scored
+// state keeps only 0/1; this re-displays the real choice on Previous/resume.
 let selectedOptions = {};
 
 function bytesToHex(bytes) {
@@ -76,9 +74,7 @@ function buildMarkup(cache, currentItem, strings) {
   const responses = state.getState().responses;
   const recordedAt = responses.findIndex((r) => r.itemIndex === currentItem);
   const recorded = recordedAt >= 0 ? responses[recordedAt].response : null;
-  // Prefer the actual recorded choice; fall back to the correct-answer heuristic
-  // only for legacy payloads saved before selections were persisted.
-  const sel = selectedOptions[currentItem];
+  const sel = selectedOptions[currentItem]; // actual pick; correct-only fallback for legacy
   const isFirst = currentItem === 0;
   const isLast = currentItem === SESSION_SIZE - 1;
   const nextLabel = isLast ? strings.itemRunner.submitButton : strings.itemRunner.nextButton;
@@ -136,10 +132,7 @@ function attachListeners(rootEl, cache, strings) {
       const value = ev && ev.target ? (ev.target.attrs ? ev.target.attrs.value : ev.target.value) : null;
       // F-A: score on-the-fly (state.schema enum [0,1]).
       state.recordResponse(currentItem, value === item.correct ? 1 : 0);
-      // Story 11-1 fix: remember the actual choice (not just correctness) so it
-      // re-displays on Previous/resume until the user picks a different option.
-      selectedOptions[currentItem] = value;
-      // Story 11-1 resume: persist progress on every answer.
+      selectedOptions[currentItem] = value; // remember the actual pick (Story 11-1)
       persistence.saveProgress(state.getState(), selectedOptions);
     });
   }
@@ -160,8 +153,8 @@ function attachListeners(rootEl, cache, strings) {
       for (let i = 0; i < SESSION_SIZE; i++) {
         if (!answered.has(i)) state.recordResponse(i, 0);
       }
-      // Finalized → no longer resumable; clear the saved progress.
-      persistence.clearProgress();
+      // Finalized → no longer resumable; clear THIS session's saved progress.
+      persistence.clearProgress(state.getState().seed);
       selectedOptions = {};
       routing.navigate("result");
       return;
@@ -181,7 +174,7 @@ function attachListeners(rootEl, cache, strings) {
   const close = () => { setBail("closed"); focusEl(aff); };
   add(aff, "click", () => { setBail("open"); focusEl(cont); });
   add(cont, "click", close);
-  add(disc, "click", () => { persistence.clearProgress(); selectedOptions = {}; state.resetState(); routing.navigate(""); });
+  add(disc, "click", () => { persistence.clearProgress(state.getState().seed); selectedOptions = {}; state.resetState(); routing.navigate(""); });
   add(document, "keydown", (ev) => {
     if (!sec || sec.getAttribute("data-bail-state") !== "open") return;
     if (ev && ev.key === "Escape") { ev.preventDefault?.(); close(); }
@@ -256,13 +249,8 @@ function updateItemInPlace(rootEl, cache, strings) {
     img.setAttribute("data-augmentation", aug);
   }
 
-  // Story 11-1 fix: update the reused radio group in TWO passes. Mutating each
-  // radio's name + checked interleaved (PR-3 in-place reuse) leaves the browser
-  // radio group in an inconsistent state mid-loop, so the selected option
-  // re-displays only sometimes. Pass 1 re-establishes the group (name/value) and
-  // clears every radio; pass 2 checks exactly the option the user picked (`sel`),
-  // falling back to the correct answer only for legacy payloads with no stored
-  // selection.
+  // Story 11-1: two passes — interleaving name+checked on the reused radio group
+  // (PR-3) leaves it inconsistent (pick shows only sometimes). Clear all, then check one.
   const want = sel != null ? sel : (recorded === 1 ? item.correct : null);
   const optionEls = rootEl.querySelectorAll(".item-runner__option");
   item.options.forEach((opt, i) => {
@@ -311,12 +299,9 @@ export async function render(rootEl, strings) {
   if (mounted) { detach(mounted.listeners); mounted = null; }
   const cache = await ensureSession(rootEl, strings);
   if (!cache) return;
-  // Story 11-1 fix: adopt persisted per-item selections only when they belong to
-  // the current session's seed (resume); a fresh session (new seed) starts clean.
-  const ip = persistence.loadProgress();
-  selectedOptions = ip && ip.seed === state.getState().seed && ip.selectedOptions
-    ? { ...ip.selectedOptions }
-    : {};
+  // Story 11-1: restore this session's persisted picks (keyed by seed).
+  const ip = persistence.loadProgress(state.getState().seed);
+  selectedOptions = ip && ip.selectedOptions ? { ...ip.selectedOptions } : {};
   rootEl.innerHTML = buildMarkup(cache, state.getState().currentItem, strings);
   mounted = { rootEl, listeners: attachListeners(rootEl, cache, strings) };
   // Story 11-1 resume: the session is now under way — persist it so an

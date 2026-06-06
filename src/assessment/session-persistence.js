@@ -1,47 +1,87 @@
 // src/assessment/session-persistence.js
 //
-// Story 11-1 — resume an interrupted test. Auto-saves the in-progress session
-// (current item + responses + seed) to localStorage so it can be resumed (or
-// deleted) from the saved-results page. Per maintainer decision this is
-// always-on (NFR9 relaxed for the in-progress key specifically — the prior
-// no-write-without-consent posture is documented as superseded for resume).
-// Stdlib-only; quota/disabled-storage-safe.
+// Story 11-1 — resume interrupted tests. Always-on auto-save (NFR9 relaxed per
+// maintainer decision). Multi-session: each started test kept under its own
+// `iqme:in-progress:<seed>` key; payload carries `selectedOptions` (itemIndex →
+// picked option) so resume/Previous re-displays the real choice. Quota-safe.
 
-const KEY = "iqme:in-progress";
+const PREFIX = "iqme:in-progress:";
+const LEGACY_KEY = "iqme:in-progress"; // pre-multi single-slot key
 const SESSION_SIZE = 16;
+const INITIAL_SEED = "0".repeat(32);
 
-// Persist the live session. No-op before the session has started (startedAt 0)
-// or once it's complete (all 16 answered → it's about to finalize, not resume).
+const keyFor = (seed) => PREFIX + seed;
+
+// All localStorage keys for in-progress sessions.
+function progressKeys() {
+  const out = [];
+  try {
+    const ls = window.localStorage;
+    for (let i = 0; i < ls.length; i++) { const k = ls.key(i); if (k && k.startsWith(PREFIX)) out.push(k); }
+  } catch (_e) { /* swallow */ }
+  return out;
+}
+
+// Idempotent one-time migration of the pre-multi single-slot key → seed-keyed.
+function migrateLegacy() {
+  try {
+    const ls = window.localStorage;
+    const raw = ls.getItem(LEGACY_KEY);
+    if (raw == null) return;
+    try {
+      const p = JSON.parse(raw);
+      if (p && p.seed && ls.getItem(keyFor(p.seed)) == null) ls.setItem(keyFor(p.seed), raw);
+    } catch (_e) { /* drop malformed legacy blob */ }
+    ls.removeItem(LEGACY_KEY);
+  } catch (_e) { /* swallow */ }
+}
+
+// Persist the live session under its seed. No-op before it has a real seed /
+// has started, or once complete (all 16 answered → finalizing, not resumable).
 export function saveProgress(state, selectedOptions) {
   try {
-    if (!state || state.startedAt === 0) return;
+    if (!state || state.startedAt === 0 || !state.seed || state.seed === INITIAL_SEED) return;
     if (Array.isArray(state.responses) && state.responses.length >= SESSION_SIZE) return;
-    const payload = {
+    window.localStorage.setItem(keyFor(state.seed), JSON.stringify({
+      seed: state.seed,
       currentItem: state.currentItem,
       responses: (state.responses || []).map((r) => ({ itemIndex: r.itemIndex, response: r.response })),
-      // Story 11-1 fix: the actual option chosen per item (itemIndex → value).
-      // The scored `responses` keep only correctness (0/1); persisting the
-      // selection lets Previous/resume re-display it until the user changes it.
       selectedOptions: selectedOptions && typeof selectedOptions === "object" ? { ...selectedOptions } : {},
-      seed: state.seed,
       startedAt: state.startedAt,
       savedAt: Date.now(),
-    };
-    window.localStorage.setItem(KEY, JSON.stringify(payload));
+    }));
   } catch (_e) { /* swallow — quota / disabled storage */ }
 }
 
-export function loadProgress() {
+// One in-progress session by seed (restores the live session).
+export function loadProgress(seed) {
   try {
-    const raw = window.localStorage.getItem(KEY);
+    const raw = seed ? window.localStorage.getItem(keyFor(seed)) : null;
     return raw ? JSON.parse(raw) : null;
   } catch (_e) { return null; }
 }
 
-export function clearProgress() {
-  try { window.localStorage.removeItem(KEY); } catch (_e) { /* swallow */ }
+// All in-progress sessions, most-recently-saved first (the "Unfinished" list).
+export function listProgress() {
+  migrateLegacy();
+  const out = [];
+  for (const k of progressKeys()) {
+    try { const p = JSON.parse(window.localStorage.getItem(k)); if (p && p.seed) out.push(p); } catch (_e) { /* skip */ }
+  }
+  return out.sort((a, b) => (b.savedAt || 0) - (a.savedAt || 0));
 }
 
+// Remove one session by seed; with no seed, remove ALL in-progress sessions.
+export function clearProgress(seed) {
+  try {
+    if (seed) { window.localStorage.removeItem(keyFor(seed)); return; }
+    migrateLegacy();
+    progressKeys().forEach((k) => window.localStorage.removeItem(k));
+  } catch (_e) { /* swallow */ }
+}
+
+// True iff ≥1 in-progress session exists (landing entry-point gate).
 export function hasProgress() {
-  try { return window.localStorage.getItem(KEY) !== null; } catch (_e) { return false; }
+  migrateLegacy();
+  return progressKeys().length > 0;
 }

@@ -79,19 +79,23 @@ function summaryLine(s, data) {
 
 // Story 11-1 — the "Unfinished tests" section: the in-progress session can be
 // resumed (restore state + go to the item) or deleted.
-function inProgressSectionHtml(s, ip) {
-  if (!ip) return "";
-  const n = (typeof ip.currentItem === "number" ? ip.currentItem : 0) + 1;
-  const label = F(s.inProgressItemTemplate || "Unfinished — item {N} of 16", { N: n });
-  return '<section class="saved-results__in-progress" aria-label="' + escA(s.inProgressHeading ?? "Unfinished tests") + '">' +
-    '<h2 class="saved-results__subhead">' + escT(s.inProgressHeading ?? "Unfinished tests") + '</h2>' +
-    '<div class="saved-results__ip-item">' +
+function inProgressSectionHtml(s, list) {
+  if (!list || list.length === 0) return "";
+  const rows = list.map((ip) => {
+    const n = (typeof ip.currentItem === "number" ? ip.currentItem : 0) + 1;
+    const when = new Date(ip.savedAt || ip.startedAt || Date.now()).toLocaleString();
+    const label = F(s.inProgressItemTemplate || "Unfinished — item {N} of 16", { N: n }) + " · " + when;
+    return '<div class="saved-results__ip-item">' +
       '<span class="saved-results__ip-label">' + escT(label) + '</span>' +
       '<span class="saved-results__ip-actions">' +
-        '<button type="button" class="saved-results__resume" data-resume>' + escT(s.resume ?? "Resume") + '</button>' +
-        '<button type="button" class="saved-results__delete-ip" data-delete-ip>' + escT(s.deleteInProgress ?? "Delete") + '</button>' +
+        '<button type="button" class="saved-results__resume" data-resume-seed="' + escA(ip.seed) + '">' + escT(s.resume ?? "Resume") + '</button>' +
+        '<button type="button" class="saved-results__delete-ip" data-delete-ip-seed="' + escA(ip.seed) + '">' + escT(s.deleteInProgress ?? "Delete") + '</button>' +
       '</span>' +
-    '</div>' +
+    '</div>';
+  }).join("");
+  return '<section class="saved-results__in-progress" aria-label="' + escA(s.inProgressHeading ?? "Unfinished tests") + '">' +
+    '<h2 class="saved-results__subhead">' + escT(s.inProgressHeading ?? "Unfinished tests") + '</h2>' +
+    rows +
   '</section>';
 }
 
@@ -107,10 +111,10 @@ function resumeSession(ip) {
 
 function renderList(rootEl, strings) {
   const s = (strings && strings.savedResults) || {};
-  const ip = persistence.loadProgress();
+  const inProgress = persistence.listProgress();
   const items = listSaved();
 
-  if (!ip && items.length === 0) {
+  if (inProgress.length === 0 && items.length === 0) {
     rootEl.innerHTML =
       '<section class="saved-results" aria-labelledby="saved-results-heading">' +
         '<h1 id="saved-results-heading">' + escT(s.heading ?? "Saved results") + '</h1>' +
@@ -143,18 +147,26 @@ function renderList(rootEl, strings) {
     '<section class="saved-results" aria-labelledby="saved-results-heading">' +
       '<h1 id="saved-results-heading">' + escT(s.heading ?? "Saved results") + '</h1>' +
       actions +
-      inProgressSectionHtml(s, ip) +
+      inProgressSectionHtml(s, inProgress) +
       savedSection +
     '</section>';
 
   on(rootEl.querySelector("[data-saved-back]"), "click", () => routing.navigate(""));
 
-  on(rootEl.querySelector("[data-resume]"), "click", () => { if (ip) resumeSession(ip); });
-  on(rootEl.querySelector("[data-delete-ip]"), "click", () => {
-    persistence.clearProgress();
-    if (hasSaved() || persistence.hasProgress()) renderList(rootEl, strings);
-    else routing.navigate("");
-  });
+  for (const btn of rootEl.querySelectorAll("[data-resume-seed]")) {
+    on(btn, "click", () => {
+      const seed = btn.getAttribute("data-resume-seed");
+      const entry = persistence.listProgress().find((x) => x.seed === seed);
+      if (entry) resumeSession(entry);
+    });
+  }
+  for (const btn of rootEl.querySelectorAll("[data-delete-ip-seed]")) {
+    on(btn, "click", () => {
+      persistence.clearProgress(btn.getAttribute("data-delete-ip-seed"));
+      if (hasSaved() || persistence.hasProgress()) renderList(rootEl, strings);
+      else routing.navigate("");
+    });
+  }
 
   on(rootEl.querySelector("[data-delete-all]"), "click", () => {
     removeKeys(allKeys());
