@@ -6,11 +6,10 @@ This document explains how the weekly `scheduled.yml` workflow watches for silen
 
 The `.github/workflows/scheduled.yml` workflow runs **weekly**, every Monday at 06:00 UTC, via a cron schedule. It does not run on every push — it is a slow background watchdog, not a per-change gate.
 
-It runs four independent health checks:
+It runs three independent health checks:
 
 | Job | What it checks | Issue label |
 | --- | -------------- | ----------- |
-| `mirror-parity-check` | The canonical GitHub Pages page (`iq-me.org`) and the Codeberg/Cloudflare mirror still serve the **same response body** | `area:mirror-health` |
 | `internet-archive-snapshot-health` | The recorded Internet Archive snapshot URLs (`web.archive.org`) still return HTTP 200 | `area:archive-health` |
 | `software-heritage-snapshot-health` | The recorded Software Heritage archive URLs (`archive.softwareheritage.org`) still return HTTP 200 | `area:archive-health` |
 | `zenodo-doi-resolution` | The DOI recorded in `CITATION.cff` still resolves to a real Zenodo record (`doi.org` / `api.zenodo.org`) | `area:doi-health` |
@@ -21,7 +20,6 @@ The recorded URLs are read at run time from the launch-readiness record files (`
 
 Every routed Issue carries the always-on label **`area:scheduled-check`** plus exactly one per-check label that says which watchdog tripped:
 
-- `area:mirror-health` — the canonical/mirror parity check.
 - `area:archive-health` — either archival snapshot check. Internet Archive and Software Heritage **share** this label because they are the same drift surface ("archive health"); the Issue title names which one. This keeps the label aligned with the `archival-health` surface that `release.yml` already uses at archival time.
 - `area:doi-health` — the Zenodo DOI resolution check.
 
@@ -37,26 +35,9 @@ To avoid noise, the failure routing **dedups**: before opening a new Issue, the 
 
 When you triage one of these Issues, here is the first move for each kind:
 
-- **`area:mirror-health` (mirror divergence).** The canonical page and the mirror no longer serve the same body. Assess which side changed. Usually the fix is to **re-deploy** the mirror (or, if the mirror host is down, plan a failover). A real divergence in the served artifact is the load-bearing signal here — both sides must be byte-identical (NFR17).
 - **`area:archive-health` — Internet Archive (snapshot 404).** A recorded `web.archive.org` snapshot stopped resolving. **Re-snapshot** the affected page via the Internet Archive Save Page Now endpoint and record the new URL.
 - **`area:archive-health` — Software Heritage (archive missing).** A recorded `archive.softwareheritage.org` URL stopped resolving. **Re-save** the repository origin via the Software Heritage save endpoint and record the new save-request URL.
 - **`area:doi-health` (DOI not resolving).** The DOI from `CITATION.cff` did not resolve. **Check the Zenodo record** — confirm the DOI is correct and the record is published; correct the `doi:` field at the next release if it drifted.
-
-## Two details worth calling out
-
-### Mirror parity compares the response body only
-
-The mirror-parity check compares the **response body only** — HTTP **headers are exempted**. The canonical host (GitHub Pages) and the mirror (Codeberg/Cloudflare) set different headers as a matter of course, so a header diff would be pure noise. Only the served artifact body must be byte-identical (NFR17), so that is all the check compares.
-
-### Self-gating before the mirror exists
-
-The mirror is deployed by a later story (Story 8.4), so at first there is no mirror to compare against. The `mirror-parity-check` job is therefore **self-gating**: it HEAD-requests the mirror first, and if the mirror is not reachable (a non-200 response — the pre-Story-8.4 window) it **skips** the parity comparison and logs the notice:
-
-```
-mirror not reachable — first deploy pending
-```
-
-This is not a failure — it lets the scheduled workflow land and run cleanly before the mirror exists, without raising a spurious mirror-divergence Issue every Monday. Once the mirror is deployed, the HEAD succeeds and the body-only parity comparison runs normally.
 
 ## Where the full contributor cross-link lives
 

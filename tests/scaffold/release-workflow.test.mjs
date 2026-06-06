@@ -205,23 +205,17 @@ test("AC-4: workflow resolves the footer methodology link via git describe --mat
 });
 
 // ─────────────────────────────────────────────────────────────────────
-// AC-5: archival steps PRESENT (graduated by Story 8.2) AND the
-// Codeberg/Cloudflare mirror PRESENT (graduated by Story 8.4).
+// AC-5: archival steps PRESENT (graduated by Story 8.2).
 //
 // GRADUATED in Story 8.2: the 8.1-era archival-ABSENCE assertions flipped
-// to archival-PRESENCE (Zenodo/IA/SH) — KEPT untouched here.
+// to archival-PRESENCE (Zenodo/IA/SH) — KEPT untouched here. Detailed
+// per-step archival contract lives in release-archival.test.mjs.
 //
-// GRADUATED in Story 8.4: this story OWNS the mirror activation, so the
-// 8.2-era mirror-ABSENCE assertion (`doesNotMatch(/deploy-to-mirror:|…/)`)
-// flips to mirror-PRESENCE (the `deploy-to-mirror` job is present + a
-// byte-identical SHA256 compare names the four artifacts), and the
-// Story-8.4 deferral-marker assertion is DROPPED (the marker is graduated
-// to a real job). Detailed per-step archival contract lives in
-// release-archival.test.mjs; the detailed mirror contract in
-// mirror-deploy.test.mjs.
+// NOTE: the Codeberg/Cloudflare deploy-to-mirror job (formerly Story 8.4)
+// was removed — the mirror-failover capability is no longer shipped.
 // ─────────────────────────────────────────────────────────────────────
 
-test("AC-5: corpus-release implements the Zenodo/IA/SH archival steps (Story 8.2); release.yml implements the Codeberg/Cloudflare deploy-to-mirror job (Story 8.4)", () => {
+test("AC-5: corpus-release implements the Zenodo/IA/SH archival steps (Story 8.2)", () => {
   const text = loadRelease();
   const { idx, body } = jobBody(text, "corpus-release", 80);
   assert.notEqual(idx, -1, `corpus-release job declaration not found.`);
@@ -251,48 +245,5 @@ test("AC-5: corpus-release implements the Zenodo/IA/SH archival steps (Story 8.2
     body,
     /archive\.softwareheritage\.org|softwareheritage\.org\/api/i,
     `corpus-release must now implement a Software Heritage save step targeting archive.softwareheritage.org (graduated by Story 8.2). Body:\n${body}`,
-  );
-
-  // GRADUATED (Story 8.4): the Codeberg/Cloudflare mirror is now a REAL job.
-  // (The Story-8.4 deferral-marker assertion — assert.match(/(8\.4|8-4|Story
-  // 8\.4)/) — is DROPPED: the marker is graduated to the deploy-to-mirror job.)
-  //
-  // The `deploy-to-mirror:` job is declared at the jobs: top level. We slice
-  // its body with a generous window so the (now-removed) deferral-marker
-  // comment can no longer satisfy the endpoint/artifact signatures.
-  const { idx: mirrorIdx, body: mirrorBody } = jobBody(text, "deploy-to-mirror", 80);
-  assert.notEqual(
-    mirrorIdx,
-    -1,
-    `release.yml must declare a "  deploy-to-mirror:" job at the jobs: top level (graduated by Story 8.4). Got:\n${text}`,
-  );
-
-  // The mirror job pushes the dist/ artifact to a real Codeberg/Cloudflare
-  // endpoint (anchor to a real endpoint signature inside the job body, NOT the
-  // bare /codeberg/|/cloudflare/ on the whole file — the prior deferral-marker
-  // comment carried those bare words).
-  assert.match(
-    mirrorBody,
-    /codeberg|cloudflare|wrangler\s+pages\s+deploy/i,
-    `deploy-to-mirror must push to the real Codeberg/Cloudflare Pages endpoint (Codeberg Pages push / wrangler pages deploy). Body:\n${mirrorBody}`,
-  );
-
-  // Byte-identical SHA256 comparison step naming the four trust artifacts +
-  // fail-on-mismatch (architecture §860-862 / NFR17). The detailed contract
-  // lives in mirror-deploy.test.mjs; here we assert the core signatures.
-  assert.match(
-    mirrorBody,
-    /sha256sum|shasum/i,
-    `deploy-to-mirror must SHA256-compare the canonical vs mirror artifacts (sha256sum / shasum). Body:\n${mirrorBody}`,
-  );
-  assert.match(
-    mirrorBody,
-    /LICENSES\.md/,
-    `the byte-identical compare must name the LICENSES.md trust artifact. Body:\n${mirrorBody}`,
-  );
-  assert.match(
-    mirrorBody,
-    /CITATION\.cff/,
-    `the byte-identical compare must name the CITATION.cff trust artifact. Body:\n${mirrorBody}`,
   );
 });

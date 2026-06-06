@@ -1,25 +1,18 @@
 name: Scheduled Checks
 
-# Activated in Story 8.3 — weekly mirror-parity + archival-health verification.
+# Activated in Story 8.3 — weekly archival-health verification.
 #
-# Purpose: continuous mirror parity + archival health verification, with
+# Purpose: continuous archival health verification, with
 # failures routed to labeled GitHub Issues (replacing Slack/PagerDuty per
 # NFR8 — zero IP-based logging; NFR35 — no host-account-binding runtime
 # dependencies). The maintainer triages the open Issues weekly; there is no
 # email/Slack notification (NFR6 — solo project, no third-party monitoring).
 #
-# Four health-check jobs (each carries a per-job area:<check> label — the same
+# Three health-check jobs (each carries a per-job area:<check> label — the same
 # label the routed Issue receives, so it is grep-able from the workflow text):
-#   - mirror-parity-check               (area:mirror-health)
 #   - internet-archive-snapshot-health  (area:archive-health)
 #   - software-heritage-snapshot-health (area:archive-health)
 #   - zenodo-doi-resolution             (area:doi-health)
-#
-# Self-gating mirror-parity (Winston's intra-epic sequencing concern): the
-# Story 8.4 Codeberg/Cloudflare mirror does not exist yet, so mirror-parity-check
-# HEAD-requests the mirror FIRST and, on a non-200, SKIPS the body-only parity
-# comparison and logs "mirror not reachable — first deploy pending" rather than
-# failing. This lets Story 8.3 land cleanly before Story 8.4.
 #
 # Dev-phase posture (infra-now — same as Story 8.1 / 8.2 / 7.8): the weekly cron
 # never fires locally, and EVERY live HTTP HEAD/curl + the gh issue API call is
@@ -41,62 +34,6 @@ permissions:
   issues: write # failure routing opens / comments on labeled Issues
 
 jobs:
-  # ── mirror-parity-check (area:mirror-health) ──────────────────────────────
-  # Compares the RESPONSE BODY ONLY of the canonical GitHub Pages page against
-  # the Codeberg/Cloudflare mirror (headers exempted per NFR17 — mirror hosts
-  # set different headers; only the artifact body must be byte-identical).
-  # Self-gating: HEAD the mirror first; non-200 ⇒ skip + log the skip-notice.
-  mirror-parity-check:
-    name: mirror-parity-check
-    runs-on: ubuntu-latest
-    env:
-      AREA_LABEL: area:mirror-health # routed-Issue per-check label
-      CANONICAL_URL: https://iq-me.org/
-      MIRROR_URL: https://iq-me.pages.dev/ # Cloudflare Pages mirror (Story 8.4)
-    steps:
-      - uses: actions/checkout@v4
-      # Self-gating body-only parity. INERT in dev — gated behind
-      # vars.IQME_LIVE_SCHEDULED; the Story 8.4 mirror does not exist until then.
-      - name: Mirror parity (body-only, self-gating)
-        id: mirror-parity
-        if: ${{ vars.IQME_LIVE_SCHEDULED == 'true' }}
-        run: |
-          set -euo pipefail
-          # Self-gate: HEAD-request the mirror FIRST. If it is not yet deployed
-          # (Story 8.4) the HEAD is non-200 ⇒ SKIP the parity comparison and log
-          # the literal skip-notice rather than failing.
-          mirror_status="$(curl -I --silent --output /dev/null --write-out '%{http_code}' "$MIRROR_URL" || echo 000)"
-          if [ "$mirror_status" != "200" ]; then
-            echo "mirror not reachable — first deploy pending (HEAD ${mirror_status}); skipping parity comparison"
-            exit 0
-          fi
-          # Body-only comparison: fetch each side with curl --silent and diff the
-          # response BODY via sha256sum (headers are excluded — never fetched).
-          canon_sum="$(curl --silent "$CANONICAL_URL" | sha256sum | cut -d' ' -f1)"
-          mirror_sum="$(curl --silent "$MIRROR_URL" | sha256sum | cut -d' ' -f1)"
-          if [ "$canon_sum" != "$mirror_sum" ]; then
-            echo "::error::mirror body diverges from canonical (${CANONICAL_URL} vs ${MIRROR_URL})"
-            exit 1
-          fi
-      - name: Route failure to a labeled Issue (area:mirror-health)
-        if: ${{ failure() && vars.IQME_LIVE_SCHEDULED == 'true' }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: |
-          set -euo pipefail
-          labels="area:scheduled-check,area:mirror-health"
-          title="area:mirror-health: canonical/mirror parity drift"
-          body="The weekly mirror-parity-check failed. Canonical: ${CANONICAL_URL} — Mirror: ${MIRROR_URL}. See the action run: ${RUN_URL}"
-          # Dedup (open-or-append): look up an already-open Issue with the same
-          # label set; append a comment if one exists, else open a new Issue.
-          existing="$(gh issue list --state open --label "area:scheduled-check" --label "area:mirror-health" --json number --jq '.[0].number // empty')"
-          if [ -n "$existing" ]; then
-            gh issue comment "$existing" --body "$body"
-          else
-            gh issue create --label "area:scheduled-check" --label "area:mirror-health" --title "$title" --body "$body"
-          fi
-
   # ── internet-archive-snapshot-health (area:archive-health) ────────────────
   # HEAD-probes the web.archive.org snapshot URLs recorded by Story 8.2 in
   # docs/launch-readiness/internet-archive-snapshots.md and asserts HTTP 200.

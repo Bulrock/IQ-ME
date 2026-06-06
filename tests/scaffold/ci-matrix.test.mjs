@@ -272,13 +272,13 @@ test("AC-6: release.yml is activated (Story 8.1) — app-release + corpus-releas
   );
 });
 
-test("AC-6: scheduled.yml is activated (Story 8.3) — four health-check jobs + real failure→labeled-Issue routing, no stub placeholder", () => {
+test("AC-6: scheduled.yml is activated (Story 8.3) — three health-check jobs + real failure→labeled-Issue routing, no stub placeholder", () => {
   assert.ok(existsSync(SCHEDULED), `scheduled.yml missing at ${SCHEDULED}`);
   const text = readFileSync(SCHEDULED, "utf8");
   // Graduated in Story 8.3 (mirror of the release.yml AC-6 graduation by
   // Story 8.1): scheduled.yml is activated, so the Epic-1 stub placeholder
   // must be gone and the single `scheduled-check` echo job must be replaced by
-  // the four health-check jobs.
+  // the three health-check jobs.
   assert.doesNotMatch(
     text,
     /Activates in Epic 8/,
@@ -287,11 +287,10 @@ test("AC-6: scheduled.yml is activated (Story 8.3) — four health-check jobs + 
   assert.doesNotMatch(
     text,
     /^  scheduled-check:\s*$/m,
-    `scheduled.yml must no longer declare the Epic-1 stub "  scheduled-check:" echo job (graduated to the four health-check jobs).`,
+    `scheduled.yml must no longer declare the Epic-1 stub "  scheduled-check:" echo job (graduated to the three health-check jobs).`,
   );
-  // Activated structure: the four health-check jobs.
+  // Activated structure: the three health-check jobs.
   for (const job of [
-    "mirror-parity-check",
     "internet-archive-snapshot-health",
     "software-heritage-snapshot-health",
     "zenodo-doi-resolution",

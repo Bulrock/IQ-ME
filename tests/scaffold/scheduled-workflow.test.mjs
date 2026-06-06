@@ -9,7 +9,7 @@
 // RED PHASE: scheduled.yml is still the Epic-1 stub (daily `0 6 * * *` cron,
 // a single `scheduled-check` job whose only step is `echo "Activates in
 // Epic 8"`) and `docs/scheduled-yml-failure-routing.md` does NOT exist yet.
-// These assertions describe the *activated* four-job contract + the finalized
+// These assertions describe the *activated* three-job contract + the finalized
 // doc that do NOT yet exist, so they FAIL until Story 8.3 implements them.
 //
 // Structural-only checks — no YAML parser dep (NFR33). We treat the workflow
@@ -41,9 +41,8 @@ const FAILURE_ROUTING_DOC = join(
   "scheduled-yml-failure-routing.md",
 );
 
-// The four health-check jobs the activated workflow must declare (AC-1).
+// The three health-check jobs the activated workflow must declare (AC-1).
 const CHECK_JOBS = [
-  "mirror-parity-check",
   "internet-archive-snapshot-health",
   "software-heritage-snapshot-health",
   "zenodo-doi-resolution",
@@ -77,7 +76,7 @@ function jobBody(text, job) {
 }
 
 // ─────────────────────────────────────────────────────────────────────
-// AC-1: weekly cron + four health-check jobs, each carrying an `area:` label
+// AC-1: weekly cron + three health-check jobs, each carrying an `area:` label
 // ─────────────────────────────────────────────────────────────────────
 
 test("AC-1: scheduled.yml triggers on a weekly schedule cron and the stub `scheduled-check` job is gone", () => {
@@ -107,15 +106,15 @@ test("AC-1: scheduled.yml triggers on a weekly schedule cron and the stub `sched
   );
 
   // The Epic-1 stub single `scheduled-check:` job must be gone (the activated
-  // four-job structure replaces it).
+  // three-job structure replaces it).
   assert.doesNotMatch(
     text,
     /^  scheduled-check:\s*$/m,
-    `scheduled.yml must no longer declare the Epic-1 stub "  scheduled-check:" job (graduated to the four health-check jobs).`,
+    `scheduled.yml must no longer declare the Epic-1 stub "  scheduled-check:" job (graduated to the three health-check jobs).`,
   );
 });
 
-test("AC-1: scheduled.yml declares all four health-check jobs at the jobs: top level", () => {
+test("AC-1: scheduled.yml declares all three health-check jobs at the jobs: top level", () => {
   const text = loadScheduled();
   for (const job of CHECK_JOBS) {
     const { idx } = jobBody(text, job);
@@ -131,10 +130,8 @@ test("AC-1: each health-check job carries a grep-able per-job `area:<check>` lab
   const text = loadScheduled();
   // Each check job's body must reference its per-check `area:` label so the
   // routed Issue label is grep-able in the workflow text (AC-1 + AC-4).
-  // mirror -> area:mirror-health ; IA/SH -> area:archive-health ;
-  // zenodo -> area:doi-health.
+  // IA/SH -> area:archive-health ; zenodo -> area:doi-health.
   const expected = {
-    "mirror-parity-check": /area:mirror-health/,
     "internet-archive-snapshot-health": /area:archive-health/,
     "software-heritage-snapshot-health": /area:archive-health/,
     "zenodo-doi-resolution": /area:doi-health/,
@@ -154,19 +151,6 @@ test("AC-1: each health-check job carries a grep-able per-job `area:<check>` lab
 // AC-2: jobs name the REAL endpoints + read the REAL record files
 // (anchored to endpoint hosts / record-file paths, NOT the stub prose)
 // ─────────────────────────────────────────────────────────────────────
-
-test("AC-2: mirror-parity-check references the canonical iq-me.org host (response-body parity target)", () => {
-  const text = loadScheduled();
-  const { idx, body } = jobBody(text, "mirror-parity-check");
-  assert.notEqual(idx, -1, `mirror-parity-check job declaration not found.`);
-  // Anchor to the canonical host (iq-me.org) — the bare phrase "mirror parity"
-  // is in the stub header comment and would false-pass.
-  assert.match(
-    body,
-    /iq-me\.org/i,
-    `mirror-parity-check must reference the canonical iq-me.org host (the GH Pages page whose response body is compared to the mirror). Body:\n${body}`,
-  );
-});
 
 test("AC-2: internet-archive-snapshot-health HEAD-probes web.archive.org and reads the IA record file", () => {
   const text = loadScheduled();
@@ -229,62 +213,6 @@ test("AC-2: zenodo-doi-resolution reads the DOI from the canonical CITATION.cff 
     body,
     /doi\.org|api\.zenodo\.org/i,
     `zenodo-doi-resolution must resolve the DOI against doi.org / api.zenodo.org (a real Zenodo record), not merely mention "Zenodo DOI" in prose. Body:\n${body}`,
-  );
-});
-
-// ─────────────────────────────────────────────────────────────────────
-// AC-3: self-gating mirror-parity (HEAD-then-skip; lands before Story 8.4)
-// ─────────────────────────────────────────────────────────────────────
-
-test("AC-3: mirror-parity-check is self-gating — HEAD-requests the mirror first, skips on non-200, logs the exact skip-notice", () => {
-  const text = loadScheduled();
-  const { idx, body } = jobBody(text, "mirror-parity-check");
-  assert.notEqual(idx, -1, `mirror-parity-check job declaration not found.`);
-
-  // It first HEAD-requests the mirror (curl -I / --head / HEAD method) — anchor
-  // to a real HEAD-request signature, not prose.
-  assert.match(
-    body,
-    /curl\s+[^\n]*(-I\b|--head\b)|-X\s+HEAD|--request\s+HEAD/i,
-    `mirror-parity-check must HEAD-request the mirror URL first (curl -I / --head / -X HEAD) before comparing bodies (self-gating, AC-3). Body:\n${body}`,
-  );
-
-  // A non-200 guard: it checks the HEAD status is not 200 and reacts (skip /
-  // continue / exit 0) rather than failing.
-  assert.match(
-    body,
-    /\b200\b/,
-    `mirror-parity-check must guard on the mirror HEAD status code (the non-200 ⇒ skip guard, AC-3). Body:\n${body}`,
-  );
-  assert.match(
-    body,
-    /skip|continue|exit\s+0|no-?op/i,
-    `mirror-parity-check must SKIP / continue (not fail) when the mirror HEAD is non-200 (self-gating so 8.3 lands before 8.4). Body:\n${body}`,
-  );
-
-  // The EXACT skip-notice string (Dev Notes / AC-3 mandate this literal text).
-  assert.match(
-    body,
-    /mirror not reachable\b/,
-    `mirror-parity-check must log the literal skip-notice "mirror not reachable — first deploy pending" on a non-200 mirror HEAD (AC-3). Body:\n${body}`,
-  );
-  assert.match(
-    body,
-    /first deploy pending/,
-    `mirror-parity-check skip-notice must include "first deploy pending" (the pre-8.4 window marker, AC-3). Body:\n${body}`,
-  );
-});
-
-test("AC-3: mirror-parity-check compares the response BODY only (headers exempted)", () => {
-  const text = loadScheduled();
-  const { idx, body } = jobBody(text, "mirror-parity-check");
-  assert.notEqual(idx, -1, `mirror-parity-check job declaration not found.`);
-  // Response-body-only comparison: a body/content diff signature (e.g. a
-  // checksum/diff of the fetched body) + an explicit headers-exempted note.
-  assert.match(
-    body,
-    /body[-_ ]?only|response body|headers?\s+(exempt|excluded|ignored)|--silent|sha256sum|cmp\b|diff\b/i,
-    `mirror-parity-check must compare the response BODY only (headers exempted per NFR17 — mirror hosts set different headers). Body:\n${body}`,
   );
 });
 
@@ -393,7 +321,7 @@ test("AC-5: docs/scheduled-yml-failure-routing.md exists", () => {
   );
 });
 
-test("AC-5: the doc documents the weekly cadence, the per-check labels, the triage discipline, and the body-only mirror check", () => {
+test("AC-5: the doc documents the weekly cadence, the per-check labels, and the triage discipline", () => {
   assert.ok(
     existsSync(FAILURE_ROUTING_DOC),
     `docs/scheduled-yml-failure-routing.md missing at ${FAILURE_ROUTING_DOC}.`,
@@ -430,20 +358,6 @@ test("AC-5: the doc documents the weekly cadence, the per-check labels, the tria
     doc,
     /no\s+(email|slack)|email.*slack|notification/i,
     `the doc must document the "no email/Slack notification" posture (NFR6/NFR8/NFR35) (AC-5). Got:\n${doc}`,
-  );
-
-  // The mirror-parity response-body-only check (headers exempted).
-  assert.match(
-    doc,
-    /response[-_ ]?body|body[-_ ]?only|headers?\s+(exempt|excluded|ignored)/i,
-    `the doc must document the mirror-parity response-body-only check (headers exempted) (AC-5). Got:\n${doc}`,
-  );
-
-  // The self-gating pre-8.4 skip behavior (the same literal notice).
-  assert.match(
-    doc,
-    /mirror not reachable|first deploy pending/i,
-    `the doc must document the self-gating "mirror not reachable — first deploy pending" pre-8.4 behavior (AC-5). Got:\n${doc}`,
   );
 });
 

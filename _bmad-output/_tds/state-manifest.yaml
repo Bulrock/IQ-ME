@@ -107,11 +107,11 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: dfbc289b32f0adf932bf7e8951b9b98620a1126597c4232f29c45d2d94ef1ce2
+    sha256: 2c1fea3cc31f6107141bfbb361ff31453f5a7eb7cacd0ec546d7706bab99808f
     canonical_form: raw-bytes
-    recorded_at: 2026-06-06T08:02:36.205Z
+    recorded_at: 2026-06-06T17:32:41.577Z
     recorded_by: engineer
-    notes: activate co-equal-triplet-css-source + lint-css-link-order (move to EPIC_1_ACTIVE)
+    notes: "remove Cloudflare mirror: drop deploy-to-mirror + mirror-parity assertions (4-job→3-job scheduled.yml)"
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: 2c67dbd842aaf6c1d1fa235e982c057c934cb3d52c80afdcfae9dc360229a6e1
@@ -1414,12 +1414,11 @@ entries:
     notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/release-workflow.test.mjs
-    sha256: 3e5aebeb1e864ff23385e2678b4edbdea746bd5690bd7df424925ffc89425776
+    sha256: 3e07c0badd9bd5eed50bccf0ad2bcfad84f92fffbe897552d63da27125eb9d35
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:13:59.544Z
-    recorded_by: test-author
-    story_id: 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification
-    notes: "story-8-4 red-phase: graduate release-workflow AC-5 (mirror present) + new mirror-deploy.test.mjs"
+    recorded_at: 2026-06-06T17:32:41.577Z
+    recorded_by: engineer
+    notes: "remove Cloudflare mirror: drop deploy-to-mirror + mirror-parity assertions (4-job→3-job scheduled.yml)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-2-zenodo-doi-minting-internet-archive-software-heritage-on-corpus-v.md
     sha256: 8fbfc20d45ca5aefb919a703f977692539ee63b7c1f3f78d49bf3dc5031a460d
@@ -1444,12 +1443,11 @@ entries:
     notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/scheduled-workflow.test.mjs
-    sha256: b65a43d002e93192fe141776311a3a315b94fc52871e6f7228fefb0d59c06ba8
+    sha256: 4cd8eb8c7e0444ca981593a2e441890b621901244783edb0a541701fce9fe6e9
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T10:53:10.134Z
-    recorded_by: test-author
-    story_id: 8-3-scheduled-yml-workflow-mirror-parity-archival-health-failure-routing
-    notes: "story-8-3 red-phase: graduate ci-matrix AC-6 scheduled.yml + new scheduled-workflow.test.mjs"
+    recorded_at: 2026-06-06T17:32:41.578Z
+    recorded_by: engineer
+    notes: "remove Cloudflare mirror: drop deploy-to-mirror + mirror-parity assertions (4-job→3-job scheduled.yml)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification.md
     sha256: 420d6b8bad677234c0500b3bb4d950e0da1abf1d04666d3b6cfe9d6fa8fd502b
@@ -1457,14 +1455,6 @@ entries:
     recorded_at: 2026-06-05T14:56:49.423Z
     recorded_by: engineer
     notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
-  - artefact_class: A
-    file: tests/scaffold/mirror-deploy.test.mjs
-    sha256: d881ff556a87ca5fce6f35d988e3bfa61827e0c74fac928e564d5bd07e8623ab
-    canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:13:59.545Z
-    recorded_by: test-author
-    story_id: 8-4-mirror-failover-deployment-to-codeberg-cloudflare-byte-identical-artifact-verification
-    notes: "story-8-4 red-phase: graduate release-workflow AC-5 (mirror present) + new mirror-deploy.test.mjs"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-5-full-playwright-trust-verification-suite-consolidation.md
     sha256: 7c407c2944ee4d515db26055f638c9d428aa87d61dc58906bd3517010d37954e
