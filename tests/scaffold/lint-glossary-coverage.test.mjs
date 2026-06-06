@@ -25,12 +25,13 @@ test("lint-glossary: in-repo methodology pages → exit 0 with deferred WARNs", 
   );
 
   const all = r.stdout + r.stderr;
-  // Story 5.2: glossary tree now exists; zero deferred WARNs expected.
+  // Story 11-1: the reference/glossary tree was removed in the methodology cut
+  // (maintainer decision), so lint-glossary returns to defer-mode — it emits a
+  // deferred WARN per page and still exits 0 (the absent-tree contract).
   const warnLines = (all.match(/lint-glossary: WARN/g) || []).length;
-  assert.equal(
-    warnLines,
-    0,
-    `expected 0 deferred WARN lines (glossary tree authored in Story 5.2); got ${warnLines}\noutput:\n${all}`,
+  assert.ok(
+    warnLines > 0,
+    `expected deferred WARN lines (glossary tree removed in Story 11-1); got ${warnLines}\noutput:\n${all}`,
   );
   // Summary line should still mention validated count.
   assert.match(

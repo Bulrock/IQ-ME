@@ -7,7 +7,7 @@ reviewerHandle: "@TBD-en-reviewer"
 asserts: []
 glossaryRefs:
   - "gFactor"
-sourceHashEN: "0000000000000000000000000000000000000000000000000000000000000000"
+sourceHashEN: "f18c670316de82ceddf8dd4d5d711d5b15471eeff2ee887f0c5841ecebdce801"
 ---
 
 # The g-factor — what it is, what it is not

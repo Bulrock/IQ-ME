@@ -93,7 +93,8 @@ test("AC-2: methodology snapshots emitted at <snap>/methodology/en/<path>/index.
       "methodology/en/scoring/percentile-to-iq/index.html",
       "methodology/en/scoring/uncertainty/index.html",
       "methodology/en/scoring/overview/index.html",
-      "methodology/en/provenance/icar-license.html",
+      // PR-12b (Story 11-1): directory-style output (icar-license/index.html).
+      "methodology/en/provenance/icar-license/index.html",
     ];
     for (const rel of expected) {
       const p = join(snapDir, rel);
@@ -120,7 +121,7 @@ test("AC-2: snapshot bytes byte-identical to source build (no transformation)", 
       ["v0.1.0/en/scoring/percentile-to-iq/index.html", "methodology/en/scoring/percentile-to-iq/index.html"],
       ["v0.1.0/en/scoring/uncertainty/index.html", "methodology/en/scoring/uncertainty/index.html"],
       ["v0.1.0/en/scoring/overview/index.html", "methodology/en/scoring/overview/index.html"],
-      ["v0.1.0/en/provenance/icar-license.html", "methodology/en/provenance/icar-license.html"],
+      ["v0.1.0/en/provenance/icar-license/index.html", "methodology/en/provenance/icar-license/index.html"],
     ];
     for (const [srcRel, snapRel] of pairs) {
       const a = readFileSync(join(srcBuild, srcRel));

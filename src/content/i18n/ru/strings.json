@@ -43,7 +43,7 @@
     "optionLabelTemplate": "Вариант {N}",
     "previousButton": "Назад",
     "nextButton": "Далее",
-    "submitButton": "Завершить",
+    "submitButton": "Завершить тест",
     "fetchErrorMessage": "Не удалось загрузить набор заданий. Попробуйте обновить.",
     "bailButton": "Завершить тест досрочно",
     "bailPanelHeading": "Завершить тест досрочно?",
@@ -74,7 +74,8 @@
     "bandLabel": "Диапазон",
     "resultExplainer": "Это одна оценка по короткому скринингу из 16 заданий, показанная тремя способами: ваш процентиль, тот же результат по шкале IQ и диапазон возможного отклонения. Короткий тест не может определить одно точное число — воспринимайте результат как диапазон, а не как единственную цифру.",
     "printButton": "Скачать / Распечатать результат",
-    "printTitle": "IQ-ME — сводка результата по подвижному мышлению (не сертификат)"
+    "printTitle": "IQ-ME — сводка результата по подвижному мышлению (не сертификат)",
+    "crisisShowMore": "Показать больше ресурсов"
   },
   "localeSwitchBlockerHint": {
     "message": "Смена языка во время теста меняет то, что тест измеряет. Завершите эту сессию на текущем языке или закончите досрочно и начните заново на другом языке.",
@@ -99,5 +100,25 @@
       "title": "EAP shrinkage at the tails",
       "desc": "An EAP point estimate sits between a raw maximum-likelihood theta and the standard-normal prior centre at theta zero. At the tails, the prior pulls the estimate toward zero — visible shrinkage. Near the centre, the prior has little effect."
     }
+  },
+  "savedResults": {
+    "viewSavedResults": "Сохранённые результаты",
+    "heading": "Сохранённые результаты",
+    "empty": "Пока нет сохранённых результатов.",
+    "back": "Назад",
+    "deleteSelected": "Удалить выбранные",
+    "deleteAll": "Удалить все",
+    "selectLabel": "Выбрать",
+    "detailHeading": "Сохранённый результат",
+    "scoreLabel": "Шкала IQ",
+    "percentileLabel": "Процентиль",
+    "dateLabel": "Дата",
+    "percentileSuffix": "-й проц.",
+    "untitledResult": "Сохранённый результат",
+    "backToList": "К списку",
+    "inProgressHeading": "Незавершённые тесты",
+    "resume": "Продолжить",
+    "deleteInProgress": "Удалить",
+    "inProgressItemTemplate": "Незавершён — задание {N} из 16"
   }
 }

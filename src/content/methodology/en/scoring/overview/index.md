@@ -9,7 +9,7 @@ asserts:
 glossaryRefs:
   - "iqScale"
   - "gFactor"
-sourceHashEN: "0000000000000000000000000000000000000000000000000000000000000000"
+sourceHashEN: "f3eed2be58fe90f699d054b43daf56985bbb693683d8773508a15f6e11548b04"
 ---
 
 # What the IQ-scale number means

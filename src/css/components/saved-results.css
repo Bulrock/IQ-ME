@@ -1,0 +1,184 @@
+/* src/css/components/saved-results.css
+ *
+ * Story 11-1 PR-14 (AC17) — saved-results management scene. List of opt-in
+ * saved results with per-row select + open, plus delete-selected / delete-all
+ * actions, and an individual detail view. Restraint-first chrome weight,
+ * matching the landing / result surfaces. Rendered by saved-results.js.
+ */
+
+.saved-results,
+.saved-result-detail {
+  /* PR-14 (Story 11-1): fill to a consistent column width (matching consent)
+     rather than hugging content — width:100% stops the flex-item from shrinking
+     to its content when margin-inline:auto centres it. */
+  width: 100%;
+  max-width: 38rem;
+  margin-inline: auto;
+  padding-block: var(--space-section-gap);
+  padding-inline: var(--space-5);
+  color: var(--color-text-body);
+}
+
+/* PR-14 (Story 11-1): the saved-result detail reuses the result page's
+   score-panel triplet + result-scene centering, so it looks the same as a live
+   result. Center the date + back button beneath it. */
+.saved-result-detail {
+  text-align: center;
+}
+
+.saved-result-detail .score-panel {
+  margin-inline: auto;
+}
+
+.saved-result-detail__date {
+  margin-block: var(--space-4);
+  font-size: var(--font-size-200);
+  color: var(--color-text-muted);
+}
+
+.saved-results__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-block: var(--space-4);
+}
+
+.saved-results__actions button {
+  appearance: none;
+  /* PR-14: equal-height action buttons — nowrap + zero the shared __back
+     margin (detail-only) that otherwise grew the flex line. */
+  white-space: nowrap;
+  margin-block-start: 0;
+  font-size: var(--font-size-200);
+  line-height: var(--line-height-base);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-4);
+  color: var(--color-text-body);
+  background-color: var(--color-surface-base);
+  border: var(--border-width-hairline) solid var(--color-rule-strong);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+}
+
+.saved-results__actions button:hover {
+  border-color: var(--color-focus-ring);
+}
+
+.saved-results__actions button:focus-visible,
+.saved-results__open:focus-visible,
+.saved-results__back:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}
+
+.saved-results__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.saved-results__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+  background-color: var(--color-surface-elevated);
+  border: var(--border-width-hairline) solid var(--color-rule-divider);
+  border-radius: var(--radius-control);
+}
+
+.saved-results__open {
+  flex: 1 1 auto;
+  appearance: none;
+  text-align: start;
+  font-size: var(--font-size-200);
+  color: var(--color-text-body);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.saved-results__open:hover {
+  text-decoration: underline;
+}
+
+.saved-results__back {
+  appearance: none;
+  margin-block-start: var(--space-4);
+  font-size: var(--font-size-200);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-4);
+  color: var(--color-text-body);
+  background-color: var(--color-surface-base);
+  border: var(--border-width-hairline) solid var(--color-rule-strong);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+}
+
+.saved-result-detail__row {
+  margin-block: var(--space-2);
+}
+
+.saved-result-detail__label {
+  color: var(--color-text-muted);
+}
+
+/* Story 11-1 — "Unfinished tests" (resume) section. */
+.saved-results__in-progress {
+  margin-block-end: var(--space-5);
+}
+
+.saved-results__subhead {
+  font-size: var(--font-size-300);
+  margin-block-end: var(--space-3);
+}
+
+.saved-results__ip-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+  background-color: var(--color-surface-elevated);
+  border: var(--border-width-hairline) solid var(--color-rule-divider);
+  border-radius: var(--radius-control);
+}
+
+.saved-results__ip-label {
+  flex: 1 1 auto;
+  font-size: var(--font-size-200);
+}
+
+.saved-results__ip-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.saved-results__resume,
+.saved-results__delete-ip {
+  appearance: none;
+  font-size: var(--font-size-200);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-control);
+  border: var(--border-width-hairline) solid var(--color-rule-strong);
+  background-color: var(--color-surface-base);
+  color: var(--color-text-body);
+  cursor: pointer;
+}
+
+.saved-results__resume {
+  border-color: var(--color-action-border);
+  background-color: var(--color-action-bg);
+  color: var(--color-action-text);
+}
+
+.saved-results__resume:focus-visible,
+.saved-results__delete-ip:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}

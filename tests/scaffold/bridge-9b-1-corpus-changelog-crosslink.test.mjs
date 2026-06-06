@@ -41,7 +41,11 @@ function body(text) {
   return text;
 }
 
+// Story 11-1: the reference/changelog corpus page was removed in the
+// methodology cut (maintainer decision). With the page intentionally absent the
+// cross-link requirement is moot — these checks no-op rather than fail.
 test("AC2: en corpus changelog carries a repo-relative link to root CHANGELOG.md", () => {
+  if (!existsSync(CORPUS_CHANGELOG)) return; // page removed in Story 11-1 cut
   const md = body(read(CORPUS_CHANGELOG));
 
   // An inline markdown link whose target resolves to the root CHANGELOG.md via
@@ -63,6 +67,7 @@ test("AC2: en corpus changelog carries a repo-relative link to root CHANGELOG.md
 });
 
 test("AC2: en corpus changelog distinguishes the two changelogs (citation vs dev/release)", () => {
+  if (!existsSync(CORPUS_CHANGELOG)) return; // page removed in Story 11-1 cut
   const md = body(read(CORPUS_CHANGELOG)).toLowerCase();
 
   // A note must frame the root CHANGELOG.md as the development/release log,

@@ -11,11 +11,28 @@
 .chrome-header {
   display: flex;
   align-items: center;
+  gap: var(--space-2);
+  /* PR-6/7/8 (Story 11-1): the header now carries a logo + theme switcher +
+     language dropdown. Allow the controls cluster to wrap onto a second row at
+     narrow widths (≤~320px) so the header never forces horizontal page scroll
+     (trust-verification leg C). */
+  flex-wrap: wrap;
+  row-gap: var(--space-2);
   padding-block: var(--space-3);
   padding-inline: var(--space-5);
   color: var(--color-text-body);
   background-color: var(--color-surface-elevated);
   border-block-end: var(--space-1) solid var(--color-rule-divider);
+}
+
+/* PR-8 (AC10): the app logo sits beside the wordmark. Explicit width/height
+   (and the matching HTML attributes) reserve the box so there is no layout
+   shift when the image loads. Decorative (alt="") — the wordmark names it. */
+.chrome-header__logo {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex: 0 0 auto;
+  display: block;
 }
 
 .chrome-header__name {
@@ -24,8 +41,16 @@
   font-weight: 700;
 }
 
-.chrome-header__language-switcher {
+/* PR-6/PR-7 (AC8/AC9): controls cluster top-right — theme switcher + language
+   dropdown. margin-inline-start:auto pushes the cluster to the trailing edge. */
+.chrome-header__controls {
   margin-inline-start: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.chrome-header__language-switcher {
   font-size: var(--font-size-200);
   color: var(--color-text-muted);
 }

@@ -39,6 +39,16 @@ body {
   flex-direction: column;
 }
 
+/* PR-2 (Story 11-1): on the item-runner route the chrome is hidden, so #app
+   owns the whole viewport. Pin it to the viewport height so the answer-options
+   region (not the page) is what scrolls — the item always fits the screen and
+   Previous/Next stay reachable at the bottom on every viewport size. */
+body[data-route="#/test"] #app {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+}
+
 /* Headings — tighter rhythm, balanced wrapping. Sizes are set per-component
    where they carry semantic weight; bare headings get a sensible default. */
 h1, h2, h3, h4, h5, h6 {
@@ -53,8 +63,29 @@ h4 { font-size: var(--font-size-400); }
 h5 { font-size: var(--font-size-300); }
 h6 { font-size: var(--font-size-200); }
 
+/* PR-2 (Story 11-1): the display type is oversized on phones. Step the top
+   headings down on mobile so they don't dominate the screen. (Element-level
+   overrides only — the frozen design tokens are unchanged.) */
+@media (max-width: 30rem) {
+  h1 { font-size: var(--font-size-500); }
+  h2 { font-size: var(--font-size-400); }
+  h3 { font-size: var(--font-size-300); }
+}
+
 p {
   text-wrap: pretty;
+}
+
+/* PR-2 (Story 11-1): inline code / formulas read as a rounded chip and WRAP so
+   a long formula never forces horizontal page scroll on mobile. The elevated
+   surface reads as a light-gray chip in light theme and a subtle raised chip
+   in dark theme (theme-aware; text stays readable). */
+code {
+  background-color: var(--color-surface-elevated);
+  border-radius: var(--radius-input);
+  padding-inline: 0.3em;
+  padding-block: 0.12em;
+  overflow-wrap: anywhere;
 }
 
 /* Links — accent only on interactive affordance (UX-DR2). */

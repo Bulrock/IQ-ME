@@ -43,7 +43,7 @@
     "optionLabelTemplate": "Opcja {N}",
     "previousButton": "Wstecz",
     "nextButton": "Dalej",
-    "submitButton": "Zakończ",
+    "submitButton": "Zakończ test",
     "fetchErrorMessage": "Nie udało się załadować zestawu zadań. Spróbuj odświeżyć.",
     "bailButton": "Zakończ test wcześniej",
     "bailPanelHeading": "Zakończyć test wcześniej?",
@@ -74,7 +74,8 @@
     "bandLabel": "Zakres",
     "resultExplainer": "To jedno oszacowanie z krótkiego, 16-zadaniowego testu przesiewowego, pokazane na trzy sposoby: Twój percentyl, ten sam wynik w skali IQ oraz zakres możliwego odchylenia. Krótki test nie może wskazać jednej dokładnej liczby — odczytuj wynik jako zakres, a nie pojedynczą wartość.",
     "printButton": "Pobierz / Drukuj wynik",
-    "printTitle": "IQ-ME — podsumowanie wyniku rozumowania płynnego (nie certyfikat)"
+    "printTitle": "IQ-ME — podsumowanie wyniku rozumowania płynnego (nie certyfikat)",
+    "crisisShowMore": "Pokaż więcej zasobów"
   },
   "localeSwitchBlockerHint": {
     "message": "Zmiana języka w trakcie testu zmienia to, co test mierzy. Dokończ tę sesję w bieżącym języku albo zakończ wcześniej i zacznij od nowa w innym języku.",
@@ -99,5 +100,25 @@
       "title": "EAP shrinkage at the tails",
       "desc": "An EAP point estimate sits between a raw maximum-likelihood theta and the standard-normal prior centre at theta zero. At the tails, the prior pulls the estimate toward zero — visible shrinkage. Near the centre, the prior has little effect."
     }
+  },
+  "savedResults": {
+    "viewSavedResults": "Zapisane wyniki",
+    "heading": "Zapisane wyniki",
+    "empty": "Brak zapisanych wyników.",
+    "back": "Wstecz",
+    "deleteSelected": "Usuń zaznaczone",
+    "deleteAll": "Usuń wszystkie",
+    "selectLabel": "Zaznacz",
+    "detailHeading": "Zapisany wynik",
+    "scoreLabel": "Skala IQ",
+    "percentileLabel": "Percentyl",
+    "dateLabel": "Data",
+    "percentileSuffix": ". perc.",
+    "untitledResult": "Zapisany wynik",
+    "backToList": "Do listy",
+    "inProgressHeading": "Niedokończone testy",
+    "resume": "Wznów",
+    "deleteInProgress": "Usuń",
+    "inProgressItemTemplate": "Niedokończony — zadanie {N} z 16"
   }
 }

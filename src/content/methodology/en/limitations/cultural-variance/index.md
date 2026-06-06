@@ -6,7 +6,7 @@ reviewer: "TBD"
 reviewerHandle: "@TBD-en-reviewer"
 asserts: []
 glossaryRefs: []
-sourceHashEN: "0000000000000000000000000000000000000000000000000000000000000000"
+sourceHashEN: "34d294bfdc5742a5a878fd0bb33aecd98d01ff20fcf0cc83aad0d9764d3b8d85"
 ---
 
 # Cultural variance and the norming sample

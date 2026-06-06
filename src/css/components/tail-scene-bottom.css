@@ -56,3 +56,31 @@
   font-size: var(--font-size-100);
   color: var(--color-text-muted);
 }
+
+/* PR-13 (Story 11-1): collapse the crisis-resources list to the first entry;
+   the rest sit behind a fade-out + "Show more" toggle (default collapsed).
+   The first resource stays visible for a distressed reader (harm-safe). */
+.tail-scene--bottom-decile .crisis-resources__more {
+  position: relative;
+}
+
+.tail-scene--bottom-decile .crisis-resources__more:not([open])::before {
+  content: "";
+  display: block;
+  height: var(--space-5);
+  margin-block-start: calc(-1 * var(--space-5));
+  background: linear-gradient(to bottom, transparent, var(--color-surface-base));
+  pointer-events: none;
+}
+
+.tail-scene--bottom-decile .crisis-resources__more-toggle {
+  cursor: pointer;
+  font-size: var(--font-size-100);
+  color: var(--color-text-link);
+  list-style-position: inside;
+}
+
+.tail-scene--bottom-decile .crisis-resources__more-toggle:focus-visible {
+  outline: var(--border-width-hairline) solid var(--color-focus-ring);
+  outline-offset: 2px;
+}

@@ -49,18 +49,29 @@ const TEAR = `<svg class="score-panel__tear-edge" aria-hidden="true" focusable="
 
 const DS = (s, c) => `<p class="score-panel__difficulty-sentence" aria-label="${E(s.difficultySentenceAria)}">${E(F(s.difficultySentenceTemplate, { hardN: c.totals.hard, medN: c.totals.medium, easyN: c.totals.easy, hardCorrect: c.correct.hard, medCorrect: c.correct.medium, easyCorrect: c.correct.easy }))}</p>`;
 
-function crisisList(crisis) {
-  if (!crisis || !Array.isArray(crisis.resources)) return "";
-  const items = crisis.resources.map((r) => `<li><a class="crisis-resource-link" href="${E(r.url)}" aria-label="${E(r.name)} — ${E(r.description)}">${E(r.name)}</a><span class="crisis-resource-description">${E(r.description)}</span></li>`).join("");
-  return `<div class="tail-scene__crisis-resources" aria-label="Crisis resources"><h3 class="visually-hidden">Crisis resources</h3><ul>${items}</ul></div>`;
+// PR-13 (Story 11-1): the crisis-resources block collapses by default —
+// the FIRST resource (988 Lifeline) stays visible for a potentially distressed
+// reader (harm-safe), and the rest hide behind a fade-out + "Show more"
+// <details> toggle. Native <details> keeps it keyboard/screen-reader-operable.
+function crisisResourceLi(r) {
+  return `<li><a class="crisis-resource-link" href="${E(r.url)}" aria-label="${E(r.name)} — ${E(r.description)}">${E(r.name)}</a><span class="crisis-resource-description">${E(r.description)}</span></li>`;
 }
 
-function tailScene(variant, tailScenes, crisis) {
+function crisisList(crisis, s) {
+  if (!crisis || !Array.isArray(crisis.resources) || crisis.resources.length === 0) return "";
+  const [first, ...rest] = crisis.resources;
+  const more = rest.length
+    ? `<details class="crisis-resources__more"><summary class="crisis-resources__more-toggle">${E((s && s.crisisShowMore) || "Show more resources")}</summary><ul>${rest.map(crisisResourceLi).join("")}</ul></details>`
+    : "";
+  return `<div class="tail-scene__crisis-resources" aria-label="Crisis resources"><h3 class="visually-hidden">Crisis resources</h3><ul>${crisisResourceLi(first)}</ul>${more}</div>`;
+}
+
+function tailScene(variant, tailScenes, crisis, s) {
   const scene = (tailScenes && tailScenes.scenes && tailScenes.scenes[variant]) || { heading: "", copy: "", silentCompanionLine: "" };
   const heading = `<h2 id="tail-scene-heading" class="visually-hidden">${E(scene.heading)}</h2>`;
   const copy = `<p class="tail-scene__copy">${E(scene.copy)}</p>`;
   const scl = variant === "bottom-decile" && scene.silentCompanionLine ? `<p class="silent-companion-line" role="note" aria-live="off">${E(scene.silentCompanionLine)}</p>` : "";
-  const cr = variant === "bottom-decile" ? crisisList(crisis) : "";
+  const cr = variant === "bottom-decile" ? crisisList(crisis, s) : "";
   return `<aside class="tail-scene tail-scene--${variant}" role="complementary" aria-labelledby="tail-scene-heading">${heading}${copy}${scl}${cr}</aside>`;
 }
 
@@ -76,11 +87,24 @@ const PRINT = (s) => `<button type="button" class="result-print-btn">${E(s.print
 const PRINT_HEAD = (s) => `<div class="result-print-only"><p class="result-print-only__title">${E(s.printTitle)}</p><p class="result-print-only__date">${E(new Date().toISOString().slice(0, 10))}</p></div>`;
 const RETEST = (s, locale) => `<div class="score-panel__retest-note"><p class="score-panel__retest-copy">${E(s.retestNote)}</p><a class="score-panel__retest-link" href="/methodology/${CV}/${locale}/limitations/retest-effects/">${E(s.retestNoteLinkLabel)}</a></div>`;
 
+// PR-13 (AC16) — the explanatory disclaimer collapses to its first line via a
+// native <details>/<summary> (keyboard- and screen-reader-operable, default
+// collapsed). The first sentence is the always-visible summary; the rest is
+// the expandable body. Native <details> means no JS toggle wiring is needed.
+const DISCLAIMER = (s) => {
+  const full = String(s.resultExplainer || "");
+  const parts = full.split(/(?<=[.!?])\s+/);
+  const summary = parts[0] || full;
+  const rest = parts.slice(1).join(" ");
+  const body = rest ? `<p class="disclaimer__body">${E(rest)}</p>` : "";
+  return `<details class="disclaimer score-panel__explainer"><summary class="disclaimer__summary">${E(summary)}</summary>${body}</details>`;
+};
+
 function panel(s, sc, c, variant, tailScenes, crisis) {
   const p = Math.round(sc.percentile), a = sc.iqScale;
   const h = Math.round((sc.displayedBand.upper - sc.displayedBand.lower) / 2 * 15);
   const locale = state.getState().locale || "en";
-  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h1 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h1><section class="score-panel score-panel--${variant}" aria-labelledby="score-panel-heading">${PRINT_HEAD(s)}<p class="score-panel__caveat" role="note">${E(s.caveat)}${variant === "top-decile" ? TEAR : ""}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p, s.percentileLabel)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a, s.anchorLabel)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }), s.bandLabel)}</div><p class="score-panel__explainer">${E(s.resultExplainer)}</p>${DS(s, c)}${SAVE(s)}${PRINT(s)}${RETEST(s, locale)}</section>${tailScene(variant, tailScenes, crisis)}</section>`;
+  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h1 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h1><section class="score-panel score-panel--${variant}" aria-labelledby="score-panel-heading">${PRINT_HEAD(s)}<p class="score-panel__caveat" role="note">${E(s.caveat)}${variant === "top-decile" ? TEAR : ""}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p, s.percentileLabel)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a, s.anchorLabel)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }), s.bandLabel)}</div>${DISCLAIMER(s)}${DS(s, c)}${SAVE(s)}${PRINT(s)}${RETEST(s, locale)}</section>${tailScene(variant, tailScenes, crisis, s)}</section>`;
 }
 
 // Wire the opt-in Save button. The browser-storage write lives entirely in
@@ -165,8 +189,13 @@ export async function render(rootEl, strings) {
       if (enTr && enTr.ok) tailScenes = await enTr.json();
     }
   } catch { renderErrorFallback(rootEl, strings); return; }
+  // PR-4 (AC6): order responses by session position (itemIndex) and treat any
+  // gap as incorrect (0). Submit pads unanswered items, but ordering here keeps
+  // scoring correct regardless of the order responses were recorded in.
+  const respByIndex = new Map(state.getState().responses.map((x) => [x.itemIndex, x.response]));
+  const orderedResponses = Array.from({ length: SS }, (_, i) => respByIndex.has(i) ? respByIndex.get(i) : 0);
   const score = scoreSession({
-    responses: state.getState().responses.map((x) => x.response),
+    responses: orderedResponses,
     itemParameters: pool.items,
     normingStats: { se_norming: 0 },
   });

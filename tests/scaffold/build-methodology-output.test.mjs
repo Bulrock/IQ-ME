@@ -85,7 +85,9 @@ const EPIC_4_EXPECTED = [
   "scoring/percentile-to-iq/index.html",
   "scoring/uncertainty/index.html",
   "scoring/overview/index.html",
-  "provenance/icar-license.html",
+  // PR-12b (Story 11-1): icar-license.md now emits directory-style index.html
+  // (trailing-slash served URL, matching canonicalUrlFor) like every page.
+  "provenance/icar-license/index.html",
 ];
 
 test("AC-5 4.1: all four pre-Story-3-6 EN pages render at v0.1.0/en/ (path contract preserved)", () => {

@@ -18,6 +18,12 @@
   color: var(--color-text-body);
   background-color: var(--color-surface-base);
   border-block-end: 1px solid var(--color-rule-divider);
+  /* PR-2 (Story 11-1): on article pages the masthead sticks to the top so it
+     stays visible while the content scrolls (the index pins it via the
+     app-shell instead, where the body doesn't page-scroll). */
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 10;
 }
 
 .methodology-masthead__title {
@@ -89,4 +95,84 @@ main {
 
 .methodology-index__list a {
   font-size: var(--font-size-200);
+}
+
+/* PR-11 (AC13) — methodology index sidebar + in-page anchor navigation.
+   On wide viewports this is an app-shell: the masthead and the sidebar stay
+   fixed and ONLY the content column scrolls; clicking a sidebar link lands the
+   section at the top of the content column. On narrow viewports it falls back
+   to a single scrollable page with the sidebar stacked above the content. */
+.methodology-index__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-section-gap);
+  max-width: 64rem;
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+}
+
+.methodology-sidebar__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.methodology-sidebar__link {
+  font-size: var(--font-size-200);
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.methodology-sidebar__link:hover,
+.methodology-sidebar__link:focus-visible {
+  color: var(--color-text-body);
+  text-decoration: underline;
+}
+
+/* Anchored sections land at the very top of the scroll area when clicked or
+   deep-linked. */
+.methodology-index__section {
+  scroll-margin-block-start: var(--space-3);
+}
+
+@media (min-width: 48rem) {
+  /* Fix the page to the viewport so only the content column scrolls. */
+  .methodology-index-page {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .methodology-index-page .methodology-masthead {
+    flex: 0 0 auto;
+  }
+
+  .methodology-index__layout {
+    flex: 1 1 auto;
+    min-height: 0;
+    grid-template-columns: 14rem 1fr;
+    align-items: stretch;
+    gap: var(--space-6);
+    width: 100%;
+    max-width: 72rem;
+    padding-block-end: 0;
+  }
+
+  /* The sidebar stays put; only the content column scrolls. */
+  .methodology-sidebar {
+    align-self: start;
+    max-height: 100%;
+    overflow-y: auto;
+  }
+
+  .methodology-index {
+    min-height: 0;
+    overflow-y: auto;
+    padding-inline-end: var(--space-4);
+    /* Scroll runway so even the last section (Tails) can scroll up to the top
+       of the content column when its sidebar link is clicked. */
+    padding-block-end: 80vh;
+  }
 }

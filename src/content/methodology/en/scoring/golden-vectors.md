@@ -7,7 +7,7 @@ reviewerHandle: "@TBD-en-reviewer"
 asserts:
   - "golden-vector-parity-0001-logits"
 glossaryRefs: []
-sourceHashEN: "0000000000000000000000000000000000000000000000000000000000000000"
+sourceHashEN: "17115b7fdb30722e08e40b3ea847b2c3d023500296004094a57decaef2315ac8"
 ---
 
 # Golden vectors — reference-implementation parity

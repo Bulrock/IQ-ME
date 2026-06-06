@@ -37,6 +37,9 @@ const ALLOWLIST = new Set([
   resolve(REPO_ROOT, "src/assessment/theme.js"),
   resolve(REPO_ROOT, "src/assessment/save-result.js"),
   resolve(REPO_ROOT, "src/assessment/language-switcher.js"),
+  // Story 11-1: in-progress test auto-save for the resume feature (NFR9 relaxed
+  // for the iqme:in-progress key by maintainer decision).
+  resolve(REPO_ROOT, "src/assessment/session-persistence.js"),
 ]);
 
 const files = globSync(FILES_GLOB);
