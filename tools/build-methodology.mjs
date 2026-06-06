@@ -325,6 +325,7 @@ function renderPage(srcPath, lang, fm, bodySrc, corpusVersion) {
     doiLine + `\n` +
     `<p class="methodology-masthead__last-reviewed">Last reviewed: <time datetime="${lastReviewed}">${lastReviewed}</time></p>\n` +
     `<p class="methodology-masthead__reviewer">Reviewer: ${reviewer} (${reviewerHandle})</p>\n` +
+    langSwitcherHtml(corpusVersion, hreflangDir, lang) + `\n` +
     `</header>\n` +
     hatnote +
     `<main>\n` +
@@ -369,6 +370,49 @@ function humanizeSection(seg) {
   return seg.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+// PR-12 (Story 11-1): localized chrome for the static methodology pages — the
+// index masthead title, lede, and section headings, plus the visible EN/RU/PL
+// language switcher (the static pages have no SPA chrome, so without this there
+// is no way to reach the translated locales).
+const INDEX_I18N = {
+  en: {
+    mastheadTitle: "IQ-ME methodology",
+    lede: "What IRT is, where the validity envelope ends, and why a 16-item screener is not a clinical evaluation.",
+    langLabel: "Language",
+    sections: { constructs: "Constructs", scoring: "Scoring", limitations: "Limitations", provenance: "Provenance", reference: "Reference", tails: "Tails" },
+  },
+  ru: {
+    mastheadTitle: "Методология IQ-ME",
+    lede: "Что такое IRT, где заканчивается рамка валидности и почему скринер из 16 заданий — не клиническое обследование.",
+    langLabel: "Язык",
+    sections: { constructs: "Конструкты", scoring: "Подсчёт баллов", limitations: "Ограничения", provenance: "Происхождение", reference: "Справочные материалы", tails: "Хвосты распределения" },
+  },
+  pl: {
+    mastheadTitle: "Metodologia IQ-ME",
+    lede: "Czym jest IRT, gdzie kończy się zakres ważności i dlaczego 16-zadaniowy przesiewacz nie jest oceną kliniczną.",
+    langLabel: "Język",
+    sections: { constructs: "Konstrukty", scoring: "Punktacja", limitations: "Ograniczenia", provenance: "Pochodzenie", reference: "Materiały źródłowe", tails: "Krańce rozkładu" },
+  },
+};
+
+const LANG_LABEL = { en: "EN", ru: "RU", pl: "PL" };
+
+// Visible EN/RU/PL switcher linking to the same page in every locale.
+function langSwitcherHtml(version, dir, currentLang) {
+  const aria = (INDEX_I18N[currentLang] || INDEX_I18N.en).langLabel;
+  const links = LOCALES.map((L) => {
+    const href = `/methodology/${version}/${L}/${dir ? dir + "/" : ""}`;
+    const current = L === currentLang ? ' aria-current="true"' : "";
+    return `<a class="methodology-lang-switcher__link" href="${href}"${current}>${LANG_LABEL[L]}</a>`;
+  }).join("");
+  return `<nav class="methodology-lang-switcher" aria-label="${esc(aria)}">${links}</nav>`;
+}
+
+function sectionLabel(lang, seg) {
+  const map = (INDEX_I18N[lang] || INDEX_I18N.en).sections;
+  return map[seg] || humanizeSection(seg);
+}
+
 function buildIndexHtml(lang, versionSegment, displayVersion, pages) {
   const bySection = new Map();
   for (const p of pages) {
@@ -386,15 +430,16 @@ function buildIndexHtml(lang, versionSegment, displayVersion, pages) {
   // PR-11 (AC13): in-page anchor sidebar — each section gets an id and the
   // sidebar <nav> links to it. Single scrollable page, deep-linkable, native
   // keyboard-accessible (anchor activation scrolls to the id).
+  const i18n = INDEX_I18N[lang] || INDEX_I18N.en;
   let sidebar = `<nav class="methodology-sidebar" aria-label="Methodology sections"><ul class="methodology-sidebar__list">`;
   for (const s of sections) {
-    sidebar += `<li><a class="methodology-sidebar__link" href="#section-${esc(s)}">${esc(humanizeSection(s))}</a></li>`;
+    sidebar += `<li><a class="methodology-sidebar__link" href="#section-${esc(s)}">${esc(sectionLabel(lang, s))}</a></li>`;
   }
   sidebar += `</ul></nav>`;
   let body = "";
   for (const s of sections) {
     const items = bySection.get(s).sort((a, b) => a.title.localeCompare(b.title));
-    body += `<section id="section-${esc(s)}" class="methodology-index__section"><h2 class="methodology-index__heading">${esc(humanizeSection(s))}</h2><ul class="methodology-index__list">`;
+    body += `<section id="section-${esc(s)}" class="methodology-index__section"><h2 class="methodology-index__heading">${esc(sectionLabel(lang, s))}</h2><ul class="methodology-index__list">`;
     for (const it of items) body += `<li><a href="${esc(it.url)}">${esc(it.title)}</a></li>`;
     body += `</ul></section>`;
   }
@@ -406,7 +451,7 @@ function buildIndexHtml(lang, versionSegment, displayVersion, pages) {
     `<meta charset="utf-8">\n` +
     `<meta name="viewport" content="width=device-width,initial-scale=1">\n` +
     THEME_BOOT +
-    `<title>IQ-ME methodology ${esc(displayVersion)}</title>\n` +
+    `<title>${esc(i18n.mastheadTitle)} ${esc(displayVersion)}</title>\n` +
     hreflang + `\n` +
     `<link rel="stylesheet" href="/src/css/reset.css">\n` +
     `<link rel="stylesheet" href="/src/css/primitives.css">\n` +
@@ -415,13 +460,14 @@ function buildIndexHtml(lang, versionSegment, displayVersion, pages) {
     `<link rel="stylesheet" href="/src/css/components/masthead.css">\n` +
     `</head>\n<body data-lang="${lang}" class="methodology-index-page">\n` +
     `<header class="methodology-masthead">\n` +
-    `<h1 class="methodology-masthead__title">IQ-ME methodology</h1>\n` +
+    `<h1 class="methodology-masthead__title">${esc(i18n.mastheadTitle)}</h1>\n` +
     `<p class="methodology-masthead__version">${esc(displayVersion)}</p>\n` +
+    langSwitcherHtml(versionSegment, "", lang) + `\n` +
     `</header>\n` +
     `<div class="methodology-index__layout">\n` +
     sidebar + `\n` +
     `<main class="methodology-index">\n` +
-    `<p class="methodology-index__lede">What IRT is, where the validity envelope ends, and why a 16-item screener is not a clinical evaluation.</p>\n` +
+    `<p class="methodology-index__lede">${esc(i18n.lede)}</p>\n` +
     body + `\n</main>\n</div>\n</body>\n</html>\n`
   );
 }
