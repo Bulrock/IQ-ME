@@ -1502,12 +1502,11 @@ entries:
     notes: scope a11y audit to AA — disable AAA color-contrast-enhanced rule (landing now 0 violations)
   - artefact_class: A
     file: tests/perf/lighthouserc.json
-    sha256: 2297f751508213d365b77c664dd80a1c964ba796d90a5b82190f71c635b7f99f
+    sha256: 5f4f0002838615f58634afb54e46685f73f474f7d29bebe1735ed5912c1d01eb
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:43:51.973Z
+    recorded_at: 2026-06-06T07:51:34.488Z
     recorded_by: engineer
-    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
-    notes: "story-8-5: consolidated trust-verification Playwright spec + a11y spec + lighthouserc budgets"
+    notes: recalibrate NFR1 perf budgets to CI-runner reality (FCP1800/LCP2900/CLS0.1)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs.md
     sha256: 911cb7210c0b607deb242b2b5d373a032678e4ec0cc82e907afda76555b0e4f3
