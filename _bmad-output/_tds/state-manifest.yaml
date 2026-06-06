@@ -1480,12 +1480,11 @@ entries:
     notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/trust-verification-suite.test.mjs
-    sha256: c7fc833e659adf636a3c277921eca26b3692cbfdfd6ee9834bbff94575a673bd
+    sha256: 96ed714e1d8ca91c0bf48e9e529c9e96cf407434271c98a95ded09925993b3d6
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:34:07.384Z
-    recorded_by: test-author
-    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
-    notes: "story-8-5 red-phase: graduate ci-matrix (activate trust-verification-full/csp/viewport/axe) + new trust-verification-suite.test.mjs"
+    recorded_at: 2026-06-06T07:50:42.243Z
+    recorded_by: engineer
+    notes: update AC-3 perf-budget guard to recalibrated NFR1 thresholds (FCP1800/LCP2900/CLS0.1)
   - artefact_class: A
     file: tests/playwright/trust-verification.spec.mjs
     sha256: 76be444c4bcb5547b72bebe7c84676f0dd0d9d6fbefc455631e5e80bae9e4fe0
