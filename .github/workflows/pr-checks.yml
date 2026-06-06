@@ -152,8 +152,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npx --yes playwright install --with-deps chromium
-      - run: npx --yes playwright test tests/playwright/network-trace.spec.mjs
+      - run: npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright install --with-deps chromium
+      - run: npx playwright test tests/playwright/network-trace.spec.mjs
 
   full-slice-network-trace:
     name: full-slice-network-trace
@@ -164,9 +164,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npx --yes playwright install --with-deps chromium
+      - run: npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright install --with-deps chromium
       - run: make build-methodology
-      - run: npx --yes playwright test tests/playwright/full-slice.spec.mjs
+      - run: npx playwright test tests/playwright/full-slice.spec.mjs
 
   lint-css-link-order:
     name: lint-css-link-order
@@ -185,9 +185,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npx --yes playwright install --with-deps chromium
+      - run: npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright install --with-deps chromium
       - run: make build-methodology
-      - run: npx --yes playwright test tests/playwright/co-equal-triplet-computed-style.spec.mjs
+      - run: npx playwright test tests/playwright/co-equal-triplet-computed-style.spec.mjs
 
   i18n-locale-switch:
     name: i18n-locale-switch
@@ -199,8 +199,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npx --yes playwright install --with-deps chromium
-      - run: npx --yes playwright test tests/playwright/i18n-locale-switch.spec.mjs
+      - run: npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright install --with-deps chromium
+      - run: npx playwright test tests/playwright/i18n-locale-switch.spec.mjs
 
   co-equal-triplet-css-source:
     name: co-equal-triplet-css-source
@@ -219,9 +219,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npx --yes playwright install --with-deps chromium
+      - run: npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright install --with-deps chromium
       - run: make build-methodology
-      - run: npx --yes playwright test tests/playwright/reveal-stage.spec.mjs
+      - run: npx playwright test tests/playwright/reveal-stage.spec.mjs
 
   difficulty-sentence:
     name: difficulty-sentence
@@ -232,10 +232,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npx --yes playwright install --with-deps chromium
+      - run: npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright install --with-deps chromium
       - run: make build-difficulty-bands
       - run: make build-methodology
-      - run: npx --yes playwright test tests/playwright/difficulty-sentence.spec.mjs
+      - run: npx playwright test tests/playwright/difficulty-sentence.spec.mjs
 
   mid-session-bail-out:
     name: mid-session-bail-out
@@ -250,8 +250,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npx --yes playwright install --with-deps chromium
-      - run: npx --yes playwright test tests/playwright/mid-session-bail-out.spec.mjs
+      - run: npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright install --with-deps chromium
+      - run: npx playwright test tests/playwright/mid-session-bail-out.spec.mjs
 
   chrome-components:
     name: chrome-components
@@ -264,8 +264,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npx --yes playwright install --with-deps chromium
-      - run: npx --yes playwright test tests/playwright/chrome-components.spec.mjs
+      - run: npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright install --with-deps chromium
+      - run: npx playwright test tests/playwright/chrome-components.spec.mjs
 
   csp-violation-count:
     name: csp-violation-count
@@ -279,9 +279,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npx --yes playwright install --with-deps chromium
+      - run: npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright install --with-deps chromium
       - run: make build-methodology
-      - run: npx --yes playwright test tests/playwright/trust-verification.spec.mjs
+      - run: npx playwright test tests/playwright/trust-verification.spec.mjs
 
   state-shape-contract:
     name: state-shape-contract
@@ -358,7 +358,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npx --yes playwright install --with-deps chromium
+      - run: npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright install --with-deps chromium
       - run: make test-byte-stable
 
   lint-fr36-protection:
@@ -386,9 +386,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npx --yes playwright install --with-deps chromium
+      - run: npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright install --with-deps chromium
       - run: make build-methodology
-      - run: npx --yes playwright test tests/playwright/trust-verification.spec.mjs
+      - run: npx playwright test tests/playwright/trust-verification.spec.mjs
 
   asymmetric-tail-scenes:
     name: asymmetric-tail-scenes
@@ -403,10 +403,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npx --yes playwright install --with-deps chromium
+      - run: npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright install --with-deps chromium
       - run: make build-difficulty-bands
       - run: make build-methodology
-      - run: npx --yes playwright test tests/playwright/asymmetric-tail-scenes.spec.mjs
+      - run: npx playwright test tests/playwright/asymmetric-tail-scenes.spec.mjs
 
   tear-edge-overlay:
     name: tear-edge-overlay
@@ -420,8 +420,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npx --yes playwright install --with-deps chromium
-      - run: npx --yes playwright test tests/playwright/tear-edge-overlay.spec.mjs
+      - run: npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright install --with-deps chromium
+      - run: npx playwright test tests/playwright/tear-edge-overlay.spec.mjs
 
   cropping-fuzzer:
     name: cropping-fuzzer
@@ -438,8 +438,8 @@ jobs:
         with:
           node-version: "22"
       - run: node --test tests/unit/cropping-fuzzer.test.mjs
-      - run: npx --yes playwright install --with-deps chromium
-      - run: npx --yes playwright test tests/playwright/cropping-fuzzer.spec.mjs
+      - run: npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright install --with-deps chromium
+      - run: npx playwright test tests/playwright/cropping-fuzzer.spec.mjs
 
   lighthouse:
     name: lighthouse
@@ -458,7 +458,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npx --yes playwright install --with-deps chromium
+      - run: npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright install --with-deps chromium
       - name: Start dev-server and run Lighthouse (${{ matrix.theme }})
         run: |
           node tools/dev-server.mjs &
@@ -503,9 +503,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npx --yes playwright install --with-deps chromium
+      - run: npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright install --with-deps chromium
       - run: make build-methodology
-      - run: npx --yes playwright test tests/playwright/trust-verification.spec.mjs
+      - run: npx playwright test tests/playwright/trust-verification.spec.mjs
 
   axe-core-pa11y:
     name: axe-core-pa11y
@@ -520,9 +520,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: npx --yes playwright install --with-deps chromium
+      - run: npm install --no-save --no-package-lock @playwright/test@1.60.0 @axe-core/playwright@4.11.3 && npx playwright install --with-deps chromium
       - run: make build-methodology
-      - run: npx --yes playwright test tests/a11y/trust-a11y.spec.mjs
+      - run: npx playwright test tests/a11y/trust-a11y.spec.mjs
 
   lint-translation-parity:
     name: lint-translation-parity
