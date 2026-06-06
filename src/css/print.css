@@ -48,7 +48,6 @@
   /* Drop interactive chrome + anything that isn't the summary. */
   .chrome-header,
   .chrome-footer,
-  .translation-notice,
   .result-print-btn,
   .score-panel__save-button,
   .score-panel__retest-note,

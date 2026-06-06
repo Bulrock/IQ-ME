@@ -1645,18 +1645,18 @@ entries:
     story_id: 9e-1-native-speaker-tester-recruitment-credibility-validation-iteration-loop
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/9a-2-icar-confirmation-arrival-licenses-md-reconciliation-slot-fulfillment.md
-    sha256: 5ac089037b477746e328df30d2480416fe43f1edd925a191486f1c9b7aa49970
+    sha256: d349f1f2d4adb59b8c9a1dfd57f5faca18812f0a3ace5878940409ae4e5cf847
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T14:09:48.258Z
+    recorded_at: 2026-06-06T06:28:58.991Z
     recorded_by: engineer
-    story_id: 9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields
+    notes: re-record after rebase onto main (Task 2 done markers + RED-guard notes)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields.md
-    sha256: 3461fc1295cc8fb36d4973e120e36e3b145fb0dd7de31875cee324a91c3844b8
+    sha256: 14c1607f93b78ee292b2eb4afa518ae01ab34a27e64a7d9f850cd5cbe31540c3
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T14:09:48.258Z
+    recorded_at: 2026-06-06T06:28:58.991Z
     recorded_by: engineer
-    story_id: 9d-2-pl-clinical-register-sign-off-codeowners-finalization-masthead-reviewer-fields
+    notes: re-record after rebase onto main (Task 2 done markers + RED-guard notes)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/10-1-pre-launch-readiness-checklist-final-smoke-test.md
     sha256: 18ff257341c72c6671ca48594dee7747e8293537563e927c478bec4eaa8d9ccb
