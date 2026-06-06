@@ -52,6 +52,11 @@ const LOCALES = ["en", "ru", "pl"];
 // (NFR6 zero-third-party). System default (no key) → no attribute.
 const THEME_BOOT =
   `<script src="/src/assessment/methodology-theme.js"></script>\n`;
+// PR-12 (Story 11-1) — locale redirect: follow the SPA's saved "locale" and
+// switch the methodology page to that language before paint. Placed BEFORE the
+// theme script so a redirect aborts early. External src = CSP-clean.
+const LOCALE_BOOT =
+  `<script src="/src/assessment/methodology-locale.js"></script>\n`;
 // Retained for callers that historically referenced LANG; canonical EN path.
 const LANG = "en";
 const SEMVER_RE = /^v\d+\.\d+\.\d+$/;
@@ -298,6 +303,7 @@ function renderPage(srcPath, lang, fm, bodySrc, corpusVersion) {
     `<head>\n` +
     `<meta charset="utf-8">\n` +
     `<meta name="viewport" content="width=device-width,initial-scale=1">\n` +
+    LOCALE_BOOT +
     THEME_BOOT +
     `<title>${title} — IQ-ME methodology ${version}</title>\n` +
     `<meta name="iqme-title" content="${title}">\n` +
@@ -325,7 +331,6 @@ function renderPage(srcPath, lang, fm, bodySrc, corpusVersion) {
     doiLine + `\n` +
     `<p class="methodology-masthead__last-reviewed">Last reviewed: <time datetime="${lastReviewed}">${lastReviewed}</time></p>\n` +
     `<p class="methodology-masthead__reviewer">Reviewer: ${reviewer} (${reviewerHandle})</p>\n` +
-    langSwitcherHtml(corpusVersion, hreflangDir, lang) + `\n` +
     `</header>\n` +
     hatnote +
     `<main>\n` +
@@ -395,19 +400,6 @@ const INDEX_I18N = {
   },
 };
 
-const LANG_LABEL = { en: "EN", ru: "RU", pl: "PL" };
-
-// Visible EN/RU/PL switcher linking to the same page in every locale.
-function langSwitcherHtml(version, dir, currentLang) {
-  const aria = (INDEX_I18N[currentLang] || INDEX_I18N.en).langLabel;
-  const links = LOCALES.map((L) => {
-    const href = `/methodology/${version}/${L}/${dir ? dir + "/" : ""}`;
-    const current = L === currentLang ? ' aria-current="true"' : "";
-    return `<a class="methodology-lang-switcher__link" href="${href}"${current}>${LANG_LABEL[L]}</a>`;
-  }).join("");
-  return `<nav class="methodology-lang-switcher" aria-label="${esc(aria)}">${links}</nav>`;
-}
-
 function sectionLabel(lang, seg) {
   const map = (INDEX_I18N[lang] || INDEX_I18N.en).sections;
   return map[seg] || humanizeSection(seg);
@@ -450,6 +442,7 @@ function buildIndexHtml(lang, versionSegment, displayVersion, pages) {
     `<!doctype html>\n<html lang="${lang}">\n<head>\n` +
     `<meta charset="utf-8">\n` +
     `<meta name="viewport" content="width=device-width,initial-scale=1">\n` +
+    LOCALE_BOOT +
     THEME_BOOT +
     `<title>${esc(i18n.mastheadTitle)} ${esc(displayVersion)}</title>\n` +
     hreflang + `\n` +
@@ -462,7 +455,6 @@ function buildIndexHtml(lang, versionSegment, displayVersion, pages) {
     `<header class="methodology-masthead">\n` +
     `<h1 class="methodology-masthead__title">${esc(i18n.mastheadTitle)}</h1>\n` +
     `<p class="methodology-masthead__version">${esc(displayVersion)}</p>\n` +
-    langSwitcherHtml(versionSegment, "", lang) + `\n` +
     `</header>\n` +
     `<div class="methodology-index__layout">\n` +
     sidebar + `\n` +
