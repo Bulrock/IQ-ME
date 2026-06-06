@@ -16,3 +16,7 @@ __pycache__/
 # `make build-difficulty-bands` from src/items/item-parameters.json.
 src/items/item-difficulty-bands.json
 .fallow/
+
+# Ephemeral Playwright install — CI/dev run `npm install --no-save @playwright/test`
+# to make the `@playwright/test` import resolvable (repo has no package.json).
+node_modules/

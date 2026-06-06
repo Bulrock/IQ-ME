@@ -278,7 +278,9 @@ jobs:
           set -euo pipefail
           # tests/playwright/full-slice.spec.mjs re-targeted at the mirror origin
           # (IQME_MIRROR_URL) — same happy-path, no path changes (NFR17).
-          npx --yes playwright test tests/playwright/full-slice.spec.mjs
+          npm install --no-save --no-package-lock @playwright/test@1.60.0
+          npx playwright install --with-deps chromium
+          npx playwright test tests/playwright/full-slice.spec.mjs
 
   # ── Contributor credit (Story 8.7) ─────────────────────────────────────────
   # On a release tag, extract contributor GitHub handles from the commit log
