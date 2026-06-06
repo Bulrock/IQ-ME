@@ -183,8 +183,8 @@ development_status:
   epic-10-retrospective: optional
 
   # Post-release wave (appended 2026-06-06): epics 11-13, requirements PR-1..PR-17
-  epic-11: in-progress
-  11-1-post-release-bug-ux-fix-pass: review                  # PR-1..PR-14 (single story per maintainer decision)
+  epic-11: approved
+  11-1-post-release-bug-ux-fix-pass: approved                # PR-1..PR-14 (single story per maintainer decision)
   epic-11-retrospective: optional
   epic-12: backlog
   12-1-methodology-landscape-research-accuracy-popularity-comparison: backlog           # PR-15 research gate

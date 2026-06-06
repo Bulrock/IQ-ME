@@ -8,10 +8,10 @@ entries:
     recorded_by: frontend
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 4c9385d2e56223b02c87d0b362403707f4c7d18a06c6d85a3f7fdf17474c7fba
+    sha256: 8f74b04ec5ed987dbeaf49408a1ee4104d67105860953b7923835fa5fb354292
     canonical_form: raw-bytes
-    recorded_at: 2026-06-06T14:50:55.058Z
-    recorded_by: frontend
+    recorded_at: 2026-06-06T15:38:38.022Z
+    recorded_by: state-commit-autorecord
     story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
