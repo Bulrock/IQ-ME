@@ -170,3 +170,24 @@ _(to be populated during implementation)_
 - Bottom-decile crisis collapse: 1 visible + 4 hidden, default collapsed.
 - Methodology cut: 19 pages/locale, parity green, no dead links, snapshots regenerated.
 - Gates (AC18): make lint 0, make build 0, full Playwright 145 passed/0 failed, byte-stable holds. (make test: 14 pre-existing 9-series human-deliverable gate guards remain RED by design.)
+
+## Auditor Findings (round-1)
+
+### [warn] File List (spec lines 109-130) enumerates 21 files but the cumulative epic diff touches 279, and omits 3 new source modules that actually shipped: src/assessment/methodology-locale.js, src/assessment/methodology-theme.js, src/assessment/session-persistence.js (plus BUDGETS.json and tools/lint-no-localStorage-without-consent.mjs). All changes fall within the maintainer-disclosed scope (methodology cut/rebuild, golden-snapshot regen, frozen-test rewrites, resume feature) and are committed + integrity-recorded (244 verified / 0 failed), so this is a documentation-accuracy gap, not silent scope creep. Non-blocking.
+
+- **Category:** scope-discipline / doc-accuracy
+- **Suggested fix:** Backfill the File List with the 3 new src/assessment modules + BUDGETS.json + the lint allowlist tool, and add a one-line note for the generated buckets (methodology HTML output, 114 golden snapshots, 16 pr*.spec.mjs) so the spec reflects what shipped.
+
+## Auditor Findings (round-2)
+
+### [warn] In this single story app-modules-bytes rose 62464 -> 88064 (+41%, 61->86KB) and css-components-lines 1500 -> 1850 (+23%), across several live-review re-pins. Each sub-bump is individually documented with measured values and ~2% margins, and the two methodology-only modules are correctly added to the exclude list, so no individual raise is unjustified. But the specialist self-flagged the cumulative growth as warranting an audit — the same rubber-stamp-decay pattern bridge-7-8-5 corrected for Epic-6. Non-blocking.
+
+- **Category:** cognitive-load-budget governance
+- **Suggested bridge:** `Post-epic-11 principled re-pin audit of app-modules-bytes + css-components-lines (bridge-7-8-5-style: measure actual size, consolidate/dedup for headroom, pin ceiling to measured + tight margin) to confirm the new limits reflect necessary growth, not accumulated per-tweak stamping.`
+
+## Auditor Findings (round-3)
+
+### [info] Two maintainer-approved product deviations are disclosed and should be confirmed product-wide at retro: (1) NFR9 relaxed for the iqme:in-progress key — the resume feature auto-saves in-progress sessions without explicit consent (documented in Self-Review + an inline comment in the lint-no-localStorage allowlist; full-slice no-write assertion unaffected since it drives via the test hook, not the item-runner UI); (2) methodology corpus cut 35 -> 19 pages/locale, dropping Norming/Ethics/glossary/ bibliography/changelog — every app-linked/tested/protected page retained so nothing 404s, parity green, but the 9c/9d translation gates now cover fewer pages. Both are documented maintainer decisions, not silent under-delivery.
+
+- **Category:** privacy-invariant / product-decision confirmation
+- **Suggested bridge:** `Retro confirmation that always-on resume auto-save is the intended product-wide privacy posture, and that the dropped Ethics/Norming content is acceptable to lose (transparency tradeoff + reduced 9c/9d gate coverage).`

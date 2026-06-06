@@ -1695,10 +1695,10 @@ entries:
     story_id: 10-3-48-hour-post-launch-monitoring-window
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/11-1-post-release-bug-ux-fix-pass.md
-    sha256: 4f549777b3537ccbc1a63719dd82425680cd623ac0004b31c6bf74cadc1df2d8
+    sha256: 696d567accdee4c17922d0cfa6217b2ced83515347c1059d449f6bd96aa14f53
     canonical_form: raw-bytes
-    recorded_at: 2026-06-06T14:50:55.112Z
-    recorded_by: frontend
+    recorded_at: 2026-06-06T15:34:36.226Z
+    recorded_by: story-add-finding-autorecord
     story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: tests/playwright/pr1-favicon.spec.mjs
