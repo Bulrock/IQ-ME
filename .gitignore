@@ -15,3 +15,4 @@ __pycache__/
 # Story 6.2: regenerable difficulty-band assignments — produced by
 # `make build-difficulty-bands` from src/items/item-parameters.json.
 src/items/item-difficulty-bands.json
+.fallow/
