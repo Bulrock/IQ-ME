@@ -92,9 +92,9 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: 17724200788170cb8afc14c9d6e4b6685643d8de07f4144e7788ce92c27ddb28
+    sha256: 2cf8a43306e4a06d54d904bbece1c61fd4bb201a09ec6b43205bb6585d96225f
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T17:18:44.485Z
+    recorded_at: 2026-06-06T03:36:52.423Z
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
