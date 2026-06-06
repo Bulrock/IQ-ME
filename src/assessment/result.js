@@ -52,16 +52,16 @@ const DS = (s, c) => `<p class="score-panel__difficulty-sentence" aria-label="${
 function crisisList(crisis) {
   if (!crisis || !Array.isArray(crisis.resources)) return "";
   const items = crisis.resources.map((r) => `<li><a class="crisis-resource-link" href="${E(r.url)}" aria-label="${E(r.name)} — ${E(r.description)}">${E(r.name)}</a><span class="crisis-resource-description">${E(r.description)}</span></li>`).join("");
-  return `<div class="tail-scene__crisis-resources" aria-label="Crisis resources"><h4 class="visually-hidden">Crisis resources</h4><ul>${items}</ul></div>`;
+  return `<div class="tail-scene__crisis-resources" aria-label="Crisis resources"><h3 class="visually-hidden">Crisis resources</h3><ul>${items}</ul></div>`;
 }
 
 function tailScene(variant, tailScenes, crisis) {
   const scene = (tailScenes && tailScenes.scenes && tailScenes.scenes[variant]) || { heading: "", copy: "", silentCompanionLine: "" };
-  const heading = `<h3 id="tail-scene-heading" class="visually-hidden">${E(scene.heading)}</h3>`;
+  const heading = `<h2 id="tail-scene-heading" class="visually-hidden">${E(scene.heading)}</h2>`;
   const copy = `<p class="tail-scene__copy">${E(scene.copy)}</p>`;
   const scl = variant === "bottom-decile" && scene.silentCompanionLine ? `<p class="silent-companion-line" role="note" aria-live="off">${E(scene.silentCompanionLine)}</p>` : "";
   const cr = variant === "bottom-decile" ? crisisList(crisis) : "";
-  return `<aside class="tail-scene tail-scene--${variant}" role="region" aria-labelledby="tail-scene-heading">${heading}${copy}${scl}${cr}</aside>`;
+  return `<aside class="tail-scene tail-scene--${variant}" role="complementary" aria-labelledby="tail-scene-heading">${heading}${copy}${scl}${cr}</aside>`;
 }
 
 // Story 6.7 — opt-in "Save my result" button (FR26, NFR9) + retest-effect note
@@ -80,7 +80,7 @@ function panel(s, sc, c, variant, tailScenes, crisis) {
   const p = Math.round(sc.percentile), a = sc.iqScale;
   const h = Math.round((sc.displayedBand.upper - sc.displayedBand.lower) / 2 * 15);
   const locale = state.getState().locale || "en";
-  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h2 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h2><section class="score-panel score-panel--${variant}" aria-labelledby="score-panel-heading">${PRINT_HEAD(s)}<p class="score-panel__caveat" role="note">${E(s.caveat)}${variant === "top-decile" ? TEAR : ""}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p, s.percentileLabel)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a, s.anchorLabel)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }), s.bandLabel)}</div><p class="score-panel__explainer">${E(s.resultExplainer)}</p>${DS(s, c)}${SAVE(s)}${PRINT(s)}${RETEST(s, locale)}</section>${tailScene(variant, tailScenes, crisis)}</section>`;
+  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h1 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h1><section class="score-panel score-panel--${variant}" aria-labelledby="score-panel-heading">${PRINT_HEAD(s)}<p class="score-panel__caveat" role="note">${E(s.caveat)}${variant === "top-decile" ? TEAR : ""}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p, s.percentileLabel)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a, s.anchorLabel)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }), s.bandLabel)}</div><p class="score-panel__explainer">${E(s.resultExplainer)}</p>${DS(s, c)}${SAVE(s)}${PRINT(s)}${RETEST(s, locale)}</section>${tailScene(variant, tailScenes, crisis)}</section>`;
 }
 
 // Wire the opt-in Save button. The browser-storage write lives entirely in

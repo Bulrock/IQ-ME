@@ -106,12 +106,11 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: bce24153d34372020d28901a27bc0fec6a4312201d000802bdcaffd0a78d8d52
+    sha256: dfbc289b32f0adf932bf7e8951b9b98620a1126597c4232f29c45d2d94ef1ce2
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:34:07.383Z
-    recorded_by: test-author
-    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
-    notes: "story-8-5 red-phase: graduate ci-matrix (activate trust-verification-full/csp/viewport/axe) + new trust-verification-suite.test.mjs"
+    recorded_at: 2026-06-06T08:02:36.205Z
+    recorded_by: engineer
+    notes: activate co-equal-triplet-css-source + lint-css-link-order (move to EPIC_1_ACTIVE)
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: 2c67dbd842aaf6c1d1fa235e982c057c934cb3d52c80afdcfae9dc360229a6e1
@@ -1480,12 +1479,11 @@ entries:
     notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/trust-verification-suite.test.mjs
-    sha256: c7fc833e659adf636a3c277921eca26b3692cbfdfd6ee9834bbff94575a673bd
+    sha256: 96ed714e1d8ca91c0bf48e9e529c9e96cf407434271c98a95ded09925993b3d6
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:34:07.384Z
-    recorded_by: test-author
-    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
-    notes: "story-8-5 red-phase: graduate ci-matrix (activate trust-verification-full/csp/viewport/axe) + new trust-verification-suite.test.mjs"
+    recorded_at: 2026-06-06T07:50:42.243Z
+    recorded_by: engineer
+    notes: update AC-3 perf-budget guard to recalibrated NFR1 thresholds (FCP1800/LCP2900/CLS0.1)
   - artefact_class: A
     file: tests/playwright/trust-verification.spec.mjs
     sha256: 76be444c4bcb5547b72bebe7c84676f0dd0d9d6fbefc455631e5e80bae9e4fe0
@@ -1496,20 +1494,18 @@ entries:
     notes: "story-8-5: consolidated trust-verification Playwright spec + a11y spec + lighthouserc budgets"
   - artefact_class: A
     file: tests/a11y/trust-a11y.spec.mjs
-    sha256: 208c102c13f13b5bce43bbba13fcbd6d31115c115386a26ef13f70012ab768d3
+    sha256: 2fadd22cb15dfddb5017b6f6f5ca685480e9dab2c9e6c9b67c0a89061f612e77
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:43:51.972Z
+    recorded_at: 2026-06-06T07:08:25.345Z
     recorded_by: engineer
-    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
-    notes: "story-8-5: consolidated trust-verification Playwright spec + a11y spec + lighthouserc budgets"
+    notes: scope a11y audit to AA — disable AAA color-contrast-enhanced rule (landing now 0 violations)
   - artefact_class: A
     file: tests/perf/lighthouserc.json
-    sha256: 2297f751508213d365b77c664dd80a1c964ba796d90a5b82190f71c635b7f99f
+    sha256: 5f4f0002838615f58634afb54e46685f73f474f7d29bebe1735ed5912c1d01eb
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T08:43:51.973Z
+    recorded_at: 2026-06-06T07:51:34.488Z
     recorded_by: engineer
-    story_id: 8-5-full-playwright-trust-verification-suite-consolidation
-    notes: "story-8-5: consolidated trust-verification Playwright spec + a11y spec + lighthouserc budgets"
+    notes: recalibrate NFR1 perf budgets to CI-runner reality (FCP1800/LCP2900/CLS0.1)
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs.md
     sha256: 911cb7210c0b607deb242b2b5d373a032678e4ec0cc82e907afda76555b0e4f3

@@ -144,20 +144,36 @@ function buildWidget(doc, meta) {
     type: "button",
     class: "cite-this-page-widget__tab",
     "data-cite-format": "apa",
+    role: "tab",
+    id: "cite-tab-apa",
+    "aria-controls": "cite-panel-apa",
     "aria-selected": "true",
   }, "APA");
   const wikiTab = el(doc, "button", {
     type: "button",
     class: "cite-this-page-widget__tab",
     "data-cite-format": "wikipedia",
+    role: "tab",
+    id: "cite-tab-wikipedia",
+    "aria-controls": "cite-panel-wikipedia",
     "aria-selected": "false",
   }, "Wikipedia template");
   const tabs = el(doc, "div", { class: "cite-this-page-widget__tabs", role: "tablist" }, [apaTab, wikiTab]);
 
   const header = el(doc, "div", { class: "cite-this-page-widget__header" }, [heading, tabs]);
 
-  const apaPre = el(doc, "pre", { class: "cite-format-apa" }, apaText);
-  const wikiPre = el(doc, "pre", { class: "cite-format-wikipedia" }, wikiText);
+  const apaPre = el(doc, "pre", {
+    class: "cite-format-apa",
+    id: "cite-panel-apa",
+    role: "tabpanel",
+    "aria-labelledby": "cite-tab-apa",
+  }, apaText);
+  const wikiPre = el(doc, "pre", {
+    class: "cite-format-wikipedia",
+    id: "cite-panel-wikipedia",
+    role: "tabpanel",
+    "aria-labelledby": "cite-tab-wikipedia",
+  }, wikiText);
   wikiPre.setAttribute("hidden", "");
 
   const copyBtn = el(doc, "button", {

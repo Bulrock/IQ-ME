@@ -46,6 +46,11 @@
   line-height: var(--line-height-base);
   color: var(--color-text-muted);
   margin-block-start: var(--space-1);
+  /* Reserve two label lines uniformly so a label that wraps at narrow widths
+     (e.g. "IQ-scale equivalent" at 320px) doesn't make its triplet cell taller
+     than the single-line peers — keeps the FR18 co-equal bbox-area parity
+     (Story 6.1 AC-4) intact across viewport widths. */
+  min-block-size: 2lh;
 }
 
 /* One-line plain-language explainer of what the result is. */

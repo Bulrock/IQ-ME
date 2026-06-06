@@ -8,6 +8,7 @@
 
 .chrome-footer {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-5);
   align-items: center;
   padding-block: var(--space-3);
