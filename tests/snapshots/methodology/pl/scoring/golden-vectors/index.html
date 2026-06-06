@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="/src/assessment/methodology-locale.js"></script>
+<script src="/src/assessment/methodology-theme.js"></script>
+<title>Złote wektory — zgodność z implementacją referencyjną — IQ-ME methodology v0.1.0</title>
+<meta name="iqme-title" content="Złote wektory — zgodność z implementacją referencyjną">
+<meta name="iqme-version" content="v0.1.0">
+<meta name="iqme-doi" content="">
+<meta name="iqme-last-reviewed" content="2026-06-03">
+<meta name="iqme-reviewer" content="TBD">
+<meta name="iqme-reviewer-handle" content="@TBD-pl-reviewer">
+<meta name="iqme-lang" content="pl">
+<meta name="iqme-url" content="/methodology/v0.1.0/pl/scoring/golden-vectors/">
+<link rel="alternate" hreflang="en" href="/methodology/v0.1.0/en/scoring/golden-vectors/">
+<link rel="alternate" hreflang="ru" href="/methodology/v0.1.0/ru/scoring/golden-vectors/">
+<link rel="alternate" hreflang="pl" href="/methodology/v0.1.0/pl/scoring/golden-vectors/">
+<link rel="stylesheet" href="/src/css/reset.css">
+<link rel="stylesheet" href="/src/css/primitives.css">
+<link rel="stylesheet" href="/src/css/semantic.css">
+<link rel="stylesheet" href="/src/css/base.css">
+<link rel="stylesheet" href="/src/css/components/masthead.css">
+<link rel="stylesheet" href="/src/css/components/cite-this-page-widget.css">
+<link rel="stylesheet" href="/src/css/components/stale-translation-hatnote.css">
+<script type="module" src="/src/assessment/cite-this-page.js" defer></script>
+</head>
+<body data-lang="pl" data-translation-status="in-progress">
+<header class="methodology-masthead">
+<h1 class="methodology-masthead__title">Złote wektory — zgodność z implementacją referencyjną</h1>
+<p class="methodology-masthead__version">v0.1.0</p>
+<p class="methodology-masthead__doi" data-doi-pending>DOI: pending v1.0.0 release</p>
+<p class="methodology-masthead__last-reviewed">Last reviewed: <time datetime="2026-06-03">2026-06-03</time></p>
+<p class="methodology-masthead__reviewer">Reviewer: TBD (@TBD-pl-reviewer)</p>
+</header>
+<aside class="stale-translation-hatnote" role="note">
+<p>This page may be out of date relative to its English source. <a href="/methodology/v0.1.0/en/../pl/scoring/golden-vectors/">View source EN page</a>.</p>
+</aside>
+<main>
+<p>Silnik punktacyjny jest tak dobry, jak dobra jest możliwość jego weryfikacji przez sceptyka. Silnik punktacyjny IQ-ME jest sprawdzany względem niezależnej implementacji referencyjnej przy każdym uruchomieniu CI. Sprawdzenie to nosi nazwę parytetu złotych wektorów.</p><p>Implementacja referencyjna działa w R. Korzysta z pakietu <code>mirt</code> w wersji 1.41.x uruchomionego na R 4.4.x. Pakiet ten jest najszerzej stosowaną implementacją IRT w naukowej psychometrii. Kod źródłowy mirt jest otwarty i podlegał recenzji przez środowisko naukowe.</p><p>Sprawdzenie polega na symulowaniu 1000 wzorców odpowiedzi przez oba silniki. Zarówno silnik JavaScript w IQ-ME, jak i referencyjny silnik R obliczają estymaty theta dla tych samych danych wejściowych. Dwa zbiory estymatów są porównywane element po elemencie. Tolerancja parytetu wynosi <code>0.001 logits</code>. Większe odchylenie powoduje niepowodzenie CI.</p><p>Ziarno dla symulowanych wzorców jest stałe: <code>set.seed(20260514)</code>. Ziarno utrwala dane wejściowe. Dwa uruchomienia CI obliczają te same estymaty theta z tych samych danych wejściowych. Deterministyczny harness kompilacji (Story 1.8 / Story 4.2) rozszerza tę właściwość na wyrenderowany korpus metodologiczny.</p><p>Dane złotych wektorów znajdują się pod ścieżką <code>tests/golden/vectors.json</code>. Skrypt regeneracji R znajduje się pod ścieżką <code>tests/golden/regenerate.R</code>. Sceptyk może zainstalować R, zainstalować mirt, uruchomić <code>Rscript tests/golden/regenerate.R</code> i odtworzyć bajt-identyczne złote wektory. Bajt-identyczność jest właściwością ziarna i dyscypliny deterministycznej budowy, a nie maszyny hosta.</p><p>Filar innowacyjności nr 5 projektu — audytowalny IRT bez kompilacji — jest weryfikowalny przez tę bramkę. Czytelnik mający zainstalowany tylko <code>node</code> może uruchomić <code>node --test tests/unit/scoring/irt/*.test.mjs</code> i potwierdzić parytet w mniej niż pięć minut. Czytelnik mający zainstalowane <code>R</code> może uruchomić skrypt regeneracji i potwierdzić, że dane referencyjne nie uległy dryfowi.</p>
+</main>
+<aside class="cite-this-page-affordance"><div data-cite-widget></div></aside>
+</body>
+</html>

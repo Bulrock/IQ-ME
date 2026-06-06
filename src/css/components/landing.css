@@ -49,6 +49,30 @@
   outline-offset: var(--space-1);
 }
 
+/* PR-14 (AC17) — "View saved results" entry point. Quiet secondary affordance
+   beside the primary "Start the test" CTA; only rendered when ≥1 result saved. */
+.landing__saved-btn {
+  appearance: none;
+  font-size: var(--font-size-300);
+  line-height: var(--line-height-base);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-5);
+  color: var(--color-text-body);
+  background-color: var(--color-surface-base);
+  border: var(--border-width-hairline) solid var(--color-rule-strong);
+  border-radius: var(--space-1);
+  cursor: pointer;
+}
+
+.landing__saved-btn:hover {
+  border-color: var(--color-focus-ring);
+}
+
+.landing__saved-btn:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}
+
 .landing__methodology-link {
   font-size: var(--font-size-200);
   color: var(--color-text-link);
@@ -62,4 +86,14 @@
 .landing__methodology-link:focus-visible {
   outline: var(--space-1) solid var(--color-focus-ring);
   outline-offset: var(--space-1);
+}
+
+/* PR-2 (Story 11-1): smaller landing CTAs on phones. */
+@media (max-width: 30rem) {
+  .landing__start-btn,
+  .landing__saved-btn {
+    font-size: var(--font-size-200);
+    padding-block: var(--space-2);
+    padding-inline: var(--space-4);
+  }
 }

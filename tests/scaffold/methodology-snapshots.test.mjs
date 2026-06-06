@@ -82,7 +82,10 @@ test("AC-4: snapshot tree exists with at least one committed snapshot file", () 
 
 test("AC-4: expected 4 EN methodology snapshots are committed (per Story 4-2 AC-3)", () => {
   const expected = [
-    "en/provenance/icar-license.html",
+    // PR-12b (Story 11-1): all pages now emit directory-style index.html so the
+    // served URL carries the trailing slash canonicalUrlFor() already uses
+    // (icar-license.html → icar-license/index.html — fixes the no-slash 404).
+    "en/provenance/icar-license/index.html",
     "en/scoring/overview/index.html",
     "en/scoring/percentile-to-iq/index.html",
     "en/scoring/uncertainty/index.html",

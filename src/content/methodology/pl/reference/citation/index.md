@@ -1,5 +1,5 @@
 ---
-title: "How to cite IQ-ME"
+title: "Jak cytować IQ-ME"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -10,18 +10,18 @@ sourceHashEN: "43d055dab2efc96ddb2f219a9c133221d4ce866d7f4b7db0845cfcf915d6f169"
 translationStatus: "in-progress"
 ---
 
-# How to cite IQ-ME
+# Jak cytować IQ-ME
 
-A citer who refers to IQ-ME in academic, journalistic, or wiki-encyclopaedic work should cite the specific corpus version they read, not a generic project reference. The corpus version anchors the citation to a frozen state of the methodology that the reader can verify.
+Autor cytujący IQ-ME w pracy naukowej, dziennikarskiej lub encyklopedycznej (wiki) powinien odwołać się do konkretnej wersji korpusu, którą czytał, a nie do ogólnego odniesienia do projektu. Wersja korpusu zakotwicza cytowanie w zamrożonym stanie metodologii, który czytelnik może zweryfikować.
 
-IQ-ME ships two citation templates on every methodology page: an APA-style entry and a Wikipedia-template entry. Both are filled in by the cite-this-page widget at the foot of each page. The widget reads the page's frontmatter for the version, last-reviewed date, and reviewer, and produces a copy-pasteable citation block.
+IQ-ME udostępnia dwa szablony cytowania na każdej stronie metodologicznej: wpis w stylu APA oraz wpis w formacie szablonu Wikipedii. Oba są wypełniane przez widżet „cytuj tę stronę" umieszczony u dołu każdej strony. Widżet odczytuje frontmatter strony w celu uzyskania wersji, daty ostatniego przeglądu i recenzenta, a następnie generuje gotowy do skopiowania blok cytowania.
 
-The APA-style entry uses the form: `IQ-ME Project. (YYYY-MM-DD). Title of page. IQ-ME methodology v<version>. <permalink>`. The permalink is the versioned URL pattern `/methodology/v<X>.<Y>.<Z>/<lang>/<path>/`.
+Wpis w stylu APA ma postać: `IQ-ME Project. (YYYY-MM-DD). Title of page. IQ-ME methodology v<version>. <permalink>`. Trwały link (permalink) odpowiada wzorcowi URL z numerem wersji `/methodology/v<X>.<Y>.<Z>/<lang>/<path>/`.
 
-The Wikipedia-template entry uses the form: `{{cite web | title= | url= | website=IQ-ME | date= | access-date= | version= }}`. A citer in MediaWiki can paste the block directly into a reference list.
+Wpis w formacie szablonu Wikipedii ma postać: `{{cite web | title= | url= | website=IQ-ME | date= | access-date= | version= }}`. Autor korzystający z MediaWiki może wkleić blok bezpośrednio do listy przypisów.
 
-The BibTeX format is a nice-to-have for academic work. It is not in the v1 launch; it will land in a v1.0.1 follow-up. The CITATION.cff file at the repository root provides the underlying citation metadata in a machine-readable form. A citation-manager that reads CFF can produce BibTeX from it.
+Format BibTeX jest opcjonalnym udogodnieniem dla prac naukowych. Nie jest uwzględniony w wersji v1; trafi do następczej aktualizacji v1.0.1. Plik CITATION.cff w katalogu głównym repozytorium zawiera podstawowe metadane cytowania w formie czytelnej maszynowo. Menedżer cytowań obsługujący format CFF może na jego podstawie wygenerować BibTeX.
 
-The DOI permanence guarantee in the project's non-functional requirements means a corpus version, once released, has a stable URL. The Internet Archive and Software Heritage archival redundancy commitment means the URL will continue to resolve even if the project's primary hosting fails. Citers can rely on the version permalink as a long-term reference.
+Gwarancja trwałości DOI zawarta w niefunkcjonalnych wymaganiach projektu oznacza, że wersja korpusu po udostępnieniu posiada stabilny adres URL. Zobowiązanie do redundancji archiwalnej w Internet Archive i Software Heritage oznacza, że adres URL będzie nadal aktywny, nawet jeśli główny hosting projektu ulegnie awarii. Autorzy cytujący mogą polegać na trwałym linku wersji jako długoterminowym odniesieniu.
 
-The full per-corpus-release versioning policy lives in the changelog. A new version is cut when the methodology corpus changes in a way that affects a citation. Patch releases for typographic fixes do not change the citation; minor releases that add content do; major releases that change a claim require a corresponding bump of the engine version.
+Pełna polityka wersjonowania dla kolejnych wydań korpusu znajduje się w changelogu. Nowa wersja jest wydawana, gdy korpus metodologiczny zmienia się w sposób wpływający na cytowanie. Wydania patch dla poprawek typograficznych nie zmieniają cytowania; wydania minor dodające treść — tak; wydania major zmieniające twierdzenie wymagają odpowiedniego podwyższenia numeru wersji silnika.

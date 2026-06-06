@@ -6,7 +6,7 @@ reviewer: "TBD"
 reviewerHandle: "@TBD-en-clinical-register"
 asserts: []
 glossaryRefs: []
-sourceHashEN: "0000000000000000000000000000000000000000000000000000000000000000"
+sourceHashEN: "f8593bc95e33984b12ed88f81cb8e034075dff81fa8927f7c789ed83ec85b08b"
 ---
 
 # Bottom-decile result — what it means and what to do next

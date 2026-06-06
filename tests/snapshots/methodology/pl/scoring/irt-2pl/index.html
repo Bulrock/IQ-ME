@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="/src/assessment/methodology-locale.js"></script>
+<script src="/src/assessment/methodology-theme.js"></script>
+<title>Dwuparametryczny model logistyczny IRT — IQ-ME methodology v0.1.0</title>
+<meta name="iqme-title" content="Dwuparametryczny model logistyczny IRT">
+<meta name="iqme-version" content="v0.1.0">
+<meta name="iqme-doi" content="">
+<meta name="iqme-last-reviewed" content="2026-06-03">
+<meta name="iqme-reviewer" content="TBD">
+<meta name="iqme-reviewer-handle" content="@TBD-pl-reviewer">
+<meta name="iqme-lang" content="pl">
+<meta name="iqme-url" content="/methodology/v0.1.0/pl/scoring/irt-2pl/">
+<link rel="alternate" hreflang="en" href="/methodology/v0.1.0/en/scoring/irt-2pl/">
+<link rel="alternate" hreflang="ru" href="/methodology/v0.1.0/ru/scoring/irt-2pl/">
+<link rel="alternate" hreflang="pl" href="/methodology/v0.1.0/pl/scoring/irt-2pl/">
+<link rel="stylesheet" href="/src/css/reset.css">
+<link rel="stylesheet" href="/src/css/primitives.css">
+<link rel="stylesheet" href="/src/css/semantic.css">
+<link rel="stylesheet" href="/src/css/base.css">
+<link rel="stylesheet" href="/src/css/components/masthead.css">
+<link rel="stylesheet" href="/src/css/components/cite-this-page-widget.css">
+<link rel="stylesheet" href="/src/css/components/stale-translation-hatnote.css">
+<script type="module" src="/src/assessment/cite-this-page.js" defer></script>
+</head>
+<body data-lang="pl" data-translation-status="in-progress">
+<header class="methodology-masthead">
+<h1 class="methodology-masthead__title">Dwuparametryczny model logistyczny IRT</h1>
+<p class="methodology-masthead__version">v0.1.0</p>
+<p class="methodology-masthead__doi" data-doi-pending>DOI: pending v1.0.0 release</p>
+<p class="methodology-masthead__last-reviewed">Last reviewed: <time datetime="2026-06-03">2026-06-03</time></p>
+<p class="methodology-masthead__reviewer">Reviewer: TBD (@TBD-pl-reviewer)</p>
+</header>
+<aside class="stale-translation-hatnote" role="note">
+<p>This page may be out of date relative to its English source. <a href="/methodology/v0.1.0/en/../pl/scoring/irt-2pl/">View source EN page</a>.</p>
+</aside>
+<main>
+<p>IQ-ME ocenia odpowiedzi za pomocą dwuparametrycznego modelu logistycznego z teorii odpowiedzi na pozycje testowe, w skrócie 2PL IRT. Model ten należy do najszerzej stosowanych w psychometrii.</p><p>Model stwierdza, że szansa udzielenia poprawnej odpowiedzi na pozycję testową zależy od dwóch rzeczy. Pierwszą jest zdolność osoby badanej. Drugą są właściwości pozycji testowej.</p><p>Wzór ma postać: <code>P(correct | theta, a, b) = 1 / (1 + exp(-a(theta - b)))</code>.</p><p>Tutaj <code>theta</code> oznacza zdolność osoby badanej na skali ukrytej. Skala jest wyśrodkowana w zerze. Wyższe wartości oznaczają wyższą zdolność. Parametr <code>a</code> to dyskryminacja pozycji. Parametr <code>b</code> to trudność pozycji. Oba parametry pochodzą z danych kalibracyjnych dla puli ICAR-MR.</p><p>Wyższe <code>a</code> oznacza, że pozycja ostrzej rozróżnia osoby o wyższej zdolności od tych o niższej. Wyższe <code>b</code> oznacza, że pozycja jest trudniejsza. Dwie osoby o równej zdolności i tak udzielają różnych odpowiedzi z powodu szumu odpowiedzi; model uwzględnia ten szum, przewidując prawdopodobieństwa, a nie pewności.</p><p>Model jest jednym z wielu możliwych modeli punktacyjnych. Wybrano go, ponieważ jest dobrze zbadany, ma znane ograniczenia i daje estymaty zgodne z szerszą literaturą psychometryczną. Kod silnika w pliku <code>src/scoring/irt/likelihood.js</code> implementuje wzór bezpośrednio. Sceptyk może przeczytać kod źródłowy i zweryfikować matematykę w mniej niż dziesięć minut.</p>
+</main>
+<aside class="cite-this-page-affordance"><div data-cite-widget></div></aside>
+</body>
+</html>

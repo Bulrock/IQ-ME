@@ -28,10 +28,11 @@ import { start } from "../../tools/dev-server.mjs";
 
 const CHROME_HEADER = ".chrome-header";
 const CHROME_FOOTER = ".chrome-footer";
-const THEME_TOGGLE = ".theme-toggle";
-const THEME_RADIO_SYSTEM = ".theme-toggle input[type='radio'][value='system']";
-const THEME_RADIO_LIGHT = ".theme-toggle input[type='radio'][value='light']";
-const THEME_RADIO_DARK = ".theme-toggle input[type='radio'][value='dark']";
+// PR-6 (Story 11-1, AC8): theme control is a segmented <button> toggle in the
+// chrome-header (Light/Dark only; System removed; OS-follow default).
+const THEME_SWITCHER = ".chrome-header .theme-switcher";
+const THEME_SEG_LIGHT = ".chrome-header .theme-switcher__segment[data-theme-value='light']";
+const THEME_SEG_DARK = ".chrome-header .theme-switcher__segment[data-theme-value='dark']";
 const METHODOLOGY_LINK = ".chrome-footer__methodology-link";
 const DISCUSSIONS_LINK = ".chrome-footer__discussions-link";
 const CITATION_LINK = ".chrome-footer__citation-link";
@@ -115,27 +116,24 @@ test("AC-9: chrome-header + chrome-footer visible on landing/consent/result; hid
 // localStorage writes on bootstrap).
 // ────────────────────────────────────────────────────────────────────────
 
-test("AC-9: theme toggle renders 3-state radio group; System initially checked; ZERO setItem calls during bootstrap (NFR9)", async ({ page }) => {
+test("AC-9/AC-8: theme switcher renders Light/Dark segments in header (no System); active follows OS; ZERO setItem during bootstrap (NFR9)", async ({ page }) => {
   const origin = `http://127.0.0.1:${server.port}`;
+  await page.emulateMedia({ colorScheme: "dark" });
   await gotoLanding(page, origin);
 
-  await expect(page.locator(THEME_TOGGLE), "theme-toggle fieldset rendered into chrome-footer slot").toBeVisible();
-  await expect(page.locator(THEME_RADIO_SYSTEM), "system radio rendered").toHaveCount(1);
-  await expect(page.locator(THEME_RADIO_LIGHT), "light radio rendered").toHaveCount(1);
-  await expect(page.locator(THEME_RADIO_DARK), "dark radio rendered").toHaveCount(1);
+  await expect(page.locator(THEME_SWITCHER), "theme-switcher rendered into chrome-header slot").toBeVisible();
+  await expect(page.locator(THEME_SEG_LIGHT), "light segment rendered").toHaveCount(1);
+  await expect(page.locator(THEME_SEG_DARK), "dark segment rendered").toHaveCount(1);
+  await expect(page.locator(".chrome-header .theme-switcher__segment[data-theme-value='system']"), "no System segment").toHaveCount(0);
 
-  // Visually-hidden legend reads "Color theme" (AC-3).
-  const legendText = await page.locator(`${THEME_TOGGLE} legend`).first().textContent();
-  expect(legendText?.trim(), "legend text matches strings.chrome.themeToggleLegend").toBe("Color theme");
+  const groupLabel = await page.locator(THEME_SWITCHER).getAttribute("aria-label");
+  expect(groupLabel?.trim(), "theme switcher group aria-label matches strings.chrome.themeToggleLegend").toBe("Color theme");
 
-  // System initially checked.
-  await expect(page.locator(THEME_RADIO_SYSTEM)).toBeChecked();
-  await expect(page.locator(THEME_RADIO_LIGHT)).not.toBeChecked();
-  await expect(page.locator(THEME_RADIO_DARK)).not.toBeChecked();
-
-  // No <html>[data-theme] attribute under System default.
+  // No saved choice → follow OS: no [data-theme], active segment = resolved scheme (dark).
   const initialDataTheme = await page.evaluate(() => document.documentElement.hasAttribute("data-theme"));
-  expect(initialDataTheme, "no data-theme attribute on <html> under System default").toBe(false);
+  expect(initialDataTheme, "no data-theme attribute when following the OS").toBe(false);
+  await expect(page.locator(THEME_SEG_DARK)).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator(THEME_SEG_LIGHT)).toHaveAttribute("aria-pressed", "false");
 
   // NFR9 — zero setItem calls during page load.
   const setItemCount = await page.evaluate(() => window.__setItemCalls.length);
@@ -143,20 +141,16 @@ test("AC-9: theme toggle renders 3-state radio group; System initially checked; 
 });
 
 // ────────────────────────────────────────────────────────────────────────
-// Test 3 — Light/Dark/System cycle: data-theme flips correctly,
-// setItem count exactly matches explicit Light + Dark clicks (System uses
-// removeItem, not setItem).
+// Test 3 — Light/Dark toggle: data-theme flips; one setItem per explicit click.
 // ────────────────────────────────────────────────────────────────────────
 
-test("AC-9: clicking Light → Dark → System cycles data-theme; setItem fires exactly TWICE (light + dark), System uses removeItem", async ({ page }) => {
+test("AC-9/AC-8: activating Light then Dark flips data-theme; setItem fires exactly once per click", async ({ page }) => {
   const origin = `http://127.0.0.1:${server.port}`;
   await gotoLanding(page, origin);
 
-  const setItemBefore = await page.evaluate(() => window.__setItemCalls.length);
-
-  // Click Light.
-  await page.locator(THEME_RADIO_LIGHT).check();
-  await expect(page.locator(THEME_RADIO_LIGHT)).toBeChecked();
+  // Activate Light.
+  await page.locator(THEME_SEG_LIGHT).click();
+  await expect(page.locator(THEME_SEG_LIGHT)).toHaveAttribute("aria-pressed", "true");
   const afterLight = await page.evaluate(() => ({
     dataTheme: document.documentElement.getAttribute("data-theme"),
     setItems: window.__setItemCalls.slice(),
@@ -164,40 +158,23 @@ test("AC-9: clicking Light → Dark → System cycles data-theme; setItem fires 
   expect(afterLight.dataTheme, "data-theme='light' after Light click").toBe("light");
   expect(
     afterLight.setItems.filter((c) => c[0] === "theme" && c[1] === "light").length,
-    "exactly one setItem('theme','light') call after Light click",
+    "exactly one setItem('theme','light') after Light click",
   ).toBe(1);
 
-  // Click Dark.
-  await page.locator(THEME_RADIO_DARK).check();
-  await expect(page.locator(THEME_RADIO_DARK)).toBeChecked();
+  // Activate Dark.
+  await page.locator(THEME_SEG_DARK).click();
+  await expect(page.locator(THEME_SEG_DARK)).toHaveAttribute("aria-pressed", "true");
   const afterDark = await page.evaluate(() => ({
     dataTheme: document.documentElement.getAttribute("data-theme"),
     setItems: window.__setItemCalls.slice(),
-  }));
-  expect(afterDark.dataTheme, "data-theme='dark' after Dark click").toBe("dark");
-  expect(
-    afterDark.setItems.filter((c) => c[0] === "theme" && c[1] === "dark").length,
-    "exactly one setItem('theme','dark') call after Dark click",
-  ).toBe(1);
-
-  // Click System.
-  await page.locator(THEME_RADIO_SYSTEM).check();
-  await expect(page.locator(THEME_RADIO_SYSTEM)).toBeChecked();
-  const afterSystem = await page.evaluate(() => ({
-    hasDataTheme: document.documentElement.hasAttribute("data-theme"),
-    setItems: window.__setItemCalls.slice(),
     storedTheme: localStorage.getItem("theme"),
   }));
-  expect(afterSystem.hasDataTheme, "no data-theme attribute on <html> after System click").toBe(false);
-  expect(afterSystem.storedTheme, "localStorage.theme cleared after System click").toBe(null);
-
-  // Total setItem-for-theme call delta from the start of this cycle: 2
-  // (Light + Dark). System uses removeItem, not setItem.
-  const totalThemeWrites = afterSystem.setItems.filter((c) => c[0] === "theme").length;
+  expect(afterDark.dataTheme, "data-theme='dark' after Dark click").toBe("dark");
+  expect(afterDark.storedTheme, "localStorage.theme persisted as dark").toBe("dark");
   expect(
-    totalThemeWrites - setItemBefore,
-    `theme writes across Light + Dark + System cycle: exactly 2 (light + dark); System uses removeItem. Observed writes: ${JSON.stringify(afterSystem.setItems.filter((c) => c[0] === "theme"))}`,
-  ).toBe(2);
+    afterDark.setItems.filter((c) => c[0] === "theme" && c[1] === "dark").length,
+    "exactly one setItem('theme','dark') after Dark click",
+  ).toBe(1);
 });
 
 // ────────────────────────────────────────────────────────────────────────

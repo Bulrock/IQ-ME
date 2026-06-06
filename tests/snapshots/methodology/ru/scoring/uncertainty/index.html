@@ -3,8 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>What the uncertainty band means — IQ-ME methodology v0.1.0</title>
-<meta name="iqme-title" content="What the uncertainty band means">
+<script src="/src/assessment/methodology-locale.js"></script>
+<script src="/src/assessment/methodology-theme.js"></script>
+<title>Что означает полоса неопределённости — IQ-ME methodology v0.1.0</title>
+<meta name="iqme-title" content="Что означает полоса неопределённости">
 <meta name="iqme-version" content="v0.1.0">
 <meta name="iqme-doi" content="">
 <meta name="iqme-last-reviewed" content="2026-06-03">
@@ -26,7 +28,7 @@
 </head>
 <body data-lang="ru" data-translation-status="in-progress">
 <header class="methodology-masthead">
-<h1 class="methodology-masthead__title">What the uncertainty band means</h1>
+<h1 class="methodology-masthead__title">Что означает полоса неопределённости</h1>
 <p class="methodology-masthead__version">v0.1.0</p>
 <p class="methodology-masthead__doi" data-doi-pending>DOI: pending v1.0.0 release</p>
 <p class="methodology-masthead__last-reviewed">Last reviewed: <time datetime="2026-06-03">2026-06-03</time></p>
@@ -36,7 +38,7 @@
 <p>This page may be out of date relative to its English source. <a href="/methodology/v0.1.0/en/../ru/scoring/uncertainty/">View source EN page</a>.</p>
 </aside>
 <main>
-<p>Your score is one estimate. The uncertainty band around it shows the range of plausible scores given the precision of the measurement.</p><p>We display the band as <code>±N</code>. Read it this way: your true latent score is plausibly within roughly N points either way of the displayed number, at approximately 95% confidence.</p><p>The band combines two sources of uncertainty. The first is the test itself: a 16-item screening session leaves room for response noise. We summarize this with the standard error of measurement, or SEM, computed from the posterior variance of the ability estimate. The second is the norming sample: the percentile-to-IQ-scale conversion was calibrated against one finite reference group, and that sample has its own uncertainty, called SE_norming.</p><p>The full formula combines them: <code>SE_total = sqrt(SEM² + SE_norming²)</code>. The band you see on the result panel uses <code>SE_total</code> projected onto the IQ scale.</p><p>For the v1 build of this screener, <code>SE_norming</code> is set to 0. This is a placeholder pending psychometrician sign-off on the norming-sample SE values. The current band therefore reflects test noise only, not norming-sample noise. The displayed band is narrower than the true band by an amount we cannot yet quantify. We will update this page when the norming SE is finalized.</p><p>The uncertainty band is the honest signal. A score is never a point; it is a region. A test-taker who sees <code>124 ± 7</code> should think of the score as somewhere between 117 and 131, with the displayed value as a midpoint estimate.</p><p><a href="/">Back to IQ-ME</a></p>
+<p>Ваш балл — это одна оценка. Полоса неопределённости вокруг неё показывает диапазон правдоподобных баллов с учётом точности измерения.</p><p>Мы отображаем полосу как <code>±N</code>. Читайте её так: ваш истинный латентный балл правдоподобно находится примерно в пределах N пунктов в обе стороны от отображаемого числа при примерно 95%-ном доверии.</p><p>Полоса объединяет два источника неопределённости. Первый — сам тест: скрининговая сессия из 16 заданий оставляет место для шума реакции. Мы суммируем это стандартной ошибкой измерения (SEM), вычисленной из апостериорной дисперсии оценки способности. Второй — нормировочная выборка: преобразование из процентиля в шкалу IQ калибровалось по одной конечной референсной группе, и у этой выборки есть собственная неопределённость, называемая SE_norming.</p><p>Полная формула объединяет их: <code>SE_total = sqrt(SEM² + SE_norming²)</code>. Полоса на панели результатов использует <code>SE_total</code>, спроецированную на шкалу IQ.</p><p>Для сборки v1 данного скринера <code>SE_norming</code> установлено в 0. Это заглушка, ожидающая подтверждения психометриста по значениям SE нормировочной выборки. Текущая полоса поэтому отражает только шум теста, а не шум нормировочной выборки. Отображаемая полоса уже истинной на величину, которую мы пока не можем количественно определить. Мы обновим эту страницу после окончательного определения нормировочного SE.</p><p>Полоса неопределённости — это честный сигнал. Балл никогда не является точкой; это область. Тестируемый, видящий <code>124 ± 7</code>, должен воспринимать балл как значение где-то между 117 и 131, где отображаемое значение является оценкой срединной точки.</p><p><a href="/">На главную IQ-ME</a></p>
 </main>
 <aside class="cite-this-page-affordance"><div data-cite-widget></div></aside>
 </body>

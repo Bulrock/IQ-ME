@@ -7,7 +7,7 @@ reviewerHandle: "@TBD-en-reviewer"
 asserts: []
 glossaryRefs:
   - "gFactor"
-sourceHashEN: "0000000000000000000000000000000000000000000000000000000000000000"
+sourceHashEN: "db9d146bf5cb2c3140e8b4b683b70486085124d89ac2043a777681022b1748eb"
 ---
 
 # Fluid reasoning — what IQ-ME measures

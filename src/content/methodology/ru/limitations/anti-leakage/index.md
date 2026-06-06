@@ -1,5 +1,5 @@
 ---
-title: "Anti-leakage — item-set integrity"
+title: "Защита от утечки — целостность набора заданий"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -10,18 +10,18 @@ sourceHashEN: "c2d76f8c82a41decf4d5d8486bd664f39c68fc41e2ebc37f79017d98083ca793"
 translationStatus: "in-progress"
 ---
 
-# Anti-leakage — item-set integrity
+# Защита от утечки — целостность набора заданий
 
-A cognitive screener's items are calibrated against a population that has not seen them. When the item set leaks — into practice corpora, into AI-training data, into widely-shared answer keys — the calibration silently breaks. A practiced test-taker scores higher not because their ability is higher but because the items are no longer novel to them.
+Задания когнитивного скринера калибруются на выборке, которая их прежде не видела. Когда набор заданий утекает — в учебные корпуса, в данные для обучения ИИ, в широко распространённые ключи ответов — калибровка незаметно нарушается. Испытуемый, знакомый с заданиями, получает более высокий балл не потому, что его способности выросли, а потому, что задания уже не являются для него новыми.
 
-IQ-ME ships with a public item set. The screener cannot prevent leakage in principle; the items are visible to anyone who runs the screener. Pretending otherwise would be dishonest.
+IQ-ME распространяется с открытым набором заданий. Скринер принципиально не может предотвратить утечку: задания видны каждому, кто проходит тест. Утверждать обратное было бы нечестно.
 
-The screener takes three steps to slow leakage and surface it when it happens.
+Скринер предпринимает три шага, чтобы замедлить утечку и обнаружить её по мере возникновения.
 
-The first step is design discipline. The screener does not show correct answers after items. There is no per-item feedback during the session. The result page does not list which items the test-taker got right or wrong. A test-taker can build a private corpus of items by taking the screener many times, but the screener does not help.
+Первый шаг — дисциплина проектирования. Скринер не показывает правильные ответы после заданий. В ходе сессии не предоставляется обратная связь по отдельным заданиям. На странице результатов не перечисляется, какие задания испытуемый выполнил верно, а какие — нет. Испытуемый может самостоятельно собрать корпус заданий, проходя скринер многократно, однако скринер этому не способствует.
 
-The second step is observable evidence. The project monitors discussion of IQ-ME items in practice forums and AI-training-data dumps where feasible. Surfaces that aggregate items will be linked from this page so a reader can verify the claim of practice exposure for any specific item.
+Второй шаг — наблюдаемые свидетельства. Проект отслеживает обсуждение заданий IQ-ME на тренировочных форумах и в дампах данных для обучения ИИ там, где это осуществимо. Ресурсы, агрегирующие задания, будут добавлены в виде ссылок на эту страницу, чтобы читатель мог проверить факт тренировочного воздействия для любого конкретного задания.
 
-The third step is honest documentation. This page declares the leakage risk explicitly so a reader can factor that risk into how seriously to take a high score. The retest-effects page describes what happens to scores when a test-taker has practiced. The result page caveats the score with the most load-bearing of these boundaries.
+Третий шаг — честная документация. На этой странице риск утечки заявлен явно, чтобы читатель мог учесть его при оценке значимости высокого балла. Страница об эффектах повторного тестирования описывает, что происходит с результатами, когда испытуемый проходил тренировку. Страница результатов сопровождает балл оговорками, отражающими наиболее существенные из этих ограничений.
 
-A test-taker who has not encountered the IQ-ME item set before a session is the population the calibration covers. A test-taker who has practiced is outside that population, and their score should be read with that context.
+Испытуемый, не сталкивавшийся с набором заданий IQ-ME до начала сессии, относится к той выборке, на которую рассчитана калибровка. Испытуемый, проходивший тренировку, выходит за рамки этой выборки, и его результат следует интерпретировать с учётом данного обстоятельства.

@@ -10,16 +10,19 @@
 .consent-scene {
   max-width: 38rem;
   margin-inline: auto;
-  padding-block: var(--space-page-padding-y);
+  /* PR-2 (Story 11-1): trimmed vertical rhythm so the consent (and the
+     chrome-footer below it) fits the viewport without scroll on desktop while
+     the dwell-gate Continue is disabled. */
+  padding-block: clamp(var(--space-3), 3vh, var(--space-6));
   padding-inline: var(--space-5);
   color: var(--color-text-body);
   background-color: var(--color-surface-base);
 }
 
 .consent-scene__envelope {
-  padding-block: var(--space-5);
+  padding-block: var(--space-4);
   padding-inline: var(--space-5);
-  margin-block-end: var(--space-section-gap);
+  margin-block-end: var(--space-5);
   background-color: var(--color-surface-elevated);
   border-inline-start: var(--space-1) solid var(--color-rule-strong);
 }
@@ -95,13 +98,61 @@
 }
 
 /* FR12 dwell-gate hint — explains the temporarily-disabled Continue button.
-   Removed (hidden) by consent.js when the gate flips. */
+   Removed (hidden) by consent.js when the gate flips. PR-10 (AC12): the
+   caption (incl. the longest PL string) must wrap/constrain within the
+   viewport so it never forces horizontal page scroll. */
 .consent-scene__dwell-hint {
   margin-block-start: var(--space-3);
   font-size: var(--font-size-100);
   color: var(--color-text-muted);
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 .consent-scene__dwell-hint[hidden] {
   display: none;
+}
+
+/* PR-2 (Story 11-1): smaller CTA on phones (the default size is oversized). */
+@media (max-width: 30rem) {
+  .consent-scene__continue-btn {
+    font-size: var(--font-size-200);
+    padding-block: var(--space-2);
+    padding-inline: var(--space-4);
+  }
+}
+
+/* PR-2 (Story 11-1): consent app-shell — the chrome header/footer and the
+   Continue/Not-today buttons stay visible; only the validity-envelope text
+   scrolls when it doesn't fit. (The dwell-gate timer still unlocks Continue
+   regardless of envelope scroll, so the FR12 gate is unaffected.) */
+body[data-route="#/consent"] {
+  min-height: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+body[data-route="#/consent"] #app {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* The consent envelope also needs trimmed block padding on phones so the fixed
+   header/cta/footer + heading leave room for the scroll area. */
+body[data-route="#/consent"] .consent-scene {
+  padding-block: var(--space-3);
+}
+
+body[data-route="#/consent"] .consent-scene {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+}
+
+body[data-route="#/consent"] .consent-scene__envelope {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
 }

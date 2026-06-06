@@ -1,5 +1,5 @@
 ---
-title: "ICAR license status (pending — Gate 9a)"
+title: "Status licencji ICAR (oczekujące — Gate 9a)"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -12,15 +12,15 @@ pending: true
 slug: provenance/icar-license
 ---
 
-# ICAR license status
+# Status licencji ICAR
 
-> **This is a temporary stub.** Epic 5 replaces it with the real methodology page.
-> Status at v0.0.1: **pending — Gate 9a outreach in flight**.
+> **To jest tymczasowy szkielet.** Epic 5 zastąpi go właściwą stroną metodologiczną.
+> Status w wersji v0.0.1: **oczekujące — trwa kontakt w ramach Gate 9a**.
 
-The signed written confirmation from the ICAR / SAPA project that public free-self-assessment redistribution is permitted under CC BY-NC-SA is committed at the repository root as [`ICAR-CONFIRMATION.pdf`](../../../../../ICAR-CONFIRMATION.pdf). At v0.0.1 that file is a one-page "pending" stub; once Gate 9a closes, the same path is updated to the real signed PDF and this methodology page is replaced with the full Epic-5 narrative (license-chain enumeration, attribution-string convention, per-item upstream-license recording).
+Podpisane pisemne potwierdzenie ze strony projektu ICAR / SAPA, że publiczne bezpłatne samodzielne korzystanie i redystrybucja są dozwolone na warunkach CC BY-NC-SA, jest zatwierdzone w katalogu głównym repozytorium jako [`ICAR-CONFIRMATION.pdf`](../../../../../ICAR-CONFIRMATION.pdf). W wersji v0.0.1 plik ten jest jednostronicowym szkieletem z adnotacją „oczekujące"; po zamknięciu Gate 9a ta sama ścieżka zostanie zaktualizowana do właściwego podpisanego pliku PDF, a niniejsza strona metodologiczna zostanie zastąpiona pełnym tekstem narracyjnym Epic-5 (wyliczenie łańcucha licencji, konwencja ciągu atrybucji, rejestrowanie licencji źródłowej dla każdej pozycji).
 
-Until then:
+Do tego czasu:
 
-- The slot PDF carries the explanatory copy.
-- This stub points back at the slot PDF (bidirectional reference).
-- The `lint-trust-artifacts.mjs` script (Story 1.6 / 1.9) asserts both exist regardless of which version of each is current.
+- Plik PDF pełni rolę miejsca docelowego i zawiera tekst wyjaśniający.
+- Niniejszy szkielet odsyła z powrotem do tego pliku PDF (odniesienie dwukierunkowe).
+- Skrypt `lint-trust-artifacts.mjs` (Story 1.6 / 1.9) weryfikuje istnienie obu plików niezależnie od tego, która wersja każdego z nich jest aktualna.

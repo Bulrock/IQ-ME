@@ -1,5 +1,5 @@
 ---
-title: "What a percentile means"
+title: "Что означает процентиль"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -12,18 +12,18 @@ sourceHashEN: "d45a80aaee241eb457540d181b94d353403d8a08354e96874ac09037e2afd1ec"
 translationStatus: "in-progress"
 ---
 
-# What a percentile means
+# Что означает процентиль
 
-Your percentile is a ranking. It places your score relative to a reference group of test-takers, on a scale from 0 to 100.
+Ваш процентиль — это ранговый показатель. Он помещает ваш балл относительно референсной группы тестируемых на шкале от 0 до 100.
 
-A percentile of 58 means roughly 58 out of every 100 similar test-takers scored at or below your score. A percentile of 5 places your score near the bottom of the reference group. A percentile of 95 places it near the top.
+Процентиль 58 означает, что примерно 58 из каждых 100 аналогичных тестируемых набрали балл, равный вашему или ниже. Процентиль 5 помещает ваш балл ближе к нижней части референсной группы. Процентиль 95 — ближе к верхней.
 
-Percentiles compress a continuous score onto a familiar ranking scale. The underlying score is a latent-ability estimate from item response theory; the percentile is a transform of that estimate through the standard-normal cumulative distribution function. The formula is `percentile = 100 × Φ(theta)`, where `theta` is your ability estimate and `Φ` is the standard-normal CDF.
+Процентили сжимают непрерывный балл до привычной шкалы рангов. Базовый балл — это оценка латентной способности из теории ответа на задание; процентиль — преобразование этой оценки через функцию стандартного нормального интегрального распределения (CDF). Формула: `percentile = 100 × Φ(theta)`, где `theta` — ваша оценка способности, а `Φ` — стандартная нормальная CDF.
 
-The reference group matters. This percentile is computed against a norming sample drawn from the SAPA project, which over-represents literate, online, English-speaking adults. If your background differs from that sample, your percentile estimate is less precise than the same score from a closer-matching sample.
+Референсная группа имеет значение. Этот процентиль вычисляется относительно нормировочной выборки из проекта SAPA, в которой непропорционально велика доля грамотных взрослых, пользующихся интернетом и говорящих по-английски. Если ваш бэкграунд отличается от этой выборки, ваша процентильная оценка менее точна, чем тот же балл из более близкой по составу выборки.
 
-A percentile is not a verdict. It is a ranking against one specific group, computed with one specific method, on one short screening test. Two test-takers who differ by one percentile point are not meaningfully different in ability; the measurement noise is wider than that.
+Процентиль — не приговор. Это ранговый показатель относительно одной конкретной группы, вычисленный одним конкретным методом, по одному короткому скрининговому тесту. Два тестируемых, различающихся на один процентильный пункт, не имеют значимого различия в способностях; шум измерения шире этого различия.
 
-You can read about how the underlying ability score is computed, and how it is converted to an IQ-scale anchor, on the other scoring pages in this corpus.
+О том, как вычисляется базовый балл способности и как он преобразуется в якорное значение шкалы IQ, можно прочитать на других страницах этого корпуса, посвящённых скорингу.
 
-[Back to IQ-ME](/)
+[На главную IQ-ME](/)

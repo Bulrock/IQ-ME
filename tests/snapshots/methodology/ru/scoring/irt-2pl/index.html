@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="/src/assessment/methodology-locale.js"></script>
+<script src="/src/assessment/methodology-theme.js"></script>
+<title>Двухпараметрическая логистическая модель IRT — IQ-ME methodology v0.1.0</title>
+<meta name="iqme-title" content="Двухпараметрическая логистическая модель IRT">
+<meta name="iqme-version" content="v0.1.0">
+<meta name="iqme-doi" content="">
+<meta name="iqme-last-reviewed" content="2026-06-03">
+<meta name="iqme-reviewer" content="TBD">
+<meta name="iqme-reviewer-handle" content="@TBD-ru-reviewer">
+<meta name="iqme-lang" content="ru">
+<meta name="iqme-url" content="/methodology/v0.1.0/ru/scoring/irt-2pl/">
+<link rel="alternate" hreflang="en" href="/methodology/v0.1.0/en/scoring/irt-2pl/">
+<link rel="alternate" hreflang="ru" href="/methodology/v0.1.0/ru/scoring/irt-2pl/">
+<link rel="alternate" hreflang="pl" href="/methodology/v0.1.0/pl/scoring/irt-2pl/">
+<link rel="stylesheet" href="/src/css/reset.css">
+<link rel="stylesheet" href="/src/css/primitives.css">
+<link rel="stylesheet" href="/src/css/semantic.css">
+<link rel="stylesheet" href="/src/css/base.css">
+<link rel="stylesheet" href="/src/css/components/masthead.css">
+<link rel="stylesheet" href="/src/css/components/cite-this-page-widget.css">
+<link rel="stylesheet" href="/src/css/components/stale-translation-hatnote.css">
+<script type="module" src="/src/assessment/cite-this-page.js" defer></script>
+</head>
+<body data-lang="ru" data-translation-status="in-progress">
+<header class="methodology-masthead">
+<h1 class="methodology-masthead__title">Двухпараметрическая логистическая модель IRT</h1>
+<p class="methodology-masthead__version">v0.1.0</p>
+<p class="methodology-masthead__doi" data-doi-pending>DOI: pending v1.0.0 release</p>
+<p class="methodology-masthead__last-reviewed">Last reviewed: <time datetime="2026-06-03">2026-06-03</time></p>
+<p class="methodology-masthead__reviewer">Reviewer: TBD (@TBD-ru-reviewer)</p>
+</header>
+<aside class="stale-translation-hatnote" role="note">
+<p>This page may be out of date relative to its English source. <a href="/methodology/v0.1.0/en/../ru/scoring/irt-2pl/">View source EN page</a>.</p>
+</aside>
+<main>
+<p>IQ-ME оценивает ответы с помощью двухпараметрической логистической модели теории ответа на задание (Item Response Theory), или сокращённо 2PL IRT. Это одна из наиболее широко применяемых моделей в психометрии.</p><p>Модель утверждает, что вероятность правильного ответа на задание зависит от двух вещей. Первое — способность тестируемого. Второе — характеристики задания.</p><p>Формула: <code>P(correct | theta, a, b) = 1 / (1 + exp(-a(theta - b)))</code>.</p><p>Здесь <code>theta</code> — способность тестируемого на латентной шкале. Шкала центрирована на нуле. Большие значения означают более высокую способность. Параметр <code>a</code> — это дискриминативность задания. Параметр <code>b</code> — его трудность. Оба параметра получены из калибровочных данных пула ICAR-MR.</p><p>Более высокий <code>a</code> означает, что задание резче разделяет более способных тестируемых от менее способных. Более высокий <code>b</code> означает, что задание труднее. Два тестируемых с одинаковой способностью всё равно могут давать разные ответы из-за шума реакции; модель учитывает этот шум, предсказывая вероятности, а не определённости.</p><p>Модель является одной из многих возможных скоринговых моделей. Она была выбрана потому, что хорошо изучена, имеет известные ограничения и даёт оценки, согласующиеся с широкой психометрической литературой. Исходный код движка в <code>src/scoring/irt/likelihood.js</code> непосредственно реализует формулу. Скептик может прочитать исходный код и проверить математику менее чем за десять минут.</p>
+</main>
+<aside class="cite-this-page-affordance"><div data-cite-widget></div></aside>
+</body>
+</html>

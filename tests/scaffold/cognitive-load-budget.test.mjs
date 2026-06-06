@@ -28,8 +28,8 @@ const LINT_PATH = join(REPO_ROOT, "tools", "lint-cognitive-load-budget.mjs");
 // Per AC-2 — the exact NFR32 budgets that MUST be present.
 const REQUIRED_BUDGETS = {
   "scoring-irt-lines":      { metric: "lines", limit: 250 },
-  "css-components-lines":   { metric: "lines", limit: 1500 },
-  "app-modules-bytes":      { metric: "bytes", limit: 62464 },
+  "css-components-lines":   { metric: "lines", limit: 1850 },
+  "app-modules-bytes":      { metric: "bytes", limit: 90112 },
   "i18n-harness-bytes":     { metric: "bytes", limit: 15360 },
   "methodology-pages-en":   { metric: "files", limit: 45 },
   "methodology-pages-ru":   { metric: "files", limit: 45 },

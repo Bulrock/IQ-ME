@@ -1,5 +1,5 @@
 ---
-title: "ICAR-MR — the item pool"
+title: "ICAR-MR — pula zadań"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -10,28 +10,28 @@ sourceHashEN: "783c12b119ca4dbf78c6e6db29b8fe99bf9e9b62a76ce495cd2577393c3e6ecd"
 translationStatus: "in-progress"
 ---
 
-# ICAR-MR — the item pool
+# ICAR-MR — pula zadań
 
-ICAR-MR is the public item pool IQ-ME draws from. ICAR stands for the International Cognitive Ability Resource. It was developed by an academic group at Northwestern University and Open Source Psychometrics.
+ICAR-MR jest publicznie dostępną pulą zadań, z której korzysta IQ-ME. ICAR to skrót od International Cognitive Ability Resource (Międzynarodowy Zasób Zdolności Poznawczych). Został opracowany przez grupę akademicką na Northwestern University we współpracy z Open Source Psychometrics.
 
-The group built the pool to offer license-free items for cognitive research. Most cognitive items are licensed. Researchers cannot use them freely in open work. ICAR is the rare exception.
+Grupa zbudowała pulę, aby udostępnić zadania wolne od licencji na potrzeby badań poznawczych. Większość zadań poznawczych jest objęta licencją. Badacze nie mogą swobodnie używać ich w otwartych pracach. ICAR jest rzadkim wyjątkiem.
 
-The pool has calibration data. The license permits reuse. The group maintains it.
+Pula posiada dane kalibracyjne. Licencja zezwala na ponowne użycie. Grupa ją utrzymuje.
 
-IQ-ME uses 16 ICAR-MR items per session. The full pool is larger than 16. The screener draws items from the pool by a fixed rule.
+IQ-ME używa 16 zadań ICAR-MR na sesję. Pełna pula jest większa niż 16. Skriner dobiera zadania z puli według ustalonej reguły.
 
-Two test-takers who start at the same instant get the same items. Two sessions from one test-taker at different times get different draws.
+Dwie osoby badane, które zaczną w tej samej chwili, otrzymają te same zadania. Dwie sesje tej samej osoby badanej w różnych momentach czasowych dają różne zestawy.
 
-The license attribution lives on the ICAR-license page. The license itself is pending the Gate-9a sign-off from the ICAR maintainers. The screener treats that gate as load-bearing for release.
+Informacja o licencji znajduje się na stronie licencji ICAR. Sama licencja oczekuje na zatwierdzenie przez Gate-9a ze strony opiekunów ICAR. Skriner traktuje tę bramkę jako warunek konieczny dla wydania.
 
-The item-selection algorithm is described in the scoring section. The short version: items span a range of difficulty. A 16-item session pins ability with good precision in the middle of the range. The session has broader uncertainty at the tails. The full procedure lives in the scoring engine source.
+Algorytm doboru zadań opisano w sekcji dotyczącej punktacji. W skrócie: zadania obejmują zakres trudności. Sesja 16-zadaniowa wyznacza zdolność z dobrą precyzją w środku zakresu. Sesja ma szerszą niepewność na krańcach. Pełna procedura znajduje się w kodzie źródłowym silnika punktacji.
 
-## Easy, medium, and hard item bands
+## Pasma trudności: łatwe, średnie i trudne
 
-The pool is partitioned into three difficulty bands by IRT b-parameter terciles. The lowest third of items by b becomes the easy band. The top third becomes the hard band. The middle third becomes the medium band. The remainder of an uneven split lands in the middle band.
+Pula jest podzielona na trzy pasma trudności według tercyli parametru b IRT. Dolna tercja zadań według b tworzy pasmo łatwe. Górna tercja tworzy pasmo trudne. Środkowa tercja tworzy pasmo średnie. Reszta przy nierównym podziale trafia do pasma średniego.
 
-Items with a b value equal to a tercile cutoff stay in the lower band. The rule is the natural reading: easy items are those with b at or below the easy cutoff; medium items are those with b at or below the medium cutoff; hard items are everything above.
+Zadania, dla których wartość b jest równa punktowi granicznemu tercyla, pozostają w niższym paśmie. Reguła ma naturalne brzmienie: zadania łatwe to te z b na poziomie lub poniżej punktu granicznego dla łatwych; zadania średnie to te z b na poziomie lub poniżej punktu granicznego dla średnich; zadania trudne to wszystkie powyżej.
 
-This per-item difficulty band is distinct from the qualitative band label applied to the score itself. The score band describes where the test-taker's ability estimate sits in the reference distribution. The item band describes how hard each presented item was. The result page reports both, and the difficulty-breakdown sentence near the score reads as a footnote that earns attention.
+To przypisanie do pasma trudności poszczególnych zadań różni się od jakościowej etykiety pasma stosowanej do samego wyniku. Pasmo wyniku opisuje, gdzie w rozkładzie odniesienia plasuje się szacunek zdolności osoby badanej. Pasmo zadania opisuje, jak trudne było każde prezentowane zadanie. Strona wyników raportuje oba, a zdanie opisujące rozkład trudności przy wyniku pełni funkcję przypisu zasługującego na uwagę.
 
-See the [scoring overview](../../scoring/overview/) for how this is rendered on the result page.
+Zob. [omówienie punktacji](../../scoring/overview/), aby zobaczyć, jak to jest wyświetlane na stronie wyników.

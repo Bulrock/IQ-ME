@@ -13,40 +13,34 @@ import { render } from "../../tools/markdown-subset.mjs";
 const REPO_ROOT = join(import.meta.dirname, "..", "..");
 const METH_ROOT = join(REPO_ROOT, "src", "content", "methodology", "en");
 
+// Story 11-1 — methodology cut to core sections (maintainer decision): Norming,
+// Ethics, and the Reference/Provenance admin pages (glossary, bibliography,
+// changelog, iq-me-license, methodology-claims) were removed. The 19 retained
+// pages are the result-linked + construct/scoring/limitation core + tails +
+// icar-license + citation.
 const ANCHOR_PAGES = [
-  // Story 5.2 — anchor pages (7)
+  // Constructs (5)
   "constructs/fluid-reasoning/index.md",
-  "scoring/overview/index.md",
-  "scoring/uncertainty/index.md",
-  "limitations/what-this-does-not-measure/index.md",
-  "ethics/non-clinical/index.md",
-  "provenance/icar-license.md",
-  "reference/glossary/index.md",
-  // Story 5.3 — Constructs (4) + Limitations (3)
   "constructs/matrix-reasoning/index.md",
   "constructs/icar-mr/index.md",
   "constructs/g-factor/index.md",
   "constructs/validity-envelope/index.md",
-  "limitations/cultural-variance/index.md",
-  "limitations/anti-leakage/index.md",
-  "limitations/retest-effects/index.md",
-  // Story 5.4 — Scoring (4) + Norming (3)
+  // Scoring (6)
+  "scoring/overview/index.md",
+  "scoring/uncertainty/index.md",
   "scoring/irt-2pl.md",
   "scoring/eap.md",
   "scoring/percentile-to-iq/index.md",
   "scoring/golden-vectors.md",
-  "norming/sapa-sample/index.md",
-  "norming/representativeness/index.md",
-  "norming/flynn-effects/index.md",
-  // Story 5.5 — Ethics (2) + Provenance (2) + Reference (3)
-  "ethics/apa-standards/index.md",
-  "ethics/anti-credentialization/index.md",
-  "provenance/iq-me-license/index.md",
-  "provenance/methodology-claims/index.md",
+  // Limitations (4)
+  "limitations/what-this-does-not-measure/index.md",
+  "limitations/cultural-variance/index.md",
+  "limitations/anti-leakage/index.md",
+  "limitations/retest-effects/index.md",
+  // Provenance (1) + Reference (1)
+  "provenance/icar-license.md",
   "reference/citation/index.md",
-  "reference/changelog/index.md",
-  "reference/bibliography/index.md",
-  // Story 5.6 — Tail Scenes EN placeholders
+  // Tails (2)
   "tails/bottom-decile/index.md",
   "tails/top-decile/index.md",
 ];

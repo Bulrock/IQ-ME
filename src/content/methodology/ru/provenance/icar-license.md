@@ -1,5 +1,5 @@
 ---
-title: "ICAR license status (pending — Gate 9a)"
+title: "Статус лицензии ICAR (ожидание — Gate 9a)"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -12,15 +12,15 @@ pending: true
 slug: provenance/icar-license
 ---
 
-# ICAR license status
+# Статус лицензии ICAR
 
-> **This is a temporary stub.** Epic 5 replaces it with the real methodology page.
-> Status at v0.0.1: **pending — Gate 9a outreach in flight**.
+> **Это временная заглушка.** Epic 5 заменит её полноценной страницей методологии.
+> Статус на v0.0.1: **ожидание — информационная работа по Gate 9a в процессе**.
 
-The signed written confirmation from the ICAR / SAPA project that public free-self-assessment redistribution is permitted under CC BY-NC-SA is committed at the repository root as [`ICAR-CONFIRMATION.pdf`](../../../../../ICAR-CONFIRMATION.pdf). At v0.0.1 that file is a one-page "pending" stub; once Gate 9a closes, the same path is updated to the real signed PDF and this methodology page is replaced with the full Epic-5 narrative (license-chain enumeration, attribution-string convention, per-item upstream-license recording).
+Подписанное письменное подтверждение от проекта ICAR / SAPA, разрешающее публичное бесплатное самостоятельное распространение в рамках CC BY-NC-SA, зафиксировано в корне репозитория в виде файла [`ICAR-CONFIRMATION.pdf`](../../../../../ICAR-CONFIRMATION.pdf). На версии v0.0.1 этот файл представляет собой одностраничную заглушку со статусом «ожидание»; после закрытия Gate 9a по тому же пути будет размещён реальный подписанный PDF, а данная страница методологии заменена полным нарративом Epic-5 (перечисление цепочки лицензий, соглашение об атрибуции, запись вышестоящей лицензии для каждого элемента).
 
-Until then:
+До тех пор:
 
-- The slot PDF carries the explanatory copy.
-- This stub points back at the slot PDF (bidirectional reference).
-- The `lint-trust-artifacts.mjs` script (Story 1.6 / 1.9) asserts both exist regardless of which version of each is current.
+- Слот-PDF содержит поясняющий текст.
+- Данная заглушка ссылается на слот-PDF (двунаправленная ссылка).
+- Скрипт `lint-trust-artifacts.mjs` (Story 1.6 / 1.9) проверяет наличие обоих файлов вне зависимости от их текущей версии.

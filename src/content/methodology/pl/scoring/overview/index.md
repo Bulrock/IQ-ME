@@ -1,5 +1,5 @@
 ---
-title: "What the IQ-scale number means"
+title: "Co oznacza liczba na skali IQ"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -13,28 +13,28 @@ sourceHashEN: "f3eed2be58fe90f699d054b43daf56985bbb693683d8773508a15f6e11548b04"
 translationStatus: "in-progress"
 ---
 
-# What the IQ-scale number means
+# Co oznacza liczba na skali IQ
 
-The IQ-scale number is a convention. It transforms a latent-ability estimate from the underlying scoring model onto a familiar scale where the mean is 100 and the standard deviation is 15.
+Liczba na skali IQ jest konwencją. Przekształca ona estymator zdolności ukrytej z modelu punktacyjnego na znajomą skalę, w której średnia wynosi 100, a odchylenie standardowe — 15.
 
-The formula is `IQ-scale = round(100 + 15 × theta)`, where `theta` is the ability estimate produced by the item response theory model from your 16 responses.
+Wzór ma postać `IQ-scale = round(100 + 15 × theta)`, gdzie `theta` to estymator zdolności wyznaczony przez model teorii odpowiedzi na pozycje testowe na podstawie Twoich 16 odpowiedzi.
 
-This scale was chosen because it matches the scale most readers have already seen in popular and clinical writing about cognitive ability. It is a transform of one underlying estimate; the transform itself adds no measurement information.
+Skalę tę wybrano, ponieważ odpowiada skali, z którą większość czytelników zetknęła się już w popularnych i klinicznych opracowaniach dotyczących zdolności poznawczych. Jest to przekształcenie jednego bazowego estymatora; samo przekształcenie nie dodaje żadnej informacji pomiarowej.
 
-The IQ-scale number is not a measurement of intelligence as a unified property of a person. The screener measures one narrow surface: the ability to identify visual patterns in matrix-reasoning items, scored against one reference group, on a short test taken in one sitting. Many things that observers call intelligence are not measured here at all. Memory, planning, language use, social judgment, persistence, and learned skill all sit outside what 16 matrix items can detect.
+Liczba na skali IQ nie jest pomiarem inteligencji jako jednorodnej właściwości osoby. Przesiewowe narzędzie mierzy jeden wąski aspekt: zdolność rozpoznawania wzorców wizualnych w zadaniach rozumowania matrycowego, punktowaną względem jednej grupy referencyjnej, w krótkim teście wykonanym w jednym podejściu. Wiele rzeczy, które obserwatorzy nazywają inteligencją, nie jest tu mierzone w ogóle. Pamięć, planowanie, posługiwanie się językiem, ocena społeczna, wytrwałość i wyuczone umiejętności — wszystko to leży poza tym, co 16 pozycji matrycowych może wykryć.
 
-The number is not a credential. It does not predict what you can do, what work you can perform, what you should study, or what you are worth. It cannot be cited as a basis for employment, education, or legal decisions. The validity envelope on the result page states this directly.
+Liczba ta nie jest dyplomem ani zaświadczeniem. Nie przewiduje tego, co możesz zrobić, jaką pracę możesz wykonywać, czego powinieneś się uczyć ani ile jesteś wart. Nie może być cytowana jako podstawa decyzji dotyczących zatrudnienia, edukacji ani decyzji prawnych. Koperta ważności na stronie z wynikami stwierdza to bezpośrednio.
 
-If the displayed number surprises you, the uncertainty band is the second thing to read. The band tells you how much weight to put on the midpoint. A number with a wide band is a less precise estimate; a number with a narrow band is a more precise one, but still a narrow surface of measurement.
+Jeśli wyświetlona liczba Cię zaskakuje, drugim elementem do przeczytania jest pasmo niepewności. Pasmo mówi Ci, ile wagi należy przypisać środkowemu punktowi. Liczba z szerokim pasmem jest mniej precyzyjnym estymatorem; liczba z wąskim pasmem jest bardziej precyzyjnym, lecz nadal dotyczy wąskiego aspektu pomiaru.
 
-You can read the related corpus pages on percentiles and on the uncertainty band for more context on what this single number does and does not say.
+Możesz przeczytać powiązane strony korpusu dotyczące percentyli i pasma niepewności, aby uzyskać szerszy kontekst co do tego, co ta pojedyncza liczba mówi, a czego nie mówi.
 
-## Per-item difficulty breakdown
+## Rozkład trudności według pozycji
 
-The result page also shows a per-item difficulty breakdown. The 16 items presented in your session were drawn from a pool partitioned by IRT b-parameter terciles into easy, medium, and hard bands. The breakdown reports, for each band, how many items in that band you answered correctly.
+Strona wyników pokazuje również rozkład trudności według pozycji. 16 pozycji zaprezentowanych podczas Twojej sesji zostało wylosowanych z puli podzielonej według tercyli parametru b IRT na pasma: łatwe, średnie i trudne. Rozkład podaje, dla każdego pasma, ile pozycji z tego pasma odpowiedziałeś poprawnie.
 
-This is distinct from the qualitative band label on the score itself. The score band describes the position of your ability estimate in the reference distribution. The item band describes the difficulty of each item you saw. A low score paired with all hard items answered reads differently than a low score paired with all easy items missed. The breakdown lets you read your score in that context.
+Jest to coś innego niż jakościowa etykieta pasma na samym wyniku. Pasmo wyniku opisuje położenie Twojego estymatora zdolności w rozkładzie referencyjnym. Pasmo pozycji opisuje trudność każdej pozycji, którą widziałeś. Niski wynik w połączeniu z odpowiedzią na wszystkie trudne pozycje odczytuje się inaczej niż niski wynik w połączeniu z pominięciem wszystkich łatwych pozycji. Rozkład pozwala odczytać swój wynik w tym kontekście.
 
-Read the [ICAR-MR item-pool page](../../constructs/icar-mr/) for the derivation of the easy/medium/hard cutoffs.
+Przeczytaj [stronę puli pozycji ICAR-MR](../../constructs/icar-mr/), aby zapoznać się z wyprowadzeniem odcięć łatwy/średni/trudny.
 
-[Back to IQ-ME](/)
+[Powrót do IQ-ME](/)

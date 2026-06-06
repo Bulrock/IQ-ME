@@ -53,7 +53,9 @@
   min-block-size: 2lh;
 }
 
-/* One-line plain-language explainer of what the result is. */
+/* One-line plain-language explainer of what the result is. PR-13 (AC16): this
+   is a collapsible <details> disclaimer — the summary (first sentence) shows
+   collapsed; the body (rest) reveals on expand. */
 .score-panel__explainer {
   max-width: 34rem;
   margin-block: var(--space-4);
@@ -62,6 +64,21 @@
   line-height: var(--line-height-base);
   color: var(--color-text-muted);
   text-align: center;
+}
+
+.disclaimer__summary {
+  cursor: pointer;
+  list-style-position: inside;
+}
+
+.disclaimer__summary:focus-visible {
+  outline: var(--border-width-hairline) solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.disclaimer__body {
+  margin-block-start: var(--space-2);
+  margin-block-end: 0;
 }
 
 /* Story 6.2 — FR22 per-item-difficulty breakdown sentence. UX-DR Step 5
@@ -92,16 +109,36 @@
   display: none;
 }
 
+/* PR-5 (AC7) — vertically center the revealed result within the scene region
+   so it reads as balanced (no top-hug with a large empty gap below). The scene
+   grows to fill #app's column height and centers its content block; the
+   co-equal triplet and its FR18 bbox parity are untouched. The pre-reveal beat
+   (data-reveal-stage="anchor") keeps its own centered-column rule below. */
+.result-scene[data-reveal-stage="band"],
+.result-scene[data-reveal-stage="interval"],
+.result-scene[data-reveal-stage="context"],
+.result-scene[data-reveal-stage="tail-scene"],
+.result-scene[data-reveal-stage="methodology-handoff"] {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 /* Pre-reveal scene (beat) — heading + subcopy + the reveal decision. The
    reveal ("Show me") is the one prominent affordance on the scene; "Not yet"
-   is a quiet secondary. Centered column so the decision reads clearly. */
+   is a quiet secondary. PR-5 (Story 11-1): vertically centered too (fills the
+   scene region and centers its column) so the beat isn't top-hugged with a
+   large empty gap below — matching the revealed result. */
 .result-scene[data-reveal-stage="anchor"] {
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
   gap: var(--space-4);
-  padding-block: var(--space-7);
+  padding-block: var(--space-5);
 }
 
 .rs-show,
@@ -180,4 +217,13 @@
 
 .score-panel__retest-copy {
   margin-block-end: var(--space-2);
+}
+
+/* PR-2 (Story 11-1): smaller reveal-beat buttons on phones. */
+@media (max-width: 30rem) {
+  .rs-show,
+  .rs-not {
+    padding-block: var(--space-2);
+    padding-inline: var(--space-4);
+  }
 }

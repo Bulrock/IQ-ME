@@ -1,35 +1,97 @@
 /* src/css/components/language-switcher.css
  *
- * Story 7.1 AC-3 — keyboard-first locale switcher (EN / RU / PL) per UX-DR9.
- * Native <fieldset> + radio-group semantics (Tab to enter, arrow keys cycle),
- * mirroring the theme-toggle pattern. Restraint-first chrome weight; no accent
- * color on any locale (none is "primary"). Renders into the
- * .chrome-header__language-switcher slot via src/assessment/language-switcher.js.
+ * Story 7.1 AC-3 — locale switcher (EN / RU / PL) per UX-DR9. PR-7 (Story 11-1,
+ * AC9): reshaped from a radio fieldset into a custom accessible dropdown with
+ * country flags. A trigger <button> (aria-haspopup="listbox") toggles a
+ * role="listbox" menu; the active option carries aria-selected="true".
+ * Restraint-first chrome weight; no accent color on any locale. Renders into
+ * the .chrome-header__language-switcher slot via language-switcher.js.
  */
 
 .language-switcher {
-  display: flex;
-  gap: var(--space-3);
-  align-items: center;
-  border: none;
-  padding: 0;
-  margin: 0;
+  position: relative;
+  display: inline-flex;
 }
 
-.language-switcher__label {
+.language-switcher__trigger {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  cursor: pointer;
-  font-size: var(--font-size-200);
+  /* PR-7 (Story 11-1): match the theme-switcher segment metrics (font-size-100
+     + space-2 block padding + hairline border) so the language trigger is the
+     same height as the Light/Dark buttons beside it. */
+  font-size: var(--font-size-100);
+  line-height: var(--line-height-base);
   color: var(--color-text-muted);
-}
-
-.language-switcher__radio {
+  background-color: var(--color-surface-base);
+  border: var(--border-width-hairline) solid var(--color-rule-strong);
+  border-radius: var(--radius-control);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
   cursor: pointer;
+  transition: border-color 120ms ease, color 120ms ease;
 }
 
-.language-switcher__radio:focus-visible {
+.language-switcher__trigger:hover {
+  color: var(--color-text-body);
+  border-color: var(--color-focus-ring);
+}
+
+.language-switcher__trigger:focus-visible {
   outline: var(--space-1) solid var(--color-focus-ring);
   outline-offset: var(--space-1);
+}
+
+.language-switcher__trigger[aria-disabled="true"] {
+  color: var(--color-text-link-disabled);
+  cursor: not-allowed;
+}
+
+.language-switcher__flag {
+  line-height: 1;
+}
+
+.language-switcher__menu {
+  position: absolute;
+  inset-block-start: calc(100% + var(--space-1));
+  inset-inline-end: 0;
+  z-index: 20;
+  min-inline-size: 100%;
+  margin: 0;
+  padding: var(--space-1);
+  list-style: none;
+  background-color: var(--color-surface-elevated);
+  border: var(--border-width-hairline) solid var(--color-rule-divider);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-overlay);
+}
+
+.language-switcher__menu[hidden] {
+  display: none;
+}
+
+.language-switcher__option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  font-size: var(--font-size-200);
+  color: var(--color-text-body);
+  border-radius: var(--radius-input);
+  cursor: pointer;
+}
+
+.language-switcher__option:hover {
+  background-color: var(--color-surface-base);
+}
+
+.language-switcher__option:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: calc(-1 * var(--space-1));
+}
+
+.language-switcher__option[aria-selected="true"] {
+  font-weight: var(--font-weight-medium);
+  background-color: var(--color-surface-base);
 }

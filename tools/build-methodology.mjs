@@ -44,6 +44,19 @@ const OUT_ROOT = resolve(
 // Epic 4 close, only EN content exists in-repo — RU/PL trees are
 // .gitkeep-only and produce zero pages.
 const LOCALES = ["en", "ru", "pl"];
+
+// PR-9 (AC11) — theme-bootstrap for static methodology pages. A BLOCKING
+// external <script src> (classic, not module) in <head> applies the SPA's
+// persisted <html>[data-theme] before paint (no flash). External src keeps it
+// CSP-clean (lint-csp-source forbids inline script bodies); same-origin only
+// (NFR6 zero-third-party). System default (no key) → no attribute.
+const THEME_BOOT =
+  `<script src="/src/assessment/methodology-theme.js"></script>\n`;
+// PR-12 (Story 11-1) — locale redirect: follow the SPA's saved "locale" and
+// switch the methodology page to that language before paint. Placed BEFORE the
+// theme script so a redirect aborts early. External src = CSP-clean.
+const LOCALE_BOOT =
+  `<script src="/src/assessment/methodology-locale.js"></script>\n`;
 // Retained for callers that historically referenced LANG; canonical EN path.
 const LANG = "en";
 const SEMVER_RE = /^v\d+\.\d+\.\d+$/;
@@ -290,6 +303,8 @@ function renderPage(srcPath, lang, fm, bodySrc, corpusVersion) {
     `<head>\n` +
     `<meta charset="utf-8">\n` +
     `<meta name="viewport" content="width=device-width,initial-scale=1">\n` +
+    LOCALE_BOOT +
+    THEME_BOOT +
     `<title>${title} — IQ-ME methodology ${version}</title>\n` +
     `<meta name="iqme-title" content="${title}">\n` +
     `<meta name="iqme-version" content="${version}">\n` +
@@ -327,11 +342,21 @@ function renderPage(srcPath, lang, fm, bodySrc, corpusVersion) {
   );
 }
 
-function outputPathFor(srcPath, lang, corpusVersion, latest = false) {
-  const localeRoot = join(SRC_ROOT, lang);
-  const rel = relative(localeRoot, srcPath);
+// PR-12b (AC15): emit every page as a directory-style index.html so its served
+// URL carries the trailing slash that canonicalUrlFor()/hreflang already use
+// (e.g. scoring/eap.md → scoring/eap/index.html → served at scoring/eap/).
+// This removes the no-slash 404 class — a flat scoring/eap.html was linked as
+// scoring/eap (no slash, no extension) and 404'd. `index.md` stays index.html.
+function htmlRelFor(srcPath, lang) {
+  const rel = relative(join(SRC_ROOT, lang), srcPath).replace(/\\/g, "/");
   if (rel.startsWith("..")) return null;
-  const htmlRel = rel.replace(/\.md$/, ".html");
+  const noExt = rel.replace(/\.md$/, "");
+  return (noExt === "index" || noExt.endsWith("/index")) ? noExt + ".html" : noExt + "/index.html";
+}
+
+function outputPathFor(srcPath, lang, corpusVersion, latest = false) {
+  const htmlRel = htmlRelFor(srcPath, lang);
+  if (htmlRel === null) return null;
   const versionSegment = latest ? "latest" : corpusVersion;
   return join(OUT_ROOT, versionSegment, lang, htmlRel);
 }
@@ -350,10 +375,42 @@ function humanizeSection(seg) {
   return seg.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+// PR-12 (Story 11-1): localized chrome for the static methodology pages — the
+// index masthead title, lede, and section headings, plus the visible EN/RU/PL
+// language switcher (the static pages have no SPA chrome, so without this there
+// is no way to reach the translated locales).
+const INDEX_I18N = {
+  en: {
+    mastheadTitle: "IQ-ME methodology",
+    lede: "What IRT is, where the validity envelope ends, and why a 16-item screener is not a clinical evaluation.",
+    langLabel: "Language",
+    sections: { constructs: "Constructs", scoring: "Scoring", limitations: "Limitations", provenance: "Provenance", reference: "Reference", tails: "Tails" },
+  },
+  ru: {
+    mastheadTitle: "Методология IQ-ME",
+    lede: "Что такое IRT, где заканчивается рамка валидности и почему скринер из 16 заданий — не клиническое обследование.",
+    langLabel: "Язык",
+    sections: { constructs: "Конструкты", scoring: "Подсчёт баллов", limitations: "Ограничения", provenance: "Происхождение", reference: "Справочные материалы", tails: "Хвосты распределения" },
+  },
+  pl: {
+    mastheadTitle: "Metodologia IQ-ME",
+    lede: "Czym jest IRT, gdzie kończy się zakres ważności i dlaczego 16-zadaniowy przesiewacz nie jest oceną kliniczną.",
+    langLabel: "Język",
+    sections: { constructs: "Konstrukty", scoring: "Punktacja", limitations: "Ograniczenia", provenance: "Pochodzenie", reference: "Materiały źródłowe", tails: "Krańce rozkładu" },
+  },
+};
+
+function sectionLabel(lang, seg) {
+  const map = (INDEX_I18N[lang] || INDEX_I18N.en).sections;
+  return map[seg] || humanizeSection(seg);
+}
+
 function buildIndexHtml(lang, versionSegment, displayVersion, pages) {
   const bySection = new Map();
   for (const p of pages) {
-    const relDir = p.htmlRel.replace(/index\.html$/, "").replace(/\.html$/, "");
+    // PR-12b: htmlRel is now always <dir>/index.html → strip index.html for a
+    // trailing-slash directory URL that resolves (no no-slash 404).
+    const relDir = p.htmlRel.replace(/index\.html$/, "");
     const section = relDir.split("/")[0];
     if (!bySection.has(section)) bySection.set(section, []);
     bySection.get(section).push({ url: `/methodology/${versionSegment}/${lang}/${relDir}`, title: p.title });
@@ -362,10 +419,19 @@ function buildIndexHtml(lang, versionSegment, displayVersion, pages) {
     const ia = SECTION_ORDER.indexOf(a), ib = SECTION_ORDER.indexOf(b);
     return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b);
   });
+  // PR-11 (AC13): in-page anchor sidebar — each section gets an id and the
+  // sidebar <nav> links to it. Single scrollable page, deep-linkable, native
+  // keyboard-accessible (anchor activation scrolls to the id).
+  const i18n = INDEX_I18N[lang] || INDEX_I18N.en;
+  let sidebar = `<nav class="methodology-sidebar" aria-label="Methodology sections"><ul class="methodology-sidebar__list">`;
+  for (const s of sections) {
+    sidebar += `<li><a class="methodology-sidebar__link" href="#section-${esc(s)}">${esc(sectionLabel(lang, s))}</a></li>`;
+  }
+  sidebar += `</ul></nav>`;
   let body = "";
   for (const s of sections) {
     const items = bySection.get(s).sort((a, b) => a.title.localeCompare(b.title));
-    body += `<section class="methodology-index__section"><h2 class="methodology-index__heading">${esc(humanizeSection(s))}</h2><ul class="methodology-index__list">`;
+    body += `<section id="section-${esc(s)}" class="methodology-index__section"><h2 class="methodology-index__heading">${esc(sectionLabel(lang, s))}</h2><ul class="methodology-index__list">`;
     for (const it of items) body += `<li><a href="${esc(it.url)}">${esc(it.title)}</a></li>`;
     body += `</ul></section>`;
   }
@@ -376,21 +442,25 @@ function buildIndexHtml(lang, versionSegment, displayVersion, pages) {
     `<!doctype html>\n<html lang="${lang}">\n<head>\n` +
     `<meta charset="utf-8">\n` +
     `<meta name="viewport" content="width=device-width,initial-scale=1">\n` +
-    `<title>IQ-ME methodology ${esc(displayVersion)}</title>\n` +
+    LOCALE_BOOT +
+    THEME_BOOT +
+    `<title>${esc(i18n.mastheadTitle)} ${esc(displayVersion)}</title>\n` +
     hreflang + `\n` +
     `<link rel="stylesheet" href="/src/css/reset.css">\n` +
     `<link rel="stylesheet" href="/src/css/primitives.css">\n` +
     `<link rel="stylesheet" href="/src/css/semantic.css">\n` +
     `<link rel="stylesheet" href="/src/css/base.css">\n` +
     `<link rel="stylesheet" href="/src/css/components/masthead.css">\n` +
-    `</head>\n<body data-lang="${lang}">\n` +
+    `</head>\n<body data-lang="${lang}" class="methodology-index-page">\n` +
     `<header class="methodology-masthead">\n` +
-    `<h1 class="methodology-masthead__title">IQ-ME methodology</h1>\n` +
+    `<h1 class="methodology-masthead__title">${esc(i18n.mastheadTitle)}</h1>\n` +
     `<p class="methodology-masthead__version">${esc(displayVersion)}</p>\n` +
     `</header>\n` +
+    `<div class="methodology-index__layout">\n` +
+    sidebar + `\n` +
     `<main class="methodology-index">\n` +
-    `<p class="methodology-index__lede">What IRT is, where the validity envelope ends, and why a 16-item screener is not a clinical evaluation.</p>\n` +
-    body + `\n</main>\n</body>\n</html>\n`
+    `<p class="methodology-index__lede">${esc(i18n.lede)}</p>\n` +
+    body + `\n</main>\n</div>\n</body>\n</html>\n`
   );
 }
 
@@ -437,7 +507,7 @@ function main() {
       } catch (e) {
         die(`writing output: ${e.message}`);
       }
-      pages.push({ htmlRel: relative(localeRoot, srcPath).replace(/\.md$/, ".html"), title: parsed.fm.title });
+      pages.push({ htmlRel: htmlRelFor(srcPath, lang), title: parsed.fm.title });
       count++;
     }
     // Emit the per-locale table-of-contents index (versioned + latest).

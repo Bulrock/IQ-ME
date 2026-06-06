@@ -1,5 +1,5 @@
 ---
-title: "Matrix reasoning items"
+title: "Zadania matrycowego rozumowania"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -10,12 +10,12 @@ sourceHashEN: "cbf09505075ee7c2be84481ada9cd248e4d9f8b34f62643405e83a559a366817"
 translationStatus: "in-progress"
 ---
 
-# Matrix reasoning items
+# Zadania matrycowego rozumowania
 
-A matrix-reasoning item is a grid of figures with one cell missing. The test-taker selects the option that completes the pattern. The form has been used in cognitive testing for nearly a century and is one of the most-studied surfaces of fluid reasoning.
+Zadanie matrycowego rozumowania to siatka figur z jedną brakującą komórką. Osoba badana wybiera opcję, która uzupełnia wzorzec. Format ten jest stosowany w testowaniu poznawczym od prawie stu lat i jest jedną z najszerzej badanych form myślenia płynnego.
 
-The pattern logic in a matrix item can vary. Some items vary one feature across the grid; some vary two; some require detecting a transformation between cells. The 16 items in IQ-ME span a difficulty range calibrated so the screening session pins the test-taker's ability with reasonable precision in the middle of the distribution.
+Logika wzorca w zadaniu matrycowym może być różna. Niektóre zadania zmieniają jedną cechę w całej siatce; inne zmieniają dwie; jeszcze inne wymagają wykrycia przekształcenia między komórkami. 16 zadań w IQ-ME obejmuje zakres trudności skalibrowany tak, aby sesja skrinerowa wyznaczała zdolność osoby badanej z rozsądną precyzją w środku rozkładu.
 
-A test-taker who has never seen a matrix item before may need a moment to learn what the format is asking. The session has no time pressure and no penalty for revisiting the first few items as the format becomes familiar. The pattern-recognition surface is what the test measures; familiarity with the format itself is not the construct of interest.
+Osoba badana, która nigdy wcześniej nie widziała zadania matrycowego, może potrzebować chwili, aby zrozumieć, czego wymaga format. Sesja nie jest ograniczona czasowo i nie ma kar za powrót do pierwszych kilku zadań w miarę oswajania się z formatem. Powierzchnia rozpoznawania wzorców jest tym, co mierzy test; znajomość samego formatu nie jest konstruktem będącym przedmiotem zainteresowania.
 
-Matrix items are visual by construction. They cannot be made screen-reader-equivalent. The consent scene declares this honestly rather than offering a synthetic alt-text that would mislead. The instrument's validity envelope is part of the product copy, not an accessibility workaround.
+Zadania matrycowe mają z natury charakter wzrokowy. Nie mogą być udostępnione w wersji równoważnej dla czytników ekranu. Scena zgody stwierdza to wprost, zamiast oferować syntetyczny tekst alternatywny, który mógłby wprowadzać w błąd. Zakres ważności narzędzia stanowi część treści produktu, a nie obejście kwestii dostępności.

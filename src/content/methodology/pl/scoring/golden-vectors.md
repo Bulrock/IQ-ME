@@ -1,5 +1,5 @@
 ---
-title: "Golden vectors — reference-implementation parity"
+title: "Złote wektory — zgodność z implementacją referencyjną"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -11,16 +11,16 @@ sourceHashEN: "17115b7fdb30722e08e40b3ea847b2c3d023500296004094a57decaef2315ac8"
 translationStatus: "in-progress"
 ---
 
-# Golden vectors — reference-implementation parity
+# Złote wektory — zgodność z implementacją referencyjną
 
-A scoring engine is only as good as a skeptic can verify. IQ-ME's scoring engine is checked against an independent reference implementation on every CI run. The check is called golden-vector parity.
+Silnik punktacyjny jest tak dobry, jak dobra jest możliwość jego weryfikacji przez sceptyka. Silnik punktacyjny IQ-ME jest sprawdzany względem niezależnej implementacji referencyjnej przy każdym uruchomieniu CI. Sprawdzenie to nosi nazwę parytetu złotych wektorów.
 
-The reference implementation lives in R. It uses the `mirt` package version 1.41.x running on R 4.4.x. The package is the most widely used IRT implementation in academic psychometrics. The mirt source is open and peer-reviewed.
+Implementacja referencyjna działa w R. Korzysta z pakietu `mirt` w wersji 1.41.x uruchomionego na R 4.4.x. Pakiet ten jest najszerzej stosowaną implementacją IRT w naukowej psychometrii. Kod źródłowy mirt jest otwarty i podlegał recenzji przez środowisko naukowe.
 
-The check works by simulating 1000 response patterns through both engines. The JavaScript engine in IQ-ME and the R reference engine both compute theta estimates for the same input. The two sets of estimates are compared element-wise. The parity tolerance is `0.001 logits`. A larger drift fails CI.
+Sprawdzenie polega na symulowaniu 1000 wzorców odpowiedzi przez oba silniki. Zarówno silnik JavaScript w IQ-ME, jak i referencyjny silnik R obliczają estymaty theta dla tych samych danych wejściowych. Dwa zbiory estymatów są porównywane element po elemencie. Tolerancja parytetu wynosi `0.001 logits`. Większe odchylenie powoduje niepowodzenie CI.
 
-The seed for the simulated patterns is fixed: `set.seed(20260514)`. The seed pins the input data. Two runs of CI compute the same theta estimates from the same input. The byte-stable build harness (Story 1.8 / Story 4.2) extends this to the rendered methodology corpus.
+Ziarno dla symulowanych wzorców jest stałe: `set.seed(20260514)`. Ziarno utrwala dane wejściowe. Dwa uruchomienia CI obliczają te same estymaty theta z tych samych danych wejściowych. Deterministyczny harness kompilacji (Story 1.8 / Story 4.2) rozszerza tę właściwość na wyrenderowany korpus metodologiczny.
 
-The golden-vector data lives at `tests/golden/vectors.json`. The R regeneration script is at `tests/golden/regenerate.R`. A skeptic can install R, install mirt, run `Rscript tests/golden/regenerate.R`, and produce byte-identical golden vectors. The byte-identicality is a property of the seed and the deterministic-build discipline, not of the host machine.
+Dane złotych wektorów znajdują się pod ścieżką `tests/golden/vectors.json`. Skrypt regeneracji R znajduje się pod ścieżką `tests/golden/regenerate.R`. Sceptyk może zainstalować R, zainstalować mirt, uruchomić `Rscript tests/golden/regenerate.R` i odtworzyć bajt-identyczne złote wektory. Bajt-identyczność jest właściwością ziarna i dyscypliny deterministycznej budowy, a nie maszyny hosta.
 
-Innovation pillar #5 of the project — no-build auditable IRT — is verifiable through this gate. A reader with only `node` installed can run `node --test tests/unit/scoring/irt/*.test.mjs` and confirm parity in under five minutes. A reader with `R` installed can run the regeneration script and confirm the reference data has not drifted.
+Filar innowacyjności nr 5 projektu — audytowalny IRT bez kompilacji — jest weryfikowalny przez tę bramkę. Czytelnik mający zainstalowany tylko `node` może uruchomić `node --test tests/unit/scoring/irt/*.test.mjs` i potwierdzić parytet w mniej niż pięć minut. Czytelnik mający zainstalowane `R` może uruchomić skrypt regeneracji i potwierdzić, że dane referencyjne nie uległy dryfowi.

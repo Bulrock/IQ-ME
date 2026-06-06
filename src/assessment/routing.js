@@ -8,6 +8,7 @@ import * as landing from "./landing.js";
 import * as consent from "./consent.js";
 import * as itemRunner from "./item-runner.js";
 import * as result from "./result.js";
+import * as savedResults from "./saved-results.js";
 import * as localeLoader from "./i18n/locale-loader.js";
 
 const ROUTES = {
@@ -16,6 +17,7 @@ const ROUTES = {
   "#/consent": consent,
   "#/test": itemRunner,
   "#/result": result,
+  "#/saved": savedResults,
 };
 
 let started = false;
@@ -28,8 +30,9 @@ const NS = {
   consent: ["headline", "measuresWhat", "validityEnvelope", "visuospatialDisclosure", "continueButton", "notToday", "dwellHint"],
   chrome: ["titleAppDefault", "appName", "errorFallbackMessage", "languageSwitcherPlaceholderEn", "languageSwitcherLegend", "footerMethodologyLink", "footerDiscussionsLink", "footerCitationLink", "themeToggleLegend", "themeSystemLabel", "themeLightLabel", "themeDarkLabel"],
   itemRunner: ["headingTemplate", "progressTemplate", "optionsLegend", "optionLabelTemplate", "previousButton", "nextButton", "submitButton", "fetchErrorMessage", "bailButton", "bailPanelHeading", "bailExplanation", "bailDiscardButton", "bailContinueButton"],
-  result: ["scoreHeading", "prerevealHeading", "prerevealSubcopy", "showMeButton", "notYetButton", "caveat", "percentileAriaTemplate", "anchorAriaTemplate", "bandAriaTemplate", "bandTemplate", "difficultySentenceTemplate", "difficultySentenceAria", "fetchErrorMessage", "saveButton", "saveButtonSaved", "retestNote", "retestNoteLinkLabel", "percentileLabel", "anchorLabel", "bandLabel", "resultExplainer", "printButton", "printTitle"],
+  result: ["scoreHeading", "prerevealHeading", "prerevealSubcopy", "showMeButton", "notYetButton", "caveat", "percentileAriaTemplate", "anchorAriaTemplate", "bandAriaTemplate", "bandTemplate", "difficultySentenceTemplate", "difficultySentenceAria", "fetchErrorMessage", "saveButton", "saveButtonSaved", "retestNote", "retestNoteLinkLabel", "percentileLabel", "anchorLabel", "bandLabel", "resultExplainer", "printButton", "printTitle", "crisisShowMore"],
   localeSwitchBlockerHint: ["message", "bailLinkLabel", "validityLinkLabel"],
+  savedResults: ["viewSavedResults", "heading", "empty", "back", "deleteSelected", "deleteAll", "selectLabel", "detailHeading", "scoreLabel", "percentileLabel", "dateLabel", "percentileSuffix", "untitledResult", "backToList", "inProgressHeading", "resume", "deleteInProgress", "inProgressItemTemplate"],
 };
 
 function getStrings() {

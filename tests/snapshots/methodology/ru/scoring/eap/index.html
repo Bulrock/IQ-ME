@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="/src/assessment/methodology-locale.js"></script>
+<script src="/src/assessment/methodology-theme.js"></script>
+<title>EAP-оценивание — перевод ответов в балл — IQ-ME methodology v0.1.0</title>
+<meta name="iqme-title" content="EAP-оценивание — перевод ответов в балл">
+<meta name="iqme-version" content="v0.1.0">
+<meta name="iqme-doi" content="">
+<meta name="iqme-last-reviewed" content="2026-06-03">
+<meta name="iqme-reviewer" content="TBD">
+<meta name="iqme-reviewer-handle" content="@TBD-ru-reviewer">
+<meta name="iqme-lang" content="ru">
+<meta name="iqme-url" content="/methodology/v0.1.0/ru/scoring/eap/">
+<link rel="alternate" hreflang="en" href="/methodology/v0.1.0/en/scoring/eap/">
+<link rel="alternate" hreflang="ru" href="/methodology/v0.1.0/ru/scoring/eap/">
+<link rel="alternate" hreflang="pl" href="/methodology/v0.1.0/pl/scoring/eap/">
+<link rel="stylesheet" href="/src/css/reset.css">
+<link rel="stylesheet" href="/src/css/primitives.css">
+<link rel="stylesheet" href="/src/css/semantic.css">
+<link rel="stylesheet" href="/src/css/base.css">
+<link rel="stylesheet" href="/src/css/components/masthead.css">
+<link rel="stylesheet" href="/src/css/components/cite-this-page-widget.css">
+<link rel="stylesheet" href="/src/css/components/stale-translation-hatnote.css">
+<script type="module" src="/src/assessment/cite-this-page.js" defer></script>
+</head>
+<body data-lang="ru" data-translation-status="in-progress">
+<header class="methodology-masthead">
+<h1 class="methodology-masthead__title">EAP-оценивание — перевод ответов в балл</h1>
+<p class="methodology-masthead__version">v0.1.0</p>
+<p class="methodology-masthead__doi" data-doi-pending>DOI: pending v1.0.0 release</p>
+<p class="methodology-masthead__last-reviewed">Last reviewed: <time datetime="2026-06-03">2026-06-03</time></p>
+<p class="methodology-masthead__reviewer">Reviewer: TBD (@TBD-ru-reviewer)</p>
+</header>
+<aside class="stale-translation-hatnote" role="note">
+<p>This page may be out of date relative to its English source. <a href="/methodology/v0.1.0/en/../ru/scoring/eap/">View source EN page</a>.</p>
+</aside>
+<main>
+<p>После сессии из 16 ответов IQ-ME вычисляет способность тестируемого методом ожидаемой апостериорной оценки (expected a posteriori, или EAP). EAP — байесовский метод. Он даёт точечную оценку и меру неопределённости этой оценки.</p><p>Формула: <code>theta_EAP = sum_i nodes[i] * L(nodes[i] | r) * weights[i] / sum_i L(nodes[i] | r) * weights[i]</code>.</p><p>Интуиция: движок рассматривает набор кандидатных значений способности вдоль шкалы тета. Для каждого кандидата вычисляется правдоподобие того, что паттерн ответов тестируемого принадлежит человеку с данным уровнем способности. Затем берётся взвешенное среднее кандидатов. Веса объединяют правдоподобие с априорным распределением допустимых значений способности.</p><p>Реализацию фиксируют три числовых выбора. Первый — количество кандидатных значений способности, называемых точками квадратуры. IQ-ME использует <code>quadpts = 61</code>. Второй — диапазон этих кандидатов. IQ-ME использует <code>theta_lim = [-6, 6]</code> — шесть стандартных отклонений по обе стороны от среднего охватывают весь правдоподобный диапазон способностей. Третий — априорное распределение. IQ-ME использует стандартное нормальное: <code>weights[i] = phi(nodes[i]) / sum_j phi(nodes[j])</code>, где <code>phi</code> — плотность стандартного нормального распределения (PDF).</p><p>Стандартное нормальное априорное распределение предполагает, что способности популяции распределены нормально относительно среднего. Это предположение приблизительно верно для референсной выборки SAPA. На шкале, определяемой моделью, оно точно выполняется.</p><p>Исходный код движка в <code>src/scoring/irt/eap.js</code> и <code>src/scoring/irt/quadrature.js</code> реализует EAP и вспомогательную квадратуру. Скептик может запустить модульные тесты в <code>tests/unit/scoring/irt/eap.test.mjs</code> и убедиться, что реализация соответствует математике.</p>
+</main>
+<aside class="cite-this-page-affordance"><div data-cite-widget></div></aside>
+</body>
+</html>

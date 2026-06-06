@@ -66,7 +66,8 @@ async function bootstrap() {
     applyDocumentLocale(locale);
     await localeLoader.load(locale);
     // Apply theme BEFORE routing.start() so no flash-of-light-theme occurs.
-    const themeSlot = document.querySelector(".chrome-footer__theme-toggle");
+    // PR-6 (AC8): the theme switcher now lives top-right in the chrome-header.
+    const themeSlot = document.querySelector(".chrome-header__theme-switcher");
     if (themeSlot) theme.init(themeSlot, buildStrings());
     // Story 7.1 — render the keyboard-first locale switcher into the
     // chrome-header slot (replaces the Story 6.4 placeholder span).

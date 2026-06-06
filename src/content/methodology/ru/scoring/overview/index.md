@@ -1,5 +1,5 @@
 ---
-title: "What the IQ-scale number means"
+title: "Что означает число по шкале IQ"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -13,28 +13,28 @@ sourceHashEN: "f3eed2be58fe90f699d054b43daf56985bbb693683d8773508a15f6e11548b04"
 translationStatus: "in-progress"
 ---
 
-# What the IQ-scale number means
+# Что означает число по шкале IQ
 
-The IQ-scale number is a convention. It transforms a latent-ability estimate from the underlying scoring model onto a familiar scale where the mean is 100 and the standard deviation is 15.
+Число по шкале IQ — это условность. Оно преобразует оценку латентной способности из базовой скоринговой модели на привычную шкалу, где среднее равно 100, а стандартное отклонение — 15.
 
-The formula is `IQ-scale = round(100 + 15 × theta)`, where `theta` is the ability estimate produced by the item response theory model from your 16 responses.
+Формула: `IQ-scale = round(100 + 15 × theta)`, где `theta` — оценка способности, полученная моделью теории ответа на задание по вашим 16 ответам.
 
-This scale was chosen because it matches the scale most readers have already seen in popular and clinical writing about cognitive ability. It is a transform of one underlying estimate; the transform itself adds no measurement information.
+Эта шкала была выбрана потому, что соответствует шкале, с которой большинство читателей уже сталкивались в популярной и клинической литературе о когнитивных способностях. Это преобразование одной базовой оценки; само преобразование не добавляет измерительной информации.
 
-The IQ-scale number is not a measurement of intelligence as a unified property of a person. The screener measures one narrow surface: the ability to identify visual patterns in matrix-reasoning items, scored against one reference group, on a short test taken in one sitting. Many things that observers call intelligence are not measured here at all. Memory, planning, language use, social judgment, persistence, and learned skill all sit outside what 16 matrix items can detect.
+Число по шкале IQ не является измерением интеллекта как единого свойства личности. Скрининг измеряет одну узкую поверхность: способность выявлять визуальные паттерны в заданиях на матричное мышление, оцениваемых относительно одной референсной группы, в коротком тесте, пройденном за одно занятие. Многое из того, что наблюдатели называют интеллектом, здесь вообще не измеряется. Память, планирование, речевые способности, социальное суждение, настойчивость и приобретённые навыки — всё это выходит за пределы того, что способны обнаружить 16 матричных заданий.
 
-The number is not a credential. It does not predict what you can do, what work you can perform, what you should study, or what you are worth. It cannot be cited as a basis for employment, education, or legal decisions. The validity envelope on the result page states this directly.
+Это число — не свидетельство о квалификации. Оно не предсказывает, что вы можете делать, какую работу вы способны выполнять, что вам следует изучать или чего вы стоите. Оно не может служить основанием для решений в сфере занятости, образования или правовых вопросов. Конверт валидности на странице результатов прямо это указывает.
 
-If the displayed number surprises you, the uncertainty band is the second thing to read. The band tells you how much weight to put on the midpoint. A number with a wide band is a less precise estimate; a number with a narrow band is a more precise one, but still a narrow surface of measurement.
+Если отображаемое число вас удивляет, вторым делом прочтите полосу неопределённости. Она показывает, сколько веса следует придавать срединной точке. Число с широкой полосой — менее точная оценка; число с узкой полосой — более точная, однако по-прежнему отражающая лишь узкую поверхность измерения.
 
-You can read the related corpus pages on percentiles and on the uncertainty band for more context on what this single number does and does not say.
+На связанных страницах корпуса о процентилях и полосе неопределённости можно прочитать подробнее о том, что это единственное число говорит и чего не говорит.
 
-## Per-item difficulty breakdown
+## Разбивка по трудности заданий
 
-The result page also shows a per-item difficulty breakdown. The 16 items presented in your session were drawn from a pool partitioned by IRT b-parameter terciles into easy, medium, and hard bands. The breakdown reports, for each band, how many items in that band you answered correctly.
+На странице результатов также отображается разбивка по трудности каждого задания. 16 заданий, предъявлённых в вашей сессии, были взяты из пула, разделённого по терцилям IRT-параметра b на лёгкие, средние и трудные диапазоны. Разбивка показывает, для каждого диапазона, сколько заданий в нём вы ответили правильно.
 
-This is distinct from the qualitative band label on the score itself. The score band describes the position of your ability estimate in the reference distribution. The item band describes the difficulty of each item you saw. A low score paired with all hard items answered reads differently than a low score paired with all easy items missed. The breakdown lets you read your score in that context.
+Это отличается от качественной метки диапазона на самом балле. Диапазон балла описывает положение вашей оценки способности в референсном распределении. Диапазон задания описывает трудность каждого задания, которое вы видели. Низкий балл при ответе на все трудные задания читается иначе, чем низкий балл при пропуске всех лёгких. Разбивка позволяет читать ваш балл в этом контексте.
 
-Read the [ICAR-MR item-pool page](../../constructs/icar-mr/) for the derivation of the easy/medium/hard cutoffs.
+Прочитайте [страницу пула заданий ICAR-MR](../../constructs/icar-mr/) для вывода пороговых значений лёгких/средних/трудных заданий.
 
-[Back to IQ-ME](/)
+[На главную IQ-ME](/)

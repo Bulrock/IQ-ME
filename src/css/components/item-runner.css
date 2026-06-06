@@ -16,11 +16,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* Tighten vertical rhythm on short viewports so the whole item fits without
-     scrolling; relax toward the design spacing on tall screens. */
-  padding-block: clamp(var(--space-4), 4vh, var(--space-page-padding-y));
+  /* Tighten vertical rhythm so the whole item fits the viewport without
+     scrolling — small gaps between the progress, matrix, options, and nav. */
+  padding-block: clamp(var(--space-2), 2vh, var(--space-5));
   padding-inline: var(--space-5);
-  gap: clamp(var(--space-4), 3vh, var(--space-section-gap));
+  gap: clamp(var(--space-2), 1.5vh, var(--space-4));
   color: var(--color-text-body);
   background-color: var(--color-surface-base);
 }
@@ -35,7 +35,9 @@
   aspect-ratio: 1 / 1;
   margin-inline: auto;
   margin-block-end: 0;
-  padding: var(--space-5);
+  /* PR-2 (Story 11-1): trim the box padding so the matrix grid fills its frame
+     instead of floating in empty space. */
+  padding: var(--space-3);
   background-color: var(--color-surface-elevated);
   border: var(--border-width-hairline) solid var(--color-rule-divider);
   border-radius: var(--radius-surface);
@@ -47,16 +49,29 @@
   padding: 0;
   margin-block-end: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  /* PR-2 (Story 11-1): hug content (two content-width columns, centred) so the
+     option tiles don't stretch to full width and leave space around the icons. */
+  grid-template-columns: repeat(2, minmax(0, max-content));
+  justify-content: center;
+  align-content: start;
   gap: var(--space-3);
+  /* PR-2 (Story 11-1): the options region takes the leftover vertical space and
+     scrolls within itself, so the whole item always fits the viewport (the
+     matrix stays above, the nav stays reachable below) on every screen size. */
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .item-runner__option {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-2);
-  padding-block: var(--space-3);
-  padding-inline: var(--space-4);
+  /* PR-2 (Story 11-1): tight chrome — no vertical padding (the icon drives the
+     tile height) + minimal inline padding so the tile hugs the radio + icon. */
+  padding-block: 0;
+  padding-inline: var(--space-2);
   background-color: var(--color-surface-elevated);
   border: var(--border-width-hairline) solid var(--color-rule-divider);
   border-inline-start: var(--space-1) solid var(--color-rule-divider);
@@ -82,21 +97,38 @@
 }
 
 /* Image-tile option (matrix candidate). The radio stays at the inline-start;
-   the tile fills the remaining width and centers, sized to read at roughly
-   the same visual weight as a single cell of the puzzle grid above. */
-.item-runner__option-image {
-  flex: 1 1 auto;
-  width: 100%;
-  max-width: clamp(4rem, 9vh, 7rem);
-  height: auto;
+   the figure tile centers and is sized to read at roughly the same visual
+   weight as a single cell of the puzzle grid above. PR-2b (AC3): a <figure>
+   wrapper at a fixed width keeps every option icon size-consistent (zero
+   spread) and lets us cap the option button height on mobile. */
+.item-runner__option-figure {
+  margin: 0;
+  flex: 0 0 auto;
+  /* PR-2b (Story 11-1): the option icon matches one matrix-grid cell above.
+     The matrix is height-bound (~34vh tall → a cell is ~11vh), so sizing the
+     icon in vh keeps it comparable to a cell AND lets the three option rows
+     shrink to fit on short screens (no options scroll). */
+  width: clamp(3rem, 11vh, 6rem);
   aspect-ratio: 1 / 1;
-  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-runner__option-image {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
 }
 
 .item-runner__nav {
   display: flex;
   justify-content: space-between;
   gap: var(--space-4);
+  /* PR-2 (Story 11-1): fixed-height row that stays below the scrollable options
+     so Previous/Next are always reachable without page scroll. */
+  flex: 0 0 auto;
 }
 
 .item-runner__prev,
@@ -166,9 +198,10 @@
 }
 
 .item-runner__bail-affordance {
-  position: absolute;
-  inset-block-start: var(--space-3);
-  inset-inline-end: var(--space-3);
+  /* PR-2a (Story 11-1): in-flow, right-aligned on its own row ABOVE the
+     progress header — the former absolute top-right placement overlapped the
+     "Item N of 16" progress bar at mobile widths. */
+  align-self: flex-end;
   font-size: var(--font-size-200);
   line-height: var(--line-height-base);
   padding-block: var(--space-2);
@@ -245,4 +278,58 @@
 .item-runner__bail-continue:focus-visible {
   outline: var(--space-1) solid var(--color-focus-ring);
   outline-offset: var(--space-1);
+}
+
+/* PR-2 (AC2/AC3/AC4) — mobile test-screen layout. On narrow viewports the
+   item stacks top→bottom: progress + image at top, the answer-options region
+   scrolls within its own container, and the Previous/Next nav sticks to the
+   bottom so it's always reachable without page scroll. The progress header
+   and the nav live in separate flow regions, so they never overlap. */
+@media (max-width: 30rem) {
+  .item-runner {
+    justify-content: flex-start;
+    gap: var(--space-2);
+  }
+
+  /* Smaller question + icons on mobile so the matrix + all three option rows +
+     nav fit the viewport without the options region scrolling. The icon stays
+     ≈ one matrix cell (matrix 30vh → cell ~10vh → icon ~9vh). */
+  .item-runner__image {
+    max-height: 30vh;
+  }
+
+  .item-runner__option-figure {
+    width: clamp(3rem, 9vh, 5rem);
+  }
+
+  /* AC2c: the options region scrolls within itself (base rule) and the nav
+     sticks to the bottom of the viewport so it's always reachable on mobile. */
+  .item-runner__nav {
+    position: sticky;
+    inset-block-end: 0;
+    padding-block: var(--space-2);
+    background-color: var(--color-surface-base);
+  }
+}
+
+/* PR-2 (Story 11-1) — tablet + desktop use a wider canvas. The 38rem mobile
+   column left large empty margins on bigger screens; widen the container,
+   enlarge the focal matrix image, and lay the six candidates out in a 3-column
+   grid (matching the 3-wide matrix) so the item fills the available width. */
+@media (min-width: 48rem) {
+  .item-runner {
+    max-width: 54rem;
+  }
+
+  /* Calculated to fit: matrix ≈ 32vh leaves room for the two option rows + nav
+     so the whole item fits the viewport without the options scrolling. */
+  .item-runner__image {
+    max-width: min(26rem, 100%);
+    max-height: 32vh;
+  }
+
+  .item-runner__options {
+    grid-template-columns: repeat(3, minmax(0, max-content));
+    gap: var(--space-2);
+  }
 }

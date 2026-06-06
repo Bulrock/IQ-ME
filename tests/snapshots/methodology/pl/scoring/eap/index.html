@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="/src/assessment/methodology-locale.js"></script>
+<script src="/src/assessment/methodology-theme.js"></script>
+<title>Estymacja EAP — przeliczanie odpowiedzi na wynik — IQ-ME methodology v0.1.0</title>
+<meta name="iqme-title" content="Estymacja EAP — przeliczanie odpowiedzi na wynik">
+<meta name="iqme-version" content="v0.1.0">
+<meta name="iqme-doi" content="">
+<meta name="iqme-last-reviewed" content="2026-06-03">
+<meta name="iqme-reviewer" content="TBD">
+<meta name="iqme-reviewer-handle" content="@TBD-pl-reviewer">
+<meta name="iqme-lang" content="pl">
+<meta name="iqme-url" content="/methodology/v0.1.0/pl/scoring/eap/">
+<link rel="alternate" hreflang="en" href="/methodology/v0.1.0/en/scoring/eap/">
+<link rel="alternate" hreflang="ru" href="/methodology/v0.1.0/ru/scoring/eap/">
+<link rel="alternate" hreflang="pl" href="/methodology/v0.1.0/pl/scoring/eap/">
+<link rel="stylesheet" href="/src/css/reset.css">
+<link rel="stylesheet" href="/src/css/primitives.css">
+<link rel="stylesheet" href="/src/css/semantic.css">
+<link rel="stylesheet" href="/src/css/base.css">
+<link rel="stylesheet" href="/src/css/components/masthead.css">
+<link rel="stylesheet" href="/src/css/components/cite-this-page-widget.css">
+<link rel="stylesheet" href="/src/css/components/stale-translation-hatnote.css">
+<script type="module" src="/src/assessment/cite-this-page.js" defer></script>
+</head>
+<body data-lang="pl" data-translation-status="in-progress">
+<header class="methodology-masthead">
+<h1 class="methodology-masthead__title">Estymacja EAP — przeliczanie odpowiedzi na wynik</h1>
+<p class="methodology-masthead__version">v0.1.0</p>
+<p class="methodology-masthead__doi" data-doi-pending>DOI: pending v1.0.0 release</p>
+<p class="methodology-masthead__last-reviewed">Last reviewed: <time datetime="2026-06-03">2026-06-03</time></p>
+<p class="methodology-masthead__reviewer">Reviewer: TBD (@TBD-pl-reviewer)</p>
+</header>
+<aside class="stale-translation-hatnote" role="note">
+<p>This page may be out of date relative to its English source. <a href="/methodology/v0.1.0/en/../pl/scoring/eap/">View source EN page</a>.</p>
+</aside>
+<main>
+<p>Po sesji składającej się z 16 odpowiedzi IQ-ME oblicza zdolność osoby badanej metodą estymacji oczekiwanej a posteriori, czyli EAP. EAP to metoda bayesowska. Daje ona estymator punktowy oraz miarę niepewności tego estymatora.</p><p>Wzór ma postać: <code>theta_EAP = sum_i nodes[i] * L(nodes[i] | r) * weights[i] / sum_i L(nodes[i] | r) * weights[i]</code>.</p><p>Intuicja stojąca za metodą: silnik rozważa zbiór kandydatów na wartość zdolności wzdłuż skali theta. Dla każdego kandydata oblicza prawdopodobieństwo, że zaobserwowany wzorzec odpowiedzi osoby badanej pochodzi od kogoś o takiej właśnie zdolności. Następnie wyznacza ważoną średnią tych kandydatów. Wagi łączą wiarygodność z priorem określającym, które wartości zdolności są w ogóle wiarygodne.</p><p>Trzy wybory numeryczne precyzują implementację. Pierwszym jest liczba kandydatów na wartości zdolności, zwana punktami kwadratury. IQ-ME używa <code>quadpts = 61</code>. Drugim jest zakres, który te kandydatury obejmują. IQ-ME używa <code>theta_lim = [-6, 6]</code> — sześć odchyleń standardowych po obu stronach średniej pokrywa pełen wiarygodny zakres zdolności. Trzecim jest prior. IQ-ME stosuje standardowe rozkład normalny: <code>weights[i] = phi(nodes[i]) / sum_j phi(nodes[j])</code>, gdzie <code>phi</code> jest gęstością standardowego rozkładu normalnego.</p><p>Prior oparty na standardowym rozkładzie normalnym zakłada, że zdolności w populacji rozkładają się normalnie wokół średniej. To założenie jest w przybliżeniu prawdziwe dla próby referencyjnej SAPA. Na skali zdefiniowanej przez model jest ono ścisłe.</p><p>Silnik zawarty w plikach <code>src/scoring/irt/eap.js</code> oraz <code>src/scoring/irt/quadrature.js</code> implementuje EAP i wspierającą go kwadraturę. Sceptyk może uruchomić testy jednostkowe pod ścieżką <code>tests/unit/scoring/irt/eap.test.mjs</code> i zweryfikować, że implementacja odpowiada matematyce.</p>
+</main>
+<aside class="cite-this-page-affordance"><div data-cite-widget></div></aside>
+</body>
+</html>

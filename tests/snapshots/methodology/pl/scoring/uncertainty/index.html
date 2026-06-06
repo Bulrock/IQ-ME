@@ -3,8 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>What the uncertainty band means — IQ-ME methodology v0.1.0</title>
-<meta name="iqme-title" content="What the uncertainty band means">
+<script src="/src/assessment/methodology-locale.js"></script>
+<script src="/src/assessment/methodology-theme.js"></script>
+<title>Co oznacza pasmo niepewności — IQ-ME methodology v0.1.0</title>
+<meta name="iqme-title" content="Co oznacza pasmo niepewności">
 <meta name="iqme-version" content="v0.1.0">
 <meta name="iqme-doi" content="">
 <meta name="iqme-last-reviewed" content="2026-06-03">
@@ -26,7 +28,7 @@
 </head>
 <body data-lang="pl" data-translation-status="in-progress">
 <header class="methodology-masthead">
-<h1 class="methodology-masthead__title">What the uncertainty band means</h1>
+<h1 class="methodology-masthead__title">Co oznacza pasmo niepewności</h1>
 <p class="methodology-masthead__version">v0.1.0</p>
 <p class="methodology-masthead__doi" data-doi-pending>DOI: pending v1.0.0 release</p>
 <p class="methodology-masthead__last-reviewed">Last reviewed: <time datetime="2026-06-03">2026-06-03</time></p>
@@ -36,7 +38,7 @@
 <p>This page may be out of date relative to its English source. <a href="/methodology/v0.1.0/en/../pl/scoring/uncertainty/">View source EN page</a>.</p>
 </aside>
 <main>
-<p>Your score is one estimate. The uncertainty band around it shows the range of plausible scores given the precision of the measurement.</p><p>We display the band as <code>±N</code>. Read it this way: your true latent score is plausibly within roughly N points either way of the displayed number, at approximately 95% confidence.</p><p>The band combines two sources of uncertainty. The first is the test itself: a 16-item screening session leaves room for response noise. We summarize this with the standard error of measurement, or SEM, computed from the posterior variance of the ability estimate. The second is the norming sample: the percentile-to-IQ-scale conversion was calibrated against one finite reference group, and that sample has its own uncertainty, called SE_norming.</p><p>The full formula combines them: <code>SE_total = sqrt(SEM² + SE_norming²)</code>. The band you see on the result panel uses <code>SE_total</code> projected onto the IQ scale.</p><p>For the v1 build of this screener, <code>SE_norming</code> is set to 0. This is a placeholder pending psychometrician sign-off on the norming-sample SE values. The current band therefore reflects test noise only, not norming-sample noise. The displayed band is narrower than the true band by an amount we cannot yet quantify. We will update this page when the norming SE is finalized.</p><p>The uncertainty band is the honest signal. A score is never a point; it is a region. A test-taker who sees <code>124 ± 7</code> should think of the score as somewhere between 117 and 131, with the displayed value as a midpoint estimate.</p><p><a href="/">Back to IQ-ME</a></p>
+<p>Twój wynik to jeden estymator. Pasmo niepewności wokół niego pokazuje zakres wiarygodnych wyników przy danej precyzji pomiaru.</p><p>Wyświetlamy pasmo jako <code>±N</code>. Odczytaj je w następujący sposób: Twój prawdziwy wynik ukryty mieści się wiarygodnie w przybliżeniu w odległości N punktów w każdą stronę od wyświetlonej liczby, przy około 95-procentowym poziomie ufności.</p><p>Pasmo łączy dwa źródła niepewności. Pierwszym jest sam test: sesja przesiewowa złożona z 16 pozycji pozostawia miejsce na szum odpowiedzi. Podsumowujemy to standardowym błędem pomiaru, czyli SEM, obliczonym z wariancji posteriori estymatora zdolności. Drugim jest próba normalizacyjna: konwersja percentyla na skalę IQ była kalibrowana względem jednej skończonej grupy referencyjnej, a ta próba ma własną niepewność, zwaną SE_norming.</p><p>Pełny wzór łączy je obie: <code>SE_total = sqrt(SEM² + SE_norming²)</code>. Pasmo widoczne na panelu wyników używa <code>SE_total</code> rzutowanego na skalę IQ.</p><p>W wersji v1 niniejszego narzędzia przesiewowego <code>SE_norming</code> jest ustawione na 0. Jest to wartość zastępcza oczekująca na zatwierdzenie przez psychometryka wartości SE próby normalizacyjnej. Bieżące pasmo odzwierciedla zatem wyłącznie szum testowy, a nie szum próby normalizacyjnej. Wyświetlane pasmo jest węższe od prawdziwego o wielkość, której nie możemy jeszcze oszacować. Zaktualizujemy tę stronę po sfinalizowaniu SE normalizacji.</p><p>Pasmo niepewności jest rzetelnym sygnałem. Wynik nigdy nie jest punktem; jest obszarem. Osoba badana, która widzi <code>124 ± 7</code>, powinna traktować swój wynik jako mieszczący się gdzieś między 117 a 131, przy czym wyświetlona wartość stanowi estymator środkowego punktu.</p><p><a href="/">Powrót do IQ-ME</a></p>
 </main>
 <aside class="cite-this-page-affordance"><div data-cite-widget></div></aside>
 </body>

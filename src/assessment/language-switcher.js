@@ -1,19 +1,23 @@
 // src/assessment/language-switcher.js
 //
-// Story 7.1 AC-3 + AC-4 — keyboard-first locale radio group (EN/RU/PL)
-// rendered into the chrome-header language-switcher slot (replacing the
-// Story 6.4 placeholder span). Mirrors the theme.js radio-group + NFR9
-// opt-in-storage discipline:
+// Story 7.1 AC-3 + AC-4 — locale selector (EN/RU/PL) rendered into the
+// chrome-header language-switcher slot. PR-7 (Story 11-1, AC9) reshapes it
+// from a radio <fieldset> into a custom accessible dropdown with country
+// flags, preserving NFR9 opt-in-storage + the FR8 measurement-invariance
+// block:
 //
-//   - init(slot, opts) renders one radio per SUPPORTED locale; the radio
-//     matching opts.currentLocale is checked. NEVER writes storage on render.
-//   - A locale radio change OUTSIDE an active session writes
+//   - init(slot, opts) renders a trigger button (aria-haspopup="listbox",
+//     aria-expanded) + a role="listbox" of options, one per SUPPORTED locale;
+//     the option matching opts.currentLocale gets aria-selected="true". NEVER
+//     writes storage on render.
+//   - Selecting an option OUTSIDE an active session writes
 //     localStorage.setItem("locale", code) once, then reloads (opts.reload).
-//   - A change DURING an active session (opts.isSessionActive() → true) is
-//     the FR8 measurement-invariance block: no write, no reload, sets
-//     data-locale-switch-blocked="true" on the fieldset, invokes
-//     opts.onBlockedAttempt(code). The teachable-moment hint + FR8 copy are
-//     Story 7.2 — this is only the guard seam.
+//   - During an active session (opts.isSessionActive() → true) the switcher is
+//     the FR8 block: no write, no reload; the container is marked
+//     data-locale-switch-blocked="true", the trigger aria-disabled="true", and
+//     opts.onBlockedAttempt(code) fires the teachable-moment hint (Story 7.2).
+//     The blocked state is also reflected passively on iqme:route-change so it
+//     holds the moment a session begins (entering #/test), not only on click.
 
 import { escapeText as escT, escapeAttr as escA } from "./html-util.js";
 import { SUPPORTED } from "./i18n/locale-loader.js";
@@ -21,11 +25,12 @@ import { getState } from "./state.js";
 
 let listeners = [];
 
+// Country-flag glyphs (Unicode regional indicators — zero third-party, NFR6).
+const FLAG = { en: "🇬🇧", ru: "🇷🇺", pl: "🇵🇱" };
+
 // Default in-session detector. FR8 locks the locale once measurement is
-// underway. Heuristic for the 7.1 seam: a session has started (startedAt > 0)
-// and is not yet complete. Story 7.2 refines the post-consent/pre-result
-// boundary precisely. Swallows errors → treats "no detectable session" as
-// not-active so a fresh page never false-blocks (AC-4.b).
+// underway: a session has started (startedAt > 0) and is not yet complete.
+// Swallows errors → "no detectable session" so a fresh page never false-blocks.
 function defaultIsSessionActive() {
   try {
     const s = getState();
@@ -39,10 +44,9 @@ function persistLocale(code) {
   try { window.localStorage.setItem("locale", code); } catch (_e) { /* swallow — quota/disabled */ }
 }
 
-// Story 7.1 AC-2 — the persisted-locale READ lives here (not in main.js,
-// whose frozen Story 3.3 source-invariant forbids the storage token). Returns
-// the opt-in stored locale or null. main.js feeds this to
-// localeLoader.resolveInitialLocale() at bootstrap.
+// Story 7.1 AC-2 — the persisted-locale READ lives here (not in main.js, whose
+// frozen Story 3.3 source-invariant forbids the storage token). Returns the
+// opt-in stored locale or null.
 export function readPersistedLocale() {
   try {
     const v = window.localStorage.getItem("locale");
@@ -54,42 +58,86 @@ export function readPersistedLocale() {
 
 function renderMarkup(slot, strings, current) {
   const s = (strings && strings.chrome) || {};
-  const legend = escT(s.languageSwitcherLegend ?? "Language");
-  const checked = (code) => (code === current ? ' checked="checked"' : "");
-  const radio = (code) =>
-    '<label class="language-switcher__label">' +
-      '<input class="language-switcher__radio" type="radio" name="locale" value="' + escA(code) + '"' + checked(code) + '>' +
-      '<span class="language-switcher__label-text">' + escT(code.toUpperCase()) + '</span>' +
-    '</label>';
+  const legend = escA(s.languageSwitcherLegend ?? "Language");
+  const flag = (code) =>
+    '<span class="language-switcher__flag" data-flag aria-hidden="true">' + (FLAG[code] || "") + '</span>';
+  const option = (code) =>
+    '<li class="language-switcher__option" role="option" data-lang-option="' + escA(code) + '" tabindex="-1" aria-selected="' + (code === current ? "true" : "false") + '">' +
+      flag(code) +
+      '<span class="language-switcher__option-label">' + escT(code.toUpperCase()) + '</span>' +
+    '</li>';
   slot.innerHTML =
-    '<fieldset class="language-switcher">' +
-      '<legend class="visually-hidden">' + legend + '</legend>' +
-      SUPPORTED.map(radio).join("") +
-    '</fieldset>';
+    '<div class="language-switcher" data-locale-switch-blocked="false">' +
+      '<button type="button" class="language-switcher__trigger" aria-haspopup="listbox" aria-expanded="false" aria-disabled="false" aria-label="' + legend + '">' +
+        flag(current) +
+        '<span class="language-switcher__current">' + escT(current.toUpperCase()) + '</span>' +
+      '</button>' +
+      '<ul class="language-switcher__menu" role="listbox" aria-label="' + legend + '" hidden>' +
+        SUPPORTED.map(option).join("") +
+      '</ul>' +
+    '</div>';
 }
 
 function attach(slot, { isSessionActive, onBlockedAttempt, reload }) {
-  const fieldset = slot.querySelector(".language-switcher") || slot.querySelector("fieldset");
-  const radios = slot.querySelectorAll(".language-switcher__radio");
-  for (const r of radios) {
-    const handler = (ev) => {
-      const target = ev.target || ev.currentTarget || r;
-      const code = target.value ?? (typeof target.getAttribute === "function" ? target.getAttribute("value") : null);
+  const container = slot.querySelector(".language-switcher");
+  const trigger = slot.querySelector(".language-switcher__trigger");
+  const menu = slot.querySelector(".language-switcher__menu");
+  const options = slot.querySelectorAll(".language-switcher__option");
+
+  const add = (el, type, fn) => {
+    if (el && typeof el.addEventListener === "function") {
+      el.addEventListener(type, fn);
+      listeners.push({ el, type, fn });
+    }
+  };
+
+  const setOpen = (open) => {
+    if (trigger && trigger.setAttribute) trigger.setAttribute("aria-expanded", open ? "true" : "false");
+    if (menu) {
+      if (open) menu.removeAttribute("hidden");
+      else menu.setAttribute("hidden", "");
+    }
+  };
+
+  add(trigger, "click", () => {
+    if (isSessionActive()) {
+      // FR8 — blocked attempt: do not open; fire the teachable-moment hint.
+      if (container && container.setAttribute) container.setAttribute("data-locale-switch-blocked", "true");
+      onBlockedAttempt(getState ? (getState().locale || "") : "");
+      return;
+    }
+    const expanded = trigger.getAttribute("aria-expanded") === "true";
+    setOpen(!expanded);
+  });
+
+  add(typeof document !== "undefined" ? document : null, "keydown", (ev) => {
+    if (ev && ev.key === "Escape") setOpen(false);
+  });
+
+  for (const opt of options) {
+    add(opt, "click", () => {
+      const code = typeof opt.getAttribute === "function" ? opt.getAttribute("data-lang-option") : null;
       if (!code) return;
       if (isSessionActive()) {
         // FR8 — measurement invariance: do not switch mid-session.
-        if (fieldset && typeof fieldset.setAttribute === "function") {
-          fieldset.setAttribute("data-locale-switch-blocked", "true");
-        }
+        if (container && container.setAttribute) container.setAttribute("data-locale-switch-blocked", "true");
+        setOpen(false);
         onBlockedAttempt(code);
         return;
       }
       persistLocale(code);
       reload();
-    };
-    if (typeof r.addEventListener === "function") r.addEventListener("change", handler);
-    listeners.push({ el: r, type: "change", fn: handler });
+    });
   }
+
+  // FR8 — passively reflect the blocked state on route change so it holds the
+  // moment a session begins (entering #/test), not only on an explicit click.
+  add(typeof document !== "undefined" ? document : null, "iqme:route-change", () => {
+    const blocked = isSessionActive();
+    if (trigger && trigger.setAttribute) trigger.setAttribute("aria-disabled", blocked ? "true" : "false");
+    if (container && container.setAttribute) container.setAttribute("data-locale-switch-blocked", blocked ? "true" : "false");
+    if (blocked) setOpen(false);
+  });
 }
 
 export function init(slot, opts = {}) {
@@ -102,7 +150,7 @@ export function init(slot, opts = {}) {
   attach(slot, { isSessionActive, onBlockedAttempt, reload });
 }
 
-function detach() {
+export function detach() {
   for (const { el, type, fn } of listeners) {
     if (el && typeof el.removeEventListener === "function") el.removeEventListener(type, fn);
   }

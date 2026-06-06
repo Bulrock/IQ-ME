@@ -1,5 +1,5 @@
 ---
-title: "Retest effects — what taking the test again means"
+title: "Эффекты повторного тестирования — что означает прохождение теста ещё раз"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -10,20 +10,20 @@ sourceHashEN: "73f5a85c57c8c0676f4fabdef24b7d4f1173ef774ecb3e69ee2762ec850b6118"
 translationStatus: "in-progress"
 ---
 
-# Retest effects — what taking the test again means
+# Эффекты повторного тестирования — что означает прохождение теста ещё раз
 
-A test-taker who takes IQ-ME more than once will typically see their score rise on the second session. This is a retest effect: the same person, with the same underlying ability, scores higher because they have learned the matrix-item format and possibly remembered some of the specific items.
+Испытуемый, проходящий IQ-ME более одного раза, как правило, получает более высокий балл во второй сессии. Это и есть эффект повторного тестирования: один и тот же человек с теми же базовыми способностями набирает больше очков, поскольку освоил формат матричных заданий и, возможно, запомнил некоторые конкретные задания.
 
-The retest effect is not a feature of the screener. It is a property of human pattern recognition: people get faster and more accurate at a task they have seen before. The first session is the cleanest measurement; subsequent sessions are progressively contaminated by practice.
+Эффект повторного тестирования — не свойство скринера. Это свойство человеческого распознавания паттернов: люди выполняют знакомую задачу быстрее и точнее. Первая сессия даёт наиболее чистое измерение; последующие сессии прогрессивно искажаются тренировочным эффектом.
 
-The honest path is to take the screener once and trust the first result. A test-taker who is unsatisfied with a first result has several better options than retesting: read the methodology more carefully (the result is one estimate, not a measurement of worth); consult a clinician if there is a concern about cognitive functioning; treat the score as one small signal and weight it accordingly.
+Честный путь — пройти скринер один раз и доверять первому результату. Испытуемый, не удовлетворённый первым результатом, имеет несколько более разумных альтернатив повторному тестированию: внимательнее изучить методологию (результат — одна оценка, а не измерение значимости личности); проконсультироваться с клиницистом при наличии опасений относительно когнитивного функционирования; воспринимать балл как один небольшой сигнал и взвешивать его соответствующим образом.
 
-## No technical cooldown enforced
+## Технический период охлаждения не применяется
 
-IQ-ME does not enforce a technical cooldown between sessions. There is no server-side history, no per-IP throttle, no localStorage gate that prevents a same-day retake.
+IQ-ME не устанавливает технический период охлаждения между сессиями. Отсутствует серверная история, ограничение по IP-адресу и защита через `localStorage`, препятствующие повторному прохождению в тот же день.
 
-The design choice is deliberate. A static, telemetry-free app cannot reliably enforce a cooldown. A localStorage flag is cleared by clearing browser data. An IP-based check is defeated by switching networks. Enforcing a cooldown technically would be theatre; the screener does not pretend.
+Это намеренное проектное решение. Статичное приложение без телеметрии не может надёжно применять период охлаждения. Флаг в `localStorage` сбрасывается при очистке данных браузера. Проверка по IP-адресу обходится сменой сети. Техническое введение периода охлаждения было бы имитацией; скринер не притворяется.
 
-What the screener does instead is document the retest effect honestly on this page, link this page from the result page's retest-note section, and trust the test-taker to act on the information. The screener is a methodology surface, not a compliance system.
+Вместо этого скринер честно документирует эффект повторного тестирования на данной странице, ссылается на неё из раздела с примечанием о повторном тестировании на странице результатов и доверяет испытуемому действовать на основе полученной информации. Скринер — это инструмент для представления методологии, а не система контроля соответствия.
 
-A test-taker who has taken the screener before and is taking it again should weight the new score against the practice effect. A test-taker who has taken it many times before should treat any new score as an upper-bound estimate of their ability, not a measurement.
+Испытуемый, ранее проходивший скринер и проходящий его снова, должен соотносить новый балл с тренировочным эффектом. Испытуемый, прошедший тест многократно, должен рассматривать любой новый балл как оценку верхней границы своих способностей, а не как их измерение.

@@ -1,5 +1,5 @@
 ---
-title: "The g-factor — what it is, what it is not"
+title: "g-фактор — что это такое и чем он не является"
 version: "0.1.0"
 lastReviewed: "2026-06-03"
 reviewer: "TBD"
@@ -11,16 +11,16 @@ sourceHashEN: "f18c670316de82ceddf8dd4d5d711d5b15471eeff2ee887f0c5841ecebdce801"
 translationStatus: "in-progress"
 ---
 
-# The g-factor — what it is, what it is not
+# g-фактор — что это такое и чем он не является
 
-The g-factor is a statistical construct, not a property of a brain or a person. It names the first factor that emerges when many cognitive tests are administered to many people and the scores are factor-analysed. That first factor explains a large share of the variance across tests.
+g-фактор — это статистический конструкт, а не свойство мозга или человека. Он обозначает первый фактор, выделяющийся при факторном анализе результатов большого числа когнитивных тестов, предъявленных большому числу людей. Этот первый фактор объясняет значительную долю дисперсии между тестами.
 
-Researchers have named this finding "the positive manifold": people who do well on one cognitive test tend to do well on others, even when the tests look superficially unrelated. The g-factor is the mathematical summary of that shared variance.
+Исследователи назвали данный феномен «положительным многообразием»: люди, хорошо справляющиеся с одним когнитивным тестом, как правило, хорошо справляются и с остальными — даже если тесты внешне не похожи друг на друга. g-фактор — это математическое резюме общей дисперсии.
 
-Different cognitive abilities contribute different amounts to the g-factor. Fluid reasoning is one of the strongest contributors. Crystallised knowledge contributes substantially. Working memory contributes. Processing speed contributes. The g-factor is the shared signal, not any single ability.
+Разные когнитивные способности вносят разный вклад в g-фактор. Подвижный интеллект — один из наиболее сильных вкладчиков. Кристаллизованные знания вносят существенный вклад. Рабочая память вносит вклад. Скорость обработки вносит вклад. g-фактор — это общий сигнал, а не какая-либо одна способность.
 
-IQ-ME measures one narrow surface of fluid reasoning. A score on IQ-ME correlates with broader g-factor measures because of the shared variance the g-factor names. The instrument does not measure g directly. A multi-domain IQ battery comes closer to estimating g; even that approach yields an estimate, not a measurement of a thing that exists separately from the tests.
+IQ-ME измеряет одну узкую грань подвижного интеллекта. Балл IQ-ME коррелирует с более широкими измерениями g-фактора вследствие той общей дисперсии, которую g-фактор обозначает. Инструмент не измеряет g напрямую. Многодоменная батарея IQ ближе к оценке g; однако и такой подход даёт лишь оценку, а не измерение некоей вещи, существующей отдельно от тестов.
 
-A common misreading of the g-factor literature treats g as a property of a person ("their g is high"). The construct does not support that reading. The g-factor is what happens when you factor-analyse a battery of cognitive tests; it is a description of the data, not a description of the person who took the tests. A person has cognitive abilities. Tests have a g-factor.
+Распространённое искажение литературы о g-факторе состоит в том, что g приписывается как свойство человека («у него высокий g»). Конструкт не поддерживает такое прочтение. g-фактор — это то, что происходит при факторном анализе батареи когнитивных тестов; это описание данных, а не описание человека, прошедшего тесты. Человек обладает когнитивными способностями. Тесты имеют g-фактор.
 
-The IQ-scale number, derived from one short test of one narrow ability, should not be read as a measurement of g. It is a transform of one estimate of one ability against one reference population.
+Число по шкале IQ, полученное из одного краткого теста одной узкой способности, не следует читать как измерение g. Это преобразование одной оценки одной способности относительно одной референтной популяции.

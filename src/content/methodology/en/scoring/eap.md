@@ -10,7 +10,7 @@ asserts:
   - "theta-lim-pm-6"
   - "prior-standard-normal"
 glossaryRefs: []
-sourceHashEN: "0000000000000000000000000000000000000000000000000000000000000000"
+sourceHashEN: "c2a8dd3b6f6385874ab1eb7642c620b734324658229ee142ecd72c81fa120a69"
 ---
 
 # EAP estimation — turning responses into a score

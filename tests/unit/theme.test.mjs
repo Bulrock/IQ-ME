@@ -1,30 +1,22 @@
 // tests/unit/theme.test.mjs
 //
-// Story 6.4 AC-10.a..AC-10.h — `src/assessment/theme.js` tri-state theme
-// toggle (System / Light / Dark) with NFR9 opt-in-storage discipline:
+// Story 6.4 AC-10 — `src/assessment/theme.js` tri-state theme control
+// (System / Light / Dark) with NFR9 opt-in-storage discipline.
 //
-//   - init() reads localStorage.theme once; if present, sets
-//     <html>[data-theme] accordingly; NEVER writes to localStorage on init.
-//   - Radio click handlers are the ONLY localStorage writers:
+// PR-6 (Story 11-1, AC8): the control was reshaped from a radio <fieldset>
+// (footer) into a segmented toggle of <button> segments (chrome-header). The
+// observable contract is unchanged:
+//   - init() reads localStorage.theme once; if present, sets <html>[data-theme]
+//     accordingly; NEVER writes to localStorage on init.
+//   - Segment click handlers are the ONLY localStorage writers:
 //       system → removeItem("theme") + remove data-theme attribute
 //       light  → setItem("theme", "light") + data-theme="light"
 //       dark   → setItem("theme", "dark")  + data-theme="dark"
-//   - Initial radio "checked" state mirrors current persisted state.
-//   - detach() removes listeners; post-detach synthetic clicks do NOT
-//     mutate localStorage or the data-theme attribute (listener cleanup).
-//
-// UX-DR6 + UX-DR10 (separately-designed dark palette + tri-state toggle)
-// + NFR9 (opt-in-only localStorage).
+//   - The active segment carries aria-pressed="true"; initial pressed state
+//     mirrors the persisted state (System when no key).
+//   - detach() removes listeners; post-detach synthetic clicks are no-ops.
 //
 // Node 22 native `node:test` + `node:assert/strict`. No third-party deps.
-// Mirrors the jsdom-stub + observable-end-state pattern from
-// `tests/unit/item-runner-bail.test.mjs` (Story 6.3).
-//
-// Theme.js is intentionally a thin module: ~50-80 LOC. The contract
-// described here is observable behavior, not implementation detail —
-// engineer is free to render the toggle markup any reasonable way that
-// satisfies AC-3 + AC-10. The tests use a minimal slot element with
-// querySelector access for the three radios via `input[value="..."]`.
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -64,7 +56,7 @@ globalThis.document = {
   },
 };
 
-// localStorage spy — three counters track writes, clears, reads.
+// localStorage spy — counters track writes, clears, reads.
 const setItemCalls = [];
 const removeItemCalls = [];
 let storedTheme = null;
@@ -76,10 +68,14 @@ const localStorageStub = {
   clear() { storedTheme = null; },
 };
 
+// matchMedia stub — PR-6 follow-OS: no saved choice resolves the active segment
+// via prefers-color-scheme. Default to light (matches:false) for determinism.
+let mqMatches = false;
 globalThis.window = {
   localStorage: localStorageStub,
   addEventListener: () => {},
   removeEventListener: () => {},
+  matchMedia: (q) => ({ media: q, matches: mqMatches, addEventListener: () => {}, removeEventListener: () => {} }),
 };
 globalThis.localStorage = localStorageStub;
 
@@ -89,7 +85,7 @@ function resetLocalStorageSpy() {
   storedTheme = null;
 }
 
-// ─── Dynamic-import SUT — fails RED until theme.js is implemented ────────
+// ─── Dynamic-import SUT ──────────────────────────────────────────────────
 
 let themeModule;
 let importError = null;
@@ -97,8 +93,6 @@ try {
   themeModule = await import("../../src/assessment/theme.js");
 } catch (err) { importError = err; }
 
-// Strings expected by theme.js init() — engineer may pull these from
-// localeLoader directly; the test mirrors the chrome.* keys per AC-7.
 const STRINGS = {
   chrome: {
     themeToggleLegend: "Color theme",
@@ -111,23 +105,26 @@ const STRINGS = {
 // ─── helpers ──────────────────────────────────────────────────────────────
 
 function makeSlot() {
-  // The theme-toggle slot the chrome-footer provides — theme.init()
-  // renders the <fieldset> + radios into this slot.
-  return makeRootEl({ class: "chrome-footer__theme-toggle" });
+  // The theme-switcher slot the chrome-header provides — theme.init() renders
+  // the segmented toggle into this slot (PR-6 moved it from footer to header).
+  return makeRootEl({ class: "chrome-header__theme-switcher" });
 }
 
-function syntheticChangeEvent(target) {
-  return { type: "change", target, currentTarget: target, defaultPrevented: false, preventDefault() { this.defaultPrevented = true; } };
+function syntheticClickEvent(target) {
+  return { type: "click", target, currentTarget: target, defaultPrevented: false, preventDefault() { this.defaultPrevented = true; } };
 }
 
-function findRadio(root, value) {
-  // Engineer may render radios via inputs with name="theme" and value=<v>.
-  // Accept either name-attr lookup or class lookup; here we use value.
-  const all = root.querySelectorAll("input");
-  for (const r of all) {
-    if (r.attrs && r.attrs.type === "radio" && r.attrs.value === value) return r;
+function findSegment(root, value) {
+  // Segments are <button class="theme-switcher__segment" data-theme-value=...>.
+  const all = root.querySelectorAll(".theme-switcher__segment");
+  for (const b of all) {
+    if (b.getAttribute && b.getAttribute("data-theme-value") === value) return b;
   }
   return null;
+}
+
+function isPressed(seg) {
+  return seg && seg.getAttribute && seg.getAttribute("aria-pressed") === "true";
 }
 
 function setUp() {
@@ -140,7 +137,7 @@ function setUp() {
 // ────────────────────────────────────────────────────────────────────────
 
 test("theme.js AC-10.a: init() with empty localStorage performs ZERO setItem/removeItem calls, sets NO data-theme attribute", () => {
-  assert.equal(importError, null, `theme.js failed to import (RED expected until impl): ${importError?.message}`);
+  assert.equal(importError, null, `theme.js failed to import: ${importError?.message}`);
 
   setUp();
   const slot = makeSlot();
@@ -183,137 +180,122 @@ test("theme.js AC-10.c: init() with localStorage.theme='light' sets data-theme='
 });
 
 // ────────────────────────────────────────────────────────────────────────
-// AC-10.d — Radio click on system → removeItem + remove data-theme
+// AC-10.d — System removed: only Light + Dark segments exist
 // ────────────────────────────────────────────────────────────────────────
 
-test("theme.js AC-10.d: selecting System radio calls localStorage.removeItem('theme') and removes data-theme attribute", () => {
+test("theme.js AC-10.d: renders exactly Light + Dark segments — no System segment (PR-6 removal)", () => {
   setUp();
-  storedTheme = "dark";
-  documentElementStub.setAttribute("data-theme", "dark");
   const slot = makeSlot();
   themeModule.init(slot, STRINGS);
 
-  const sysRadio = findRadio(slot, "system");
-  assert.ok(sysRadio, ".theme-toggle radio[value='system'] must exist (AC-3)");
-
-  // Simulate explicit user selection — change event mirrors native radio semantics.
-  sysRadio.attrs.checked = "checked";
-  sysRadio.dispatchEvent(syntheticChangeEvent(sysRadio));
-
-  assert.equal(removeItemCalls.includes("theme"), true, "system click must call localStorage.removeItem('theme') (AC-3)");
-  assert.equal(documentElementStub.hasAttribute("data-theme"), false, "system click must remove data-theme attribute from <html> (AC-3)");
-  // NFR9 — system click must NOT setItem (it clears, not writes).
-  assert.equal(setItemCalls.length, 0, "system click MUST NOT call localStorage.setItem (NFR9 — System is absence-of-key)");
+  assert.equal(findSegment(slot, "system"), null, "System segment must NOT be rendered (removed)");
+  assert.ok(findSegment(slot, "light"), "Light segment must exist");
+  assert.ok(findSegment(slot, "dark"), "Dark segment must exist");
+  assert.equal(slot.querySelectorAll(".theme-switcher__segment").length, 2, "exactly two segments (Light, Dark)");
 });
 
 // ────────────────────────────────────────────────────────────────────────
-// AC-10.e — Radio click on light → setItem('theme','light') + data-theme='light'
+// AC-10.e — Light segment click → setItem('theme','light') + data-theme='light'
 // ────────────────────────────────────────────────────────────────────────
 
-test("theme.js AC-10.e: selecting Light radio calls localStorage.setItem('theme','light') and sets data-theme='light'", () => {
+test("theme.js AC-10.e: activating the Light segment calls localStorage.setItem('theme','light') and sets data-theme='light'", () => {
   setUp();
   const slot = makeSlot();
   themeModule.init(slot, STRINGS);
 
-  const lightRadio = findRadio(slot, "light");
-  assert.ok(lightRadio, ".theme-toggle radio[value='light'] must exist (AC-3)");
+  const lightSeg = findSegment(slot, "light");
+  assert.ok(lightSeg, ".theme-switcher__segment[data-theme-value='light'] must exist (AC-8)");
 
-  lightRadio.attrs.checked = "checked";
-  lightRadio.dispatchEvent(syntheticChangeEvent(lightRadio));
+  lightSeg.dispatchEvent(syntheticClickEvent(lightSeg));
 
   const lightWrites = setItemCalls.filter(([k, v]) => k === "theme" && v === "light");
-  assert.equal(lightWrites.length, 1, "light click must call localStorage.setItem('theme', 'light') exactly once (AC-3)");
-  assert.equal(documentElementStub.getAttribute("data-theme"), "light", "light click must set data-theme='light' on <html> (AC-3)");
+  assert.equal(lightWrites.length, 1, "Light click must call localStorage.setItem('theme', 'light') exactly once (AC-8)");
+  assert.equal(documentElementStub.getAttribute("data-theme"), "light", "Light click must set data-theme='light' on <html> (AC-8)");
+  assert.equal(isPressed(lightSeg), true, "Light segment must reflect aria-pressed='true' after activation");
 });
 
 // ────────────────────────────────────────────────────────────────────────
-// AC-10.f — Radio click on dark → setItem('theme','dark') + data-theme='dark'
+// AC-10.f — Dark segment click → setItem('theme','dark') + data-theme='dark'
 // ────────────────────────────────────────────────────────────────────────
 
-test("theme.js AC-10.f: selecting Dark radio calls localStorage.setItem('theme','dark') and sets data-theme='dark'", () => {
+test("theme.js AC-10.f: activating the Dark segment calls localStorage.setItem('theme','dark') and sets data-theme='dark'", () => {
   setUp();
   const slot = makeSlot();
   themeModule.init(slot, STRINGS);
 
-  const darkRadio = findRadio(slot, "dark");
-  assert.ok(darkRadio, ".theme-toggle radio[value='dark'] must exist (AC-3)");
+  const darkSeg = findSegment(slot, "dark");
+  assert.ok(darkSeg, ".theme-switcher__segment[data-theme-value='dark'] must exist (AC-8)");
 
-  darkRadio.attrs.checked = "checked";
-  darkRadio.dispatchEvent(syntheticChangeEvent(darkRadio));
+  darkSeg.dispatchEvent(syntheticClickEvent(darkSeg));
 
   const darkWrites = setItemCalls.filter(([k, v]) => k === "theme" && v === "dark");
-  assert.equal(darkWrites.length, 1, "dark click must call localStorage.setItem('theme', 'dark') exactly once (AC-3)");
-  assert.equal(documentElementStub.getAttribute("data-theme"), "dark", "dark click must set data-theme='dark' on <html> (AC-3)");
+  assert.equal(darkWrites.length, 1, "Dark click must call localStorage.setItem('theme', 'dark') exactly once (AC-8)");
+  assert.equal(documentElementStub.getAttribute("data-theme"), "dark", "Dark click must set data-theme='dark' on <html> (AC-8)");
+  assert.equal(isPressed(darkSeg), true, "Dark segment must reflect aria-pressed='true' after activation");
 });
 
 // ────────────────────────────────────────────────────────────────────────
-// AC-10.g — Initial radio selection mirrors current state
+// AC-10.g — Initial pressed state mirrors current state
 // ────────────────────────────────────────────────────────────────────────
 
-test("theme.js AC-10.g: initial radio 'checked' state mirrors persisted state — System when no key, Light/Dark when key present", () => {
-  // Case 1 — no key → System checked.
+test("theme.js AC-10.g: initial aria-pressed state — no key follows OS (light via stub); key present presses that segment", () => {
+  // Case 1 — no key → follow OS. matchMedia stub matches:false → Light pressed.
   setUp();
+  mqMatches = false;
   const slot1 = makeSlot();
   themeModule.init(slot1, STRINGS);
-  const sys1 = findRadio(slot1, "system");
-  const light1 = findRadio(slot1, "light");
-  const dark1 = findRadio(slot1, "dark");
-  assert.ok(sys1, "system radio rendered");
-  // "checked" attribute presence is the canonical signal; engineer may also
-  // set sys1.checked = true on the property. Accept either encoding.
-  const sys1Checked = sys1.attrs.checked === "checked" || sys1.checked === true || sys1.attrs.checked === "";
-  assert.equal(sys1Checked, true, "system radio must be initially CHECKED when no localStorage.theme key exists (AC-3)");
-  const light1Checked = light1?.attrs?.checked === "checked" || light1?.checked === true;
-  const dark1Checked = dark1?.attrs?.checked === "checked" || dark1?.checked === true;
-  assert.equal(light1Checked, false, "light radio must NOT be initially checked when no key");
-  assert.equal(dark1Checked, false, "dark radio must NOT be initially checked when no key");
+  assert.equal(isPressed(findSegment(slot1, "light")), true, "Light segment pressed when no key and OS prefers light (AC-8 follow-OS)");
+  assert.equal(isPressed(findSegment(slot1, "dark")), false, "Dark segment NOT pressed when OS prefers light");
+  assert.equal(documentElementStub.hasAttribute("data-theme"), false, "no data-theme when following the OS");
 
-  // Case 2 — key=light → Light checked.
+  // Case 1b — no key, OS prefers dark → Dark pressed (still no data-theme).
+  setUp();
+  mqMatches = true;
+  const slot1b = makeSlot();
+  themeModule.init(slot1b, STRINGS);
+  assert.equal(isPressed(findSegment(slot1b, "dark")), true, "Dark segment pressed when no key and OS prefers dark");
+  assert.equal(documentElementStub.hasAttribute("data-theme"), false, "still no data-theme (OS-follow) when no key");
+  mqMatches = false;
+
+  // Case 2 — key=light → Light pressed.
   setUp();
   storedTheme = "light";
   const slot2 = makeSlot();
   themeModule.init(slot2, STRINGS);
-  const light2 = findRadio(slot2, "light");
-  const light2Checked = light2.attrs.checked === "checked" || light2.checked === true || light2.attrs.checked === "";
-  assert.equal(light2Checked, true, "light radio must be initially CHECKED when localStorage.theme === 'light'");
+  assert.equal(isPressed(findSegment(slot2, "light")), true, "Light segment pressed when localStorage.theme === 'light'");
 
-  // Case 3 — key=dark → Dark checked.
+  // Case 3 — key=dark → Dark pressed.
   setUp();
   storedTheme = "dark";
   const slot3 = makeSlot();
   themeModule.init(slot3, STRINGS);
-  const dark3 = findRadio(slot3, "dark");
-  const dark3Checked = dark3.attrs.checked === "checked" || dark3.checked === true || dark3.attrs.checked === "";
-  assert.equal(dark3Checked, true, "dark radio must be initially CHECKED when localStorage.theme === 'dark'");
+  assert.equal(isPressed(findSegment(slot3, "dark")), true, "Dark segment pressed when localStorage.theme === 'dark'");
 });
 
 // ────────────────────────────────────────────────────────────────────────
 // AC-10.h — Post-detach() synthetic clicks do NOT mutate localStorage
 // ────────────────────────────────────────────────────────────────────────
 
-test("theme.js AC-10.h: after detach(), synthetic change events on toggle radios do NOT mutate localStorage or data-theme", () => {
+test("theme.js AC-10.h: after detach(), synthetic click events on segments do NOT mutate localStorage or data-theme", () => {
   setUp();
   const slot = makeSlot();
   themeModule.init(slot, STRINGS);
 
   assert.equal(typeof themeModule.detach, "function", "theme.js must export detach() for listener cleanup (AC-10.h)");
 
-  // Capture references to the radios BEFORE detach so we can fire events
-  // against them after the listeners have been removed.
-  const darkRadio = findRadio(slot, "dark");
-  const lightRadio = findRadio(slot, "light");
-  assert.ok(darkRadio && lightRadio, "precondition: dark + light radios rendered");
+  const darkSeg = findSegment(slot, "dark");
+  const lightSeg = findSegment(slot, "light");
+  assert.ok(darkSeg && lightSeg, "precondition: dark + light segments rendered");
 
   themeModule.detach();
 
   resetLocalStorageSpy();
   resetDocumentElement();
 
-  // Post-detach synthetic events MUST be no-ops.
-  darkRadio.dispatchEvent(syntheticChangeEvent(darkRadio));
-  lightRadio.dispatchEvent(syntheticChangeEvent(lightRadio));
+  darkSeg.dispatchEvent(syntheticClickEvent(darkSeg));
+  lightSeg.dispatchEvent(syntheticClickEvent(lightSeg));
 
-  assert.equal(setItemCalls.length, 0, "post-detach radio events MUST NOT call localStorage.setItem (listener cleanup — AC-10.h)");
-  assert.equal(removeItemCalls.length, 0, "post-detach radio events MUST NOT call localStorage.removeItem");
-  assert.equal(documentElementStub.hasAttribute("data-theme"), false, "post-detach radio events MUST NOT mutate data-theme attribute");
+  assert.equal(setItemCalls.length, 0, "post-detach segment events MUST NOT call localStorage.setItem (listener cleanup — AC-10.h)");
+  assert.equal(removeItemCalls.length, 0, "post-detach segment events MUST NOT call localStorage.removeItem");
+  assert.equal(documentElementStub.hasAttribute("data-theme"), false, "post-detach segment events MUST NOT mutate data-theme attribute");
 });

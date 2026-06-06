@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="/src/assessment/methodology-locale.js"></script>
+<script src="/src/assessment/methodology-theme.js"></script>
+<title>Эталонные векторы — паритет с референсной реализацией — IQ-ME methodology v0.1.0</title>
+<meta name="iqme-title" content="Эталонные векторы — паритет с референсной реализацией">
+<meta name="iqme-version" content="v0.1.0">
+<meta name="iqme-doi" content="">
+<meta name="iqme-last-reviewed" content="2026-06-03">
+<meta name="iqme-reviewer" content="TBD">
+<meta name="iqme-reviewer-handle" content="@TBD-ru-reviewer">
+<meta name="iqme-lang" content="ru">
+<meta name="iqme-url" content="/methodology/v0.1.0/ru/scoring/golden-vectors/">
+<link rel="alternate" hreflang="en" href="/methodology/v0.1.0/en/scoring/golden-vectors/">
+<link rel="alternate" hreflang="ru" href="/methodology/v0.1.0/ru/scoring/golden-vectors/">
+<link rel="alternate" hreflang="pl" href="/methodology/v0.1.0/pl/scoring/golden-vectors/">
+<link rel="stylesheet" href="/src/css/reset.css">
+<link rel="stylesheet" href="/src/css/primitives.css">
+<link rel="stylesheet" href="/src/css/semantic.css">
+<link rel="stylesheet" href="/src/css/base.css">
+<link rel="stylesheet" href="/src/css/components/masthead.css">
+<link rel="stylesheet" href="/src/css/components/cite-this-page-widget.css">
+<link rel="stylesheet" href="/src/css/components/stale-translation-hatnote.css">
+<script type="module" src="/src/assessment/cite-this-page.js" defer></script>
+</head>
+<body data-lang="ru" data-translation-status="in-progress">
+<header class="methodology-masthead">
+<h1 class="methodology-masthead__title">Эталонные векторы — паритет с референсной реализацией</h1>
+<p class="methodology-masthead__version">v0.1.0</p>
+<p class="methodology-masthead__doi" data-doi-pending>DOI: pending v1.0.0 release</p>
+<p class="methodology-masthead__last-reviewed">Last reviewed: <time datetime="2026-06-03">2026-06-03</time></p>
+<p class="methodology-masthead__reviewer">Reviewer: TBD (@TBD-ru-reviewer)</p>
+</header>
+<aside class="stale-translation-hatnote" role="note">
+<p>This page may be out of date relative to its English source. <a href="/methodology/v0.1.0/en/../ru/scoring/golden-vectors/">View source EN page</a>.</p>
+</aside>
+<main>
+<p>Скоринговый движок настолько надёжен, насколько скептик способен его проверить. Движок IQ-ME сверяется с независимой референсной реализацией при каждом запуске CI. Эта проверка называется паритетом эталонных векторов.</p><p>Референсная реализация написана на R. Она использует пакет <code>mirt</code> версии 1.41.x под управлением R 4.4.x. Это наиболее широко применяемая IRT-реализация в академической психометрии. Исходный код mirt открыт и прошёл рецензирование.</p><p>Проверка работает путём симуляции 1000 паттернов ответов через оба движка. JavaScript-движок IQ-ME и референсный R-движок вычисляют оценки тета для одинаковых входных данных. Два набора оценок сравниваются поэлементно. Допуск паритета составляет <code>0.001 logits</code>. Большее расхождение не проходит CI.</p><p>Зерно (seed) для симулированных паттернов зафиксировано: <code>set.seed(20260514)</code>. Зерно закрепляет входные данные. Два запуска CI вычисляют одинаковые оценки тета из одинаковых входных данных. Детерминированная система сборки (Story 1.8 / Story 4.2) распространяет это свойство на скомпилированный корпус методологии.</p><p>Данные эталонных векторов хранятся в <code>tests/golden/vectors.json</code>. Скрипт регенерации на R находится в <code>tests/golden/regenerate.R</code>. Скептик может установить R, установить mirt, запустить <code>Rscript tests/golden/regenerate.R</code> и получить байтово-идентичные эталонные векторы. Байтовая идентичность — свойство зерна и детерминированной дисциплины сборки, а не конкретной хост-машины.</p><p>Инновационный столп №5 проекта — IRT, проверяемый без сборки, — верифицируется через эту точку контроля. Читатель с установленным только <code>node</code> может выполнить <code>node --test tests/unit/scoring/irt/*.test.mjs</code> и подтвердить паритет менее чем за пять минут. Читатель с установленным <code>R</code> может запустить скрипт регенерации и убедиться, что референсные данные не отклонились.</p>
+</main>
+<aside class="cite-this-page-affordance"><div data-cite-widget></div></aside>
+</body>
+</html>

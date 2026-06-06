@@ -2,17 +2,17 @@ schema_version: "1.0"
 entries:
   - artefact_class: A
     file: _bmad-output/_tds/branch-registry.yaml
-    sha256: d6116bbc9d389dd277197a4bfb16389a0fc85d4b9d51fa7bc8777c3f8232b3bc
+    sha256: d74213cd16b79c7acdb043b4b63046cbd49a6dcc26b8980c34184b053d2d7c6d
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T14:37:16.367Z
-    recorded_by: engineer
+    recorded_at: 2026-06-06T14:51:28.734Z
+    recorded_by: frontend
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: cf0a7aee9715377e1d40c0caed28c33fb0ca40d752037da0090d644d471659ca
+    sha256: 8f74b04ec5ed987dbeaf49408a1ee4104d67105860953b7923835fa5fb354292
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T14:47:27.937Z
+    recorded_at: 2026-06-06T15:38:38.022Z
     recorded_by: state-commit-autorecord
-    story_id: 10-3-48-hour-post-launch-monitoring-window
+    story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -92,10 +92,11 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: 2cf8a43306e4a06d54d904bbece1c61fd4bb201a09ec6b43205bb6585d96225f
+    sha256: 6483238ef1a34af54ab6a0bda88d7d8a34a9438a8949c8840c203628875f0993
     canonical_form: raw-bytes
-    recorded_at: 2026-06-06T03:36:52.423Z
+    recorded_at: 2026-06-06T16:33:34.989Z
     recorded_by: engineer
+    notes: "11-1: app-modules-bytes budget pin 88064→90112 (multi-session resume re-pin, documented in BUDGETS.json)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
     sha256: 03af01b6c89b47714c6fb83be9b0d3d9aaa6eeba107c2bba32d9ecc508bf63a4
@@ -587,12 +588,11 @@ entries:
     notes: bugfix in fixture setup helper (removed stray writeFileSync before mkdir) — assertions unchanged
   - artefact_class: A
     file: tests/scaffold/build-methodology-output.test.mjs
-    sha256: c1ac6af75c17ac5b891e15128e4f235dda75abd1859476269523bc525d75df73
+    sha256: 4d0fdd6ffed9172cf3370b479bfe8d49d1c4ffde322bc561c52b371ba0e71111
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T07:37:53.894Z
-    recorded_by: engineer
-    story_id: 4-6-masthead-component-cite-this-page-widget-apa-wikipedia-template
-    notes: story 4-6 frozen-test edits during impl
+    recorded_at: 2026-06-06T12:33:18.627Z
+    recorded_by: frontend
+    story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-7-exercise-the-strict-network-trace-assertion-against-the-full-live-slice.md
     sha256: 76b1e5a1c82cad4956782572e4ff9020beac2d50a19adce4567614ead580bc8a
@@ -680,20 +680,18 @@ entries:
     story_id: 4-2-byte-stable-build-assertion-golden-html-snapshots
   - artefact_class: A
     file: tests/unit/tools/snapshot-update.test.mjs
-    sha256: 6f8fc2c61b6ef075f8e67c261dba793573fe3057772e7ec0b4e97158d2205752
+    sha256: 5d3a9365769cda749d457db484f5b7d29f4b06146de38c1eff176bd2cad31cba
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T00:10:57.718Z
-    recorded_by: test-author
-    story_id: 4-2-byte-stable-build-assertion-golden-html-snapshots
-    notes: "Story 4-2 ATDD red phase: snapshot extension tests + drift gate + Playwright byte-stable activation"
+    recorded_at: 2026-06-06T12:33:18.954Z
+    recorded_by: frontend
+    story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: tests/scaffold/methodology-snapshots.test.mjs
-    sha256: 8cee9c83da0910525d8ea69d3e191d96cb577244c426a69848cc6715fbec8190
+    sha256: 0fbcb23f8d352517ed2d62116560315fb5e3251e6ec7862f48b1b7c9d59172c1
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T00:10:57.719Z
-    recorded_by: test-author
-    story_id: 4-2-byte-stable-build-assertion-golden-html-snapshots
-    notes: "Story 4-2 ATDD red phase: snapshot extension tests + drift gate + Playwright byte-stable activation"
+    recorded_at: 2026-06-06T12:16:33.036Z
+    recorded_by: frontend
+    story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: tests/playwright/byte-stable.spec.mjs
     sha256: c16d0a8538b1543d3c5cdbd7c15fcafc8635c18067bf133920f86c76a8eee7d2
@@ -748,11 +746,11 @@ entries:
     notes: "story-7-5a: RU/PL page graded + i18n char-cap assertions replace deferred-Epic-7 WARN"
   - artefact_class: A
     file: tests/scaffold/lint-glossary-coverage.test.mjs
-    sha256: 15ba363d794050afe6863452684abb5741363389753a84a4e12d39387f57c65a
+    sha256: 5d982afb58f44d25ec65b936357f647a61a3f5daba3e7eee54a8b21726573411
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:40:54.393Z
-    recorded_by: engineer
-    notes: Story 5-2 EPIC_1_ACTIVE extension + glossary/reading-level coverage threshold relaxation (story 5-2 self-review §2-3); re-register after legitimate cross-epic test modification — lesson-2026-05-19-001
+    recorded_at: 2026-06-06T14:38:17.241Z
+    recorded_by: frontend
+    story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: tests/scaffold/lint-reading-level-coverage.test.mjs
     sha256: 018b5f00c2db1aaee885b0b499ceac626143c95def3d4b8a5d3789a986354688
@@ -916,12 +914,11 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/anchor-pages.test.mjs
-    sha256: 1aa64bb1e75eb1f7ede4d6faed12610095d1d0872fef918b3486347829a54235
+    sha256: bc0e86647e23d7037f4e256d3e37537170454612b5f50474af46d90b2b105a11
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T11:21:00.056Z
-    recorded_by: test-author
-    story_id: 5-6-tail-scenes-en-placeholders-reviewer-of-record-tbd
-    notes: "story 5-6 test-author: tail-scene + crisis-resources scaffold"
+    recorded_at: 2026-06-06T14:35:14.289Z
+    recorded_by: frontend
+    story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: tests/unit/tools/lint-fr36-protection.test.mjs
     sha256: 356e1a40093fbefddecd4d1121f6bacd4dac8204822070408bb650769a414182
@@ -1116,18 +1113,18 @@ entries:
     story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
   - artefact_class: A
     file: tests/unit/theme.test.mjs
-    sha256: b1a45ebca197ff618f40a34ba2a4c87e778cc94070c22837c459e37328e5fb2c
+    sha256: 049c19c73309546b00a5d948898990073af7e54747ee9d135a47b8e415685941
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T17:35:04.302Z
-    recorded_by: test-author
-    story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
+    recorded_at: 2026-06-06T13:52:58.520Z
+    recorded_by: frontend
+    story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: tests/playwright/chrome-components.spec.mjs
-    sha256: 7b6d443a9946594a97fff10f5b99e74fdbe87025d63abebbac09e0be3ebe962d
+    sha256: 7e184a9c7d5a2f868a1e4491663bb5b8bf8769d4fe1c38db44f362bc7eb9505d
     canonical_form: raw-bytes
-    recorded_at: 2026-05-20T17:44:22.638Z
+    recorded_at: 2026-06-06T13:52:58.686Z
     recorded_by: frontend
-    story_id: 6-4-chrome-components-chrome-header-chrome-footer-theme-toggle
+    story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list.md
     sha256: 9e9cb4c7801e14c4fad44068f9de19e6c7d13e85475e011164ecd75593a7121d
@@ -1262,20 +1259,18 @@ entries:
     notes: story-7-1 frozen failing tests (i18n harness + language-switcher + 3-locale Playwright)
   - artefact_class: A
     file: tests/unit/language-switcher.test.mjs
-    sha256: ae6cded39107625e6c2a55f012c042297c298605530e8b7047b25f7f38956b01
+    sha256: 8fcaff7cc68b21fc35df71d9f49a2692e0a905a6ad9dd44db2bcd7afa1bab385
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T15:26:12.402Z
-    recorded_by: test-author
-    story_id: 7-1-i18n-harness-locale-loading-language-switcher
-    notes: "story-7-1 test-review fix: complete document stub (createElement+listeners)"
+    recorded_at: 2026-06-06T12:05:36.199Z
+    recorded_by: frontend
+    story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: tests/playwright/i18n-locale-switch.spec.mjs
-    sha256: 817c32b8720ee950dab3eab358e656152290d641eb2a2212124a7c256d10ca11
+    sha256: 8ae77b4cb6d897cccfdd8ad9607a3233e3b1510ba3b8a5fb8cf58550e134719f
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T15:25:22.993Z
-    recorded_by: test-author
-    story_id: 7-1-i18n-harness-locale-loading-language-switcher
-    notes: story-7-1 frozen failing tests (i18n harness + language-switcher + 3-locale Playwright)
+    recorded_at: 2026-06-06T12:05:36.359Z
+    recorded_by: frontend
+    story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/7-2-locale-switch-blocker-hint-fr8-enforcement.md
     sha256: 3e2fc366909c3f143d4e9221c5032cf0fb490853d886ce28b155b9aba6d0c5a0
@@ -1558,11 +1553,11 @@ entries:
     notes: integrity re-record for bridge-9b rename (align bridge naming)
   - artefact_class: A
     file: tests/scaffold/bridge-9b-1-corpus-changelog-crosslink.test.mjs
-    sha256: 608c95df44729c9e96ed61a6743c7ce2c563b6625a0569ca4fdce93cf361ff0d
+    sha256: 512bb52677f98caff541e3f8d0c4c0d02b746a8e101ba67720b4e87943af868e
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T12:38:56.870Z
-    recorded_by: engineer
-    notes: integrity re-record for bridge-9b rename (align bridge naming)
+    recorded_at: 2026-06-06T14:38:17.398Z
+    recorded_by: frontend
+    story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/bridge-9b-2-refresh-stale-readme-contributing.md
     sha256: 14865aa5608dc13615fcd94f992647e7940a4c11c55ba8022227667e46d52980
@@ -1699,3 +1694,122 @@ entries:
     recorded_at: 2026-06-05T14:34:25.661Z
     recorded_by: test-author
     story_id: 10-3-48-hour-post-launch-monitoring-window
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/11-1-post-release-bug-ux-fix-pass.md
+    sha256: 842ea3b6325c1af32fc59be7c46ce3df1da64c8aabb46d4c6b2b9a7036fc2b91
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-06T16:52:27.269Z
+    recorded_by: engineer
+    notes: "11-1 pre-deliver tidy: File List backfill (new modules) + resume-follow-up Change Log entry (auditor finding 1)"
+  - artefact_class: A
+    file: tests/playwright/pr1-favicon.spec.mjs
+    sha256: 1ff1083f4c35c56e45db54ff6f70453670ca8b13758ed2754d512848b6ff4b07
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-06T11:12:34.652Z
+    recorded_by: test-author
+    story_id: 11-1-post-release-bug-ux-fix-pass
+  - artefact_class: A
+    file: tests/playwright/pr2-mobile-layout.spec.mjs
+    sha256: baa3998b0aae25640062a2d12a1f995fac52ade82a854cd0278658205f76b787
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-06T12:48:54.703Z
+    recorded_by: frontend
+    story_id: 11-1-post-release-bug-ux-fix-pass
+  - artefact_class: A
+    file: tests/playwright/pr3-no-flicker.spec.mjs
+    sha256: 96393a4a1db75874e77a009db106af390042c13c75a0685f451ed93827a8a2c3
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-06T13:13:06.498Z
+    recorded_by: frontend
+    story_id: 11-1-post-release-bug-ux-fix-pass
+  - artefact_class: A
+    file: tests/playwright/pr4-submit-finalizes.spec.mjs
+    sha256: 8a9032709731659cabaf11fe121f1f0a4022cacf54ba0cc2f0bf16b35384b2a9
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-06T11:30:41.637Z
+    recorded_by: test-author
+    story_id: 11-1-post-release-bug-ux-fix-pass
+  - artefact_class: A
+    file: tests/playwright/pr5-result-centered.spec.mjs
+    sha256: 8d24883398258fbf7b73632af4c7e6642b09ade00f41ae6a66852ea41f76938d
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-06T11:12:40.366Z
+    recorded_by: test-author
+    story_id: 11-1-post-release-bug-ux-fix-pass
+  - artefact_class: A
+    file: tests/playwright/pr6-theme-switcher.spec.mjs
+    sha256: 5af4d7d8882a965723ec1787e22e95da9e59cad3d8af7d2e7d1223f1dea7e46e
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-06T13:52:58.843Z
+    recorded_by: frontend
+    story_id: 11-1-post-release-bug-ux-fix-pass
+  - artefact_class: A
+    file: tests/playwright/pr7-language-dropdown.spec.mjs
+    sha256: f6780ff6cdf9da579c81a62bfa8ca1ab492b40721033c192ebd0241a5fd9f76a
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-06T11:12:40.672Z
+    recorded_by: test-author
+    story_id: 11-1-post-release-bug-ux-fix-pass
+  - artefact_class: A
+    file: tests/playwright/pr8-header-logo.spec.mjs
+    sha256: ad1698a28bd7561d2cf919b8c67b9fa436ae671ed32874b524ac88935a5cbad4
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-06T11:12:40.818Z
+    recorded_by: test-author
+    story_id: 11-1-post-release-bug-ux-fix-pass
+  - artefact_class: A
+    file: tests/playwright/pr9-methodology-theme.spec.mjs
+    sha256: 17a7c832567496f06a8bf5c915f8d68a649b56701a9b40398aaceec66f6e902a
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-06T11:12:47.600Z
+    recorded_by: test-author
+    story_id: 11-1-post-release-bug-ux-fix-pass
+  - artefact_class: A
+    file: tests/playwright/pr10-no-horizontal-scroll.spec.mjs
+    sha256: c6018a102f42000b715fca4e2d59fb086241396df42844ea65cfbac479f21ca2
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-06T11:12:47.745Z
+    recorded_by: test-author
+    story_id: 11-1-post-release-bug-ux-fix-pass
+  - artefact_class: A
+    file: tests/playwright/pr11-methodology-sidebar.spec.mjs
+    sha256: 44e7c90bf11e53742b64613660e5ee1f06f31e7ec4686cd5e87f5da1a53a9b5c
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-06T12:14:13.865Z
+    recorded_by: frontend
+    story_id: 11-1-post-release-bug-ux-fix-pass
+  - artefact_class: A
+    file: tests/playwright/pr12b-dead-links.spec.mjs
+    sha256: b41465cbc507454609ce321675c8988ada41e8f8d243574cffb8d315b295ff7e
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-06T11:12:48.035Z
+    recorded_by: test-author
+    story_id: 11-1-post-release-bug-ux-fix-pass
+  - artefact_class: A
+    file: tests/playwright/pr13-disclaimer-collapse.spec.mjs
+    sha256: 0f1edf2a318ab2a75b1375ce6cf2f1499eb0e04499bb6fdfc6a46ab26c43da5a
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-06T11:12:48.182Z
+    recorded_by: test-author
+    story_id: 11-1-post-release-bug-ux-fix-pass
+  - artefact_class: A
+    file: tests/playwright/pr14-saved-results.spec.mjs
+    sha256: c249aec733d50587c6cabaa9a90836655a17d0c7a1af650f46457f1b1fd2a2b3
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-06T12:24:30.013Z
+    recorded_by: frontend
+    story_id: 11-1-post-release-bug-ux-fix-pass
+  - artefact_class: A
+    file: tests/pr12a-corpus-hash.test.mjs
+    sha256: 6b124c63514eb00c6c9d52d6863b3d858038950068aec49c4f5d331e99c9b743
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-06T11:12:48.476Z
+    recorded_by: test-author
+    story_id: 11-1-post-release-bug-ux-fix-pass
+  - artefact_class: A
+    file: tests/pr18-gates.test.mjs
+    sha256: a4e8d8fc45acbcd5cef3f4287b1ae045914c347c75cd2c823dec81ad487dd8d1
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-06T11:12:48.623Z
+    recorded_by: test-author
+    story_id: 11-1-post-release-bug-ux-fix-pass
