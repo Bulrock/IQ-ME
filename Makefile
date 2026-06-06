@@ -15,16 +15,16 @@ test: ## run node --test against tests/scaffold + tests/contract + tests/unit + 
 	node --test 'tests/scaffold/**/*.test.mjs' 'tests/contract/**/*.spec.mjs' 'tests/unit/**/*.test.mjs' 'tests/exit-criteria/**/*.spec.mjs'
 
 test-network-trace: ## run Playwright network-trace spec (downloads chromium on first run)
-	npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright test tests/playwright/network-trace.spec.mjs
+	npx --yes playwright test tests/playwright/network-trace.spec.mjs
 
 test-full-slice: build-methodology ## run Playwright full-slice spec (Story 3-7; builds methodology first)
-	npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright test tests/playwright/full-slice.spec.mjs
+	npx --yes playwright test tests/playwright/full-slice.spec.mjs
 
 test-byte-stable: ## run Playwright byte-stable build spec (Story 4.2; runs `make clean && make build` twice and compares dist/ hashes)
-	npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright test tests/playwright/byte-stable.spec.mjs
+	npx --yes playwright test tests/playwright/byte-stable.spec.mjs
 
 test-i18n-locale: ## run Playwright i18n locale-switch spec (Story 7.1; EN/RU/PL switcher + persist + reload)
-	npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright test tests/playwright/i18n-locale-switch.spec.mjs
+	npx --yes playwright test tests/playwright/i18n-locale-switch.spec.mjs
 
 test-contract: ## run contract tests only (tests/contract/**/*.spec.mjs)
 	node --test 'tests/contract/**/*.spec.mjs'
@@ -54,8 +54,8 @@ lint: ## run all registered lints (negative assertions + budget + trust artifact
 fallow: ## run fallow per .fallowrc.json — dead-code + duplication gate (complexity is advisory; see fallow-health)
 	npx --yes fallow --skip health
 
-fallow-health: ## fallow complexity / maintainability report (advisory only — never fails the build)
-	-npx --yes fallow health
+fallow-health: ## fallow complexity + maintainability report (advisory; never fails the build)
+	npx --yes fallow health || true
 
 build: build-difficulty-bands build-methodology ## alias to build-difficulty-bands + build-methodology + emit determinism marker (NFR17 prep)
 	node tools/build-determinism-marker.mjs

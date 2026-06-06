@@ -62,7 +62,11 @@ jobs:
       - name: Test gate
         run: make test
       # Byte-stable build assertion (Epic 4) — a non-byte-stable artifact blocks
-      # the release.
+      # the release. `make test-byte-stable` runs a Playwright spec that imports
+      # `@playwright/test`; the repo has no package.json, so install it (pinned,
+      # ephemeral) + browser here, matching the pr-checks job's setup.
+      - name: Install Playwright for byte-stable check
+        run: npm install --no-save --no-package-lock @playwright/test@1.60.0 && npx playwright install --with-deps chromium
       - name: Byte-stable build verification
         run: make test-byte-stable
       # Deploy the dist/ artifact to GitHub Pages via the gh-pages branch
