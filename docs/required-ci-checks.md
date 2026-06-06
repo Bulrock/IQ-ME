@@ -89,7 +89,6 @@ make lint && make test && make build
 
 | Job | Enforces | Failure routing |
 | --- | --- | --- |
-| `mirror-parity-check` | Canonical vs mirror response-body parity (self-gating until the mirror deploys) | `area:mirror-health` |
 | `internet-archive-snapshot-health` | Recorded IA snapshot URLs return 200 | `area:archive-health` |
 | `software-heritage-snapshot-health` | Recorded Software Heritage snapshots resolve | `area:archive-health` |
 | `zenodo-doi-resolution` | The minted Zenodo DOI resolves to a real record | `area:doi-health` |
@@ -102,4 +101,3 @@ make lint && make test && make build
 | --- | --- |
 | `app-release` | Build + full gate + byte-stable; deploy SPA to GitHub Pages |
 | `corpus-release` | Per-corpus re-emit + deploy; Zenodo DOI + Internet Archive + Software Heritage archival |
-| `deploy-to-mirror` | Push the byte-identical `dist/` to the Cloudflare Pages mirror + SHA256 verify |

@@ -2,7 +2,7 @@
 // doi.json / snapshot record format correctness.
 //
 // This story's runtime ACs (tag push, release.yml execution, Zenodo DOI
-// minting, IA/SH snapshot capture, mirror deploy) are human-gated launch
+// minting, IA/SH snapshot capture) are human-gated launch
 // operations. The automated guards cover:
 //   - AC4: corpus/doi.json structure (field presence, no fabricated DOI)
 //   - AC5/AC6: internet-archive-snapshots.md and software-heritage-snapshots.md

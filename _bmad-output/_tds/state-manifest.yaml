@@ -1500,11 +1500,11 @@ entries:
     notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/contributing-docs.test.mjs
-    sha256: 55273d4d8db894c65f5a3e419130c7f17d004b331af99422cfbdc53a4921be11
+    sha256: 43be8e6d9fce038ca566d9e7ee15a5dcf293823b4cfe6e76e4a525bc5382c92a
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T11:15:49.323Z
+    recorded_at: 2026-06-06T17:42:21.455Z
     recorded_by: engineer
-    story_id: 8-6-full-contributing-md-branch-protection-config-required-ci-checks-scheduled-yml-failure-routing-docs
+    notes: "remove Cloudflare mirror: drop mirror-parity/mirror-URL/deploy-to-mirror assertions from launch-doc guards"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/8-7-changelog-md-format-release-yml-automation-contributor-credit-by-handle.md
     sha256: abd15871a2ce03edd7e813570f8acd529a66fc091975bd78cfcda39ec7d78e7e
@@ -1665,11 +1665,11 @@ entries:
     notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/10-2-launch-postscript.test.mjs
-    sha256: 2f89e82e99edcd269dcc8d4f63b90bd6e3bbfdafa16a42310aac3518a66d9515
+    sha256: 6c50c4b166cf55ed6dcf08d5b9c5c22950dd5b977e3ae2c0990e0cb3c8dd6ef4
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T14:30:28.918Z
-    recorded_by: test-author
-    story_id: 10-2-coordinated-double-tag-push-release-yml-fires-post-launch-verification
+    recorded_at: 2026-06-06T17:42:21.455Z
+    recorded_by: engineer
+    notes: "remove Cloudflare mirror: drop mirror-parity/mirror-URL/deploy-to-mirror assertions from launch-doc guards"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/10-3-48-hour-post-launch-monitoring-window.md
     sha256: a7b13a2660a3619237ce284c97e9e7214458d417d93448b79a6c731dd8edf7fe
@@ -1679,11 +1679,11 @@ entries:
     notes: Sync story-md frontmatter status review->done to canonical sprint-status after squash-deliver (epics 7,8,10); tds deliver OH-07 flips sprint-status only
   - artefact_class: A
     file: tests/scaffold/10-3-post-launch-monitoring.test.mjs
-    sha256: cc49252de430d09f46ed41dd76010588010cf54582b95ef47211b7c3feb81c4d
+    sha256: 76c1d924c9684c1e4ad8b1fe8df2a7dd2a0a3b22fc9f260bde1a50955210d895
     canonical_form: raw-bytes
-    recorded_at: 2026-06-05T14:34:25.661Z
-    recorded_by: test-author
-    story_id: 10-3-48-hour-post-launch-monitoring-window
+    recorded_at: 2026-06-06T17:42:21.455Z
+    recorded_by: engineer
+    notes: "remove Cloudflare mirror: drop mirror-parity/mirror-URL/deploy-to-mirror assertions from launch-doc guards"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/11-1-post-release-bug-ux-fix-pass.md
     sha256: a3c33767c234549effeae9201e2c352546217a8408e08c130d740575b752bc38

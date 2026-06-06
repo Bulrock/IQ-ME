@@ -72,9 +72,8 @@ test("AC-2: docs/required-ci-checks.md enumerates the real pr-checks + scheduled
   ]) {
     assert.match(txt, new RegExp(job.replace(/-/g, "\\-")), `required-ci-checks.md must enumerate the "${job}" pr-checks job by name`);
   }
-  // The 4 scheduled.yml health-check jobs (Story 8.3).
+  // The 3 scheduled.yml health-check jobs (Story 8.3).
   for (const job of [
-    "mirror-parity-check",
     "internet-archive-snapshot-health",
     "software-heritage-snapshot-health",
     "zenodo-doi-resolution",

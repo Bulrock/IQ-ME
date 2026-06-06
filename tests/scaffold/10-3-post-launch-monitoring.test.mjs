@@ -59,16 +59,11 @@ test("AC1: v1.0.0-post-launch-monitoring.md exists with T+1h/T+6h/T+24h/T+48h ch
 
 test("AC1: monitoring log covers all required check types per checkpoint", () => {
   const log = read(MONITORING);
-  // Each checkpoint must reference canonical + mirror URL checks
+  // Each checkpoint must reference the canonical URL check
   assert.match(
     log,
     /canonical.*URL|iq-me\.org/i,
     "monitoring log must reference canonical URL check",
-  );
-  assert.match(
-    log,
-    /mirror.*URL|iq-me\.pages\.dev/i,
-    "monitoring log must reference mirror URL check",
   );
   // Zenodo DOI check
   assert.match(
