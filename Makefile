@@ -47,6 +47,7 @@ lint: ## run all registered lints (negative assertions + budget + trust artifact
 	node tools/lint-i18n-coverage.mjs
 	node tools/lint-csp-source.mjs
 	node tools/lint-css-source-co-equal.mjs
+	node tools/lint-css-link-order.mjs
 	node tools/lint-fr36-protection.mjs
 	node tools/lint-spec-carry-forward.mjs --ignore-old
 	npx --yes eslint@^9.16.0 --max-warnings 0 .

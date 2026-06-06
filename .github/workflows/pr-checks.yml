@@ -171,10 +171,14 @@ jobs:
   lint-css-link-order:
     name: lint-css-link-order
     runs-on: ubuntu-latest
-    # Activates in Epic 3
-    if: false
+    # Activated post-Epic-3 — asserts src/index.html keeps the component CSS
+    # <link> chain alphabetical (Story 3.4/3.5 convention; cascade-safe).
     steps:
-      - run: echo "stub — Activates in Epic 3"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-css-link-order.mjs
 
   co-equal-triplet-computed-style:
     name: co-equal-triplet-computed-style
@@ -205,10 +209,14 @@ jobs:
   co-equal-triplet-css-source:
     name: co-equal-triplet-css-source
     runs-on: ubuntu-latest
-    # Activates in Epic 3
-    if: false
+    # Activated post-Epic-3 — Murat tier-1 CSS-source co-equal lint (Story 3.5
+    # AC-6), the source-level pair to the active co-equal-triplet-computed-style.
     steps:
-      - run: echo "stub — Activates in Epic 3 (Story 3.5)"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node tools/lint-css-source-co-equal.mjs
 
   reveal-stage-event-ordering:
     name: reveal-stage-event-ordering

@@ -143,6 +143,13 @@ const EPIC_1_ACTIVE = new Set([
   // false "Activates in Epic 6"); now runs tests/a11y/*.spec.mjs (axe-core
   // against methodology + SPA surfaces, pa11y fallback).
   "axe-core-pa11y",
+  // co-equal-triplet-css-source graduated deferred→active post-Epic-3 — wires the
+  // existing Murat tier-1 source lint (tools/lint-css-source-co-equal.mjs), the
+  // source pair to the runtime co-equal-triplet-computed-style.
+  "co-equal-triplet-css-source",
+  // lint-css-link-order graduated deferred→active post-Epic-3 — runs the new
+  // tools/lint-css-link-order.mjs (alphabetical component CSS <link> chain).
+  "lint-css-link-order",
 ]);
 
 function loadPrChecks() {
