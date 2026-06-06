@@ -65,7 +65,9 @@
     "percentileLabel": "Percentile",
     "anchorLabel": "IQ-scale equivalent",
     "bandLabel": "Range",
-    "resultExplainer": "This is one estimate from a short 16-item screener, shown three ways: your percentile, the same result on the IQ scale, and the range it could vary by. A brief test cannot pin one exact number — read the result as the range, not the single figure."
+    "resultExplainer": "This is one estimate from a short 16-item screener, shown three ways: your percentile, the same result on the IQ scale, and the range it could vary by. A brief test cannot pin one exact number — read the result as the range, not the single figure.",
+    "printButton": "Download / Print result",
+    "printTitle": "IQ-ME — fluid-reasoning result summary (not a certificate)"
   },
   "localeSwitchBlockerHint": {
     "message": "Switching language during a test changes what the test measures. Finish this session in your current language, or end early and restart in a different language.",

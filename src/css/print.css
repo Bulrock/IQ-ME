@@ -1,0 +1,105 @@
+/* src/css/print.css
+ *
+ * Honest print-to-PDF result summary. NOT a certificate — the score panel's
+ * caveat ("not a credential…") prints with it. Screen rules style the
+ * Download/Print button + hide the print-only masthead; the @media print block
+ * restyles the result page into a clean, light, ink-friendly summary.
+ */
+
+/* Screen — the print-only masthead is hidden until printing. */
+.result-print-only {
+  display: none;
+}
+
+/* Screen — Download/Print button: a quiet outlined affordance like Save. */
+.result-print-btn {
+  display: inline-block;
+  margin-block-start: var(--space-3);
+  font-size: var(--font-size-200);
+  font-family: var(--font-family-sans);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-5);
+  border-radius: var(--radius-control);
+  border: var(--border-width-hairline) solid var(--color-rule-strong);
+  background-color: var(--color-surface-base);
+  color: var(--color-text-body);
+  cursor: pointer;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.result-print-btn:hover {
+  border-color: var(--color-focus-ring);
+  box-shadow: var(--shadow-elevated);
+}
+
+.result-print-btn:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}
+
+@media print {
+  /* Always print on white with dark ink, regardless of the chosen theme. */
+  :root { color-scheme: light; }
+  html, body {
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+
+  /* Drop interactive chrome + anything that isn't the summary. */
+  .chrome-header,
+  .chrome-footer,
+  .translation-notice,
+  .result-print-btn,
+  .score-panel__save-button,
+  .score-panel__retest-note,
+  .rs-show,
+  .rs-not,
+  .tail-scene {
+    display: none !important;
+  }
+
+  .result-scene,
+  .score-panel {
+    background: #ffffff !important;
+    color: #111111 !important;
+    box-shadow: none !important;
+    border: none !important;
+    max-width: 100% !important;
+  }
+
+  .score-panel__anchor,
+  .score-panel__percentile,
+  .score-panel__band {
+    color: #111111 !important;
+  }
+
+  .score-panel__metric-label,
+  .score-panel__explainer,
+  .score-panel__caveat,
+  .score-panel__difficulty-sentence {
+    color: #333333 !important;
+  }
+
+  /* The difficulty sentence is reveal-gated on screen; always show in print. */
+  .score-panel__difficulty-sentence {
+    display: block !important;
+  }
+
+  /* Print-only masthead (title + date). */
+  .result-print-only {
+    display: block !important;
+    margin-block-end: var(--space-5);
+  }
+
+  .result-print-only__title {
+    font-size: var(--font-size-500);
+    font-weight: var(--font-weight-semibold);
+    margin: 0;
+  }
+
+  .result-print-only__date {
+    font-size: var(--font-size-100);
+    color: #555555 !important;
+    margin: 0;
+  }
+}
