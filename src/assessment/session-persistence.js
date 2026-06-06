@@ -12,13 +12,17 @@ const SESSION_SIZE = 16;
 
 // Persist the live session. No-op before the session has started (startedAt 0)
 // or once it's complete (all 16 answered → it's about to finalize, not resume).
-export function saveProgress(state) {
+export function saveProgress(state, selectedOptions) {
   try {
     if (!state || state.startedAt === 0) return;
     if (Array.isArray(state.responses) && state.responses.length >= SESSION_SIZE) return;
     const payload = {
       currentItem: state.currentItem,
       responses: (state.responses || []).map((r) => ({ itemIndex: r.itemIndex, response: r.response })),
+      // Story 11-1 fix: the actual option chosen per item (itemIndex → value).
+      // The scored `responses` keep only correctness (0/1); persisting the
+      // selection lets Previous/resume re-display it until the user changes it.
+      selectedOptions: selectedOptions && typeof selectedOptions === "object" ? { ...selectedOptions } : {},
       seed: state.seed,
       startedAt: state.startedAt,
       savedAt: Date.now(),

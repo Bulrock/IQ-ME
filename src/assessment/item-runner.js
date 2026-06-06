@@ -22,6 +22,11 @@ const ITEM_PARAMS_URL = "/src/items/item-parameters.json";
 
 let sessionCache = null;
 let mounted = null;
+// Story 11-1 fix: the scored session state keeps only correctness (0/1), never
+// which option the user picked. Track the actual choice per item (itemIndex →
+// option value) so Previous/resume re-displays the real selection until it's
+// changed. Mirrored into the iqme:in-progress payload; restored on mount by seed.
+let selectedOptions = {};
 
 function bytesToHex(bytes) {
   return Array.from(bytes).map((b) => b.toString(16).padStart(2, "0")).join("");
@@ -71,6 +76,9 @@ function buildMarkup(cache, currentItem, strings) {
   const responses = state.getState().responses;
   const recordedAt = responses.findIndex((r) => r.itemIndex === currentItem);
   const recorded = recordedAt >= 0 ? responses[recordedAt].response : null;
+  // Prefer the actual recorded choice; fall back to the correct-answer heuristic
+  // only for legacy payloads saved before selections were persisted.
+  const sel = selectedOptions[currentItem];
   const isFirst = currentItem === 0;
   const isLast = currentItem === SESSION_SIZE - 1;
   const nextLabel = isLast ? strings.itemRunner.submitButton : strings.itemRunner.nextButton;
@@ -78,7 +86,7 @@ function buildMarkup(cache, currentItem, strings) {
   const optionLabel = strings.itemRunner.optionLabelTemplate || "Option {N}";
   const optionsHtml = item.options
     .map((opt, i) => {
-      const checked = recorded === 1 && opt === item.correct ? ' checked=""' : "";
+      const checked = (sel != null ? opt === sel : recorded === 1 && opt === item.correct) ? ' checked=""' : "";
       // .svg value → image-tile option; plain string → text (back-compatible).
       const isAsset = /\.svg$/.test(opt);
       const visible = isAsset
@@ -128,15 +136,18 @@ function attachListeners(rootEl, cache, strings) {
       const value = ev && ev.target ? (ev.target.attrs ? ev.target.attrs.value : ev.target.value) : null;
       // F-A: score on-the-fly (state.schema enum [0,1]).
       state.recordResponse(currentItem, value === item.correct ? 1 : 0);
+      // Story 11-1 fix: remember the actual choice (not just correctness) so it
+      // re-displays on Previous/resume until the user picks a different option.
+      selectedOptions[currentItem] = value;
       // Story 11-1 resume: persist progress on every answer.
-      persistence.saveProgress(state.getState());
+      persistence.saveProgress(state.getState(), selectedOptions);
     });
   }
   add(rootEl.querySelector("#prev-btn"), "click", () => {
     const cur = state.getState().currentItem;
     if (cur <= 0) return;
     state.setItem(cur - 1);
-    persistence.saveProgress(state.getState());
+    persistence.saveProgress(state.getState(), selectedOptions);
     rerender(rootEl, strings);
   });
   add(rootEl.querySelector("#next-btn"), "click", () => {
@@ -151,11 +162,12 @@ function attachListeners(rootEl, cache, strings) {
       }
       // Finalized → no longer resumable; clear the saved progress.
       persistence.clearProgress();
+      selectedOptions = {};
       routing.navigate("result");
       return;
     }
     state.setItem(cur + 1);
-    persistence.saveProgress(state.getState());
+    persistence.saveProgress(state.getState(), selectedOptions);
     rerender(rootEl, strings);
   });
 
@@ -169,7 +181,7 @@ function attachListeners(rootEl, cache, strings) {
   const close = () => { setBail("closed"); focusEl(aff); };
   add(aff, "click", () => { setBail("open"); focusEl(cont); });
   add(cont, "click", close);
-  add(disc, "click", () => { persistence.clearProgress(); state.resetState(); routing.navigate(""); });
+  add(disc, "click", () => { persistence.clearProgress(); selectedOptions = {}; state.resetState(); routing.navigate(""); });
   add(document, "keydown", (ev) => {
     if (!sec || sec.getAttribute("data-bail-state") !== "open") return;
     if (ev && ev.key === "Escape") { ev.preventDefault?.(); close(); }
@@ -232,6 +244,7 @@ function updateItemInPlace(rootEl, cache, strings) {
   const responses = state.getState().responses;
   const recordedAt = responses.findIndex((r) => r.itemIndex === currentItem);
   const recorded = recordedAt >= 0 ? responses[recordedAt].response : null;
+  const sel = selectedOptions[currentItem];
 
   const heading = rootEl.querySelector("#item-runner-heading");
   if (heading) heading.textContent = fmt(strings.itemRunner.headingTemplate, { N, total: SESSION_SIZE });
@@ -251,7 +264,7 @@ function updateItemInPlace(rootEl, cache, strings) {
     if (radio) {
       radio.setAttribute("name", "item-" + N);
       radio.setAttribute("value", opt);
-      const checked = recorded === 1 && opt === item.correct;
+      const checked = sel != null ? opt === sel : recorded === 1 && opt === item.correct;
       radio.checked = checked;
       if (checked) radio.setAttribute("checked", ""); else radio.removeAttribute("checked");
     }
@@ -286,11 +299,17 @@ export async function render(rootEl, strings) {
   if (mounted) { detach(mounted.listeners); mounted = null; }
   const cache = await ensureSession(rootEl, strings);
   if (!cache) return;
+  // Story 11-1 fix: adopt persisted per-item selections only when they belong to
+  // the current session's seed (resume); a fresh session (new seed) starts clean.
+  const ip = persistence.loadProgress();
+  selectedOptions = ip && ip.seed === state.getState().seed && ip.selectedOptions
+    ? { ...ip.selectedOptions }
+    : {};
   rootEl.innerHTML = buildMarkup(cache, state.getState().currentItem, strings);
   mounted = { rootEl, listeners: attachListeners(rootEl, cache, strings) };
   // Story 11-1 resume: the session is now under way — persist it so an
   // interrupted test can be resumed from the saved-results page.
-  persistence.saveProgress(state.getState());
+  persistence.saveProgress(state.getState(), selectedOptions);
   preloadNext(cache, state.getState().currentItem);
 }
 
