@@ -1,7 +1,7 @@
 ---
 id: 13-5-redesign-downloadable-printable-result
 title: "Story 13-5: Redesign the downloadable / printable result document"
-status: review
+status: done
 ---
 
 # Story 13-5: Redesign the downloadable / printable result document

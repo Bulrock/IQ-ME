@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 04c9abbb6d7a5cf2ed32d128687d64938ae1a0f1b4b90709e25bd3387d07a628
+    sha256: 241d12e5afbc3bdd8fae7509af33b6cf22ad03f2dc34ba7d1e91b1ca7f2c1a47
     canonical_form: raw-bytes
-    recorded_at: 2026-06-06T16:56:35.966Z
+    recorded_at: 2026-06-13T11:39:28.647Z
     recorded_by: engineer
-    story_id: epic-11
+    story_id: epic-13
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -92,11 +92,11 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: 6483238ef1a34af54ab6a0bda88d7d8a34a9438a8949c8840c203628875f0993
+    sha256: f4e69d637afb527039f74cb392f098dd3e25b76393322324d9a76a6a3957f155
     canonical_form: raw-bytes
-    recorded_at: 2026-06-06T16:33:34.989Z
-    recorded_by: engineer
-    notes: "11-1: app-modules-bytes budget pin 88064→90112 (multi-session resume re-pin, documented in BUDGETS.json)"
+    recorded_at: 2026-06-13T11:37:24.615Z
+    recorded_by: frontend
+    story_id: 13-3-creative-homepage-redesign-motion
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
     sha256: 03af01b6c89b47714c6fb83be9b0d3d9aaa6eeba107c2bba32d9ecc508bf63a4
@@ -1803,3 +1803,73 @@ entries:
     recorded_at: 2026-06-06T11:12:48.623Z
     recorded_by: test-author
     story_id: 11-1-post-release-bug-ux-fix-pass
+  - artefact_class: A
+    file: tests/scaffold/13-1-glass-design-direction.test.mjs
+    sha256: 9855b3bd7fedb6c0971a52f48d4e6e49898de6fe454c3e7821d2b28e66a206f4
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T11:19:53.486Z
+    recorded_by: test-author
+    story_id: 13-1-glassmorphism-motion-design-direction-research-spec
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/13-1-glassmorphism-motion-design-direction-research-spec.md
+    sha256: e8cbdb010f618772f18e57a2d24f6242b130373a529dd2a3cc12e0a8819f38ed
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T11:39:03.267Z
+    recorded_by: frontend
+    story_id: 13-1-glassmorphism-motion-design-direction-research-spec
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/13-2-glass-design-system-tokens-surface-primitives.md
+    sha256: bd5979247e97954d0fc8eec203749c1c6f7ccccd24538450211d14898402ee8e
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T11:39:03.414Z
+    recorded_by: frontend
+    story_id: 13-2-glass-design-system-tokens-surface-primitives
+  - artefact_class: A
+    file: tests/scaffold/13-2-glass-design-system.test.mjs
+    sha256: 7446e834f10a7eac2c962e1cf56a84c5de1d637c34e4b49f599694f283302924
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T11:22:09.414Z
+    recorded_by: test-author
+    story_id: 13-2-glass-design-system-tokens-surface-primitives
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/13-3-creative-homepage-redesign-motion.md
+    sha256: 40c9f32dc929bea1adb1ff358a87c78d277fac6b1ecde99bca1c2a4a7b065576
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T11:39:03.561Z
+    recorded_by: frontend
+    story_id: 13-3-creative-homepage-redesign-motion
+  - artefact_class: A
+    file: tests/scaffold/13-3-homepage-redesign.test.mjs
+    sha256: 4f9a2cb7466cf8f15cce0c87ef4afc15c32b8d17769cea9ac546effafc7538cb
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T11:25:34.740Z
+    recorded_by: test-author
+    story_id: 13-3-creative-homepage-redesign-motion
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/13-4-glass-system-rollout-remaining-surfaces.md
+    sha256: 71ca4f953bc8df8590d5350c4f1272d4f30dc1bf86366fb810a6359871cc2a11
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T11:39:03.704Z
+    recorded_by: frontend
+    story_id: 13-4-glass-system-rollout-remaining-surfaces
+  - artefact_class: A
+    file: tests/scaffold/13-4-glass-rollout.test.mjs
+    sha256: 53d2fea0c00c5a11215a5713fba0939913af03980ba5cf9f2da86dfc031666a9
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T11:30:26.878Z
+    recorded_by: test-author
+    story_id: 13-4-glass-system-rollout-remaining-surfaces
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/13-5-redesign-downloadable-printable-result.md
+    sha256: 7932b0c5d68e9454baf0a2e14c5500a6ad2be4d143f0f9e54e7dc337e77a30f9
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T11:39:03.849Z
+    recorded_by: frontend
+    story_id: 13-5-redesign-downloadable-printable-result
+  - artefact_class: A
+    file: tests/scaffold/13-5-print-result.test.mjs
+    sha256: 2208d7d7eb1445e5d9d23c17d3e3fb0c1cbf1616edee0addf37d6e81f93140f3
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T11:34:16.064Z
+    recorded_by: test-author
+    story_id: 13-5-redesign-downloadable-printable-result

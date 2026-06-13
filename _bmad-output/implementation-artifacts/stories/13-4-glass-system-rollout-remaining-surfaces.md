@@ -1,7 +1,7 @@
 ---
 id: 13-4-glass-system-rollout-remaining-surfaces
 title: "Story 13-4: Roll out the glass system across remaining surfaces"
-status: review
+status: done
 ---
 
 # Story 13-4: Roll out the glass system across remaining surfaces

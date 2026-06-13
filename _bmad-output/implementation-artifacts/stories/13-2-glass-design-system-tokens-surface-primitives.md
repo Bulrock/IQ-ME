@@ -1,7 +1,7 @@
 ---
 id: 13-2-glass-design-system-tokens-surface-primitives
 title: "Story 13-2: Glass design system — tokens + reusable glass surface primitives"
-status: review
+status: done
 ---
 
 # Story 13-2: Glass design system — tokens + reusable glass surface primitives

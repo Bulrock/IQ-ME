@@ -1,7 +1,7 @@
 ---
 id: 13-3-creative-homepage-redesign-motion
 title: "Story 13-3: Creative homepage redesign with modern motion"
-status: review
+status: done
 ---
 
 # Story 13-3: Creative homepage redesign with modern motion

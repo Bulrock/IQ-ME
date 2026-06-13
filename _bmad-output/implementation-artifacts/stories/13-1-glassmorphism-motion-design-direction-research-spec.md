@@ -1,7 +1,7 @@
 ---
 id: 13-1-glassmorphism-motion-design-direction-research-spec
 title: "Story 13-1: Glassmorphism + motion design-direction research & spec"
-status: review
+status: done
 ---
 
 # Story 13-1: Glassmorphism + motion design-direction research & spec
@@ -71,6 +71,8 @@ frontend (research/spec; design-direction gate for Epic 13)
 ### Completion Notes List
 
 - Design-direction spec authored under planning-artifacts; glass token vocabulary + motion vocab + reduced-motion policy + AA contrast guardrail + zero-third-party/snapshot-update note + named Epic-11 surfaces. Scaffold guard 6/6 green.
+- Approved: design-direction spec complete, guard 6/6 green, lint/build clean. Gates Epic-13 implementation (13-2..13-5 built on it).
+- re-apply approved flip
 
 ### File List
 

@@ -193,9 +193,9 @@ development_status:
   12-4-first-additional-non-geometric-methodology-vertical-slice: backlog           # PR-15
   12-5-methodology-corpus-per-test-descriptions-comparison: backlog           # PR-15
   epic-12-retrospective: optional
-  epic-13: backlog
-  13-1-glassmorphism-motion-design-direction-research-spec: review            # PR-16 design gate
-  13-2-glass-design-system-tokens-surface-primitives: review            # PR-16
-  13-3-creative-homepage-redesign-motion: review            # PR-16
-  13-4-glass-system-rollout-remaining-surfaces: review            # PR-16
-  13-5-redesign-downloadable-printable-result: review            # PR-17
+  epic-13: done
+  13-1-glassmorphism-motion-design-direction-research-spec: done              # PR-16 design gate
+  13-2-glass-design-system-tokens-surface-primitives: done              # PR-16
+  13-3-creative-homepage-redesign-motion: done              # PR-16
+  13-4-glass-system-rollout-remaining-surfaces: done              # PR-16
+  13-5-redesign-downloadable-printable-result: done              # PR-17
