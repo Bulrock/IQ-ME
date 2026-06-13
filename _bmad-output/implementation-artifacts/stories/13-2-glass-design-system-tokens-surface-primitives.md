@@ -1,7 +1,7 @@
 ---
 id: 13-2-glass-design-system-tokens-surface-primitives
 title: "Story 13-2: Glass design system — tokens + reusable glass surface primitives"
-status: in-progress
+status: review
 ---
 
 # Story 13-2: Glass design system — tokens + reusable glass surface primitives
@@ -31,12 +31,12 @@ Implements the token vocabulary and the `.glass-surface` primitive pinned by Sto
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: author the scaffold guard** (`tests/scaffold/13-2-glass-design-system.test.mjs`) encoding AC 6 — glass + motion primitives present; semantic glass roles + dark overrides present; `.glass-surface` + `--strong` + `@supports` fallback present; alphabetical `glass-surface.css` link in index.html. Confirm RED. (test-author phase)
-- [ ] **Task 2: add glass + motion primitives** to `src/css/primitives.css` per 13-1 §2.1–2.3 + §4.1–4.2. (impl phase)
-- [ ] **Task 3: add semantic glass roles + dark-mode overrides** to `src/css/semantic.css` per 13-1 §2.4 + §3. (impl phase)
-- [ ] **Task 4: add the `.glass-surface` component** (`src/css/components/glass-surface.css`) per 13-1 §2.5 + link it alphabetically in `src/index.html`. (impl phase)
-- [ ] **Task 5: refresh tokens snapshot** — `make snapshot-update` (D→E exception); verify tokens-spec + design-system hash green. (impl phase)
-- [ ] **Task 6: verification** — guard GREEN, `make lint`/`make build` exit 0, `make test` green; confirm only additions to primitives/semantic. (integration phase)
+- [x] **Task 1: author the scaffold guard** (`tests/scaffold/13-2-glass-design-system.test.mjs`) encoding AC 6 — glass + motion primitives present; semantic glass roles + dark overrides present; `.glass-surface` + `--strong` + `@supports` fallback present; alphabetical `glass-surface.css` link in index.html. Confirm RED. (test-author phase)
+- [x] **Task 2: add glass + motion primitives** to `src/css/primitives.css` per 13-1 §2.1–2.3 + §4.1–4.2. (impl phase)
+- [x] **Task 3: add semantic glass roles + dark-mode overrides** to `src/css/semantic.css` per 13-1 §2.4 + §3. (impl phase)
+- [x] **Task 4: add the `.glass-surface` component** (`src/css/components/glass-surface.css`) per 13-1 §2.5 + link it alphabetically in `src/index.html`. (impl phase)
+- [x] **Task 5: refresh tokens snapshot** — `make snapshot-update` (D→E exception); verify tokens-spec + design-system hash green. (impl phase)
+- [x] **Task 6: verification** — guard GREEN, `make lint`/`make build` exit 0, `make test` green; confirm only additions to primitives/semantic. (integration phase)
 
 ## Dev Notes
 
@@ -74,6 +74,36 @@ frontend (CSS design-system; React/Vue-agnostic vanilla CSS tokens)
 
 ### Completion Notes List
 
+- Glass + motion tokens added additively to primitives/semantic; semantic glass roles + dark overrides (both blocks); reusable .glass-surface primitive with -webkit- prefix + @supports solid fallback; alphabetical index.html link; tokens hash refreshed via snapshot-update (D->E). Guard 4/4 green, tokens-contract + design-system green, lint 0.
+
 ### File List
 
+- src/css/primitives.css
+- src/css/semantic.css
+- src/css/components/glass-surface.css
+- src/index.html
+- tests/snapshots/tokens.hash.json
+- tests/scaffold/13-2-glass-design-system.test.mjs
+
 ## Specialist Self-Review
+
+**Decisions made:**
+- Implemented the glass + motion tokens **additively** in primitives.css and semantic.css (no existing token touched), then refreshed the tokens hash via `make snapshot-update` — the codified D→E exception. This keeps the tokens-contract green while introducing the new vocabulary.
+- Authored dark glass **separately** (smoked neutral-900 ink at matching alpha, subtle 0.10 rim) in BOTH the `[data-theme="dark"]` block and the `prefers-color-scheme: dark` system-pref block, mirroring the existing UX-DR6 pattern exactly. Dark glass is not filter-inverted.
+- Made `.glass-surface` consume only the `--surface-glass-*` semantic roles, never the `--glass-*` primitives — enforced by a guard assertion (`!/var\(--glass-fill/`), preserving the UX-DR1 two-layer contract.
+
+**Alternatives considered:**
+- Inlining glass into existing component CSS rather than a standalone `.glass-surface` primitive: rejected — the epic's value is a *reusable* primitive so 13-3/13-4 add a class, not bespoke CSS. A single component file keeps the look DRY and the alphabetical link-order check simple.
+- Skipping the `@supports not` fallback: rejected — without it, a browser without `backdrop-filter` renders a fully-transparent panel (text on raw background, contrast unknowable). The fallback drops to the strong opaque fill so AA holds everywhere.
+- Animating `filter`/blur for entrances: rejected per 13-1 §6 — only opacity/transform are compositor-friendly; blur animation is a paint-hot path.
+
+**Framework gotchas avoided:**
+- Safari still needs `-webkit-backdrop-filter` alongside the unprefixed property; included both (guard asserts the prefix).
+- `make snapshot-update` also re-emits the 60 methodology golden HTML snapshots; confirmed the only token-hash change is the intended one and the methodology snapshots are byte-identical (no corpus body changed), so build stays byte-stable.
+
+**Areas of uncertainty:**
+- The fill alphas (0.72/0.85 light, 0.72/0.86 dark) are 13-1's starting values. They clear AA by construction (opaque-enough fill), but 13-4 should re-verify against the actual score-panel/methodology backdrops with the real computed-style assertions and nudge up (never down) if any specific surface is marginal.
+
+**Tested edge cases:**
+- Guard (4 assertions, all RED pre-impl → GREEN post-impl): glass+motion primitives with concrete values (12px blur, 260ms base, cubic-bezier easing); semantic glass roles + dark overrides in both dark blocks; `.glass-surface` + `--strong` + `-webkit-` prefix + `@supports not` fallback + two-layer compliance; alphabetical `glass-surface.css` link in index.html.
+- Tokens contract (`tokens.spec.mjs`) + design-system hash assertion GREEN after snapshot-update; `lint-css-link-order` GREEN (21 stylesheets alphabetical); `make lint` exit 0.
