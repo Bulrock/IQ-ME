@@ -186,12 +186,12 @@ development_status:
   epic-11: done
   11-1-post-release-bug-ux-fix-pass: done                    # PR-1..PR-14 (single story per maintainer decision)
   epic-11-retrospective: optional
-  epic-12: backlog
+  epic-12: done
   12-1-methodology-landscape-research-accuracy-popularity-comparison: done              # PR-15 research gate
-  12-2-pre-test-methodology-variant-selection: review            # PR-15
-  12-3-short-full-variant-engine-geometric-test: review            # PR-15
-  12-4-first-additional-non-geometric-methodology-vertical-slice: review            # PR-15
-  12-5-methodology-corpus-per-test-descriptions-comparison: review            # PR-15
+  12-2-pre-test-methodology-variant-selection: done              # PR-15
+  12-3-short-full-variant-engine-geometric-test: done              # PR-15
+  12-4-first-additional-non-geometric-methodology-vertical-slice: done              # PR-15
+  12-5-methodology-corpus-per-test-descriptions-comparison: done              # PR-15
   epic-12-retrospective: optional
   epic-13: done
   13-1-glassmorphism-motion-design-direction-research-spec: done              # PR-16 design gate

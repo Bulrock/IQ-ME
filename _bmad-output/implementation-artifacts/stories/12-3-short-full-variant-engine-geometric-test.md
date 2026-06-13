@@ -1,7 +1,7 @@
 ---
 id: 12-3-short-full-variant-engine-geometric-test
 title: "Story 12-3: Short/Full variant engine for the geometric matrix-reasoning test"
-status: review
+status: done
 ---
 
 # Story 12-3: Short/Full variant engine for the geometric matrix-reasoning test

@@ -1,7 +1,7 @@
 ---
 id: 12-4-first-additional-non-geometric-methodology-vertical-slice
 title: "Story 12-4: First additional (non-geometric) methodology — end-to-end vertical slice"
-status: review
+status: done
 ---
 
 # Story 12-4: First additional (non-geometric) methodology — end-to-end vertical slice

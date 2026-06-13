@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 1e5986c5fd315c66c3e0f746acde83ed2865eaeddf478125be3bb0dc38849ae2
+    sha256: 2415530eb596654fed9e7a49728afdb6e1ca893fdf8b946b65c207e312e67dec
     canonical_form: raw-bytes
-    recorded_at: 2026-06-13T11:52:15.325Z
+    recorded_at: 2026-06-13T12:38:50.867Z
     recorded_by: engineer
-    story_id: 12-1-methodology-landscape-research-accuracy-popularity-comparison
+    story_id: epic-12
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -92,11 +92,11 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/cognitive-load-budget.test.mjs
-    sha256: f4e69d637afb527039f74cb392f098dd3e25b76393322324d9a76a6a3957f155
+    sha256: 0f3769886802cfbb5f2dc5623f74f979ce2b90c4109ac3499e246a2b043cba54
     canonical_form: raw-bytes
-    recorded_at: 2026-06-13T11:37:24.615Z
+    recorded_at: 2026-06-13T12:29:57.753Z
     recorded_by: frontend
-    story_id: 13-3-creative-homepage-redesign-motion
+    story_id: 12-2-pre-test-methodology-variant-selection
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs.md
     sha256: 03af01b6c89b47714c6fb83be9b0d3d9aaa6eeba107c2bba32d9ecc508bf63a4
@@ -394,12 +394,11 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/contract/state-shape.spec.mjs
-    sha256: ae654246cb53fe2b9362d4d8555730226081a99a06f2b1ec89d0a129fcfac2ee
+    sha256: 4c32c9cd9734ca98bd27fdd6cea321f9152cad1485419f93a0143f2a35dda6cf
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T17:46:23.670Z
-    recorded_by: test-author
-    story_id: 3-2-implement-state-js-contract-test
-    notes: story-3-2 frozen failing tests
+    recorded_at: 2026-06-13T12:06:52.116Z
+    recorded_by: frontend
+    story_id: 12-2-pre-test-methodology-variant-selection
   - artefact_class: A
     file: tests/contract/_state-schema-check.mjs
     sha256: 4d97c16e7b0a8f7a09f4a35de231ac2fde6d7fea48cac5bcd192acb8c47a3aab
@@ -434,12 +433,11 @@ entries:
     notes: "test-author phase: failing red tests for story 3-3 landing+consent"
   - artefact_class: A
     file: tests/unit/landing-scene.test.mjs
-    sha256: c0c6a29556ba4880c5e7a0760c42789c140a5f02b3aaa9ea768e80b2c4c1b77f
+    sha256: 76d88d0796f9dcfff24d03d4d876b6aa5c993fac1adfb36e8c350e7fb81d425a
     canonical_form: raw-bytes
-    recorded_at: 2026-05-19T22:09:33.844Z
-    recorded_by: engineer
-    story_id: 3-6-author-3-en-methodology-stub-pages-the-click-targets
-    notes: "Story 3-6 AC-7: version literal v1.0.0 → v0.1.0 reconciliation; Story 3-5 self-review areas-of-uncertainty 4 flagged this for a bridge but story 3-6 owns methodology content so consumer-surface reconciliation lives here aligned with Story 3-8's planned corpus-v0.1.0 tag"
+    recorded_at: 2026-06-13T12:38:02.653Z
+    recorded_by: frontend
+    story_id: 12-2-pre-test-methodology-variant-selection
   - artefact_class: A
     file: tests/unit/consent-scene.test.mjs
     sha256: a4510f3b57cdf455951dac6f752db9561fb170a4f2b080d60fd49892f2d5043c
@@ -1887,3 +1885,66 @@ entries:
     recorded_at: 2026-06-13T11:42:40.734Z
     recorded_by: test-author
     story_id: 12-1-methodology-landscape-research-accuracy-popularity-comparison
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/12-2-pre-test-methodology-variant-selection.md
+    sha256: 66f426afc3211610656368ee3d610eb4d1397950495db2bb5520439cd22356d9
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T12:38:49.817Z
+    recorded_by: frontend
+    story_id: 12-2-pre-test-methodology-variant-selection
+  - artefact_class: A
+    file: tests/scaffold/12-2-selection.test.mjs
+    sha256: 71c716ffd39cc3666b8b1d65d56e0e4ac4e8cac34dcd5955290ac5b2a4dd3516
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T12:09:55.840Z
+    recorded_by: engineer
+    story_id: 12-2-pre-test-methodology-variant-selection
+  - artefact_class: A
+    file: tests/unit/selection-scene.test.mjs
+    sha256: 7c621ebe4db0d6a4d164225dce8345ee676fd7c0d45c6285ce915297e858c2e0
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T12:04:57.178Z
+    recorded_by: test-author
+    story_id: 12-2-pre-test-methodology-variant-selection
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/12-3-short-full-variant-engine-geometric-test.md
+    sha256: f51776e5d2ddf61841200c3e37d265a031c6b99ee017afd5bcdf63b4973ed862
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T12:38:50.069Z
+    recorded_by: frontend
+    story_id: 12-3-short-full-variant-engine-geometric-test
+  - artefact_class: A
+    file: tests/scaffold/12-3-variant-engine.test.mjs
+    sha256: 812dd21dad630d355ad154550269de6b6a7ff6bf62ebf14331799383e14880b3
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T12:33:44.701Z
+    recorded_by: engineer
+    story_id: 12-3-short-full-variant-engine-geometric-test
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/12-4-first-additional-non-geometric-methodology-vertical-slice.md
+    sha256: 38cf29f86f89da72576f45c358835d071fccf3997881f97550680902f6b57a3f
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T12:38:50.451Z
+    recorded_by: frontend
+    story_id: 12-4-first-additional-non-geometric-methodology-vertical-slice
+  - artefact_class: A
+    file: tests/scaffold/12-4-letter-number.test.mjs
+    sha256: 9d96f3f3631082c23a0bef0306936a29c718f50548ea032d98612c009aef941d
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T12:22:28.242Z
+    recorded_by: test-author
+    story_id: 12-4-first-additional-non-geometric-methodology-vertical-slice
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/12-5-methodology-corpus-per-test-descriptions-comparison.md
+    sha256: 7f7f76481984a8e0c24ba4259d7719d258f6b19a0ea21c5f85d5017f59d6cf28
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T12:38:50.678Z
+    recorded_by: frontend
+    story_id: 12-5-methodology-corpus-per-test-descriptions-comparison
+  - artefact_class: A
+    file: tests/scaffold/12-5-methodology-comparison.test.mjs
+    sha256: 6787f83c66c821d4614d1b44f3b4cf14e7ed7b44263684c3d8ea0ff571173855
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T12:26:39.320Z
+    recorded_by: test-author
+    story_id: 12-5-methodology-corpus-per-test-descriptions-comparison

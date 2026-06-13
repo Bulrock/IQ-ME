@@ -1,7 +1,7 @@
 ---
 id: 12-5-methodology-corpus-per-test-descriptions-comparison
 title: "Story 12-5: Methodology corpus — per-test descriptions + accuracy/popularity comparison pages"
-status: review
+status: done
 ---
 
 # Story 12-5: Methodology corpus — per-test descriptions + accuracy/popularity comparison pages

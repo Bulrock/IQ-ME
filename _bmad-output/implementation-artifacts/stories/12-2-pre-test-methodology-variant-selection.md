@@ -1,7 +1,7 @@
 ---
 id: 12-2-pre-test-methodology-variant-selection
 title: "Story 12-2: Pre-test methodology + variant (short/full) selection"
-status: review
+status: done
 ---
 
 # Story 12-2: Pre-test methodology + variant (short/full) selection
