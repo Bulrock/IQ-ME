@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-06 epic-11: done'
+last_updated: '2026-06-13 13-1-glassmorphism-motion-design-direction-research-spec: in-progress'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -194,7 +194,7 @@ development_status:
   12-5-methodology-corpus-per-test-descriptions-comparison: backlog           # PR-15
   epic-12-retrospective: optional
   epic-13: backlog
-  13-1-glassmorphism-motion-design-direction-research-spec: backlog           # PR-16 design gate
+  13-1-glassmorphism-motion-design-direction-research-spec: in-progress       # PR-16 design gate
   13-2-glass-design-system-tokens-surface-primitives: backlog           # PR-16
   13-3-creative-homepage-redesign-motion: backlog           # PR-16
   13-4-glass-system-rollout-remaining-surfaces: backlog           # PR-16
