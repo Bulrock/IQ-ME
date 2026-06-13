@@ -1,7 +1,7 @@
 ---
 id: 12-1-methodology-landscape-research-accuracy-popularity-comparison
 title: "Story 12-1: Methodology landscape research — candidate tests, accuracy & popularity comparison"
-status: in-progress
+status: review
 ---
 
 # Story 12-1: Methodology landscape research — candidate tests, accuracy & popularity comparison
@@ -31,9 +31,9 @@ Epic 12 is **research-first**: this story gates the implementation stories (12-2
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: author the scaffold guard** (`tests/scaffold/12-1-methodology-research.test.mjs`) encoding AC 6. Confirm RED. (test-author phase)
-- [ ] **Task 2: write the research artifact** (`_bmad-output/planning-artifacts/methodology-landscape-research.md`) satisfying AC 1–5 — candidate enumeration, sourced claims, shortlist with short/full variants, corpus-content identification, gating contract; grounded only in public/verifiable sources (no fabricated statistics). (impl phase)
-- [ ] **Task 3: verification** — guard GREEN, `make lint`/`make build` exit 0; confirm no `src/`/corpus/snapshot touched. (integration phase)
+- [x] **Task 1: author the scaffold guard** (`tests/scaffold/12-1-methodology-research.test.mjs`) encoding AC 6. Confirm RED. (test-author phase)
+- [x] **Task 2: write the research artifact** (`_bmad-output/planning-artifacts/methodology-landscape-research.md`) satisfying AC 1–5 — candidate enumeration, sourced claims, shortlist with short/full variants, corpus-content identification, gating contract; grounded only in public/verifiable sources (no fabricated statistics). (impl phase)
+- [x] **Task 3: verification** — guard GREEN, `make lint`/`make build` exit 0; confirm no `src/`/corpus/snapshot touched. (integration phase)
 
 ## Dev Notes
 
@@ -70,6 +70,33 @@ engineer (research/spec; methodology-landscape gate for Epic 12)
 
 ### Completion Notes List
 
+- Methodology-landscape research: 5+ candidates (ICAR-MR/VR/LN/R3D + WAIS/SB context), ICAR+Condon&Revelle sourcing (no fabricated stats), shortlist with short/full variants, ICAR-LN as 12-4 first slice, corpus-content list, gating contract for 12-2..12-5. Guard 5/5, lint 0, build 0.
+
 ### File List
 
+- _bmad-output/planning-artifacts/methodology-landscape-research.md
+- tests/scaffold/12-1-methodology-research.test.mjs
+
 ## Specialist Self-Review
+
+**Decisions made:**
+- Anchored the shortlist on **other openly-licensed ICAR subscales** (Verbal Reasoning, Letter/Number Series, Three-Dimensional Rotation) rather than new external instruments — IQ-ME already depends on the ICAR CC BY-NC-SA license and SVG/text item pipeline, so these add zero new licensing risk and reuse the existing IRT scoring path.
+- Named WAIS and Stanford–Binet **for recognizability/validity context only** and explicitly excluded them: proprietary, licensed, clinician-administered, not redistributable — implementing them would violate the public-redistribution and zero-third-party constraints.
+- Chose **ICAR Letter/Number Series (ICAR-LN)** as the recommended first non-geometric vertical slice (12-4): locale-robust (digits/letters, minimal translation cost), pure text, simplest to localize across EN/RU/PL, and reuses the dichotomous IRT model already in `state.js`.
+
+**Alternatives considered:**
+- Implementing a Raven's-style test from scratch: rejected — the recognizable Raven's APM/SPM forms are commercial/copyrighted; the open matrix equivalent is exactly ICAR-MR, which IQ-ME already ships.
+- ICAR Verbal Reasoning first: deferred to P3 — verbal items are the most translation-sensitive (EN/RU/PL), so highest cost; better to prove the multi-methodology engine on locale-robust series items first.
+- Inventing precise psychometric statistics (g-loadings, correlations) to make the comparison look authoritative: refused per the no-fabrication discipline — claims are cited to the ICAR project + Condon & Revelle (2014); precise figures are left for the corpus author (12-5) to cite directly from source rather than invented here.
+
+**Framework gotchas avoided:**
+- The guard forbids invented `r = 0.xx` / precise g-loading patterns; wrote the artifact qualitatively-but-sourced so it passes honestly (the bar is *cited*, not *number-free*).
+- Each new methodology needs its OWN calibrated item-parameters set sourced from the ICAR pool (analogous to `src/items/item-parameters.json`) — flagged so downstream stories don't reuse the matrix parameters for a different construct.
+
+**Areas of uncertainty:**
+- Exact full-variant item counts (~24–32 for MR, ~20 for LN/VR, ~16 for R3D) are reasoned starting points balancing standard-error reduction against session length; 12-3/12-4 should confirm against the actual ICAR pool sizes and the golden-vector parity budget.
+- Whether ICAR-VR is worth the translation cost for a 3-locale free screener is a real product call left open (P3, after the engine is proven).
+
+**Tested edge cases:**
+- 12-1 guard (5 assertions) GREEN: ≥5 candidates with construct/licensing/feasibility fields; ICAR + Condon/Revelle sourcing with no fabricated-stat patterns; shortlist with short+full variants + the 16-item baseline + proprietary exclusions; corpus-content identification with NFR27 mirroring; gating contract mapping 12-2..12-5 + the unsourced-methodology bar.
+- `make lint` 0, `make build` 0 (planning doc — no corpus/snapshot/token impact).
