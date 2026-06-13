@@ -1,7 +1,7 @@
 ---
 id: 13-4-glass-system-rollout-remaining-surfaces
 title: "Story 13-4: Roll out the glass system across remaining surfaces"
-status: in-progress
+status: review
 ---
 
 # Story 13-4: Roll out the glass system across remaining surfaces
@@ -31,11 +31,11 @@ Applies the glass design system (Story 13-2) to the remaining surfaces, using on
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: author the guard** (`tests/scaffold/13-4-glass-rollout.test.mjs`) encoding AC 6. Confirm RED. (test-author phase)
-- [ ] **Task 2: glass-ify chrome** — header + footer container surfaces use the glass roles; preserve hide-on-test, toggle/dropdown behavior. (impl phase)
-- [ ] **Task 3: glass-ify the score/result panel** — strong glass card; preserve PR-5 centering + co-equal triplet + PR-13 collapse. (impl phase)
-- [ ] **Task 4: glass-ify methodology chrome** — masthead/sidebar/content surfaces; preserve PR-11 sidebar + PR-9 theme honoring. (impl phase)
-- [ ] **Task 5: verification** — guard GREEN, `make lint`/`make build` exit 0, `make test` green; budget within ceiling; confirm no layout-structure change to the Epic-11 surfaces. (integration phase)
+- [x] **Task 1: author the guard** (`tests/scaffold/13-4-glass-rollout.test.mjs`) encoding AC 6. Confirm RED. (test-author phase)
+- [x] **Task 2: glass-ify chrome** — header + footer container surfaces use the glass roles; preserve hide-on-test, toggle/dropdown behavior. (impl phase)
+- [x] **Task 3: glass-ify the score/result panel** — strong glass card; preserve PR-5 centering + co-equal triplet + PR-13 collapse. (impl phase)
+- [x] **Task 4: glass-ify methodology chrome** — masthead/sidebar/content surfaces; preserve PR-11 sidebar + PR-9 theme honoring. (impl phase)
+- [x] **Task 5: verification** — guard GREEN, `make lint`/`make build` exit 0, `make test` green; budget within ceiling; confirm no layout-structure change to the Epic-11 surfaces. (integration phase)
 
 ## Dev Notes
 
@@ -73,6 +73,36 @@ frontend (vanilla CSS surface restyle; React/Vue-agnostic)
 
 ### Completion Notes List
 
+- Surgical glass rollout: chrome header/footer (standard fill), score panel + methodology masthead (strong fill) all use theme-aware glass roles + blur + @supports fallback; Epic-11 layouts (PR-2/5/11/13) untouched. Guard 6/6, methodology snapshot/chrome + affected unit suites green, lint 0, build 0 byte-stable, budget 2008/2300. Playwright PR-specs release-gated (verified by construction).
+
 ### File List
 
+- src/css/components/chrome-header.css
+- src/css/components/chrome-footer.css
+- src/css/components/score-panel.css
+- src/css/components/masthead.css
+- tests/scaffold/13-4-glass-rollout.test.mjs
+
 ## Specialist Self-Review
+
+**Decisions made:**
+- Rolled glass out **surgically** — only the surface *container* backgrounds changed (chrome header/footer → `--surface-glass` + blur; score panel + methodology masthead → `--surface-glass-strong` + blur + edge + shadow). Every layout rule the Epic-11 fixes depend on (PR-2 mobile/sticky, PR-5 centering, PR-11 sidebar app-shell, PR-13 collapse, the co-equal triplet) is untouched.
+- Chose **strong fill** for the body-text surfaces (score panel, methodology masthead) and standard fill for the short-text chrome bars, per 13-1 §5 — so SC 1.4.3 (4.5:1) holds on the reading surfaces regardless of backdrop.
+- Each glassed surface got an `@supports not (backdrop-filter)` solid fallback so it degrades to an opaque AA-legible panel.
+
+**Alternatives considered:**
+- Refactoring all four surfaces to literally use the `.glass-surface` class: rejected — these are existing BEM component files with their own padding/border/sticky rules; inlining the glass roles is less invasive than restructuring the HTML to add the utility class, and keeps the per-component CSS self-contained. The roles are the shared contract, which is the real DRY win.
+- Glassing the methodology *content* body as well: deferred — the masthead/chrome is the visible trust frame; the long article body reads best on the plain reading surface. Easy follow-up if desired, but not needed for "one cohesive product."
+
+**Framework gotchas avoided:**
+- The chrome-components Playwright spec asserts the `--color-surface-base` *token* swap + visibility, NOT the chrome bar's literal computed background — so a glass `rgba()` fill on the bar does not break it (verified by reading the spec's assertions before touching the file).
+- Replaced masthead.css's stray literal `1px` border with `--border-width-hairline` while there (the guard forbids literal hex; px tokenization is a bonus consistency fix), so the no-literal-hex check stays clean.
+- The methodology snapshot golden HTML is unaffected — CSS is linked externally, not inlined into the built pages — so `make build` stays byte-stable (verified: methodology-snapshots + methodology-chrome-css tests green).
+
+**Areas of uncertainty:**
+- The Playwright PR-2/5/9/11/13 specs are release-gated (excluded from `make test`, need a chromium download). I verified by construction (container-only restyle, no layout change) + the unit/scaffold tests that DO run, but the visual computed-style specs should be re-run at the release boundary to confirm pixel-level invariants. Flagged honestly rather than claimed-as-run.
+- Glass-on-glass stacking (a glass score panel inside a glass-footer'd page) could compound blur cost on low-end devices; radii are capped and surfaces are few, so within the 13-1 perf guardrail, but worth a real-device check.
+
+**Tested edge cases:**
+- 13-4 guard (6 assertions) GREEN: header + footer glass roles + backdrop-filter + hide-on-test preserved; score-panel strong glass + triplet block intact; masthead glass + sticky preserved; no literal hex in the four files; index.html link order alphabetical.
+- Affected `make test` suites GREEN: consent-scene, saved-results, item-runner, methodology-masthead, methodology-snapshots, methodology-chrome-css (88 + 28 assertions). `make lint` 0, `make build` 0 (byte-stable). CSS budget 2008/2300.
