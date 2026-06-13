@@ -1,7 +1,7 @@
 ---
 id: 13-5-redesign-downloadable-printable-result
 title: "Story 13-5: Redesign the downloadable / printable result document"
-status: in-progress
+status: review
 ---
 
 # Story 13-5: Redesign the downloadable / printable result document
@@ -31,10 +31,10 @@ Redesigns the `@media print` view of `/#/result` (`src/css/print.css`, with the 
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: author the guard** (`tests/scaffold/13-5-print-result.test.mjs`) encoding AC 6. Confirm RED. (test-author phase)
-- [ ] **Task 2: redesign `print.css`** — intentional document layout: print masthead hierarchy, co-equal triplet, expanded disclaimer + difficulty line, tidy footer, white/dark-ink, no glass/blur, RU/PL-safe wrapping. (impl phase)
-- [ ] **Task 3: ensure the disclaimer `<details>` body prints open** (CSS `details[open]`-agnostic: force the summary + body visible in print) and any print-only identity line is emitted/styled. (impl phase)
-- [ ] **Task 4: verification** — guard GREEN, `make lint`/`make build` exit 0, `make test` green; confirm no screen behavior changed (only `@media print` + the quiet screen button rule). (integration phase)
+- [x] **Task 1: author the guard** (`tests/scaffold/13-5-print-result.test.mjs`) encoding AC 6. Confirm RED. (test-author phase)
+- [x] **Task 2: redesign `print.css`** — intentional document layout: print masthead hierarchy, co-equal triplet, expanded disclaimer + difficulty line, tidy footer, white/dark-ink, no glass/blur, RU/PL-safe wrapping. (impl phase)
+- [x] **Task 3: ensure the disclaimer `<details>` body prints open** (CSS `details[open]`-agnostic: force the summary + body visible in print) and any print-only identity line is emitted/styled. (impl phase)
+- [x] **Task 4: verification** — guard GREEN, `make lint`/`make build` exit 0, `make test` green; confirm no screen behavior changed (only `@media print` + the quiet screen button rule). (integration phase)
 
 ## Dev Notes
 
@@ -71,6 +71,35 @@ frontend (print/CSS; React/Vue-agnostic)
 
 ### Completion Notes List
 
+- Print redesigned as intentional document: 42rem measure (RU/PL-safe), masthead display-title hierarchy, co-equal triplet uniform ink, disclaimer forced open, difficulty line shown, locale-agnostic print footer, break-inside guards, glass dropped (ink-economical white). Guard 9/9, result unit 20/20, lint 0, build 0 byte-stable, budgets within ceiling.
+
 ### File List
 
+- src/css/print.css
+- src/assessment/result.js
+- tests/scaffold/13-5-print-result.test.mjs
+
 ## Specialist Self-Review
+
+**Decisions made:**
+- Rebuilt the `@media print` block as an intentional **document**: a centered 42rem reading measure (RU/PL-safe, wraps instead of clipping), a masthead with display-size title hierarchy (`--font-size-600` + semibold) over a hairline rule, the co-equal triplet in uniform dark ink, the full disclaimer forced open, the difficulty line shown, and a quiet centered footer identity line — all ink-economical on white. Glass is deliberately dropped (it doesn't print).
+- Forced the PR-13 collapsed `<details>` disclaimer **open in print** (the summary marker hidden, summary + body `display:block`) so the whole not-a-certificate / not-a-clinical-assessment text always prints — a collapse toggle is meaningless on paper.
+- Added a **locale-agnostic** `.result-print-footer` (`IQ-ME · /methodology/<corpus-version>/`) so it needs no new i18n string and therefore does NOT trigger the NFR27 EN→PL/RU parity cascade. Marked `aria-hidden` (decorative on screen; only shown in print).
+
+**Alternatives considered:**
+- A localized print footer string: rejected — it would add an EN string + force PL/RU mirrors + a `sourceHashEN` bump (NFR27) for a purely decorative identity line; the structural project-mark + corpus-path is honest and locale-neutral.
+- `backdrop-filter: none !important` resets in print: added then removed — the frozen 13-5 guard (correctly) forbids any `backdrop-filter` token in the print block, and the score-panel already gets `background:#ffffff !important` with chrome hidden, so blur can't render anyway. Adapted the impl to the frozen test (correct TDS direction) rather than weakening the guard.
+- `break-inside: avoid` on the triplet/disclaimer/footer to stop the document orphaning a half-row across a page break — kept (cheap, improves the printed artifact).
+
+**Framework gotchas avoided:**
+- `<details>` prints collapsed by default in most engines; CSS alone can't open it, but forcing `display:block` on the summary + body content (and hiding the `::marker`/`::-webkit-details-marker`) makes the full text print regardless of the open state.
+- `app-modules-bytes` budget is tight (89910/90112 after the small PRINT_FOOTER addition, ~200 bytes headroom) — kept the footer a single short template literal; did not add any localized string or handler. Within ceiling, no bump needed.
+- print.css is NOT in the tokens hash (only primitives+semantic) nor the methodology snapshots, so the redesign needs no `make snapshot-update` and the build stays byte-stable (verified).
+
+**Areas of uncertainty:**
+- Real print rendering (page breaks, the `<details>` force-open, the triplet co-equality on paper) can only be fully confirmed by a browser print/PDF — there's no headless print snapshot in `make test`. I verified the structural contract (9-assertion guard) + the result unit tests + lint + build; a manual print/PDF check across EN/RU/PL is the right release-boundary confirmation.
+- The 42rem measure is a sensible A4/Letter reading width; could be tuned after a real print test if RU titles run long.
+
+**Tested edge cases:**
+- 13-5 guard (9 assertions) GREEN: white/dark-ink/light; no glass/blur/glass-roles in print; masthead title+date styled; triplet spans uniform ink; all interactive chrome `display:none !important`; difficulty sentence + disclaimer body forced visible; title display-size hierarchy; rem reading measure; footer identity line.
+- Result unit tests (20) GREEN after the PRINT_FOOTER DOM addition. `make lint` 0, `make build` 0 (byte-stable). Budgets within ceiling.
