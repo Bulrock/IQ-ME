@@ -62,6 +62,20 @@
 
   /* Semantic border-width token */
   --border-width-hairline:     var(--border-width-1);
+
+  /* ─── Epic 13 — Semantic glass roles (Story 13-1 §2.4). Components consume
+   * these, never the --glass-* primitives directly (UX-DR1 two-layer rule). */
+  --surface-glass:        var(--glass-fill);
+  --surface-glass-strong: var(--glass-fill-strong);
+  --surface-glass-blur:   var(--glass-blur-md);
+  --surface-glass-edge:   var(--glass-edge);
+  --surface-glass-shadow: var(--glass-shadow);
+
+  /* ─── Epic 13 — Semantic motion roles (Story 13-1 §4). */
+  --motion-control:  var(--motion-instant);
+  --motion-hover:    var(--motion-quick);
+  --motion-entrance: var(--motion-base);
+  --motion-ease:     var(--ease-standard);
 }
 
 /* ─── UX-DR6 — Dark mode (explicit opt-in) ───────────────────────────── */
@@ -76,6 +90,14 @@
      against the dark surfaces (accent-500 is only ~2:1 here). */
   --color-focus-ring:       var(--color-accent-300);
   --color-action-border:    var(--color-accent-300);
+
+  /* Epic 13 — dark glass is separately authored (UX-DR6), not auto-inverted.
+   * Smoked neutral-900 ink at the same alpha; subtle rim (a bright hairline
+   * reads as a defect on dark). */
+  --surface-glass:        rgba(19, 24, 32, 0.72);
+  --surface-glass-strong: rgba(19, 24, 32, 0.86);
+  --surface-glass-edge:   rgba(255, 255, 255, 0.10);
+  --surface-glass-shadow: 0 6px 28px rgba(0, 0, 0, 0.40);
 }
 
 /* ─── UX-DR6 — Dark mode (system pref, when no explicit light opt-out) ─── */
@@ -89,5 +111,11 @@
     --color-text-link:        var(--color-accent-300);
     --color-focus-ring:       var(--color-accent-300);
     --color-action-border:    var(--color-accent-300);
+
+    /* Epic 13 — dark glass under system pref (mirror of the explicit block). */
+    --surface-glass:        rgba(19, 24, 32, 0.72);
+    --surface-glass-strong: rgba(19, 24, 32, 0.86);
+    --surface-glass-edge:   rgba(255, 255, 255, 0.10);
+    --surface-glass-shadow: 0 6px 28px rgba(0, 0, 0, 0.40);
   }
 }

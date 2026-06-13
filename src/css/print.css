@@ -37,6 +37,19 @@
   outline-offset: var(--space-1);
 }
 
+/* Screen — the print-only footer identity line is hidden until printing. */
+.result-print-footer {
+  display: none;
+}
+
+/* ─── PR-17 (Story 13-5) — the printed/exported result as an intentional
+ * DOCUMENT, not a de-styled screen. Glass is deliberately dropped (blur and
+ * translucency don't print and waste ink); the glass-era identity survives as
+ * a clean, ink-economical, high-contrast typographic layout on white. The
+ * co-equal triplet, difficulty line, full disclaimer, date, and a footer
+ * identity line all print; interactive chrome does not. RU/PL print without
+ * clipping because the document is constrained to a reading measure that
+ * wraps, never a fixed width. */
 @media print {
   /* Always print on white with dark ink, regardless of the chosen theme. */
   :root { color-scheme: light; }
@@ -45,7 +58,7 @@
     color: #111111 !important;
   }
 
-  /* Drop interactive chrome + anything that isn't the summary. */
+  /* Drop interactive chrome + anything that isn't the summary document. */
   .chrome-header,
   .chrome-footer,
   .result-print-btn,
@@ -57,13 +70,55 @@
     display: none !important;
   }
 
+  /* The document column: a centered reading measure (RU/PL-safe wrapping), no
+     glass, no border, no shadow — just clean spacing on white. */
   .result-scene,
   .score-panel {
     background: #ffffff !important;
     color: #111111 !important;
     box-shadow: none !important;
     border: none !important;
-    max-width: 100% !important;
+    max-width: 42rem !important;
+    margin-inline: auto !important;
+    padding: 0 !important;
+  }
+
+  .score-panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  /* Print masthead — the document header. Title is the dominant type
+     (display-size hierarchy); the date sits quiet beneath a hairline rule. */
+  .result-print-only {
+    display: block !important;
+    margin-block-end: var(--space-6);
+    padding-block-end: var(--space-3);
+    border-block-end: 1px solid #cccccc !important;
+  }
+
+  .result-print-only__title {
+    font-size: var(--font-size-600);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+    text-wrap: balance;
+    margin: 0 0 var(--space-2) 0;
+    color: #111111 !important;
+  }
+
+  .result-print-only__date {
+    font-size: var(--font-size-100);
+    font-variant-numeric: tabular-nums;
+    color: #555555 !important;
+    margin: 0;
+  }
+
+  /* Co-equal triplet — uniform dark ink, equal weight; the screen flex layout
+     is preserved so the percentile / IQ-scale / range stay visually co-equal. */
+  .score-panel__triplet {
+    gap: var(--space-6);
+    margin-block: var(--space-4);
   }
 
   .score-panel__anchor,
@@ -72,11 +127,15 @@
     color: #111111 !important;
   }
 
-  .score-panel__metric-label,
+  .score-panel__metric-label {
+    color: #555555 !important;
+  }
+
   .score-panel__explainer,
   .score-panel__caveat,
   .score-panel__difficulty-sentence {
     color: #333333 !important;
+    line-height: var(--line-height-base);
   }
 
   /* The difficulty sentence is reveal-gated on screen; always show in print. */
@@ -84,21 +143,41 @@
     display: block !important;
   }
 
-  /* Print-only masthead (title + date). */
-  .result-print-only {
+  /* The disclaimer is a collapsed <details> on screen (PR-13). On paper the
+     toggle is meaningless — force the summary + full body visible so the whole
+     not-a-certificate / not-a-clinical-assessment text prints. */
+  .disclaimer,
+  .score-panel__explainer {
     display: block !important;
-    margin-block-end: var(--space-5);
+  }
+  .disclaimer__summary {
+    display: block !important;
+    list-style: none;
+    font-weight: var(--font-weight-medium);
+    margin-block-end: var(--space-2);
+  }
+  .disclaimer[open] .disclaimer__summary::marker,
+  .disclaimer__summary::-webkit-details-marker {
+    display: none;
   }
 
-  .result-print-only__title {
-    font-size: var(--font-size-500);
-    font-weight: var(--font-weight-semibold);
-    margin: 0;
-  }
-
-  .result-print-only__date {
+  /* Document footer — quiet identity line; reinforces this is a summary, not a
+     credential. */
+  .result-print-footer {
+    display: block !important;
+    margin-block-start: var(--space-6);
+    padding-block-start: var(--space-3);
+    border-block-start: 1px solid #cccccc !important;
     font-size: var(--font-size-100);
-    color: #555555 !important;
-    margin: 0;
+    font-variant-numeric: tabular-nums;
+    color: #777777 !important;
+    text-align: center;
+  }
+
+  /* Avoid orphaning the triplet/disclaimer across a page break. */
+  .score-panel__triplet,
+  .disclaimer,
+  .result-print-footer {
+    break-inside: avoid;
   }
 }

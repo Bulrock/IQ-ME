@@ -85,6 +85,10 @@ const SAVE = (s) => `<button type="button" class="score-panel__save-button" aria
 // with it). Zero-dep: opens the browser print dialog over a print-styled view.
 const PRINT = (s) => `<button type="button" class="result-print-btn">${E(s.printButton)}</button>`;
 const PRINT_HEAD = (s) => `<div class="result-print-only"><p class="result-print-only__title">${E(s.printTitle)}</p><p class="result-print-only__date">${E(new Date().toISOString().slice(0, 10))}</p></div>`;
+// PR-17 (Story 13-5): a tidy print-only document identity line at the foot of
+// the printed page. Locale-agnostic structural identity (no translatable prose
+// → no NFR27 cascade): the project mark + the methodology corpus path.
+const PRINT_FOOTER = () => `<p class="result-print-footer" aria-hidden="true">IQ-ME · /methodology/${CV}/</p>`;
 const RETEST = (s, locale) => `<div class="score-panel__retest-note"><p class="score-panel__retest-copy">${E(s.retestNote)}</p><a class="score-panel__retest-link" href="/methodology/${CV}/${locale}/limitations/retest-effects/">${E(s.retestNoteLinkLabel)}</a></div>`;
 
 // PR-13 (AC16) — the explanatory disclaimer collapses to its first line via a
@@ -104,7 +108,7 @@ function panel(s, sc, c, variant, tailScenes, crisis) {
   const p = Math.round(sc.percentile), a = sc.iqScale;
   const h = Math.round((sc.displayedBand.upper - sc.displayedBand.lower) / 2 * 15);
   const locale = state.getState().locale || "en";
-  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h1 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h1><section class="score-panel score-panel--${variant}" aria-labelledby="score-panel-heading">${PRINT_HEAD(s)}<p class="score-panel__caveat" role="note">${E(s.caveat)}${variant === "top-decile" ? TEAR : ""}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p, s.percentileLabel)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a, s.anchorLabel)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }), s.bandLabel)}</div>${DISCLAIMER(s)}${DS(s, c)}${SAVE(s)}${PRINT(s)}${RETEST(s, locale)}</section>${tailScene(variant, tailScenes, crisis, s)}</section>`;
+  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h1 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h1><section class="score-panel score-panel--${variant}" aria-labelledby="score-panel-heading">${PRINT_HEAD(s)}<p class="score-panel__caveat" role="note">${E(s.caveat)}${variant === "top-decile" ? TEAR : ""}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p, s.percentileLabel)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a, s.anchorLabel)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }), s.bandLabel)}</div>${DISCLAIMER(s)}${DS(s, c)}${SAVE(s)}${PRINT(s)}${RETEST(s, locale)}${PRINT_FOOTER()}</section>${tailScene(variant, tailScenes, crisis, s)}</section>`;
 }
 
 // Wire the opt-in Save button. The browser-storage write lives entirely in

@@ -21,8 +21,17 @@
   padding-block: var(--space-3);
   padding-inline: var(--space-5);
   color: var(--color-text-body);
-  background-color: var(--color-surface-elevated);
-  border-block-end: var(--space-1) solid var(--color-rule-divider);
+  /* Epic 13 (Story 13-4): glass chrome bar — theme-aware translucent fill +
+     blur over the page, with the glass lit-edge as the bottom rule. Short text
+     → standard fill is sufficient for AA. */
+  background-color: var(--surface-glass);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border-block-end: var(--border-width-hairline) solid var(--surface-glass-edge);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .chrome-header { background-color: var(--surface-glass-strong); }
 }
 
 /* PR-8 (AC10): the app logo sits beside the wordmark. Explicit width/height

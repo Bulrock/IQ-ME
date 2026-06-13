@@ -16,8 +16,13 @@
   padding-block: var(--space-5);
   padding-inline: var(--space-5);
   color: var(--color-text-body);
-  background-color: var(--color-surface-base);
-  border-block-end: 1px solid var(--color-rule-divider);
+  /* Epic 13 (Story 13-4): glass methodology masthead. Theme-aware glass roles
+     keep the page theme-correct in Light/Dark (PR-9). Strong fill behind the
+     long-form trust signals (title/DOI/reviewer) for AA. */
+  background-color: var(--surface-glass-strong);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border-block-end: var(--border-width-hairline) solid var(--surface-glass-edge);
   /* PR-2 (Story 11-1): on article pages the masthead sticks to the top so it
      stays visible while the content scrolls (the index pins it via the
      app-shell instead, where the body doesn't page-scroll). */

@@ -1,0 +1,34 @@
+/* src/css/components/glass-surface.css
+ *
+ * Epic 13 (Story 13-2) — reusable glass surface primitive. Any surface adopts
+ * the glassmorphism look by adding `.glass-surface` (or `.glass-surface--strong`
+ * for body-text surfaces) without bespoke CSS. Consumes ONLY the semantic glass
+ * roles (UX-DR1 two-layer rule); never the --glass-* primitives directly.
+ *
+ * Contrast is guaranteed by the fill alpha (≥0.72) + the @supports solid
+ * fallback below, NOT by the blur — backdrop content is variable. Where
+ * backdrop-filter is unavailable the surface stays a valid opaque panel.
+ */
+
+.glass-surface {
+  background-color: var(--surface-glass);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border: var(--border-width-hairline) solid var(--surface-glass-edge);
+  border-radius: var(--radius-surface);
+  box-shadow: var(--surface-glass-shadow);
+}
+
+/* Stronger fill for surfaces carrying body text at length (methodology, score
+ * panel) so SC 1.4.3 (4.5:1) holds independent of backdrop. */
+.glass-surface--strong {
+  background-color: var(--surface-glass-strong);
+}
+
+/* Solid fallback: where backdrop-filter is unsupported, drop translucency so
+ * the surface remains an opaque, AA-legible panel (graceful degradation). */
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-surface {
+    background-color: var(--surface-glass-strong);
+  }
+}

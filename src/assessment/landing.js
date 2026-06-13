@@ -30,16 +30,25 @@ export function render(rootEl, strings) {
   const savedEntry = (savedResults.hasSaved() || persistence.hasProgress())
     ? '<button type="button" id="view-saved-btn" class="landing__saved-btn" data-saved-results-entry>' + savedLabel + '</button>'
     : '';
+  // Story 13-3: the landing scene is wrapped in a decorative glass stage with
+  // an aria-hidden aurora glow behind the hero. The frozen Story-3.3 contract
+  // (section.landing › h1#landing-heading + p.landing__paragraph +
+  // div.landing__cta-group › #start-test-btn + .landing__methodology-link) is
+  // preserved verbatim inside the stage — the wrapper/glow are additive and
+  // purely decorative (announced to no screen reader).
   rootEl.innerHTML =
-    '<section class="landing" aria-labelledby="landing-heading">' +
-      '<h1 id="landing-heading">' + headline + '</h1>' +
-      '<p class="landing__paragraph">' + intro + '</p>' +
-      '<div class="landing__cta-group">' +
-        '<button type="button" id="start-test-btn" class="landing__start-btn">' + startLabel + '</button>' +
-        savedEntry +
-        '<a class="landing__methodology-link" href="/methodology/v0.1.0/en/">' + methodLabel + '</a>' +
-      '</div>' +
-    '</section>';
+    '<div class="landing-stage">' +
+      '<div class="landing__aurora" aria-hidden="true"></div>' +
+      '<section class="landing" aria-labelledby="landing-heading">' +
+        '<h1 id="landing-heading">' + headline + '</h1>' +
+        '<p class="landing__paragraph">' + intro + '</p>' +
+        '<div class="landing__cta-group">' +
+          '<button type="button" id="start-test-btn" class="landing__start-btn">' + startLabel + '</button>' +
+          savedEntry +
+          '<a class="landing__methodology-link" href="/methodology/v0.1.0/en/">' + methodLabel + '</a>' +
+        '</div>' +
+      '</section>' +
+    '</div>';
   startBtn = rootEl.querySelector("#start-test-btn");
   if (startBtn) {
     startClickHandler = () => { routing.navigate("consent"); };

@@ -6,8 +6,20 @@
  */
 
 .score-panel {
-  padding: var(--space-5);
-  background-color: var(--color-surface-elevated);
+  padding: var(--space-6);
+  /* Epic 13 (Story 13-4): glass result card. Body-text surface → strong fill so
+     SC 1.4.3 (4.5:1) holds regardless of backdrop. Layout (PR-5 centering, the
+     co-equal triplet below) is untouched — this only restyles the container. */
+  background-color: var(--surface-glass-strong);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border: var(--border-width-hairline) solid var(--surface-glass-edge);
+  border-radius: var(--radius-surface);
+  box-shadow: var(--surface-glass-shadow);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .score-panel { background-color: var(--surface-glass-strong); }
 }
 
 .score-panel__caveat[role="note"] {

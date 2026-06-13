@@ -13,8 +13,16 @@
   align-items: center;
   padding-block: var(--space-3);
   padding-inline: var(--space-5);
-  background-color: var(--color-surface-elevated);
-  border-block-start: var(--space-1) solid var(--color-rule-divider);
+  /* Epic 13 (Story 13-4): glass chrome bar to match the header; glass lit-edge
+     as the top rule. */
+  background-color: var(--surface-glass);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border-block-start: var(--border-width-hairline) solid var(--surface-glass-edge);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .chrome-footer { background-color: var(--surface-glass-strong); }
 }
 
 .chrome-footer__methodology-link,

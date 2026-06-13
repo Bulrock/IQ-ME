@@ -100,6 +100,29 @@
   --shadow-2:
     0 2px 4px rgba(10, 13, 18, 0.06),
     0 6px 16px rgba(10, 13, 18, 0.10);
+
+  /* ─── Epic 13 — Glass primitives (Story 13-1 §2; consumed by 13-2 semantic
+   * glass roles). Values are LIGHT-theme; dark glass is separately authored
+   * in semantic.css (UX-DR6). The contrast guarantee is the ≥0.72 fill alpha
+   * (+ @supports solid fallback), NEVER the blur — backdrop content is
+   * variable so blur alone cannot ensure WCAG 2.2 AA. */
+  --glass-blur-sm:    6px;   /* inline controls, chips */
+  --glass-blur-md:    12px;  /* cards, panels, score panel, methodology sidebar */
+  --glass-blur-lg:    20px;  /* full-bleed hero only (capped — composite cost) */
+  --glass-fill:        rgba(255, 255, 255, 0.72);  /* standard panel fill */
+  --glass-fill-strong: rgba(255, 255, 255, 0.85);  /* body-text surfaces */
+  --glass-tint:        rgba(47, 74, 120, 0.06);     /* decorative accent (accent-500); never the contrast layer */
+  --glass-edge:        rgba(255, 255, 255, 0.55);   /* lit hairline rim */
+  --glass-shadow:      0 4px 24px rgba(10, 13, 18, 0.10);  /* soft float shadow */
+
+  /* ─── Epic 13 — Motion primitives (Story 13-1 §4). Durations + easing.
+   * All motion collapses under prefers-reduced-motion: reduce (base.css). */
+  --motion-instant: 90ms;   /* toggle/checkbox state, focus ring */
+  --motion-quick:   160ms;  /* hover, small lift, dropdown open */
+  --motion-base:    260ms;  /* scene/panel entrance, item cross-fade */
+  --motion-slow:    420ms;  /* homepage hero reveal only */
+  --ease-standard:  cubic-bezier(0.2, 0, 0, 1);  /* decelerate-in (entrances) */
+  --ease-exit:      cubic-bezier(0.4, 0, 1, 1);  /* accelerate-out (dismissals) */
 }
 
 /* ─── UX-DR5 — Responsive breakpoints (@custom-media) ──────────────── */

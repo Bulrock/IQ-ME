@@ -1,23 +1,83 @@
 /* src/css/components/landing.css
  *
- * Story 3.3 AC-9 — landing scene layout. Semantic tokens only; no literal
- * hex / px / font-family. Mobile-first; widens at the prose-comfortable
- * reading measure on larger viewports.
+ * Story 3.3 (original) + Story 13-3 (Epic 13 glass redesign + motion). The
+ * landing scene is a centered glass hero card floating over a soft, decorative
+ * aurora glow. Semantic tokens only; no literal hex / px / font-family. The
+ * frozen Story-3.3 DOM contract (section.landing › h1#landing-heading +
+ * p.landing__paragraph + div.landing__cta-group › #start-test-btn +
+ * .landing__methodology-link) is preserved — this file only restyles it and
+ * the decorative wrapper added additively in landing.js.
+ *
+ * Contrast: the hero uses the --surface-glass fill (≥0.72 alpha) so the copy
+ * clears WCAG 2.2 AA over any backdrop. Motion: a fade-and-rise entrance using
+ * the 13-1 motion tokens; neutralized by the global prefers-reduced-motion
+ * block in base.css plus the scene-level reduce rule below.
  */
 
-.landing {
-  max-width: 38rem;
-  margin-inline: auto;
+/* Decorative stage: centers the hero and hosts the aurora glow layer. */
+.landing-stage {
+  position: relative;
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding-block: var(--space-page-padding-y);
-  padding-inline: var(--space-5);
+  padding-inline: var(--space-4);
+  overflow: hidden;
+}
+
+/* Decorative aurora glow behind the hero (aria-hidden in landing.js). Pure
+   CSS radial gradients tinted with the glass accent; never the contrast layer.
+   Slow, reduced-motion-safe drift. */
+.landing__aurora {
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 70%;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(40% 55% at 25% 30%, var(--glass-tint), transparent 70%),
+    radial-gradient(45% 50% at 80% 20%, var(--color-option-hover-accent), transparent 72%);
+  opacity: 0.35;
+  filter: blur(var(--glass-blur-lg));
+  animation: landing-aurora-drift var(--motion-slow) var(--ease-standard) both;
+}
+
+.landing {
+  position: relative;
+  z-index: 1;
+  max-width: 40rem;
+  margin-inline: auto;
+  padding-block: var(--space-7);
+  padding-inline: var(--space-6);
   color: var(--color-text-body);
-  background-color: var(--color-surface-base);
+  /* Glass hero surface (semantic roles only; see glass-surface.css). */
+  background-color: var(--surface-glass);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border: var(--border-width-hairline) solid var(--surface-glass-edge);
+  border-radius: var(--radius-surface);
+  box-shadow: var(--surface-glass-shadow);
+  /* Fade-and-rise entrance. */
+  animation: landing-enter var(--motion-base) var(--ease-standard) both;
+}
+
+/* Where backdrop-filter is unavailable, drop to the strong opaque fill so the
+   hero stays an AA-legible card. */
+@supports not (backdrop-filter: blur(1px)) {
+  .landing { background-color: var(--surface-glass-strong); }
+}
+
+.landing > h1 {
+  margin-block: 0 var(--space-3);
+  text-wrap: balance;
 }
 
 .landing__paragraph {
   font-size: var(--font-size-300);
   line-height: var(--line-height-prose);
   margin-block-end: var(--space-section-gap);
+  color: var(--color-text-body);
 }
 
 .landing__cta-group {
@@ -27,21 +87,31 @@
   align-items: center;
 }
 
+/* Primary CTA — the single most prominent affordance. Glass-era solid action
+   with a soft lift on hover (transform/opacity only; compositor-friendly). */
 .landing__start-btn {
   appearance: none;
   font-size: var(--font-size-300);
+  font-weight: var(--font-weight-medium);
   line-height: var(--line-height-base);
   padding-block: var(--space-3);
-  padding-inline: var(--space-5);
-  color: var(--color-surface-base);
-  background-color: var(--color-text-link);
-  border: none;
-  border-radius: var(--space-1);
+  padding-inline: var(--space-6);
+  color: var(--color-action-text);
+  background-color: var(--color-action-bg);
+  border: var(--border-width-hairline) solid var(--color-action-border);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-elevated);
   cursor: pointer;
+  transition:
+    transform var(--motion-hover) var(--motion-ease),
+    background-color var(--motion-hover) var(--motion-ease),
+    box-shadow var(--motion-hover) var(--motion-ease);
 }
 
 .landing__start-btn:hover {
-  background-color: var(--color-text-link-hover);
+  background-color: var(--color-action-bg-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-overlay);
 }
 
 .landing__start-btn:focus-visible {
@@ -49,8 +119,8 @@
   outline-offset: var(--space-1);
 }
 
-/* PR-14 (AC17) — "View saved results" entry point. Quiet secondary affordance
-   beside the primary "Start the test" CTA; only rendered when ≥1 result saved. */
+/* PR-14 — "View saved results" entry point: a quiet glass-outlined secondary
+   affordance beside the primary CTA; only rendered when ≥1 result saved. */
 .landing__saved-btn {
   appearance: none;
   font-size: var(--font-size-300);
@@ -58,14 +128,20 @@
   padding-block: var(--space-3);
   padding-inline: var(--space-5);
   color: var(--color-text-body);
-  background-color: var(--color-surface-base);
-  border: var(--border-width-hairline) solid var(--color-rule-strong);
-  border-radius: var(--space-1);
+  background-color: var(--surface-glass);
+  backdrop-filter: blur(var(--glass-blur-sm));
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
+  border: var(--border-width-hairline) solid var(--surface-glass-edge);
+  border-radius: var(--radius-control);
   cursor: pointer;
+  transition:
+    transform var(--motion-hover) var(--motion-ease),
+    border-color var(--motion-hover) var(--motion-ease);
 }
 
 .landing__saved-btn:hover {
   border-color: var(--color-focus-ring);
+  transform: translateY(-1px);
 }
 
 .landing__saved-btn:focus-visible {
@@ -88,8 +164,36 @@
   outline-offset: var(--space-1);
 }
 
-/* PR-2 (Story 11-1): smaller landing CTAs on phones. */
+@keyframes landing-enter {
+  from { opacity: 0; transform: translateY(var(--space-4)); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes landing-aurora-drift {
+  from { opacity: 0; transform: translateY(calc(-1 * var(--space-3))); }
+  to   { opacity: 0.35; transform: translateY(0); }
+}
+
+/* Scene-level defense-in-depth: even without the global base.css block, never
+   animate for reduced-motion users. */
+@media (prefers-reduced-motion: reduce) {
+  .landing,
+  .landing__aurora {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .landing__aurora { opacity: 0.35; }
+  .landing__start-btn,
+  .landing__saved-btn { transition: none; }
+}
+
+/* PR-2 (Story 11-1): smaller landing CTAs on phones; preserved under glass. */
 @media (max-width: 30rem) {
+  .landing {
+    padding-block: var(--space-6);
+    padding-inline: var(--space-5);
+  }
   .landing__start-btn,
   .landing__saved-btn {
     font-size: var(--font-size-200);

@@ -113,3 +113,18 @@ a:active {
   background-color: var(--color-selection-bg);
   color: var(--color-selection-text);
 }
+
+/* Epic 13 (Story 13-1 §4.3 / Story 13-3) — global motion safety net. A user who
+   prefers reduced motion sees the same content in the same order, instantly:
+   all animation/transition is neutralized to a 0.01ms no-op. No information is
+   ever conveyed by motion alone. Component-level rules add defense-in-depth. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
