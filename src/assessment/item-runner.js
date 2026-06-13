@@ -13,12 +13,14 @@ import { renderErrorFallback } from "./error-fallback.js";
 import * as state from "./state.js";
 import * as routing from "./routing.js";
 import { selectSession } from "./item-selection.js";
+import { resolveFromState } from "./methodology-registry.js";
 import * as persistence from "./session-persistence.js";
 import { escapeAttr as esc, fmt } from "./html-util.js";
 
-const SESSION_SIZE = 16;
 const INITIAL_SEED = "0".repeat(32);
-const ITEM_PARAMS_URL = "/src/items/item-parameters.json";
+// Story 12-3: pool URL + session size are resolved per-session from the chosen
+// (methodology, variant) via the registry — see ensureSession. Defaults to the
+// geometric short pool (16) when no selection was made.
 
 let sessionCache = null;
 let mounted = null;
@@ -49,16 +51,19 @@ async function ensureSession(rootEl, strings) {
     seedBytes = crypto.getRandomValues(new Uint8Array(16));
     state.setSeed(bytesToHex(seedBytes));
   }
+  // Story 12-3: resolve the pool + session size for the chosen methodology +
+  // variant (defaults to geometric short → the existing 16-item pool).
+  const { poolUrl, sessionSize } = resolveFromState(state.getState());
   let pool;
   try {
-    const res = await fetch(ITEM_PARAMS_URL);
+    const res = await fetch(poolUrl);
     if (!res || !res.ok) throw new Error("fetch failed");
     pool = await res.json();
   } catch (_err) {
     renderErrorFallback(rootEl, strings);
     return null;
   }
-  sessionCache = { pool, selection: selectSession(pool.items, seedBytes, SESSION_SIZE) };
+  sessionCache = { pool, sessionSize, selection: selectSession(pool.items, seedBytes, sessionSize) };
   return sessionCache;
 }
 
@@ -68,15 +73,16 @@ function buildMarkup(cache, currentItem, strings) {
   // Stub pool: don't render augmentation (still computed+tested); re-enables at 9a-2.
   const isStubPool = typeof cache.pool._note === "string";
   const aug = isStubPool ? "none" : cache.selection.augmentations[currentItem];
+  const sessionSize = cache.sessionSize;
   const N = currentItem + 1;
-  const heading = fmt(strings.itemRunner.headingTemplate, { N, total: SESSION_SIZE });
-  const progress = fmt(strings.itemRunner.progressTemplate, { N, total: SESSION_SIZE });
+  const heading = fmt(strings.itemRunner.headingTemplate, { N, total: sessionSize });
+  const progress = fmt(strings.itemRunner.progressTemplate, { N, total: sessionSize });
   const responses = state.getState().responses;
   const recordedAt = responses.findIndex((r) => r.itemIndex === currentItem);
   const recorded = recordedAt >= 0 ? responses[recordedAt].response : null;
   const sel = selectedOptions[currentItem]; // actual pick; correct-only fallback for legacy
   const isFirst = currentItem === 0;
-  const isLast = currentItem === SESSION_SIZE - 1;
+  const isLast = currentItem === sessionSize - 1;
   const nextLabel = isLast ? strings.itemRunner.submitButton : strings.itemRunner.nextButton;
 
   const optionLabel = strings.itemRunner.optionLabelTemplate || "Option {N}";
@@ -145,12 +151,13 @@ function attachListeners(rootEl, cache, strings) {
   });
   add(rootEl.querySelector("#next-btn"), "click", () => {
     const cur = state.getState().currentItem;
-    if (cur >= SESSION_SIZE - 1) {
+    const sessionSize = cache.sessionSize;
+    if (cur >= sessionSize - 1) {
       // PR-4 (AC6): Submit finalizes the session. Pad any unanswered items as
       // incorrect (0) so the scoring path handles them deterministically and
       // result.render() doesn't bounce to landing; then route to the result.
       const answered = new Set(state.getState().responses.map((r) => r.itemIndex));
-      for (let i = 0; i < SESSION_SIZE; i++) {
+      for (let i = 0; i < sessionSize; i++) {
         if (!answered.has(i)) state.recordResponse(i, 0);
       }
       // Finalized → no longer resumable; clear THIS session's saved progress.
@@ -206,7 +213,7 @@ function warmImage(href) {
 function preloadNext(cache, currentItem) {
   if (!cache) return;
   const nextIdx = currentItem + 1;
-  if (nextIdx >= SESSION_SIZE) return;
+  if (nextIdx >= cache.sessionSize) return;
   const nextItem = cache.pool.items.find((p) => p.id === cache.selection.items[nextIdx]);
   if (!nextItem) return;
   // Warm the next item's matrix image AND its option images so the in-place
@@ -231,18 +238,19 @@ function updateItemInPlace(rootEl, cache, strings) {
   if (!item) return;
   const isStubPool = typeof cache.pool._note === "string";
   const aug = isStubPool ? "none" : cache.selection.augmentations[currentItem];
+  const sessionSize = cache.sessionSize;
   const N = currentItem + 1;
   const isFirst = currentItem === 0;
-  const isLast = currentItem === SESSION_SIZE - 1;
+  const isLast = currentItem === sessionSize - 1;
   const responses = state.getState().responses;
   const recordedAt = responses.findIndex((r) => r.itemIndex === currentItem);
   const recorded = recordedAt >= 0 ? responses[recordedAt].response : null;
   const sel = selectedOptions[currentItem];
 
   const heading = rootEl.querySelector("#item-runner-heading");
-  if (heading) heading.textContent = fmt(strings.itemRunner.headingTemplate, { N, total: SESSION_SIZE });
+  if (heading) heading.textContent = fmt(strings.itemRunner.headingTemplate, { N, total: sessionSize });
   const progress = rootEl.querySelector(".item-runner__progress");
-  if (progress) progress.textContent = fmt(strings.itemRunner.progressTemplate, { N, total: SESSION_SIZE });
+  if (progress) progress.textContent = fmt(strings.itemRunner.progressTemplate, { N, total: sessionSize });
   const img = rootEl.querySelector(".item-runner__image");
   if (img) {
     img.setAttribute("src", "/src/items/" + item.asset);

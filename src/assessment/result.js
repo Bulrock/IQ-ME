@@ -6,6 +6,7 @@ import * as routing from "./routing.js";
 import { scoreSession } from "../scoring/irt/index.js";
 import * as rs from "./reveal-stage.js";
 import { selectSession } from "./item-selection.js";
+import { resolveFromState } from "./methodology-registry.js";
 import { selectTailScene } from "./tail-scene-router.js";
 import { saveResult, isSaved } from "./save-result.js";
 import { escapeAttr as E, fmt as F } from "./html-util.js";
@@ -13,6 +14,10 @@ import { tailScenesUrl } from "./tail-scenes-url.js";
 import { crisisResourcesUrl } from "./crisis-resources-url.js";
 
 const CV = "v0.1.0";
+// Story 12-3: the session size is resolved per (methodology, variant) via the
+// registry (default geometric short = 16). SS is the back-compatible default
+// used where no variant context is threaded (e.g. legacy callers of the
+// exported computeDifficultyCounts).
 const SS = 16;
 let m = null;
 const SP = (n, p, l, x, vis) => `<span class="score-panel__${n}" tabindex="0" data-methodology-target="scoring/${p}" aria-label="${E(l)}">${E(x)}<span class="score-panel__metric-label" aria-hidden="true">${E(vis)}</span></span>`;
@@ -21,11 +26,11 @@ const HB = (h) => { const o = new Uint8Array(h.length / 2); for (let i = 0; i < 
 
 // FR22 — per-band fraction-correct. Re-derives the session permutation from
 // state.seed so response.itemIndex maps to the item-id presented at that slot.
-export function computeDifficultyCounts(pool, bands, responses, seedHex) {
+export function computeDifficultyCounts(pool, bands, responses, seedHex, sessionSize = SS) {
   const t = { easy: 0, medium: 0, hard: 0 }, c = { easy: 0, medium: 0, hard: 0 };
   if (!pool || !bands || !Array.isArray(responses) || typeof seedHex !== "string") return { totals: t, correct: c };
   let sel;
-  try { sel = selectSession(pool.items, HB(seedHex), SS); } catch { return { totals: t, correct: c }; }
+  try { sel = selectSession(pool.items, HB(seedHex), sessionSize); } catch { return { totals: t, correct: c }; }
   const bb = new Map(bands.items.map((x) => [x.id, x.band]));
   for (const r of responses) {
     const id = sel.items[r.itemIndex]; if (!id) continue;
@@ -104,11 +109,23 @@ const DISCLAIMER = (s) => {
   return `<details class="disclaimer score-panel__explainer"><summary class="disclaimer__summary">${E(summary)}</summary>${body}</details>`;
 };
 
-function panel(s, sc, c, variant, tailScenes, crisis) {
+// Story 12-3: a short, honest line naming the methodology + variant that
+// produced the estimate. Localized via result.methodologyVariantLine +
+// result.method_<methodology> / result.variant_<variant> display names.
+const METHOD_VARIANT_LINE = (s, mv) => {
+  const tmpl = s.methodologyVariantLine;
+  if (!tmpl) return "";
+  const methodName = s[`method_${mv.methodology}`] || mv.methodology;
+  const variantName = s[`variant_${mv.variant}`] || mv.variant;
+  return `<p class="score-panel__method-variant">${E(F(tmpl, { methodology: methodName, variant: variantName }))}</p>`;
+};
+
+function panel(s, sc, c, variant, tailScenes, crisis, mv) {
   const p = Math.round(sc.percentile), a = sc.iqScale;
   const h = Math.round((sc.displayedBand.upper - sc.displayedBand.lower) / 2 * 15);
   const locale = state.getState().locale || "en";
-  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h1 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h1><section class="score-panel score-panel--${variant}" aria-labelledby="score-panel-heading">${PRINT_HEAD(s)}<p class="score-panel__caveat" role="note">${E(s.caveat)}${variant === "top-decile" ? TEAR : ""}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p, s.percentileLabel)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a, s.anchorLabel)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }), s.bandLabel)}</div>${DISCLAIMER(s)}${DS(s, c)}${SAVE(s)}${PRINT(s)}${RETEST(s, locale)}${PRINT_FOOTER()}</section>${tailScene(variant, tailScenes, crisis, s)}</section>`;
+  const methodVariant = mv ? METHOD_VARIANT_LINE(s, mv) : "";
+  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h1 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h1><section class="score-panel score-panel--${variant}" aria-labelledby="score-panel-heading">${PRINT_HEAD(s)}<p class="score-panel__caveat" role="note">${E(s.caveat)}${variant === "top-decile" ? TEAR : ""}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p, s.percentileLabel)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a, s.anchorLabel)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }), s.bandLabel)}</div>${methodVariant}${DISCLAIMER(s)}${DS(s, c)}${SAVE(s)}${PRINT(s)}${RETEST(s, locale)}${PRINT_FOOTER()}</section>${tailScene(variant, tailScenes, crisis, s)}</section>`;
 }
 
 // Wire the opt-in Save button. The browser-storage write lives entirely in
@@ -169,8 +186,12 @@ const Z = { totals: { easy: 0, medium: 0, hard: 0 }, correct: { easy: 0, medium:
 export async function render(rootEl, strings) {
   if (m) { detach(); m = null; }
   rs.resetRevealStage();
+  // Story 12-3: resolve the chosen methodology + variant (default geometric
+  // short = 16) so the completeness guard, pool fetch, scoring, and difficulty
+  // counts all use the variant's session size.
+  const mv = resolveFromState(state.getState());
   // No completed session (direct nav / reload) → nothing to score; go home.
-  if (state.getState().responses.length !== SS) {
+  if (state.getState().responses.length !== mv.sessionSize) {
     routing.navigate("");
     return;
   }
@@ -178,7 +199,7 @@ export async function render(rootEl, strings) {
   const locale = state.getState().locale || "en";
   try {
     const [pr, br, tr] = await Promise.all([
-      fetch("/src/items/item-parameters.json"),
+      fetch(mv.poolUrl),
       fetch("/src/items/item-difficulty-bands.json"),
       fetch(tailScenesUrl(locale)),
     ]);
@@ -197,13 +218,13 @@ export async function render(rootEl, strings) {
   // gap as incorrect (0). Submit pads unanswered items, but ordering here keeps
   // scoring correct regardless of the order responses were recorded in.
   const respByIndex = new Map(state.getState().responses.map((x) => [x.itemIndex, x.response]));
-  const orderedResponses = Array.from({ length: SS }, (_, i) => respByIndex.has(i) ? respByIndex.get(i) : 0);
+  const orderedResponses = Array.from({ length: mv.sessionSize }, (_, i) => respByIndex.has(i) ? respByIndex.get(i) : 0);
   const score = scoreSession({
     responses: orderedResponses,
     itemParameters: pool.items,
     normingStats: { se_norming: 0 },
   });
-  const counts = bands ? computeDifficultyCounts(pool, bands, state.getState().responses, state.getState().seed) : Z;
+  const counts = bands ? computeDifficultyCounts(pool, bands, state.getState().responses, state.getState().seed, mv.sessionSize) : Z;
   const variant = selectTailScene(Math.round(score.percentile));
   let crisis = null;
   if (variant === "bottom-decile") {
@@ -218,7 +239,7 @@ export async function render(rootEl, strings) {
   m = { ls: [] };
   on(rootEl.querySelector(".rs-show"), "click", () => {
     detach(); m.ls = [];
-    rootEl.innerHTML = panel(strings.result, score, counts, variant, tailScenes, crisis);
+    rootEl.innerHTML = panel(strings.result, score, counts, variant, tailScenes, crisis, mv);
     bindTriplet(rootEl);
     bindSave(rootEl, score, strings.result);
     bindPrint(rootEl);

@@ -17,6 +17,25 @@ html {
   color-scheme: light dark;
 }
 
+/* Epic 13 (Story 13-4 visual-fix) — a subtle page backdrop so glass surfaces
+   read as a distinct layer with depth, and backdrop-filter has non-uniform
+   content to blur (a flat single-color page made the glass imperceptible).
+   Soft, fixed accent-tinted glows on top of the base surface; decorative only,
+   well below any text-contrast layer. Theme-aware via the accent tokens. */
+body {
+  background-color: var(--color-surface-base);
+  background-image:
+    radial-gradient(60% 50% at 15% 0%, color-mix(in srgb, var(--color-accent-500) 9%, transparent), transparent 70%),
+    radial-gradient(55% 45% at 100% 10%, color-mix(in srgb, var(--color-accent-300) 8%, transparent), transparent 72%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* backdrops are static already; nothing to disable, kept for symmetry. */
+  body { background-attachment: scroll; }
+}
+
 body {
   font-family: var(--font-family-sans);
   font-size: var(--font-size-200);

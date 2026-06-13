@@ -5,6 +5,7 @@
 // throwing. Dispatches `iqme:route-change` on document after each navigation.
 
 import * as landing from "./landing.js";
+import * as selection from "./selection.js";
 import * as consent from "./consent.js";
 import * as itemRunner from "./item-runner.js";
 import * as result from "./result.js";
@@ -14,6 +15,7 @@ import * as localeLoader from "./i18n/locale-loader.js";
 const ROUTES = {
   "": landing,
   "#/": landing,
+  "#/selection": selection,
   "#/consent": consent,
   "#/test": itemRunner,
   "#/result": result,
@@ -27,10 +29,11 @@ let hashChangeHandler = null;
 
 const NS = {
   landing: ["headline", "intro", "startTestButton", "methodologyLink"],
+  selection: ["heading", "intro", "methodologyLegend", "variantLegend", "geometricLabel", "geometricLabelHelp", "letterNumberLabel", "letterNumberLabelHelp", "shortLabel", "shortLabelHelp", "fullLabel", "fullLabelHelp", "continueButton", "backLink"],
   consent: ["headline", "measuresWhat", "validityEnvelope", "visuospatialDisclosure", "continueButton", "notToday", "dwellHint"],
   chrome: ["titleAppDefault", "appName", "errorFallbackMessage", "languageSwitcherPlaceholderEn", "languageSwitcherLegend", "footerMethodologyLink", "footerDiscussionsLink", "footerCitationLink", "themeToggleLegend", "themeSystemLabel", "themeLightLabel", "themeDarkLabel"],
   itemRunner: ["headingTemplate", "progressTemplate", "optionsLegend", "optionLabelTemplate", "previousButton", "nextButton", "submitButton", "fetchErrorMessage", "bailButton", "bailPanelHeading", "bailExplanation", "bailDiscardButton", "bailContinueButton"],
-  result: ["scoreHeading", "prerevealHeading", "prerevealSubcopy", "showMeButton", "notYetButton", "caveat", "percentileAriaTemplate", "anchorAriaTemplate", "bandAriaTemplate", "bandTemplate", "difficultySentenceTemplate", "difficultySentenceAria", "fetchErrorMessage", "saveButton", "saveButtonSaved", "retestNote", "retestNoteLinkLabel", "percentileLabel", "anchorLabel", "bandLabel", "resultExplainer", "printButton", "printTitle", "crisisShowMore"],
+  result: ["scoreHeading", "prerevealHeading", "prerevealSubcopy", "showMeButton", "notYetButton", "caveat", "percentileAriaTemplate", "anchorAriaTemplate", "bandAriaTemplate", "bandTemplate", "difficultySentenceTemplate", "difficultySentenceAria", "fetchErrorMessage", "saveButton", "saveButtonSaved", "retestNote", "retestNoteLinkLabel", "percentileLabel", "anchorLabel", "bandLabel", "resultExplainer", "printButton", "printTitle", "crisisShowMore", "methodologyVariantLine", "method_geometric", "method_letter-number", "variant_short", "variant_full"],
   localeSwitchBlockerHint: ["message", "bailLinkLabel", "validityLinkLabel"],
   savedResults: ["viewSavedResults", "heading", "empty", "back", "deleteSelected", "deleteAll", "selectLabel", "detailHeading", "scoreLabel", "percentileLabel", "dateLabel", "percentileSuffix", "untitledResult", "backToList", "inProgressHeading", "resume", "deleteInProgress", "inProgressItemTemplate"],
 };

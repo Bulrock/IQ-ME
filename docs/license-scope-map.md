@@ -48,8 +48,8 @@ classes:
   item-pool:
     globs:
       - "src/items/*.svg"
-      - "src/items/item-parameters.json"
-      - "src/items/item-difficulty-bands.json"
+      - "src/items/item-parameters*.json"
+      - "src/items/item-difficulty-bands*.json"
     licenses-md-section: "2. Item pool (matrix-reasoning items) — CC-BY-NC-SA 4.0 (or ICAR-author-specified)"
   methodology-corpus:
     globs:

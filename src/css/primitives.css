@@ -109,8 +109,11 @@
   --glass-blur-sm:    6px;   /* inline controls, chips */
   --glass-blur-md:    12px;  /* cards, panels, score panel, methodology sidebar */
   --glass-blur-lg:    20px;  /* full-bleed hero only (capped — composite cost) */
-  --glass-fill:        rgba(255, 255, 255, 0.72);  /* standard panel fill */
-  --glass-fill-strong: rgba(255, 255, 255, 0.85);  /* body-text surfaces */
+  /* Light glass: a hair off pure white (cool neutral-50 tint) so a glass panel
+   * reads as a distinct layer over the page backdrop instead of compositing to
+   * flat white. Still ≥0.70 alpha for AA. */
+  --glass-fill:        rgba(248, 250, 252, 0.72);  /* standard panel fill */
+  --glass-fill-strong: rgba(252, 253, 254, 0.88);  /* body-text surfaces */
   --glass-tint:        rgba(47, 74, 120, 0.06);     /* decorative accent (accent-500); never the contrast layer */
   --glass-edge:        rgba(255, 255, 255, 0.55);   /* lit hairline rim */
   --glass-shadow:      0 4px 24px rgba(10, 13, 18, 0.10);  /* soft float shadow */

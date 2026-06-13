@@ -1,0 +1,187 @@
+{
+  "_note": "ICAR Letter/Number Series \u2014 illustrative stub items (Story 12-4). Language-neutral digit series rendered as inline SVG; scored by the same dichotomous IRT engine as the matrix test. Real calibrated ICAR-LN items land with the ICAR license confirmation (Epic 9a-2). Schema-forward-compatible.",
+  "schemaVersion": "1.0",
+  "poolSize": 12,
+  "items": [
+    {
+      "id": "ln-001",
+      "a": 0.9,
+      "b": -2.0,
+      "asset": "ln-001.svg",
+      "options": [
+        "ln-opt-001-1.svg",
+        "ln-opt-001-2.svg",
+        "ln-opt-001-3.svg",
+        "ln-opt-001-4.svg",
+        "ln-opt-001-5.svg",
+        "ln-opt-001-6.svg"
+      ],
+      "correct": "ln-opt-001-2.svg"
+    },
+    {
+      "id": "ln-002",
+      "a": 0.95,
+      "b": -1.6727,
+      "asset": "ln-002.svg",
+      "options": [
+        "ln-opt-002-1.svg",
+        "ln-opt-002-2.svg",
+        "ln-opt-002-3.svg",
+        "ln-opt-002-4.svg",
+        "ln-opt-002-5.svg",
+        "ln-opt-002-6.svg"
+      ],
+      "correct": "ln-opt-002-3.svg"
+    },
+    {
+      "id": "ln-003",
+      "a": 1.0,
+      "b": -1.3455,
+      "asset": "ln-003.svg",
+      "options": [
+        "ln-opt-003-1.svg",
+        "ln-opt-003-2.svg",
+        "ln-opt-003-3.svg",
+        "ln-opt-003-4.svg",
+        "ln-opt-003-5.svg",
+        "ln-opt-003-6.svg"
+      ],
+      "correct": "ln-opt-003-4.svg"
+    },
+    {
+      "id": "ln-004",
+      "a": 1.05,
+      "b": -1.0182,
+      "asset": "ln-004.svg",
+      "options": [
+        "ln-opt-004-1.svg",
+        "ln-opt-004-2.svg",
+        "ln-opt-004-3.svg",
+        "ln-opt-004-4.svg",
+        "ln-opt-004-5.svg",
+        "ln-opt-004-6.svg"
+      ],
+      "correct": "ln-opt-004-5.svg"
+    },
+    {
+      "id": "ln-005",
+      "a": 1.1,
+      "b": -0.6909,
+      "asset": "ln-005.svg",
+      "options": [
+        "ln-opt-005-1.svg",
+        "ln-opt-005-2.svg",
+        "ln-opt-005-3.svg",
+        "ln-opt-005-4.svg",
+        "ln-opt-005-5.svg",
+        "ln-opt-005-6.svg"
+      ],
+      "correct": "ln-opt-005-6.svg"
+    },
+    {
+      "id": "ln-006",
+      "a": 0.9,
+      "b": -0.3636,
+      "asset": "ln-006.svg",
+      "options": [
+        "ln-opt-006-1.svg",
+        "ln-opt-006-2.svg",
+        "ln-opt-006-3.svg",
+        "ln-opt-006-4.svg",
+        "ln-opt-006-5.svg",
+        "ln-opt-006-6.svg"
+      ],
+      "correct": "ln-opt-006-1.svg"
+    },
+    {
+      "id": "ln-007",
+      "a": 0.95,
+      "b": -0.0364,
+      "asset": "ln-007.svg",
+      "options": [
+        "ln-opt-007-1.svg",
+        "ln-opt-007-2.svg",
+        "ln-opt-007-3.svg",
+        "ln-opt-007-4.svg",
+        "ln-opt-007-5.svg",
+        "ln-opt-007-6.svg"
+      ],
+      "correct": "ln-opt-007-2.svg"
+    },
+    {
+      "id": "ln-008",
+      "a": 1.0,
+      "b": 0.2909,
+      "asset": "ln-008.svg",
+      "options": [
+        "ln-opt-008-1.svg",
+        "ln-opt-008-2.svg",
+        "ln-opt-008-3.svg",
+        "ln-opt-008-4.svg",
+        "ln-opt-008-5.svg",
+        "ln-opt-008-6.svg"
+      ],
+      "correct": "ln-opt-008-3.svg"
+    },
+    {
+      "id": "ln-009",
+      "a": 1.05,
+      "b": 0.6182,
+      "asset": "ln-009.svg",
+      "options": [
+        "ln-opt-009-1.svg",
+        "ln-opt-009-2.svg",
+        "ln-opt-009-3.svg",
+        "ln-opt-009-4.svg",
+        "ln-opt-009-5.svg",
+        "ln-opt-009-6.svg"
+      ],
+      "correct": "ln-opt-009-4.svg"
+    },
+    {
+      "id": "ln-010",
+      "a": 1.1,
+      "b": 0.9455,
+      "asset": "ln-010.svg",
+      "options": [
+        "ln-opt-010-1.svg",
+        "ln-opt-010-2.svg",
+        "ln-opt-010-3.svg",
+        "ln-opt-010-4.svg",
+        "ln-opt-010-5.svg",
+        "ln-opt-010-6.svg"
+      ],
+      "correct": "ln-opt-010-5.svg"
+    },
+    {
+      "id": "ln-011",
+      "a": 0.9,
+      "b": 1.2727,
+      "asset": "ln-011.svg",
+      "options": [
+        "ln-opt-011-1.svg",
+        "ln-opt-011-2.svg",
+        "ln-opt-011-3.svg",
+        "ln-opt-011-4.svg",
+        "ln-opt-011-5.svg",
+        "ln-opt-011-6.svg"
+      ],
+      "correct": "ln-opt-011-6.svg"
+    },
+    {
+      "id": "ln-012",
+      "a": 0.95,
+      "b": 1.6,
+      "asset": "ln-012.svg",
+      "options": [
+        "ln-opt-012-1.svg",
+        "ln-opt-012-2.svg",
+        "ln-opt-012-3.svg",
+        "ln-opt-012-4.svg",
+        "ln-opt-012-5.svg",
+        "ln-opt-012-6.svg"
+      ],
+      "correct": "ln-opt-012-1.svg"
+    }
+  ]
+}

@@ -92,12 +92,14 @@
   --color-action-border:    var(--color-accent-300);
 
   /* Epic 13 — dark glass is separately authored (UX-DR6), not auto-inverted.
-   * Smoked neutral-900 ink at the same alpha; subtle rim (a bright hairline
-   * reads as a defect on dark). */
-  --surface-glass:        rgba(19, 24, 32, 0.72);
-  --surface-glass-strong: rgba(19, 24, 32, 0.86);
-  --surface-glass-edge:   rgba(255, 255, 255, 0.10);
-  --surface-glass-shadow: 0 6px 28px rgba(0, 0, 0, 0.40);
+   * Fill uses the LIGHTER neutral-800 ink (rgb 35,40,48), NOT neutral-900 — the
+   * page background is neutral-900, so a same-RGB fill would composite to the
+   * page color and vanish. neutral-800 over neutral-900 reads as a raised glass
+   * panel. Edge is a brighter rim so the panel boundary is visible on dark. */
+  --surface-glass:        rgba(45, 52, 64, 0.66);
+  --surface-glass-strong: rgba(48, 56, 70, 0.88);
+  --surface-glass-edge:   rgba(255, 255, 255, 0.16);
+  --surface-glass-shadow: 0 6px 28px rgba(0, 0, 0, 0.45);
 }
 
 /* ─── UX-DR6 — Dark mode (system pref, when no explicit light opt-out) ─── */
@@ -112,10 +114,12 @@
     --color-focus-ring:       var(--color-accent-300);
     --color-action-border:    var(--color-accent-300);
 
-    /* Epic 13 — dark glass under system pref (mirror of the explicit block). */
-    --surface-glass:        rgba(19, 24, 32, 0.72);
-    --surface-glass-strong: rgba(19, 24, 32, 0.86);
-    --surface-glass-edge:   rgba(255, 255, 255, 0.10);
-    --surface-glass-shadow: 0 6px 28px rgba(0, 0, 0, 0.40);
+    /* Epic 13 — dark glass under system pref (mirror of the explicit block;
+     * lighter neutral-800 ink so glass reads as a raised panel over the
+     * neutral-900 page, not the same color). */
+    --surface-glass:        rgba(45, 52, 64, 0.66);
+    --surface-glass-strong: rgba(48, 56, 70, 0.88);
+    --surface-glass-edge:   rgba(255, 255, 255, 0.16);
+    --surface-glass-shadow: 0 6px 28px rgba(0, 0, 0, 0.45);
   }
 }

@@ -42,7 +42,7 @@ globalThis.localStorage = localStorageStub;
 globalThis.sessionStorage = sessionStorageStub;
 
 const stateModule = await import("../../src/assessment/state.js");
-const { getState, resetState, setSeed, setLocale, setItem, recordResponse } = stateModule;
+const { getState, resetState, setSeed, setLocale, setItem, recordResponse, setMethodology, setVariant } = stateModule;
 const { validateState } = await import("./_state-schema-check.mjs");
 
 const SCHEMA = JSON.parse(readFileSync(SCHEMA_PATH, "utf8"));
@@ -55,6 +55,7 @@ beforeEach(() => {
 test("state.js init shape — fresh state validates against schema", () => {
   const s = getState();
   assert.equal(typeof s, "object");
+  assert.equal(s.version, "v2", "v2: init state carries the explicit version tag");
   assert.equal(s.currentItem, 0);
   assert.ok(Array.isArray(s.responses));
   assert.equal(s.responses.length, 0);
@@ -62,8 +63,37 @@ test("state.js init shape — fresh state validates against schema", () => {
   assert.ok(s.startedAt >= 0);
   assert.equal(s.locale, "en");
   assert.match(s.seed, /^[0-9a-f]{32}$/);
+  // methodology/variant are optional — absent in a bare reset state.
+  assert.equal(s.methodology, undefined, "v2: methodology absent until the selection scene sets it");
+  assert.equal(s.variant, undefined, "v2: variant absent until the selection scene sets it");
   const { valid, errors } = validateState(s, SCHEMA);
   assert.ok(valid, `init state failed schema: ${errors.join("; ")}`);
+});
+
+test("v2: setMethodology + setVariant carry the selection into state (Story 12-2)", () => {
+  setMethodology("geometric");
+  setVariant("short");
+  let s = getState();
+  assert.equal(s.methodology, "geometric");
+  assert.equal(s.variant, "short");
+  // setting the selection must NOT start the session clock (locale stays switchable)
+  assert.equal(s.startedAt, 0, "selection must not bump startedAt (keeps the locale switcher unlocked pre-test)");
+  setMethodology("letter-number");
+  setVariant("full");
+  s = getState();
+  assert.equal(s.methodology, "letter-number");
+  assert.equal(s.variant, "full");
+  const { valid, errors } = validateState(s, SCHEMA);
+  assert.ok(valid, `selection state failed schema: ${errors.join("; ")}`);
+});
+
+test("v2: setMethodology + setVariant reject out-of-enum values", () => {
+  assert.throws(() => setMethodology("verbal"), RangeError);
+  assert.throws(() => setMethodology(""), RangeError);
+  assert.throws(() => setMethodology(null), RangeError);
+  assert.throws(() => setVariant("medium"), RangeError);
+  assert.throws(() => setVariant(""), RangeError);
+  assert.throws(() => setVariant(null), RangeError);
 });
 
 test("state.js exports only named functions (no default, no module.exports)", () => {
@@ -206,7 +236,9 @@ test("resetState restores empty-init shape", () => {
 });
 
 test("schema-check helper rejects malformed states (negative assertions)", () => {
+  // v2: base now carries the required `version` tag.
   const base = {
+    version: "v2",
     currentItem: 0,
     responses: [],
     startedAt: 0,
@@ -227,9 +259,28 @@ test("schema-check helper rejects malformed states (negative assertions)", () =>
   delete missing.seed;
   assert.equal(validateState(missing, SCHEMA).valid, false);
 
-  // Additional property
+  // Missing the v2 version tag (now required)
+  const noVersion = { ...base };
+  delete noVersion.version;
+  assert.equal(validateState(noVersion, SCHEMA).valid, false, "v2: version is required");
+
+  // Wrong version const
+  const badVersion = { ...base, version: "v1" };
+  assert.equal(validateState(badVersion, SCHEMA).valid, false, "v2: version must be the const 'v2'");
+
+  // Additional property still rejected (additionalProperties:false preserved)
   const extra = { ...base, foo: "bar" };
   assert.equal(validateState(extra, SCHEMA).valid, false);
+
+  // methodology/variant outside enum rejected
+  const badMeth = { ...base, methodology: "verbal" };
+  assert.equal(validateState(badMeth, SCHEMA).valid, false, "v2: methodology enum enforced");
+  const badVariant = { ...base, variant: "medium" };
+  assert.equal(validateState(badVariant, SCHEMA).valid, false, "v2: variant enum enforced");
+
+  // Valid optional methodology/variant accepted
+  const withSel = { ...base, methodology: "geometric", variant: "short" };
+  assert.equal(validateState(withSel, SCHEMA).valid, true, "v2: valid methodology+variant accepted");
 
   // Negative currentItem
   const negCurrent = { ...base, currentItem: -1 };

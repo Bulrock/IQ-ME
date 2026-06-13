@@ -5,9 +5,10 @@
 // `iqme:in-progress:<seed>` key; payload carries `selectedOptions` (itemIndex →
 // picked option) so resume/Previous re-displays the real choice. Quota-safe.
 
+import { resolveFromState } from "./methodology-registry.js";
+
 const PREFIX = "iqme:in-progress:";
 const LEGACY_KEY = "iqme:in-progress"; // pre-multi single-slot key
-const SESSION_SIZE = 16;
 const INITIAL_SEED = "0".repeat(32);
 
 const keyFor = (seed) => PREFIX + seed;
@@ -42,15 +43,24 @@ export function saveProgress(state, selectedOptions) {
   try {
     if (!state || state.startedAt === 0 || !state.seed || state.seed === INITIAL_SEED) return;
     // Nothing answered yet → don't persist an empty session (avoids a fresh mount
-    // creating a junk "Unfinished — item 1 of 16" entry with no responses).
+    // creating a junk "Unfinished — item 1 of N" entry with no responses).
     if (!Array.isArray(state.responses) || state.responses.length === 0) return;
-    if (state.responses.length >= SESSION_SIZE) return;
+    // Story 12-3: the "session complete → don't persist" cutoff is the chosen
+    // variant's session size, not a hardcoded 16 (a 24-item full variant must
+    // remain resumable at items 17–23).
+    const sessionSize = resolveFromState(state).sessionSize;
+    if (state.responses.length >= sessionSize) return;
     window.localStorage.setItem(keyFor(state.seed), JSON.stringify({
       seed: state.seed,
       currentItem: state.currentItem,
       responses: (state.responses || []).map((r) => ({ itemIndex: r.itemIndex, response: r.response })),
       selectedOptions: selectedOptions && typeof selectedOptions === "object" ? { ...selectedOptions } : {},
       startedAt: state.startedAt,
+      // Story 12-3: persist the methodology + variant so resume rebuilds the
+      // SAME pool/size (without these, a resumed full/letter-number session
+      // would fall back to geometric short → wrong pool).
+      methodology: state.methodology,
+      variant: state.variant,
       savedAt: Date.now(),
     }));
   } catch (_e) { /* swallow — quota / disabled storage */ }

@@ -101,6 +101,10 @@ function inProgressSectionHtml(s, list) {
 
 function resumeSession(ip) {
   state.resetState();
+  // Story 12-3: restore the methodology + variant FIRST so the resumed session
+  // rebuilds the same pool/size (item-runner + result resolve from these).
+  try { if (ip.methodology) state.setMethodology(ip.methodology); } catch (_e) { /* unknown → registry default */ }
+  try { if (ip.variant) state.setVariant(ip.variant); } catch (_e) { /* unknown → registry default */ }
   try { if (ip.seed) state.setSeed(ip.seed); } catch (_e) { /* invalid seed — start fresh */ }
   for (const r of (ip.responses || [])) {
     try { state.recordResponse(r.itemIndex, r.response); } catch (_e) { /* skip bad entry */ }

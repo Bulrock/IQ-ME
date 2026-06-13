@@ -1,0 +1,150 @@
+/* src/css/components/selection-scene.css
+ *
+ * Story 12-2 (PR-15) — pre-test methodology + variant selection scene. A glass
+ * card holding two native radio fieldsets (methodology, depth) and a Continue
+ * button. Semantic + glass tokens only (no literal hex/px/font-family). Glass
+ * styling is applied via the .glass-surface primitive on the section element;
+ * this file lays out the form. Theme-correct Light/Dark via the glass roles.
+ */
+
+.selection-scene {
+  max-width: 40rem;
+  margin-inline: auto;
+  margin-block: var(--space-7);
+  padding-block: var(--space-7);
+  padding-inline: var(--space-6);
+  color: var(--color-text-body);
+}
+
+.selection-scene > h1 {
+  margin-block: 0 var(--space-3);
+  text-wrap: balance;
+}
+
+.selection-scene__intro {
+  font-size: var(--font-size-300);
+  line-height: var(--line-height-prose);
+  color: var(--color-text-muted);
+  margin-block-end: var(--space-6);
+}
+
+.selection-scene__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin-block-end: var(--space-6);
+}
+
+.selection-scene__group {
+  border: var(--border-width-hairline) solid var(--color-rule-divider);
+  border-radius: var(--radius-surface);
+  padding-block: var(--space-4);
+  padding-inline: var(--space-5);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.selection-scene__legend {
+  font-size: var(--font-size-300);
+  font-weight: var(--font-weight-semibold);
+  padding-inline: var(--space-2);
+  color: var(--color-text-body);
+}
+
+.selection-scene__option {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--space-3);
+  align-items: baseline;
+  padding-block: var(--space-2);
+  cursor: pointer;
+}
+
+.selection-scene__option input[type="radio"] {
+  /* Native control — keep the system focus ring + keyboard semantics. */
+  margin: 0;
+  inline-size: 1.1rem;
+  block-size: 1.1rem;
+  accent-color: var(--color-action-bg);
+}
+
+.selection-scene__option-label {
+  font-size: var(--font-size-200);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-body);
+}
+
+.selection-scene__option-help {
+  grid-column: 2;
+  font-size: var(--font-size-100);
+  line-height: var(--line-height-base);
+  color: var(--color-text-muted);
+}
+
+.selection-scene__cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.selection-scene__continue-btn {
+  appearance: none;
+  font-size: var(--font-size-300);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-base);
+  padding-block: var(--space-3);
+  padding-inline: var(--space-6);
+  color: var(--color-action-text);
+  background-color: var(--color-action-bg);
+  border: var(--border-width-hairline) solid var(--color-action-border);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-elevated);
+  cursor: pointer;
+  transition:
+    transform var(--motion-hover) var(--motion-ease),
+    background-color var(--motion-hover) var(--motion-ease);
+}
+
+.selection-scene__continue-btn:hover {
+  background-color: var(--color-action-bg-hover);
+  transform: translateY(-1px);
+}
+
+.selection-scene__continue-btn:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}
+
+.selection-scene__back-link {
+  font-size: var(--font-size-200);
+  color: var(--color-text-link);
+  text-decoration: underline;
+}
+
+.selection-scene__back-link:hover {
+  color: var(--color-text-link-hover);
+}
+
+.selection-scene__back-link:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .selection-scene__continue-btn { transition: none; }
+}
+
+@media (max-width: 30rem) {
+  .selection-scene {
+    padding-block: var(--space-6);
+    padding-inline: var(--space-5);
+  }
+  .selection-scene__continue-btn {
+    font-size: var(--font-size-200);
+    padding-block: var(--space-2);
+    padding-inline: var(--space-4);
+  }
+}

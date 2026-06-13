@@ -51,7 +51,7 @@ export function render(rootEl, strings) {
     '</div>';
   startBtn = rootEl.querySelector("#start-test-btn");
   if (startBtn) {
-    startClickHandler = () => { routing.navigate("consent"); };
+    startClickHandler = () => { routing.navigate("selection"); };
     startBtn.addEventListener("click", startClickHandler);
   }
   savedBtn = rootEl.querySelector("#view-saved-btn");

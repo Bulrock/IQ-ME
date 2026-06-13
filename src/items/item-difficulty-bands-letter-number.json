@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.0",
+  "cutoffs": {
+    "easyMax": -1,
+    "mediumMax": 0.5
+  },
+  "items": [
+    {
+      "id": "ln-001",
+      "band": "easy"
+    },
+    {
+      "id": "ln-002",
+      "band": "easy"
+    },
+    {
+      "id": "ln-003",
+      "band": "easy"
+    },
+    {
+      "id": "ln-004",
+      "band": "easy"
+    },
+    {
+      "id": "ln-005",
+      "band": "medium"
+    },
+    {
+      "id": "ln-006",
+      "band": "medium"
+    },
+    {
+      "id": "ln-007",
+      "band": "medium"
+    },
+    {
+      "id": "ln-008",
+      "band": "medium"
+    },
+    {
+      "id": "ln-009",
+      "band": "hard"
+    },
+    {
+      "id": "ln-010",
+      "band": "hard"
+    },
+    {
+      "id": "ln-011",
+      "band": "hard"
+    },
+    {
+      "id": "ln-012",
+      "band": "hard"
+    }
+  ]
+}

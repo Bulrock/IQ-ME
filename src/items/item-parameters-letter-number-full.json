@@ -1,0 +1,307 @@
+{
+  "_note": "ICAR Letter/Number Series \u2014 illustrative stub items (Story 12-4). Language-neutral digit series rendered as inline SVG; scored by the same dichotomous IRT engine as the matrix test. Real calibrated ICAR-LN items land with the ICAR license confirmation (Epic 9a-2). Schema-forward-compatible.",
+  "schemaVersion": "1.0",
+  "poolSize": 20,
+  "items": [
+    {
+      "id": "ln-001",
+      "a": 0.9,
+      "b": -2.6,
+      "asset": "ln-001.svg",
+      "options": [
+        "ln-opt-001-1.svg",
+        "ln-opt-001-2.svg",
+        "ln-opt-001-3.svg",
+        "ln-opt-001-4.svg",
+        "ln-opt-001-5.svg",
+        "ln-opt-001-6.svg"
+      ],
+      "correct": "ln-opt-001-2.svg"
+    },
+    {
+      "id": "ln-002",
+      "a": 0.95,
+      "b": -2.3263,
+      "asset": "ln-002.svg",
+      "options": [
+        "ln-opt-002-1.svg",
+        "ln-opt-002-2.svg",
+        "ln-opt-002-3.svg",
+        "ln-opt-002-4.svg",
+        "ln-opt-002-5.svg",
+        "ln-opt-002-6.svg"
+      ],
+      "correct": "ln-opt-002-3.svg"
+    },
+    {
+      "id": "ln-003",
+      "a": 1.0,
+      "b": -2.0526,
+      "asset": "ln-003.svg",
+      "options": [
+        "ln-opt-003-1.svg",
+        "ln-opt-003-2.svg",
+        "ln-opt-003-3.svg",
+        "ln-opt-003-4.svg",
+        "ln-opt-003-5.svg",
+        "ln-opt-003-6.svg"
+      ],
+      "correct": "ln-opt-003-4.svg"
+    },
+    {
+      "id": "ln-004",
+      "a": 1.05,
+      "b": -1.7789,
+      "asset": "ln-004.svg",
+      "options": [
+        "ln-opt-004-1.svg",
+        "ln-opt-004-2.svg",
+        "ln-opt-004-3.svg",
+        "ln-opt-004-4.svg",
+        "ln-opt-004-5.svg",
+        "ln-opt-004-6.svg"
+      ],
+      "correct": "ln-opt-004-5.svg"
+    },
+    {
+      "id": "ln-005",
+      "a": 1.1,
+      "b": -1.5053,
+      "asset": "ln-005.svg",
+      "options": [
+        "ln-opt-005-1.svg",
+        "ln-opt-005-2.svg",
+        "ln-opt-005-3.svg",
+        "ln-opt-005-4.svg",
+        "ln-opt-005-5.svg",
+        "ln-opt-005-6.svg"
+      ],
+      "correct": "ln-opt-005-6.svg"
+    },
+    {
+      "id": "ln-006",
+      "a": 0.9,
+      "b": -1.2316,
+      "asset": "ln-006.svg",
+      "options": [
+        "ln-opt-006-1.svg",
+        "ln-opt-006-2.svg",
+        "ln-opt-006-3.svg",
+        "ln-opt-006-4.svg",
+        "ln-opt-006-5.svg",
+        "ln-opt-006-6.svg"
+      ],
+      "correct": "ln-opt-006-1.svg"
+    },
+    {
+      "id": "ln-007",
+      "a": 0.95,
+      "b": -0.9579,
+      "asset": "ln-007.svg",
+      "options": [
+        "ln-opt-007-1.svg",
+        "ln-opt-007-2.svg",
+        "ln-opt-007-3.svg",
+        "ln-opt-007-4.svg",
+        "ln-opt-007-5.svg",
+        "ln-opt-007-6.svg"
+      ],
+      "correct": "ln-opt-007-2.svg"
+    },
+    {
+      "id": "ln-008",
+      "a": 1.0,
+      "b": -0.6842,
+      "asset": "ln-008.svg",
+      "options": [
+        "ln-opt-008-1.svg",
+        "ln-opt-008-2.svg",
+        "ln-opt-008-3.svg",
+        "ln-opt-008-4.svg",
+        "ln-opt-008-5.svg",
+        "ln-opt-008-6.svg"
+      ],
+      "correct": "ln-opt-008-3.svg"
+    },
+    {
+      "id": "ln-009",
+      "a": 1.05,
+      "b": -0.4105,
+      "asset": "ln-009.svg",
+      "options": [
+        "ln-opt-009-1.svg",
+        "ln-opt-009-2.svg",
+        "ln-opt-009-3.svg",
+        "ln-opt-009-4.svg",
+        "ln-opt-009-5.svg",
+        "ln-opt-009-6.svg"
+      ],
+      "correct": "ln-opt-009-4.svg"
+    },
+    {
+      "id": "ln-010",
+      "a": 1.1,
+      "b": -0.1368,
+      "asset": "ln-010.svg",
+      "options": [
+        "ln-opt-010-1.svg",
+        "ln-opt-010-2.svg",
+        "ln-opt-010-3.svg",
+        "ln-opt-010-4.svg",
+        "ln-opt-010-5.svg",
+        "ln-opt-010-6.svg"
+      ],
+      "correct": "ln-opt-010-5.svg"
+    },
+    {
+      "id": "ln-011",
+      "a": 0.9,
+      "b": 0.1368,
+      "asset": "ln-011.svg",
+      "options": [
+        "ln-opt-011-1.svg",
+        "ln-opt-011-2.svg",
+        "ln-opt-011-3.svg",
+        "ln-opt-011-4.svg",
+        "ln-opt-011-5.svg",
+        "ln-opt-011-6.svg"
+      ],
+      "correct": "ln-opt-011-6.svg"
+    },
+    {
+      "id": "ln-012",
+      "a": 0.95,
+      "b": 0.4105,
+      "asset": "ln-012.svg",
+      "options": [
+        "ln-opt-012-1.svg",
+        "ln-opt-012-2.svg",
+        "ln-opt-012-3.svg",
+        "ln-opt-012-4.svg",
+        "ln-opt-012-5.svg",
+        "ln-opt-012-6.svg"
+      ],
+      "correct": "ln-opt-012-1.svg"
+    },
+    {
+      "id": "ln-013",
+      "a": 1.0,
+      "b": 0.6842,
+      "asset": "ln-013.svg",
+      "options": [
+        "ln-opt-013-1.svg",
+        "ln-opt-013-2.svg",
+        "ln-opt-013-3.svg",
+        "ln-opt-013-4.svg",
+        "ln-opt-013-5.svg",
+        "ln-opt-013-6.svg"
+      ],
+      "correct": "ln-opt-013-2.svg"
+    },
+    {
+      "id": "ln-014",
+      "a": 1.05,
+      "b": 0.9579,
+      "asset": "ln-014.svg",
+      "options": [
+        "ln-opt-014-1.svg",
+        "ln-opt-014-2.svg",
+        "ln-opt-014-3.svg",
+        "ln-opt-014-4.svg",
+        "ln-opt-014-5.svg",
+        "ln-opt-014-6.svg"
+      ],
+      "correct": "ln-opt-014-3.svg"
+    },
+    {
+      "id": "ln-015",
+      "a": 1.1,
+      "b": 1.2316,
+      "asset": "ln-015.svg",
+      "options": [
+        "ln-opt-015-1.svg",
+        "ln-opt-015-2.svg",
+        "ln-opt-015-3.svg",
+        "ln-opt-015-4.svg",
+        "ln-opt-015-5.svg",
+        "ln-opt-015-6.svg"
+      ],
+      "correct": "ln-opt-015-4.svg"
+    },
+    {
+      "id": "ln-016",
+      "a": 0.9,
+      "b": 1.5053,
+      "asset": "ln-016.svg",
+      "options": [
+        "ln-opt-016-1.svg",
+        "ln-opt-016-2.svg",
+        "ln-opt-016-3.svg",
+        "ln-opt-016-4.svg",
+        "ln-opt-016-5.svg",
+        "ln-opt-016-6.svg"
+      ],
+      "correct": "ln-opt-016-5.svg"
+    },
+    {
+      "id": "ln-017",
+      "a": 0.95,
+      "b": 1.7789,
+      "asset": "ln-017.svg",
+      "options": [
+        "ln-opt-017-1.svg",
+        "ln-opt-017-2.svg",
+        "ln-opt-017-3.svg",
+        "ln-opt-017-4.svg",
+        "ln-opt-017-5.svg",
+        "ln-opt-017-6.svg"
+      ],
+      "correct": "ln-opt-017-6.svg"
+    },
+    {
+      "id": "ln-018",
+      "a": 1.0,
+      "b": 2.0526,
+      "asset": "ln-018.svg",
+      "options": [
+        "ln-opt-018-1.svg",
+        "ln-opt-018-2.svg",
+        "ln-opt-018-3.svg",
+        "ln-opt-018-4.svg",
+        "ln-opt-018-5.svg",
+        "ln-opt-018-6.svg"
+      ],
+      "correct": "ln-opt-018-1.svg"
+    },
+    {
+      "id": "ln-019",
+      "a": 1.05,
+      "b": 2.3263,
+      "asset": "ln-019.svg",
+      "options": [
+        "ln-opt-019-1.svg",
+        "ln-opt-019-2.svg",
+        "ln-opt-019-3.svg",
+        "ln-opt-019-4.svg",
+        "ln-opt-019-5.svg",
+        "ln-opt-019-6.svg"
+      ],
+      "correct": "ln-opt-019-2.svg"
+    },
+    {
+      "id": "ln-020",
+      "a": 1.1,
+      "b": 2.6,
+      "asset": "ln-020.svg",
+      "options": [
+        "ln-opt-020-1.svg",
+        "ln-opt-020-2.svg",
+        "ln-opt-020-3.svg",
+        "ln-opt-020-4.svg",
+        "ln-opt-020-5.svg",
+        "ln-opt-020-6.svg"
+      ],
+      "correct": "ln-opt-020-3.svg"
+    }
+  ]
+}

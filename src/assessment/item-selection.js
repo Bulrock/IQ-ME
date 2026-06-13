@@ -17,25 +17,41 @@ const AUGMENTATION_CODES = ["none", "rot90", "rot180", "rot270", "flip-h", "flip
 export function selectSession(pool, seed128, sessionSize) {
   const prng = createPrng(seed128);
 
-  // Step 1: build the index array [0..pool.length-1]. For v1 stub-pool
-  // (pool.length === sessionSize) the slice/subset step is identity; when
-  // pool.length > sessionSize lands in Story 9a-2, this is where the
-  // uniform-random subset selection inserts (drawing sessionSize indices).
+  // Step 1: build the index array [0..pool.length-1].
   const indices = [];
   for (let i = 0; i < pool.length; i++) indices.push(i);
 
-  // Step 2: Fisher-Yates shuffle, backward iteration (impl note 5 —
-  // reverse-order shuffle pinned by spec for reproducibility regression
-  // protection if any reviewer or other story re-derives the permutation).
-  for (let i = indices.length - 1; i > 0; i--) {
-    const j = prng.next() % (i + 1);
-    const tmp = indices[i];
-    indices[i] = indices[j];
-    indices[j] = tmp;
+  let selectedIndices;
+  if (pool.length === sessionSize) {
+    // v1 / equal-size case (every shipped variant today): permute the whole
+    // pool. Fisher-Yates shuffle, backward iteration (impl note 5 — reverse-
+    // order shuffle pinned by spec for reproducibility regression protection).
+    // This path is byte-identical to the original implementation; the frozen
+    // FR7 / golden tests pin it.
+    for (let i = indices.length - 1; i > 0; i--) {
+      const j = prng.next() % (i + 1);
+      const tmp = indices[i];
+      indices[i] = indices[j];
+      indices[j] = tmp;
+    }
+    selectedIndices = indices.slice(0, sessionSize);
+  } else {
+    // pool.length > sessionSize: uniform-random SUBSET first, THEN permute
+    // (architecture lines 812-813). A partial Fisher-Yates over the leading
+    // sessionSize slots both selects a uniform subset AND orders it in one
+    // forward pass: for each target slot i, swap in a uniformly-chosen element
+    // from the remaining unused indices [i..n-1]. The subset and its order are
+    // determined before the augmentation draws, so augmentations draw from the
+    // intended PRNG position regardless of pool size.
+    const k = Math.min(sessionSize, pool.length);
+    for (let i = 0; i < k; i++) {
+      const j = i + (prng.next() % (pool.length - i));
+      const tmp = indices[i];
+      indices[i] = indices[j];
+      indices[j] = tmp;
+    }
+    selectedIndices = indices.slice(0, sessionSize);
   }
-
-  // Step 3: slice to sessionSize (no-op for v1; load-bearing for Story 9a-2).
-  const selectedIndices = indices.slice(0, sessionSize);
   const items = selectedIndices.map((idx) => pool[idx].id);
 
   // Step 4: augmentations — draw sessionSize codes from the 6-element set

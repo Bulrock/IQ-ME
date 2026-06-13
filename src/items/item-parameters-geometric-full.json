@@ -1,0 +1,367 @@
+{
+  "_note": "FULL geometric variant pool (Story 12-3). 24 items, wider difficulty spread than the 16-item short pool, scored through the same deterministic IRT engine. Reuses the existing (on-disk) stub SVG assets \u2014 real ICAR-MR full-form items + calibrated parameters land with the ICAR license confirmation (Epic 9a-2). Schema-forward-compatible.",
+  "schemaVersion": "1.0",
+  "poolSize": 24,
+  "items": [
+    {
+      "id": "geo-full-001",
+      "a": 0.9,
+      "b": -2.75,
+      "asset": "stub-001.svg",
+      "options": [
+        "opt-001-1.svg",
+        "opt-001-2.svg",
+        "opt-001-3.svg",
+        "opt-001-4.svg",
+        "opt-001-5.svg",
+        "opt-001-6.svg"
+      ],
+      "correct": "opt-001-2.svg"
+    },
+    {
+      "id": "geo-full-002",
+      "a": 0.95,
+      "b": -2.5109,
+      "asset": "stub-002.svg",
+      "options": [
+        "opt-002-1.svg",
+        "opt-002-2.svg",
+        "opt-002-3.svg",
+        "opt-002-4.svg",
+        "opt-002-5.svg",
+        "opt-002-6.svg"
+      ],
+      "correct": "opt-002-3.svg"
+    },
+    {
+      "id": "geo-full-003",
+      "a": 1.0,
+      "b": -2.2717,
+      "asset": "stub-003.svg",
+      "options": [
+        "opt-003-1.svg",
+        "opt-003-2.svg",
+        "opt-003-3.svg",
+        "opt-003-4.svg",
+        "opt-003-5.svg",
+        "opt-003-6.svg"
+      ],
+      "correct": "opt-003-4.svg"
+    },
+    {
+      "id": "geo-full-004",
+      "a": 1.05,
+      "b": -2.0326,
+      "asset": "stub-004.svg",
+      "options": [
+        "opt-004-1.svg",
+        "opt-004-2.svg",
+        "opt-004-3.svg",
+        "opt-004-4.svg",
+        "opt-004-5.svg",
+        "opt-004-6.svg"
+      ],
+      "correct": "opt-004-5.svg"
+    },
+    {
+      "id": "geo-full-005",
+      "a": 1.1,
+      "b": -1.7935,
+      "asset": "stub-005.svg",
+      "options": [
+        "opt-005-1.svg",
+        "opt-005-2.svg",
+        "opt-005-3.svg",
+        "opt-005-4.svg",
+        "opt-005-5.svg",
+        "opt-005-6.svg"
+      ],
+      "correct": "opt-005-6.svg"
+    },
+    {
+      "id": "geo-full-006",
+      "a": 0.9,
+      "b": -1.5543,
+      "asset": "stub-006.svg",
+      "options": [
+        "opt-006-1.svg",
+        "opt-006-2.svg",
+        "opt-006-3.svg",
+        "opt-006-4.svg",
+        "opt-006-5.svg",
+        "opt-006-6.svg"
+      ],
+      "correct": "opt-006-1.svg"
+    },
+    {
+      "id": "geo-full-007",
+      "a": 0.95,
+      "b": -1.3152,
+      "asset": "stub-007.svg",
+      "options": [
+        "opt-007-1.svg",
+        "opt-007-2.svg",
+        "opt-007-3.svg",
+        "opt-007-4.svg",
+        "opt-007-5.svg",
+        "opt-007-6.svg"
+      ],
+      "correct": "opt-007-2.svg"
+    },
+    {
+      "id": "geo-full-008",
+      "a": 1.0,
+      "b": -1.0761,
+      "asset": "stub-008.svg",
+      "options": [
+        "opt-008-1.svg",
+        "opt-008-2.svg",
+        "opt-008-3.svg",
+        "opt-008-4.svg",
+        "opt-008-5.svg",
+        "opt-008-6.svg"
+      ],
+      "correct": "opt-008-3.svg"
+    },
+    {
+      "id": "geo-full-009",
+      "a": 1.05,
+      "b": -0.837,
+      "asset": "stub-009.svg",
+      "options": [
+        "opt-009-1.svg",
+        "opt-009-2.svg",
+        "opt-009-3.svg",
+        "opt-009-4.svg",
+        "opt-009-5.svg",
+        "opt-009-6.svg"
+      ],
+      "correct": "opt-009-4.svg"
+    },
+    {
+      "id": "geo-full-010",
+      "a": 1.1,
+      "b": -0.5978,
+      "asset": "stub-010.svg",
+      "options": [
+        "opt-010-1.svg",
+        "opt-010-2.svg",
+        "opt-010-3.svg",
+        "opt-010-4.svg",
+        "opt-010-5.svg",
+        "opt-010-6.svg"
+      ],
+      "correct": "opt-010-5.svg"
+    },
+    {
+      "id": "geo-full-011",
+      "a": 0.9,
+      "b": -0.3587,
+      "asset": "stub-011.svg",
+      "options": [
+        "opt-011-1.svg",
+        "opt-011-2.svg",
+        "opt-011-3.svg",
+        "opt-011-4.svg",
+        "opt-011-5.svg",
+        "opt-011-6.svg"
+      ],
+      "correct": "opt-011-6.svg"
+    },
+    {
+      "id": "geo-full-012",
+      "a": 0.95,
+      "b": -0.1196,
+      "asset": "stub-012.svg",
+      "options": [
+        "opt-012-1.svg",
+        "opt-012-2.svg",
+        "opt-012-3.svg",
+        "opt-012-4.svg",
+        "opt-012-5.svg",
+        "opt-012-6.svg"
+      ],
+      "correct": "opt-012-1.svg"
+    },
+    {
+      "id": "geo-full-013",
+      "a": 1.0,
+      "b": 0.1196,
+      "asset": "stub-013.svg",
+      "options": [
+        "opt-013-1.svg",
+        "opt-013-2.svg",
+        "opt-013-3.svg",
+        "opt-013-4.svg",
+        "opt-013-5.svg",
+        "opt-013-6.svg"
+      ],
+      "correct": "opt-013-2.svg"
+    },
+    {
+      "id": "geo-full-014",
+      "a": 1.05,
+      "b": 0.3587,
+      "asset": "stub-014.svg",
+      "options": [
+        "opt-014-1.svg",
+        "opt-014-2.svg",
+        "opt-014-3.svg",
+        "opt-014-4.svg",
+        "opt-014-5.svg",
+        "opt-014-6.svg"
+      ],
+      "correct": "opt-014-3.svg"
+    },
+    {
+      "id": "geo-full-015",
+      "a": 1.1,
+      "b": 0.5978,
+      "asset": "stub-015.svg",
+      "options": [
+        "opt-015-1.svg",
+        "opt-015-2.svg",
+        "opt-015-3.svg",
+        "opt-015-4.svg",
+        "opt-015-5.svg",
+        "opt-015-6.svg"
+      ],
+      "correct": "opt-015-4.svg"
+    },
+    {
+      "id": "geo-full-016",
+      "a": 0.9,
+      "b": 0.837,
+      "asset": "stub-016.svg",
+      "options": [
+        "opt-016-1.svg",
+        "opt-016-2.svg",
+        "opt-016-3.svg",
+        "opt-016-4.svg",
+        "opt-016-5.svg",
+        "opt-016-6.svg"
+      ],
+      "correct": "opt-016-5.svg"
+    },
+    {
+      "id": "geo-full-017",
+      "a": 0.95,
+      "b": 1.0761,
+      "asset": "stub-001.svg",
+      "options": [
+        "opt-001-1.svg",
+        "opt-001-2.svg",
+        "opt-001-3.svg",
+        "opt-001-4.svg",
+        "opt-001-5.svg",
+        "opt-001-6.svg"
+      ],
+      "correct": "opt-001-2.svg"
+    },
+    {
+      "id": "geo-full-018",
+      "a": 1.0,
+      "b": 1.3152,
+      "asset": "stub-002.svg",
+      "options": [
+        "opt-002-1.svg",
+        "opt-002-2.svg",
+        "opt-002-3.svg",
+        "opt-002-4.svg",
+        "opt-002-5.svg",
+        "opt-002-6.svg"
+      ],
+      "correct": "opt-002-3.svg"
+    },
+    {
+      "id": "geo-full-019",
+      "a": 1.05,
+      "b": 1.5543,
+      "asset": "stub-003.svg",
+      "options": [
+        "opt-003-1.svg",
+        "opt-003-2.svg",
+        "opt-003-3.svg",
+        "opt-003-4.svg",
+        "opt-003-5.svg",
+        "opt-003-6.svg"
+      ],
+      "correct": "opt-003-4.svg"
+    },
+    {
+      "id": "geo-full-020",
+      "a": 1.1,
+      "b": 1.7935,
+      "asset": "stub-004.svg",
+      "options": [
+        "opt-004-1.svg",
+        "opt-004-2.svg",
+        "opt-004-3.svg",
+        "opt-004-4.svg",
+        "opt-004-5.svg",
+        "opt-004-6.svg"
+      ],
+      "correct": "opt-004-5.svg"
+    },
+    {
+      "id": "geo-full-021",
+      "a": 0.9,
+      "b": 2.0326,
+      "asset": "stub-005.svg",
+      "options": [
+        "opt-005-1.svg",
+        "opt-005-2.svg",
+        "opt-005-3.svg",
+        "opt-005-4.svg",
+        "opt-005-5.svg",
+        "opt-005-6.svg"
+      ],
+      "correct": "opt-005-6.svg"
+    },
+    {
+      "id": "geo-full-022",
+      "a": 0.95,
+      "b": 2.2717,
+      "asset": "stub-006.svg",
+      "options": [
+        "opt-006-1.svg",
+        "opt-006-2.svg",
+        "opt-006-3.svg",
+        "opt-006-4.svg",
+        "opt-006-5.svg",
+        "opt-006-6.svg"
+      ],
+      "correct": "opt-006-1.svg"
+    },
+    {
+      "id": "geo-full-023",
+      "a": 1.0,
+      "b": 2.5109,
+      "asset": "stub-007.svg",
+      "options": [
+        "opt-007-1.svg",
+        "opt-007-2.svg",
+        "opt-007-3.svg",
+        "opt-007-4.svg",
+        "opt-007-5.svg",
+        "opt-007-6.svg"
+      ],
+      "correct": "opt-007-2.svg"
+    },
+    {
+      "id": "geo-full-024",
+      "a": 1.05,
+      "b": 2.75,
+      "asset": "stub-008.svg",
+      "options": [
+        "opt-008-1.svg",
+        "opt-008-2.svg",
+        "opt-008-3.svg",
+        "opt-008-4.svg",
+        "opt-008-5.svg",
+        "opt-008-6.svg"
+      ],
+      "correct": "opt-008-3.svg"
+    }
+  ]
+}

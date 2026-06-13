@@ -21,14 +21,14 @@
 //         </a>
 //       </div>
 //     </section>
-//   - clicking #start-test-btn invokes routing.navigate('consent') → window.location.hash='#/consent'.
+//   - clicking #start-test-btn invokes routing.navigate('selection') → window.location.hash='#/selection' (Story 12-2 flow).
 //   - unmount() removes the click listener AND clears rootEl.innerHTML.
 //   - no localStorage / sessionStorage / navigator.share / role="alert" /
 //     Math.random / Date.now / console.log in shipped source.
 //
 // Cycle-2 changes (per test-review):
 //   - F-02: regex parser replaced with shared tokenizer in _dom-stub.mjs (attribute-order-agnostic).
-//   - F-14: AC-4.9 click test verifies start-btn → routing.navigate('consent') wires through (window.location.hash mutation).
+//   - F-14: AC-4.9 click test verifies start-btn → routing.navigate (Story 12-2 retargeted to 'selection') wires through (window.location.hash mutation).
 //   - F-15: AC-4.7 expanded to verify click-listener removal post-unmount.
 
 import { test } from "node:test";
@@ -174,13 +174,13 @@ test("AC-4.8: landing.js source contains no forbidden globals or default export"
   assert.equal(/^export\s+default\b/m.test(source), false, "default export forbidden");
 });
 
-test("AC-4.9: clicking #start-test-btn invokes routing.navigate('consent') → window.location.hash='#/consent'", () => {
-  // F-14: spec AC-4 line 62 — click handler calls routing.navigate('consent').
-  // Verified via the observable side effect: routing.navigate (spec AC-3 line
-  // 181) mutates window.location.hash to '#/consent'. This test does not
-  // intercept routing.js itself; it relies on the contract that the real
-  // routing.navigate function — committed by the same impl phase — mutates
-  // the hash. Red phase: landing.js doesn't exist → import fails → test fails.
+test("AC-4.9: clicking #start-test-btn invokes routing.navigate('selection') → window.location.hash='#/selection'", () => {
+  // Story 12-2 (PR-15) updated the flow: landing → SELECTION → consent → test.
+  // The "Start the test" button now navigates to the pre-test methodology +
+  // variant selection scene (#/selection) rather than straight to consent.
+  // Verified via the observable side effect: routing.navigate mutates
+  // window.location.hash. (Cross-story frozen-test update: the new selection
+  // step is the deliberate flow change for the multi-test battery.)
   assert.equal(importError, null);
   globalThis.window.location.hash = "";
   const root = makeRootEl({ id: "app" });
@@ -191,7 +191,7 @@ test("AC-4.9: clicking #start-test-btn invokes routing.navigate('consent') → w
   btn.dispatchEvent(ev);
   assert.equal(
     globalThis.window.location.hash,
-    "#/consent",
-    `start-btn click must trigger routing.navigate('consent') → hash mutation; got hash=${globalThis.window.location.hash}`,
+    "#/selection",
+    `start-btn click must trigger routing.navigate('selection') → hash mutation; got hash=${globalThis.window.location.hash}`,
   );
 });

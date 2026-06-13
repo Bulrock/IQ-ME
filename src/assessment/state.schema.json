@@ -1,9 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "state-schema-v1",
-  "title": "IQ-ME Assessment Session State (v1)",
+  "$id": "state-schema-v2",
+  "title": "IQ-ME Assessment Session State (v2)",
   "type": "object",
   "required": [
+    "version",
     "currentItem",
     "responses",
     "startedAt",
@@ -11,6 +12,11 @@
     "seed"
   ],
   "properties": {
+    "version": {
+      "type": "string",
+      "enum": ["v2"],
+      "description": "Schema version tag (Story 12-2 v1→v2 migration). v1 was implicit; v2 makes version explicit and adds methodology + variant for the multi-test battery (PR-15). enum (not const) so the vendored subset validator in tests/contract/_state-schema-check.mjs enforces it."
+    },
     "currentItem": {
       "type": "integer",
       "minimum": 0
@@ -56,8 +62,24 @@
       "type": "string",
       "pattern": "^[0-9a-f]{32}$",
       "description": "128-bit hex from crypto.getRandomValues(); in-memory only per FR7"
+    },
+    "methodology": {
+      "type": "string",
+      "enum": [
+        "geometric",
+        "letter-number"
+      ],
+      "description": "Selected methodology (Story 12-2 selector). 'geometric' = the existing ICAR Matrix Reasoning test (default); 'letter-number' = ICAR Letter/Number Series (Story 12-4)."
+    },
+    "variant": {
+      "type": "string",
+      "enum": [
+        "short",
+        "full"
+      ],
+      "description": "Selected depth: short (quick screen) or full (more items, tighter SE). Story 12-2 selector; engine in Story 12-3."
     }
   },
   "additionalProperties": false,
-  "$comment": "Related: docs/adr/iqme-reveal-stage-event-contract.md (state lifecycle drives event emission). v1 contract; any future field addition requires a `version` field bump (currently implicit at v1; v2 will make `version` itself required)."
+  "$comment": "v2 contract (Story 12-2). version is now a required const 'v2'. methodology + variant are optional (present once the user passes the selection scene; absent in a bare reset state, which is still valid). additionalProperties:false preserved. Related: docs/adr/iqme-reveal-stage-event-contract.md."
 }
