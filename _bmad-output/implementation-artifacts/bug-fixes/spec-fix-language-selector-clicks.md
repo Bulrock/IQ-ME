@@ -19,9 +19,9 @@ route: 'one-shot'
 **Interaction fix**
 
 - Keep the glass header and its dropdown above later scene content.
-  [`chrome-header.css:11`](../../src/css/components/chrome-header.css#L11)
+  [`chrome-header.css:11`](../../../src/css/components/chrome-header.css#L11)
 
 **Regression coverage**
 
 - Verify browser hit-testing reaches an open language option instead of the landing scene.
-  [`pr7-language-dropdown.spec.mjs:65`](../../tests/playwright/pr7-language-dropdown.spec.mjs#L65)
+  [`pr7-language-dropdown.spec.mjs:65`](../../../tests/playwright/pr7-language-dropdown.spec.mjs#L65)
