@@ -187,7 +187,7 @@ development_status:
   11-1-post-release-bug-ux-fix-pass: done                    # PR-1..PR-14 (single story per maintainer decision)
   epic-11-retrospective: optional
   epic-12: backlog
-  12-1-methodology-landscape-research-accuracy-popularity-comparison: review            # PR-15 research gate
+  12-1-methodology-landscape-research-accuracy-popularity-comparison: done              # PR-15 research gate
   12-2-pre-test-methodology-variant-selection: backlog           # PR-15
   12-3-short-full-variant-engine-geometric-test: backlog           # PR-15
   12-4-first-additional-non-geometric-methodology-vertical-slice: backlog           # PR-15

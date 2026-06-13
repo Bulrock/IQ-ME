@@ -1,7 +1,7 @@
 ---
 id: 12-1-methodology-landscape-research-accuracy-popularity-comparison
 title: "Story 12-1: Methodology landscape research — candidate tests, accuracy & popularity comparison"
-status: review
+status: done
 ---
 
 # Story 12-1: Methodology landscape research — candidate tests, accuracy & popularity comparison

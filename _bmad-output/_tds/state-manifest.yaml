@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 241d12e5afbc3bdd8fae7509af33b6cf22ad03f2dc34ba7d1e91b1ca7f2c1a47
+    sha256: 1e5986c5fd315c66c3e0f746acde83ed2865eaeddf478125be3bb0dc38849ae2
     canonical_form: raw-bytes
-    recorded_at: 2026-06-13T11:39:28.647Z
+    recorded_at: 2026-06-13T11:52:15.325Z
     recorded_by: engineer
-    story_id: epic-13
+    story_id: 12-1-methodology-landscape-research-accuracy-popularity-comparison
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1873,3 +1873,17 @@ entries:
     recorded_at: 2026-06-13T11:34:16.064Z
     recorded_by: test-author
     story_id: 13-5-redesign-downloadable-printable-result
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/12-1-methodology-landscape-research-accuracy-popularity-comparison.md
+    sha256: dafd73a12b5cf0cebea789f8673963ac1ec3632b312fe156aed99902459ef9c3
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T11:43:23.786Z
+    recorded_by: engineer
+    story_id: 12-1-methodology-landscape-research-accuracy-popularity-comparison
+  - artefact_class: A
+    file: tests/scaffold/12-1-methodology-research.test.mjs
+    sha256: 8a6302abdc729c20ba3fc9e8caf1b55017c7d3f09cf57c32190a04462eacc1a6
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-13T11:42:40.734Z
+    recorded_by: test-author
+    story_id: 12-1-methodology-landscape-research-accuracy-popularity-comparison
