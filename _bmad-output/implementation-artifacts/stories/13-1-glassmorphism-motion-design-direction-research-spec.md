@@ -1,7 +1,7 @@
 ---
 id: 13-1-glassmorphism-motion-design-direction-research-spec
 title: "Story 13-1: Glassmorphism + motion design-direction research & spec"
-status: in-progress
+status: review
 ---
 
 # Story 13-1: Glassmorphism + motion design-direction research & spec
@@ -78,3 +78,24 @@ frontend (research/spec; design-direction gate for Epic 13)
 - _bmad-output/planning-artifacts/glassmorphism-motion-design-direction.md
 
 ## Specialist Self-Review
+
+**Decisions made:**
+- Scoped 13-1 strictly as a planning-artifact/design-direction gate: deliverable is `_bmad-output/planning-artifacts/glassmorphism-motion-design-direction.md` + a structural scaffold guard. No product CSS/JS — those are 13-2..13-5. This keeps the gate honest (no premature implementation) and makes the downstream stories mechanical.
+- Pinned **concrete starting token values** (blur scale 6/12/20px, glass fills at ≥0.72 alpha light+dark, edge + shadow tokens, motion durations 90/160/260/420ms, two easing curves) so 13-2 implements them verbatim rather than re-deriving.
+- Made the **contrast guarantee come from an opaque fill, not from backdrop blur**. Backdrop content is variable, so blur cannot guarantee AA; a ≥0.72-alpha fill (with `@supports not` solid fallback) does. This is the load-bearing accessibility decision.
+
+**Alternatives considered:**
+- Heavy frosted blur (30–40px) for a more dramatic look: rejected on perf (GPU compositing cost) and legibility (muddies text); capped at 20px and reserved for the homepage hero only.
+- Auto-inverted dark glass (single fill, filter-inverted): rejected to stay consistent with the existing UX-DR6 "separately-designed dark palette" rule; authored light + dark fills independently.
+- A web animation library for motion: rejected outright — violates zero-third-party (NFR21/NFR33). Motion is pure CSS transitions/keyframes with a global `prefers-reduced-motion` collapse.
+
+**Framework gotchas avoided:**
+- `backdrop-filter` needs the `-webkit-` prefix for Safari and an `@supports not (backdrop-filter: blur(1px))` solid fallback — specified the `.glass-surface` primitive with both so 13-2 doesn't ship a broken-on-fallback surface.
+- Editing `primitives.css`/`semantic.css` breaks the committed tokens hash; flagged it explicitly as the codified D→E `make snapshot-update` exception so 13-2 doesn't read it as a contract violation.
+
+**Areas of uncertainty:**
+- Exact alpha values (0.72/0.85) are starting points; 13-2 should re-verify against the actual contrast lint with real backdrops and may nudge them up (never down) if a specific surface fails AA.
+- Whether the methodology page's longer-form body text wants `--glass-fill-strong` everywhere or only behind dense paragraphs — left to 13-4 to tune against the reading surface.
+
+**Tested edge cases:**
+- Scaffold guard (6 assertions) covers: glass token vocabulary present (AC1), motion vocab + `prefers-reduced-motion: reduce` (AC2), WCAG 2.2 + 4.5:1 + opaque-fill technique (AC3), zero-third-party + `snapshot-update` note (AC4), all six named Epic-11 surfaces PR-2/5/6/7/11/13 (AC5), and a no-fabricated-metrics check. All 6 GREEN against the authored artifact; `make lint`/`make build` unaffected (planning doc, not corpus/snapshot).
