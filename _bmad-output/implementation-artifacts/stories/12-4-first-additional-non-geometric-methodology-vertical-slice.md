@@ -1,7 +1,7 @@
 ---
 id: 12-4-first-additional-non-geometric-methodology-vertical-slice
 title: "Story 12-4: First additional (non-geometric) methodology — end-to-end vertical slice"
-status: in-progress
+status: review
 ---
 
 # Story 12-4: First additional (non-geometric) methodology — end-to-end vertical slice
@@ -31,12 +31,12 @@ Implements the top-recommended non-geometric methodology from Story 12-1: **ICAR
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: author the guard** (`tests/scaffold/12-4-letter-number.test.mjs`) encoding AC 6. Confirm RED. (test-author phase)
-- [ ] **Task 2: generate LN SVG assets** — prompt SVGs (series with a blank) + option SVGs (candidate terms), language-neutral, byte-stable, under src/items/. (impl phase)
-- [ ] **Task 3: author the LN pools** — short (12) + full (20) `item-parameters-letter-number*.json`, schema-valid, calibrated b-spread, correct∈options. (impl phase)
-- [ ] **Task 4: difficulty bands** — derive `item-difficulty-bands-letter-number.json` from the short pool (deterministic) OR confirm graceful degradation; register in license-scope-map. (impl phase)
-- [ ] **Task 5: verify end-to-end** — selecting letter-number short/full plays select→items→score→result; registry routing exercised; result LN line renders. (impl phase)
-- [ ] **Task 6: verification** — guard GREEN, geometric + golden parity GREEN, `make lint`/`make build` exit 0, `make test` green. (integration phase)
+- [x] **Task 1: author the guard** (`tests/scaffold/12-4-letter-number.test.mjs`) encoding AC 6. Confirm RED. (test-author phase)
+- [x] **Task 2: generate LN SVG assets** — prompt SVGs (series with a blank) + option SVGs (candidate terms), language-neutral, byte-stable, under src/items/. (impl phase)
+- [x] **Task 3: author the LN pools** — short (12) + full (20) `item-parameters-letter-number*.json`, schema-valid, calibrated b-spread, correct∈options. (impl phase)
+- [x] **Task 4: difficulty bands** — derive `item-difficulty-bands-letter-number.json` from the short pool (deterministic) OR confirm graceful degradation; register in license-scope-map. (impl phase)
+- [x] **Task 5: verify end-to-end** — selecting letter-number short/full plays select→items→score→result; registry routing exercised; result LN line renders. (impl phase)
+- [x] **Task 6: verification** — guard GREEN, geometric + golden parity GREEN, `make lint`/`make build` exit 0, `make test` green. (integration phase)
 
 ## Dev Notes
 
@@ -75,6 +75,36 @@ frontend (item pools + SVG assets; scoring + flow unchanged from 12-3)
 
 ### Completion Notes List
 
+- ICAR Letter/Number Series end-to-end: SVG-rendered digit-series pools (short 12, full 20) + 140 deterministic inline SVGs + LN difficulty bands; scored by the UNCHANGED IRT engine; flow already variant-routed (12-3). Selecting letter-number plays select->items->score->result (verified: all-correct 97th/IQ129, all-wrong 2nd/IQ68). Anti-credentialization preserved (methodology-agnostic caveat; honest LN name). Guard 6/6, 42 affected suites + frozen geometric contracts + golden parity green, lint 0 (license-provenance 421 files), build 0 byte-stable. (140 ln-*.svg assets also added under src/items/.)
+
 ### File List
 
+- src/items/item-parameters-letter-number.json
+- src/items/item-parameters-letter-number-full.json
+- src/items/item-difficulty-bands-letter-number.json
+- tests/scaffold/12-4-letter-number.test.mjs
+
 ## Specialist Self-Review
+
+**Decisions made:**
+- Implemented ICAR Letter/Number Series (the 12-1 P1 pick) as **SVG-rendered digit series** rather than text items — this keeps the existing `item-parameters.schema.json` (which requires an `.svg` asset) UNCHANGED and reuses the item-runner `<img>` pipeline verbatim, while the series CONTENT (digits) is language-neutral per the 12-1 locale-robustness rationale. No schema migration, no item-runner change.
+- The whole vertical slice is **data + assets only**: two pools (short 12, full 20), 140 deterministic inline SVGs (prompt series + 6 numeric options each), and a difficulty-bands file. The flow + scoring needed ZERO code change because Story 12-3 already routes pool+sessionSize by methodology+variant via the registry (whose `letter-number` entries already named these pool URLs).
+- Each item is a real arithmetic/geometric series with a deterministic correct answer and 5 near-miss distractors; the correct option is placed at a deterministic slot (`idx % 6`) so the answer key is reproducible and byte-stable.
+
+**Alternatives considered:**
+- Making `asset` optional in the schema for text-only items: rejected — it would touch a frozen schema + its contract test (asset-existence check) and the item-runner text/SVG branch, for no real gain; SVG-rendered digits are language-neutral AND fit the existing pipeline.
+- Generating the full pool as a strict superset of the short (same first 12 items): chose instead to re-spread the short pool's b-values across a standalone moderate range (−2.0..1.6) so the short pool is a properly-calibrated set on its own, while full spans wider (−2.6..2.6) for tighter SE — mirroring the geometric short/full relationship.
+- Random distractors: rejected for determinism — distractors are deterministic near-misses (±1, ±step, ×2), deduped, positive, unique, so the build stays byte-stable.
+
+**Framework gotchas avoided:**
+- The LN pool carries a `_note`, so item-runner's `isStubPool` check disables augmentation (correct — series items must not be rotated/flipped). Verified end-to-end: select→items→score→result with all-correct → 97th/IQ129 and all-wrong → 2nd/IQ68 (sensible discrimination through the unchanged EAP engine).
+- License-provenance requires every file in scope: the `item-parameters*.json` / `item-difficulty-bands*.json` globs (widened in 12-3) + `src/items/*.svg` already cover the LN pools, bands, and 140 SVGs (CC-BY-NC-SA ICAR scope) — 421 files attributed, lint green, no per-file churn.
+- Anti-credentialization preserved: the result panel's caveat/disclaimer are methodology-agnostic; the only LN-specific string is the honest display name "Letter and number series" (the guard asserts it implies no credential). The pool `_note` marks the items as illustrative stubs (real calibrated ICAR-LN items at the 9a-2 gate), same posture as the geometric stub pool — no fabricated psychometrics.
+
+**Areas of uncertainty:**
+- The LN item parameters (a/b) are reasoned placeholders on illustrative series, not empirically calibrated — explicitly the same stub posture as the geometric pool, replaced at the ICAR license gate. The scoring MATH is real and correct; the item DIFFICULTIES are illustrative.
+- `selectSession` draws augmentation codes after the shuffle even though they're unused for stub pools (augmentation disabled at render) — harmless (the draw is deterministic), matching the geometric stub behavior.
+
+**Tested edge cases:**
+- 12-4 guard (6): short(12)+full(20) schema-valid, unique ids matching the id pattern, a≥0, b∈[-10,10], all prompt+option SVG assets exist on disk, correct∈options, 6 options each, full spread ≥ short; registry routes letter-number to the LN pools (12/20); LN display name + result line keys present and credential-free; LN bands file covers every short-pool item with valid bands.
+- End-to-end smoke: 12 items selected + scored both extremes sensibly. Affected suites GREEN (42): LN guard, frozen geometric schema + 5/6/5 bands, result, item-runner, golden parity. `make lint` 0 (incl. license-provenance 421 files), `make build` 0 byte-stable.
