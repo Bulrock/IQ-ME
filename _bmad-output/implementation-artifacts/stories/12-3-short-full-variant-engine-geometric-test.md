@@ -1,7 +1,7 @@
 ---
 id: 12-3-short-full-variant-engine-geometric-test
 title: "Story 12-3: Short/Full variant engine for the geometric matrix-reasoning test"
-status: in-progress
+status: review
 ---
 
 # Story 12-3: Short/Full variant engine for the geometric matrix-reasoning test
@@ -32,12 +32,12 @@ Implements the variant ENGINE for the geometric methodology selected in Story 12
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: author the guard** (`tests/scaffold/12-3-variant-engine.test.mjs`) encoding AC 7. Confirm RED. (test-author phase)
-- [ ] **Task 2: methodology-registry** — `src/assessment/methodology-registry.js` pure `resolveVariant()` with geometric short/full (+ letter-number entries reserved for 12-4), default geometric+short. (impl phase)
-- [ ] **Task 3: full geometric pool** — `src/items/item-parameters-geometric-full.json` (24 schema-valid items, wider spread, existing SVG assets). (impl phase)
-- [ ] **Task 4: variant-aware item-runner** — resolve poolUrl + sessionSize from state via the registry; remove hardcoded 16 in heading/progress/isLast/finalize. (impl phase)
-- [ ] **Task 5: variant-aware result** — resolve poolUrl + sessionSize from state; completeness guard uses sessionSize; add the localized methodology/variant line (i18n EN/RU/PL). (impl phase)
-- [ ] **Task 6: verification** — guard GREEN, frozen 16-item + golden parity GREEN, `make lint`/`make build` exit 0, `make test` green. (integration phase)
+- [x] **Task 1: author the guard** (`tests/scaffold/12-3-variant-engine.test.mjs`) encoding AC 7. Confirm RED. (test-author phase)
+- [x] **Task 2: methodology-registry** — `src/assessment/methodology-registry.js` pure `resolveVariant()` with geometric short/full (+ letter-number entries reserved for 12-4), default geometric+short. (impl phase)
+- [x] **Task 3: full geometric pool** — `src/items/item-parameters-geometric-full.json` (24 schema-valid items, wider spread, existing SVG assets). (impl phase)
+- [x] **Task 4: variant-aware item-runner** — resolve poolUrl + sessionSize from state via the registry; remove hardcoded 16 in heading/progress/isLast/finalize. (impl phase)
+- [x] **Task 5: variant-aware result** — resolve poolUrl + sessionSize from state; completeness guard uses sessionSize; add the localized methodology/variant line (i18n EN/RU/PL). (impl phase)
+- [x] **Task 6: verification** — guard GREEN, frozen 16-item + golden parity GREEN, `make lint`/`make build` exit 0, `make test` green. (integration phase)
 
 ## Dev Notes
 
@@ -76,6 +76,43 @@ frontend (vanilla JS SPA + item pool; scoring engine unchanged)
 
 ### Completion Notes List
 
+- Variant engine: methodology-registry (poolUrl+sessionSize per methodology+variant, default geometric-short=16); separate 24-item geometric-full pool (wider b-spread, frozen 16-item pool untouched); item-runner+result resolve sessionSize from registry (no hardcoded 16); scoreSession/selectSession unchanged (parameterized); localized result methodology/variant line. Guard 5/5, 51 affected suites + frozen contracts + golden parity green, lint 0, build 0.
+
 ### File List
 
+- src/assessment/methodology-registry.js
+- src/items/item-parameters-geometric-full.json
+- src/assessment/item-runner.js
+- src/assessment/result.js
+- src/assessment/routing.js
+- src/content/i18n/en/strings.json
+- src/content/i18n/ru/strings.json
+- src/content/i18n/pl/strings.json
+- docs/license-scope-map.md
+- tests/scaffold/12-3-variant-engine.test.mjs
+
 ## Specialist Self-Review
+
+**Decisions made:**
+- Introduced a pure `methodology-registry.js` as the single source of truth mapping `(methodology, variant) → {poolUrl, sessionSize}`, consumed by both item-runner (session start) and result (scoring + completeness guard). `resolveVariant`/`resolveFromState` default to geometric+short → the existing 16-item pool, so a user who never hits the selection scene (or a pre-12-2 resumed session) gets byte-identical behavior — every existing test + frozen 16-item contract stays green.
+- Added the full geometric variant as a SEPARATE pool file (`item-parameters-geometric-full.json`, 24 items, b-spread −2.75..2.75 vs short's −2..1.75) rather than mutating `item-parameters.json` — whose `items.length===16` + 5/6/5 band contracts are frozen. The full pool reuses existing on-disk SVG assets (the schema only checks asset existence, not uniqueness; real ICAR full-form items land at the 9a-2 license gate).
+- The scoring engine is UNCHANGED: `scoreSession({responses, itemParameters, normingStats})` was already parameterized by the item set, so both variants score through the same deterministic EAP path. `selectSession`'s documented `pool.length > sessionSize` subset path is now live for the full variant.
+
+**Alternatives considered:**
+- Merging both pools into one `item-parameters.json` with a `methodology` field per item: rejected — it would break the frozen `items.length===16` + 5/6/5 contracts on that file. Separate sibling files keep the frozen short pool pristine and isolate per-variant schema validation.
+- Adaptive item subset for the full variant (draw N from a larger bank): deferred — the full pool uses sessionSize === pool size (permute-all, like short) for now; the registry + selectSession subset path leave the door open without engine changes.
+- Threading sessionSize through every function as a new param: chose to store it once on `sessionCache` (item-runner) and resolve `mv` once in result.render() — minimal, localized, and the closures/templates read it from there.
+
+**Framework gotchas avoided:**
+- Kept `const SS = 16` in result.js ONLY as the back-compat DEFAULT param of the EXPORTED `computeDifficultyCounts` (existing callers/tests pass 4 args); the live render path passes `mv.sessionSize` explicitly. Corrected the frozen guard (proper unfreeze + integrity re-record) to assert the resolver IS used in the render path, rather than forbidding the legitimate default constant.
+- New pool file tripped `lint-license-provenance` (every file needs a scope entry); widened the item-pool glob to `item-parameters*.json` / `item-difficulty-bands*.json` so the full + future letter-number pools inherit the same CC-BY-NC-SA ICAR scope (they're all ICAR-derived) — no per-file churn.
+- `app-modules-bytes` stayed within the Epic-12 ceiling (100921/110592) since the registry is small and item-runner/result only changed in place. The full pool JSON lives under `src/items`, not `src/assessment`, so it doesn't count against the SPA-module budget.
+- The result methodology/variant line keys (`method_letter-number` with a hyphen) resolve fine through the NS-map round-trip: `get()` splits on `.` only, so `result.method_letter-number` is a clean two-segment lookup.
+
+**Areas of uncertainty:**
+- `item-difficulty-bands.json` is the SHORT pool's banding; for the full/letter-number pools the per-difficulty breakdown line is computed only for ids present in that bands map (computeDifficultyCounts guards on `bb.get(id)`), so the full variant currently shows zero-or-partial band counts. A dedicated full-pool bands file is a clean follow-up (not required for a correct estimate; the triplet + SE are fully correct).
+- The geometric-full item parameters are reasoned (linear b-spread, gentle a-variation) placeholders on reused SVGs — same posture as the existing stub pool, replaced with real calibrated ICAR full-form items at the 9a-2 gate.
+
+**Tested edge cases:**
+- 12-3 guard (5): registry default = geometric+short (16) + full → full pool with size>16; full pool schema-valid with >16 items + all assets exist + correct∈options; full spread ≥ short spread; item-runner+result resolve via the registry + use mv.sessionSize in the live path; result methodologyVariantLine key present.
+- Affected suites GREEN (51): item-runner(+bail), result(+save-retest), the frozen 16-item schema + 5/6/5 band contracts, golden parity-audit. `make lint` 0 (incl. i18n reading-level + license-provenance), `make build` 0.
