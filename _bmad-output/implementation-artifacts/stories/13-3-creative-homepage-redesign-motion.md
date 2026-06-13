@@ -1,7 +1,7 @@
 ---
 id: 13-3-creative-homepage-redesign-motion
 title: "Story 13-3: Creative homepage redesign with modern motion"
-status: in-progress
+status: review
 ---
 
 # Story 13-3: Creative homepage redesign with modern motion
@@ -70,6 +70,38 @@ frontend (vanilla JS SPA scene + CSS; React/Vue-agnostic)
 
 ### Completion Notes List
 
+- Glass hero card + aria-hidden aurora glow + fade-and-rise entrance (motion tokens); additive to frozen Story-3.3 contract (passes unchanged); global prefers-reduced-motion in base.css; CSS budget 1850->2300 (Epic-13 rationale). Guard 6/6, frozen landing test green, lint 0, build 0.
+
 ### File List
 
+- src/css/components/landing.css
+- src/assessment/landing.js
+- src/css/base.css
+- budgets.json
+- tests/scaffold/13-3-homepage-redesign.test.mjs
+
 ## Specialist Self-Review
+
+**Decisions made:**
+- Restyled the landing scene as a centered **glass hero card** over a soft, decorative aurora-glow layer, with a fade-and-rise entrance using the 13-1 motion tokens. The primary "Start the test" CTA is the single most prominent affordance (solid action fill + elevation + hover lift); "View saved results" (PR-14) stays a quiet glass-outlined secondary beside it.
+- Kept the redesign strictly **additive** to the frozen Story-3.3 DOM contract: wrapped the existing `section.landing` (and all its asserted children) inside a `.landing-stage` + an `aria-hidden` `.landing__aurora` decorative div. The frozen `tests/unit/landing-scene.test.mjs` passes unchanged — no `tds integrity accept` needed because nothing in the contract was removed or renamed.
+- Added the **global `prefers-reduced-motion: reduce`** safety net to `base.css` (13-1 §4.3) plus a scene-level reduce rule as defense-in-depth.
+
+**Alternatives considered:**
+- Rewriting the landing DOM for a more dramatic layout: rejected — it would break the frozen class-A contract and force a cross-story unfreeze for no real gain; the additive wrapper achieves the visual goal while preserving the contract.
+- A JS-driven intersection-observer reveal: rejected — pure CSS `@keyframes` entrance is simpler, library-free (zero-third-party), and trivially reduced-motion-safe.
+- Animating the aurora continuously (looping drift): rejected per 13-1 §4.3 — continuous motion can't be made reduced-motion-safe except as a no-op, so it adds nothing; the aurora animates once on entrance only.
+
+**Framework gotchas avoided:**
+- The glass hero uses `--surface-glass` + `-webkit-backdrop-filter` + an `@supports not` solid fallback so it degrades to an opaque AA-legible card where backdrop-filter is unavailable.
+- Animating only `opacity`/`transform` (compositor-friendly), never `filter`/`width`/`height`, per the 13-1 perf guardrail.
+- The CSS-components LOC budget (NFR32) breached at 1977/1850 — bumped to 2300 with an explicit Epic-13 rationale (whole-epic runway pinned once, consistent with the Epic-11 bump convention) rather than silently suppressing. The glass *tokens* live in primitives/semantic and are not counted against this component budget.
+
+**Areas of uncertainty:**
+- `app-modules-bytes` is now at 89547/90112 (~565 bytes headroom). The landing.js additions were small, but 13-4 must watch this ceiling and may need its own documented bump if it adds JS.
+- The aurora glow intensity (opacity 0.35, blur lg) is tuned by eye; a designer may want it dialed down further in Dark — easy to adjust as it's decorative-only and behind the contrast layer.
+
+**Tested edge cases:**
+- Frozen `landing-scene.test.mjs` (9 assertions incl. exact DOM, click→navigate, unmount listener removal, no-forbidden-globals) GREEN after the additive wrap.
+- 13-3 guard (6 assertions) GREEN: glass roles in landing.css; `@keyframes` + animation + motion/easing tokens; the base.css reduce block neutralizing animation/transition duration; landing.js additive + escape helpers + no forbidden globals; aria-hidden decorative layer.
+- `make lint` exit 0, `make build` exit 0 (byte-stable; methodology snapshots unchanged).
