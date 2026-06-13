@@ -77,6 +77,10 @@ frontend (vanilla JS SPA + item pool; scoring engine unchanged)
 ### Completion Notes List
 
 - Variant engine: methodology-registry (poolUrl+sessionSize per methodology+variant, default geometric-short=16); separate 24-item geometric-full pool (wider b-spread, frozen 16-item pool untouched); item-runner+result resolve sessionSize from registry (no hardcoded 16); scoreSession/selectSession unchanged (parameterized); localized result methodology/variant line. Guard 5/5, 51 affected suites + frozen contracts + golden parity green, lint 0, build 0.
+- Reopened for rework: self-found resume-correctness bugs (session-persistence hardcoded SESSION_SIZE=16 truncates >16-item variants; methodology/variant not persisted/restored on resume → wrong pool).
+- reopen
+- Rework: resume-correctness for variants (persist+restore methodology/variant; variant-aware persist guard).
+- Resume-correctness rework (self-found via adversarial verify): session-persistence.js now persists methodology+variant and uses the variant-aware session size (not hardcoded 16) for the completion cutoff; saved-results.js resumeSession restores methodology+variant before nav so a resumed full/letter-number session rebuilds the right pool. Guard extended +2 assertions (7/7); 31 persistence/saved/runner/result tests green; lint 0, build 0.
 
 ### File List
 
@@ -90,6 +94,8 @@ frontend (vanilla JS SPA + item pool; scoring engine unchanged)
 - src/content/i18n/pl/strings.json
 - docs/license-scope-map.md
 - tests/scaffold/12-3-variant-engine.test.mjs
+- src/assessment/session-persistence.js
+- src/assessment/saved-results.js
 
 ## Specialist Self-Review
 
