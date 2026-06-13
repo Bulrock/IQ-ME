@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-13 12-1-methodology-landscape-research-accuracy-popularity-comparison: review'
+last_updated: '2026-06-13 12-2-pre-test-methodology-variant-selection: in-progress'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -188,7 +188,7 @@ development_status:
   epic-11-retrospective: optional
   epic-12: backlog
   12-1-methodology-landscape-research-accuracy-popularity-comparison: done              # PR-15 research gate
-  12-2-pre-test-methodology-variant-selection: backlog           # PR-15
+  12-2-pre-test-methodology-variant-selection: in-progress       # PR-15
   12-3-short-full-variant-engine-geometric-test: backlog           # PR-15
   12-4-first-additional-non-geometric-methodology-vertical-slice: backlog           # PR-15
   12-5-methodology-corpus-per-test-descriptions-comparison: backlog           # PR-15
