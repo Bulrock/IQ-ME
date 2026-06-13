@@ -1,7 +1,7 @@
 ---
 id: 12-5-methodology-corpus-per-test-descriptions-comparison
 title: "Story 12-5: Methodology corpus — per-test descriptions + accuracy/popularity comparison pages"
-status: in-progress
+status: review
 ---
 
 # Story 12-5: Methodology corpus — per-test descriptions + accuracy/popularity comparison pages
@@ -31,11 +31,11 @@ Authors the methodology-corpus content for the multi-test battery, sourced from 
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: author the guard** (`tests/scaffold/12-5-methodology-comparison.test.mjs`) encoding AC 6. Confirm RED. (test-author phase)
-- [ ] **Task 2: author the EN pages** — LN description + methodology comparison, plain reading-level, required frontmatter, sourced claims (no fabrication). (impl phase)
-- [ ] **Task 3: mirror to RU + PL** — identical paths, agent-drafted bodies, TBD reviewer, sourceHashEN = SHA-256(EN body); pass per-locale reading-level caps. (impl phase)
-- [ ] **Task 4: build + snapshot** — `make build` then `make snapshot-update` (D→E); verify sidebar grouping + link resolution. (impl phase)
-- [ ] **Task 5: verification** — guard GREEN, `make lint`/`make build` exit 0, `make test` green (translation-parity, claims, reading-level, snapshots). (integration phase)
+- [x] **Task 1: author the guard** (`tests/scaffold/12-5-methodology-comparison.test.mjs`) encoding AC 6. Confirm RED. (test-author phase)
+- [x] **Task 2: author the EN pages** — LN description + methodology comparison, plain reading-level, required frontmatter, sourced claims (no fabrication). (impl phase)
+- [x] **Task 3: mirror to RU + PL** — identical paths, agent-drafted bodies, TBD reviewer, sourceHashEN = SHA-256(EN body); pass per-locale reading-level caps. (impl phase)
+- [x] **Task 4: build + snapshot** — `make build` then `make snapshot-update` (D→E); verify sidebar grouping + link resolution. (impl phase)
+- [x] **Task 5: verification** — guard GREEN, `make lint`/`make build` exit 0, `make test` green (translation-parity, claims, reading-level, snapshots). (integration phase)
 
 ## Dev Notes
 
@@ -75,6 +75,40 @@ writer/frontend (methodology corpus prose + NFR27 mirror; no code)
 
 ### Completion Notes List
 
+- Methodology corpus: LN description + methodology comparison pages, EN authored (reading-level 5.8/6.3) + RU/PL mirrored with sourceHashEN=SHA256(EN body) (NFR27 parity: RU 21/21, PL 21/21). Comparison is qualitative+sourced (no fabricated stats), carries not-a-diagnosis caveat, auto-sidebar via constructs/reference sections, links resolve (PR-12b). snapshot-update refreshed 60->66 pages. Guard 3/3, full lint 0, build 0, full test = only 14 pre-existing 9-series reds (zero regressions).
+
 ### File List
 
+- src/content/methodology/en/constructs/letter-number-series/index.md
+- src/content/methodology/en/reference/methodology-comparison/index.md
+- src/content/methodology/ru/constructs/letter-number-series/index.md
+- src/content/methodology/ru/reference/methodology-comparison/index.md
+- src/content/methodology/pl/constructs/letter-number-series/index.md
+- src/content/methodology/pl/reference/methodology-comparison/index.md
+- tests/scaffold/12-5-methodology-comparison.test.mjs
+
 ## Specialist Self-Review
+
+**Decisions made:**
+- Authored two EN methodology pages under EXISTING sections so they auto-appear in the sidebar without touching the build's hardcoded section map: the LN description under `constructs/letter-number-series/` and the comparison under `reference/methodology-comparison/`. The build emits directory-style `index.html`, so the internal trailing-slash links resolve (PR-12b).
+- Kept the comparison **qualitative + sourced**: it names what each test measures, relative recognizability, and openness (ICAR vs proprietary Wechsler), and explicitly REFUSES to publish a single accuracy figure ("a figure without its study and sample would mislead") — honoring the claims-manifest no-fabrication discipline. `asserts: []` on both pages keeps `lint-claims-manifest` green without inventing claim ids.
+- Mirrored both pages to RU + PL as agent-drafted real translations (not EN-stubs), consistent with the existing in-progress draft-translation posture (`reviewer: TBD`, `translationStatus: "in-progress"`), with `sourceHashEN` set to the SHA-256 of the EN body-after-frontmatter — the build's exact parity contract.
+
+**Alternatives considered:**
+- Putting the comparison under a NEW top-level section: rejected — the sidebar section map is hardcoded per-locale in build-methodology.mjs; a new section would need a build edit + per-locale section labels. `reference/` already exists and fits a comparison page.
+- EN-stub RU/PL bodies (copy EN verbatim): rejected — the repo's RU/PL corpus carries real agent-drafted translations; matching that posture is more honest and useful, and the parity lint only needs `sourceHashEN` to equal the EN body hash regardless of the translated body.
+- Citing specific g-loadings / correlation coefficients to look authoritative: refused per lesson-2026-06-04-002 — the comparison states the qualitative, sourced claim and shows a range, not invented numbers (the guard also forbids `r = 0.xx` patterns).
+
+**Framework gotchas avoided:**
+- NFR27 parity cascade: every EN body change must be mirrored with `sourceHashEN` = SHA-256(EN body-after-frontmatter). Computed each EN page's body hash with the build's exact algorithm (lines after the closing `---`, joined by `\n`), set it on both the EN page (self-hash) and the RU/PL mirrors. `lint-translation-parity` → RU 21/21, PL 21/21 green (was 19/19).
+- Reading-level: EN pages graded 5.8 and 6.3 (cap 12); RU/PL within the per-locale NFR31 caps — all 21 pages green. Wrote in short, plain sentences matching the existing icar-mr page style.
+- New methodology golden HTML: `make snapshot-update` refreshed the methodology snapshots (60 → 66 pages) — the codified D→E exception; `methodology-snapshots` test green. The tokens hash is unchanged (no primitives/semantic touched).
+- License-provenance: the `en/**/*.md` corpus glob + the RU/PL corpus globs already cover the new pages (CC-BY-NC-SA project-authored derivative content) — lint green, no scope-map edit needed.
+
+**Areas of uncertainty:**
+- RU/PL bodies are agent-drafted, not native-reviewer clinical-register copy — the established gated posture (reviewer TBD, translationStatus in-progress). A native reviewer should confirm at the 9c/9d gate; the markers make that machine-observable.
+- The comparison page deliberately omits per-test accuracy numbers. If the maintainer later wants a sourced quantitative table, that's a follow-up that should cite the source studies directly in the claims manifest, not inline-invented here.
+
+**Tested edge cases:**
+- 12-5 guard (3): both EN pages exist with all 8 required frontmatter keys; the comparison names both methodologies + carries the not-a-diagnosis caveat + no fabricated correlation; RU + PL mirrors exist at identical paths with `sourceHashEN === SHA-256(EN body)` and `reviewer: TBD`.
+- Full corpus pipeline GREEN: `lint-frontmatter`, `lint-translation-parity` (RU 21/21, PL 21/21), `lint-reading-level` (21 pages within caps), `lint-claims-manifest`, `lint-license-provenance`; `make build` 0; `make snapshot-update` refreshed + `methodology-snapshots` 72/72; full `make test` shows only the 14 pre-existing 9-series human-gate reds (zero regressions).
