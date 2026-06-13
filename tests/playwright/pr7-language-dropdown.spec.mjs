@@ -62,6 +62,29 @@ test("AC9: dropdown opens on click — aria-expanded becomes 'true'", async ({ p
   expect(expanded, "AC9: aria-expanded must be 'true' after opening dropdown").toBe("true");
 });
 
+test("AC9: open dropdown options stay above scene content and receive pointer input", async ({ page }) => {
+  const origin = `http://127.0.0.1:${server.port}`;
+  await gotoLanding(page, origin);
+
+  const trigger = page.locator(".language-switcher__trigger");
+  await trigger.click();
+
+  const ruOption = page.locator("[data-lang-option='ru']");
+  const topHitIsOption = await ruOption.evaluate((option) => {
+    const rect = option.getBoundingClientRect();
+    const topHit = document.elementFromPoint(
+      rect.left + rect.width / 2,
+      rect.top + rect.height / 2,
+    );
+    return topHit === option || option.contains(topHit);
+  });
+
+  expect(
+    topHitIsOption,
+    "AC9: scene content must not cover or intercept clicks from an open language option",
+  ).toBe(true);
+});
+
 test("AC9: dropdown closes on Escape — aria-expanded becomes 'false'", async ({ page }) => {
   const origin = `http://127.0.0.1:${server.port}`;
   await gotoLanding(page, origin);

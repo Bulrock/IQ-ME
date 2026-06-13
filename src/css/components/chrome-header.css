@@ -9,6 +9,11 @@
  */
 
 .chrome-header {
+  /* The glass backdrop-filter creates a stacking context. Keep that context
+     above later scene content so the absolutely-positioned language menu
+     remains visible and receives pointer input instead of the scene beneath. */
+  position: relative;
+  z-index: 30;
   display: flex;
   align-items: center;
   gap: var(--space-2);
