@@ -33,7 +33,7 @@ Applies the glass design system (Story 13-2) and the motion vocabulary (13-1 §4
 
 - [ ] **Task 1: author the guard** (`tests/scaffold/13-3-homepage-redesign.test.mjs`) encoding AC 6. Confirm RED. (test-author phase)
 - [x] **Task 2: restyle `landing.css`** — glass hero/CTA surface, prominent primary CTA, Light/Dark correct, entrance keyframes using motion tokens, reduced-motion no-op, mobile-correct. (impl phase)
-- [ ] **Task 3: additive `landing.js`** — wrap the hero in a decorative glass shell (aria-hidden decorative layer if any), keep all frozen-contract nodes intact, use escape helpers, no forbidden globals. (impl phase)
+- [x] **Task 3: additive `landing.js`** — wrap the hero in a decorative glass shell (aria-hidden decorative layer if any), keep all frozen-contract nodes intact, use escape helpers, no forbidden globals. (impl phase)
 - [ ] **Task 4: verification** — frozen `landing-scene.test.mjs` GREEN, new guard GREEN, `make lint`/`make build` exit 0, `make test` green. (integration phase)
 
 ## Dev Notes
