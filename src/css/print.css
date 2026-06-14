@@ -50,6 +50,28 @@
  * identity line all print; interactive chrome does not. RU/PL print without
  * clipping because the document is constrained to a reading measure that
  * wraps, never a fixed width. */
+
+/* ─── DESIGN DECISION (Story 14-9, PR-26) — print is scientific-neutral, NOT a
+ * simplified Aurora accent. After the Story 14.2 Aurora token revaluation
+ * (deep-navy spatial backdrop + retuned glass fills), the printed/exported
+ * result deliberately carries NO Aurora token bleed: no aurora gradient, no
+ * deep-navy backdrop, no glass blur, no glow, no grid, no color accent. Two
+ * justifications: (1) INK ECONOMY — a colour wash or tinted accent wastes
+ * toner/ink for a self-records document; (2) GRAYSCALE-PRINTER FIDELITY — a
+ * blue-violet accent degrades unpredictably on a greyscale printer and can
+ * lower contrast, whereas a pure dark-ink ramp is exact on any device. The
+ * Aurora *identity* is therefore expressed only through TYPE, RULE, and SPACING
+ * (display-size masthead title, quiet hairline rules, generous spacing) — never
+ * colour. The document uses ONLY the neutral dark-ink ramp
+ * #111111 / #333333 / #555555 / #777777 plus the #cccccc hairline already
+ * defined below; NO single neutral hairline accent beyond those rules is
+ * introduced (the decision is: no accent at all). A defensive override on the
+ * printed surfaces (background-image: none) GUARANTEES the deep-navy aurora
+ * backdrop cannot survive into print even if the white-bg shorthand reset is
+ * ever refactored to a longhand. The screen frosted-glass filter is NOT
+ * re-declared here: on the forced-white print surface it composites over white
+ * (a visual no-op), and the print block stays free of any glass filter artifact
+ * (the Story 13-5 PR-17 invariant). */
 @media print {
   /* Always print on white with dark ink, regardless of the chosen theme. */
   :root { color-scheme: light; }
@@ -75,6 +97,15 @@
   .result-scene,
   .score-panel {
     background: #ffffff !important;
+    /* Defensive (Story 14-9): explicitly drop the deep-navy aurora
+       background-image so the spatial backdrop cannot bleed into print even if
+       the white-bg `background:` shorthand above is later refactored to a
+       longhand. The screen frosted-glass filter is deliberately NOT re-declared
+       in this block — on the forced-white print surface it composites over
+       white (a visual no-op), and the print document stays free of any glass
+       filter artifact (the Story 13-5 PR-17 invariant; see the head-of-section
+       decision block above). */
+    background-image: none !important;
     color: #111111 !important;
     box-shadow: none !important;
     border: none !important;

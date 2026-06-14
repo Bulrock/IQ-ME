@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: e06e02c2f51f98b93299a95e8a37285c1cde1be28386d6a471e8b6b7cb999154
+    sha256: 2b2bec827061dd3401a14a00f5ab3921504dfd0b353d1a07f34bafdfb956c1d9
     canonical_form: raw-bytes
-    recorded_at: 2026-06-14T17:35:11.631Z
+    recorded_at: 2026-06-14T17:45:20.229Z
     recorded_by: engineer
-    notes: 14-8 done
+    notes: 14-9 done
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -2060,3 +2060,17 @@ entries:
     recorded_at: 2026-06-14T17:35:10.760Z
     recorded_by: test-author
     notes: freeze 14-8 guard
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/14-9-ink-economical-aurora-print-pdf-result-document.md
+    sha256: 99f4460b00385edfe4da7b97fb8f2b729943831d8754a271b772cd136bb634c3
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T17:45:20.229Z
+    recorded_by: engineer
+    notes: 14-9 done
+  - artefact_class: A
+    file: tests/scaffold/14-9-print-document.test.mjs
+    sha256: b5a2fabc44114d6c45d78492b5e9ba514a677e78dc8e3660da382c4c0d7cf080
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T17:45:19.396Z
+    recorded_by: test-author
+    notes: freeze 14-9 guard
