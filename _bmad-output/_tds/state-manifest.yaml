@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: c6d5933fc5d3cf5514a5c8b933b572b875ee3eabd3f51a5df480fced7e110172
+    sha256: 741a36ca9e418b7614f4c472d313b80c290ed152d343b4272995d3622aded1c2
     canonical_form: raw-bytes
-    recorded_at: 2026-06-14T16:18:50.535Z
+    recorded_at: 2026-06-14T16:28:06.664Z
     recorded_by: engineer
-    notes: "14-3 done: sprint-status + spec frontmatter flipped to done"
+    notes: "14-4 done: sprint-status + spec frontmatter"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1990,3 +1990,17 @@ entries:
     recorded_at: 2026-06-14T16:13:29.795Z
     recorded_by: test-author
     notes: freeze 14-3 acceptance guard
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/14-4-aurora-methodology-selection-and-complete-methodology-v0-1-0-route.md
+    sha256: efc28fe9c2ceb3e2a00463f02496a4043e19eb86cb1cccda41073f51aa374765
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T16:28:27.504Z
+    recorded_by: engineer
+    notes: 14-4 tasks complete
+  - artefact_class: A
+    file: tests/scaffold/14-4-aurora-methodology.test.mjs
+    sha256: 7af7d877eddfb725034590a1014527b8dc4e8a9c8b61f9ef78750befc83c04e4
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T16:27:57.894Z
+    recorded_by: test-author
+    notes: freeze 14-4 acceptance guard

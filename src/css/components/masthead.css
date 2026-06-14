@@ -23,6 +23,12 @@
   backdrop-filter: blur(var(--surface-glass-blur));
   -webkit-backdrop-filter: blur(var(--surface-glass-blur));
   border-block-end: var(--border-width-hairline) solid var(--surface-glass-edge);
+  /* Epic 14 (Story 14-4): float depth + lit-from-within inset edge (cf.
+     .aurora-surface) so the masthead reads as a deliberately raised panel over
+     the navy backdrop, not a flat afterthought. Token-only (no literal px). */
+  box-shadow:
+    var(--surface-glass-shadow),
+    inset 0 var(--border-width-hairline) 0 var(--surface-glass-edge);
   /* PR-2 (Story 11-1): on article pages the masthead sticks to the top so it
      stays visible while the content scrolls (the index pins it via the
      app-shell instead, where the body doesn't page-scroll). */
@@ -80,8 +86,19 @@ main {
   margin-block-end: var(--space-6);
 }
 
+/* Epic 14 (Story 14-4): index sections carry body-text links → the STRONG
+   glass fill (≥0.90 alpha) so SC 1.4.3 holds against the busy navy backdrop,
+   blur + lit edge so each section reads as a raised panel. Semantic roles only. */
 .methodology-index__section {
   margin-block-end: var(--space-6);
+  padding-block: var(--space-4);
+  padding-inline: var(--space-5);
+  background-color: var(--surface-glass-strong);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border: var(--border-width-hairline) solid var(--surface-glass-edge);
+  border-radius: var(--radius-surface);
+  box-shadow: var(--surface-glass-shadow);
 }
 
 .methodology-index__heading {
@@ -114,6 +131,20 @@ main {
   max-width: 64rem;
   margin-inline: auto;
   padding-inline: var(--space-5);
+}
+
+/* Epic 14 (Story 14-4): the sidebar nav is a raised glass panel over the navy
+   backdrop (standard fill — it carries short nav labels, not long-form body
+   text). Semantic roles only; the @supports fallback below keeps it opaque. */
+.methodology-sidebar {
+  padding-block: var(--space-4);
+  padding-inline: var(--space-4);
+  background-color: var(--surface-glass);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border: var(--border-width-hairline) solid var(--surface-glass-edge);
+  border-radius: var(--radius-surface);
+  box-shadow: var(--surface-glass-shadow);
 }
 
 .methodology-sidebar__list {
@@ -179,5 +210,16 @@ main {
     /* Scroll runway so even the last section (Tails) can scroll up to the top
        of the content column when its sidebar link is clicked. */
     padding-block-end: 80vh;
+  }
+}
+
+/* Epic 14 (Story 14-4): solid fallback (cf. glass-surface.css / aurora.css) —
+   where backdrop-filter is unavailable, the route's glass surfaces drop their
+   translucency to the opaque strong fill so contrast + layout never break. */
+@supports not (backdrop-filter: blur(1px)) {
+  .methodology-masthead,
+  .methodology-sidebar,
+  .methodology-index__section {
+    background-color: var(--surface-glass-strong);
   }
 }

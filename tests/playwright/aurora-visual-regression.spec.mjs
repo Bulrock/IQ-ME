@@ -59,6 +59,21 @@ for (const theme of THEMES) {
   }
 }
 
+// Story 14-4: methodology-index Aurora glass-on-navy leg (Light + Dark). The
+// COMPLETE /methodology/v0.1.0 route — masthead, sidebar nav, and index sections
+// — must render as raised glass panels over the deep-navy backdrop, not flat
+// transparent regions (the Epic 13 same-color failure stays resolved). DORMANT:
+// the parent `visual-regression` job is still `if: false`; Story 14.11 flips it
+// on and commits these baselines on ubuntu-latest (no baselines committed here).
+for (const theme of THEMES) {
+  test(`aurora methodology-index — ${theme}`, async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.emulateMedia({ colorScheme: theme });
+    await page.goto(`http://127.0.0.1:${server.port}/methodology/v0.1.0/en/`);
+    await expect(page).toHaveScreenshot(`methodology-index-${theme}-1280.png`, SCREENSHOT_OPTS);
+  });
+}
+
 test("aurora print/PDF — ink-economical document leg (no aurora/blur)", async ({ page }) => {
   await page.setViewportSize({ width: 1024, height: 1280 });
   await page.goto(`http://127.0.0.1:${server.port}/src/index.html`);
