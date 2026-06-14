@@ -1,6 +1,6 @@
 # IQ-ME
 
-A public, no-signup, no-telemetry, source-on-GitHub matrix-reasoning self-assessment. Sixteen items, about twelve minutes. The full scoring engine (~250 LOC of pure JavaScript) ships unminified and unbundled — every shipped byte of math is auditable in the browser's "View Source." There are no accounts. No email. No login. No tracking pixels. No third-party requests. No remote APIs. The entire deployed artifact is byte-identical to the source tree in this repository: what you read here is what your browser runs.
+A public, no-signup, no-telemetry, source-on-GitHub matrix-reasoning self-assessment with no time limit. The full scoring engine (~250 LOC of pure JavaScript) ships unminified and unbundled — every shipped byte of math is auditable in the browser's "View Source." There are no accounts. No email. No login. No tracking pixels. No third-party requests. No remote APIs. The entire deployed artifact is byte-identical to the source tree in this repository: what you read here is what your browser runs.
 
 The methodology corpus — about thirty short pages explaining what IRT is, what an EAP estimate is, where the validity envelope ends, and why a 16-item self-assessment cannot replace a clinical evaluation — lives at `/methodology/v<X>.<Y>.<Z>/<lang>/`. Every page is plain HTML rendered at author time from CommonMark source committed to this repo. The corpus is per-language reviewed-of-record (see `.github/CODEOWNERS`) and per-corpus-release citation-stable.
 

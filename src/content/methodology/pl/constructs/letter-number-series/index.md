@@ -6,7 +6,7 @@ reviewer: "TBD"
 reviewerHandle: "@TBD-pl-reviewer"
 asserts: []
 glossaryRefs: []
-sourceHashEN: "6352a46efdc6d0c28111cb80fda004a3648a269d9fc98e927b2caffb627d079e"
+sourceHashEN: "1f701476ac9dc13538f580bf37ffe53053c43f20131c6ba1f96881d991288543"
 translationStatus: "in-progress"
 ---
 
@@ -22,7 +22,7 @@ Zadania pochodzą z projektu ICAR — tego samego otwartego źródła co zadania
 
 ## Wariant krótki i pełny
 
-Metoda ma dwie głębokości. Wariant krótki używa mniej zadań do szybkiego przesiewu. Wariant pełny używa więcej zadań. Więcej zadań daje węższy zakres wokół wyniku. Wybór następuje na ekranie wyboru przed rozpoczęciem testu.
+Metoda ma dwie głębokości. Wariant krótki używa mniej zadań. Wariant pełny używa więcej zadań. Więcej zadań daje węższy zakres wokół wyniku. Wybór następuje na ekranie wyboru przed rozpoczęciem testu.
 
 Oba warianty liczone są tym samym silnikiem co test macierzowy. Każda odpowiedź jest poprawna lub błędna. Silnik zamienia wzorzec odpowiedzi na oszacowanie zdolności z zakresem. Sekcja o punktacji opisuje silnik w całości.
 

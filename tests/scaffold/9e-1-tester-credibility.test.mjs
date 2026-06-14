@@ -31,7 +31,7 @@ function read(p) {
 const FABRICATED_TALLY =
   /\b(1[2-5]|[2-9]\d)\s*(\/|of)\s*15\s+(credible|passed|met|verified|approved)\b|\b(1[2-5]|[2-9]\d)\s*credible\s+(out|of|\/)\s*15\b/i;
 
-test("AC1: recruitment draft exists, names archetype-balance target, privacy posture, no-compensation, ~30min", () => {
+test("AC1: recruitment draft names archetype balance, privacy, no compensation, and self-paced assessment", () => {
   const draft = read(DRAFT);
   assert.match(
     draft,
@@ -50,8 +50,13 @@ test("AC1: recruitment draft exists, names archetype-balance target, privacy pos
   );
   assert.match(
     draft,
-    /30[ -](minute|min)|~30/i,
-    "draft must name the ~30-minute time commitment",
+    /self[- ]paced|no time limit/i,
+    "draft must describe the assessment as self-paced or having no time limit",
+  );
+  assert.doesNotMatch(
+    draft,
+    /\b(test|assessment|session)\b[^\n]{0,80}\b\d+\s*(minute|min|hour)s?\b|\b\d+\s*(minute|min|hour)s?\b[^\n]{0,80}\b(test|assessment|session)\b/i,
+    "draft must not estimate assessment completion time",
   );
 });
 

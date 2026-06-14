@@ -6,7 +6,7 @@ reviewer: "TBD"
 reviewerHandle: "@TBD-en-reviewer"
 asserts: []
 glossaryRefs: []
-sourceHashEN: "6352a46efdc6d0c28111cb80fda004a3648a269d9fc98e927b2caffb627d079e"
+sourceHashEN: "1f701476ac9dc13538f580bf37ffe53053c43f20131c6ba1f96881d991288543"
 ---
 
 # Letter and number series — the inductive-reasoning test
@@ -21,7 +21,7 @@ The series items come from the ICAR project, the same public source as the matri
 
 ## Short and full variants
 
-The methodology has two depths. The short variant uses fewer items for a quick screen. The full variant uses more items. More items give a tighter range around the estimate. The choice is made on the selection screen before the test begins.
+The methodology has two depths. The short variant uses fewer items. The full variant uses more items. More items give a tighter range around the estimate. The choice is made on the selection screen before the test begins.
 
 Both variants score through the same engine as the matrix test. Each answer is right or wrong. The engine turns the pattern of answers into an ability estimate with a range. The scoring section describes the engine in full.
 

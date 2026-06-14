@@ -1154,7 +1154,7 @@ So that **the epic-goal "tester-testable" is *actually tested* (not aspirational
 **Given** "outside-team" means people who didn't author the project,
 **When** recruitment proceeds,
 **Then** sources include: friends/family without psychometric background, online communities (r/cognitiveTesting low-key DM, Mastodon), an HN-comment-equivalent recruitment if maintainer is comfortable
-**And** the test runs on a build that is *visibly pre-release* — no marketing, no signup, just "I'm building something, would you try it for 20 minutes and tell me what you think?"
+**And** the test runs on a build that is *visibly pre-release* — no marketing, no signup, just "I'm building something, would you try this self-paced assessment and tell me what you think?"
 
 ---
 
@@ -2335,7 +2335,7 @@ So that **the experiential launch gate (12/15 overall AND 4/5 per language — n
 
 **Given** recruitment begins at Epic 6 testable-build-ready (cohort 1 trickle) and intensifies at Epic 7 full-locale-build (full cohort),
 **When** the maintainer drafts recruitment posts to r/cognitiveTesting + native-language psychology forums + Russian/Polish cognitive-testing communities,
-**Then** the post explains the volunteer ask (run the test, post a credibility verdict in a GitHub Discussions thread), the time commitment (~30 minutes), the no-compensation posture (in keeping with the project's non-commercial structural posture), the privacy posture (no email collection, no telemetry — testers identify themselves only by GitHub handle on the Discussions thread)
+**Then** the post explains the volunteer ask (run the self-paced test, post a credibility verdict in a GitHub Discussions thread), the no-time-limit posture, the no-compensation posture (in keeping with the project's non-commercial structural posture), and the privacy posture (no email collection, no telemetry — testers identify themselves only by GitHub handle on the Discussions thread)
 **And** outreach is logged in `docs/launch-readiness/tester-recruitment-log.md`.
 
 **Given** the cohort must span archetypes,

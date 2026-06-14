@@ -39,7 +39,7 @@ Implement the **openly-licensed ICAR subscales**, reusing the existing engine. P
 | P2 | ICAR-R3D (3-D rotation) | **10 items** | **~16 items** | SVG-renderable; spatial construct diversifies the battery. |
 | P3 | ICAR-VR (verbal reasoning) | **12 items** | **~20 items** | Highest localization cost (verbal content must be carefully translated EN/RU/PL); schedule after P1/P2. |
 
-**Variant design principle.** Short = a quick screen (10–16 items, calibrated spread); Full = a more thorough estimate (≈1.5–2× items, broader difficulty coverage for tighter standard error). Both score through the existing deterministic IRT/EAP path so golden-vector parity holds per variant (12-3).
+**Variant design principle.** Short = fewer items with a calibrated spread; Full = more items with broader difficulty coverage for tighter standard error. Both score through the existing deterministic IRT/EAP path so golden-vector parity holds per variant (12-3).
 
 **Excluded (flagged unsuitable):** WAIS, Stanford–Binet, commercial Raven's APM/SPM — proprietary/licensed, not redistributable, and clinician-administered; referenced in the corpus for context only.
 

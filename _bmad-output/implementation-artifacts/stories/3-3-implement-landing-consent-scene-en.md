@@ -55,7 +55,7 @@ This is **Epic 3's first UI story** — Story 3.1 froze the contract artifacts (
    - On render, writes the following DOM into `rootEl` (the `#app` element):
      - `<section class="landing" aria-labelledby="landing-heading">`
        - `<h1 id="landing-heading">` from i18n key `landing.headline`
-       - `<p class="landing__paragraph">` from i18n key `landing.intro` — one-paragraph plain-language description of what IQ-ME is and is not. EN copy at v1: a single ~60-word paragraph stating "IQ-ME is a fluid-reasoning screener using ICAR-MR matrix items, takes about 25 minutes, runs entirely in your browser, stores nothing on a server, and is not a clinical assessment or credential."
+       - `<p class="landing__paragraph">` from i18n key `landing.intro` — one-paragraph plain-language description of what IQ-ME is and is not. EN copy states that IQ-ME is a self-paced fluid-reasoning screener using ICAR-MR matrix items, runs entirely in the browser, stores nothing on a server, and is not a clinical assessment or credential.
        - `<div class="landing__cta-group">`
          - `<button type="button" class="landing__start-btn" id="start-test-btn">` text from `landing.startTestButton` ("Start the test")
          - `<a class="landing__methodology-link" href="/methodology/v1.0.0/en/">` text from `landing.methodologyLink` ("Read the methodology")
@@ -107,7 +107,7 @@ This is **Epic 3's first UI story** — Story 3.1 froze the contract artifacts (
      - `chrome.appName`: `"IQ-ME"`
      - `chrome.errorFallbackMessage`: `"Something went wrong loading the page. Try reloading."`
      - `landing.headline`: `"IQ-ME"`
-     - `landing.intro`: `"IQ-ME is a fluid-reasoning screener that uses 16 visual matrix-reasoning items (ICAR-MR), takes about 25 minutes, runs entirely in your browser, and stores nothing on a server. It is not a clinical assessment, a credential, or a placement test — it is one calibrated screen of one narrow ability."`
+     - `landing.intro`: `"IQ-ME is a self-paced fluid-reasoning screener that uses visual matrix-reasoning items (ICAR-MR), runs entirely in your browser, and stores nothing on a server. It is not a clinical assessment, a credential, or a placement test — it is one calibrated screen of one narrow ability."`
      - `landing.startTestButton`: `"Start the test"`
      - `landing.methodologyLink`: `"Read the methodology"`
      - `consent.headline`: `"Before you begin"`

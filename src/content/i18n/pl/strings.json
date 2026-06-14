@@ -23,7 +23,7 @@
   },
   "landing": {
     "headline": "IQ-ME",
-    "intro": "IQ-ME to przesiewowy test inteligencji płynnej, który wykorzystuje 16 wizualnych zadań matrycowych (ICAR-MR), trwa około 25 minut, działa w całości w Twojej przeglądarce i niczego nie zapisuje na serwerze. Nie jest to ocena kliniczna, certyfikat ani test kwalifikacyjny — to jeden skalibrowany pomiar jednej wąskiej zdolności.",
+    "intro": "IQ-ME to wykonywany we własnym tempie przesiewowy test inteligencji płynnej, który wykorzystuje wizualne zadania matrycowe (ICAR-MR), działa w całości w Twojej przeglądarce i niczego nie zapisuje na serwerze. Nie jest to ocena kliniczna, certyfikat ani test kwalifikacyjny — to jeden skalibrowany pomiar jednej wąskiej zdolności.",
     "startTestButton": "Rozpocznij test",
     "methodologyLink": "Metodologia"
   },
@@ -37,9 +37,9 @@
     "letterNumberLabel": "Ciągi liter i liczb",
     "letterNumberLabelHelp": "Znajdź regułę w ciągu (ICAR-LN). Niezależne od języka.",
     "shortLabel": "Krótki",
-    "shortLabelHelp": "Szybki przesiew. Mniej zadań, około 25 minut.",
+    "shortLabelHelp": "Mniej zadań w krótszym wariancie.",
     "fullLabel": "Pełny",
-    "fullLabelHelp": "Dłuższy przebieg. Więcej zadań dla dokładniejszego wyniku.",
+    "fullLabelHelp": "Więcej zadań dla dokładniejszego wyniku.",
     "continueButton": "Dalej",
     "backLink": "Wstecz"
   },
@@ -50,7 +50,7 @@
     "visuospatialDisclosure": "Zadania matrycowe są z założenia wizualne. Osoby korzystające z czytników ekranu nie mogą wykonać tego testu równoważnie — nie istnieje syntetyczny tekst alternatywny, który uczciwie oddaje te wzorce. Ujawniamy to, zamiast udawać, że jest inaczej.",
     "continueButton": "Kontynuuj",
     "notToday": "Nie dziś",
-    "dwellHint": "Poświęć chwilę na powyższy tekst — przycisk „Kontynuuj” odblokuje się za kilka sekund."
+    "dwellHint": "Przeczytaj powyższy tekst przed kontynuowaniem."
   },
   "itemRunner": {
     "headingTemplate": "Zadanie {N} z {total}",

@@ -16,7 +16,7 @@ The launch gate (Risk #12) requires **≥12/15 overall AND ≥4/5 per language**
 
 ## What testers are asked to do
 
-1. **Run the test** — complete IQ-ME in your native language (EN/RU/PL) at the public URL (TBD). Takes approximately **~30 minutes**.
+1. **Run the test** — complete the self-paced IQ-ME assessment in your native language (EN/RU/PL) at the public URL (TBD).
 2. **Post a credibility verdict** — reply to the designated GitHub Discussions thread with:
    - "Credible" or "Not credible"
    - A brief reason (1–3 sentences): what felt right or wrong about the result framing, methodology explanations, or harm-mitigation copy.
@@ -69,7 +69,7 @@ Testers self-select; the archetype-balance note is informational, not a screenin
 
 ## Recruitment post template
 
-**Title:** IQ-ME open-source cognitive test — volunteer credibility testers needed (~30 min)
+**Title:** IQ-ME open-source cognitive test — volunteer credibility testers needed
 
 ---
 
@@ -79,7 +79,7 @@ I'm looking for volunteer testers for **IQ-ME** ([URL TBD after public launch]),
 
 **What I need:** 5 native-[EN/RU/PL] speakers to run the test and post a one-sentence credibility verdict on a GitHub Discussions thread.
 
-**Time:** ~30 minutes for the test + 1–2 minutes for the verdict post.
+**Assessment:** Self-paced, with no time limit. Afterward, post a brief credibility verdict.
 
 **Privacy:** No email, no telemetry. You identify only by your GitHub handle. Your handle may appear in the project's launch-readiness docs.
 

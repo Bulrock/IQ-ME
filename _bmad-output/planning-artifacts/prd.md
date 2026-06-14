@@ -236,7 +236,7 @@ The project remains forever free, forever ad-free, forever non-commercial. The n
 
 **Opening Scene.** Anna is 29, lives in Kraków, works as a junior accountant. She is multilingual but reads most fluently in Polish. A friend in a Discord server about books mentioned "there's apparently a real free IQ test now — not the scam ones." Anna is skeptical but curious; she once tried 123test.pl and bailed at the paywall. She opens IQ-ME on her laptop in the evening with a glass of wine, expecting another waste of time.
 
-**Rising Action.** The landing page renders instantly. Polish UI, no popup, no consent dialog, no cookie banner. She reads two short paragraphs explaining what IQ-ME is (a fluid-reasoning screener) and is not (a clinical assessment, a placement test, a credential). A "Continue / Not today" gate confirms she has read the validity envelope: this test is visual, takes ~25 minutes, and her result may not match what she expects. She clicks Continue.
+**Rising Action.** The landing page renders instantly. Polish UI, no popup, no consent dialog, no cookie banner. She reads two short paragraphs explaining what IQ-ME is (a self-paced fluid-reasoning screener) and is not (a clinical assessment, a placement test, a credential). A "Continue / Not today" gate confirms she has read the validity envelope: this test is visual, has no time limit, and her result may not match what she expects. She clicks Continue.
 
 The test itself is sober and uncluttered: one matrix item per screen, a progress indicator, clear keyboard navigation, no aggressive timers. She works through 16 items. The Polish instructions feel native, not translated — she does not notice them, which is the highest praise translation work can earn.
 
@@ -260,7 +260,7 @@ She clicks the methodology link out of curiosity, lands on a Polish-language pla
 
 **Opening Scene.** Mikhail is 16, in Yekaterinburg. He found IQ-ME on a Russian-language Telegram channel about science. He has been told his whole life he is the smart one. He is not having a good week — there is a math test he is dreading, his parents are arguing, and he has been told that "smart" is the one identity that is his. He starts the test at 11pm in his bedroom.
 
-**Rising Action.** The consent scene renders in Russian. *"Ты собираешься пройти тест на ~25 минут. Твой результат может оказаться неожиданным. Это оценка одной узкой способности — не приговор о тебе. Продолжить / Не сегодня."* He notices the "Не сегодня" option and feels mildly seen — most sites do not give him an out. He clicks Продолжить anyway.
+**Rising Action.** The consent scene renders in Russian. *"Ты собираешься пройти тест без ограничения по времени. Твой результат может оказаться неожиданным. Это оценка одной узкой способности — не приговор о тебе. Продолжить / Не сегодня."* He notices the "Не сегодня" option and feels mildly seen — most sites do not give him an out. He clicks Продолжить anyway.
 
 The matrices get progressively harder. He gets the first six right. He gets the next ten wrong. He suspects he is bombing. He considers closing the tab; the mid-session bail-out path is visible (a small "Закончить раньше времени" button) — if clicked, it explains that an incomplete test cannot produce a meaningful score and offers Continue / Discard. He hesitates and continues to the end.
 
@@ -288,7 +288,7 @@ The product did its harm-mitigation job by **delivering bad news with care, in h
 
 **Opening Scene.** Daria is 24, postgrad in psychology in Warsaw, writing her thesis. She has taken many IQ tests for academic curiosity. She is testing IQ-ME because she suspects it's just another inflated-score site she can debunk in a Twitter thread.
 
-**Rising Action.** Polish UI, consent scene, test, all fine. She takes it seriously — she is curious how this one calibrates. She finishes in 22 minutes.
+**Rising Action.** Polish UI, consent scene, test, all fine. She takes it seriously and works at her own pace, curious how this one calibrates.
 
 **Climax.** Pre-reveal beat. Show me. Percentile 96. IQ-scale 126. Uncertainty band ±9.
 

@@ -7,14 +7,14 @@ reviewerHandle: "@TBD-en-reviewer"
 asserts: []
 glossaryRefs:
   - "gFactor"
-sourceHashEN: "db9d146bf5cb2c3140e8b4b683b70486085124d89ac2043a777681022b1748eb"
+sourceHashEN: "780adc77334af1134f2c6e1f0035d40b6cdf9492e9701e8d9b74cf3f25aee769"
 ---
 
 # Fluid reasoning — what IQ-ME measures
 
 Fluid reasoning is the ability to identify patterns in new material under no time pressure. It is a narrow construct, not a single number that explains a person.
 
-IQ-ME measures one narrow surface of fluid reasoning. The instrument uses 16 visual matrix-reasoning items drawn from the ICAR-MR pool. Each item shows a grid of figures with one cell missing. The test-taker selects the option that completes the pattern. The session takes about 25 minutes and runs entirely in the browser, with no time limits per item.
+IQ-ME measures one narrow surface of fluid reasoning. The instrument uses visual matrix-reasoning items drawn from the ICAR-MR pool. Each item shows a grid of figures with one cell missing. The test-taker selects the option that completes the pattern. The session runs entirely in the browser and has no time limit.
 
 Fluid reasoning sits inside the broader cognitive landscape called the g-factor — a statistical construct, not a thing in the head. The g-factor names the shared variance across many cognitive tests; fluid reasoning is one of the strongest contributors to it. Most readers know fluid reasoning through tasks like Raven's Progressive Matrices, which IQ-ME's matrix items resemble in structure.
 

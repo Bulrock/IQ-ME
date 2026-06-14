@@ -133,7 +133,7 @@ This story owns:
 4. **AC-4 (`_evidence/3.8-recruitment-and-protocol.md` — recruitment-and-protocol README):**
    - File at exact path: `_evidence/3.8-recruitment-and-protocol.md`.
    - Markdown structure documenting:
-     - **Recruitment sources** (per epic-spec): friends/family without psychometric background, online communities (r/cognitiveTesting low-key DM, Mastodon), an HN-comment-equivalent recruitment if the maintainer is comfortable. The build is *visibly pre-release* — no marketing, no signup, just "I'm building something, would you try it for 20 minutes and tell me what you think?"
+     - **Recruitment sources** (per epic-spec): friends/family without psychometric background, online communities (r/cognitiveTesting low-key DM, Mastodon), an HN-comment-equivalent recruitment if the maintainer is comfortable. The build is *visibly pre-release* — no marketing, no signup, just "I'm building something, would you try this self-paced assessment and tell me what you think?"
      - **Recruitment message template** — a 3-sentence cold-message the maintainer can paste into a DM: pre-release context, time ask (20 minutes), what the participant gets (an interesting brief experience + the maintainer's gratitude). Explicitly NOT: free testing labor for a commercial product, since this is non-commercial.
      - **The four interview questions** (verbatim, from epic-spec):
        1. What did your score mean?

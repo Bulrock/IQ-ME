@@ -77,7 +77,7 @@
         "short",
         "full"
       ],
-      "description": "Selected depth: short (quick screen) or full (more items, tighter SE). Story 12-2 selector; engine in Story 12-3."
+      "description": "Selected depth: short (fewer items) or full (more items, tighter SE). Story 12-2 selector; engine in Story 12-3."
     }
   },
   "additionalProperties": false,
