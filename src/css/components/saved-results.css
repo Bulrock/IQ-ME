@@ -85,8 +85,14 @@
   gap: var(--space-3);
   padding-block: var(--space-3);
   padding-inline: var(--space-4);
-  background-color: var(--color-surface-elevated);
-  border: var(--border-width-hairline) solid var(--color-rule-divider);
+  /* Epic 14 (Story 14-8): the saved-result rows sit on the Aurora glass surface
+     (muted --surface-glass fill + the semantic blur + lit edge) over the
+     deep-navy backdrop, matching the working-area glass — not the flat opaque
+     --color-surface-elevated Epic 13 left. AA contrast stays the fill alpha. */
+  background-color: var(--surface-glass);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border: var(--border-width-hairline) solid var(--surface-glass-edge);
   border-radius: var(--radius-control);
 }
 
@@ -143,9 +149,22 @@
   gap: var(--space-3);
   padding-block: var(--space-3);
   padding-inline: var(--space-4);
-  background-color: var(--color-surface-elevated);
-  border: var(--border-width-hairline) solid var(--color-rule-divider);
+  /* Epic 14 (Story 14-8): the unfinished-test (resume) rows share the same
+     Aurora glass surface as the saved-result rows. */
+  background-color: var(--surface-glass);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border: var(--border-width-hairline) solid var(--surface-glass-edge);
   border-radius: var(--radius-control);
+}
+
+/* Epic 14 (Story 14-8): where backdrop-filter is unavailable, drop the glass
+   rows to the strong opaque fill so they stay AA-legible (SC 1.4.3 4.5:1). */
+@supports not (backdrop-filter: blur(1px)) {
+  .saved-results__item,
+  .saved-results__ip-item {
+    background-color: var(--surface-glass-strong);
+  }
 }
 
 .saved-results__ip-label {

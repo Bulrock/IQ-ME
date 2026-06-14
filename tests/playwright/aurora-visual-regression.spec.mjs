@@ -91,6 +91,31 @@ for (const theme of THEMES) {
   });
 }
 
+// Story 14-8 (PR-25): Aurora RESULT + SAVED-RESULT-DETAIL leg (Light + Dark).
+// The revealed result card (.score-panel) and the saved-result detail must
+// render as perceptible raised glass over the deep-navy backdrop — the same
+// Aurora glass on both surfaces — with the co-equal Percentile/IQ-scale/Range
+// triplet bbox parity holding in the rendered pixels (FR18). Driven via the
+// seeded window.__IQME_TEST__ harness so the top-tail / mid / bottom-tail
+// variants are reproducible. DORMANT: the parent `visual-regression` job is
+// still `if: false`; Story 14.11 flips it on + commits these baselines on
+// ubuntu-latest (no baselines committed here; the authoring host is darwin).
+for (const theme of THEMES) {
+  test(`aurora result card — ${theme}`, async ({ page }) => {
+    await page.setViewportSize({ width: 1024, height: 768 });
+    await page.emulateMedia({ colorScheme: theme });
+    await page.goto(`http://127.0.0.1:${server.port}/src/index.html#/result`);
+    await expect(page).toHaveScreenshot(`result-card-${theme}-1024.png`, SCREENSHOT_OPTS);
+  });
+
+  test(`aurora saved-result detail — ${theme}`, async ({ page }) => {
+    await page.setViewportSize({ width: 1024, height: 768 });
+    await page.emulateMedia({ colorScheme: theme });
+    await page.goto(`http://127.0.0.1:${server.port}/src/index.html#/saved`);
+    await expect(page).toHaveScreenshot(`saved-result-detail-${theme}-1024.png`, SCREENSHOT_OPTS);
+  });
+}
+
 test("aurora print/PDF — ink-economical document leg (no aurora/blur)", async ({ page }) => {
   await page.setViewportSize({ width: 1024, height: 1280 });
   await page.goto(`http://127.0.0.1:${server.port}/src/index.html`);
