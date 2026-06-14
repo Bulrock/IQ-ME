@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 4bbe4c4e917c5d1f8e94c47d05afda0569080401af0c5af4e4a1ad0c9848bfc5
+    sha256: c6d5933fc5d3cf5514a5c8b933b572b875ee3eabd3f51a5df480fced7e110172
     canonical_form: raw-bytes
-    recorded_at: 2026-06-14T15:56:59.476Z
-    recorded_by: frontend
-    story_id: 14-2-aurora-token-foundation-deep-navy-backdrop-reusable-primitives-visual-regression-harness
+    recorded_at: 2026-06-14T16:18:50.535Z
+    recorded_by: engineer
+    notes: "14-3 done: sprint-status + spec frontmatter flipped to done"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1976,3 +1976,17 @@ entries:
     recorded_at: 2026-06-14T15:48:24.984Z
     recorded_by: test-author
     story_id: 14-2-aurora-token-foundation-deep-navy-backdrop-reusable-primitives-visual-regression-harness
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/14-3-aurora-homepage-and-primary-calls-to-action.md
+    sha256: e7700b79626a8a1bdfdbe79a28f334a98ba7dd7d7d860570d148af6f5e5a9e1a
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T16:18:50.534Z
+    recorded_by: engineer
+    notes: "14-3 done: sprint-status + spec frontmatter flipped to done"
+  - artefact_class: A
+    file: tests/scaffold/14-3-aurora-homepage.test.mjs
+    sha256: 31b0e65efa670dbd5e613a4622dbcced139066addc717a85d6db2fcedbd1bc23
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T16:13:29.795Z
+    recorded_by: test-author
+    notes: freeze 14-3 acceptance guard
