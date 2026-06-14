@@ -8,10 +8,10 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 2415530eb596654fed9e7a49728afdb6e1ca893fdf8b946b65c207e312e67dec
+    sha256: d024b526150d0be4c74fc24d4cc106e75f8aa37eaf10fe113ccd2293a2528d79
     canonical_form: raw-bytes
-    recorded_at: 2026-06-13T12:38:50.867Z
-    recorded_by: engineer
+    recorded_at: 2026-06-14T15:25:07.623Z
+    recorded_by: state-commit-autorecord
     story_id: epic-12
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
@@ -409,10 +409,10 @@ entries:
     notes: story-3-2 frozen failing tests
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-3-implement-landing-consent-scene-en.md
-    sha256: a77482a41174f2ad8f628369c78cad1eb9d677b890f8ff71fe0263e4399bbba9
+    sha256: e8cc76f0fc886c3eb0f0f047c3ac8e566da9352f9c9b74a7efbdae2205861dc5
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:21:51.150Z
-    recorded_by: engineer
+    recorded_at: 2026-06-14T15:25:07.628Z
+    recorded_by: state-commit-autorecord
     story_id: bridge-7-8-3-replace-legacy-exempt-central
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
@@ -624,10 +624,10 @@ entries:
     notes: "methodology-handoff assertion: toHaveText on <head><title> never matches; use page.toHaveTitle (exposed after bindTriplet getAttribute fix restored the triplet-click navigation)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/3-8-aha-click-hallway-test-3-5-outside-team-comprehension-recording.md
-    sha256: de9a948c6b45134ddbf1d98b282ac56d2f0ff9b8ed896b251b2c7780549b27b9
+    sha256: 957247fe15a8bd8eda1c3b5d495ca8709398b86a52a07c5b9fc66ad1ea7ee5d1
     canonical_form: raw-bytes
-    recorded_at: 2026-06-03T14:21:51.151Z
-    recorded_by: engineer
+    recorded_at: 2026-06-14T15:25:07.628Z
+    recorded_by: state-commit-autorecord
     story_id: bridge-7-8-3-replace-legacy-exempt-central
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
