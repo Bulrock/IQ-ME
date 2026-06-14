@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-14 14-1-aurora-glass-observatory-design-direction: in-progress'
+last_updated: '2026-06-14 14-1-aurora-glass-observatory-design-direction: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -204,7 +204,7 @@ development_status:
   # Aurora wave (appended 2026-06-14): epics 14-15, requirements PR-18..PR-43
   # Epic 14 supersedes Epic 13's glass redesign (Aurora Glass Observatory direction)
   epic-14: in-progress
-  14-1-aurora-glass-observatory-design-direction: in-progress                                                   # PR-18
+  14-1-aurora-glass-observatory-design-direction: review                                                        # PR-18
   14-2-aurora-token-foundation-deep-navy-backdrop-reusable-primitives-visual-regression-harness: backlog        # PR-19
   14-3-aurora-homepage-and-primary-calls-to-action: backlog                                                     # PR-20
   14-4-aurora-methodology-selection-and-complete-methodology-v0-1-0-route: backlog                              # PR-21
