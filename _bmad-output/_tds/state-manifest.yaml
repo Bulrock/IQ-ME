@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: d024b526150d0be4c74fc24d4cc106e75f8aa37eaf10fe113ccd2293a2528d79
+    sha256: 84a8c27381d16d4e0016a965e15457c016337f55caedd152a2cc9d8eef63e73a
     canonical_form: raw-bytes
-    recorded_at: 2026-06-14T15:25:07.623Z
-    recorded_by: state-commit-autorecord
-    story_id: epic-12
+    recorded_at: 2026-06-14T15:38:03.074Z
+    recorded_by: engineer
+    story_id: 14-1-aurora-glass-observatory-design-direction
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -1948,3 +1948,17 @@ entries:
     recorded_at: 2026-06-13T12:26:39.320Z
     recorded_by: test-author
     story_id: 12-5-methodology-corpus-per-test-descriptions-comparison
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/14-1-aurora-glass-observatory-design-direction.md
+    sha256: f8e7482fe9205cebc51ec584e31ed3446c76aef4f2c19c6bae21fb3d30424613
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T15:38:03.074Z
+    recorded_by: engineer
+    story_id: 14-1-aurora-glass-observatory-design-direction
+  - artefact_class: A
+    file: tests/scaffold/14-1-aurora-design-direction.test.mjs
+    sha256: be16e7f1ab8dd02f324b0e78c577b1dfa1d896f19233b787a5baefc7aaa7e9e8
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T15:35:50.568Z
+    recorded_by: test-author
+    story_id: 14-1-aurora-glass-observatory-design-direction

@@ -1,7 +1,7 @@
 ---
 id: 14-1-aurora-glass-observatory-design-direction
 title: "Story 14.1: Aurora Glass Observatory design direction"
-status: review
+status: done
 ---
 
 # Story 14.1: Aurora Glass Observatory design direction
