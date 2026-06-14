@@ -46,6 +46,19 @@ body {
   body { background-attachment: scroll; }
 }
 
+/* Epic 14 (Story 14-7, PR-23) — RESTRAINED assessment route (design §3.1). On
+   the item-runner route the decorative aurora glows + grid are SUPPRESSED so the
+   backdrop collapses toward a near-flat deep field — nothing competes with the
+   puzzle (concentration protection, not spectacle). This is ADDITIVE +
+   route-scoped: we only drop the decorative background-IMAGE; the
+   background-COLOR stays --color-surface-base (the theme contract the 14.2
+   chrome-components computed-style spec asserts is untouched), so body-text
+   contrast is unchanged (WCAG 2.2 AA, SC 1.4.3). The global landing/result
+   backdrop is undisturbed. */
+body[data-route="#/test"] {
+  background-image: none;
+}
+
 body {
   font-family: var(--font-family-sans);
   font-size: var(--font-size-200);

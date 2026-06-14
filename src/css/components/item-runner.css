@@ -38,8 +38,16 @@
   /* PR-2 (Story 11-1): trim the box padding so the matrix grid fills its frame
      instead of floating in empty space. */
   padding: var(--space-3);
-  background-color: var(--color-surface-elevated);
-  border: var(--border-width-hairline) solid var(--color-rule-divider);
+  /* Story 14-7 (PR-23 / design §3.1) — RESTRAINED Aurora glass. The matrix card
+     reads at a deliberately LOWER intensity than the landing/result heroes: the
+     MUTED --surface-glass fill (NOT --surface-glass-strong) + the medium
+     --surface-glass-blur SEMANTIC blur step (never a --glass-* primitive). AA
+     comes from the fill alpha, never the blur; no decorative aurora is layered
+     behind the working area. */
+  background-color: var(--surface-glass);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border: var(--border-width-hairline) solid var(--surface-glass-edge);
   border-radius: var(--radius-surface);
   box-shadow: var(--shadow-elevated);
 }
@@ -72,8 +80,15 @@
      tile height) + minimal inline padding so the tile hugs the radio + icon. */
   padding-block: 0;
   padding-inline: var(--space-2);
-  background-color: var(--color-surface-elevated);
-  border: var(--border-width-hairline) solid var(--color-rule-divider);
+  /* Story 14-7 (PR-23 / design §3.1) — restrained glass on the option tiles:
+     the MUTED --surface-glass fill + the medium --surface-glass-blur semantic
+     blur, matching the matrix card's lower intensity. 14.6's clamp sizing,
+     aspect-ratio, selected/focus/disabled registers are layered ON TOP and are
+     unchanged. */
+  background-color: var(--surface-glass);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border: var(--border-width-hairline) solid var(--surface-glass-edge);
   border-inline-start: var(--space-1) solid var(--color-rule-divider);
   border-radius: var(--radius-control);
   cursor: pointer;
@@ -118,6 +133,19 @@
   border-inline-start-color: var(--color-rule-divider);
   box-shadow: none;
   cursor: not-allowed;
+}
+
+/* Story 14-7 (PR-23) — solid-fallback for the restrained glass. Where
+   backdrop-filter is unavailable the blur degrades to nothing, so the matrix
+   card / option tiles / Previous nav drop to the strong OPAQUE fill to stay
+   AA-legible (contrast comes from the fill, never the blur — exactly as the
+   landing/consent glass fall back). The Next button keeps its accent fill. */
+@supports not (backdrop-filter: blur(1px)) {
+  .item-runner__image,
+  .item-runner__option,
+  .item-runner__prev {
+    background-color: var(--surface-glass-strong);
+  }
 }
 
 /* Image-tile option (matrix candidate). The radio stays at the inline-start;
@@ -166,9 +194,14 @@
   transition: background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease, color 120ms ease;
 }
 
-/* Previous — secondary (neutral, outlined). */
+/* Previous — secondary (neutral, outlined). Story 14-7 (PR-23): the restrained
+   --surface-glass fill + medium semantic blur so the nav reads at the same low
+   glass intensity as the matrix/options (the Next button stays the accent fill
+   forward affordance, unchanged). */
 .item-runner__prev {
-  background-color: var(--color-surface-elevated);
+  background-color: var(--surface-glass);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
   color: var(--color-text-body);
   border: var(--border-width-hairline) solid var(--color-rule-strong);
 }

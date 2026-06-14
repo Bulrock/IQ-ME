@@ -74,6 +74,23 @@ for (const theme of THEMES) {
   });
 }
 
+// Story 14-7 (PR-23/§3.1): RESTRAINED assessment-route leg (Light + Dark). The
+// item-runner route must render the matrix card + option tiles + nav at a LOWER
+// glass intensity than the landing/result heroes, over a near-flat deep field
+// (the decorative aurora glows/grid are suppressed on #/test — no spectacle).
+// The baseline therefore encodes both the restraint (quieter than landing) and
+// the no-timer policy (no countdown/elapsed/speed chrome in the rendered DOM).
+// DORMANT: the parent `visual-regression` job is still `if: false`; Story 14.11
+// flips it on and commits these baselines on ubuntu-latest (no baselines here).
+for (const theme of THEMES) {
+  test(`aurora restrained assessment route — ${theme}`, async ({ page }) => {
+    await page.setViewportSize({ width: 1024, height: 768 });
+    await page.emulateMedia({ colorScheme: theme });
+    await page.goto(`http://127.0.0.1:${server.port}/src/index.html#/test`);
+    await expect(page).toHaveScreenshot(`assessment-restrained-${theme}-1024.png`, SCREENSHOT_OPTS);
+  });
+}
+
 test("aurora print/PDF — ink-economical document leg (no aurora/blur)", async ({ page }) => {
   await page.setViewportSize({ width: 1024, height: 1280 });
   await page.goto(`http://127.0.0.1:${server.port}/src/index.html`);

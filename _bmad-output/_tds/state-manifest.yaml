@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 4edbbdd2258e20b112936dee916459bb0482c30a13d4a68e1e12b3182c517b00
+    sha256: 218d107142f7dc01f9483b8f2f1a482def715d68b1f5dcbf39c19fda67831d58
     canonical_form: raw-bytes
-    recorded_at: 2026-06-14T17:20:41.466Z
+    recorded_at: 2026-06-14T17:28:56.210Z
     recorded_by: engineer
-    notes: 14-6 done
+    notes: 14-7 done
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -2032,3 +2032,17 @@ entries:
     recorded_at: 2026-06-14T17:20:40.687Z
     recorded_by: test-author
     notes: freeze 14-6 guard
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/14-7-restrained-aurora-assessment-route-and-no-timer-ui.md
+    sha256: b7326f1c14126fab8e71ee543cf8ec794e296f7577874d636257502808b4f25a
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T17:28:56.209Z
+    recorded_by: engineer
+    notes: 14-7 done
+  - artefact_class: A
+    file: tests/scaffold/14-7-restrained-assessment-no-timer.test.mjs
+    sha256: febcb1503d9e02af7226a7019af4d8930a05f3651c5e6d2d855bfda589c17e43
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T17:28:55.400Z
+    recorded_by: test-author
+    notes: freeze 14-7 guard
