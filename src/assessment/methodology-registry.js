@@ -36,6 +36,28 @@ const REGISTRY = {
 const DEFAULT_METHODOLOGY = "geometric";
 const DEFAULT_VARIANT = "short";
 
+// Story 14-6 (PR-24): the matrix grid dimensions are a per-item data source of
+// truth, not a CSS assumption. Items MAY carry optional integer gridRows/gridCols
+// (corpus/item-parameters.schema.json); when absent — as in all four v1 stub
+// pools — the renderer treats the matrix as the 3x3 default. resolveGrid is the
+// SINGLE place that reads + defaults the grid, so item-runner.js never re-assumes
+// 3x3 inline (the option-figure / matrix-cell scale parity depends on the column
+// count being a real number, not a hardcoded 3).
+const DEFAULT_GRID_ROWS = 3;
+const DEFAULT_GRID_COLS = 3;
+
+function gridDimension(value, fallback) {
+  return Number.isInteger(value) && value >= 1 ? value : fallback;
+}
+
+export function resolveGrid(item) {
+  const it = item || {};
+  return {
+    rows: gridDimension(it.gridRows, DEFAULT_GRID_ROWS),
+    cols: gridDimension(it.gridCols, DEFAULT_GRID_COLS),
+  };
+}
+
 export function resolveVariant(methodology, variant) {
   const m = REGISTRY[methodology] ? methodology : DEFAULT_METHODOLOGY;
   const byVariant = REGISTRY[m];

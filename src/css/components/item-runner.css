@@ -90,10 +90,34 @@
   box-shadow: var(--shadow-elevated);
 }
 
-/* Selected state — the checked radio's tile reads as chosen. */
+/* Story 14-6 (PR-24) — explicit keyboard focus indicator on the native radio.
+   The label-level :focus-within above paints when the radio takes focus by ANY
+   means (mouse or keyboard); this rule adds a discrete outline ring driven ONLY
+   by keyboard navigation (:focus-visible) so the ring does not rely on the
+   browser default outline and clears WCAG 2.2 AA 2.4.7 / 2.4.11 (non-obscured)
+   and 1.4.11 (≥3:1 non-text contrast). Semantic token only. */
+.item-runner__option input:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}
+
+/* Selected state — the checked radio's tile reads as chosen. Distinguished from
+   the focus/hover registers by SHAPE, not colour alone (WCAG 1.4.1): the chosen
+   tile carries a heavier inline-start marker (--space-2 vs the --space-1 idle
+   border) on top of the focus-ring colour, so selection is legible even where
+   hue is imperceptible. */
 .item-runner__option:has(input:checked) {
   border-color: var(--color-focus-ring);
+  border-inline-start-width: var(--space-2);
   border-inline-start-color: var(--color-focus-ring);
+}
+
+/* Disabled option — muted register, distinct by reduced affordance + cursor
+   (not colour alone): no pointer cursor and the idle divider rule. */
+.item-runner__option:has(input:disabled) {
+  border-inline-start-color: var(--color-rule-divider);
+  box-shadow: none;
+  cursor: not-allowed;
 }
 
 /* Image-tile option (matrix candidate). The radio stays at the inline-start;

@@ -47,6 +47,14 @@
           },
           "correct": {
             "type": "string"
+          },
+          "gridRows": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "gridCols": {
+            "type": "integer",
+            "minimum": 1
           }
         }
       }

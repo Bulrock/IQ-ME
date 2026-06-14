@@ -13,7 +13,7 @@ import { renderErrorFallback } from "./error-fallback.js";
 import * as state from "./state.js";
 import * as routing from "./routing.js";
 import { selectSession } from "./item-selection.js";
-import { resolveFromState } from "./methodology-registry.js";
+import { resolveFromState, resolveGrid } from "./methodology-registry.js";
 import * as persistence from "./session-persistence.js";
 import { escapeAttr as esc, fmt } from "./html-util.js";
 
@@ -89,6 +89,12 @@ function buildMarkup(cache, currentItem, strings) {
   const isFirst = currentItem === 0;
   const isLast = currentItem === sessionSize - 1;
   const nextLabel = isLast ? strings.itemRunner.submitButton : strings.itemRunner.nextButton;
+  // Story 14-6 (PR-24): read the matrix grid from the item (default 3x3 via the
+  // registry — never re-assumed inline) and expose the column count on the
+  // section so the rendered-scale verification can compute the matrix-cell edge
+  // (image width / cols) without re-hardcoding 3. Additive attribute only — the
+  // frozen Epic 11/13 DOM contract names/values are unchanged.
+  const grid = resolveGrid(item);
 
   const optionLabel = strings.itemRunner.optionLabelTemplate || "Option {N}";
   const optionsHtml = item.options
@@ -105,7 +111,8 @@ function buildMarkup(cache, currentItem, strings) {
     })
     .join("");
 
-  return '<section class="item-runner" aria-labelledby="item-runner-heading" data-bail-state="closed">'
+  return '<section class="item-runner" aria-labelledby="item-runner-heading" data-bail-state="closed"'
+    + ' data-grid-rows="' + grid.rows + '" data-grid-cols="' + grid.cols + '">'
     + '<h1 id="item-runner-heading" class="visually-hidden">' + esc(heading) + '</h1>'
     + '<button type="button" class="item-runner__bail-affordance">' + esc(strings.itemRunner.bailButton) + '</button>'
     + '<div class="item-runner__progress" role="status" aria-live="polite" aria-current="step" data-testid="progress-indicator">'
@@ -288,7 +295,14 @@ function updateItemInPlace(rootEl, cache, strings) {
   if (next) next.textContent = isLast ? strings.itemRunner.submitButton : strings.itemRunner.nextButton;
 
   const sec = rootEl.querySelector(".item-runner");
-  if (sec) sec.setAttribute("data-bail-state", "closed");
+  if (sec) {
+    sec.setAttribute("data-bail-state", "closed");
+    // Story 14-6: keep the exposed grid in sync as items advance (each item
+    // carries its own grid; default 3x3 via the registry — never re-assumed here).
+    const grid = resolveGrid(item);
+    sec.setAttribute("data-grid-rows", String(grid.rows));
+    sec.setAttribute("data-grid-cols", String(grid.cols));
+  }
 }
 
 function rerender(rootEl, strings) {

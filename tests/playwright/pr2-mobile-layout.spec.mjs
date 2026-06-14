@@ -8,8 +8,20 @@
 //   AC2c: Sticky/fixed Previous+Next always reachable; answer-options region
 //         scrolls independently; full item fits at common mobile sizes.
 //
-// Uses real browser viewport at documented mobile breakpoints: 375, 390, 428.
-// Uses boundingBox() comparisons (no pixel-diff).
+// Story 14-6 PR-24 — TIGHTENED + SUPERSEDED the Epic-11 PR-2b ±10% (60–110%)
+// option/cell scale tolerance to ±5%. The rendered-scale parity leg below
+// computes the matrix-cell edge as the .item-runner__image bbox width divided
+// by the item's grid column count (read from the data-grid-cols attribute the
+// renderer now exposes — Story 14-6, defaulting to 3 when an item omits its
+// grid), and asserts every .item-runner__option-figure rendered width is within
+// ±5% of that cell edge across the 320/600/1024/1440 breakpoints. This is a
+// VERIFICATION assertion (a geometry check), not a production runtime throw.
+//
+// Uses real browser viewport at documented mobile breakpoints: 375, 390, 428,
+// plus the 320/600/1024/1440 scale-parity breakpoints. Uses boundingBox()
+// comparisons (no pixel-diff). No pixel baselines are produced here — RENDERED
+// visual-regression baselines are committed centrally by Story 14.11 on
+// ubuntu-latest (the authoring host is darwin).
 
 import { test, expect } from "@playwright/test";
 import { start } from "../../tools/dev-server.mjs";
@@ -110,33 +122,33 @@ for (const vp of MOBILE_VIEWPORTS) {
 
 // ─── AC2b: option buttons smaller; figure icons normalized ──────────────────
 
-test("AC2b [375px]: option figure icons are sized consistently with the matrix-grid cells above (not shrunk to thumbnails)", async ({ page }) => {
+test("PR-24 [375px]: option figure rendered width is within ±5% of the matrix-cell edge (tightens the prior ±10%)", async ({ page }) => {
   const origin = `http://127.0.0.1:${server.port}`;
   await page.setViewportSize({ width: 375, height: 812 });
   await driveToItemRunner(page, origin);
 
-  // A matrix-grid cell is ~1/3 of the puzzle image's width. The candidate-option
-  // icons must read at roughly the same visual scale as a cell — not a tiny
-  // thumbnail (the pre-fix bug: 40px icons against ~92px cells).
+  // Story 14-6 (PR-24): the matrix-cell edge = image width / grid column count,
+  // read from the data-grid-cols attribute the renderer exposes (default 3 when
+  // the item omits its grid). The candidate-option icon must read at the SAME
+  // visual scale as a single cell — superseding the Epic-11 ±10% (60–110%)
+  // tolerance with a ±5% target (the pre-fix bug was 40px icons vs ~92px cells).
   const imgBox = await page.locator(".item-runner__image").boundingBox();
   expect(imgBox, "matrix image must be visible").not.toBeNull();
-  const cell = imgBox.width / 3;
+  const cols = Number(await page.locator(".item-runner").getAttribute("data-grid-cols")) || 3;
+  const cell = imgBox.width / cols;
 
   const figure = page.locator(".item-runner__option-figure, .item-runner__option figure").first();
   await figure.waitFor({ state: "visible" });
   const figBox = await figure.boundingBox();
   expect(figBox, "option figure must be visible").not.toBeNull();
 
-  // Consistent scale: the icon is at least ~60% of a cell and no larger than a
-  // cell — i.e. comparable, not a thumbnail and not oversized.
+  // ±5% parity: the icon is within ±5% of one matrix cell edge — co-scaled, not
+  // a thumbnail and not oversized.
+  const delta = Math.abs(figBox.width - cell) / cell;
   expect(
-    figBox.width,
-    `AC2b: option icon ${figBox.width.toFixed(0)}px must be ≥ 60% of a matrix cell (${(cell * 0.6).toFixed(0)}px) — consistent scale, not a thumbnail`,
-  ).toBeGreaterThanOrEqual(cell * 0.6);
-  expect(
-    figBox.width,
-    `AC2b: option icon ${figBox.width.toFixed(0)}px must be ≤ a matrix cell (${cell.toFixed(0)}px)`,
-  ).toBeLessThanOrEqual(cell * 1.1);
+    delta,
+    `PR-24: option icon ${figBox.width.toFixed(1)}px vs matrix cell ${cell.toFixed(1)}px (${cols} cols) — ${(delta * 100).toFixed(1)}% off, must be ≤ 5%`,
+  ).toBeLessThanOrEqual(0.05);
 });
 
 test("AC2b [375px]: figure icons inside option buttons have consistent sizes (width delta ≤ 4px)", async ({ page }) => {
@@ -210,3 +222,45 @@ test("AC2c [375px]: answer-options container has overflow-y scroll (not the page
     `AC2c: options container overflow-y must be 'auto' or 'scroll'; got '${overflowY}'`,
   ).toBe(true);
 });
+
+// ─── PR-24: ±5% option-figure ↔ matrix-cell scale parity across breakpoints ──
+
+const SCALE_PARITY_VIEWPORTS = [
+  { width: 320, height: 720, name: "320 narrow-mobile" },
+  { width: 600, height: 900, name: "600 large-mobile" },
+  { width: 1024, height: 768, name: "1024 tablet/laptop" },
+  { width: 1440, height: 900, name: "1440 desktop" },
+];
+
+for (const vp of SCALE_PARITY_VIEWPORTS) {
+  test(`PR-24 [${vp.name}]: every option figure renders within ±5% of the matrix-cell edge (image width / grid cols)`, async ({ page }) => {
+    const origin = `http://127.0.0.1:${server.port}`;
+    await page.setViewportSize({ width: vp.width, height: vp.height });
+    await driveToItemRunner(page, origin);
+
+    // The runtime link the prior CSS-only assumption lacked: cell edge =
+    // .item-runner__image bbox width ÷ the item's grid column count (read from
+    // the data-grid-cols attribute the renderer exposes; default 3). Every
+    // .item-runner__option-figure must render within ±5% of that cell edge.
+    const imgBox = await page.locator(".item-runner__image").boundingBox();
+    expect(imgBox, `matrix image must be visible at ${vp.width}px`).not.toBeNull();
+
+    const cols = Number(await page.locator(".item-runner").getAttribute("data-grid-cols")) || 3;
+    expect(cols, `data-grid-cols must be a positive integer at ${vp.width}px`).toBeGreaterThanOrEqual(1);
+    const cell = imgBox.width / cols;
+
+    const figures = page.locator(".item-runner__option-figure");
+    const count = await figures.count();
+    expect(count, `at least one option figure must render at ${vp.width}px`).toBeGreaterThanOrEqual(1);
+
+    for (let i = 0; i < count; i++) {
+      const figBox = await figures.nth(i).boundingBox();
+      expect(figBox, `option figure ${i} must be visible at ${vp.width}px`).not.toBeNull();
+      const delta = Math.abs(figBox.width - cell) / cell;
+      expect(
+        delta,
+        `PR-24 [${vp.width}px]: figure ${i} ${figBox.width.toFixed(1)}px vs cell ${cell.toFixed(1)}px (${cols} cols) — ${(delta * 100).toFixed(1)}% off, must be ≤ 5%`,
+      ).toBeLessThanOrEqual(0.05);
+    }
+  });
+}

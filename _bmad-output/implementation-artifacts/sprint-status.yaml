@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-14 14-5-aurora-consent-supporting-information-surfaces-and-shared-chrome: review'
+last_updated: '2026-06-14 14-6-assessment-question-to-answer-rendering-correctness: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -209,7 +209,7 @@ development_status:
   14-3-aurora-homepage-and-primary-calls-to-action: done                                                        # PR-20
   14-4-aurora-methodology-selection-and-complete-methodology-v0-1-0-route: done                                 # PR-21
   14-5-aurora-consent-supporting-information-surfaces-and-shared-chrome: done                                   # PR-22
-  14-6-assessment-question-to-answer-rendering-correctness: backlog                                             # PR-23
+  14-6-assessment-question-to-answer-rendering-correctness: done                                                # PR-23
   14-7-restrained-aurora-assessment-route-and-no-timer-ui: backlog                                              # PR-24
   14-8-aurora-results-and-saved-results-surfaces: backlog                                                       # PR-25
   14-9-ink-economical-aurora-print-pdf-result-document: backlog                                                 # PR-26
