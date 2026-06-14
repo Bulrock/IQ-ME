@@ -13,6 +13,7 @@
     "tools/compute-difficulty-bands.mjs",
     "tools/cropping-fuzzer.mjs",
     "tools/lint-css-source-co-equal.mjs",
+    "tools/lint-no-duration-estimate.mjs",
     "tools/lint-spec-carry-forward.mjs",
     "tools/snapshot-update.mjs",
     "tools/generate-full-vectors.mjs",
