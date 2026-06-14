@@ -3,35 +3,21 @@
 // SE_total = √(SEM² + SE_norming²) per FR15 — combinedSE.
 // Numerical stability: log-domain M-shift, identical to Story 2.3 eap.js.
 
-import { logLikelihood } from "./likelihood.js";
+import { posteriorExpectation } from "./posterior.js";
 import { quadraturePoints } from "./quadrature.js";
 
 export function standardError(theta, responses, itemParameters) {
-  const { nodes, weights } = quadraturePoints({
+  const quad = quadraturePoints({
     quadpts: 61,
     theta_lim: [-6, 6],
   });
-  const n = nodes.length;
-
-  // logLikelihood validates responses/items + theta + throws RangeError.
-  const logL = new Array(n);
-  let M = -Infinity;
-  for (let i = 0; i < n; i++) {
-    const l = logLikelihood(nodes[i], itemParameters, responses);
-    logL[i] = l;
-    if (l > M) M = l;
-  }
-
-  let num = 0;
-  let den = 0;
-  for (let i = 0; i < n; i++) {
-    const post = Math.exp(logL[i] - M) * weights[i];
-    const diff = nodes[i] - theta;
-    num += diff * diff * post;
-    den += post;
-  }
-
-  return Math.sqrt(num / den);
+  const variance = posteriorExpectation(
+    responses,
+    itemParameters,
+    quad,
+    (node) => (node - theta) ** 2,
+  );
+  return Math.sqrt(variance);
 }
 
 export function combinedSE(sem, seNorming) {

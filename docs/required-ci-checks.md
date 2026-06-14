@@ -8,7 +8,18 @@ Run the local gate before pushing:
 make lint && make test && make build
 ```
 
-`make lint` runs every `tools/lint-*.mjs` plus `eslint`; `make test` runs the Node test suites; `make build` re-emits the corpus and the determinism marker. The pr-checks jobs are these same checks, wired one job per check (no greedy glob — a new spec is uncovered until it has its own job).
+`make lint` runs every `tools/lint-*.mjs` plus `eslint`; `make test` first runs the strict Fallow unused-code and duplication gates, then runs the Node test suites; `make build` re-emits the corpus and the determinism marker. The pr-checks jobs are these same checks, wired one job per check (no greedy glob — a new spec is uncovered until it has its own job).
+
+## Fallow quality gates
+
+| Check | Enforces | Source |
+| --- | --- | --- |
+| `fallow-unused` | Fails when Fallow reports any unused file or unused export | [`.fallowrc.json`](../.fallowrc.json) |
+| `fallow-duplication` | Fails on any duplicate-code group with at least two occurrences or when duplicated code exceeds 2% | [`.fallowrc.json`](../.fallowrc.json) |
+
+**Trigger:** every `make test` run, including the release test gate, and the PR `eslint` job through `make fallow-gates`. **Failure:** Fallow lists unused code or duplicate groups and exits non-zero. **Fix:** remove genuinely unused code, use the export where required, register a real non-module entry point in `.fallowrc.json`, or refactor duplicate code; do not suppress a finding merely to make the gate pass.
+
+CRAP and broader complexity findings remain advisory through `make fallow-health` and do not currently block tests.
 
 > If a job is renamed in the workflow, update this document in lockstep — `tests/scaffold/contributing-docs.test.mjs` asserts these names appear here.
 

@@ -38,6 +38,14 @@ function hexToBytes(hex) {
   return out;
 }
 
+function responseSelection(currentItem) {
+  const responses = state.getState().responses;
+  const recordedAt = responses.findIndex((response) => response.itemIndex === currentItem);
+  return {
+    recorded: recordedAt >= 0 ? responses[recordedAt].response : null,
+    selected: selectedOptions[currentItem],
+  };
+}
 
 async function ensureSession(rootEl, strings) {
   if (state.getState().seed !== INITIAL_SEED && sessionCache) return sessionCache;
@@ -77,10 +85,7 @@ function buildMarkup(cache, currentItem, strings) {
   const N = currentItem + 1;
   const heading = fmt(strings.itemRunner.headingTemplate, { N, total: sessionSize });
   const progress = fmt(strings.itemRunner.progressTemplate, { N, total: sessionSize });
-  const responses = state.getState().responses;
-  const recordedAt = responses.findIndex((r) => r.itemIndex === currentItem);
-  const recorded = recordedAt >= 0 ? responses[recordedAt].response : null;
-  const sel = selectedOptions[currentItem]; // actual pick; correct-only fallback for legacy
+  const { recorded, selected: sel } = responseSelection(currentItem);
   const isFirst = currentItem === 0;
   const isLast = currentItem === sessionSize - 1;
   const nextLabel = isLast ? strings.itemRunner.submitButton : strings.itemRunner.nextButton;
@@ -242,10 +247,7 @@ function updateItemInPlace(rootEl, cache, strings) {
   const N = currentItem + 1;
   const isFirst = currentItem === 0;
   const isLast = currentItem === sessionSize - 1;
-  const responses = state.getState().responses;
-  const recordedAt = responses.findIndex((r) => r.itemIndex === currentItem);
-  const recorded = recordedAt >= 0 ? responses[recordedAt].response : null;
-  const sel = selectedOptions[currentItem];
+  const { recorded, selected: sel } = responseSelection(currentItem);
 
   const heading = rootEl.querySelector("#item-runner-heading");
   if (heading) heading.textContent = fmt(strings.itemRunner.headingTemplate, { N, total: sessionSize });

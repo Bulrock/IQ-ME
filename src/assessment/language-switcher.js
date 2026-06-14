@@ -142,6 +142,7 @@ function attach(slot, { isSessionActive, onBlockedAttempt, reload }) {
 
 export function init(slot, opts = {}) {
   if (!slot) return;
+  detach();
   const current = opts.currentLocale ?? "en";
   const isSessionActive = opts.isSessionActive ?? defaultIsSessionActive;
   const onBlockedAttempt = opts.onBlockedAttempt ?? (() => {});
@@ -150,7 +151,7 @@ export function init(slot, opts = {}) {
   attach(slot, { isSessionActive, onBlockedAttempt, reload });
 }
 
-export function detach() {
+function detach() {
   for (const { el, type, fn } of listeners) {
     if (el && typeof el.removeEventListener === "function") el.removeEventListener(type, fn);
   }

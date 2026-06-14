@@ -36,8 +36,6 @@ const REGISTRY = {
 const DEFAULT_METHODOLOGY = "geometric";
 const DEFAULT_VARIANT = "short";
 
-export const METHODOLOGIES = Object.keys(REGISTRY);
-
 export function resolveVariant(methodology, variant) {
   const m = REGISTRY[methodology] ? methodology : DEFAULT_METHODOLOGY;
   const byVariant = REGISTRY[m];

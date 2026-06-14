@@ -3,6 +3,8 @@
   "entry": [
     "src/index.html",
     "src/assessment/cite-this-page.js",
+    "src/assessment/methodology-locale.js",
+    "src/assessment/methodology-theme.js",
     "src/css/components/masthead.css",
     "src/css/components/cite-this-page-widget.css",
     "src/css/components/stale-translation-hatnote.css",
@@ -26,7 +28,7 @@
     "tests/golden/**"
   ],
   "duplicates": {
-    "minOccurrences": 3,
+    "minOccurrences": 2,
     "ignore": [
       "**/_*/**",
       "**/.*/**",

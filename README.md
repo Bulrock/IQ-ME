@@ -12,7 +12,7 @@ The full posture, including the trust artifacts (`LICENSES.md`, `CITATION.cff`, 
 git clone https://github.com/Bulrock/IQ-ME && cd IQ-ME
 make help        # enumerate documented targets
 make lint        # all trust + negative-assertion lints
-make test        # node --test against tests/ (including IRT golden vectors)
+make test        # strict Fallow gates + node --test (including IRT golden vectors)
 make build       # author-time methodology corpus render → dist/
 ```
 

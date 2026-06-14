@@ -5,13 +5,13 @@
 
 .DEFAULT_GOAL := help
 
-.PHONY: help test test-network-trace test-full-slice test-byte-stable test-i18n-locale lint fallow fallow-health build build-methodology build-difficulty-bands dev clean snapshot-update test-contract
+.PHONY: help test test-network-trace test-full-slice test-byte-stable test-i18n-locale lint fallow fallow-gates fallow-unused fallow-duplication fallow-health build build-methodology build-difficulty-bands dev clean snapshot-update test-contract
 
 help: ## list documented Make targets
 	@grep -hE '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) \
 	  | awk -F':.*## ' '{printf "%-20s %s\n", $$1, $$2}'
 
-test: ## run node --test against tests/scaffold + tests/contract + tests/unit + tests/exit-criteria (Playwright excluded)
+test: fallow-gates ## run strict Fallow gates, then Node tests (Playwright excluded)
 	node --test 'tests/scaffold/**/*.test.mjs' 'tests/contract/**/*.spec.mjs' 'tests/unit/**/*.test.mjs' 'tests/exit-criteria/**/*.spec.mjs'
 
 test-network-trace: ## run Playwright network-trace spec (downloads chromium on first run)
@@ -54,6 +54,14 @@ lint: ## run all registered lints (negative assertions + budget + trust artifact
 
 fallow: ## run fallow per .fallowrc.json — dead-code + duplication gate (complexity is advisory; see fallow-health)
 	npx --yes fallow --skip health
+
+fallow-gates: fallow-unused fallow-duplication ## run all strict Fallow gates
+
+fallow-unused: ## fail when Fallow reports unused files or exports
+	npx --yes fallow dead-code --unused-files --unused-exports --fail-on-issues
+
+fallow-duplication: ## fail on duplicate groups or more than 2 percent duplicated code
+	npx --yes fallow dupes --min-occurrences 2 --threshold 2 --fail-on-issues
 
 fallow-health: ## fallow complexity + maintainability report (advisory; never fails the build)
 	npx --yes fallow health || true
