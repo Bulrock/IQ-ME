@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-18
-last_updated: '2026-06-14 14-9-ink-economical-aurora-print-pdf-result-document: review'
+last_updated: '2026-06-14 14-10-aurora-performance-budget-and-reduced-motion-hardening: review'
 project: IQ-ME
 project_key: NOKEY
 tracking_system: file-system
@@ -213,7 +213,7 @@ development_status:
   14-7-restrained-aurora-assessment-route-and-no-timer-ui: done                                                 # PR-24
   14-8-aurora-results-and-saved-results-surfaces: done                                                          # PR-25
   14-9-ink-economical-aurora-print-pdf-result-document: done                                                    # PR-26
-  14-10-aurora-performance-budget-and-reduced-motion-hardening: backlog                                         # PR-27
+  14-10-aurora-performance-budget-and-reduced-motion-hardening: done                                            # PR-27
   14-11-rendered-visual-regression-contrast-reduced-motion-and-print-verification-suite: backlog                # PR-28
   14-12-commit-and-guard-the-assessment-duration-copy-cleanup: backlog                                          # PR-29
   epic-14-retrospective: optional

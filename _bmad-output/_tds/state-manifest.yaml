@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 2b2bec827061dd3401a14a00f5ab3921504dfd0b353d1a07f34bafdfb956c1d9
+    sha256: 6903598990fd55fc6f688b23b69a5197a7cb7d671f8b92fedac8ea2e6cbcdd10
     canonical_form: raw-bytes
-    recorded_at: 2026-06-14T17:45:20.229Z
+    recorded_at: 2026-06-14T17:54:21.057Z
     recorded_by: engineer
-    notes: 14-9 done
+    notes: 14-10 done
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -2074,3 +2074,17 @@ entries:
     recorded_at: 2026-06-14T17:45:19.396Z
     recorded_by: test-author
     notes: freeze 14-9 guard
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/14-10-aurora-performance-budget-and-reduced-motion-hardening.md
+    sha256: 4b4ff59ed5f9a556df8ded33fdc93d03805b0dad08b2258ed5b43b4d9bdae500
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T17:54:21.057Z
+    recorded_by: engineer
+    notes: 14-10 done
+  - artefact_class: A
+    file: tests/scaffold/14-10-aurora-perf-reduced-motion.test.mjs
+    sha256: f43c15d7651d8002d9cc6ba36e0768cb841d8a81693af10c4160be708028a3a6
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T17:54:20.184Z
+    recorded_by: test-author
+    notes: freeze 14-10 guard
