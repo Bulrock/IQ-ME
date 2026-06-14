@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 6903598990fd55fc6f688b23b69a5197a7cb7d671f8b92fedac8ea2e6cbcdd10
+    sha256: d61485efb5bb3e7f195145a46336bb62c2fe232412f77a371c914f8abcd0466f
     canonical_form: raw-bytes
-    recorded_at: 2026-06-14T17:54:21.057Z
+    recorded_at: 2026-06-14T18:11:32.614Z
     recorded_by: engineer
-    notes: 14-10 done
+    notes: 14-11 done
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -2088,3 +2088,17 @@ entries:
     recorded_at: 2026-06-14T17:54:20.184Z
     recorded_by: test-author
     notes: freeze 14-10 guard
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/14-11-rendered-visual-regression-contrast-reduced-motion-and-print-verification-suite.md
+    sha256: ceb25618e6298d428f0620366fb364bdfc7d36149599fb85587c5bd9a16ea58c
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T18:11:32.614Z
+    recorded_by: engineer
+    notes: 14-11 done
+  - artefact_class: A
+    file: tests/scaffold/14-11-visual-regression-suite.test.mjs
+    sha256: f3970dbde6b46c43271a398c42220180066d5cc9179fe68b0dae18ff7e921595
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T18:11:31.773Z
+    recorded_by: test-author
+    notes: freeze 14-11 guard

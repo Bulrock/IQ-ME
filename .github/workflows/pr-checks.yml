@@ -580,11 +580,21 @@ jobs:
     name: visual-regression
     runs-on: ubuntu-latest
     if: false
-    # Activates in Epic 14 (Story 14.11) — Aurora rendered visual-regression +
-    # print/PDF screenshot gate with committed baselines. Pre-stubbed DORMANT by
-    # Story 14.2 (the harness scaffold); flipping `if: false` -> on in Story 14.11
-    # is the ONE documented exception to "no new CI jobs after Epic 1" (epics.md
-    # Decision 4) — structural CSS tests provably cannot catch the Epic 13
+    # Activates in Epic 14 (Story 14.11). The Aurora rendered visual-regression +
+    # contrast + reduced-motion + print/PDF spec
+    # (tests/playwright/aurora-visual-regression.spec.mjs) is now AUTHORED and
+    # CODE-COMPLETE — every AC leg (per-route/per-viewport/light+dark
+    # toHaveScreenshot, ±5% matrix-cell-to-option-icon parity, no-clipping,
+    # focus-visible + :checked, reduced-motion stable end-state, print/PDF, and
+    # axe-core AA contrast over the gradient). The job is kept DORMANT (`if: false`)
+    # because Playwright names snapshots per-platform (`*-linux.png`) and the
+    # authoring host is darwin: the committed PNG baselines must be bootstrapped on
+    # ubuntu-latest in CI (`make snapshot-update-visual`) before this gate can run
+    # green. FINAL ACTIVATION (flip `if: false` -> on; graduate into ci-matrix
+    # EPIC_1_ACTIVE; mark the docs row required) is pending that ubuntu-latest
+    # baseline bootstrap. Pre-stubbed DORMANT by Story 14.2 (the harness scaffold);
+    # this is the ONE documented exception to "no new CI jobs after Epic 1"
+    # (epics.md Decision 4) — structural CSS tests provably cannot catch the Epic 13
     # invisible-redesign failure, so rendered pixels are required.
     steps:
       - uses: actions/checkout@v4

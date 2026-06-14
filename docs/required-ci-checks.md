@@ -91,8 +91,11 @@ CRAP and broader complexity findings remain advisory through `make fallow-health
 | --- | --- | --- |
 | `axe-core-pa11y` | WCAG 2.2 AA (contrast/keyboard/landmark/aria); pa11y fallback | [`tests/a11y/trust-a11y.spec.mjs`](../tests/a11y/trust-a11y.spec.mjs) |
 | `lighthouse` | Light/dark a11y audit + perf budgets (FCP/LCP/TTI/CLS, Slow-4G) | [`tests/perf/lighthouserc.json`](../tests/perf/lighthouserc.json) |
+| `visual-regression` **(deferred / dormant)** | Aurora rendered visual-regression + ±5% question/answer scale parity + focus-visible/`:checked` + reduced-motion stable end-state + print/PDF + axe-core AA contrast over the gradient (Epic 14, PR-30) | [`tests/playwright/aurora-visual-regression.spec.mjs`](../tests/playwright/aurora-visual-regression.spec.mjs) |
 
 **Trigger:** every PR. **Failure:** the spec reports the failing surface/violation. **Fix:** resolve the violation; do not weaken the assertion.
+
+> **`visual-regression` is DEFERRED / DORMANT** (`if: false` in [`pr-checks.yml`](../.github/workflows/pr-checks.yml)) — it is NOT a currently-required check. The Story 14.11 rendered suite is authored and code-complete, but Playwright names PNG snapshots per-platform (`*-linux.png`) and the authoring host is darwin, so the committed baselines must first be bootstrapped on `ubuntu-latest` in CI (`make snapshot-update-visual`). The job activates — and becomes a required check — once those `ubuntu-latest` baselines are committed (the documented Epic 14 exception to "no new CI jobs after Epic 1", per epics.md Decision 4, alongside `eslint`).
 
 ## Scheduled health checks (weekly)
 
