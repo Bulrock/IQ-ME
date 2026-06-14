@@ -15,6 +15,18 @@ postReleaseAppend:
   epicsAdded: ['epic-11', 'epic-12', 'epic-13']
   requirements: 'PR-1 … PR-17'
   note: 'Append-only — Epics 1–10 (v1.0.0 scope) untouched. NB: app-v1.0.0/corpus-v1.0.0 launch tags are not yet cut.'
+expansionAppend:
+  appendedAt: '2026-06-14'
+  source: '{output_folder}/implementation-artifacts/investigations/aurora-glass-observatory-and-assessment-expansion-epic-handoff.md'
+  scope: 'handoff-primary'
+  epicsAdded: ['epic-14', 'epic-15']
+  requirements: 'PR-18 … PR-43'
+  stepsCompleted: ['step-01-validate-prerequisites', 'step-02-design-epics', 'step-03-create-stories', 'step-04-final-validation']
+  storiesAdded: 25
+  storyBreakdown: 'epic-14: 12 stories (14.1–14.12); epic-15: 13 stories (15.1–15.13)'
+  decisions: 'Epic 14 supersedes Epic 13 (13 stays done); Epic 15 single epic; >1500 = approved production items only (Epic 15 contains human-gated calibration/review stories); Epic 14 adds Playwright visual-regression CI job (documented exception).'
+  validation: 'PR-18…PR-43 fully covered, no gaps; no forward dependencies; 107/107 cited paths resolve; append-only (1178 add / 0 del vs baseline); adversarial 3-auditor pass — blocking items fixed (14.2 ci-matrix ALL_JOBS registration, 14.6 ±5% vs prior ±10% reconciliation + schema backward-compat, 15.7 sessionSize anchors, 15.12 experimental_status enum mapping). Story 15.8 flagged for create-story decomposition into 15.8a–d.'
+  note: 'Append-only — Epics 1–13 and PR-1…PR-17 untouched. Epic 14 = Aurora Glass Observatory redesign + assessment rendering correctness; Epic 15 = diverse/credible extended assessments.'
 partyModeRounds:
   - round: 1
     participants: [John, Winston, Sally, Murat, Amelia, Mary]
@@ -2759,3 +2771,1170 @@ So that **the saved/printed output looks intentional and legible rather than poo
 **Then** the document has an intentional layout — clear typographic hierarchy, balanced spacing, the co-equal percentile/IQ-scale/range triplet, the band-by-difficulty line, the date, and the not-a-certificate/not-a-clinical-assessment disclaimer — consistent with the glassmorphism-era identity but print-legible (ink-economical, high-contrast on white, no clipped content)
 **And** it renders correctly across EN/RU/PL and does not leak interactive-only chrome (nav, toggles) into print
 **And** the co-equal triplet invariant and disclaimer presence are preserved in print.
+
+---
+
+## Aurora Glass Observatory & Assessment Expansion — Requirements Inventory (Epics 14–15)
+
+> **Second append (2026-06-14).** Append-only, mirroring the Epics 11–13 post-release precedent — Epics 1–13 and the PR-1…PR-17 inventory above are untouched. Source: `_bmad-output/implementation-artifacts/investigations/aurora-glass-observatory-and-assessment-expansion-epic-handoff.md` (handoff-primary scope). Continues the `PR-N` sequence from PR-17.
+
+### Functional / Design Requirements (PR-18 … PR-43)
+
+**Epic 14 — Aurora Glass Observatory Visual Redesign + Assessment Rendering Correctness (PR-18 … PR-31)**
+
+- **PR-18:** Define the Aurora Glass Observatory design-token & system foundation — deep-navy spatial backdrop, controlled blue-violet aurora gradients, legible frosted-glass surfaces with clear edge definition, thin luminous scientific grids and blue-violet accents, and an explicit surface hierarchy (page background → primary content → supporting panels → controls). Explicitly bars the failure modes that made Epic 13 invisible: translucent same-color surfaces over a flat same-color background, and excessive blur/glow/shadow/grid-density/decorative motion.
+- **PR-19:** Build reusable Aurora primitives — shared surface, layout, focus, and interaction components consumed by every redesigned surface.
+- **PR-20:** Redesign the homepage and its main calls-to-action with the dramatic Aurora treatment.
+- **PR-21:** Redesign methodology and assessment-selection surfaces, AND apply the shared Aurora Glass Observatory system to the complete `/methodology/v0.1.0` route and all of its content sections — not only the methodology selector.
+- **PR-22:** Redesign consent and supporting-information surfaces.
+- **PR-23:** Apply a visually restrained Aurora variant on assessment routes (questions, progress, navigation, answer options) that protects concentration, avoids gamification, and contains no timer-like UI.
+- **PR-24:** Correct assessment rendering as a *correctness* concern (not decoration): render question content and answer choices at a consistent, comparable visual scale; preserve source geometry, aspect ratios, line weight, spacing, and alignment; make answer options large enough to inspect; make selected/focused/hovered/disabled/unselected states clearly distinct; provide reliable, visible keyboard selection; prevent mobile layouts from shrinking, clipping, or distorting answer content; ensure responsive reflow does not change the meaning of visual questions; and validate the displayed correct answer remains visually equivalent to its intended source form.
+- **PR-25:** Redesign result and saved-result surfaces while preserving the co-equal presentation of Percentile, IQ-scale equivalent, and Range.
+- **PR-26:** Translate the system into an ink-economical print/PDF design — a deliberate print layout, not a screenshot of the glass UI.
+- **PR-27:** Apply the shared system consistently to navigation, language selection, dialogs, and the remaining product surfaces/chrome.
+- **PR-28:** Enforce the no-timer visual policy — exclude any element resembling a timer, countdown, elapsed-time display, speed scoring, time-pressure messaging, or time-based gamification; where timing is mentioned, only communicate self-paced / no time limit / no time pressure.
+- **PR-29:** Keep Aurora effects lightweight and performant — progressively simplify gradients/blur/motion on smaller or lower-powered devices, avoid overly complex mobile layouts, and respect reduced-motion preferences.
+- **PR-30:** Provide a rendered verification suite (structural CSS tests alone are explicitly insufficient): rendered screenshots at representative desktop and mobile widths, per-route visual-regression review, browser-rendered question/answer scale comparison, clipping/distortion/responsive tests, keyboard and focus-state tests, reduced-motion tests, print/PDF rendering review, and contrast checks for text, controls, focus, and selected answers.
+- **PR-31:** Remove assessment-duration estimates from all user-facing product and project copy (e.g. "takes about 25 minutes", estimated completion durations, waiting-duration language, speed-matters messaging), keeping only allowed self-paced / no-time-limit / no-time-pressure language; performance benchmarks, launch schedules, and methodological retest-timing discussion are out of scope and may remain. *(Partly in-flight: commit `00ea3ea` and uncommitted working-tree changes already touch live EN/PL/RU copy, methodology pages, docs, schema, snapshots, and tests.)*
+
+**Epic 15 — Diverse & Credible Extended Assessments (PR-32 … PR-43)**
+
+- **PR-32:** Define an item taxonomy, provenance model, experimental-status rules, and per-item metadata schema (rule family, difficulty target, provenance, answer, review state). Keep official ICAR content clearly separate from newly-authored items, preserving source/license/attribution/provenance for every official item and never labelling newly-authored questions as official ICAR items.
+- **PR-33:** Build automated quality gates: exact-duplicate detection, near-duplicate/structural-similarity detection, correct-answer validation (where mechanically possible), distractor-uniqueness validation, and rule-family + difficulty distribution checks.
+- **PR-34:** Refactor and expand the ICAR-MR item architecture and content while preserving a dedicated ICAR-MR assessment variant.
+- **PR-35:** Refactor and expand the ICAR-LN item architecture and content while preserving a dedicated ICAR-LN assessment variant; ICAR-MR and ICAR-LN must remain recognizably different reasoning experiences.
+- **PR-36:** Add a mixed ICAR-MR + ICAR-LN assessment variant that reports MR, LN, and combined performance separately.
+- **PR-37:** Ensure every full assessment contains more than 48 questions, and make short and full assessments meaningfully different in composition and depth.
+- **PR-38:** Build an authoring/generation/review/storage pipeline for a bank of more than 1,500 genuinely unique questions — a scalable structured format and generation-validation pipeline, not thousands of manually-maintained opaque files. Do not count cosmetic transformations as unique; reject exact and near-duplicates.
+- **PR-39:** Implement session balancing plus within-session no-repeat and cross-session repeat-minimization, preserving privacy and local-only operation with no server-side user tracking.
+- **PR-40:** Establish a calibration & validation plan and experimental-result communication: collect response evidence, analyze item difficulty/discrimination, remove ambiguous/trivial/redundant/poorly-performing items, validate score interpretation and mixed-score aggregation, document limitations/confidence, and clearly label results experimental where scientifically comparable IQ-scale scores cannot yet be supported (no unsupported precision or comparability).
+- **PR-41:** Guarantee content diversity across rule families, rule combinations, reasoning-step count, difficulty levels, visual/symbolic layouts, distractor strategies, and answer positions; new items must be creative, non-trivial, and not simple restatements of the same pattern.
+- **PR-42:** Guarantee item correctness and a human-review workflow: every question has exactly one defensible correct answer with plausible-but-unambiguously-incorrect distractors, and human review confirms clarity, uniqueness, and defensibility.
+- **PR-43:** Provide an Epic-15 verification suite: exact-duplicate, near-duplicate/structural-similarity, correct-answer, distractor-uniqueness, rule-family-distribution, difficulty-distribution, session-level no-repeat, cross-session repeat-minimization, mixed-assessment composition/scoring, and provenance/license-completeness checks, plus calibration-readiness/experimental-label checks and a manual item-quality review workflow.
+
+### Cross-cutting NFRs reaffirmed (existing PRD NFRs — not renumbered)
+
+- **NFR6 — local-only operation, zero third-party runtime dependencies** — preserved by both epics.
+- **Deterministic & byte-stable production builds** — preserved (Aurora assets and the expanded item bank must not break byte-stability or determinism of selection/scoring).
+- **WCAG 2.2 AA** — complete keyboard operation, visible focus, contrast, reduced-motion (Epic 14, esp. PR-24/PR-29/PR-30).
+- **NFR27 — translation parity** — question text and explanations (Epic 15) and any methodology-corpus body edits (Epic 14, PR-21) cascade to PL/RU with `sourceHashEN` bumped, keeping `lint-translation-parity` green.
+- **Bank-growth build safety** — bank growth must keep item provenance auditable and must not make production builds unstable or unnecessarily large (Epic 15).
+
+### Coverage Map (Epics 14–15)
+
+- **PR-18 … PR-31** → Epic 14 (Aurora Glass Observatory Visual Redesign + Assessment Rendering Correctness)
+- **PR-32 … PR-43** → Epic 15 (Diverse & Credible Extended Assessments)
+
+### Decisions Resolved at Epic Design (2026-06-14)
+
+Grounded by a 7-subsystem current-state sweep (Epic 13 state, CSS/token architecture, assessment rendering, variant/pool architecture, IRT scoring engine, verification/CI, time-copy state):
+
+1. **Epic 14 ↔ Epic 13 → SUPERSEDE (keep Epic 13 `done`).** Epic 13 is code-complete (5 stories `done`, 30+ structural ACs green) but visually insufficient — its dark glass fill composites to almost the same color as the `neutral-900` page background, so blur/depth are imperceptible. Epic 14 reuses Epic 13's two-layer token architecture (`primitives.css` → `semantic.css`) but **replaces the values** and introduces the **deep-navy spatial backdrop** that gives glass something to blur against (the root cause Epic 13 missed). Epic 13 stays `done`; the Epic 11/13 frozen DOM contracts are preserved (no class-A unfreeze).
+2. **Epic 15 → SINGLE epic** in the handoff's shape (calibration + human review remain in-epic stories rather than a separate gate epic).
+3. **>1,500-item target → APPROVED PRODUCTION ITEMS ONLY.** Consequently Epic 15 intrinsically contains **human-gated stories**: the agent builds the authoring/generation/review/storage pipeline and produces *candidates*, but the bank-size goal, calibration (PR-40), and human item-quality review (PR-42) close only on real psychometric + reviewer deliverables (no-fabrication, mirroring the 9-series human-gated gates).
+4. **Epic 14 verification → ADD a Playwright visual-regression + print/PDF screenshot job** with committed baselines, as a deliberate **documented exception** to the repo's "no new CI jobs post-Epic-1" discipline (alongside the existing eslint exception) — structural CSS tests provably cannot catch the "invisible redesign" failure (PR-30).
+
+**Still open (resolve during story creation, step 03):** quantitative question-to-answer visual-scale tolerance (grounding proposes option-icon width within ±5% of computed matrix-cell size); approved reference-viewport set (proposes 320/360/414/768/1024/1280); permitted ICAR-adjacent naming for newly-authored families; exact experimental-result presentation before calibration; cross-session repeat-minimization mechanism without server-side tracking (local-only, opt-in); item-text/explanation localization strategy at scale (NFR27). Grounding also flagged a **latent bug** for Epic 15 to fix: `language-switcher.js` hardcodes `responses.length < 16`, so the FR8 mid-session locale-lock silently fails for the 20/24-item full variants.
+
+## Epic List (Epics 14–15)
+
+### Epic 14: Aurora Glass Observatory Visual Redesign + Assessment Rendering Correctness
+
+A visitor immediately perceives a real, cohesive redesign — a deep-navy spatial backdrop with controlled blue-violet aurora, legible frosted-glass surfaces, and clear depth/hierarchy — across the homepage, methodology route, consent, assessment, results/saved results, shared chrome, and the print/PDF document. The assessment route uses a **restrained** variant that protects concentration with no timer-like UI, and question↔answer rendering is corrected to a comparable visual scale so the intended answer can be evaluated fairly.
+**Requirements covered:** PR-18, PR-19, PR-20, PR-21, PR-22, PR-23, PR-24, PR-25, PR-26, PR-27, PR-28, PR-29, PR-30, PR-31
+**Supersedes:** Epic 13's visual *strategy* (not its code) — reuses the two-layer token architecture but replaces values, adds the deep-navy backdrop, and adds rendered verification. Epic 13 stays `done`; Epic 11/13 frozen DOM contracts preserved.
+**Delivery:** Design-direction-first (an Aurora design-direction story gates the implementation stories, analogous to Story 13.1). PR-31 (time-copy) is commit-and-verify — substantially landed in commit `00ea3ea`. Adds a Playwright visual-regression + print/PDF CI job (documented exception).
+**Standalone:** Yes. **⚠️ Sequencing:** recommended **before** Epic 15 so the expanded bank renders under the corrected scale system — not a hard dependency.
+
+### Epic 15: Diverse & Credible Extended Assessments
+
+A user can take recognizably different, credible assessments — dedicated ICAR-MR, dedicated ICAR-LN, and a mixed MR+LN variant that reports MR, LN, and combined performance **separately** — with every full assessment exceeding 48 questions, drawn from a large, genuinely diverse, quality-gated bank, while the product stays scientifically honest about what is calibrated vs experimental.
+**Requirements covered:** PR-32, PR-33, PR-34, PR-35, PR-36, PR-37, PR-38, PR-39, PR-40, PR-41, PR-42, PR-43
+**Delivery:** Taxonomy/schema-first (an item-taxonomy + provenance + experimental-status schema story gates the rest). Mixed subscale scoring (PR-36) is **additive** to the stable IRT engine (new wrapper, no core change, existing parity tests untouched). Quality gates (PR-33/PR-43) ship as deferred-job stubs activated per the existing CI pattern. Includes fixing the latent `language-switcher.js` hardcoded-`16` locale-lock bug (FR8).
+**Human-gated (no-fabrication):** Because the >1,500-item target means *approved production items only*, the bank-size goal, calibration (PR-40), and human item-quality review (PR-42) are gated on real psychometric + reviewer deliverables — the agent scaffolds the plan, pipeline, and experimental-labeling code and produces candidates, but cannot close these autonomously.
+**Standalone:** Yes — builds on the existing engine and runs independently. **Sequencing:** best **after** Epic 14's rendering-correctness work.
+
+### Coverage Map (Epics 14–15) — Epic level
+
+- **PR-18 … PR-31** → **Epic 14** (Aurora Glass Observatory Visual Redesign + Assessment Rendering Correctness)
+- **PR-32 … PR-43** → **Epic 15** (Diverse & Credible Extended Assessments)
+
+
+---
+
+## Epic 14: Aurora Glass Observatory Visual Redesign + Assessment Rendering Correctness
+
+> **Supersedes Epic 13's visual strategy (not its code).** Reuses the two-layer token architecture (`primitives.css` → `semantic.css`) but replaces the values and introduces the deep-navy spatial backdrop that gives glass real contrast to blur against — the root cause Epic 13 missed. Epic 13 stays `done`; Epic 11/13 frozen DOM contracts are preserved (no class-A unfreeze). **Design-direction-first:** Story 14.1 gates 14.2+. **Verification:** Story 14.11 activates a Playwright visual-regression + print/PDF CI job as a documented exception to the "no new CI jobs post-Epic-1" discipline (alongside the existing eslint exception). PR-31 (Story 14.12) is commit-and-verify — substantially landed in commit `00ea3ea`.
+
+### Story 14.1: Aurora Glass Observatory design direction
+
+As a **design owner preparing the Epic 14 glass-effectiveness remediation**,
+I want **a single pinned design-direction artifact that specifies the deep-navy spatial backdrop, layering model, and bounded aurora/glass/grid treatment that gives glass real contrast to blur against**,
+So that **the downstream implementation stories (14.2+) are mechanical token-value and CSS work that cannot repeat the Epic 13 same-color-over-same-color failure**.
+
+**Acceptance Criteria:**
+
+**Given** the Epic 13 root failure that dark `--surface-glass` `rgba(19, 24, 32, 0.72)` composites to the same RGB as the neutral-900 page backdrop, documented in [epic-13-no-visible-changes-investigation.md](_bmad-output/implementation-artifacts/investigations/epic-13-no-visible-changes-investigation.md) (Finding 4) and modeled on the gating pattern of [glassmorphism-motion-design-direction.md](_bmad-output/planning-artifacts/glassmorphism-motion-design-direction.md),
+**When** this story is delivered,
+**Then** a new artifact `_bmad-output/planning-artifacts/aurora-glass-observatory-design-direction.md` exists with a Status line declaring it the Story 14.1 design direction that gates 14.2+ and explicitly states it does NOT mutate any Epic 13 token VALUE in [primitives.css](src/css/primitives.css) or [semantic.css](src/css/semantic.css) (that is Story 14.2),
+**And** it preserves the established two-layer token architecture (components consume only semantic roles, never primitives) so the artifact changes only design intent, not the contract.
+
+**Given** the Aurora Glass Observatory direction calls for a "deep-navy spatial backdrop, luminous blue-violet aurora gradients, legible frosted panels, thin glowing grids" per [epic-13-redesign-concepts.md:39-52](_bmad-output/implementation-artifacts/investigations/epic-13-redesign-concepts.md#L39) (PR-18),
+**When** a reader consults the artifact's backdrop and layering section,
+**Then** it pins a deep-navy spatial backdrop distinct from glass fill (the page bg must be perceptibly darker/different RGB than `--surface-glass` so blur has something to act on), a bounded blue-violet aurora gradient spec, a frosted-surface + edge-definition spec, and a thin luminous-grid + accent usage rule, each expressed as a named decision a 14.2 token-value edit can implement,
+**And** the surface hierarchy is stated as an explicit ordering (page backdrop → content region → glass panels → controls) that keeps the body-text contrast guarantee independent of backdrop (WCAG 2.2 AA, SC 1.4.3).
+
+**Given** the Epic 13 concepts warn that aurora effects "could distract from matrix items if not suppressed during the test route" ([epic-13-redesign-concepts.md:49-52](_bmad-output/implementation-artifacts/investigations/epic-13-redesign-concepts.md#L49), Cross-Surface constraint "keep the test route visually quieter") (PR-18),
+**When** a reader consults the route-treatment section,
+**Then** the artifact specifies a restrained assessment-route variant (reduced or zero aurora/grid behind matrix items) and a light-vs-dark Aurora treatment (separately authored, not auto-inverted, consistent with the existing dark-glass derivation), and pins an ink-economical print translation (no aurora/blur/glow in print, document layout only),
+**And** it requires the frozen Epic 11/13 DOM contracts (`section.landing`, `h1#landing-heading`, `#start-test-btn`, `.landing__methodology-link`, the co-equal Percentile/IQ-scale/Range triplet) to be preserved unchanged by any downstream styling.
+
+**Given** the investigation prescribes "strict performance, contrast, and reduced-motion controls" and forbids continuous/parallax motion under the existing global `prefers-reduced-motion` block at [base.css:140](src/css/base.css#L140) (PR-18),
+**When** a reader consults the guardrails section,
+**Then** the artifact pins bounded budgets — capped blur/glow/shadow radii, capped grid density, and a performance budget such as a maximum number of `backdrop-filter` layers composited per screen — and a reduced-motion behavior in which all aurora/decorative motion collapses to a no-op or pure opacity change, conveying no information by motion alone,
+**And** it keeps the zero-third-party invariant (NFR6/NFR7: pure CSS gradients/`backdrop-filter`/`box-shadow`, no images, no SVG-filter fetches, no web fonts, no inline `<style>`).
+
+**Given** Epic 13 shipped with structural source-text guards only and no rendered verification, which is why the regression went undetected ([epic-13-no-visible-changes-investigation.md:65-69](_bmad-output/implementation-artifacts/investigations/epic-13-no-visible-changes-investigation.md#L65), Finding 5) (PR-18),
+**When** a reader consults the verification-handoff section,
+**Then** the artifact names the approved reference-viewport set and a question-to-answer visual-scale tolerance (propose +/-5%, the matrix-cell to option-icon parity) that the downstream visual-regression story (PR-30) will enforce, framed so that the new committed-baseline visual-regression CI job is the documented Epic 14 exception (not a banned new PR job),
+**And** it states that no production CSS, token VALUE, or test is written by this story (doc/spec only), keeping the build byte-stable (NFR21).
+
+**Given** the Aurora direction carries the documented risk of repeating the Epic 13 failure if the backdrop system is undisciplined ([epic-13-redesign-concepts.md:172-174](_bmad-output/implementation-artifacts/investigations/epic-13-redesign-concepts.md#L172)) (PR-18),
+**When** a reader consults the anti-patterns section,
+**Then** the artifact explicitly bars the Epic 13 failure modes — no translucent surface composited over a flat same-color backdrop, and bounded (never unbounded) blur, glow, shadow, grid-density, and motion — each stated as a prohibition a reviewer can check against a 14.2 token diff,
+**And** it preserves the existing graceful-degradation rule (the opaque `@supports not(backdrop-filter)` fallback and the AA-clearing fill alpha remain the contrast guarantee, never blur).
+
+**Requirements covered:** PR-18
+
+### Story 14.2: Aurora token foundation, deep-navy backdrop, reusable primitives & visual-regression harness
+
+As a **front-end engineer implementing the Aurora redesign**,
+I want **a deep-navy spatial backdrop, replaced Aurora token values plus new semantic glow/accent roles, reusable Aurora surface/focus/interaction primitives, and a Playwright visual-regression + print/PDF harness wired (but pre-stubbed off) in CI**,
+So that **glass surfaces have real contrast to blur against (fixing the Epic 13 root failure), and every later Aurora story has a rendered-verification safety net it can flip on without re-pinning architecture or budgets**.
+
+**Acceptance Criteria:**
+
+**Given** the deep-navy spatial backdrop is decided in 14.1 and the existing page backdrop is the accent-glow `body` block in [base.css:25-37](src/css/base.css#L25) plus the `html` surface in [base.css:15-18](src/css/base.css#L15) (PR-18),
+**When** I introduce the deep-navy spatial backdrop layer so glass has non-uniform, depth-bearing content to blur against,
+**Then** the backdrop is authored as page-level CSS in [base.css](src/css/base.css) driven by NEW semantic role tokens (e.g. `--backdrop-gradient`, aurora glow/luminosity roles) in [semantic.css](src/css/semantic.css) that resolve to NEW/replaced Aurora primitive VALUES in [primitives.css](src/css/primitives.css), with dark authored separately (not auto-inverted) for both `[data-theme="dark"]` and `@media (prefers-color-scheme: dark)`,
+**And** the two-layer architecture is preserved — `base.css`/components reference ONLY semantic roles, never `--glass-*`/`--color-*` primitives directly (UX-DR1), and the backdrop stays decorative below any text-contrast layer (WCAG 2.2 AA unaffected).
+
+**Given** the Epic 13 glass tokens live in [primitives.css:104-128](src/css/primitives.css#L104) and the dark glass roles in [semantic.css:99-102](src/css/semantic.css#L99) composite to ~`--color-neutral-900` page color so blur is imperceptible (PR-18),
+**When** I replace the token VALUES (blur scale, `--glass-fill`/`--glass-fill-strong`, `--glass-edge`, `--glass-shadow`, and the dark `--surface-glass*` values) with Aurora values tuned to read against the deep-navy backdrop,
+**Then** only the VALUES change while the token NAMES and the role-token indirection in [semantic.css:66-72](src/css/semantic.css#L66) stay intact so all 25 component CSS files keep consuming the same semantic roles unchanged,
+**And** the contrast guarantee remains the fill alpha (≥0.72 standard / ≥0.88 strong) plus the solid fallback — never the blur — preserving WCAG 2.2 AA SC 1.4.3 independent of backdrop content.
+
+**Given** the reusable glass primitive `.glass-surface` / `.glass-surface--strong` with its `@supports not (backdrop-filter: blur(1px))` opaque fallback in [glass-surface.css](src/css/components/glass-surface.css) (PR-18),
+**When** I extend it into reusable Aurora surface/layout/focus/interaction primitives (e.g. an Aurora glow surface variant, a shared visible-focus class, an interaction-state hook) so later stories adopt the look without bespoke CSS,
+**Then** the new primitives consume ONLY semantic Aurora roles (two-layer rule), the `@supports` solid fallback path stays valid for every new surface variant, and focus styling builds on the existing `:focus-visible` token contract in [base.css:126-129](src/css/base.css#L126),
+**And** motion in any interaction primitive remains gated by the global `prefers-reduced-motion` safety net in [base.css:140-149](src/css/base.css#L140) (no information conveyed by motion alone).
+
+**Given** the `css-components-lines` budget limit of 2300 in [BUDGETS.json](BUDGETS.json) (~1805 LOC used at Epic 11; the `--glass-*`/`--surface-glass-*` tokens live in primitives/semantic and are NOT counted) (PR-18),
+**When** the new Aurora primitives land in `src/css/components/**`,
+**Then** I add the measured `src/css/components/**/*.css` line count to the story File List with explicit byte accounting and stay within the 2300 limit, deferring any required bump to its own documented `css-components-lines` rationale edit rather than a silent overrun,
+**And** the deterministic byte-stable build (NFR21, `make test-byte-stable`) and the alphabetical CSS `<link>` chain in [index.html:13-20](src/index.html#L13) are preserved (zero inline `<style>`, NFR6/NFR7 CSP).
+
+**Given** there is no pixel visual-regression harness today (no `toHaveScreenshot` baselines) and no print/PDF rendered test, only the token/HTML byte-snapshot `make snapshot-update` target in [Makefile:85-87](Makefile#L85) (PR-19),
+**When** I stand up the visual-regression + print/PDF harness,
+**Then** I add a new Playwright spec scaffold under [tests/playwright](tests/playwright) capturing the backdrop+glass surfaces across the 320→1440 width band in light+dark plus a print/PDF render leg, and add a `make snapshot-update-visual` target (registered in the `.PHONY` line at [Makefile:8](Makefile#L8)) to regenerate the committed baselines on `ubuntu-latest`,
+**And** the harness runs against the local SPA only (no telemetry, NFR6 local-only) with the committed-baseline `maxDiffPixelRatio` tolerance documented (~1-2%) so platform jitter does not flake the gate.
+
+**Given** the deferred-job discipline — every future CI job is pre-stubbed with `if: false` + a `# Activates in (Epic|Story) <N>` comment, enforced by AC-3 of [ci-matrix.test.mjs:202-221](tests/scaffold/ci-matrix.test.mjs#L202) (PR-19),
+**When** I pre-stub the visual-regression CI job in [pr-checks.yml](.github/workflows/pr-checks.yml),
+**Then** I add a single new job carrying `if: false` and a `# Activates in Epic 14` comment that runs the new visual-regression spec on `ubuntu-latest`, leaving it dormant so Story 14.11 can flip it on (the activation itself being the one documented exception to "no new jobs after Epic 1"),
+**And** the new job name is registered in the `ALL_JOBS` list in [ci-matrix.test.mjs](tests/scaffold/ci-matrix.test.mjs) (so the discipline test actually governs the job rather than silently skipping an unregistered one — preventing a stealth undisciplined CI job), the stub satisfies the ci-matrix scaffold contract (declaration at 2-space indent, `if: false`, `# Activates in` comment) so the discipline test stays green, and no Epic-1-active job is disturbed.
+
+**Requirements covered:** PR-18, PR-19
+**Depends on:** 14.1
+
+### Story 14.3: Aurora homepage and primary calls-to-action
+
+As a **first-time visitor landing on the IQ-ME homepage**,
+I want **the hero card and its calls-to-action to read as a deliberate, layered glass surface floating over the deep-navy spatial backdrop**,
+So that **the depth and blur introduced in Epic 14 are perceptible at the first impression without altering the sober, anti-marketing copy or the keyboard/affordance behaviour I rely on**.
+
+**Acceptance Criteria:**
+
+**Given** the deep-navy spatial backdrop and re-valued glass tokens delivered by Story 14.2 (PR-20), and the hero card declared at [landing.css:46](src/css/components/landing.css#L46) consuming only the semantic roles `--surface-glass`, `--surface-glass-blur`, `--surface-glass-edge`, and `--surface-glass-shadow`,
+**When** the homepage renders the `section.landing` hero over the new backdrop,
+**Then** the hero's `backdrop-filter: blur(var(--surface-glass-blur))` and `box-shadow: var(--surface-glass-shadow)` produce visible separation between card and background (the Epic 13 root failure of glass compositing to the page colour is resolved purely through token values),
+**And** no literal hex/px/font-family is added to [landing.css](src/css/components/landing.css) — it continues to consume semantic tokens only, preserving the two-layer token architecture and zero inline `<style>` / zero third-party runtime (NFR6/NFR7 CSP).
+
+**Given** the frozen Story-3.3 / Epic-13 DOM contract emitted verbatim by [landing.js:42](src/assessment/landing.js#L42) — `section.landing[aria-labelledby="landing-heading"]` › `h1#landing-heading` + `p.landing__paragraph` + `div.landing__cta-group` › `button#start-test-btn.landing__start-btn` + the PR-14 `button#view-saved-btn.landing__saved-btn[data-saved-results-entry]` entry point + `a.landing__methodology-link[href="/methodology/v0.1.0/en/"]`,
+**When** the Aurora treatment is applied,
+**Then** the change is restyle-only: [landing.js](src/assessment/landing.js) markup, element ids, classes, the conditional render of `#view-saved-btn` via `savedResults.hasSaved() || persistence.hasProgress()`, and the methodology href are all left byte-identical,
+**And** the existing Playwright contract assertions in [tests/playwright/pr14-saved-results.spec.mjs](tests/playwright/pr14-saved-results.spec.mjs) continue to pass unchanged, preserving the frozen Epic 11/13 DOM contract.
+
+**Given** the primary CTA `.landing__start-btn` at [landing.css:92](src/css/components/landing.css#L92) using `background-color: var(--color-action-bg)` / `color: var(--color-action-text)` with the hover lift at [landing.css:111](src/css/components/landing.css#L111) and the focus ring at [landing.css:117](src/css/components/landing.css#L117),
+**When** the CTA is given its Aurora-era emphasis over the backdrop and the secondary `.landing__saved-btn` quiet glass-outline ([landing.css:124](src/css/components/landing.css#L124)) sits beside it,
+**Then** the primary CTA's resolved foreground/background pairing and the `:focus-visible` outline (`var(--space-1) solid var(--color-focus-ring)`, `outline-offset: var(--space-1)`) both clear WCAG 2.2 AA contrast against the new backdrop and glass fill,
+**And** the single-most-prominent-affordance hierarchy is preserved (primary action visually dominant over the secondary saved-results affordance and the underlined methodology link), with no marketing language added to any rendered string.
+
+**Given** the global reduced-motion neutralizer at [base.css:140](src/css/base.css#L140) and the scene-level defense-in-depth block at [landing.css:179](src/css/components/landing.css#L179) that zeroes `.landing` / `.landing__aurora` animation and `.landing__start-btn` / `.landing__saved-btn` transition,
+**When** a `prefers-reduced-motion: reduce` user opens the homepage,
+**Then** the hero entrance, the aurora drift, and all CTA transitions are suppressed while the card and CTAs remain fully legible at their final opacity/transform,
+**And** both the global and scene-level reduced-motion guarantees stay intact (motion is opt-out-respecting at two layers; no motion is reintroduced by the Aurora restyle).
+
+**Given** the mobile down-scale media query at [landing.css:192](src/css/components/landing.css#L192) (`max-width: 30rem`) and the responsive viewport range exercised by the E2E harness (320–1440px),
+**When** the homepage is rendered at the narrowest supported width,
+**Then** the hero padding and reduced CTA sizing keep `#start-test-btn`, `#view-saved-btn`, and `.landing__methodology-link` fully within the viewport with no horizontal overflow (consistent with [tests/playwright/pr10-no-horizontal-scroll.spec.mjs](tests/playwright/pr10-no-horizontal-scroll.spec.mjs)),
+**And** the local-only invariant holds — rendering and the saved/in-progress entry-point decision read only client state, emitting zero telemetry (NFR6 local-only).
+
+**Given** the Epic 14 visual-regression job is the one NEW documented CI exception (committed baselines on `ubuntu-latest`, ~1–2% `maxDiffPixelRatio`), wired into [.github/workflows/pr-checks.yml](.github/workflows/pr-checks.yml) following the deferred-stub `if: false` / activation convention enforced by [tests/scaffold/ci-matrix.test.mjs](tests/scaffold/ci-matrix.test.mjs),
+**When** this story adds a landing-scene visual-regression spec under [tests/playwright/](tests/playwright/) with committed baseline screenshots at the approved viewports in both light and dark themes,
+**Then** the baselines are checked in, the job runs (or is activated for) Story 14.3, and a subsequent unintended drift of the hero/CTA appearance fails CI,
+**And** the deterministic byte-stable build (NFR21) is unaffected — `make test-byte-stable` still produces an identical second build, and the `css-components-lines` budget (limit 2300 in [BUDGETS.json](BUDGETS.json)) is not exceeded.
+
+**Requirements covered:** PR-20
+**Depends on:** 14.2
+
+### Story 14.4: Aurora methodology selection and complete /methodology/v0.1.0 route
+
+As a **reader weighing whether to trust the IQ-ME assessment**,
+I want **the pre-test methodology/variant selector and the entire /methodology/v0.1.0 reference route — masthead, sidebar, article bodies, and trust signals — rendered with the same Aurora glass-over-deep-navy system as the rest of the app**,
+So that **the long-form evidence I am asked to trust reads as one coherent, depth-legible surface in both Light and Dark, not a flat afterthought**.
+
+**Acceptance Criteria:**
+
+**Given** the methodology masthead currently consumes `--surface-glass-strong` + `blur(var(--surface-glass-blur))` directly (PR-21) in [masthead.css:22](src/css/components/masthead.css#L22) and the Aurora backdrop tokens were re-valued in Story 14.2,
+**When** the SPA selection scene and the static methodology route render after 14.2 lands,
+**Then** both surfaces composite their glass against the deep-navy spatial backdrop so blur and edge depth are perceptible (the Epic 13 root failure — glass vanishing into `--color-neutral-900` — is resolved), with the masthead, sidebar nav (`.methodology-sidebar`), and index sections (`.methodology-index__section`) consuming ONLY the semantic roles `--surface-glass`/`--surface-glass-strong`/`--surface-glass-edge`/`--surface-glass-blur`/`--surface-glass-shadow` declared in [semantic.css:68](src/css/semantic.css#L68),
+**And** no component CSS introduces a literal hex/rgba/px glass value or a `--glass-*` primitive — the two-layer token architecture (UX-DR1) is preserved unchanged.
+
+**Given** the selection scene composes its glass via the `.glass-surface` primitive on `<section class="selection-scene glass-surface">` in [selection.js:62](src/assessment/selection.js#L62) and lays out two native radio fieldsets in [selection-scene.css](src/css/components/selection-scene.css) (PR-21),
+**When** the Aurora system is applied to the selection + variant surfaces,
+**Then** the styling stays in [selection-scene.css](src/css/components/selection-scene.css) and the `.glass-surface` token swap from 14.2, with no markup change to `selection.js` — the `selection-scene`, `selection-scene__group`, `selection-scene__option`, `selection-scene__continue-btn`, and `selection-scene__back-link` hooks plus the native `<input type="radio">` (whose system focus ring and keyboard semantics are kept per [selection-scene.css:65](src/css/components/selection-scene.css#L65)) are untouched,
+**And** zero third-party runtime deps / zero inline `<style>` are introduced (NFR6/NFR7 CSP), and the build remains byte-stable (NFR21).
+
+**Given** the full /methodology/v0.1.0 route is emitted by [build-methodology.mjs](tools/build-methodology.mjs) — the index app-shell (`.methodology-index-page` → sticky `.methodology-masthead` at [build-methodology.mjs:455](tools/build-methodology.mjs#L455), `.methodology-index__layout` 14rem sidebar + scrollable `.methodology-index` content at the `min-width:48rem` breakpoint in [masthead.css:145](src/css/components/masthead.css#L145)) and the article pages (`.methodology-masthead` + `.cite-this-page-affordance` + `.stale-translation-hatnote`) — (PR-21),
+**When** Aurora is applied to the COMPLETE route and not only the selector/masthead,
+**Then** the article bodies, the sidebar nav, and the trust signals (masthead title/version/DOI/last-reviewed/named-reviewer block at [build-methodology.mjs:328](tools/build-methodology.mjs#L328) and the cite-this-page widget) all sit on Aurora glass surfaces with AA-legible body text against `--surface-glass-strong`,
+**And** the 46rem article reading measure ([masthead.css:64](src/css/components/masthead.css#L64)) and the app-shell scroll topology (fixed masthead/sidebar, only the content column scrolls) are preserved.
+
+**Given** the methodology route resolves theme via the blocking-head [methodology-theme.js](src/assessment/methodology-theme.js) and dark glass is separately authored — `--surface-glass-strong: rgba(48,56,70,0.88)`, `--surface-glass-edge: rgba(255,255,255,0.16)` — under both `[data-theme="dark"]` and the `prefers-color-scheme: dark` mirror in [semantic.css:99](src/css/semantic.css#L99) (PR-21),
+**When** the index renders under stored `localStorage.theme` = light, dark, and System (no stored key, `[data-theme]` absent so CSS follows the OS),
+**Then** the existing [pr9-methodology-theme.spec.mjs](tests/playwright/pr9-methodology-theme.spec.mjs) assertions on `<html>[data-theme]` continue to pass for all three states (PR-9 does not regress) and the glass roles resolve to theme-correct values in each,
+**And** the dark fill keeps using the lighter `neutral-800`-derived ink (never the `neutral-900` page color) so the panel still reads as raised, satisfying WCAG 2.2 AA.
+
+**Given** any prose change to the EN methodology corpus body (article sections, sidebar labels, or trust-signal copy) would alter the rendered route (PR-21),
+**When** an EN corpus body is edited to suit the Aurora layout,
+**Then** the identical edit is mirrored into the PL and RU corpus bodies and the affected files' `sourceHashEN` (sha256 of the body after frontmatter) is recomputed and bumped, keeping `lint-translation-parity` (NFR27) green,
+**And** the co-equal Percentile/IQ-scale/Range triplet wording and the clinical disclaimer remain unchanged (any such surfaces on the route stay intact).
+
+**Given** the reduced-motion contract — the global block in [base.css](src/css/base.css) zeroes durations `!important` and `.selection-scene__continue-btn` drops its transition under `prefers-reduced-motion: reduce` at [selection-scene.css:136](src/css/components/selection-scene.css#L136) (PR-21),
+**When** Aurora glass with its blur/edge/shadow tokens is applied to the selection and methodology surfaces,
+**Then** no new motion or transition is added to the static methodology route or the selection scene that survives reduced-motion, and the `@supports not(backdrop-filter)` opaque fallback in [glass-surface.css](src/css/components/glass-surface.css) still yields a fully legible non-glass surface,
+**And** the build stays byte-stable across two runs (NFR21) and the frozen Epic 11/13 DOM contracts (`.methodology-masthead`, `.methodology-sidebar__link`, `.methodology-index__section`, `selection-scene` hooks) are preserved.
+
+**Given** Epic 14 introduces a NEW documented visual-regression CI exception (committed baselines on `ubuntu-latest`, ~1–2% `maxDiffPixelRatio`) and the suite has no pixel baselines today (PR-21),
+**When** baseline screenshots are captured for the methodology-index surface in Light and Dark,
+**Then** a Playwright `toHaveScreenshot` spec for the methodology-index page commits its baselines and is wired in following the documented-exception pattern (not a new `if:false`-stubbed pr-checks job that violates the no-new-jobs discipline), capturing the Aurora glass-on-navy index in both themes,
+**And** the existing byte-stable, axe-core WCAG 2.2 AA, and Lighthouse a11y ≥ 0.90 (Light + Dark) gates over the methodology route continue to pass unchanged, with local-only behavior (no telemetry) preserved.
+
+**Requirements covered:** PR-21
+**Depends on:** 14.2
+
+### Story 14.5: Aurora consent, supporting-information surfaces and shared chrome
+
+As a **prospective test-taker reading the validity envelope and operating the persistent app chrome**,
+I want **the consent screen, supporting-information surfaces and the shared chrome (header, footer, theme toggle, language flag dropdown, dialogs) to read with the same Aurora glass depth as the rest of the redesigned product**,
+So that **the interface is visually coherent against the deep-navy spatial backdrop without losing the consent dwell-gate, the PR-6/PR-7 control behaviors, keyboard/screen-reader access, or the FR8 locale-switch blocker**.
+
+**Acceptance Criteria:**
+
+**Given** the consent envelope styled with flat opaque surfaces (PR-22) in [consent-scene.css:22](src/css/components/consent-scene.css#L22) where `.consent-scene__envelope` uses `--color-surface-elevated` and a `--color-rule-strong` start-border,
+**When** Story 14.2's re-valued glass roles are applied so the envelope reads as a raised panel against the new deep-navy backdrop,
+**Then** `.consent-scene__envelope` consumes only the re-valued semantic glass/surface role tokens (no new `--glass-*` primitive references and no literal hex/px added) and the `body[data-route="#/consent"]` app-shell scroll behavior at [consent-scene.css:129](src/css/components/consent-scene.css#L129) (envelope `overflow-y:auto`, fixed header/cta/footer) is unchanged,
+**And** the FR12 dwell-gate contract is preserved: `.consent-scene__continue-btn[aria-disabled="true"]` ([consent-scene.css:70](src/css/components/consent-scene.css#L70)) stays the muted disabled register and the timer-driven unlock remains independent of envelope scroll (consent dwell-gate behavior preserved).
+
+**Given** the dwell-gate hint `.consent-scene__dwell-hint` ([consent-scene.css:104](src/css/components/consent-scene.css#L104)) that explains the temporarily-disabled Continue and is hidden via the `[hidden]` rule when the gate flips,
+**When** Aurora restyles the consent CTA group,
+**Then** the hint keeps `max-width:100%` + `overflow-wrap:break-word` so the longest PL string never forces horizontal page scroll, and `.consent-scene__dwell-hint[hidden]` still resolves to `display:none`,
+**And** the muted `#not-today-link` and the `:focus-visible` outline rules on both controls retain a visible focus ring (WCAG 2.2 AA 2.4.7 / 1.4.11 ≥3:1 against the re-valued surface).
+
+**Given** the chrome header glass bar at [chrome-header.css:32](src/css/components/chrome-header.css#L32) consuming `--surface-glass` + `--surface-glass-blur` with the `@supports not (backdrop-filter)` opaque `--surface-glass-strong` fallback ([chrome-header.css:38](src/css/components/chrome-header.css#L38)),
+**When** the chrome adopts the Aurora-re-valued tokens consistently across header and the matching footer bar in [chrome-footer.css:18](src/css/components/chrome-footer.css#L18),
+**Then** header and footer read as glass against the backdrop while preserving `.chrome-header { position:relative; z-index:30 }` (so the language menu stays above scene content and pointer-receptive) and the route gates — `body[data-route="#/test"] .chrome-header`/`.chrome-footer { display:none }` (UX-DR8) and `body[data-route="#/"] .chrome-header__language-switcher { display:revert }` ([chrome-header.css:79](src/css/components/chrome-header.css#L79)) — are byte-stable in behavior,
+**And** the frozen Epic 11/13 DOM contracts (`section.landing`, `h1#landing-heading`, `#start-test-btn`, `.landing__methodology-link`) are untouched (frozen Epic 11/13 DOM contracts preserved).
+
+**Given** the theme toggle segmented control where the active segment is marked by a quiet `--color-surface-elevated` fill via `.theme-switcher__segment[aria-pressed="true"]` ([theme-toggle.css:48](src/css/components/theme-toggle.css#L48)) per PR-6 (PR-27),
+**When** Aurora restyles the chrome controls cluster,
+**Then** the segmented control keeps its restraint-first register (active = subtle fill, no loud accent), the `:focus-visible` outline at [theme-toggle.css:42](src/css/components/theme-toggle.css#L42) stays visible against the re-valued chrome fill, and the active-segment marking remains driven solely by the `aria-pressed="true"` attribute (PR-6 control behavior preserved),
+**And** the toggle continues to consume only semantic tokens (zero third-party runtime deps, no inline `<style>`; NFR6/NFR7 CSP).
+
+**Given** the language flag dropdown rendered into `.chrome-header__language-switcher` per PR-7 — a trigger `[aria-haspopup="listbox"]` and a `role="listbox"` menu with `.language-switcher__menu` using `--color-surface-elevated` + `--shadow-overlay` ([language-switcher.css:54](src/css/components/language-switcher.css#L54)) — and the FR8 locale-lock that sets the trigger `aria-disabled="true"` (driven by [language-switcher.js:37](src/assessment/language-switcher.js#L37)) (PR-27),
+**When** Aurora restyles the dropdown trigger, menu and options,
+**Then** the disabled trigger register `.language-switcher__trigger[aria-disabled="true"]` ([language-switcher.css:45](src/css/components/language-switcher.css#L45)) and `aria-selected="true"` active-option marking ([language-switcher.css:94](src/css/components/language-switcher.css#L94)) are preserved, the menu retains an opaque elevated fill (so listbox text stays AA-legible regardless of backdrop) and the `[hidden]` → `display:none` rule still collapses the closed menu,
+**And** the FR8 blocker hint pathway is intact — the blocked-state styling continues to hang off `[aria-disabled="true"]` so the teachable-moment hint fires unchanged (FR8 locale-switch blocker preserved; full variants must still be blocked, so styling makes no assumption about session length).
+
+**Given** the chrome footer methodology / discussions / citation links and the theme-toggle slot ([chrome-footer.css:28](src/css/components/chrome-footer.css#L28)) carrying neutral chrome-level weight (no accent CTA register) per UX-DR3,
+**When** Aurora is applied to the footer and any remaining product/dialog surfaces,
+**Then** the supporting links keep their muted default with the `:hover`/`:focus-visible` underline+link-color reveal and the visible focus-ring outline at [chrome-footer.css:46](src/css/components/chrome-footer.css#L46), and any dialog/overlay surfaces consume the same re-valued semantic glass + `--shadow-overlay` roles rather than new primitives,
+**And** the change stays within the 2300-line `css-components-lines` budget in [BUDGETS.json](BUDGETS.json) and the build remains deterministic and byte-stable (NFR21).
+
+**Given** print output is forced light/opaque and strips chrome/glass/CTAs while keeping the co-equal triplet + disclaimer per [print.css](src/css/print.css),
+**When** the Aurora token re-values land,
+**Then** the print path still resolves chrome and glass to the opaque light render (no Aurora navy bleeds into print) and the co-equal Percentile / IQ-scale / Range triplet on the result remains intact,
+**And** no EN copy or methodology corpus body is edited by this story, so no NFR27 translation-parity cascade is triggered (co-equal triplet + NFR27 parity preserved).
+
+**Requirements covered:** PR-22, PR-27
+**Depends on:** 14.2
+
+### Story 14.6: Assessment question-to-answer rendering correctness
+
+As a **test-taker comparing a matrix question against its candidate answers**,
+I want **the answer options rendered at the same visual scale and fidelity as a cell of the question grid, with clearly distinguished selection states**,
+So that **I judge each candidate on its merits rather than fighting size mismatch, clipping, or ambiguous selection feedback that could distort my response and therefore my score**.
+
+**Acceptance Criteria:**
+
+**Given** the option-figure width is authored as `clamp(3rem, 11vh, 6rem)` against a matrix `max-height: 42vh` and the cell size is *assumed* to be ~11vh of a notional 3x3 grid (PR-24) — see [item-runner.css:111](src/css/components/item-runner.css#L111) and [item-runner.css:34](src/css/components/item-runner.css#L34), with no runtime link between the two — when an item renders in [buildMarkup](src/assessment/item-runner.js), then a runtime check computes the rendered matrix-cell edge as `getBoundingClientRect()` width of `.item-runner__image` divided by the item's grid column count, and a Playwright rendered-scale test (a verification assertion, not a production runtime throw) asserts each `.item-runner__option-figure` rendered width is within +/-5% of that cell edge across the 320px, 600px, 1024px and 1440px breakpoints — tightening and superseding the prior +/-10% (60–110%) tolerance of the Epic-11 PR-2b check in [pr2-mobile-layout.spec.mjs](tests/playwright/pr2-mobile-layout.spec.mjs), which is updated to the +/-5% target; **And** the co-equal Percentile/IQ-scale/Range result triplet and the frozen Epic 11/13 DOM contracts (`section.item-runner`, `#item-runner-heading`, the `fieldset.item-runner__options` radio group) are preserved, names and `value` attributes unchanged.
+
+**Given** the grid dimensions are presently hardcoded only as a CSS assumption with no per-item source of truth, and the pool schema forbids extra keys via `additionalProperties: false` (PR-24) — see [item-parameters.schema.json:22](corpus/item-parameters.schema.json#L22) — when the renderer needs the cell size, then the item (or pool) JSON carries explicit grid dimensions (`gridRows`/`gridCols`) added to the schema as *optional* properties — so the existing four stub pools, which omit them, keep validating unchanged under `additionalProperties: false`, and the renderer treats their absence as the 3x3 default — [resolveVariant](src/assessment/methodology-registry.js) surfaces or forwards the value so [item-runner.js](src/assessment/item-runner.js) never re-assumes 3x3, and a contract test asserts every pool item's declared (or defaulted) grid agrees with the asset; **And** NFR27 translation parity holds — the new fields are language-neutral numeric metadata (no EN stem/explanation text introduced, no `sourceHashEN` cascade triggered) and the build stays byte-stable (NFR21).
+
+**Given** the matrix `<img class="item-runner__image">` declares `aspect-ratio: 1 / 1` and option images declare `aspect-ratio: 1 / 1` with `width: 100%; height: auto` (PR-24) — see [item-runner.css:35](src/css/components/item-runner.css#L35) and [item-runner.css:118](src/css/components/item-runner.css#L118) — when any matrix or option asset is laid out, then a computed-style test confirms the rendered aspect ratio of both equals the source SVG `viewBox` ratio (no stretch, squash, or letterbox), line-weight and internal spacing are not visibly altered by the box `padding` or `flex` centering, and no option image is clipped by its `.item-runner__option-figure` bounds; **And** zero third-party runtime dependencies are introduced (NFR6/NFR7 CSP) — sizing remains pure CSS plus a same-origin geometry assertion, with no inline `<style>`.
+
+**Given** selection state is conveyed by `.item-runner__option:has(input:checked)`, hover by `:hover`, and focus by `:focus-within` on the label, but there is **no explicit `input:focus-visible` rule** for the native radio — see [item-runner.css:88](src/css/components/item-runner.css#L88) and [item-runner.css:94](src/css/components/item-runner.css#L94), and the only `:focus-visible` rules target the bail controls at [item-runner.css:215](src/css/components/item-runner.css#L215) — when a user keyboard-navigates the radio group (PR-24), then an explicit `.item-runner__option input:focus-visible` (or `:focus-within:has(:focus-visible)`) indicator is added that does not rely on the browser default outline, and selected / focused / hovered / disabled / unselected are each visually distinct (distinguishable without color alone per WCAG 1.4.1); **And** WCAG 2.2 AA is preserved — the focus indicator meets 2.4.11 non-obscured and 1.4.11 non-text-contrast, consumes only semantic tokens (`--color-focus-ring` and friends), and the axe-core + Lighthouse a11y >= 0.90 gates pass in both light and dark themes.
+
+**Given** mobile narrows the matrix to `max-height: 30vh` and option figures to `clamp(3rem, 9vh, 5rem)`, and the options region scrolls within itself with a sticky nav (PR-24) — see [item-runner.css:297](src/css/components/item-runner.css#L297), [item-runner.css:301](src/css/components/item-runner.css#L301), and [item-runner.css:307](src/css/components/item-runner.css#L307) — when the viewport is 320px wide, then a Playwright computed-style bbox test confirms no option image shrinks below a legible minimum, none is clipped or horizontally overflows its tile, the +/-5% cell-parity tolerance still holds at the mobile cell size, and the meaning of the question (cell ordering, missing-cell position) is unchanged by responsive reflow; **And** the frozen Epic 11/13 DOM contract and the local-only posture (NFR6, no telemetry) are preserved — reflow is layout-only with no network or state side effects.
+
+**Given** augmentation (`rot90`/`rot180`/`flip-h`/...) is applied via CSS `transform` to the **matrix only** while options are never transformed, and the correct answer is matched purely by filename string (`value === item.correct`) (PR-24) — see [item-runner.css:181](src/css/components/item-runner.css#L181), [item-runner.js:96](src/assessment/item-runner.js#L96), and [item-runner.js:145](src/assessment/item-runner.js#L145) — when an item renders its options including the correct one, then a test asserts each displayed option (and specifically the `item.correct` option) is visually equivalent to its source SVG with no transform applied, and a regression guard asserts that if options ever do receive augmentation the scoring match in [item-runner.js](src/assessment/item-runner.js) is re-keyed to the augmented identity rather than raw filename (failing loudly if option transforms are introduced without a scoring update); **And** the deterministic byte-stable build (NFR21) and the existing scoring parity are preserved — no change to `item.correct` keying, seed/PRNG selection, or the recorded 0/1 response semantics.
+
+**Requirements covered:** PR-24
+**Depends on:** 14.2
+
+### Story 14.7: Restrained Aurora assessment route and no-timer UI
+
+As a **test-taker working through the assessment**,
+I want **a calmer, restrained Aurora treatment on the question/progress/navigation/options surfaces with no timer or speed cues anywhere**,
+So that **I can concentrate on pattern recognition at my own pace without depth effects, motion, or time-pressure signals competing for my attention**.
+
+**Acceptance Criteria:**
+
+**Given** the deep-navy spatial backdrop and replaced glass token values land in 14.2 and the item-runner consumes `--color-surface-base` for the scene and `--color-surface-elevated` for the matrix/option/nav chrome (PR-23) per [item-runner.css:25](src/css/components/item-runner.css#L25), [item-runner.css:41](src/css/components/item-runner.css#L41),
+**When** the assessment route renders the `.item-runner` scene over the Aurora backdrop,
+**Then** the question, progress, navigation, and answer-option surfaces read at a deliberately lower glass intensity than the landing/result surfaces — the matrix card and option tiles use the muted glass role (e.g. `--surface-glass` / a restrained backdrop-blur step no stronger than `--glass-blur-md`) rather than `--surface-glass-strong`, with no decorative aurora gradient layered behind the working area,
+**And** components consume ONLY semantic tokens (no literal hex/px, no inline `<style>`, zero third-party runtime deps per NFR6/NFR7 CSP) and the frozen Epic 11/13 item-runner DOM contract (`section.item-runner`, `#item-runner-heading`, `.item-runner__progress`, `.item-runner__image`, `.item-runner__options`, `#prev-btn`, `#next-btn`) is preserved.
+
+**Given** the global `prefers-reduced-motion` block in [base.css](src/css/base.css) zeroes durations and the Aurora restraint applies to the assessment route (PR-23),
+**When** a user with reduced-motion preference, or any user dwelling on an item, views the question surfaces,
+**Then** the assessment route exhibits no animated aurora, no parallax, and no gamified motion on the matrix, options, progress, or nav — transitions stay confined to the existing short hover/focus border/shadow tweaks in [item-runner.css:80](src/css/components/item-runner.css#L80) and respect the reduced-motion override,
+**And** WCAG 2.2 AA is preserved (no motion that cannot be disabled) and the byte-stable deterministic build (NFR21) is unaffected.
+
+**Given** the no-timer visual policy and the methodology copy that already states "no time limit" / "self-paced" in [what-this-does-not-measure/index.md](src/content/methodology/en/limitations/what-this-does-not-measure/index.md) (PR-28),
+**When** the assessment route renders any item, the progress header, the navigation, and the answer options,
+**Then** no timer, countdown, elapsed-time, stopwatch, speed-score, "time remaining", "X seconds left", or time-pressure/time-gamification element is present in the DOM or CSS of the assessment route — only self-paced / no-time-limit messaging is permitted, and `.item-runner__progress` continues to render position only ("Item N of total") via the existing `progressTemplate` in [item-runner.js:87](src/assessment/item-runner.js#L87),
+**And** the co-equal Percentile/IQ-scale/Range result triplet and frozen Epic 11/13 DOM contracts remain untouched (this story adds no scoring or result change).
+
+**Given** the in-place update path mutates the progress text without recreating the element at [item-runner.js:255](src/assessment/item-runner.js#L255) (PR-28),
+**When** the user advances or retreats between items,
+**Then** the progress indicator updates only the "Item N of total" count and never introduces a time/duration string, so the dwell-gate `setTimeout` in [consent.js:76](src/assessment/consent.js#L76) (an unrelated consent affordance) remains the only timer in the codebase and surfaces no user-facing countdown on the assessment route,
+**And** local-only operation (NFR6, no telemetry of response timings) is preserved.
+
+**Given** the PR-2 mobile layout fixes — scrollable options region and sticky bottom nav — in [item-runner.css:288](src/css/components/item-runner.css#L288) and the desktop 3-column option grid in [item-runner.css:319](src/css/components/item-runner.css#L319) (PR-23),
+**When** the restrained Aurora treatment is applied across viewport widths 320–1440,
+**Then** the sticky `.item-runner__nav` (`position: sticky; inset-block-end: 0`), the `overflow-y: auto` `.item-runner__options` scroll region, the `max-height` matrix sizing (42vh desktop / 30vh mobile / 32vh ≥48rem), and the option-figure clamp sizing in [item-runner.css:111](src/css/components/item-runner.css#L111) all remain functionally intact — Previous/Next stay reachable without page scroll and options never clip,
+**And** the frozen item-runner DOM contract and WCAG 2.2 AA (visible focus, keyboard operability via the native `<input type="radio">` group) are preserved.
+
+**Given** 14.6 owns the runtime matrix/option scale-parity, visible focus, and correct-answer visual equivalence on the option figures (PR-24) and this story pairs with it on the same `.item-runner__option-figure` / `.item-runner__option-image` surfaces (PR-23),
+**When** the restrained Aurora chrome is applied to the answer-option tiles,
+**Then** the calmer glass intensity is layered onto the option tiles WITHOUT regressing 14.6's option rendering — the figure width clamp, `aspect-ratio: 1 / 1`, selected-state `:has(input:checked)` border, and focus-within affordance in [item-runner.css:88](src/css/components/item-runner.css#L88) all continue to behave as specified by 14.6,
+**And** translation parity is preserved (NFR27) — any EN string touched in [strings.json](src/content/i18n/en/strings.json) cascades to PL/RU with no new time/duration copy introduced and no `sourceHashEN`-bearing methodology corpus body altered.
+
+**Given** the rendered-verification approach introduced in Epic 14 (committed visual-regression baselines, ~1–2% maxDiffPixelRatio, the documented new CI exception),
+**When** the assessment route is captured for the restraint + no-timer policy,
+**Then** the verification asserts both that the assessment surfaces read at a lower glass intensity than landing/result (restraint) and that the rendered assessment DOM/CSS contains no timer/countdown/elapsed/speed-score element (a forbidding assertion analogous to the duration-regex guard in [9e-1-tester-credibility.test.mjs](tests/scaffold/9e-1-tester-credibility.test.mjs)), in both light and dark themes,
+**And** the byte-stable build (NFR21) and the "no new pr-checks.yml job post-Epic-1" CI discipline are honored — any new check rides the Epic 14 documented visual-regression exception rather than adding an ad-hoc PR job.
+
+**Requirements covered:** PR-23, PR-28
+**Depends on:** 14.2, 14.6
+
+### Story 14.8: Aurora results and saved-results surfaces
+
+As a **person reading my completed-assessment result**,
+I want **the result card and my saved-results list to sit on the Aurora spatial backdrop with legible, depth-bearing glass**,
+So that **the Percentile / IQ-scale / Range estimate reads clearly without the flat, blur-imperceptible chrome that Epic 13 left on the dark theme**.
+
+**Acceptance Criteria:**
+
+**Given** the result card is styled by [score-panel.css:8-23](src/css/components/score-panel.css#L8) which composites `--surface-glass-strong` + `blur(var(--surface-glass-blur))` over the Aurora backdrop introduced in Story 14.2,
+**When** the revealed `.score-panel` renders against the deep-navy spatial backdrop,
+**Then** the glass blur and `--surface-glass-shadow` are perceptibly distinct from the page background on both light `[data-theme]` and `@media (prefers-color-scheme: dark)` paths in [semantic.css:68-72,99-102](src/css/semantic.css#L68), consuming ONLY semantic role tokens (no raw primitive or literal color added to score-panel.css),
+**And** the `@supports not (backdrop-filter: blur(1px))` opaque fallback at [score-panel.css:21-23](src/css/components/score-panel.css#L21) is retained so SC 1.4.3 (4.5:1) holds, preserving the zero-third-party / no-inline-`<style>` invariant (NFR6/NFR7).
+
+**Given** the co-equal triplet `.score-panel__percentile` / `.score-panel__anchor` / `.score-panel__band` carries `flex: 1 1 0` and equal `--font-size-600` typography at [score-panel.css:37-66](src/css/components/score-panel.css#L37), enforced at source by [lint-css-source-co-equal.mjs](tools/lint-css-source-co-equal.mjs) (PR-25),
+**When** Aurora restyles the result surface,
+**Then** the three triplet members keep identical font-size, font-weight, font-family, and `flex-basis`, the `.score-panel__metric-label { min-block-size: 2lh }` reservation is untouched, and `lint-css-source-co-equal.mjs` passes with no diff,
+**And** the FR18 co-equal Percentile/IQ-scale/Range bbox-area parity (the Epic-3 score-panel invariant) is preserved across 320–1440px.
+
+**Given** PR-5 vertical centering lives in the `data-reveal-stage` rules at [score-panel.css:124-154](src/css/components/score-panel.css#L124) and PR-13 collapses the disclaimer to a native `<details>` via `DISCLAIMER()` in [result.js:99-110](src/assessment/result.js#L99) (PR-25),
+**When** the reveal graduates through `band` → `interval` → `context` → `tail-scene` → `methodology-handoff` as dispatched in [result.js:246-251](src/assessment/result.js#L246),
+**Then** the revealed `.result-scene` still `justify-content: center`s its column (no top-hug), the `.score-panel__explainer` disclaimer still renders collapsed-by-default with only its first sentence visible and `.disclaimer__summary:focus-visible` outlined, and the frozen Epic 11/13 DOM contracts (`section.result-scene`, `#score-panel-heading`, the `.score-panel__triplet` markup) are unchanged,
+**And** the global `prefers-reduced-motion` durations-zeroing block in [base.css](src/css/base.css) continues to govern any Aurora transition added to this surface (WCAG 2.2 AA).
+
+**Given** the saved-result detail view reuses `.score-panel` + `.score-panel__triplet` under `data-reveal-stage="methodology-handoff"` / `data-saved-result-view` rendered in [saved-results.js:208-224](src/assessment/saved-results.js#L208) and styled by [saved-results.css:25-37](src/css/components/saved-results.css#L25) (PR-25),
+**When** a saved result is opened from the list,
+**Then** the detail view picks up the same Aurora glass score-panel as the live result with its own co-equal triplet intact, and `.saved-result-detail .score-panel { margin-inline: auto }` keeps it centered,
+**And** the saved-detail triplet stays a co-equal Percentile/IQ-scale/Range set with no per-member typography divergence (FR18 invariant preserved on the saved surface too).
+
+**Given** the saved-results list rows (`.saved-results__item`), per-row select checkboxes, open buttons, and the delete-selected / delete-all actions in [saved-results.js:122-150](src/assessment/saved-results.js#L122) drive list/open/delete entirely through `save-result.js`'s `isSaved()` read and key-scoped `window.localStorage` access at [save-result.js:31-51](src/assessment/save-result.js#L31) (PR-14),
+**When** Aurora restyles `.saved-results`, `.saved-results__item`, `.saved-results__actions button`, and `.saved-results__open` in [saved-results.css:9-119](src/css/components/saved-results.css#L9),
+**Then** list rendering, opening a saved result, delete-selected, and delete-all keep functioning client-side only with no network request (verified by the Playwright network-trace), and every interactive control retains a `:focus-visible` outline,
+**And** the local-only / no-telemetry invariant (NFR6) is preserved — restyling adds CSS only and changes no storage or fetch behavior.
+
+**Given** [print.css](src/css/print.css) forces a light, white-background, chrome-stripped result that keeps the co-equal triplet, difficulty band, and forced-open disclaimer (PR-25),
+**When** the result page is printed after Aurora is applied,
+**Then** the printed view drops the Aurora backdrop and glass exactly as before, keeps the co-equal triplet + disclaimer at the 42rem max-width, and the byte-stable double-build diff (`make test-byte-stable`) stays clean,
+**And** the `css-components-lines` budget in [BUDGETS.json](BUDGETS.json) (limit 2300) is not exceeded by the restyle (NFR21 deterministic byte-stable build preserved).
+
+**Given** Epic 14 introduces a documented visual-regression CI exception with committed baselines on ubuntu-latest at ~1–2% `maxDiffPixelRatio` (PR-25),
+**When** baseline screenshots are captured for the result surface,
+**Then** committed Playwright screenshot baselines exist for the top-tail (`.score-panel--top-decile`), mid (default), and bottom-tail (`.score-panel--bottom-decile`) result variants — driven via the seeded `window.__IQME_TEST__` harness — in both light and dark themes, and the saved-result detail view is covered,
+**And** the new visual-regression job follows the CI discipline (added as the single documented Epic-14 exception, not a fan-out of ad-hoc jobs) and asserts the co-equal triplet bbox parity still holds in the rendered pixels (WCAG 2.2 AA + FR18 invariants verified at render time).
+
+**Requirements covered:** PR-25
+**Depends on:** 14.2
+
+### Story 14.9: Ink-economical Aurora print/PDF result document
+
+As a **test-taker who exports or prints my result for my own records**,
+I want **the printed/PDF page to be a deliberate ink-economical document rather than a screenshot of the glass UI**,
+So that **I get a clear, high-contrast, honestly-framed summary that reads correctly on white paper in any of the three locales**.
+
+**Acceptance Criteria:**
+
+**Given** the Aurora token revaluation lands a deep-navy spatial backdrop and glass-fill changes (PR-26) consumed by the screen result via [result.js:128](src/assessment/result.js#L128), and the existing `@media print` block in [print.css:53](src/css/print.css#L53) already forces `color-scheme: light` with `#ffffff` background and `#111111` ink,
+**When** the result page is printed or exported to PDF,
+**Then** the printed document carries NO Aurora glass — `backdrop-filter`, translucency, `--surface-glass*`, and the deep-navy backdrop are all absent, and `.result-scene`/`.score-panel` render with `box-shadow: none`, `border: none`, and a `42rem` reading measure ([print.css:75-84](src/css/print.css#L75)),
+**And** the zero-third-party / no-inline-`<style>` invariant (NFR6/NFR7) holds: print restyling stays in [print.css](src/css/print.css) within the existing component-CSS byte budget, with no new runtime dependency.
+
+**Given** a documented decision is required on whether print carries a simplified Aurora accent ink or stays scientific-neutral (PR-26),
+**When** the design choice is recorded as a code comment block at the head of the `@media print` section in [print.css:45-52](src/css/print.css#L45),
+**Then** the chosen direction is stated and justified (ink economy + grayscale-printer fidelity), and the printed masthead title, date, triplet, difficulty sentence, and footer use only the dark-ink ramp (`#111111`/`#333333`/`#555555`/`#777777`) already defined — no Aurora color token bleeds into print unless the accent decision explicitly permits a single neutral hairline accent,
+**And** the co-equal Percentile / IQ-scale / Range triplet stays visually co-equal: `.score-panel__percentile`, `.score-panel__anchor`, and `.score-panel__band` print at uniform `#111111` weight with the preserved triplet flex layout ([print.css:117-128](src/css/print.css#L117)).
+
+**Given** the disclaimer renders on screen as a collapsed native `<details class="disclaimer score-panel__explainer">` ([result.js:103-110](src/assessment/result.js#L103)) and the difficulty sentence is reveal-gated,
+**When** the document is printed,
+**Then** the full not-a-certificate / not-a-clinical-assessment disclaimer is forced open and printed in entirety (`.disclaimer` + `.disclaimer__summary` + body shown, marker hidden) and `.score-panel__difficulty-sentence` is forced `display: block` ([print.css:142-162](src/css/print.css#L142)), so no ink-saving or reveal-gating ever suppresses the caveat,
+**And** the honest-framing invariant is preserved: the printed page is explicitly NOT a credential, with the disclaimer and `.score-panel__caveat` (PR-13) intact alongside the co-equal triplet.
+
+**Given** interactive chrome must not leak into the document (PR-26) and the screen view contains the Download/Print button, Save button, retest note, reveal-stage buttons, and tail scene,
+**When** the page is printed,
+**Then** `.chrome-header`, `.chrome-footer`, `.result-print-btn`, `.score-panel__save-button`, `.score-panel__retest-note`, `.rs-show`, `.rs-not`, and `.tail-scene` are all `display: none` ([print.css:61-71](src/css/print.css#L61)), while the print-only masthead `.result-print-only` and footer `.result-print-footer` (hidden on screen, emitted by `PRINT_HEAD`/`PRINT_FOOTER` in [result.js:92-96](src/assessment/result.js#L92)) become visible,
+**And** the frozen Epic 11/13 DOM contracts are preserved: no markup class names are renamed, the score-panel co-equal triplet structure is untouched, and the masthead/footer remain print-only `display: none` on screen.
+
+**Given** the masthead emits an ISO date via `PRINT_HEAD` ([result.js:92](src/assessment/result.js#L92)) and the footer is a locale-agnostic structural identity line `IQ-ME · /methodology/${CV}/` ([result.js:96](src/assessment/result.js#L96)),
+**When** the document prints,
+**Then** the title is the dominant type (`--font-size-600`, semibold, `text-wrap: balance`), the date sits quiet beneath a `#cccccc` hairline rule with `tabular-nums`, and the footer prints centered in `#777777` beneath a closing hairline ([print.css:94-115](src/css/print.css#L94), [print.css:166-175](src/css/print.css#L166)),
+**And** the footer carries no translatable prose so the structural identity line introduces no NFR27 translation-parity cascade.
+
+**Given** RU and PL strings (`printTitle`, `caveat`, `resultExplainer`, `difficultySentenceTemplate`, `bandTemplate`) are typically longer than EN and the document is constrained to a wrapping `42rem` measure rather than a fixed width,
+**When** the result is printed in each of EN, RU, and PL,
+**Then** no content is clipped or truncated: all text wraps within the reading measure, and `break-inside: avoid` keeps `.score-panel__triplet`, `.disclaimer`, and `.result-print-footer` from orphaning across page breaks ([print.css:177-182](src/css/print.css#L177)),
+**And** NFR27 translation parity is preserved — any EN print-related copy edit cascades to PL/RU with `sourceHashEN` re-bumped, and the printed document reads correctly in all three locales without an EN-only fallback for translatable surfaces.
+
+**Requirements covered:** PR-26
+**Depends on:** 14.2, 14.8
+
+### Story 14.10: Aurora performance budget and reduced-motion hardening
+
+As a **visitor on a low-powered or motion-sensitive device**,
+I want **the Aurora glass surfaces to stay lightweight and to honor my reduced-motion preference everywhere**,
+So that **the assessment loads fast, scrolls smoothly, and never conveys meaning through motion I cannot see**.
+
+**Acceptance Criteria:**
+
+**Given** the per-surface composite-layer budget defined in Story 14.1 (PR-29) and the capped blur primitives `--glass-blur-sm`/`--glass-blur-md`/`--glass-blur-lg` (6/12/20px) in [primitives.css:109](src/css/primitives.css#L109),
+**When** the Aurora surfaces from Stories 14.3-14.9 are audited,
+**Then** no single Aurora surface stacks more than one `backdrop-filter` layer plus its own bounded set of decorative gradient layers (the deep-blur `--glass-blur-lg` remains reserved for a single full-bleed hero as documented at [primitives.css:111](src/css/primitives.css#L111)), and the limits are asserted by a new source-regex scaffold test under [tests/scaffold/](tests/scaffold),
+**And** the two-layer token architecture is preserved (components consume only semantic roles, never primitives) with zero third-party runtime deps (NFR6/NFR7 CSP, no inline `<style>`).
+
+**Given** the global motion safety net in [base.css:140](src/css/base.css#L140) and the scene-level reduce override in [landing.css:179](src/css/components/landing.css#L179),
+**When** a user with `prefers-reduced-motion: reduce` loads each Aurora surface,
+**Then** every Aurora surface ships its own per-scene opacity/positioning fallback (mirroring the `.landing__aurora` static-state rule at [landing.css:181](src/css/components/landing.css#L181), which pins `opacity: 0.35` and `transform: none`) rather than relying only on the global duration-zeroing, so the static composite is the deliberate end-state and not a mid-animation frame,
+**And** no information is conveyed by motion alone — identical content appears in identical order, instantly (WCAG 2.2 AA, Epic 13 §4.3 contract).
+
+**Given** the responsive breakpoints `--bp-tablet` (600px) / `--bp-desktop` (1024px) in [primitives.css:132](src/css/primitives.css#L132) and the existing mobile step-downs at [base.css:88](src/css/base.css#L88) and [landing.css:192](src/css/components/landing.css#L192),
+**When** an Aurora surface renders below the tablet breakpoint,
+**Then** gradients, blur radius, and motion progressively simplify (fewer gradient stops and/or a smaller blur step, no oversized full-bleed `--glass-blur-lg` blur on phones), avoiding overly complex mobile layouts,
+**And** the frozen Epic 11/13 DOM contracts (`section.landing`, `h1#landing-heading`, `#start-test-btn`, `.landing__methodology-link`) are preserved — only styling and decorative wrappers change.
+
+**Given** the existing `@supports not (backdrop-filter: blur(1px))` opaque fallback at [landing.css:67](src/css/components/landing.css#L67) and the AA contrast guarantee carried by the `--glass-fill` alpha, not by blur ([primitives.css:108](src/css/primitives.css#L108)),
+**When** an Aurora surface is rendered on a browser without `backdrop-filter` support or with the decorative aurora layer suppressed,
+**Then** each surface degrades to its strong opaque fill and remains AA-legible with no loss of any text or control,
+**And** the co-equal Percentile/IQ-scale/Range triplet remains fully visible and legible on the result surface across every degradation path.
+
+**Given** the Lighthouse a11y/perf budgets enforced in CI ([pr-checks.yml](.github/workflows/pr-checks.yml)) and the rendered-verification job introduced in this epic,
+**When** the Aurora-budgeted surfaces are measured in both light and dark schemes,
+**Then** FCP/LCP and the documented Lighthouse perf budgets do not regress against the pre-14.10 baseline (no new long composite/paint cost from added glass layers), captured by the committed-baseline visual/perf checks on `ubuntu-latest`,
+**And** the build stays deterministic and byte-stable (NFR21) with the `css-components-lines` budget in [BUDGETS.json](BUDGETS.json) (limit 2300) not exceeded.
+
+**Given** the dark-glass composite root failure that Epic 14 addresses (glass blurring against a near-uniform `neutral-900` page bg) and the spatial backdrop introduced earlier in this epic,
+**When** the Aurora surfaces are simplified for performance and reduced motion,
+**Then** the spatial backdrop still provides enough non-uniform contrast for the bounded blur to read as depth, so the lightweight path does not silently re-introduce the imperceptible-glass regression,
+**And** all changes remain local-only with no telemetry (NFR6) and, if any EN copy is touched, cascade to PL/RU with a bumped `sourceHashEN` (NFR27 translation parity).
+
+**Requirements covered:** PR-29
+**Depends on:** 14.1, 14.3, 14.4, 14.5, 14.6, 14.7, 14.8, 14.9
+
+### Story 14.11: Rendered visual-regression, contrast, reduced-motion and print verification suite
+
+As a **psychometrician-minded reviewer auditing the Aurora redesign**,
+I want **a browser-rendered verification suite that proves the deep-navy spatial backdrop, glass legibility, question/answer scale parity, focus visibility, reduced-motion behaviour and print output actually render correctly — not merely that the CSS source parses**,
+So that **the Epic 14 visual changes are guarded against silent regression by what the user sees, since structural CSS-source assertions cannot catch a backdrop that composites flat or an option icon that mismatches its matrix cell**.
+
+**Acceptance Criteria:**
+
+**Given** Epic 14 ships rendered Aurora surfaces but the existing Playwright suite has no `toHaveScreenshot` baselines (PR-30) — `grep -rl toHaveScreenshot tests/` returns nothing and no `*-snapshots/` directories exist beside [tests/playwright/](tests/playwright/),
+**When** a new `tests/playwright/aurora-visual-regression.spec.mjs` drives the seeded happy-path via `window.__IQME_TEST__` (the [trust-verification.spec.mjs](tests/playwright/trust-verification.spec.mjs) `?test=1` + `tools/dev-server.mjs` template) and calls `await expect(page).toHaveScreenshot()` per route (landing, consent, item-runner, result pre-reveal, revealed score-panel, top-decile + bottom-decile tail-scenes, ≥1 methodology page) at the approved viewports 320/375/414/768/1024/1280/1440,
+**Then** committed PNG baselines are stored under `tests/playwright/aurora-visual-regression.spec.mjs-snapshots/` and the spec runs with `maxDiffPixelRatio` in the documented ~0.01–0.02 (1–2%) range to tolerate font-hinting jitter without masking composition drift,
+**And** the frozen Epic 11/13 DOM contracts (`.landing`, `h1#landing-heading`, `#start-test-btn`, `.landing__methodology-link`, the co-equal `.score-panel` Percentile/IQ/Range triplet) are exercised but unmodified, and the run stays zero-third-party (NFR6) — only `@playwright/test` is installed at CI time, never bundled.
+
+**Given** the matrix renders `img.item-runner__image` and the option figures render `img.item-runner__option-image` with no runtime link between matrix-cell size and option size — matrix is height-bound (`max-height: 42vh` desktop / `30vh` mobile, `aspect-ratio: 1 / 1`) in [item-runner.css:34](src/css/components/item-runner.css#L34) while options use `width: clamp(3rem, 11vh, 6rem)` ([item-runner.css:111](src/css/components/item-runner.css#L111), mobile `clamp(3rem, 9vh, 5rem)` at [item-runner.css:302](src/css/components/item-runner.css#L302)) (PR-30),
+**When** the suite navigates to `test`, waits for `.item-runner, .item-runner-scene`, and reads the live `getBoundingClientRect()` of the rendered matrix cell versus an option figure at each approved viewport,
+**Then** the computed option-icon width is asserted within ±5% of the computed matrix-cell size and both retain `aspect-ratio: 1 / 1` (no distortion), failing the test if the unlinked sizing diverges at any width,
+**And** the assertion reads rendered computed geometry (not CSS source) and preserves the WCAG 2.2 AA target-size of the native `input[type=radio]` controls without altering the frozen item-runner DOM.
+
+**Given** mobile viewports below `30rem` switch the matrix to `max-height: 30vh` and options to `clamp(3rem, 9vh, 5rem)` ([item-runner.css:298](src/css/components/item-runner.css#L298), [item-runner.css:302](src/css/components/item-runner.css#L302)) (PR-30),
+**When** the suite iterates the seven widths 320/375/414/768/1024/1280/1440 and inspects the rendered matrix and option images,
+**Then** it asserts no clipping (each image `getBoundingClientRect()` stays within its container and within the viewport — mirroring the `scrollWidth <= clientWidth + 1` overflow check in [trust-verification.spec.mjs:209](tests/playwright/trust-verification.spec.mjs#L209)) and no aspect distortion across the desktop/mobile branch,
+**And** it preserves NFR1 no-horizontal-scroll on every audited surface and leaves the frozen item-runner contract intact.
+
+**Given** the native `input[type=radio]` controls carry `:focus-visible` outlines using `--color-focus-ring` at [item-runner.css:215](src/css/components/item-runner.css#L215) and [item-runner.css:277](src/css/components/item-runner.css#L277), and `:has(input:checked)` paints the selected-answer border (PR-30),
+**When** the suite tabs through the options keyboard-only and captures the rendered focused and `:checked` states,
+**Then** it asserts a visible focus indicator is present on the focused control and the selected-answer border renders over the Aurora backdrop (computed outline/box colour differs measurably from the unfocused state), plus a `toHaveScreenshot` of the focused option,
+**And** keyboard reachability of every option is preserved and the run honours WCAG 2.2 AA focus-appearance with zero-third-party (NFR6).
+
+**Given** [base.css](src/css/base.css) carries a global `prefers-reduced-motion: reduce` block (~L140–149) zeroing durations `!important` and `landing.css` adds a per-scene reduced-motion override (~L177–189) (PR-30),
+**When** the suite re-runs the route screenshots under `await page.emulateMedia({ reducedMotion: 'reduce' })`,
+**Then** it asserts the Aurora-animated surfaces settle to their static end-state (a stable `toHaveScreenshot` under reduced-motion that matches across two passes, proving the reduced-motion branch renders rather than animating) on landing and result,
+**And** it verifies the no-motion render does not break the deep-navy backdrop contrast or the co-equal triplet, preserving the byte-stable build (NFR21) since these are test-only baselines.
+
+**Given** [print.css](src/css/print.css) forces a light, white-background, chrome/glass/CTA-stripped layout that keeps the co-equal triplet, difficulty band, and forced-open disclaimer at a 42rem max-width (PR-30),
+**When** the suite seeds a result session and calls `await page.pdf()` (or `emulateMedia({ media: 'print' })` + screenshot for the print-media render review),
+**Then** it asserts the printed/print-media result contains the co-equal Percentile/IQ-scale/Range triplet, the difficulty band, and the disclaimer rendered open, with glass surfaces and CTAs dropped, captured as a committed print baseline,
+**And** the print path stays local-only with no telemetry (NFR6) and the co-equal triplet invariant is preserved in the print rendering.
+
+**Given** Epic 14 introduces a deep-navy spatial backdrop and replaces semantic token VALUES so glass has contrast to blur against, and text/controls/focus rings/selected answers now sit over Aurora gradients (PR-30),
+**When** the suite extends [trust-a11y.spec.mjs](tests/a11y/trust-a11y.spec.mjs)-style axe-core auditing (its `disableRules(["color-contrast-enhanced"])` AA-only scoping at [trust-a11y.spec.mjs:98](tests/a11y/trust-a11y.spec.mjs#L98)) to assert WCAG 2.2 AA contrast for body text, action controls, focus indicators, and selected-answer borders specifically over the gradient backdrop on each Aurora surface,
+**Then** it reports zero contrast violations for those elements against the rendered gradient (not a flat token), failing if any Aurora-over-gradient element falls below the 4.5:1 / non-text AA bar,
+**And** it preserves WCAG 2.2 AA in both `[data-theme]` palettes via `prefers-color-scheme` without weakening the existing AA assertion.
+
+**Given** the `# Activates in Epic <N>` discipline in [pr-checks.yml:3](.github/workflows/pr-checks.yml#L3) forbids new jobs after Epic 1 (the `eslint` 29th-job exception is documented at [pr-checks.yml:107](.github/workflows/pr-checks.yml#L107)), and Story 14.2 pre-stubbed the visual-regression job with `if: false` (PR-30),
+**When** this story flips the 14.2 stub on (removes its `if: false` + `# Activates in Epic 14` gate) and wires it to run `npx playwright test tests/playwright/aurora-visual-regression.spec.mjs` on `ubuntu-latest`,
+**Then** the no-new-jobs exception note is added beside the existing `eslint` exception in the [pr-checks.yml](.github/workflows/pr-checks.yml) header, [docs/required-ci-checks.md](docs/required-ci-checks.md) gains a row for the activated job under the Accessibility/Playwright section, and [ci-matrix.test.mjs](tests/scaffold/ci-matrix.test.mjs) is updated so the job appears in `ALL_JOBS` and moves into `EPIC_1_ACTIVE` (AC-1/AC-2/AC-3 stay green),
+**And** the baselines are captured on `ubuntu-latest` at the ~1–2% tolerance, the activation preserves the deterministic byte-stable build (NFR21), and no other CI job is added — only the pre-stubbed 14.2 job is graduated as the documented Epic 14 exception.
+
+**Requirements covered:** PR-30
+**Depends on:** 14.2, 14.3, 14.4, 14.5, 14.6, 14.7, 14.8, 14.9, 14.10
+
+### Story 14.12: Commit and guard the assessment-duration copy cleanup
+
+As a **skeptical reader auditing IQ-ME's anti-credentialization posture**,
+I want **every assessment-duration estimate removed from user-facing and project copy, with a permanent guard that fails the build if one reappears**,
+So that **the project never re-implies a fixed completion time for a self-paced, no-time-limit screener — neither in shipped strings nor in trust documents — and the removal cannot silently regress**.
+
+**Acceptance Criteria:**
+
+**Given** the duration-cleanup work has substantially landed in commit `00ea3ea` across 27 files (PR-31), spanning [strings.json](src/content/i18n/en/strings.json), [pl/strings.json](src/content/i18n/pl/strings.json), [ru/strings.json](src/content/i18n/ru/strings.json), the EN/PL/RU methodology corpus, [state.schema.json](src/assessment/state.schema.json), [README.md](README.md), [tester-recruitment-draft.md](docs/launch-readiness/tester-recruitment-draft.md), and [CITATION.cff](CITATION.cff),
+**When** the dev agent runs an exhaustive grep for duration-estimate language (e.g. `\b\d+\s*(minute|min|hour)s?\b` near `test|assessment|session`, plus `about \d+ minutes`, `~\d+\s*min`, `takes about`) over user-facing and project copy,
+**Then** zero remaining matches are found and the agent confirms the working tree carries no uncommitted duration regressions, committing only the files actually changed by PR-31,
+**And** the co-equal Percentile/IQ-scale/Range triplet, frozen Epic 11/13 DOM contracts (`section.landing`, `h1#landing-heading`, `#start-test-btn`, `.landing__methodology-link`), and NFR21 byte-stable build are preserved unchanged.
+
+**Given** the EN SPA strings replaced duration phrasing with self-paced language at [strings.json:19](src/content/i18n/en/strings.json#L19) (`"a self-paced fluid-reasoning screener"`) and in the variant/dwell help (PR-31),
+**When** the dev agent verifies the only time-related copy that remains is from the allowed vocabulary — `self-paced`, `no time limit`, `no time pressure` — and that PL/RU mirror the EN edits with the same intent,
+**Then** the allowed self-paced phrasing is present in all three locales and the `25 minutes` / `~30min` / `about 25 minutes` phrasings are absent everywhere,
+**And** NFR27 translation parity holds (EN body edits cascaded to PL/RU; any methodology-corpus body change bumps `sourceHashEN`), with no new third-party runtime dependency or inline `<style>` introduced (NFR6/NFR7).
+
+**Given** `tools/` already follows a dedicated negative-assertion-lint convention — single-purpose `tools/lint-no-*.mjs` scripts honoring the `IQME_LINT_TARGET` env override (see [lint-no-cookie-banner.mjs](tools/lint-no-cookie-banner.mjs)), each registered in the [Makefile](Makefile) `lint` target and asserted present by [negative-assertion-lints.test.mjs](tests/scaffold/negative-assertion-lints.test.mjs) (PR-31),
+**When** the dev agent adds a dedicated `tools/lint-no-duration-estimate.mjs` that scans user-facing and project copy (`src/content/**`, `README.md`, `docs/launch-readiness/**`, the methodology corpus, schema `description` strings) and flags any duration-estimate regex match while exempting the allowed self-paced/no-time-limit vocabulary,
+**Then** the lint exits 0 on the current tree, exits non-zero on an injected `"takes about 25 minutes"` fixture, is wired into the `Makefile` `lint` target, and a new entry in [negative-assertion-lints.test.mjs](tests/scaffold/negative-assertion-lints.test.mjs) asserts the script exists and is registered,
+**And** the lint is stdlib-only (no third-party deps, NFR33/NFR6) and adds no new CI job — it runs inside the existing eslint/lint job, preserving the post-Epic-1 "no new jobs" CI discipline.
+
+**Given** the guard must not over-match legitimate, non-user-facing duration language — performance benchmarks, launch-schedule dates, and retest-timing methodology (e.g. "test-retest interval") are allowed exclusions (PR-31),
+**When** the dev agent encodes the lint's allowlist/scope so it skips performance/benchmark files, release-schedule docs, and methodology passages describing retest timing, while still catching assessment-completion-time claims,
+**Then** the lint passes against the current corpus (which legitimately discusses retest-interval methodology) yet fails against a synthetic "the test takes 20 minutes" string in shipped copy,
+**And** the validity-envelope and bottom-decile-care methodology pages remain byte-stable except where PR-31 already edited them, with NFR27 parity intact across EN/PL/RU.
+
+**Given** the [9e-1-tester-credibility.test.mjs](tests/scaffold/9e-1-tester-credibility.test.mjs#L56) scaffold was updated by PR-31 to require `self-paced|no time limit` and to forbid a duration estimate in the recruitment draft via the `doesNotMatch` assertion at [9e-1-tester-credibility.test.mjs:57](tests/scaffold/9e-1-tester-credibility.test.mjs#L57) (PR-31),
+**When** the dev agent runs `node --test tests/scaffold/9e-1-tester-credibility.test.mjs` together with the new duration-lint scaffold test,
+**Then** all 9e-1 assertions (AC1 self-paced match + no-duration `doesNotMatch`) pass against [tester-recruitment-draft.md](docs/launch-readiness/tester-recruitment-draft.md) and the new guard's scaffold test passes,
+**And** no fabricated tester tally, telephone number, or duration estimate is introduced into any launch-readiness artifact (governing lesson on pending/trust-critical placeholder content preserved), local-only NFR6 unchanged.
+
+**Given** the full lint and test suites must stay green after the guard is added (PR-31),
+**When** the dev agent runs `make lint`, `make test`, and `make test-byte-stable`,
+**Then** all lints (including the new `lint-no-duration-estimate`), the scaffold registry test, and the byte-stable double-build diff pass with no regressions to the 67 IRT parity tests, methodology snapshots, or translation-parity lint,
+**And** the deterministic byte-identical build (NFR21), WCAG 2.2 AA surfaces, zero-telemetry local-only posture, and the co-equal Percentile/IQ/Range result triplet are all preserved.
+
+**Requirements covered:** PR-31
+
+## Epic 15: Diverse & Credible Extended Assessments
+
+> **Schema/taxonomy-first:** Story 15.1 gates the rest. Mixed MR+LN subscale scoring (15.6) is **additive** to the stable IRT engine (new wrapper, no core change; existing parity tests untouched). Quality gates ship as deferred CI stubs activated per the established discipline. **Human-gated (no-fabrication):** because the >1,500-item target means *approved production items only*, Stories 15.11 (human item-review) and 15.12 (calibration/validation) — and the production bank-size goal — close only on real reviewer/psychometric deliverables; the agent scaffolds plan, pipeline, gates, and experimental-labeling code and produces *candidates*, but cannot close these autonomously (mirrors the 9-series human-gated gates).
+
+### Story 15.1: Item taxonomy, provenance, experimental-status and metadata schema
+
+As a **psychometric content steward maintaining the IQ-ME item bank**,
+I want **the item-parameters schema to carry explicit per-item taxonomy, provenance, experimental-status, difficulty-target and answer-review metadata as backward-compatible optional fields**,
+So that **every later Epic 15 authoring and calibration story has one validated contract to write against, and official ICAR items can never be silently confused with newly-authored ones**.
+
+**Acceptance Criteria:**
+
+**Given** the item object schema in [item-parameters.schema.json](corpus/item-parameters.schema.json#L20) declares `required: ["id","a","b","asset","options","correct"]` with `additionalProperties: false` (PR-32),
+**When** the per-item taxonomy fields are added,
+**Then** the `items.items.properties` block gains OPTIONAL (non-required) keys `rule_family` (string), `provenance` (`enum: ["icar-official","newly-authored"]`), `experimental_status` (`enum: ["draft","pilot","calibrated"]`), `difficulty_target` (number, `minimum: -10`, `maximum: 10`), and `answer_review_state` (`enum: ["draft","reviewed","approved"]`), while `required` is left unchanged and `additionalProperties` stays `false`,
+**And** the additive change preserves the v1 stub-pool contract so the deterministic byte-stable build (NFR21) and zero third-party runtime/dev deps (NFR6/NFR7) are untouched.
+
+**Given** [item-parameters.json](src/items/item-parameters.json#L2) and the three sibling pools resolved by `resolveVariant()` in [methodology-registry.js:25](src/assessment/methodology-registry.js#L25) still validate only because their `_note` STUB marker is exempted by the underscore skip in [_item-parameters-schema-check.mjs:76](tests/contract/_item-parameters-schema-check.mjs#L76) (PR-32),
+**When** the binary `_note` stub convention is replaced with explicit provenance metadata,
+**Then** each of the 4 stub pools ([item-parameters.json](src/items/item-parameters.json), [item-parameters-geometric-full.json](src/items/item-parameters-geometric-full.json), [item-parameters-letter-number.json](src/items/item-parameters-letter-number.json), [item-parameters-letter-number-full.json](src/items/item-parameters-letter-number-full.json)) declares its items as `provenance: "newly-authored"` and `experimental_status: "draft"`, and no item carries `provenance: "icar-official"`,
+**And** the `resolveVariant()` → `{poolUrl, sessionSize}` mapping and frozen 16-item geometric-short pool stay byte-identical in size/order so Epic 11/13 frozen contracts and the co-equal Percentile/IQ-scale/Range triplet are preserved.
+
+**Given** the four `enum`-constrained fields must reject typos but the hand-rolled validator in [_item-parameters-schema-check.mjs:38](tests/contract/_item-parameters-schema-check.mjs#L38) already supports the `enum` keyword (PR-32),
+**When** the schema is validated against a fixture item whose `provenance` is `"icar"` or whose `experimental_status` is `"final"`,
+**Then** [item-parameters-schema.spec.mjs](tests/contract/item-parameters-schema.spec.mjs) gains a negative sub-case asserting `valid === false` with an enum-mismatch error naming the offending field, and a positive sub-case asserting a fully-annotated item validates `true`,
+**And** the validator continues to vendor no third-party JSON-Schema library (NFR6/NFR7), keeping the build deterministic and byte-stable (NFR21).
+
+**Given** an official ICAR item must preserve its license/attribution/source distinctly from newly-authored content, and provenance lint already lives at [lint-license-provenance.mjs](tools/lint-license-provenance.mjs) (PR-32),
+**When** an item declares `provenance: "icar-official"`,
+**Then** the schema makes `rule_family` and an attribution/source carrier mandatory-by-shape for that provenance path (documented in the schema `description`), and the build-tooling lint flags any item labeled `"icar-official"` that lacks preserved attribution, while never auto-relabeling newly-authored items as official,
+**And** this keeps the official-vs-authored separation auditable without introducing telemetry or any local-only (NFR6) violation, and without altering scoring output shape from [index.js](src/scoring/irt/index.js).
+
+**Given** the contract spec currently asserts the geometric-short pool is exactly 16 items at [item-parameters-schema.spec.mjs:74](tests/contract/item-parameters-schema.spec.mjs#L74) (PR-32),
+**When** the metadata schema lands and all 4 stub pools are re-annotated,
+**Then** every existing sub-case (AC-10.5 / 10.5b / 10.5c / 10.5d) still passes unchanged — `poolSize === items.length`, all `asset` filenames resolve under [src/items/](src/items), and the 16/24/12/20 session sizes from [methodology-registry.js:27](src/assessment/methodology-registry.js#L27) are unaffected — proving graceful optional-field defaults,
+**And** no item stem, explanation, or other localizable text is introduced (asset-only items remain), so NFR27 translation parity is not triggered by this story.
+
+**Given** json-schema validation must run inside build tooling and not only in `node:test` (PR-32),
+**When** the build/lint pipeline executes,
+**Then** the item-parameters schema validation is invoked as a build-tooling step (alongside the existing [tools](tools) lints) that validates all 4 pools against [item-parameters.schema.json](corpus/item-parameters.schema.json) and exits non-zero on any enum/provenance/type violation,
+**And** the step adds no new CI job to [pr-checks.yml](.github/workflows/pr-checks.yml) — it runs within an existing job per the post-Epic-1 no-new-jobs discipline — preserving the byte-stable build (NFR21) and zero-third-party (NFR6/NFR7) invariants.
+
+**Requirements covered:** PR-32
+
+### Story 15.2: Variable session-size refactor and FR8 locale-lock bug fix
+
+As a **test-taker who started a 20- or 24-item full variant**,
+I want **the language selector to stay locked for the entire session, exactly as it is for the 16-item short variant**,
+So that **the measurement-invariance guarantee (FR8) holds regardless of which variant I chose, and no session silently lets me change locale mid-test**.
+
+**Acceptance Criteria:**
+
+**Given** the FR8 locale-lock detector at [language-switcher.js:34-41](src/assessment/language-switcher.js#L34) (PR-37) hardcodes `s.responses.length < 16`, so a full-variant session (20 or 24 items) reports "not active" once 16 answers are recorded and the switcher unlocks mid-measurement,
+**When** `defaultIsSessionActive()` evaluates an in-progress session,
+**Then** it derives the threshold from `resolveFromState(getState())` in [methodology-registry.js:48](src/assessment/methodology-registry.js#L48) and returns `s.startedAt > 0 && s.responses.length < sessionSize` (16/24/12/20 per the resolved variant), so the lock holds for every variant,
+**And** the existing swallow-to-false guard for a missing/throwing state is preserved (a fresh page with no detectable session must never false-block — NFR9 opt-in posture), and zero third-party deps are added (NFR6).
+
+**Given** the resolved `sessionSize` from `resolveVariant()` in [methodology-registry.js:39-45](src/assessment/methodology-registry.js#L39) is the single source of truth for session length (PR-37),
+**When** `defaultIsSessionActive()` cannot resolve a variant (absent methodology/variant on a pre-12-2 resumed session),
+**Then** it falls back to the DEFAULT-SAFE `geometric`/`short` result of `resolveVariant` (sessionSize 16) so behavior is byte-identical to the original single-test path,
+**And** no new `< 16` literal is introduced anywhere in [language-switcher.js](src/assessment/language-switcher.js); the size is read only through the registry (frozen Epic 11/13 DOM contracts and `data-locale-switch-blocked` semantics unchanged).
+
+**Given** `item-runner.js` already resolves `sessionSize` per-session via `resolveFromState` and uses `currentItem === sessionSize - 1` at [item-runner.js:90](src/assessment/item-runner.js#L90) and [item-runner.js:249](src/assessment/item-runner.js#L249) (PR-37),
+**When** this story audits the runner for residual size assumptions,
+**Then** it confirms `isLast`, the Submit-pad loop at [item-runner.js:160-167](src/assessment/item-runner.js#L160), and `preloadNext`'s `nextIdx >= cache.sessionSize` guard at [item-runner.js:221](src/assessment/item-runner.js#L221) all bind to the resolved `cache.sessionSize` and never to a literal 16, adding no new literal,
+**And** the on-the-fly scoring against `item.correct` and the `state.schema` enum `[0,1]` response contract are left untouched (co-equal Percentile/IQ-scale/Range triplet downstream preserved).
+
+**Given** the result-scene completeness guard at [result.js:194](src/assessment/result.js#L194) gates on `state.getState().responses.length !== mv.sessionSize` and `orderedResponses` is built to `mv.sessionSize` length at [result.js:221](src/assessment/result.js#L221) (PR-37),
+**When** a full-variant (20/24) or future larger (48+) session completes and routes to the result,
+**Then** the guard admits the session for exactly its resolved `mv.sessionSize` (not 16), and `computeDifficultyCounts` is invoked with `mv.sessionSize` at [result.js:227](src/assessment/result.js#L227) so per-band counts re-derive the correct permutation,
+**And** the back-compatible `SS = 16` default on the exported `computeDifficultyCounts(..., sessionSize = SS)` at [result.js:21](src/assessment/result.js#L21) and [result.js:29](src/assessment/result.js#L29) remains for legacy callers that thread no variant context (no scoring-math change; deterministic byte-stable build, NFR21).
+
+**Given** the locale-lock regression is currently invisible because [language-switcher.test.mjs](tests/unit/language-switcher.test.mjs) only exercises the default (16) path (PR-37),
+**When** a new regression test is added,
+**Then** it asserts, for every `(methodology, variant)` size returned by `resolveVariant` (16, 24, 12, 20), that with `startedAt > 0` and `responses.length` at `sessionSize - 1` the default detector reports active (switch blocked) and at `responses.length === sessionSize` it still reports the lock per FR8 measurement-invariance, proving the pre-fix `< 16` path would have unlocked the 24- and 20-item variants,
+**And** the test runs under the project test runner with zero third-party deps and asserts no `localStorage` write occurs on a blocked attempt (NFR9 opt-in-storage invariant preserved).
+
+**Given** the registry remains the only place that reasons about pool/size (PR-37),
+**When** the changed `language-switcher.js`, `item-runner.js`, and `result.js` are re-verified together,
+**Then** a repo-wide check confirms no scene module hardcodes a session-size literal for locale-lock, completeness, or last-item logic, and all three read through `resolveVariant`/`resolveFromState`,
+**And** the frozen Epic 11/13 DOM contracts (`section.landing`, `h1#landing-heading`, `#start-test-btn`, `.landing__methodology-link`, `.score-panel` co-equal triplet) and the `data-locale-switch-blocked` / `aria-disabled` switcher contract are unchanged; no EN copy or corpus body is edited so no NFR27 translation-parity cascade is triggered.
+
+**Requirements covered:** PR-37
+**Depends on:** 15.1
+
+### Story 15.3: Item quality-gate pipeline (duplication, correctness, distribution)
+
+As a **psychometric content maintainer preparing the item bank for real-item replacement**,
+I want **an automated, stdlib-only quality-gate pipeline that flags duplicate items, mechanically-verifiable answer/distractor faults, missing provenance, and skewed difficulty distributions across every pool**,
+So that **bank-quality regressions are caught at the source-of-truth file level before a pool is frozen or shipped, without trusting any single hand review**.
+
+**Acceptance Criteria:**
+
+**Given** the established Epic-1 stub discipline in [pr-checks.yml:1-6](.github/workflows/pr-checks.yml#L1) (future lints exist from end-of-Epic-1 as `if: false` jobs and are flipped on, never net-new) and the metadata-bearing item schema delivered by Story 15.1 in [item-parameters.schema.json](corpus/item-parameters.schema.json),
+**When** this story adds five new CI jobs — `lint-item-duplication`, `lint-item-correctness`, `lint-distractor-uniqueness`, `lint-difficulty-distribution`, `lint-item-provenance` — to [pr-checks.yml](.github/workflows/pr-checks.yml),
+**Then** each job is declared with `if: false` plus a `# Activates in Epic 15` comment, follows the existing per-job step shape (`actions/checkout@v4` → `actions/setup-node@v4` node 22 → `run: node tools/<lint>.mjs`), and is registered both in `ALL_JOBS` and as DEFERRED (NOT in `EPIC_1_ACTIVE`) in [ci-matrix.test.mjs:22](tests/scaffold/ci-matrix.test.mjs#L22) so AC-1/AC-3 pass,
+**And** the deferred-stub pattern requires no "new job" exception (this follows the documented discipline, not the [pr-checks.yml:107-110](.github/workflows/pr-checks.yml#L107) eslint exception) and adds zero third-party runtime dependencies (NFR6/NFR7).
+
+**Given** the lint-tool convention in [tools/lint-cognitive-load-budget.mjs:17-24](tools/lint-cognitive-load-budget.mjs#L17) (stdlib-only `node:fs`/`node:path`, `REPO_ROOT` resolved from `import.meta.url`, exit 0 pass / 1 breach / 2 config-error),
+**When** `tools/lint-item-duplication.mjs` runs over every pool ([item-parameters.json](src/items/item-parameters.json), [item-parameters-geometric-full.json](src/items/item-parameters-geometric-full.json), [item-parameters-letter-number.json](src/items/item-parameters-letter-number.json), [item-parameters-letter-number-full.json](src/items/item-parameters-letter-number-full.json)),
+**Then** it fails (exit 1) on exact-duplicate items (identical `asset` + ordered `options` + `correct`) and on near-duplicate/structural-similarity collisions (e.g. identical `options` set with a permuted order, or duplicate `asset` reuse across distinct ids), printing each offending `id` pair,
+**And** it reads only checked-in source-of-truth files and emits deterministic, byte-stable output (NFR21) with no telemetry or network access.
+
+**Given** the per-item answer contract `{id, a, b, asset, options, correct}` enforced by [item-parameters.schema.json:22](corpus/item-parameters.schema.json#L22),
+**When** `tools/lint-item-correctness.mjs` runs,
+**Then** it fails on every mechanically-verifiable fault — `correct` not present in `options`, fewer than the six `options` the live assets assume (see [src/items/](src/items/) `opt-NNN-1..6.svg`), duplicate option strings within one item, or a referenced `asset`/`correct`/option SVG missing from `src/items/` — and reports the failing `id` and reason; it does NOT attempt to judge semantic correctness of an item's intended answer (out of scope, deferred to human review),
+**And** `tools/lint-distractor-uniqueness.mjs` independently fails when any item's distractor set is not pairwise-distinct or duplicates the keyed `correct` answer, preserving the assumption that each item exposes exactly one keyed option among unique distractors.
+
+**Given** the difficulty-band model in [item-difficulty-bands.json](src/items/item-difficulty-bands.json) with cutoffs `easyMax -1` / `mediumMax 0.5` over the IRT `b` parameter,
+**When** `tools/lint-difficulty-distribution.mjs` runs per pool,
+**Then** it computes the easy/medium/hard band tallies from each item's `b` against those cutoffs and fails (exit 1) when a pool's distribution is degenerate (e.g. an empty band, or a band whose share exceeds a configurable maximum) so a pool cannot ship all-easy or all-one-band, printing the per-band counts and the pool's `poolSize`,
+**And** the gate derives bands solely from the committed `b` values and the single shared cutoff source (no second hardcoded cutoff copy), keeping the difficulty model deterministic and review-auditable (NFR21).
+
+**Given** that Story 15.1 introduced provenance / rule-family / experimental-status metadata fields to the item schema (the current [item-parameters.schema.json](corpus/item-parameters.schema.json) carries none),
+**When** `tools/lint-item-provenance.mjs` runs over every pool,
+**Then** it fails (exit 1) on any item missing its required Story-15.1 provenance metadata or carrying an unknown rule-family / experimental-status value, reporting the offending `id` and field, so no item can ship without traceable origin metadata,
+**And** the lint reads the Story-15.1 schema as its single source of allowed values (no duplicated allow-list literal), preventing schema/lint drift.
+
+**Given** the five new lint tools are net source files under `tools/` and their stub jobs are dormant in CI,
+**When** the tools and stubs land,
+**Then** each tool is exercised by a unit test asserting exit 0 on a clean fixture and exit 1 on a seeded-fault fixture (fixtures kept under [tests/fixtures/](tests/fixtures) per [.fallowrc.json:24-29](.fallowrc.json#L24) ignorePatterns), and the new `tools/lint-item-*.mjs` are wired into [.fallowrc.json](.fallowrc.json) `entry` so `make fallow-gates` does not flag them as unused (the existing lint tools already appear there),
+**And** the change touches no SPA/scoring runtime code, preserves the frozen Epic 11/13 DOM contracts and the co-equal Percentile/IQ/Range triplet (this story ships only build-time tooling + dormant CI), and respects NFR27 translation parity (item stems remain asset-only; no EN prose is added that would cascade to PL/RU).
+
+**Requirements covered:** PR-33
+**Depends on:** 15.1
+
+### Story 15.4: ICAR-MR item architecture refactor and content expansion
+
+As a **psychometric content engineer**,
+I want **the ICAR-MR (geometric matrix-reasoning) item pool refactored onto a provenance-carrying schema and expanded with experimental candidate items, exercising the previously-untested subset-selection path**,
+So that **the dedicated geometric variant can grow beyond a permute-all stub pool with auditable item origin, while real official ICAR content stays gated on the Epic 9a-2 license confirmation**.
+
+**Acceptance Criteria:**
+
+**Given** the item-parameter shape contract (PR-34) at [item-parameters.schema.json](corpus/item-parameters.schema.json) declares `additionalProperties: false` with item-level `required: ["id", "a", "b", "asset", "options", "correct"]` (schema lines 22-23),
+**When** two optional per-item fields `provenance` (string enum, e.g. `authored-candidate` / `icar-official` / `stub`) and `experimental_status` (string enum, e.g. `experimental` / `calibrated`) are added,
+**Then** [item-parameters.schema.json](corpus/item-parameters.schema.json) adds both keys to item `properties` (NOT to `required`, so the frozen 16-item [item-parameters.json](src/items/item-parameters.json) and the [letter-number pools](src/items/item-parameters-letter-number.json) still validate untouched), and the contract test [_item-parameters-schema-check.mjs](tests/contract/_item-parameters-schema-check.mjs) is extended to assert both enums while still tolerating underscore-prefixed deferral markers,
+**And** the change is purely additive to the schema — every existing pool that omits the new fields continues to validate, preserving the deterministic byte-stable build (NFR21).
+
+**Given** the geometric-full pool (PR-34) at [item-parameters-geometric-full.json](src/items/item-parameters-geometric-full.json) currently holds 24 reused-stub items (`_note` "FULL geometric variant pool", asset reuse of `stub-001.svg`..`stub-008.svg`) all unlabeled for origin,
+**When** every item gains `"provenance"` and `"experimental_status"` and the pool is expanded with newly-authored candidate items beyond the 24 it ships today,
+**Then** each item carries `"provenance": "authored-candidate"` and `"experimental_status": "experimental"`, real official ICAR items remain absent and the file `_note` keeps the explicit "real ICAR-MR full-form items + calibrated parameters land with the ICAR license confirmation (Epic 9a-2)" deferral marker so no item is mislabeled `icar-official`,
+**And** item `id` values stay matched to the `^[a-z][a-z0-9-]*$` pattern, each item keeps exactly 6 `options` with a `correct` member drawn from them, and the co-equal Percentile/IQ-scale/Range triplet contract is untouched (this story changes the pool, not the result surface).
+
+**Given** [methodology-registry.js:28](src/assessment/methodology-registry.js#L28) maps `geometric.full` to `{ poolUrl: GEOMETRIC_FULL_POOL, sessionSize: 24 }` and the comment at [methodology-registry.js:22-24](src/assessment/methodology-registry.js#L22) documents that `sessionSize` "for v1 pools it equals the pool size (permute-all)",
+**When** the expanded geometric-full pool's `poolSize` exceeds its `sessionSize` of 24,
+**Then** `resolveVariant("geometric", "full")` continues to return `sessionSize: 24` while the pool now ships more than 24 items, so [item-selection.js](src/assessment/item-selection.js) takes its `pool.length > sessionSize` branch (the partial Fisher-Yates subset-then-permute path at the `else` block) for the first time in a shipped variant,
+**And** the geometric `short` mapping at [methodology-registry.js:27](src/assessment/methodology-registry.js#L27) (`sessionSize: 16` against the frozen 16-item pool) and all letter-number mappings stay byte-identical, preserving the DEFAULT-SAFE geometric+short fallback and the frozen FR7/golden permute-all tests on the 16-item pool (NFR21).
+
+**Given** the previously-untested subset path in [item-selection.js](src/assessment/item-selection.js) selects a uniform-random subset then orders it via partial Fisher-Yates, drawing `sessionSize` augmentation codes AFTER the selection draws (architecture two-phase contract, impl comment "shuffle exhausts N draws, then augmentations exhaust sessionSize more"),
+**When** `selectSession(expandedGeometricFullPool, seed128, 24)` is exercised in a new deterministic unit test,
+**Then** a test under [tests/unit/](tests/unit/) asserts that for a fixed 128-bit seed the returned `items` array has length 24, contains only ids present in the pool with no duplicates, is a proper subset of the larger pool (not all items appear), `augmentations` has length 24, and the full `{ items, augmentations }` result is reproducible across repeated runs of the same seed,
+**And** the seed remains in-memory-only from `crypto.getRandomValues` with zero persistence (NFR6 local-only, no telemetry).
+
+**Given** the geometric difficulty bands (PR-34) at [item-difficulty-bands.json](src/items/item-difficulty-bands.json) enumerate exactly the 16 frozen `stub-NNN` ids against `cutoffs.easyMax: -1` / `mediumMax: 0.5`, and a separate [item-difficulty-bands-letter-number.json](src/items/item-difficulty-bands-letter-number.json) exists but no `geometric-full` bands file does,
+**When** the geometric-full pool is expanded and re-banded under the same `b`-cutoff thresholds,
+**Then** a geometric-full difficulty-bands file is added (or the geometric-full pool is mapped to a bands source) such that every expanded geometric-full item id has a `band` entry classified strictly by its `b` against `easyMax: -1` and `mediumMax: 0.5`, with no orphan ids and no banded id absent from the pool,
+**And** the frozen 16-item [item-difficulty-bands.json](src/items/item-difficulty-bands.json) is left unmodified so the existing short-variant band contract stays green.
+
+**Given** [language-switcher.js:37](src/assessment/language-switcher.js#L37) hardcodes the FR8 locale-lock as `s.startedAt > 0 && s.responses.length < 16`, which a 24-item (and now larger-subset) geometric-full session would under-lock,
+**When** the geometric-full subset path becomes a shipped reality through this story,
+**Then** a regression unit test under [tests/unit/](tests/unit/) pins that a geometric-full session of `sessionSize: 24` must remain locale-locked once at least one response is recorded — documenting that the lock boundary must derive from `resolveVariant().sessionSize` rather than the literal `16` — so this story does not silently widen the unguarded mid-session language-switch window,
+**And** item assets-only rendering is unchanged (no item stems/explanations are introduced), so NFR27 translation parity is not triggered and the EN corpus requires no PL/RU cascade or `sourceHashEN` bump.
+
+**Given** the assessment runtime carries zero third-party dependencies and a Content-Security-Policy with no inline styles (NFR6/NFR7),
+**When** the expanded pool, schema, bands, and tests are added,
+**Then** all new content is static JSON loaded over the existing same-origin fetch path with no new runtime dependency, the build remains deterministically reproducible (`make test-byte-stable` builds twice and diffs identically), and the frozen Epic 11/13 DOM contracts (`section.landing`, `h1#landing-heading`, `#start-test-btn`, `.landing__methodology-link`, score-panel co-equal triplet) are preserved untouched,
+**And** WCAG 2.2 AA on every SPA surface is unaffected because this story alters item data and selection plumbing only, not rendered DOM structure.
+
+**Requirements covered:** PR-34
+**Depends on:** 15.1
+
+### Story 15.5: ICAR-LN item architecture refactor and content expansion
+
+As a **psychometrician auditing the letter-number series test**,
+I want **the ICAR-LN (letter-number) pools refactored onto the expanded item schema, tagged with provenance and experimental status, and re-banded — while staying a distinct reasoning experience from ICAR-MR**,
+So that **each LN item carries an auditable origin and calibration-readiness marker without flattening the LN test into a clone of the matrix test or perturbing the scoring engine**.
+
+**Acceptance Criteria:**
+
+**Given** the LN short pool [item-parameters-letter-number.json](src/items/item-parameters-letter-number.json) and full pool [item-parameters-letter-number-full.json](src/items/item-parameters-letter-number-full.json) still carry the literal `_note` "STUB POOL" deferral marker and lack any provenance field (PR-35),
+**When** the pools are migrated to the expanded schema introduced in Story 15.1,
+**Then** every LN item gains the additive fields (e.g. `provenance`, `rule_family`, `experimental_status`) defined by the Story 15.1 revision of [item-parameters.schema.json](corpus/item-parameters.schema.json), with `id`, `a`, `b`, `asset`, `options`, `correct` byte-unchanged for the existing `ln-001`..`ln-020` ids,
+**And** the `additionalProperties: false` contract plus the underscore-prefixed-key tolerance documented in [item-parameters.schema.json](corpus/item-parameters.schema.json) is preserved, so no field outside the schema leaks in.
+
+**Given** [methodology-registry.js:30](src/assessment/methodology-registry.js#L30) maps `letter-number` short→12 / full→20 against `LETTER_NUMBER_SHORT_POOL` and `LETTER_NUMBER_FULL_POOL` (PR-35),
+**When** the LN pools are expanded with new calibrated-or-experimental series items,
+**Then** the registry continues to resolve a dedicated `letter-number` methodology with its own short/full variants and pool URLs, and `resolveVariant("letter-number", v)` still returns the LN pool paths (not the geometric pool), preserving the `methodology` + `variant` co-equal routing,
+**And** the DEFAULT-SAFE fallthrough to `geometric`/`short` at [methodology-registry.js:39](src/assessment/methodology-registry.js#L39) is untouched, keeping the frozen Epic 11/13 default-session behavior byte-stable.
+
+**Given** the LN test must remain a recognizably DIFFERENT reasoning experience from ICAR-MR rather than a relabeled matrix (PR-35),
+**When** LN series items are authored or expanded,
+**Then** each item's `rule_family` records a letter/number-series rule (e.g. arithmetic progression, alternating step, interleaved sequence) distinct from MR's matrix-completion transformation families, and the LN asset stays a language-neutral inline-SVG digit/letter series referenced via the `ln-*.svg` naming, not a matrix grid,
+**And** the corpus stays language-neutral (assets only, no localized item stems), so no NFR27 translation-parity cascade into PL/RU corpus is triggered by this story.
+
+**Given** every LN item is currently illustrative-only ("Real calibrated ICAR-LN items land with the ICAR license confirmation (Epic 9a-2)") (PR-35),
+**When** provenance and calibration state are recorded,
+**Then** each LN item declares an `experimental_status` (e.g. `stub`/`experimental` vs `calibrated`) and a `provenance` origin tag, no item is silently presented as ICAR-calibrated, and the pool `_note` is updated to reflect the new schema state rather than the bare "STUB POOL" string,
+**And** the co-equal Percentile/IQ-scale/Range result triplet and the local-only NFR6 posture (no telemetry, no third-party runtime deps under the NFR7 CSP) are preserved end-to-end.
+
+**Given** LN difficulty bands live only for the 12-id short pool in [item-difficulty-bands-letter-number.json](src/items/item-difficulty-bands-letter-number.json) with `cutoffs.easyMax=-1` / `mediumMax=0.5` and no bands artefact exists for the 20-id full pool (PR-35),
+**When** `make build-difficulty-bands` (via [tools/compute-difficulty-bands.mjs](tools/compute-difficulty-bands.mjs)) regenerates the LN bands deterministically,
+**Then** the regenerated LN bands enumerate exactly the same id set as the corresponding LN pool (no orphan or missing `ln-*` id), the on-disk artefact is byte-stable across two consecutive builds, and the documented cutoffs are updated to match the expanded `b` distribution,
+**And** the deterministic byte-stable build invariant (NFR21) holds so `make test-byte-stable` produces an identical artefact diff on rebuild.
+
+**Given** the contract suite pins LN pool shape and band coverage via [item-parameters-schema.spec.mjs](tests/contract/item-parameters-schema.spec.mjs) and [item-difficulty-bands-contract.spec.mjs](tests/contract/item-difficulty-bands-contract.spec.mjs) (PR-35),
+**When** the expanded LN pools and bands are committed,
+**Then** the contract tests assert: every LN item validates against the Story 15.1 expanded schema, every `experimental_status` is a recognized enum value, and each LN pool id has a matching band entry,
+**And** the 67 existing scoring parity tests under [tests/unit/scoring/irt](tests/unit/scoring/irt) and [tests/golden](tests/golden) stay untouched, since the single-pool 2PL EAP scoring path consumes only `a`/`b` and is indifferent to the additive provenance fields.
+
+**Requirements covered:** PR-35
+**Depends on:** 15.1
+
+### Story 15.6: Mixed ICAR-MR + ICAR-LN variant with separate subscale scoring
+
+As a **test-taker who wants a broader cognitive estimate than a single item type provides**,
+I want **a mixed variant that interleaves matrix-reasoning and letter-number items and reports my matrix, letter-number, and combined results separately**,
+So that **I can see how each reasoning subscale contributed instead of a single blended number that hides which type I actually performed on**.
+
+**Acceptance Criteria:**
+
+**Given** the registry maps each (methodology, variant) pair to a pool + session size in [methodology-registry.js:25](src/assessment/methodology-registry.js#L25) with only `geometric` and `letter-number` methodologies (PR-36),
+**When** the mixed variant is added,
+**Then** a new methodology key `mixed` is registered in `REGISTRY` with at least one variant entry pointing at a composed pool URL (e.g. `/src/items/item-parameters-mixed.json`) and a fixed `sessionSize`, `resolveVariant("mixed", ...)` returns that entry, and `state.js` `METHODOLOGIES` / `VARIANTS` ([state.js:18](src/assessment/state.js#L18)) accept the new pair so `setMethodology`/`setVariant` validation does not reject it,
+**And** the DEFAULT-SAFE fallback to `geometric` + `short` for absent/unknown selections in [methodology-registry.js:39](src/assessment/methodology-registry.js#L39) is preserved byte-for-byte so every existing 16-item frozen contract stays green.
+
+**Given** the v1 item schema in [item-parameters.schema.json](corpus/item-parameters.schema.json) requires `[id, a, b, asset, options, correct]` and `additionalProperties:false` allows only underscore-prefixed deferral keys (PR-36),
+**When** the composed mixed pool is authored with each item carrying a subscale tag,
+**Then** every item in the mixed pool gains a `subscale` field whose value is exactly `"mr"` or `"ln"`, the schema (or a sibling mixed schema) is extended to require and constrain that field, the pool's `poolSize` equals `items.length` equals the registry `sessionSize`, and `item-parameters.schema-check.mjs` validates the new pool,
+**And** the deterministic Fisher-Yates selection in [item-selection.js:25](src/assessment/item-selection.js#L25) and its `seed128` PRNG contract are not altered — the mixed pool flows through the existing equal-size permute-all path with no change to augmentation draw order.
+
+**Given** the core engine `scoreSession({responses, itemParameters, normingStats})` assumes a single homogeneous pool and returns one `{theta, sem, se_total, percentile, iqScale, displayedBand}` ([index.js:51](src/scoring/irt/index.js#L51)) (PR-36),
+**When** a mixed session is scored,
+**Then** a NEW additive wrapper (e.g. `scoreMixedSession`) partitions `responses` + `itemParameters` by `subscale`, calls `eapEstimate` / `standardError` ([eap.js:8](src/scoring/irt/eap.js#L8), [se.js:9](src/scoring/irt/se.js#L9)) on the MR subset and the LN subset independently, and computes a combined estimate over the full vector — all three reusing the same 61-node `quadraturePoints({quadpts:61, theta_lim:[-6,6]})` grid via the shared `posteriorExpectation` ([posterior.js:5](src/scoring/irt/posterior.js#L5)) — returning `{ mr, ln, combined }` where each leaf holds `{theta, sem, se_total, percentile, iqScale, displayedBand}`,
+**And** `index.js`, `eap.js`, `se.js`, `posterior.js`, `quadrature.js`, and `likelihood.js` are NOT modified — the 67 existing parity tests under [tests/unit/scoring/irt/](tests/unit/scoring/irt/) and the golden vectors in [tests/golden/vectors.json](tests/golden/vectors.json) stay byte-identical and green.
+
+**Given** subscale partitioning can yield short response vectors when a subscale has unanswered slots (PR-36),
+**When** the wrapper builds each subscale's response vector,
+**Then** missing responses are padded WITHIN each subscale (unanswered → `0`, matching the existing within-session padding in [result.js:221](src/assessment/result.js#L221)) before EAP/SE, so the MR vector length equals the count of MR items and the LN vector length equals the count of LN items regardless of which slots were skipped,
+**And** the combined estimate scores over the same full ordered+padded vector the single-pool path would produce, so a mixed session with every item answered identically to a homogeneous run yields a numerically reproducible combined `theta`.
+
+**Given** the result panel renders the co-equal Percentile / IQ-scale / Range triplet via `panel()` and the `SP()` helper in [result.js:123](src/assessment/result.js#L123), guarded by the `responses.length === mv.sessionSize` completeness check ([result.js:194](src/assessment/result.js#L194)) (PR-36),
+**When** a completed mixed session reaches the result scene,
+**Then** `render()` resolves `methodology === "mixed"`, calls the mixed wrapper, and the panel reports MR, LN, and combined as THREE clearly labeled triplet groups (each with its own Percentile, IQ-scale, and Range), using localized labels for the MR and LN subscales,
+**And** the co-equal Percentile/IQ/Range invariant holds inside EACH group (no metric demoted), and the frozen Epic 11/13 DOM contracts (`section.result-scene`, `#score-panel-heading`, `.score-panel__triplet`, the per-metric `data-methodology-target` deep-links) are preserved for the existing single-score variants.
+
+**Given** difficulty bands live in per-methodology files such as [item-difficulty-bands-letter-number.json](src/items/item-difficulty-bands-letter-number.json) with `cutoffs.easyMax -1` / `mediumMax 0.5`, and golden vectors regenerate via [tests/golden/regenerate.R](tests/golden/regenerate.R) (PR-36),
+**When** mixed support is finalized,
+**Then** a mixed difficulty-bands file is added covering every mixed-pool item id, `computeDifficultyCounts` ([result.js:29](src/assessment/result.js#L29)) resolves it for the mixed session, and new golden vectors for representative mixed response patterns (full-correct, mixed MR-strong/LN-weak, all-skipped-pad) are added to [tests/golden/](tests/golden/) asserting the wrapper's `{mr, ln, combined}` outputs,
+**And** any EN-facing copy introduced for the new subscale labels cascades to PL/RU with `sourceHashEN` re-bumped per NFR27 translation parity, while the build stays deterministic and byte-stable (NFR21) with zero third-party runtime dependencies (NFR6/NFR7).
+
+**Requirements covered:** PR-36
+**Depends on:** 15.1, 15.2, 15.4, 15.5
+
+### Story 15.7: Full assessments exceeding 48 questions
+
+As a **test-taker who selects a full assessment**,
+I want **a full session to present more than 48 questions, meaningfully deeper and broader than the short session, not merely a longer count of the same items**,
+So that **the full variant earns the lower measurement error it claims and is a substantively different instrument from the short variant**.
+
+**Acceptance Criteria:**
+
+**Given** the variant registry (PR-37) at [methodology-registry.js:25-34](src/assessment/methodology-registry.js#L25) where `REGISTRY.geometric.full.sessionSize` is currently `24` and `REGISTRY["letter-number"].full.sessionSize` is currently `20`,
+**When** the 15.2 sessionSize parameterization and the expanded pools from 15.4/15.5 are in place,
+**Then** every `full` entry in `REGISTRY` sets `sessionSize` strictly greater than 48 — recommended anchors `geometric.full = 60`, `letter-number.full = 54`, and the `mixed.full` variant from Story 15.6 at >= 50 (final values may be refined during calibration but each MUST exceed 48) — while every `short` entry stays at its present value (geometric 16, letter-number 12), and `resolveVariant`/`resolveFromState` return the new full sizes unchanged in shape ([methodology-registry.js:39-51](src/assessment/methodology-registry.js#L39)),
+**And** the `short` defaults remain byte-identical so the DEFAULT-SAFE geometric-short path ([methodology-registry.js:9-12](src/assessment/methodology-registry.js#L9)) and the frozen 16-item golden/contract tests stay green.
+
+**Given** the deterministic selector [item-selection.js:38-54](src/assessment/item-selection.js#L38) whose `pool.length > sessionSize` partial Fisher-Yates subset path was previously untested in production,
+**When** a full session resolves a pool whose `pool.items.length >= sessionSize` (now 48+) and `selectSession(pool.items, seedBytes, sessionSize)` is invoked from [item-runner.js:74](src/assessment/item-runner.js#L74),
+**Then** the selector returns exactly `sessionSize` distinct item ids and `sessionSize` augmentation codes drawn after the shuffle ([item-selection.js:60-65](src/assessment/item-selection.js#L60)), is reproducible for a fixed 128-bit seed, and a unit test pins both the count and the seed-determinism at a 48+ size,
+**And** the augmentation draw order remains positioned after the subset+permute pass so the xoshiro128++ stream stays deterministic and byte-stable (NFR21).
+
+**Given** the in-place navigation and progress rendering keyed on `cache.sessionSize` ([item-runner.js:84-91](src/assessment/item-runner.js#L84), [item-runner.js:157-177](src/assessment/item-runner.js#L157)),
+**When** a full session of 48+ items runs through Next/Previous to the final item and Submit,
+**Then** the progress indicator (`data-testid="progress-indicator"`, [item-runner.js:111](src/assessment/item-runner.js#L111)) reports `N` of the full total at every step, `isLast` fires Submit only at index `sessionSize - 1`, and the unanswered-padding loop at [item-runner.js:165-167](src/assessment/item-runner.js#L165) pads every missing slot up to the full size before routing to `result`,
+**And** the frozen Epic 11/13 item-runner DOM contract (`section.item-runner`, `#prev-btn`, `#next-btn`, the radio fieldset) is preserved with zero added third-party deps (NFR6/NFR7).
+
+**Given** the FR8 locale-lock latent bug in [language-switcher.js:38](src/assessment/language-switcher.js#L38) where `defaultIsSessionActive` hardcodes `s.responses.length < 16`,
+**When** a full assessment of 48+ items is mid-flight,
+**Then** `defaultIsSessionActive` derives the in-progress upper bound from the resolved session size (via `resolveFromState(getState())`) instead of the literal `16`, so the language switcher stays blocked (`data-locale-switch-blocked="true"`, trigger `aria-disabled="true"`) for the entire 48+ item session,
+**And** measurement invariance (FR8) holds for full variants with no regression to the short-session lock and no telemetry or network call introduced (NFR6 local-only).
+
+**Given** the completeness guard and ordered-response build in [result.js:192-221](src/assessment/result.js#L192) which require `state.getState().responses.length === mv.sessionSize` and fill `orderedResponses` to `mv.sessionSize`,
+**When** a completed 48+ item full session reaches the result scene,
+**Then** the guard accepts the full count (rather than bouncing to landing), `scoreSession` is fed all 48+ ordered responses ([result.js:222-226](src/assessment/result.js#L222)), and `computeDifficultyCounts(pool, bands, responses, seed, mv.sessionSize)` re-derives the band tallies over the full session size ([result.js:227](src/assessment/result.js#L227)),
+**And** the co-equal Percentile / IQ-scale / Range triplet ([result.js:128](src/assessment/result.js#L128)) renders intact with none of the three metrics privileged.
+
+**Given** that the count alone does not make full meaningfully different from short (PR-37 scope: composition and depth, not just length),
+**When** a full pool is consumed by the selector,
+**Then** an automated assertion verifies the full session spans all three difficulty bands from [item-difficulty-bands.json](src/items/item-difficulty-bands.json) (b-cutoffs easyMax -1, mediumMax 0.5) with hard-band coverage strictly greater than the short variant's, demonstrating broader difficulty range and depth rather than a duplicated short pool,
+**And** any EN item-text or band-description copy changes cascade to PL/RU with `sourceHashEN` bumped (NFR27 translation parity).
+
+**Given** the segmented/lazy pool-loading concern (a full pool nearing the ~200KB app budget),
+**When** `ensureSession` fetches `poolUrl` for a full variant ([item-runner.js:64-74](src/assessment/item-runner.js#L64)),
+**Then** the full pool loads same-origin from `/src/items/` with the existing `try/catch` falling back to `renderErrorFallback` on failure, and a Playwright network-trace assertion confirms no third-party request is issued while loading the larger pool,
+**And** the deterministic byte-stable double-build (NFR21, `make test-byte-stable`) and the css/js byte budgets are unaffected by the size change.
+
+**Requirements covered:** PR-37
+**Depends on:** 15.2, 15.4, 15.5
+
+### Story 15.8: Authoring, generation, review and storage pipeline for the item bank
+
+As a **maintainer scaling the item bank toward a credible production size**,
+I want **a scalable structured-format authoring + generation-validation pipeline that produces de-duplicated candidate items and a segmented, lazily-loaded pool format**,
+So that **the bank can grow toward more than 1,500 genuinely-unique questions without thousands of opaque hand-maintained files, while keeping the build deterministic, byte-stable, and inside the app budget — and without ever counting cosmetic transforms or near-duplicates as unique**.
+
+**Acceptance Criteria:**
+
+**Given** the per-item taxonomy/provenance/experimental-status schema added by Story 15.1 extends the v1 shape contract in [item-parameters.schema.json](corpus/item-parameters.schema.json) (today `required` is `[id,a,b,asset,options,correct]` with no rule-family/provenance fields) (PR-38),
+**When** I run the new authoring/generation tool under [tools/](tools/) to emit a candidate batch from a structured rule-family specification (not by hand-editing per-item JSON),
+**Then** every emitted candidate validates against the 15.1-extended schema (carrying its rule-family, difficulty target, provenance, and review state) and newly-authored candidates are never stamped with official-ICAR provenance,
+**And** the build stays deterministic and byte-stable (NFR21) — the same spec + seed produces a byte-identical candidate batch, regenerable without diff.
+
+**Given** the existing single-file eager pools resolved by `resolveVariant()` in [methodology-registry.js:16-19](src/assessment/methodology-registry.js#L16) load one whole pool URL per session and ~1,500 items would weigh ~90 KB gzipped against the ~108 KB `app-modules-bytes` ceiling in [BUDGETS.json:14-25](BUDGETS.json#L14) (PR-38),
+**When** I define the segmented/lazy pool-loading format the pipeline writes into [src/items/](src/items/),
+**Then** the format splits the bank into segment files that are fetched on demand (not all pools loaded eagerly) and the documented loading contract is wired through the registry's existing `poolUrl` indirection without changing `resolveVariant()`'s pure-module shape or its DEFAULT-SAFE geometric+short fallback,
+**And** the total assessment-SPA module weight stays within the `app-modules-bytes` budget in [BUDGETS.json](BUDGETS.json) (any raise carries an explicit NFR32 justification, never a silent stamp).
+
+**Given** the deterministic subset+permute selector in [item-selection.js:38-54](src/assessment/item-selection.js#L38) already supports `pool.length > sessionSize` via a partial Fisher-Yates but that branch is documented as untested in production (PR-38),
+**When** a session loads a segmented pool whose combined item count exceeds the variant `sessionSize`,
+**Then** selection draws a deterministic uniform subset then permutes via the existing `xoshiro128++` path with no change to draw order (shuffle draws then augmentation draws), and a contract test in [tests/contract/](tests/contract/) pins the segmented path byte-for-byte against a fixed 128-bit seed,
+**And** the deterministic byte-stable build invariant (NFR21) and the frozen FR7/golden selection ordering for the 16-item pool are preserved unchanged.
+
+**Given** the pipeline must reject duplicates and never count cosmetic transforms as unique, and matrix augmentation in [item-selection.js:15](src/assessment/item-selection.js#L15) applies only rotation/flip codes (`none/rot90/rot180/rot270/flip-h/flip-v`) at render time (PR-38),
+**When** the pipeline runs a generated candidate batch through the Story 15.3 de-duplication gates,
+**Then** exact duplicates are rejected and near-duplicates / structural-similarity collisions are rejected, AND any candidate that differs from an accepted item only by a cosmetic rotation/flip/reflection is rejected as non-unique (uniqueness is judged on canonicalized structure, not pixels),
+**And** the de-dup checks run as deferred CI-job stubs under [tests/scaffold/](tests/scaffold/) following the existing `if: false` + `# Activates in Epic N` pattern (no new always-on PR job, eslint-exception discipline preserved).
+
+**Given** the >1,500 target counts APPROVED PRODUCTION items only, gated on human review (Story 15.11) and calibration (Story 15.12), mirroring the no-fabrication 9-series gates (PR-38),
+**When** the agent runs the pipeline and accumulates candidates,
+**Then** all generated items carry an experimental/under-review state in their metadata and a manifest reports candidate vs approved-production counts separately — the agent records the candidate count but never marks items approved-production or asserts the >1,500 bank-size goal as met,
+**And** local-only operation (NFR6) holds: the pipeline reads/writes only repo files, performs no network calls, and emits no telemetry.
+
+**Given** generated item content (any localized stems, distractor labels, or explanations beyond pure SVG assets) is subject to translation parity (PR-38),
+**When** a candidate introduces user-facing text,
+**Then** the pipeline emits or flags the corresponding PL/RU mirror entries and bumps `sourceHashEN`, keeping [lint-translation-parity.mjs](tools/lint-translation-parity.mjs) green, while geometry/asset-only items remain text-free,
+**And** NFR27 translation parity and the zero-third-party-runtime, no-inline-`<style>`, CSP posture (NFR6/NFR7) are preserved across every generated artifact.
+
+**Given** every emitted batch must remain auditable and must not destabilize the build (PR-38),
+**When** a candidate batch is committed to [src/items/](src/items/),
+**Then** each item's provenance (authored vs official, source/license/attribution for official items) is recorded per the 15.1 schema and verified by a schema/contract check alongside [tests/contract/item-parameters-schema.spec.mjs](tests/contract/item-parameters-schema.spec.mjs),
+**And** the co-equal Percentile/IQ-scale/Range result triplet and the frozen Epic 11/13 DOM contracts are untouched (this story adds bank/pipeline infrastructure only, no scoring-output or scene-DOM change).
+
+**Requirements covered:** PR-38
+**Depends on:** 15.1, 15.3
+**Decomposition note (for create-story):** this pipeline story aggregates several separable workstreams; when its dedicated story file is created it is expected to split into child stories — **15.8a** generation/authoring tool, **15.8b** segmented/lazy pool-loading format, **15.8c** de-duplication + structural-uniqueness gates, **15.8d** candidate-vs-approved-production count separation + auditable provenance commits — each independently completable. The seven ACs above define the per-workstream contracts.
+
+### Story 15.9: Session balancing, within-session no-repeat and cross-session repeat-minimization
+
+As a **test taker who may retake an assessment**,
+I want **each generated session to be balanced across rule-families and difficulty bands, free of any repeated item within a sitting, and to minimize repeats versus my own prior sittings**,
+So that **my score reflects a representative, varied sample rather than a lopsided or rerun-heavy draw — without any server-side tracking of me**.
+
+**Acceptance Criteria:**
+
+**Given** the deterministic selector in [item-selection.js](src/assessment/item-selection.js) currently draws a subset blindly (uniform partial Fisher-Yates over `indices`, [item-selection.js:46](src/assessment/item-selection.js#L46)) using only the 128-bit seed and the per-pool `sessionSize` from [resolveVariant()](src/assessment/methodology-registry.js#L39) (PR-39),
+**When** `selectSession(pool, seed128, sessionSize)` is invoked on a pool larger than `sessionSize` whose items carry the 15.1 metadata (`rule-family`, difficulty `b`),
+**Then** the returned `items` are chosen to balance rule-family and difficulty-band representation (band cutoffs from [item-difficulty-bands.json](src/items/item-difficulty-bands.json): easyMax -1, mediumMax 0.5) before ordering, allocating session slots proportionally across the rule-families and bands present in the pool rather than sampling the whole pool uniformly,
+**And** the equal-size path (`pool.length === sessionSize`, [item-selection.js:25](src/assessment/item-selection.js#L25)) remains byte-identical permute-all so the frozen FR7 / golden vector tests and NFR21 byte-stable build stay green.
+
+**Given** Fisher-Yates already guarantees within-session uniqueness because each index is selected at most once ([item-selection.js:31-37](src/assessment/item-selection.js#L31)) (PR-39),
+**When** balancing reorganizes the draw into rule-family / band buckets and selects across them,
+**Then** the balanced selection still returns `sessionSize` distinct item ids with no id appearing twice in `items`, asserted by a new unit test in tests/unit/assessment/,
+**And** the augmentation draw still happens AFTER selection over the 6-code set `AUGMENTATION_CODES` ([item-selection.js:57-63](src/assessment/item-selection.js#L57)) so the documented PRNG-draw ordering (architecture line 813) and matrix-only augmentation semantics are preserved.
+
+**Given** all selection randomness flows through the single `prng.next()` stream of `createPrng(seed128)` in [item-prng.js](src/assessment/item-prng.js) (PR-39),
+**When** balancing performs its bucketed draws and a session is generated twice from the same `seed128`, same pool, and same `sessionSize`,
+**Then** both runs produce byte-identical `{ items, augmentations }` because every random choice consumes the deterministic xoshiro128++ sequence in a fixed, documented order,
+**And** the module stays pure (no side effects on import, no module-level mutable singletons) so NFR6 local-only and the deterministic byte-stable build (NFR21) hold.
+
+**Given** the latent overflow risk that a balanced bucket may exhaust before `sessionSize` is filled (e.g. one rule-family under-populated in a stub pool, [methodology-registry.js:25-34](src/assessment/methodology-registry.js#L25)) (PR-39),
+**When** proportional allocation cannot fill every targeted slot from its bucket,
+**Then** the selector deterministically backfills remaining slots from the unused remainder of the pool via the existing partial Fisher-Yates remainder, never returning fewer than `Math.min(sessionSize, pool.length)` items and never throwing,
+**And** the co-equal Percentile / IQ-scale / Range triplet downstream is unaffected because the scoring contract receives a full, valid item set.
+
+**Given** opt-in localStorage discipline established by [save-result.js](src/assessment/save-result.js) — import performs zero writes, the single writer runs only from a user gesture, and the module is allowlisted in [lint-no-localStorage-without-consent.mjs](tools/lint-no-localStorage-without-consent.mjs) (PR-39, NFR9),
+**When** cross-session repeat-minimization is enabled, it reads an opt-in local memory of previously-served item ids (a new sibling module mirroring save-result.js's read-only / consent-gated shape, keyed by methodology+variant, never by user identity),
+**Then** the selector deprioritizes ids present in that memory when buckets contain unseen alternatives, reducing cross-session repeats while still respecting balance and within-session uniqueness,
+**And** there is NO server-side user tracking and NO telemetry: with the memory absent or consent withheld, `selectSession` behaves exactly as the seed-only deterministic path, keeping NFR6 local-only and zero third-party runtime deps intact.
+
+**Given** cross-session memory must not break the seed-determinism guarantee (PR-39),
+**When** the same `seed128` is replayed against an identical memory snapshot,
+**Then** the produced session is byte-identical (memory only reorders bucket preference; it never injects fresh randomness outside the `prng.next()` stream), and a unit test pins both the memory-present and memory-absent outputs,
+**And** the cross-session memory writer is gesture/consent-gated and allowlisted in [lint-no-localStorage-without-consent.mjs](tools/lint-no-localStorage-without-consent.mjs), so the consent-lint and CI byte-stable jobs pass without a new third-party dependency.
+
+**Requirements covered:** PR-39
+**Depends on:** 15.1, 15.4, 15.5
+
+### Story 15.10: Content-diversity enforcement across the bank
+
+As a **psychometric content reviewer growing the item bank**,
+I want **automated distribution checks that enforce diversity across rule families, rule combinations, reasoning-step count, difficulty, visual/symbolic layout, distractor strategy, and answer position, plus authoring guidance for non-trivial items**,
+So that **the bank stays creative and genuinely varied — never a set of restatements of one pattern — and ICAR-MR and ICAR-LN remain recognizably different reasoning experiences**.
+
+**Acceptance Criteria:**
+
+**Given** the per-item diversity metadata introduced by Story 15.1 (PR-41) on the taxonomy carrier extending [item-parameters.schema.json](corpus/item-parameters.schema.json) — `ruleFamily`, `ruleCombination`, `reasoningSteps`, `difficultyTarget`, `layout`, `distractorStrategy`, plus the derived correct-answer position from `options`/`correct` — and the quality-gate harness from Story 15.3 in [tools/](tools/),
+**When** a new diversity linter (e.g. `tools/lint-content-diversity.mjs`, modelled on the stdlib-only ESM pattern of [lint-claims-manifest.mjs](tools/lint-claims-manifest.mjs) and [compute-difficulty-bands.mjs](tools/compute-difficulty-bands.mjs)) reads every pool referenced by [methodology-registry.js](src/assessment/methodology-registry.js),
+**Then** it computes the empirical distribution over each of the seven diversity dimensions per pool and exits non-zero with one `lint-content-diversity: <pool>: <dimension> <reason>` line per violation when any dimension is degenerate (a single value dominating beyond a documented cap) or under-represented (fewer than the documented minimum distinct values),
+**And** it adds no third-party runtime or build dependency (NFR6) and remains deterministic over a fixed input so the byte-stable build (NFR21) is unaffected.
+
+**Given** the answer-position metadata derived from each item's `correct` index within its six `options` (PR-41) as constrained by [item-parameters.schema.json:42](corpus/item-parameters.schema.json#L42),
+**When** the linter tallies correct-answer positions across a pool — noting the current stub pattern in [item-parameters.json](src/items/item-parameters.json) cycles positions deterministically (e.g. `stub-001` → `opt-001-2`, `stub-006` → `opt-006-1`),
+**Then** it fails when the correct answer clusters on any single position beyond the documented per-position cap, preventing position-cue leakage,
+**And** the check operates only on local files with no telemetry or network access (NFR6 local-only) and does not alter the frozen six-option item schema contract consumed by [item-runner.js](src/assessment/item-runner.js).
+
+**Given** the two distinct methodologies `geometric` and `letter-number` resolved by `resolveVariant()` in [methodology-registry.js](src/assessment/methodology-registry.js) (PR-41),
+**When** the linter compares the rule-family and layout distributions of the ICAR-MR (`geometric`) pools against the ICAR-LN (`letter-number`) pools,
+**Then** it fails if the two methodologies' diversity profiles overlap beyond a documented threshold (e.g. shared `ruleFamily`/`layout` values exceeding the cap), enforcing that MR and LN stay recognizably different reasoning experiences,
+**And** it preserves the co-equal Percentile/IQ-scale/Range result triplet and the frozen Epic 11/13 DOM contracts by touching only authoring-time metadata, never runtime rendering or scoring code.
+
+**Given** the difficulty-band derivation in [compute-difficulty-bands.mjs](tools/compute-difficulty-bands.mjs) and the `b`-cutoff bands in [item-difficulty-bands.json](src/items/item-difficulty-bands.json) (PR-41),
+**When** the linter cross-checks each item's declared `difficultyTarget` metadata against its computed difficulty band and tallies coverage across easy/medium/hard,
+**Then** it fails on declared-vs-computed mismatch and on any band falling below its documented minimum share, so the bank stays spread across difficulty rather than bunched,
+**And** the difficulty-band artefact and its existing contract test remain byte-stable and untouched (NFR21).
+
+**Given** the reasoning-step-count and rule-combination metadata for newly-authored (non-official-ICAR) items (PR-41) kept provenance-separate per the Story 15.1 taxonomy,
+**When** the linter evaluates novelty heuristics — distinct `ruleCombination` values, spread of `reasoningSteps`, and absence of cosmetic-only variation flagged as a near-duplicate by the Story 15.3 structural-similarity gate,
+**Then** it fails when newly-authored items collapse toward trivial single-step restatements or reuse one rule combination beyond the documented cap, enforcing creative, non-trivial items,
+**And** it never relabels newly-authored items as official ICAR content and keeps official-item provenance/license/attribution intact (PR-32 separation preserved).
+
+**Given** the repo CI discipline of pre-stubbed deferred jobs activated per epic, enforced by [ci-matrix.test.mjs](tests/scaffold/ci-matrix.test.mjs), and the byte budgets in [BUDGETS.json](BUDGETS.json) (PR-41),
+**When** the diversity gate is wired into the Epic-15 quality-gate lane in [pr-checks.yml](.github/workflows/pr-checks.yml) following the deferred-stub `if: false` → activation pattern (no net-new ad-hoc job) and authoring guidance is documented under [docs/](docs/),
+**Then** the gate runs in CI, the activation matches `ci-matrix.test.mjs` expectations, and a fixture-driven unit test under `tests/unit/tools/` asserts both pass and per-dimension failure cases,
+**And** the addition keeps the build zero-third-party (NFR6/NFR7 CSP), deterministic/byte-stable (NFR21), and any EN authoring-guidance doc edits that touch localized corpus body cascade to PL/RU with `sourceHashEN` bumped to keep `lint-translation-parity` green (NFR27).
+
+**Requirements covered:** PR-41
+**Depends on:** 15.1, 15.3
+
+### Story 15.11: Item correctness guarantee and human-review workflow
+
+As a **maintainer (CEP) gating every candidate item before it can become an approved production item**,
+I want **the mechanical correctness/distractor checks (exactly-one-defensible-answer, plausible-but-unambiguously-incorrect distractors) plus a human-review workflow — a review-queue format, an `answer_review_state` transition contract (`draft` → `reviewed` → `approved`), a reviewer sign-off record schema, and docs — built and stubbed, while the actual human confirmation of clarity/uniqueness/defensibility stays an explicit non-agent gate**,
+So that **PR-42's guarantee is enforceable: no item reaches `approved` (and thus no item enters a production session pool) without both passing the automated checks and carrying a real reviewer-of-record sign-off, mirroring the 9-series no-fabrication human-gated gates**.
+
+**Acceptance Criteria:**
+
+**Given** the item metadata schema from Story 15.1 (PR-32) introduces a per-item `answer_review_state` carrier alongside provenance/rule-family fields, and the existing shape contract [item-parameters.schema.json](corpus/item-parameters.schema.json) requires `[id, a, b, asset, options, correct]` with the `_note` deferral marker still permitted,
+**When** Story 15.1's schema is extended with the review-state field and a contract check is added next to [_item-parameters-schema-check.mjs](tests/contract/_item-parameters-schema-check.mjs),
+**Then** the schema enumerates `answer_review_state` as one of exactly `draft`, `reviewed`, `approved`, defaults absent/unknown to `draft`, and the contract check asserts the enum is closed (no fourth value accepted)
+**And** the existing required-key set and `additionalProperties:false` behavior on the production stub pools ([item-parameters.json](src/items/item-parameters.json), [item-parameters-geometric-full.json](src/items/item-parameters-geometric-full.json), [item-parameters-letter-number-full.json](src/items/item-parameters-letter-number-full.json)) remains satisfied so the deterministic byte-stable build (NFR21) is unbroken.
+
+**Given** PR-42 requires every question to have exactly one defensible correct answer with plausible-but-unambiguously-incorrect distractors, and items declare `correct` as a filename string matched against the `options[6]` set (the same string-match the runtime uses in [item-runner.js](src/assessment/item-runner.js)),
+**When** a new mechanical correctness/distractor lint is authored under [tools/](tools/) (e.g. `tools/lint-item-correctness.mjs`, sibling to [lint-claims-manifest.mjs](tools/lint-claims-manifest.mjs)),
+**Then** it fails any item where `correct` is not present exactly once in `options`, where any two `options` entries are byte-identical (a distractor duplicating the key or another distractor), or where `options` has fewer than the expected distractor count — the mechanically-checkable half of "exactly one correct, distinct plausible distractors"
+**And** the lint emits zero network/telemetry, adds no third-party runtime dependency (NFR6/NFR7), and is pure-Node so it runs inside the deterministic build.
+
+**Given** the repo's "no new CI jobs post-Epic-1" discipline enforced by [ci-matrix.test.mjs](tests/scaffold/ci-matrix.test.mjs), where future lints ship pre-stubbed with `if: false` + an "Activates in Epic N" comment,
+**When** the item-correctness lint and the review-state contract check are wired into CI,
+**Then** they activate by flipping an existing deferred Epic-15 quality-gate stub in [pr-checks.yml](.github/workflows/pr-checks.yml) (no net-new job name) and run on the release gate in [release.yml](.github/workflows/release.yml) at the `app-v*`/`corpus-v*` boundary
+**And** `ci-matrix.test.mjs`'s stub-discipline assertions stay green (the deferred-stub naming/`if:`-flip pattern is preserved, eslint remains the only standing job exception).
+
+**Given** the agent CANNOT confirm clarity, uniqueness, or defensibility (that judgment is a real reviewer deliverable, mirroring the human-gated 9-series gates such as [9a-2-icar-gate-closed.test.mjs](tests/scaffold/9a-2-icar-gate-closed.test.mjs)),
+**When** the human-review workflow is scaffolded under [docs/launch-readiness/](docs/launch-readiness/) (e.g. `item-review-workflow.md` describing the review queue format, a per-item reviewer sign-off record schema with reviewer name + handle + date + reviewed item ids + reservations, and the `draft → reviewed → approved` transition rules) plus a pending sign-off stub modeled on [psychometrician-signoff.md](docs/launch-readiness/psychometrician-signoff.md),
+**Then** the workflow doc and sign-off stub ship carrying an explicit `STATUS: PENDING — not yet signed off` banner and TBD reviewer-of-record fields, and the docs state in plain language that no `answer_review_state: approved` value may be authored by the agent
+**And** the artifacts are local-only Markdown (no telemetry, no external fetch), keeping NFR6 intact.
+
+**Given** the no-fabrication invariant means the agent may not self-close this gate,
+**When** a gate-closed scaffold guard is authored under [tests/scaffold/](tests/scaffold/) (e.g. `15-11-item-review-gate.test.mjs`, mirroring `9a-2-icar-gate-closed.test.mjs`),
+**Then** it RED-fails until the real reviewer deliverable lands — asserting the sign-off record carries a real reviewer name/handle + ISO `YYYY-MM-DD` date (not `TBD`/`pending`), that the workflow doc no longer carries `STATUS: PENDING`, and that for every item flipped to `answer_review_state: approved` a matching reviewer record exists in the sign-off file — so an approved item with no human record is a hard CI failure
+**And** the guard runs only at the release boundary per the established scaffold-guard placement (these guards block at release, not on every PR), and adds no new standing CI job.
+
+**Given** the result page must preserve the co-equal Percentile/IQ-scale/Range triplet and the frozen Epic 11/13 DOM contracts regardless of review state,
+**When** the review-state field is read by selection/session logic (so only `approved` items are eligible for production pools while `draft`/`reviewed` items can still flow through experimental tooling),
+**Then** eligibility filtering happens in the item-source layer feeding [item-selection.js](src/assessment/item-selection.js) without changing the deterministic xoshiro128++ selection or the IRT scoring engine, and unreviewed/experimental items never silently enter a production session pool resolved via [methodology-registry.js](src/assessment/methodology-registry.js)
+**And** the frozen Epic 11/13 DOM contracts (`section.landing`, `h1#landing-heading`, `#start-test-btn`, `.landing__methodology-link`, score-panel co-equal triplet) and WCAG 2.2 AA on every surface remain untouched by this metadata-only change.
+
+**Given** if any English-facing item stem, distractor explanation, or workflow-surfaced item text were introduced, NFR27 translation parity would apply (EN edits cascade to PL/RU + bump `sourceHashEN`, keeping `lint-translation-parity` green),
+**When** the review workflow surfaces any human-readable item-level text,
+**Then** that text either remains asset-only (no localized stems introduced) or, if introduced, is mirrored into the PL/RU corpus with `sourceHashEN` recomputed so [lint-translation-parity.mjs](tools/lint-translation-parity.mjs) stays green
+**And** the deterministic byte-stable build (NFR21) and zero-third-party-runtime-dep posture (NFR6/NFR7 CSP, no inline `<style>`) are preserved across all added tooling and docs.
+
+**Requirements covered:** PR-42
+**Depends on:** 15.1, 15.3
+
+### Story 15.12: Calibration, validation and experimental-result communication
+
+As a **maintainer of a scientifically-honest cognitive screener**,
+I want **a documented calibration & validation plan, the response-evidence and difficulty/discrimination analysis tooling, experimental-status labelling code that flags any result drawn from non-calibrated items, and parity-checked claim entries for the new variants — with the calibration study, item removal, and promotion to scientifically-comparable scores held behind an explicit human sign-off gate**,
+So that **the product never overstates precision or comparability: dedicated-MR, dedicated-LN, and mixed results are openly labelled experimental/preliminary until a real psychometrician validates the bank, and no IQ-scale number is presented as calibrated before that gate closes**.
+
+## ⚠️ HUMAN-GATED — do not fabricate
+
+The agent-doable halves are the **calibration plan**, the **analysis tooling**, the **experimental-labelling code**, the **claim-manifest entries**, and the **scaffold guard**. The actual **calibration study, removal of poorly-performing items, validation of score interpretation + mixed aggregation, and promotion to scientifically-comparable scores** are real psychometric deliverables. Do **NOT** fabricate calibrated `a`/`b` parameters, a calibration sign-off, or flip any item's calibration status to "calibrated" without a real reviewer (governing pattern: Story 9b-1, lesson-2026-06-04-002). The calibration sign-off document stays an explicit `STATUS: PENDING` stub until a real psychometrician signs.
+
+**Acceptance Criteria:**
+
+**Given** the human-gated, no-fabrication scope of PR-40 and the established launch-readiness convention ([psychometrician-signoff.md](docs/launch-readiness/psychometrician-signoff.md), [psychometrician-outreach-draft.md](docs/launch-readiness/psychometrician-outreach-draft.md)),
+**When** the calibration plan is authored,
+**Then** a new doc `docs/launch-readiness/calibration-validation-plan.md` exists describing: the response-evidence collection design (local-only, opt-in, no server-side tracking), the difficulty/discrimination analysis method (classical p-value + point-biserial, then 2PL re-fit against the existing 61-node EAP engine in [src/scoring/irt/](src/scoring/irt/)), item-removal criteria (ambiguous/trivial/redundant/poorly-discriminating), the validation steps for score interpretation and mixed MR+LN aggregation, and the `STATUS: PENDING` calibration sign-off block (name/handle/date/scope all `pending`, no fabricated reviewer or result),
+**And** the doc preserves the NFR6 local-only invariant (no telemetry, no third-party analytics — the evidence channel is opt-in browser-local only).
+
+**Given** the calibration plan needs a reproducible evidence/analysis path and the existing analysis-tool precedent ([compute-difficulty-bands.mjs](tools/compute-difficulty-bands.mjs)),
+**When** the analysis tooling is added,
+**Then** a new tool `tools/analyze-item-evidence.mjs` reads a response-evidence file plus the pool item parameters and emits per-item difficulty (proportion-correct) and discrimination (point-biserial / fitted `a`) statistics with a deterministic, sorted output,
+**And** the tool is a zero-third-party Node script (NFR6/NFR7), produces byte-stable output for identical input (NFR21), and writes to a report path without mutating any shipped pool or `src/items/*.json` (item removal stays a human decision behind the gate).
+
+**Given** the latent risk that any result panel could imply calibrated precision before the study runs, and the current panel render path in [result.js:123](src/assessment/result.js#L123) (function `panel`) with no experimental carrier,
+**When** experimental-status labelling code is added to [result.js](src/assessment/result.js),
+**Then** the panel renders a clearly-worded experimental/preliminary label (a new localized `result.experimentalLabel`-driven node, e.g. an `EXPERIMENTAL_LABEL(s)` constant rendered inside the `score-panel`) whenever **any** item contributing to the displayed MR, LN, or combined estimate is non-calibrated — i.e. its Story-15.1 `experimental_status` is anything other than `calibrated` (`draft` or `pilot`) — derived from that field rather than hard-coded true (so the combined estimate shows the label whenever ANY contributing MR-or-LN item is non-calibrated: the conservative rule),
+**And** the label uses no unsupported precision or comparability language, and the co-equal Percentile / IQ-scale / Range triplet rendered by `SP(...)` in [result.js:23](src/assessment/result.js#L23) is preserved unchanged (label is additive, not a replacement).
+
+**Given** the mixed MR/LN/combined subscale output added in Story 15.6 (additive wrapper over the stable engine, `{mr, ln, combined}`),
+**When** the experimental label is applied to a mixed-variant result,
+**Then** each of the MR, LN, and combined sections is labelled experimental/preliminary independently when its own contributing items are non-calibrated (a calibrated subscale must not inherit a sibling's experimental flag, and vice-versa),
+**And** the additive nature of Story 15.6 is preserved: the 67 existing scoring parity tests ([tests/golden/](tests/golden/), [tests/unit/scoring/irt/](tests/unit/scoring/irt/)) and the homogeneous-pool `scoreSession` facade in [index.js:51](src/scoring/irt/index.js#L51) remain untouched, and the labelling reads status without altering theta/SE math.
+
+**Given** the new variants need engine↔corpus claim parity enforced by [lint-claims-manifest.mjs](tools/lint-claims-manifest.mjs) against the root [METHODOLOGY_CLAIMS.json](METHODOLOGY_CLAIMS.json),
+**When** claim entries for the new variants and the experimental-status communication are added,
+**Then** [METHODOLOGY_CLAIMS.json](METHODOLOGY_CLAIMS.json) gains entries (each with `claim-id`, an `engine-source` under `src/scoring/.+\.js`, a `methodology-path` under `src/content/methodology/[a-z]{2}/...`, and `value-or-formula`) covering the mixed-aggregation method and the experimental-vs-calibrated distinction, conformant to [methodology-claims-v1.schema.json](corpus/methodology-claims-v1.schema.json),
+**And** `node tools/lint-claims-manifest.mjs --strict` exits 0 (every claim's engine-source exists on disk and the referenced methodology page `asserts:` the claim-id — no orphan asserts), and the matching EN methodology page edits cascade to PL/RU with `sourceHashEN` bumped (NFR27 parity).
+
+**Given** the agent cannot close the real psychometric deliverables and the no-fabrication scaffold precedent ([9b-1-psychometrician-outreach.test.mjs](tests/scaffold/9b-1-psychometrician-outreach.test.mjs)),
+**When** the verification guard is authored,
+**Then** a new guard `tests/scaffold/15-12-calibration-gate.test.mjs` asserts: the calibration plan and the analysis tool exist; the calibration sign-off block carries `STATUS: PENDING` and contains no fabricated "calibrated/signed off/validated by" claim; no shipped item is flagged `calibrated` while the gate is `PENDING`; and the manifest passes `--strict` — RED before the artifacts, GREEN after,
+**And** the guard runs inside `make test` (globbed `tests/scaffold/**`, no new per-spec CI job — repo "no new jobs post-Epic-1" discipline), and `make lint` / `make build` exit 0 with a deterministic byte-stable build (NFR21).
+
+**Given** the calibration study, poorly-performing-item removal, and promotion to scientifically-comparable scores are real human deliverables (Epic 15 human-gated, mirroring the 9-series),
+**When** the gated work is reached,
+**Then** the calibration sign-off in `docs/launch-readiness/calibration-validation-plan.md` remains an explicit `STATUS: PENDING` stub with no agent action until a real psychometrician runs the study, validates interpretation + mixed aggregation, and records name/handle/date/scope — and only then may an item's calibration status flip (which in turn lets the experimental label retire for that subscale),
+**And** until that gate closes the experimental/preliminary label stays on for non-calibrated items and the frozen Epic 11/13 DOM contracts (`.score-panel` co-equal triplet, `section.landing`, `#start-test-btn`) are preserved, with no telemetry introduced by the evidence channel (NFR6 local-only).
+
+**Requirements covered:** PR-40
+**Depends on:** 15.1, 15.6
+
+### Story 15.13: Epic-15 verification suite and calibration-readiness checks
+
+As a **release engineer guarding the Epic-15 item-bank and mixed-assessment work**,
+I want **the full Epic-15 verification matrix wired into CI — every quality-gate, composition, scoring, provenance, and calibration-readiness check running one-job-per-check — plus a documented manual item-quality review workflow**,
+So that **no item-bank, distractor, rule-family, distribution, repeat-minimization, mixed-scoring, license, or calibration-status regression can merge undetected, and every shipped item carries an honest experimental label**.
+
+**Acceptance Criteria:**
+
+**Given** the deferred-job discipline in [pr-checks.yml:3-6](.github/workflows/pr-checks.yml#L3) (every future check exists as a stub from Epic-1 close, activated by removing its `if: false` gate — never added net-new) and the Story-15.3 quality-gate stubs landed under that discipline,
+**When** Story 15.3's stub jobs are activated for the Epic-15 item-bank checks,
+**Then** each such job in [pr-checks.yml](.github/workflows/pr-checks.yml) has its `if: false` removed and its `# Activates in Epic 15` (or `# Activates in Story 15.x`) comment retained as a now-historical marker, so [ci-matrix.test.mjs](tests/scaffold/ci-matrix.test.mjs) AC-2 (active jobs carry no `if: false`) passes for them,
+**And** no net-new top-level job key is introduced for any check that already had a Story-15.3 stub (one-job-per-check, no greedy glob), preserving the deterministic byte-stable build (NFR21).
+
+**Given** the item-bank quality gates required by PR-43 against the `{id,a,b,asset,options,correct}` schema in [item-parameters.schema.json](corpus/item-parameters.schema.json),
+**When** the activated jobs run against every variant pool resolved by [resolveVariant()](src/assessment/methodology-registry.js#L39),
+**Then** distinct jobs enforce exact-duplicate detection, near-duplicate / structural-similarity detection, correct-answer validity (the `correct` value is present in `options[6]` and matches the augmented-matrix filename rule), distractor-uniqueness (no duplicate option figures within an item), rule-family-distribution, and difficulty-distribution against the `b`-cutoff bands in [item-difficulty-bands*.json](src/items/), each failing with the offending `id` + reason and exiting non-zero,
+**And** these read-only lints add zero third-party runtime dependencies (NFR6/NFR7 CSP) and never mutate the corpus or the frozen 67 scoring parity vectors.
+
+**Given** session-construction is deterministic via [selectSession(pool, seed128, sessionSize)](src/assessment/item-selection.js#L17), whose `pool.length > sessionSize` partial-Fisher-Yates subset path is otherwise untested in production,
+**When** the session-level no-repeat and cross-session repeat-minimization jobs run over each pool/`sessionSize` pair from [methodology-registry.js:27-32](src/assessment/methodology-registry.js#L27) (geometric 16/24, letter-number 12/20),
+**Then** the session-level check asserts a single `selectSession` result contains no repeated `id`, and the cross-session check asserts that across many distinct 128-bit seeds the expected-overlap stays below the repeat-minimization threshold, exercising the subset path for full variants where `pool.length > sessionSize`,
+**And** the checks consume only the in-memory crypto-seeded PRNG path (no `Math.random`/`Date.now`/`localStorage`, NFR10 local-only), preserving frozen Epic 11/13 selector and state contracts.
+
+**Given** PR-43 also gates the mixed-assessment composition + scoring added in Stories 15.9-15.12 (the additive MR-subset + LN-subset + combined wrapper over the shared 61-node quadrature grid),
+**When** the mixed-assessment composition and mixed-scoring jobs run,
+**Then** the composition job asserts a mixed session draws the correct per-methodology item counts and the scoring job asserts the wrapper returns the `{mr, ln, combined}` triplet without touching the existing `scoreSession` parity tests in [tests/unit/scoring/irt/](tests/unit/scoring/irt/) or the golden vectors in [tests/golden/](tests/golden/),
+**And** the co-equal Percentile/IQ-scale/Range triplet on the result surface is preserved unchanged in the combined-output path.
+
+**Given** PR-43 requires every shipped item to carry honest provenance/license and calibration metadata before any non-experimental claim,
+**When** the provenance/license-completeness, calibration-readiness, and experimental-label jobs run,
+**Then** the provenance/license job asserts every item carries the required license/provenance fields (extending the [lint-license-provenance.mjs](tools/lint-license-provenance.mjs) NFR24 hash-stable contract), the calibration-readiness job asserts each pool reports its calibration status, and the experimental-label job asserts items lacking real calibration are surfaced with an experimental label rather than presented as norm-referenced,
+**And** any EN-side label/copy these checks assert against cascades to PL/RU with a bumped `sourceHashEN` (NFR27 translation parity).
+
+**Given** automated lints cannot judge item construction soundness, and PR-43 calls for a manual item-quality review step,
+**When** this story adds the manual item-quality review workflow doc + checklist,
+**Then** a versioned checklist document is committed under `docs/` enumerating the per-item human review criteria (rule-family soundness, single defensible correct answer, distractor plausibility, cultural/linguistic neutrality, calibration-status sign-off) and the sign-off record location,
+**And** the checklist references the automated jobs as the machine-checkable subset so the two layers stay complementary, with no telemetry or third-party tooling introduced (NFR6).
+
+**Given** [docs/required-ci-checks.md](docs/required-ci-checks.md) is the canonical enumeration of every PR/release check and [ci-matrix.test.mjs](tests/scaffold/ci-matrix.test.mjs) AC-1 asserts every job key in `ALL_JOBS` is declared at the `jobs:` top level (and AC-3 governs any still-deferred job),
+**When** the Epic-15 jobs are activated and documented,
+**Then** each new job id is added to the `ALL_JOBS` set in [ci-matrix.test.mjs](tests/scaffold/ci-matrix.test.mjs) (and to `EPIC_1_ACTIVE` since they now run) and given a corresponding row in the appropriate table of [docs/required-ci-checks.md](docs/required-ci-checks.md) naming what it enforces, its trigger, and its `tools/`/`tests/` source — keeping the doc-name parity asserted by [contributing-docs.test.mjs](tests/scaffold/contributing-docs.test.mjs),
+**And** WCAG 2.2 AA and the zero-new-jobs-post-Epic-1 discipline are preserved (no job activated here was created net-new outside a prior Story-15.x stub).
+
+**Requirements covered:** PR-43
+**Depends on:** 15.2, 15.3, 15.6, 15.9, 15.10, 15.11, 15.12
