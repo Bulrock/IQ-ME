@@ -1,7 +1,7 @@
 ---
 id: 14-2-aurora-token-foundation-deep-navy-backdrop-reusable-primitives-visual-regression-harness
 title: "Story 14.2: Aurora token foundation, deep-navy backdrop, reusable primitives & visual-regression harness"
-status: review
+status: done
 ---
 
 # Story 14.2: Aurora token foundation, deep-navy backdrop, reusable primitives & visual-regression harness

@@ -71,6 +71,18 @@
   --surface-glass-edge:   var(--glass-edge);
   --surface-glass-shadow: var(--glass-shadow);
 
+  /* ─── Epic 14 — Aurora backdrop + glow roles (Story 14-2). LIGHT defaults
+   * (luminous-pale analog); dark authored separately below (UX-DR6, not
+   * auto-inverted). base.css / components consume these roles, NEVER the
+   * --aurora-* primitives directly (UX-DR1 two-layer rule). Decorative only —
+   * the page background-color contract (--color-surface-base) is untouched, so
+   * body-text contrast stays independent of the backdrop (SC 1.4.3). */
+  --backdrop-base:        var(--aurora-pale-100);
+  --backdrop-aurora-1:    var(--aurora-blue-glow-light);
+  --backdrop-aurora-2:    var(--aurora-violet-glow-light);
+  --backdrop-grid:        var(--aurora-grid-line-light);
+  --aurora-glow-accent:   var(--glass-tint);  /* decorative panel glow; never the contrast layer */
+
   /* ─── Epic 13 — Semantic motion roles (Story 13-1 §4). */
   --motion-control:  var(--motion-instant);
   --motion-hover:    var(--motion-quick);
@@ -91,15 +103,22 @@
   --color-focus-ring:       var(--color-accent-300);
   --color-action-border:    var(--color-accent-300);
 
-  /* Epic 13 — dark glass is separately authored (UX-DR6), not auto-inverted.
-   * Fill uses the LIGHTER neutral-800 ink (rgb 35,40,48), NOT neutral-900 — the
-   * page background is neutral-900, so a same-RGB fill would composite to the
-   * page color and vanish. neutral-800 over neutral-900 reads as a raised glass
-   * panel. Edge is a brighter rim so the panel boundary is visible on dark. */
-  --surface-glass:        rgba(45, 52, 64, 0.66);
-  --surface-glass-strong: rgba(48, 56, 70, 0.88);
-  --surface-glass-edge:   rgba(255, 255, 255, 0.16);
-  --surface-glass-shadow: 0 6px 28px rgba(0, 0, 0, 0.45);
+  /* Epic 14 (Story 14-2) — Aurora dark glass, retuned to read against the
+   * deep-navy spatial backdrop (--aurora-navy-900 = #070b16). Separately
+   * authored (UX-DR6), not auto-inverted. The fill is a cool blue-grey LIGHTER
+   * than the navy backdrop so a panel reads as raised with real blur depth
+   * (the Epic 13 fill composited to the page color and vanished). Contrast
+   * guarantee stays the fill alpha (≥0.72 / ≥0.90), never the blur. */
+  --surface-glass:        rgba(38, 48, 74, 0.74);
+  --surface-glass-strong: rgba(44, 56, 84, 0.90);
+  --surface-glass-edge:   rgba(150, 180, 240, 0.22);
+  --surface-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+
+  /* Aurora backdrop roles — deep-navy field + bounded blue-violet glows. */
+  --backdrop-base:        var(--aurora-navy-900);
+  --backdrop-aurora-1:    var(--aurora-blue-glow);
+  --backdrop-aurora-2:    var(--aurora-violet-glow);
+  --backdrop-grid:        var(--aurora-grid-line);
 }
 
 /* ─── UX-DR6 — Dark mode (system pref, when no explicit light opt-out) ─── */
@@ -114,12 +133,18 @@
     --color-focus-ring:       var(--color-accent-300);
     --color-action-border:    var(--color-accent-300);
 
-    /* Epic 13 — dark glass under system pref (mirror of the explicit block;
-     * lighter neutral-800 ink so glass reads as a raised panel over the
-     * neutral-900 page, not the same color). */
-    --surface-glass:        rgba(45, 52, 64, 0.66);
-    --surface-glass-strong: rgba(48, 56, 70, 0.88);
-    --surface-glass-edge:   rgba(255, 255, 255, 0.16);
-    --surface-glass-shadow: 0 6px 28px rgba(0, 0, 0, 0.45);
+    /* Epic 14 (Story 14-2) — Aurora dark glass under system pref (mirror of the
+     * explicit [data-theme="dark"] block): cool blue-grey fill lighter than the
+     * deep-navy backdrop so glass reads as a raised panel with real blur depth. */
+    --surface-glass:        rgba(38, 48, 74, 0.74);
+    --surface-glass-strong: rgba(44, 56, 84, 0.90);
+    --surface-glass-edge:   rgba(150, 180, 240, 0.22);
+    --surface-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+
+    /* Aurora backdrop roles — deep-navy field + bounded blue-violet glows. */
+    --backdrop-base:        var(--aurora-navy-900);
+    --backdrop-aurora-1:    var(--aurora-blue-glow);
+    --backdrop-aurora-2:    var(--aurora-violet-glow);
+    --backdrop-grid:        var(--aurora-grid-line);
   }
 }

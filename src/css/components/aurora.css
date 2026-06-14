@@ -1,0 +1,57 @@
+/* src/css/components/aurora.css
+ *
+ * Epic 14 (Story 14-2) — reusable Aurora primitives. Extends the Epic 13
+ * glass-surface vocabulary with the Aurora treatment so later stories
+ * (14-3..14-10) adopt the look without bespoke CSS. Consumes ONLY semantic
+ * roles (UX-DR1 two-layer rule) — never the --aurora-*/--glass-* primitives.
+ *
+ * Contrast is guaranteed by the glass FILL alpha (≥0.72) + the @supports solid
+ * fallback below, NEVER the blur (the deep-navy backdrop is variable content).
+ * Motion is gated by the global prefers-reduced-motion net in base.css.
+ */
+
+/* Aurora glow surface — a glass panel with a soft inner accent glow that reads
+ * as "lit from within" against the deep-navy backdrop. Body-text panels add
+ * .glass-surface--strong for the ≥0.90 fill. */
+.aurora-surface {
+  background-color: var(--surface-glass);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border: var(--border-width-hairline) solid var(--surface-glass-edge);
+  border-radius: var(--radius-surface);
+  box-shadow:
+    var(--surface-glass-shadow),
+    inset 0 1px 0 var(--surface-glass-edge);
+}
+
+/* Decorative accent glow layer (optional). Never the contrast layer. */
+.aurora-surface--glow {
+  background-image: linear-gradient(var(--aurora-glow-accent), transparent);
+}
+
+/* Shared visible-focus class — builds on the :focus-visible token contract
+ * (base.css) so any Aurora control gets a consistent, AA-clearing ring. */
+.aurora-focus:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}
+
+/* Interaction-state hook — a small surface lift on hover/focus. Transition is
+ * compositor-friendly (transform/box-shadow) and collapses to a no-op under the
+ * global prefers-reduced-motion: reduce net (base.css §4.3). */
+.aurora-interactive {
+  transition:
+    transform var(--motion-hover) var(--motion-ease),
+    box-shadow var(--motion-hover) var(--motion-ease);
+}
+.aurora-interactive:hover {
+  transform: translateY(-1px);
+}
+
+/* Solid fallback: where backdrop-filter is unavailable, drop translucency so
+ * every Aurora surface variant stays an opaque, AA-legible panel. */
+@supports not (backdrop-filter: blur(1px)) {
+  .aurora-surface {
+    background-color: var(--surface-glass-strong);
+  }
+}

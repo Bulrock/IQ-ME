@@ -61,6 +61,12 @@ const ALL_JOBS = [
   // + viewport-overflow over the full happy-path). No Epic-1 stub to flip — this
   // story OWNS adding it (see story 8-5 reconciliation table).
   "trust-verification-full",
+  // Story 14.2 — Aurora rendered visual-regression + print/PDF baselines. Added
+  // DORMANT (if: false + "# Activates in Epic 14"); Story 14.11 flips it on — the
+  // one documented exception to "no new CI jobs after Epic 1" (epics.md Decision 4).
+  // Registered here so the discipline test governs it rather than letting an
+  // unregistered stealth job slip in.
+  "visual-regression",
 ];
 
 const EPIC_1_ACTIVE = new Set([

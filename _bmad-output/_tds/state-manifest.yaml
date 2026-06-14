@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 84a8c27381d16d4e0016a965e15457c016337f55caedd152a2cc9d8eef63e73a
+    sha256: 4bbe4c4e917c5d1f8e94c47d05afda0569080401af0c5af4e4a1ad0c9848bfc5
     canonical_form: raw-bytes
-    recorded_at: 2026-06-14T15:38:03.074Z
-    recorded_by: engineer
-    story_id: 14-1-aurora-glass-observatory-design-direction
+    recorded_at: 2026-06-14T15:56:59.476Z
+    recorded_by: frontend
+    story_id: 14-2-aurora-token-foundation-deep-navy-backdrop-reusable-primitives-visual-regression-harness
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -107,11 +107,11 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/ci-matrix.test.mjs
-    sha256: 2c1fea3cc31f6107141bfbb361ff31453f5a7eb7cacd0ec546d7706bab99808f
+    sha256: a09ab2345b86028bcc57a9a7646cafa36dfeb9f91354bdbed7bcae87a36ae96a
     canonical_form: raw-bytes
-    recorded_at: 2026-06-06T17:32:41.577Z
-    recorded_by: engineer
-    notes: "remove Cloudflare mirror: drop deploy-to-mirror + mirror-parity assertions (4-job→3-job scheduled.yml)"
+    recorded_at: 2026-06-14T15:48:24.984Z
+    recorded_by: test-author
+    story_id: 14-2-aurora-token-foundation-deep-navy-backdrop-reusable-primitives-visual-regression-harness
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
     sha256: 2c67dbd842aaf6c1d1fa235e982c057c934cb3d52c80afdcfae9dc360229a6e1
@@ -1962,3 +1962,17 @@ entries:
     recorded_at: 2026-06-14T15:35:50.568Z
     recorded_by: test-author
     story_id: 14-1-aurora-glass-observatory-design-direction
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/14-2-aurora-token-foundation-deep-navy-backdrop-reusable-primitives-visual-regression-harness.md
+    sha256: 1010ef35a60c51f8f17eb840a82b3d1c7faa90a5b30b7f80c7950d4be116b839
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T15:56:59.476Z
+    recorded_by: frontend
+    story_id: 14-2-aurora-token-foundation-deep-navy-backdrop-reusable-primitives-visual-regression-harness
+  - artefact_class: A
+    file: tests/scaffold/14-2-aurora-token-foundation.test.mjs
+    sha256: f9fd76e7b3cfa3968a9974188ec265b5ac57dfc2e158318ed9bbc9528ba0116f
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T15:48:24.984Z
+    recorded_by: test-author
+    story_id: 14-2-aurora-token-foundation-deep-navy-backdrop-reusable-primitives-visual-regression-harness

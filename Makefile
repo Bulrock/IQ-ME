@@ -5,7 +5,7 @@
 
 .DEFAULT_GOAL := help
 
-.PHONY: help test test-network-trace test-full-slice test-byte-stable test-i18n-locale lint fallow fallow-gates fallow-unused fallow-duplication fallow-health build build-methodology build-difficulty-bands dev clean snapshot-update test-contract
+.PHONY: help test test-network-trace test-full-slice test-byte-stable test-i18n-locale lint fallow fallow-gates fallow-unused fallow-duplication fallow-health build build-methodology build-difficulty-bands dev clean snapshot-update snapshot-update-visual test-contract
 
 help: ## list documented Make targets
 	@grep -hE '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) \
@@ -85,3 +85,7 @@ clean: ## remove build outputs (idempotent; honors IQME_DIST_DIR for per-test tm
 snapshot-update: ## regenerate tests/snapshots/ tree (tokens.hash.json + methodology golden HTML — codified D→E write boundary)
 	# Run after deliberate changes to css tokens OR methodology source; commit the snapshot diff alongside the source change.
 	node tools/snapshot-update.mjs
+
+snapshot-update-visual: ## regenerate committed Playwright visual-regression baselines (Aurora — Story 14-2; run on ubuntu-latest for byte-stable baselines, ~1-2% maxDiffPixelRatio)
+	# Aurora rendered-verification baselines: backdrop+glass across 320->1440 in light+dark + a print/PDF leg. The CI job stays dormant (if: false) until Story 14-11 flips it on.
+	npx --yes playwright test tests/playwright/aurora-visual-regression.spec.mjs --update-snapshots

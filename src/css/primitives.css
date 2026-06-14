@@ -118,6 +118,25 @@
   --glass-edge:        rgba(255, 255, 255, 0.55);   /* lit hairline rim */
   --glass-shadow:      0 4px 24px rgba(10, 13, 18, 0.10);  /* soft float shadow */
 
+  /* ─── Epic 14 — Aurora Glass Observatory primitives (Story 14-1 §2; consumed
+   * by 14-2 semantic backdrop + aurora roles). The deep-navy spatial backdrop
+   * gives glass real luminance contrast to blur against — fixing the Epic 13
+   * same-RGB-over-same-RGB failure (investigation Finding 4). These are the dark
+   * "observatory" identity; the light luminous-pale analog is below. Bounded per
+   * design-direction §4.1: aurora glow alpha ≤0.18, grid alpha ≤0.06. The
+   * contrast guarantee stays the glass FILL alpha, NEVER the blur. */
+  --aurora-navy-900:  #070b16;  /* deepest backdrop base — darker + bluer than neutral-900 */
+  --aurora-navy-800:  #0b1124;  /* backdrop mid stop */
+  --aurora-blue-glow:   rgba(58, 92, 200, 0.16);   /* bounded blue aurora (≤0.18) */
+  --aurora-violet-glow: rgba(122, 80, 210, 0.14);  /* bounded violet aurora (≤0.18) */
+  --aurora-grid-line:   rgba(122, 152, 230, 0.05); /* thin luminous grid (≤0.06) */
+  /* Light-theme luminous-pale analog (cool off-white wash; separately authored,
+   * not auto-inverted — UX-DR6) so light glass also reads as a raised layer. */
+  --aurora-pale-100:    #eef2fb;  /* cool pale backdrop base (light) */
+  --aurora-blue-glow-light:   rgba(70, 100, 200, 0.07);
+  --aurora-violet-glow-light: rgba(122, 80, 200, 0.06);
+  --aurora-grid-line-light:   rgba(70, 100, 180, 0.045);
+
   /* ─── Epic 13 — Motion primitives (Story 13-1 §4). Durations + easing.
    * All motion collapses under prefers-reduced-motion: reduce (base.css). */
   --motion-instant: 90ms;   /* toggle/checkbox state, focus ring */
