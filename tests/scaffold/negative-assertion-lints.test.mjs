@@ -48,6 +48,12 @@ const LINTS = [
     script: "tools/lint-no-localStorage-without-consent.mjs",
     fixtureDir: "tests/fixtures/lint-negative-assertions/no-localStorage-without-consent",
   },
+  // Story 14.12 (PR-31): forbids assessment-completion duration estimates in
+  // user-facing + project copy. Self-paced screener → no fixed-time claim.
+  {
+    script: "tools/lint-no-duration-estimate.mjs",
+    fixtureDir: "tests/fixtures/lint-negative-assertions/no-duration-estimate",
+  },
 ];
 
 function runLint(scriptPath, env = {}) {
@@ -113,7 +119,7 @@ for (const { script, fixtureDir } of LINTS) {
 // AC-5: make lint chains all active lints
 // ─────────────────────────────────────────────────────────────────────
 
-test("AC-5: `make lint` exits 0 and chains all 7 active negative-assertion + budget lints", () => {
+test("AC-5: `make lint` exits 0 and chains all active negative-assertion + budget lints", () => {
   const r = spawnSync("make", ["lint"], {
     cwd: REPO_ROOT,
     encoding: "utf8",

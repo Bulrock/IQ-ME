@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: d61485efb5bb3e7f195145a46336bb62c2fe232412f77a371c914f8abcd0466f
+    sha256: e7d1143181e672b1772ab43e6d88e1631bb41e6ec19225194ce1e1137d76d8be
     canonical_form: raw-bytes
-    recorded_at: 2026-06-14T18:11:32.614Z
+    recorded_at: 2026-06-14T18:20:17.281Z
     recorded_by: engineer
-    notes: 14-11 done
+    notes: 14-12 done + registry entry re-record
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -114,11 +114,11 @@ entries:
     story_id: 14-2-aurora-token-foundation-deep-navy-backdrop-reusable-primitives-visual-regression-harness
   - artefact_class: A
     file: tests/scaffold/negative-assertion-lints.test.mjs
-    sha256: 2c67dbd842aaf6c1d1fa235e982c057c934cb3d52c80afdcfae9dc360229a6e1
+    sha256: 61340052f216ec15ae16fd20f99318d5ef048f468fed9baccd71da4273524664
     canonical_form: raw-bytes
-    recorded_at: 2026-06-04T09:05:31.297Z
+    recorded_at: 2026-06-14T18:20:17.282Z
     recorded_by: engineer
-    story_id: 1-6-author-ci-matrix-yaml-with-full-future-lint-stub-jobs
+    notes: 14-12 done + registry entry re-record
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-7-implement-playwright-network-trace-infrastructure-with-strict-zero-third-party-assertion-from-day-1.md
     sha256: fbb37ed4607cb8002b2cebce71077892eec48028a03f04b3dea94467d3945a45
@@ -2102,3 +2102,17 @@ entries:
     recorded_at: 2026-06-14T18:11:31.773Z
     recorded_by: test-author
     notes: freeze 14-11 guard
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/14-12-commit-and-guard-the-assessment-duration-copy-cleanup.md
+    sha256: 5697f40fbe4ebd4fc7adf18c4250b8bd3826bb37aba064ba79bd24d57828742a
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T18:20:17.281Z
+    recorded_by: engineer
+    notes: 14-12 done + registry entry re-record
+  - artefact_class: A
+    file: tests/scaffold/14-12-duration-copy-guard.test.mjs
+    sha256: 33bfa0772b2f64401be7dfae5cecc3d67955114167c90bcf5f679199001fe7b0
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T18:20:16.418Z
+    recorded_by: test-author
+    notes: freeze 14-12 guard

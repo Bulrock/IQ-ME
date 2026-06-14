@@ -38,6 +38,7 @@ lint: ## run all registered lints (negative assertions + budget + trust artifact
 	node tools/lint-no-analytics-script.mjs
 	node tools/lint-no-external-font.mjs
 	node tools/lint-no-localStorage-without-consent.mjs
+	node tools/lint-no-duration-estimate.mjs
 	node tools/lint-claims-manifest.mjs --strict
 	node tools/lint-frontmatter.mjs
 	node tools/lint-glossary.mjs
