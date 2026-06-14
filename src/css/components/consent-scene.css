@@ -19,12 +19,33 @@
   background-color: var(--color-surface-base);
 }
 
+/* Epic 14 (Story 14-5, PR-22): the validity envelope reads as a raised Aurora
+   glass panel against the deep-navy backdrop. Story 14.2 re-valued the glass
+   roles, so consuming the STRONG fill (≥0.90 alpha — the envelope carries
+   long-form body text → AA SC 1.4.3) + the lit-from-within edge + float shadow
+   makes the panel perceptibly elevated, matching .aurora-surface. Token-only
+   (UX-DR1): no --glass-*/--color-neutral-* primitive, no literal hex/rgba/px
+   glass value. The dwell-gate timer + scroll topology are untouched. */
 .consent-scene__envelope {
   padding-block: var(--space-4);
   padding-inline: var(--space-5);
   margin-block-end: var(--space-5);
-  background-color: var(--color-surface-elevated);
-  border-inline-start: var(--space-1) solid var(--color-rule-strong);
+  background-color: var(--surface-glass-strong);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border: var(--border-width-hairline) solid var(--surface-glass-edge);
+  border-radius: var(--radius-surface);
+  box-shadow:
+    var(--surface-glass-shadow),
+    inset 0 var(--border-width-hairline) 0 var(--surface-glass-edge);
+}
+
+/* Solid fallback: where backdrop-filter is unavailable, the envelope stays an
+   opaque, AA-legible panel (the strong fill is the contrast guarantee). */
+@supports not (backdrop-filter: blur(1px)) {
+  .consent-scene__envelope {
+    background-color: var(--surface-glass-strong);
+  }
 }
 
 .consent-scene__envelope > p {

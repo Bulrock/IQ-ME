@@ -8,11 +8,11 @@ entries:
     recorded_by: engineer
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/sprint-status.yaml
-    sha256: 741a36ca9e418b7614f4c472d313b80c290ed152d343b4272995d3622aded1c2
+    sha256: e8a88c499dee31c037417813023c73edb41dd60fbf1541113a52f581191aa444
     canonical_form: raw-bytes
-    recorded_at: 2026-06-14T16:28:06.664Z
+    recorded_at: 2026-06-14T17:10:34.432Z
     recorded_by: engineer
-    notes: "14-4 done: sprint-status + spec frontmatter"
+    notes: 14-5 done
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/1-1-bootstrap-repo-skeleton-makefile.md
     sha256: bfdb92a80d7272cdb6ce6cbadaff40765b58287daabd9f33d9f41771cec5581d
@@ -2004,3 +2004,17 @@ entries:
     recorded_at: 2026-06-14T16:27:57.894Z
     recorded_by: test-author
     notes: freeze 14-4 acceptance guard
+  - artefact_class: A
+    file: _bmad-output/implementation-artifacts/stories/14-5-aurora-consent-supporting-information-surfaces-and-shared-chrome.md
+    sha256: 9bb1e91faa2c6b12a25c0d46f69a6dacc80b3a71b39df974fe1c7a6536eca562
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T17:10:34.432Z
+    recorded_by: engineer
+    notes: 14-5 done
+  - artefact_class: A
+    file: tests/scaffold/14-5-aurora-chrome-consent.test.mjs
+    sha256: a338af29e67046c4a94423d1dd1da659157a292cddcfac76c2ef68e6bb212392
+    canonical_form: raw-bytes
+    recorded_at: 2026-06-14T17:10:33.619Z
+    recorded_by: test-author
+    notes: freeze 14-5 guard
