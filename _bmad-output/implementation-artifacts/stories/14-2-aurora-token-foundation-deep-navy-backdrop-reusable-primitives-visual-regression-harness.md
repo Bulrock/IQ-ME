@@ -1,7 +1,7 @@
 ---
 id: 14-2-aurora-token-foundation-deep-navy-backdrop-reusable-primitives-visual-regression-harness
 title: "Story 14.2: Aurora token foundation, deep-navy backdrop, reusable primitives & visual-regression harness"
-status: in-progress
+status: review
 ---
 
 # Story 14.2: Aurora token foundation, deep-navy backdrop, reusable primitives & visual-regression harness
@@ -31,23 +31,23 @@ so that **glass surfaces have real contrast to blur against (fixing the Epic 13 
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Aurora primitives + backdrop/glass token VALUES (AC: 1, 2)**
-  - [ ] Add Aurora backdrop/aurora/grid primitive VALUES to `primitives.css` (deep-navy + light pale analogs + bounded glows ≤0.18 + grid ≤0.06)
-  - [ ] Add new `--backdrop-*` semantic roles in `semantic.css` :root (light) + both dark blocks; retune dark `--surface-glass*`/`--glass-edge`/`--glass-shadow` values (lighter band) so a panel reads as raised over the navy
-  - [ ] Paint the deep-navy + aurora backdrop in `base.css` `body` via `background-image` layers, leaving `background-color: var(--color-surface-base)` intact
-- [ ] **Task 2: Reusable Aurora primitives component (AC: 3, 4)**
-  - [ ] Create `src/css/components/aurora.css` (aurora surface variant + shared visible-focus class + interaction hook; semantic-roles-only; `@supports not` fallback; reduced-motion-gated)
-  - [ ] Insert the `aurora.css` `<link>` in `index.html` alphabetically (first in the components chain) — keep lint-css-link-order green
-  - [ ] Measure `src/css/components/**` LOC; confirm ≤2300; record in File List
-- [ ] **Task 3: Visual-regression + print/PDF harness (AC: 5)**
-  - [ ] Add `tests/playwright/aurora-visual-regression.spec.mjs` (toHaveScreenshot across 320→1440, light+dark, + print leg; local SPA only; documented maxDiffPixelRatio)
-  - [ ] Add `make snapshot-update-visual` target + register in `.PHONY`
-- [ ] **Task 4: Deferred CI job + ci-matrix registration (AC: 6)**
-  - [ ] Add the dormant `visual-regression` job to `pr-checks.yml` (`if: false` + `# Activates in Epic 14`)
-  - [ ] Register `visual-regression` in `ALL_JOBS` in `tests/scaffold/ci-matrix.test.mjs` (cross-story frozen-test edit owned by 1-6 → re-record/accept integrity)
-- [ ] **Task 5: Snapshot refresh + verification (AC: 4)**
-  - [ ] Run `make snapshot-update` (tokens.hash.json D→E refresh); commit the snapshot diff
-  - [ ] Run the node-based frozen guards green (tokens contract, ci-matrix discipline, cognitive-load-budget, byte-stable) + the new 14-2 scaffold guard
+- [x] **Task 1: Aurora primitives + backdrop/glass token VALUES (AC: 1, 2)**
+  - [x] Add Aurora backdrop/aurora/grid primitive VALUES to `primitives.css` (deep-navy + light pale analogs + bounded glows ≤0.18 + grid ≤0.06)
+  - [x] Add new `--backdrop-*` semantic roles in `semantic.css` :root (light) + both dark blocks; retune dark `--surface-glass*`/`--glass-edge`/`--glass-shadow` values (lighter band) so a panel reads as raised over the navy
+  - [x] Paint the deep-navy + aurora backdrop in `base.css` `body` via `background-image` layers, leaving `background-color: var(--color-surface-base)` intact
+- [x] **Task 2: Reusable Aurora primitives component (AC: 3, 4)**
+  - [x] Create `src/css/components/aurora.css` (aurora surface variant + shared visible-focus class + interaction hook; semantic-roles-only; `@supports not` fallback; reduced-motion-gated)
+  - [x] Insert the `aurora.css` `<link>` in `index.html` alphabetically (first in the components chain) — keep lint-css-link-order green
+  - [x] Measure `src/css/components/**` LOC; confirm ≤2300; record in File List
+- [x] **Task 3: Visual-regression + print/PDF harness (AC: 5)**
+  - [x] Add `tests/playwright/aurora-visual-regression.spec.mjs` (toHaveScreenshot across 320→1440, light+dark, + print leg; local SPA only; documented maxDiffPixelRatio)
+  - [x] Add `make snapshot-update-visual` target + register in `.PHONY`
+- [x] **Task 4: Deferred CI job + ci-matrix registration (AC: 6)**
+  - [x] Add the dormant `visual-regression` job to `pr-checks.yml` (`if: false` + `# Activates in Epic 14`)
+  - [x] Register `visual-regression` in `ALL_JOBS` in `tests/scaffold/ci-matrix.test.mjs` (cross-story frozen-test edit owned by 1-6 → re-record/accept integrity)
+- [x] **Task 5: Snapshot refresh + verification (AC: 4)**
+  - [x] Run `make snapshot-update` (tokens.hash.json D→E refresh); commit the snapshot diff
+  - [x] Run the node-based frozen guards green (tokens contract, ci-matrix discipline, cognitive-load-budget, byte-stable) + the new 14-2 scaffold guard
 
 ## Dev Notes
 
@@ -85,4 +85,43 @@ frontend
 
 ### Completion Notes List
 
+- Aurora deep-navy backdrop + retuned dark glass (painted via background-image, surface-base contract intact); aurora.css primitives; dormant visual-regression harness+CI stub; snapshot-update; CSS budget 2196/2300; byte-stable + chrome/triplet computed-style green
+
 ### File List
+
+- src/css/primitives.css
+- src/css/semantic.css
+- src/css/base.css
+- src/css/components/aurora.css
+- src/index.html
+- Makefile
+- .github/workflows/pr-checks.yml
+- tests/scaffold/ci-matrix.test.mjs
+- tests/scaffold/14-2-aurora-token-foundation.test.mjs
+- tests/playwright/aurora-visual-regression.spec.mjs
+- tests/snapshots/tokens.hash.json
+
+## Specialist Self-Review
+
+**Decisions made:**
+- **Deep-navy backdrop painted as `background-image` layers, NOT via `--color-surface-base`.** Kept `html`/`body { background-color: var(--color-surface-base) }` unchanged so the chrome-components Playwright contract (the `--color-surface-base` theme swap) stays exactly as asserted; the navy/aurora is a `linear-gradient(--backdrop-base,…)` bottom layer + two bounded radial glows on top. Verified: chrome-components + co-equal-triplet computed-style specs pass 12/12 (RU/PL legs skipped — no methodology build in this run).
+- **Dark glass retuned to a cool blue-grey LIGHTER than the navy** (`rgba(38,48,74,0.74)` / strong `rgba(44,56,84,0.90)`) so a panel reads as raised over `#070b16` — the Epic 13 fill (`rgba(45,52,64)`) composited to ~page color and vanished. Contrast guarantee stays the fill alpha (≥0.72/≥0.90) + `@supports` solid fallback, never the blur. Token NAMES + the semantic indirection unchanged; only VALUES + NEW `--backdrop-*` roles added.
+- **`visual-regression` CI job added DORMANT** (`if: false` + `# Activates in Epic 14`) and registered in `ci-matrix.test.mjs` `ALL_JOBS` — a sanctioned cross-story frozen-test edit (owned by 1-6), re-recorded as test-author. It is now the sole deferred job, so the AC-3 discipline test governs it.
+
+**Alternatives considered:**
+- Changing `--color-surface-base` (dark) to the navy directly. Rejected: it ripples to every surface-base consumer and risks the chrome-components contract + unrelated contrast assertions. The background-image approach is surgical.
+- Routing dark glass through new `--glass-*-dark` primitives. Rejected: the existing structure authors dark glass inline in the dark blocks; matching it (Karpathy #3 surgical) keeps the diff minimal and the two-layer rule intact (components still consume only `--surface-glass*`).
+
+**Framework gotchas avoided:**
+- A `*/` inside a CSS comment (`--backdrop-*/aurora`) prematurely closed the comment — caught via IDE diagnostics, reworded to `backdrop + aurora`.
+- `aurora.css` consumes ONLY semantic roles (no `--aurora-*`/`--glass-*`/`--color-neutral-*` direct refs) — guarded by the 14-2 scaffold test; inserted alphabetically first in the components `<link>` chain (lint-css-link-order green).
+- Token VALUE change refreshed via the codified `make snapshot-update` D→E exception (tokens.hash.json); byte-stable build verified (deterministic dist/).
+
+**Areas of uncertainty:**
+- Exact navy/glow values are a first tuning; the RENDERED verification (the dormant harness) is what will confirm perceptual depth + AA in light+dark across 320→1440 — that activation is Story 14.11's job (this story ships the harness dormant by design).
+- CSS budget at 2196/2300 (104-line runway) — later Aurora stories must watch this; a bump would need its own documented rationale.
+
+**Tested edge cases:**
+- 14-2 scaffold guard 6/6 (backdrop roles in light + both dark blocks; replaced dark glass; aurora.css two-layer + `@supports`; alphabetical link; harness viewports/print/tolerance; dormant CI job registered).
+- ci-matrix 6/6, tokens contract 1/1, cognitive-load-budget scaffold 13/13 + lint 7/7, css-link-order ok, byte-stable 1/1, 13-2..13-5 guards all green.
+- Full node suite 1308/1322 pass; the 14 fails are the pre-existing 9-series human-gated gates (ICAR PDF / PL translator sign-off) — provenance proven via `git status` (changeset touches no 9-series files).
