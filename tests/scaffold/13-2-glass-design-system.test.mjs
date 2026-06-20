@@ -43,7 +43,7 @@ test("AC1: primitives.css declares the glass + motion primitives with concrete v
   for (const t of MOTION_PRIMITIVES) {
     assert.match(css, new RegExp(`${t.replace(/-/g, "\\-")}\\s*:`), `primitives.css missing ${t}`);
   }
-  assert.match(css, /--glass-blur-md\s*:\s*12px/, "--glass-blur-md must be 12px per 13-1 §2.1");
+  assert.match(css, /--glass-blur-md\s*:\s*1px/, "--glass-blur-md must stay at the Aurora Observatory 1px glass blur step");
   assert.match(css, /--motion-base\s*:\s*260ms/, "--motion-base must be 260ms per 13-1 §4.1");
   assert.match(css, /cubic-bezier\(/, "--ease-* must be a cubic-bezier curve");
 });

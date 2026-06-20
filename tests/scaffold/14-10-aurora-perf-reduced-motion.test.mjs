@@ -69,17 +69,24 @@ const GLASS_SURFACE_FILES = [
   "glass-surface.css",
   "masthead.css",
   "consent-scene.css",
-  "chrome-header.css",
-  "chrome-footer.css",
   "item-runner.css",
   "score-panel.css",
   "saved-results.css",
+];
+
+// The selected Observatory layout deliberately leaves shared chrome fully
+// transparent, so these remain in the general Aurora audit without being
+// required to provide glass blur or opaque degradation fallbacks.
+const TRANSPARENT_CHROME_FILES = [
+  "chrome-header.css",
+  "chrome-footer.css",
 ];
 
 // All Aurora component CSS touched 14.3-14.9 (glass surfaces + the chrome
 // controls + scenes that carry interaction/decorative motion).
 const ALL_AURORA_FILES = [
   ...GLASS_SURFACE_FILES,
+  ...TRANSPARENT_CHROME_FILES,
   "selection-scene.css",
   "theme-toggle.css",
   "language-switcher.css",

@@ -8,7 +8,7 @@
  */
 
 .consent-scene {
-  max-width: 38rem;
+  max-width: 54rem;
   margin-inline: auto;
   /* PR-2 (Story 11-1): trimmed vertical rhythm so the consent (and the
      chrome-footer below it) fits the viewport without scroll on desktop while
@@ -16,13 +16,17 @@
   padding-block: clamp(var(--space-3), 3vh, var(--space-6));
   padding-inline: var(--space-5);
   color: var(--color-text-body);
-  background-color: var(--color-surface-base);
+  background-color: var(--surface-glass);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border: var(--border-width-hairline) solid var(--surface-glass-edge);
+  border-radius: var(--radius-surface);
+  box-shadow: var(--surface-glass-shadow);
 }
 
 /* Epic 14 (Story 14-5, PR-22): the validity envelope reads as a raised Aurora
    glass panel against the deep-navy backdrop. Story 14.2 re-valued the glass
-   roles, so consuming the STRONG fill (≥0.90 alpha — the envelope carries
-   long-form body text → AA SC 1.4.3) + the lit-from-within edge + float shadow
+   roles, so consuming the shared content fill + the lit-from-within edge + float shadow
    makes the panel perceptibly elevated, matching .aurora-surface. Token-only
    (UX-DR1): no --glass-*/--color-neutral-* primitive, no literal hex/rgba/px
    glass value. The dwell-gate timer + scroll topology are untouched. */
@@ -43,6 +47,7 @@
 /* Solid fallback: where backdrop-filter is unavailable, the envelope stays an
    opaque, AA-legible panel (the strong fill is the contrast guarantee). */
 @supports not (backdrop-filter: blur(1px)) {
+  .consent-scene,
   .consent-scene__envelope {
     background-color: var(--surface-glass-strong);
   }
@@ -81,10 +86,11 @@
   line-height: var(--line-height-base);
   padding-block: var(--space-3);
   padding-inline: var(--space-5);
-  color: var(--color-surface-base);
-  background-color: var(--color-text-link);
-  border: none;
-  border-radius: var(--space-1);
+  color: var(--color-action-text);
+  background-color: var(--color-action-bg);
+  border: var(--border-width-hairline) solid var(--color-action-border);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--surface-glass-shadow);
   cursor: pointer;
 }
 
@@ -95,7 +101,7 @@
 }
 
 .consent-scene__continue-btn:not([aria-disabled="true"]):hover {
-  background-color: var(--color-text-link-hover);
+  background-color: var(--color-action-bg-hover);
 }
 
 .consent-scene__continue-btn:focus-visible {
@@ -136,6 +142,19 @@
 
 /* PR-2 (Story 11-1): smaller CTA on phones (the default size is oversized). */
 @media (max-width: 30rem) {
+  .consent-scene {
+    width: calc(100% - (2 * var(--space-2)));
+    max-width: none;
+    margin: var(--space-2);
+    padding: var(--space-2);
+  }
+  .consent-scene__envelope {
+    padding: var(--space-3);
+    margin-block-end: var(--space-3);
+  }
+  .consent-scene__envelope > p {
+    line-height: var(--line-height-base);
+  }
   .consent-scene__continue-btn {
     font-size: var(--font-size-200);
     padding-block: var(--space-2);

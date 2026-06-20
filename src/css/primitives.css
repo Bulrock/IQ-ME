@@ -107,13 +107,14 @@
    * (+ @supports solid fallback), NEVER the blur — backdrop content is
    * variable so blur alone cannot ensure WCAG 2.2 AA. */
   --glass-blur-sm:    6px;   /* inline controls, chips */
-  --glass-blur-md:    12px;  /* cards, panels, score panel, methodology sidebar */
+  --glass-blur-md:    1px;   /* cards, panels, score panel, methodology sidebar */
   --glass-blur-lg:    20px;  /* full-bleed hero only (capped — composite cost) */
   /* Light glass: a hair off pure white (cool neutral-50 tint) so a glass panel
    * reads as a distinct layer over the page backdrop instead of compositing to
    * flat white. Still ≥0.70 alpha for AA. */
   --glass-fill:        rgba(248, 250, 252, 0.72);  /* standard panel fill */
-  --glass-fill-strong: rgba(252, 253, 254, 0.88);  /* body-text surfaces */
+  --glass-fill-strong: rgba(248, 250, 252, 0.72);  /* unified content surface */
+  --glass-fill-hero:   rgba(248, 250, 252, 0.72);  /* unified content surface */
   --glass-tint:        rgba(47, 74, 120, 0.06);     /* decorative accent (accent-500); never the contrast layer */
   --glass-edge:        rgba(255, 255, 255, 0.55);   /* lit hairline rim */
   --glass-shadow:      0 4px 24px rgba(10, 13, 18, 0.10);  /* soft float shadow */
@@ -130,12 +131,22 @@
   --aurora-blue-glow:   rgba(58, 92, 200, 0.16);   /* bounded blue aurora (≤0.18) */
   --aurora-violet-glow: rgba(122, 80, 210, 0.14);  /* bounded violet aurora (≤0.18) */
   --aurora-grid-line:   rgba(122, 152, 230, 0.05); /* thin luminous grid (≤0.06) */
+  --aurora-star:        rgba(220, 232, 255, 0.42);
+  --aurora-ribbon-blue: rgba(62, 112, 255, 0.62);
+  --aurora-ribbon-violet: rgba(132, 72, 245, 0.58);
+  --aurora-action:      #7357e8;
+  --aurora-action-hover:#8a70f4;
+  --aurora-action-gradient: linear-gradient(110deg, #7754ee 0%, #4f83f2 100%);
+  --aurora-action-gradient-hover: linear-gradient(110deg, #896cf4 0%, #6395f7 100%);
   /* Light-theme luminous-pale analog (cool off-white wash; separately authored,
    * not auto-inverted — UX-DR6) so light glass also reads as a raised layer. */
   --aurora-pale-100:    #eef2fb;  /* cool pale backdrop base (light) */
   --aurora-blue-glow-light:   rgba(70, 100, 200, 0.07);
   --aurora-violet-glow-light: rgba(122, 80, 200, 0.06);
   --aurora-grid-line-light:   rgba(70, 100, 180, 0.045);
+  --aurora-star-light:        rgba(70, 100, 180, 0.16);
+  --aurora-ribbon-blue-light: rgba(70, 112, 230, 0.24);
+  --aurora-ribbon-violet-light: rgba(132, 90, 220, 0.20);
 
   /* ─── Epic 13 — Motion primitives (Story 13-1 §4). Durations + easing.
    * All motion collapses under prefers-reduced-motion: reduce (base.css). */

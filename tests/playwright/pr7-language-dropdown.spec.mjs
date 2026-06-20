@@ -49,6 +49,19 @@ test("AC9: language switcher is a custom dropdown (has aria-expanded trigger), n
   await expect(dropdownTrigger, "AC9: language switcher trigger must have aria-expanded attribute").toHaveCount(1);
 });
 
+for (const route of ["selection", "consent"]) {
+  test(`AC9: language switcher remains visible and usable on #/${route}`, async ({ page }) => {
+    const origin = `http://127.0.0.1:${server.port}`;
+    await gotoLanding(page, origin);
+    await page.evaluate((target) => window.__IQME_TEST__.navigate(target), route);
+
+    const trigger = page.locator(".language-switcher__trigger");
+    await expect(trigger).toBeVisible();
+    await trigger.click();
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+  });
+}
+
 test("AC9: dropdown opens on click — aria-expanded becomes 'true'", async ({ page }) => {
   const origin = `http://127.0.0.1:${server.port}`;
   await gotoLanding(page, origin);

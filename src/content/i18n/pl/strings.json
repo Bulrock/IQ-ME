@@ -23,6 +23,7 @@
   },
   "landing": {
     "headline": "IQ-ME",
+    "subtitle": "Ocena inteligencji płynnej",
     "intro": "IQ-ME to wykonywany we własnym tempie przesiewowy test inteligencji płynnej, który wykorzystuje wizualne zadania matrycowe (ICAR-MR), działa w całości w Twojej przeglądarce i niczego nie zapisuje na serwerze. Nie jest to ocena kliniczna, certyfikat ani test kwalifikacyjny — to jeden skalibrowany pomiar jednej wąskiej zdolności.",
     "startTestButton": "Rozpocznij test",
     "methodologyLink": "Metodologia"

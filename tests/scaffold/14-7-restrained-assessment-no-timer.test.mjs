@@ -174,24 +174,23 @@ test("§3.1: item-runner.css layers NO decorative aurora gradient / glow / grid 
   assert.doesNotMatch(css, /background-image:\s*radial-gradient|background-image:\s*linear-gradient/, "the assessment surfaces must carry no decorative background-image gradient");
 });
 
-// ─── (2) RESTRAINT — the test-route aurora is SUPPRESSED in base.css ─────────
+// ─── (2) RESTRAINT — test route retains the selected Observatory backdrop ───
 
-test("§3.1: base.css collapses the assessment-route backdrop toward a near-flat deep field (route-scoped aurora suppression)", () => {
+test("§3.1: base.css keeps the selected Observatory backdrop on the assessment route", () => {
   const css = r(...BASE_CSS);
-  // A route-scoped rule for the assessment route exists and zeroes the aurora.
-  assert.match(css, /body\[data-route="#\/test"\]\s*\{[\s\S]*?background-image:\s*none/, "base.css must add a body[data-route=\"#/test\"] rule that suppresses the decorative aurora (background-image:none → near-flat deep field)");
+  assert.match(css, /body\[data-route="#\/test"\]\s*\{[\s\S]*?url\("\/src\/assets\/aurora-observatory-background\.png"\)/, "the assessment route must retain the selected Observatory backdrop");
 });
 
 test("§3.1: the global page backdrop-color contract (--color-surface-base) is UNTOUCHED on the test route (14.2 chrome-components spec)", () => {
   const css = r(...BASE_CSS);
   // The global body still paints background-color: var(--color-surface-base)…
   assert.match(css, /body\s*\{[\s\S]*?background-color:\s*var\(--color-surface-base\)/, "the global body background-color contract must stay --color-surface-base");
-  // …and the route-scoped suppression must NOT re-declare background-color (it
-  // only zeroes the decorative image), so the 14.2 chrome-components
+  // …and the route-scoped Observatory layer must NOT re-declare background-color,
+  // so the 14.2 chrome-components
   // computed-style spec keeps asserting --color-surface-base on the test route.
-  const routeBlock = (css.match(/body\[data-route="#\/test"\]\s*\{[^}]*background-image:\s*none[^}]*\}/) || [""])[0];
-  assert.ok(routeBlock.length > 0, "the test-route suppression block must exist");
-  assert.doesNotMatch(routeBlock, /background-color:/, "the test-route suppression must NOT change background-color (the --color-surface-base contract is untouched)");
+  const routeBlock = (css.match(/body\[data-route="#\/test"\]\s*\{[^}]*aurora-observatory-background[^}]*\}/) || [""])[0];
+  assert.ok(routeBlock.length > 0, "the test-route Observatory block must exist");
+  assert.doesNotMatch(routeBlock, /background-color:/, "the test-route Observatory layer must NOT change background-color (the --color-surface-base contract is untouched)");
 });
 
 // ─── (2) PRESERVATION — frozen Epic 11/13 item-runner DOM contract ───────────
@@ -234,10 +233,10 @@ test("PR-23: the PR-2 sticky nav + scrollable options + matrix max-height + opti
   assert.match(css, /inset-block-end:\s*0/, "the sticky nav must keep inset-block-end:0");
   // Scrollable options region (never clips).
   assert.match(css, /\.item-runner__options\s*\{[\s\S]*?overflow-y:\s*auto/, "the .item-runner__options scroll region (overflow-y:auto) must remain");
-  // Matrix max-height sizing (42vh desktop / 30vh mobile / 32vh ≥48rem).
+  // Matrix max-height sizing (42vh desktop / 30vh mobile / 42vh ≥48rem).
   assert.match(css, /\.item-runner__image\s*\{[\s\S]*?max-height:\s*42vh/, "the matrix base max-height (42vh) must remain");
   assert.match(css, /max-height:\s*30vh/, "the mobile matrix max-height (30vh) must remain");
-  assert.match(css, /max-height:\s*32vh/, "the ≥48rem matrix max-height (32vh) must remain");
+  assert.match(css, /max-height:\s*42vh/, "the ≥48rem matrix max-height (42vh) must preserve the reference layout's larger question scale");
 });
 
 // ─── Two-layer cleanliness on item-runner.css (no primitives / hex added) ────

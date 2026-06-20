@@ -27,11 +27,15 @@ test("AC1: hero keeps its glass depth + adds a lit-from-within inset edge (no px
   assert.match(css, /inset 0 var\(--border-width-hairline\) 0 var\(--surface-glass-edge\)/, "hero must add the inset lit edge via the hairline token");
 });
 
-test("AC2: decorative glow migrated to semantic Aurora roles; no --glass-tint primitive; two-layer clean", () => {
-  const css = r("src", "css", "components", "landing.css");
-  assert.match(css, /var\(--aurora-glow-accent\)/, "landing.css must consume the semantic --aurora-glow-accent role");
-  assert.match(css, /var\(--backdrop-aurora-2\)/, "landing.css must consume the semantic --backdrop-aurora-2 role");
-  assert.doesNotMatch(css, /var\(--glass-tint\)/, "landing.css must NOT consume the --glass-tint primitive (two-layer rule)");
+test("AC2: landing uses the continuous body Observatory backdrop without a route-local glow seam", () => {
+  const landing = r("src", "css", "components", "landing.css");
+  const base = r("src", "css", "base.css");
+  assert.match(landing, /\.landing__aurora\s*\{\s*display:\s*none/, "the route-local glow must stay disabled so it cannot create a seam below the header");
+  assert.match(base, /aurora-observatory-background-day\.png/, "light theme must use the daytime Observatory background plate");
+  assert.match(base, /url\("\/src\/assets\/aurora-observatory-background\.png"\)/, "the shared body must provide the Observatory backdrop");
+  assert.match(landing, /landing__observatory-foreground--day/, "landing must provide the daytime unlit Observatory foreground");
+  assert.match(landing, /landing__observatory-foreground--night/, "landing must preserve the nighttime Observatory foreground");
+  assert.doesNotMatch(landing, /var\(--glass-tint\)/, "landing.css must NOT consume the --glass-tint primitive (two-layer rule)");
 });
 
 test("AC2: no literal hex colour or font-family added to landing.css (token-only)", () => {

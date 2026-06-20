@@ -86,22 +86,24 @@ test("AC2: consent-scene.css introduces NO --glass-*/--color-neutral-* primitive
 
 // ─── Shared chrome — header (PR-27) ─────────────────────────────────────────
 
-test("AC3: chrome header is an Aurora glass bar (semantic roles) with the stacking + route gates preserved (Light + Dark)", () => {
+test("AC3: chrome header is a transparent overlay with stacking + route gates preserved", () => {
   const css = r("src", "css", "components", "chrome-header.css");
-  // Glass bar over the navy backdrop — both themes resolve through the same roles.
-  assert.match(css, /\.chrome-header\s*\{[\s\S]*?background-color:\s*var\(--surface-glass\)/, "the chrome header must consume the --surface-glass role");
-  assert.match(css, /\.chrome-header\s*\{[\s\S]*?backdrop-filter:\s*blur\(var\(--surface-glass-blur\)\)/, "the chrome header must blur via the --surface-glass-blur role");
-  assert.match(css, /\.chrome-header\s*\{[\s\S]*?var\(--surface-glass-edge\)/, "the chrome header must define its bottom rule with the --surface-glass-edge role");
-  assert.match(css, /@supports not \(backdrop-filter:\s*blur\(1px\)\)[\s\S]*?\.chrome-header\s*\{\s*background-color:\s*var\(--surface-glass-strong\)/, "the chrome header must keep its opaque --surface-glass-strong fallback");
+  assert.match(css, /\.chrome-header\s*\{[\s\S]*?background-color:\s*transparent/, "the chrome header must expose the Observatory scene");
+  assert.match(css, /\.chrome-header\s*\{[\s\S]*?border:\s*none/, "the chrome header must carry no enclosing boundary");
+  assert.match(css, /\.chrome-header\s*\{[\s\S]*?box-shadow:\s*none/, "the chrome header must carry no surface shadow");
   // The stacking context that keeps the language menu above scene content.
   assert.match(css, /\.chrome-header\s*\{[\s\S]*?position:\s*relative/, "the chrome header must keep position:relative");
   assert.match(css, /\.chrome-header\s*\{[\s\S]*?z-index:\s*30/, "the chrome header must keep z-index:30 (language menu stays pointer-receptive above the scene)");
 });
 
-test("AC3: chrome route gates byte-stable (UX-DR8 test-route hide + landing language-switcher reveal)", () => {
+test("AC3: chrome route gates match the selected Observatory layout (test identity visible + pre-test language-switcher reveal)", () => {
   const css = r("src", "css", "components", "chrome-header.css");
-  assert.match(css, /body\[data-route="#\/test"\] \.chrome-header\s*\{\s*display:\s*none/, "UX-DR8: the chrome header must hide on the assessment route");
-  assert.match(css, /body\[data-route="#\/"\] \.chrome-header__language-switcher\s*\{\s*display:\s*revert/, "the language switcher must reveal on the landing route");
+  assert.match(css, /body\[data-route="#\/test"\] \.chrome-header\s*\{\s*display:\s*flex/, "the assessment route must keep the compact IQ-ME identity bar visible like the selected Observatory layout");
+  assert.match(css, /body\[data-route="#\/test"\] \.chrome-header__controls[\s\S]*?display:\s*none/, "assessment chrome must hide non-essential controls");
+  assert.match(css, /body\[data-route="#\/"\] \.chrome-header__language-switcher/, "the language switcher must reveal on the landing route");
+  assert.match(css, /body\[data-route="#\/selection"\] \.chrome-header__language-switcher/, "the language switcher must remain available during pre-test selection");
+  assert.match(css, /body\[data-route="#\/consent"\] \.chrome-header__language-switcher/, "the language switcher must remain available during consent");
+  assert.match(css, /body\[data-route="#\/consent"\] \.chrome-header__language-switcher\s*\{\s*display:\s*revert/, "all pre-test language-switcher route selectors must resolve to display:revert");
 });
 
 test("AC2/AC3: chrome-header.css introduces NO --glass-*/--color-neutral-* primitive and NO literal hex/rgba glass value", () => {
@@ -113,18 +115,17 @@ test("AC2/AC3: chrome-header.css introduces NO --glass-*/--color-neutral-* primi
 
 // ─── Shared chrome — footer (PR-27, UX-DR3) ─────────────────────────────────
 
-test("AC6: chrome footer is an Aurora glass bar matching the header (semantic roles, opaque fallback)", () => {
+test("AC6: chrome footer is a transparent overlay matching the header", () => {
   const css = r("src", "css", "components", "chrome-footer.css");
-  assert.match(css, /\.chrome-footer\s*\{[\s\S]*?background-color:\s*var\(--surface-glass\)/, "the chrome footer must consume the --surface-glass role (matches the header)");
-  assert.match(css, /\.chrome-footer\s*\{[\s\S]*?backdrop-filter:\s*blur\(var\(--surface-glass-blur\)\)/, "the chrome footer must blur via the --surface-glass-blur role");
-  assert.match(css, /\.chrome-footer\s*\{[\s\S]*?var\(--surface-glass-edge\)/, "the chrome footer must define its top rule with the --surface-glass-edge role");
-  assert.match(css, /@supports not \(backdrop-filter:\s*blur\(1px\)\)[\s\S]*?\.chrome-footer\s*\{\s*background-color:\s*var\(--surface-glass-strong\)/, "the chrome footer must keep its opaque --surface-glass-strong fallback");
+  assert.match(css, /\.chrome-footer\s*\{[\s\S]*?background-color:\s*transparent/, "the chrome footer must expose the Observatory scene");
+  assert.match(css, /\.chrome-footer\s*\{[\s\S]*?border:\s*none/, "the chrome footer must carry no enclosing boundary");
+  assert.match(css, /\.chrome-footer\s*\{[\s\S]*?box-shadow:\s*none/, "the chrome footer must carry no surface shadow");
 });
 
-test("AC6: footer supporting links keep their muted chrome weight + reveal-on-hover/focus + visible focus ring (UX-DR3)", () => {
+test("AC6: footer supporting links keep a readable neutral weight + reveal-on-hover/focus + visible focus ring (UX-DR3)", () => {
   const css = r("src", "css", "components", "chrome-footer.css");
-  // Neutral chrome-level weight — muted default, no accent CTA register.
-  assert.match(css, /\.chrome-footer__methodology-link[\s\S]*?color:\s*var\(--color-text-muted\)/, "the footer links must stay the muted default (no accent CTA register, UX-DR3)");
+  // Neutral chrome-level weight with readable contrast over either landscape.
+  assert.match(css, /\.chrome-footer__methodology-link[\s\S]*?color:\s*var\(--color-text-body\)/, "the footer links must remain readable over the light and dark landscapes");
   // Hover/focus reveals link-color + underline.
   assert.match(css, /:focus-visible[\s\S]*?\{[\s\S]*?color:\s*var\(--color-text-link\)[\s\S]*?text-decoration:\s*underline/, "the footer links must reveal link-color + underline on hover/focus");
   // Visible focus ring.

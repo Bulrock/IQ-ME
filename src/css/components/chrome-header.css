@@ -23,34 +23,33 @@
      (trust-verification leg C). */
   flex-wrap: wrap;
   row-gap: var(--space-2);
-  padding-block: var(--space-3);
+  padding-block: var(--space-2);
   padding-inline: var(--space-5);
   color: var(--color-text-body);
   /* Epic 13 (Story 13-4): glass chrome bar — theme-aware translucent fill +
      blur over the page, with the glass lit-edge as the bottom rule. Short text
      → standard fill is sufficient for AA. */
-  background-color: var(--surface-glass);
-  backdrop-filter: blur(var(--surface-glass-blur));
-  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
-  border-block-end: var(--border-width-hairline) solid var(--surface-glass-edge);
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 @supports not (backdrop-filter: blur(1px)) {
-  .chrome-header { background-color: var(--surface-glass-strong); }
+  .chrome-header { background-color: transparent; }
 }
 
 /* PR-8 (AC10): the app logo sits beside the wordmark. Explicit width/height
    (and the matching HTML attributes) reserve the box so there is no layout
    shift when the image loads. Decorative (alt="") — the wordmark names it. */
 .chrome-header__logo {
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 1.4rem;
+  height: 1.4rem;
   flex: 0 0 auto;
   display: block;
 }
 
 .chrome-header__name {
-  font-size: var(--font-size-400);
+  font-size: var(--font-size-200);
   line-height: var(--line-height-tight);
   font-weight: 700;
 }
@@ -61,7 +60,7 @@
   margin-inline-start: auto;
   display: flex;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
 .chrome-header__language-switcher {
@@ -69,18 +68,25 @@
   color: var(--color-text-muted);
 }
 
-/* Language switcher appears only on the landing scene — choose language before
-   starting, so locale never changes mid-session or on the result page. The
-   landing route is data-route="#/" (renderRoute coerces ""/"#/" → "#/"). */
+/* Language selection remains available through pre-test selection and consent.
+   FR8 locks it only after measurement starts, which is handled by the switcher
+   logic and the focused item-runner route gate below. */
 .chrome-header__language-switcher {
   display: none;
 }
 
-body[data-route="#/"] .chrome-header__language-switcher {
+body[data-route="#/"] .chrome-header__language-switcher,
+body[data-route="#/selection"] .chrome-header__language-switcher,
+body[data-route="#/consent"] .chrome-header__language-switcher {
   display: revert;
 }
 
 /* UX-DR8: item-runner is a focus surface; chrome must not distract. */
 body[data-route="#/test"] .chrome-header {
+  display: flex;
+}
+
+body[data-route="#/test"] .chrome-header__controls,
+body[data-route="#/test"] .locale-switch-blocker-hint__slot {
   display: none;
 }

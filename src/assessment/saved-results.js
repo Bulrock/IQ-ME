@@ -209,7 +209,7 @@ function renderDetail(rootEl, strings, item) {
   // co-equal triplet + result-scene centering as the live result page.
   const cell = (n, value, label) =>
     value == null ? "" :
-    '<span class="score-panel__' + n + '" tabindex="0"><span>' + escT(String(value)) + '</span>' +
+    '<span class="score-panel__' + n + '" tabindex="0"><span class="score-panel__metric-value">' + escT(String(value)) + '</span>' +
     '<span class="score-panel__metric-label">' + escT(label) + '</span></span>';
   const triplet =
     cell("percentile", p, r.percentileLabel ?? "Percentile") +

@@ -1,0 +1,70 @@
+/* Shared Aurora control treatment, loaded after scene components. */
+.landing__start-btn,
+.selection-scene__continue-btn,
+.consent-scene__continue-btn:not([aria-disabled="true"]),
+.item-runner__next,
+.saved-results__resume,
+.rs-show {
+  color: var(--color-action-text);
+  background-color: var(--color-action-bg);
+  background-image: var(--color-action-gradient);
+  border: var(--border-width-hairline) solid var(--color-action-border);
+  border-radius: var(--radius-control);
+  box-shadow: var(--surface-glass-shadow);
+}
+.landing__start-btn:hover,
+.selection-scene__continue-btn:hover,
+.consent-scene__continue-btn:not([aria-disabled="true"]):hover,
+.item-runner__next:hover,
+.saved-results__resume:hover,
+.rs-show:hover {
+  background-color: var(--color-action-bg-hover);
+  background-image: var(--color-action-gradient-hover);
+  border-color: var(--color-action-border);
+  box-shadow: var(--shadow-overlay);
+}
+.landing__saved-btn,
+.item-runner__prev,
+.item-runner__bail-discard,
+.item-runner__bail-continue,
+.saved-results__actions button,
+.saved-results__back,
+.saved-results__delete-ip,
+.score-panel__save-button,
+.result-print-btn,
+.rs-not {
+  color: var(--color-text-body);
+  background-color: var(--surface-glass);
+  background-image: none;
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border: var(--border-width-hairline) solid var(--surface-glass-edge);
+  border-radius: var(--radius-control);
+  box-shadow: inset 0 var(--border-width-hairline) 0 var(--surface-glass-edge);
+}
+.landing__saved-btn:hover,
+.item-runner__prev:hover,
+.item-runner__bail-discard:hover,
+.item-runner__bail-continue:hover,
+.saved-results__actions button:hover,
+.saved-results__back:hover,
+.saved-results__delete-ip:hover,
+.score-panel__save-button:hover,
+.result-print-btn:hover,
+.rs-not:hover {
+  color: var(--color-text-body);
+  border-color: var(--color-focus-ring);
+  box-shadow: var(--surface-glass-shadow);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .landing__saved-btn,
+  .item-runner__prev,
+  .item-runner__bail-discard,
+  .item-runner__bail-continue,
+  .saved-results__actions button,
+  .saved-results__back,
+  .saved-results__delete-ip,
+  .score-panel__save-button,
+  .result-print-btn,
+  .rs-not { background-color: var(--surface-glass-strong); }
+}

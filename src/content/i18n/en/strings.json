@@ -16,6 +16,7 @@
   },
   "landing": {
     "headline": "IQ-ME",
+    "subtitle": "Fluid-reasoning assessment",
     "intro": "IQ-ME is a self-paced fluid-reasoning screener that uses visual matrix-reasoning items (ICAR-MR), runs entirely in your browser, and stores nothing on a server. It is not a clinical assessment, a credential, or a placement test — it is one calibrated screen of one narrow ability.",
     "startTestButton": "Start the test",
     "methodologyLink": "Read the methodology"

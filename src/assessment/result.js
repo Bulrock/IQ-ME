@@ -20,7 +20,7 @@ const CV = "v0.1.0";
 // exported computeDifficultyCounts).
 const SS = 16;
 let m = null;
-const SP = (n, p, l, x, vis) => `<span class="score-panel__${n}" tabindex="0" data-methodology-target="scoring/${p}" aria-label="${E(l)}">${E(x)}<span class="score-panel__metric-label" aria-hidden="true">${E(vis)}</span></span>`;
+const SP = (n, p, l, x, vis) => `<span class="score-panel__${n}" tabindex="0" data-methodology-target="scoring/${p}" aria-label="${E(l)}"><span class="score-panel__metric-value">${E(x)}</span><span class="score-panel__metric-label" aria-hidden="true">${E(vis)}</span><span class="score-panel__metric-viz score-panel__metric-viz--${n}" aria-hidden="true"><span></span></span></span>`;
 const go = (t) => window.location.assign(`/methodology/${CV}/${state.getState().locale || "en"}/${t}/`);
 const HB = (h) => { const o = new Uint8Array(h.length / 2); for (let i = 0; i < o.length; i++) o[i] = parseInt(h.substr(i * 2, 2), 16); return o; };
 
@@ -125,7 +125,7 @@ function panel(s, sc, c, variant, tailScenes, crisis, mv) {
   const h = Math.round((sc.displayedBand.upper - sc.displayedBand.lower) / 2 * 15);
   const locale = state.getState().locale || "en";
   const methodVariant = mv ? METHOD_VARIANT_LINE(s, mv) : "";
-  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><h1 id="score-panel-heading" class="visually-hidden">${E(s.scoreHeading)}</h1><section class="score-panel score-panel--${variant}" aria-labelledby="score-panel-heading">${PRINT_HEAD(s)}<p class="score-panel__caveat" role="note">${E(s.caveat)}${variant === "top-decile" ? TEAR : ""}</p><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p, s.percentileLabel)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a, s.anchorLabel)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }), s.bandLabel)}</div>${methodVariant}${DISCLAIMER(s)}${DS(s, c)}${SAVE(s)}${PRINT(s)}${RETEST(s, locale)}${PRINT_FOOTER()}</section>${tailScene(variant, tailScenes, crisis, s)}</section>`;
+  return `<section class="result-scene" data-reveal-stage="methodology-handoff"><section class="score-panel score-panel--${variant}" aria-labelledby="score-panel-heading">${PRINT_HEAD(s)}<p class="score-panel__caveat" role="note">${E(s.caveat)}${variant === "top-decile" ? TEAR : ""}</p><header class="score-panel__header"><h1 id="score-panel-heading">${E(s.scoreHeading)}</h1><p>${E(s.prerevealSubcopy)}</p></header><div class="score-panel__triplet">${SP("percentile", "percentile-to-iq", F(s.percentileAriaTemplate, { N: p }), p, s.percentileLabel)}${SP("anchor", "overview", F(s.anchorAriaTemplate, { N: a }), a, s.anchorLabel)}${SP("band", "uncertainty", s.bandAriaTemplate, F(s.bandTemplate, { N: h }), s.bandLabel)}</div><div class="score-panel__support">${methodVariant}${DISCLAIMER(s)}${DS(s, c)}</div><div class="score-panel__action-buttons">${SAVE(s)}${PRINT(s)}</div>${RETEST(s, locale)}${PRINT_FOOTER()}</section>${tailScene(variant, tailScenes, crisis, s)}</section>`;
 }
 
 // Wire the opt-in Save button. The browser-storage write lives entirely in

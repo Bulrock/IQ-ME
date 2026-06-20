@@ -33,18 +33,19 @@ function hasLiteralHexInValue(css) {
     .some((l) => /:\s*[^;]*#[0-9a-fA-F]{3,8}\b/.test(l));
 }
 
-test("AC1: chrome-header adopts the glass surface roles", () => {
+test("AC1: chrome-header is transparent chrome over the shared Observatory scene", () => {
   const css = read(HEADER);
-  assert.match(css, /var\(--surface-glass(\b|-)/, "chrome-header must use a --surface-glass* role");
-  assert.match(css, /backdrop-filter/, "chrome-header glass must use backdrop-filter");
-  // hide-on-test preserved
-  assert.match(css, /body\[data-route="#\/test"\]\s*\.chrome-header[\s\S]*display:\s*none/, "header must still hide on #/test (UX-DR8)");
+  assert.match(css, /background-color:\s*transparent/, "chrome-header must expose the shared Observatory scene");
+  assert.match(css, /border:\s*none/, "chrome-header must not draw an enclosing bar");
+  assert.match(css, /box-shadow:\s*none/, "chrome-header must not draw a panel shadow");
+  assert.match(css, /body\[data-route="#\/test"\]\s*\.chrome-header[\s\S]*display:\s*flex/, "header identity must remain visible on #/test");
 });
 
-test("AC1: chrome-footer adopts the glass surface roles", () => {
+test("AC1: chrome-footer is transparent chrome over the shared Observatory scene", () => {
   const css = read(FOOTER);
-  assert.match(css, /var\(--surface-glass(\b|-)/, "chrome-footer must use a --surface-glass* role");
-  assert.match(css, /backdrop-filter/, "chrome-footer glass must use backdrop-filter");
+  assert.match(css, /background-color:\s*transparent/, "chrome-footer must expose the shared Observatory scene");
+  assert.match(css, /border:\s*none/, "chrome-footer must not draw an enclosing bar");
+  assert.match(css, /box-shadow:\s*none/, "chrome-footer must not draw a panel shadow");
 });
 
 test("AC2: score panel adopts the STRONG glass role (body-text surface → AA)", () => {

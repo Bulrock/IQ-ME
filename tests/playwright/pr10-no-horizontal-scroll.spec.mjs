@@ -106,3 +106,15 @@ test("AC12 [EN 375px]: body/html does not have overflow-x that creates horizonta
     `AC12: horizontal scroll detected at 375px. scrollWidth=${overflowState.scrollWidth} viewport=${overflowState.viewportWidth} htmlOverflowX=${overflowState.htmlOverflowX}`,
   ).toBe(true);
 });
+
+test("Aurora chrome [EN 375px]: footer remains visible at a narrow CSS viewport (high browser zoom equivalent)", async ({ page }) => {
+  const origin = `http://127.0.0.1:${server.port}`;
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto(`${origin}/?test=1`);
+  await page.waitForFunction(() => window.__IQME_TEST__ !== undefined);
+
+  const footerBox = await page.locator(".chrome-footer").boundingBox();
+  expect(footerBox, "footer must remain rendered").not.toBeNull();
+  expect(footerBox.y, "footer top must remain inside the viewport").toBeGreaterThanOrEqual(0);
+  expect(footerBox.y + footerBox.height, "footer bottom must remain inside the viewport").toBeLessThanOrEqual(812);
+});

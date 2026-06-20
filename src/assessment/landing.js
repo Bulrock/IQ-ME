@@ -19,6 +19,7 @@ export function render(rootEl, strings) {
   const s = (strings && strings.landing) || {};
   const sr = (strings && strings.savedResults) || {};
   const headline = escapeText(s.headline ?? "");
+  const subtitle = escapeText(s.subtitle ?? "");
   const intro = escapeText(s.intro ?? "");
   const startLabel = escapeText(s.startTestButton ?? "");
   const methodLabel = escapeText(s.methodologyLink ?? "");
@@ -41,6 +42,7 @@ export function render(rootEl, strings) {
       '<div class="landing__aurora" aria-hidden="true"></div>' +
       '<section class="landing" aria-labelledby="landing-heading">' +
         '<h1 id="landing-heading">' + headline + '</h1>' +
+        '<p class="landing__subtitle">' + subtitle + '</p>' +
         '<p class="landing__paragraph">' + intro + '</p>' +
         '<div class="landing__cta-group">' +
           '<button type="button" id="start-test-btn" class="landing__start-btn">' + startLabel + '</button>' +
@@ -48,6 +50,8 @@ export function render(rootEl, strings) {
           '<a class="landing__methodology-link" href="/methodology/v0.1.0/en/">' + methodLabel + '</a>' +
         '</div>' +
       '</section>' +
+      '<img class="landing__observatory-foreground landing__observatory-foreground--day" src="/src/assets/aurora-observatory-foreground-day.png" alt="" aria-hidden="true">' +
+      '<img class="landing__observatory-foreground landing__observatory-foreground--night" src="/src/assets/aurora-observatory-foreground.png" alt="" aria-hidden="true">' +
     '</div>';
   startBtn = rootEl.querySelector("#start-test-btn");
   if (startBtn) {

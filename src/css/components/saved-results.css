@@ -12,7 +12,7 @@
      rather than hugging content — width:100% stops the flex-item from shrinking
      to its content when margin-inline:auto centres it. */
   width: 100%;
-  max-width: 38rem;
+  max-width: 72rem;
   margin-inline: auto;
   padding-block: var(--space-section-gap);
   padding-inline: var(--space-5);
@@ -94,6 +94,7 @@
   -webkit-backdrop-filter: blur(var(--surface-glass-blur));
   border: var(--border-width-hairline) solid var(--surface-glass-edge);
   border-radius: var(--radius-control);
+  box-shadow: inset 0 var(--border-width-hairline) 0 var(--surface-glass-edge);
 }
 
 .saved-results__open {
@@ -156,6 +157,7 @@
   -webkit-backdrop-filter: blur(var(--surface-glass-blur));
   border: var(--border-width-hairline) solid var(--surface-glass-edge);
   border-radius: var(--radius-control);
+  box-shadow: inset 0 var(--border-width-hairline) 0 var(--surface-glass-edge);
 }
 
 /* Epic 14 (Story 14-8): where backdrop-filter is unavailable, drop the glass
@@ -200,4 +202,19 @@
 .saved-results__delete-ip:focus-visible {
   outline: var(--space-1) solid var(--color-focus-ring);
   outline-offset: var(--space-1);
+}
+
+@media (max-width: 30rem) {
+  .saved-results,
+  .saved-result-detail {
+    width: calc(100% - (2 * var(--space-2)));
+    max-width: none;
+    margin: var(--space-2);
+    padding: var(--space-2);
+  }
+
+  .saved-results__item,
+  .saved-results__ip-item {
+    padding: var(--space-2);
+  }
 }

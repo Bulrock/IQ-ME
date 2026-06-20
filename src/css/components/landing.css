@@ -19,40 +19,41 @@
   position: relative;
   flex: 1 0 auto;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-block: var(--space-page-padding-y);
-  padding-inline: var(--space-4);
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-block-start: clamp(var(--space-7), 12vh, 8rem);
+  padding-block-end: var(--space-5);
+  padding-inline: clamp(var(--space-5), 17vw, 22rem);
   overflow: hidden;
+}
+
+.landing-stage::before {
+  display: none;
+}
+
+.landing-stage::after {
+  display: none;
 }
 
 /* Decorative aurora glow behind the hero (aria-hidden in landing.js). Pure
    CSS radial gradients tinted with the glass accent; never the contrast layer.
    Slow, reduced-motion-safe drift. */
 .landing__aurora {
-  position: absolute;
-  inset: -20% -10% auto -10%;
-  height: 70%;
-  pointer-events: none;
-  z-index: 0;
-  background:
-    radial-gradient(40% 55% at 25% 30%, var(--aurora-glow-accent), transparent 70%),
-    radial-gradient(45% 50% at 80% 20%, var(--backdrop-aurora-2), transparent 72%);
-  opacity: 0.35;
-  filter: blur(var(--glass-blur-lg));
-  animation: landing-aurora-drift var(--motion-slow) var(--ease-standard) both;
+  display: none;
 }
 
 .landing {
   position: relative;
   z-index: 1;
-  max-width: 40rem;
-  margin-inline: auto;
-  padding-block: var(--space-7);
-  padding-inline: var(--space-6);
+  width: min(60rem, 58vw);
+  min-height: min(28rem, calc(100% - (2 * var(--space-5))));
+  max-width: none;
+  margin-inline: 0;
+  padding-block: var(--space-8);
+  padding-inline: var(--space-7);
   color: var(--color-text-body);
   /* Glass hero surface (semantic roles only; see glass-surface.css). */
-  background-color: var(--surface-glass);
+  background-color: var(--surface-glass-hero);
   backdrop-filter: blur(var(--surface-glass-blur));
   -webkit-backdrop-filter: blur(var(--surface-glass-blur));
   border: var(--border-width-hairline) solid var(--surface-glass-edge);
@@ -63,6 +64,43 @@
     inset 0 var(--border-width-hairline) 0 var(--surface-glass-edge);
   /* Fade-and-rise entrance. */
   animation: landing-enter var(--motion-base) var(--ease-standard) both;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.landing__observatory-foreground {
+  position: fixed;
+  z-index: 20;
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  width: min(90rem, 90vw);
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.landing__observatory-foreground--night {
+  display: none;
+}
+
+[data-theme="dark"] .landing__observatory-foreground--day {
+  display: none;
+}
+
+[data-theme="dark"] .landing__observatory-foreground--night {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .landing__observatory-foreground--day {
+    display: none;
+  }
+
+  :root:not([data-theme="light"]) .landing__observatory-foreground--night {
+    display: block;
+  }
 }
 
 /* Where backdrop-filter is unavailable, drop to the strong opaque fill so the
@@ -74,12 +112,21 @@
 .landing > h1 {
   margin-block: 0 var(--space-3);
   text-wrap: balance;
+  font-size: var(--font-size-800);
+  letter-spacing: -0.04em;
+}
+
+.landing__subtitle {
+  margin-block: 0 var(--space-5);
+  font-size: var(--font-size-300);
+  color: var(--color-text-link-hover);
 }
 
 .landing__paragraph {
-  font-size: var(--font-size-300);
-  line-height: var(--line-height-prose);
-  margin-block-end: var(--space-section-gap);
+  max-width: 36rem;
+  font-size: var(--font-size-200);
+  line-height: var(--line-height-base);
+  margin-block-end: var(--space-5);
   color: var(--color-text-body);
 }
 
@@ -94,16 +141,17 @@
    with a soft lift on hover (transform/opacity only; compositor-friendly). */
 .landing__start-btn {
   appearance: none;
-  font-size: var(--font-size-300);
+  font-size: var(--font-size-200);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-base);
   padding-block: var(--space-3);
   padding-inline: var(--space-6);
   color: var(--color-action-text);
   background-color: var(--color-action-bg);
+  background-image: var(--color-action-gradient);
   border: var(--border-width-hairline) solid var(--color-action-border);
   border-radius: var(--radius-control);
-  box-shadow: var(--shadow-elevated);
+  box-shadow: var(--surface-glass-shadow);
   cursor: pointer;
   transition:
     transform var(--motion-hover) var(--motion-ease),
@@ -113,6 +161,7 @@
 
 .landing__start-btn:hover {
   background-color: var(--color-action-bg-hover);
+  background-image: var(--color-action-gradient-hover);
   transform: translateY(-1px);
   box-shadow: var(--shadow-overlay);
 }
@@ -120,6 +169,11 @@
 .landing__start-btn:focus-visible {
   outline: var(--space-1) solid var(--color-focus-ring);
   outline-offset: var(--space-1);
+}
+
+.landing__start-btn::after {
+  content: " →";
+  padding-inline-start: var(--space-2);
 }
 
 /* PR-14 — "View saved results" entry point: a quiet glass-outlined secondary
@@ -132,10 +186,10 @@
   padding-inline: var(--space-5);
   color: var(--color-text-body);
   background-color: var(--surface-glass);
-  backdrop-filter: blur(var(--glass-blur-sm));
-  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
   border: var(--border-width-hairline) solid var(--surface-glass-edge);
-  border-radius: var(--radius-control);
+  border-radius: var(--radius-pill);
   cursor: pointer;
   transition:
     transform var(--motion-hover) var(--motion-ease),
@@ -174,7 +228,7 @@
 
 @keyframes landing-aurora-drift {
   from { opacity: 0; transform: translateY(calc(-1 * var(--space-3))); }
-  to   { opacity: 0.35; transform: translateY(0); }
+  to   { opacity: 0.9; transform: translateY(0); }
 }
 
 /* Scene-level defense-in-depth: even without the global base.css block, never
@@ -186,16 +240,31 @@
     opacity: 1;
     transform: none;
   }
-  .landing__aurora { opacity: 0.35; }
+  .landing__aurora { opacity: 0.9; }
   .landing__start-btn,
   .landing__saved-btn { transition: none; }
 }
 
+@media (min-width: 64rem) {
+  .landing-stage {
+    min-height: 0;
+  }
+}
+
 /* PR-2 (Story 11-1): smaller landing CTAs on phones; preserved under glass. */
 @media (max-width: 30rem) {
+  .landing__observatory-foreground {
+    display: none;
+  }
+
+  .landing-stage {
+    padding: var(--space-2);
+  }
+
   .landing {
-    padding-block: var(--space-6);
-    padding-inline: var(--space-5);
+    width: 100%;
+    min-height: 100%;
+    padding: var(--space-4);
   }
   .landing__start-btn,
   .landing__saved-btn {

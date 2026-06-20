@@ -28,7 +28,7 @@ let activeHash = null;
 let hashChangeHandler = null;
 
 const NS = {
-  landing: ["headline", "intro", "startTestButton", "methodologyLink"],
+  landing: ["headline", "subtitle", "intro", "startTestButton", "methodologyLink"],
   selection: ["heading", "intro", "methodologyLegend", "variantLegend", "geometricLabel", "geometricLabelHelp", "letterNumberLabel", "letterNumberLabelHelp", "shortLabel", "shortLabelHelp", "fullLabel", "fullLabelHelp", "continueButton", "backLink"],
   consent: ["headline", "measuresWhat", "validityEnvelope", "visuospatialDisclosure", "continueButton", "notToday", "dwellHint"],
   chrome: ["titleAppDefault", "appName", "errorFallbackMessage", "languageSwitcherPlaceholderEn", "languageSwitcherLegend", "footerMethodologyLink", "footerDiscussionsLink", "footerCitationLink", "themeToggleLegend", "themeSystemLabel", "themeLightLabel", "themeDarkLabel"],

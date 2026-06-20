@@ -6,6 +6,8 @@
  */
 
 .score-panel {
+  width: min(76rem, calc(100% - (2 * var(--space-5))));
+  margin-inline: auto;
   padding: var(--space-6);
   /* Epic 13 (Story 13-4): glass result card. Body-text surface → strong fill so
      SC 1.4.3 (4.5:1) holds regardless of backdrop. Layout (PR-5 centering, the
@@ -34,8 +36,8 @@
 
 .score-panel__triplet {
   display: flex;
-  gap: var(--space-5);
-  align-items: baseline;
+  gap: var(--space-3);
+  align-items: stretch;
   justify-content: center;
 }
 
@@ -53,6 +55,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  min-height: 12rem;
+  padding: var(--space-4);
+  background-color: var(--surface-glass);
+  border: var(--border-width-hairline) solid var(--surface-glass-edge);
+  border-radius: var(--radius-surface);
+  box-shadow: inset 0 var(--border-width-hairline) 0 var(--surface-glass-edge);
 }
 
 /* Under-label naming each metric (Percentile / IQ-scale equivalent / Range)
@@ -140,6 +149,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-block: var(--space-6);
 }
 
 /* Pre-reveal scene (beat) — heading + subcopy + the reveal decision. The
@@ -156,6 +166,11 @@
   text-align: center;
   gap: var(--space-4);
   padding-block: var(--space-5);
+}
+
+.result-scene[data-reveal-stage="anchor"] > h1,
+.result-scene[data-reveal-stage="anchor"] > p {
+  max-width: 42rem;
 }
 
 .rs-show,
@@ -238,9 +253,35 @@
 
 /* PR-2 (Story 11-1): smaller reveal-beat buttons on phones. */
 @media (max-width: 30rem) {
+  .result-scene[data-reveal-stage="band"],
+  .result-scene[data-reveal-stage="interval"],
+  .result-scene[data-reveal-stage="context"],
+  .result-scene[data-reveal-stage="tail-scene"],
+  .result-scene[data-reveal-stage="methodology-handoff"] {
+    justify-content: flex-start;
+    padding-block: var(--space-2);
+  }
+
+  .score-panel {
+    width: calc(100% - (2 * var(--space-2)));
+    padding: var(--space-3);
+  }
+
   .rs-show,
   .rs-not {
     padding-block: var(--space-2);
     padding-inline: var(--space-4);
+  }
+
+  .score-panel__triplet {
+    flex-direction: column;
+  }
+
+  .score-panel__anchor,
+  .score-panel__percentile,
+  .score-panel__band {
+    min-height: auto;
+    padding: var(--space-3);
+    font-size: var(--font-size-500);
   }
 }

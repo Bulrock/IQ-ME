@@ -12,7 +12,7 @@
 
 /* Aurora glow surface — a glass panel with a soft inner accent glow that reads
  * as "lit from within" against the deep-navy backdrop. Body-text panels add
- * .glass-surface--strong for the ≥0.90 fill. */
+ * .glass-surface--strong for the shared content fill. */
 .aurora-surface {
   background-color: var(--surface-glass);
   backdrop-filter: blur(var(--surface-glass-blur));

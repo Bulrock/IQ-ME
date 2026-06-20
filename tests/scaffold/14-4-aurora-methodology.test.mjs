@@ -120,11 +120,10 @@ test("AC3/AC6: frozen Epic 11/13 DOM contracts preserved — build-methodology.m
   assert.match(mjs, /href="\/src\/css\/components\/masthead\.css"/, "build-methodology.mjs must keep loading masthead.css on the route");
 });
 
-test("AC4: dark glass keeps the lighter neutral-800-band ink (raised panel), never the page color (semantic.css)", () => {
+test("AC4: dark glass keeps one readable raised-panel fill across all content surfaces (semantic.css)", () => {
   const css = r("src", "css", "semantic.css");
-  // Dark fill must differ from the neutral-900 page color so the panel reads as raised
-  // (the Epic 13 same-color failure stays resolved). The fill is the AA contrast guarantee.
-  assert.match(css, /\[data-theme="dark"\][\s\S]*--surface-glass-strong:\s*rgba\(44, 56, 84, 0\.90\)/, "dark --surface-glass-strong must keep the lighter raised-panel fill (≥0.90 alpha)");
+  // All dark content surfaces share the same fill, distinct from the page color.
+  assert.match(css, /\[data-theme="dark"\][\s\S]*--surface-glass:\s*rgba\(38, 48, 74, 0\.74\)[\s\S]*--surface-glass-strong:\s*rgba\(38, 48, 74, 0\.74\)[\s\S]*--surface-glass-hero:\s*rgba\(38, 48, 74, 0\.74\)/, "dark glass roles must share the readable raised-panel fill");
   assert.match(css, /--surface-glass-edge:\s*rgba\(150, 180, 240, 0\.22\)/, "dark glass edge must keep the lit rim that defines the panel against the backdrop");
 });
 

@@ -34,6 +34,8 @@
   /* Primary action (the single forward affordance per scene) */
   --color-action-bg:           var(--color-accent-500);
   --color-action-bg-hover:     var(--color-accent-700);
+  --color-action-gradient:     var(--aurora-action-gradient);
+  --color-action-gradient-hover: var(--aurora-action-gradient-hover);
   --color-action-text:         var(--color-neutral-0);
   --color-action-border:       var(--color-action-bg);
 
@@ -67,6 +69,7 @@
    * these, never the --glass-* primitives directly (UX-DR1 two-layer rule). */
   --surface-glass:        var(--glass-fill);
   --surface-glass-strong: var(--glass-fill-strong);
+  --surface-glass-hero:   var(--glass-fill-hero);
   --surface-glass-blur:   var(--glass-blur-md);
   --surface-glass-edge:   var(--glass-edge);
   --surface-glass-shadow: var(--glass-shadow);
@@ -81,6 +84,9 @@
   --backdrop-aurora-1:    var(--aurora-blue-glow-light);
   --backdrop-aurora-2:    var(--aurora-violet-glow-light);
   --backdrop-grid:        var(--aurora-grid-line-light);
+  --backdrop-star:        var(--aurora-star-light);
+  --backdrop-ribbon-1:    var(--aurora-ribbon-blue-light);
+  --backdrop-ribbon-2:    var(--aurora-ribbon-violet-light);
   --aurora-glow-accent:   var(--glass-tint);  /* decorative panel glow; never the contrast layer */
 
   /* ─── Epic 13 — Semantic motion roles (Story 13-1 §4). */
@@ -108,17 +114,23 @@
    * authored (UX-DR6), not auto-inverted. The fill is a cool blue-grey LIGHTER
    * than the navy backdrop so a panel reads as raised with real blur depth
    * (the Epic 13 fill composited to the page color and vanished). Contrast
-   * guarantee stays the fill alpha (≥0.72 / ≥0.90), never the blur. */
+   * guarantee stays the unified readable fill alpha, never the blur. */
   --surface-glass:        rgba(38, 48, 74, 0.74);
-  --surface-glass-strong: rgba(44, 56, 84, 0.90);
+  --surface-glass-strong: rgba(38, 48, 74, 0.74);
+  --surface-glass-hero:   rgba(38, 48, 74, 0.74);
   --surface-glass-edge:   rgba(150, 180, 240, 0.22);
-  --surface-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+  --surface-glass-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+  --color-action-bg:      var(--aurora-action);
+  --color-action-bg-hover:var(--aurora-action-hover);
 
   /* Aurora backdrop roles — deep-navy field + bounded blue-violet glows. */
   --backdrop-base:        var(--aurora-navy-900);
   --backdrop-aurora-1:    var(--aurora-blue-glow);
   --backdrop-aurora-2:    var(--aurora-violet-glow);
   --backdrop-grid:        var(--aurora-grid-line);
+  --backdrop-star:        var(--aurora-star);
+  --backdrop-ribbon-1:    var(--aurora-ribbon-blue);
+  --backdrop-ribbon-2:    var(--aurora-ribbon-violet);
 }
 
 /* ─── UX-DR6 — Dark mode (system pref, when no explicit light opt-out) ─── */
@@ -137,14 +149,20 @@
      * explicit [data-theme="dark"] block): cool blue-grey fill lighter than the
      * deep-navy backdrop so glass reads as a raised panel with real blur depth. */
     --surface-glass:        rgba(38, 48, 74, 0.74);
-    --surface-glass-strong: rgba(44, 56, 84, 0.90);
+    --surface-glass-strong: rgba(38, 48, 74, 0.74);
+    --surface-glass-hero:   rgba(38, 48, 74, 0.74);
     --surface-glass-edge:   rgba(150, 180, 240, 0.22);
-    --surface-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+    --surface-glass-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+    --color-action-bg:      var(--aurora-action);
+    --color-action-bg-hover:var(--aurora-action-hover);
 
     /* Aurora backdrop roles — deep-navy field + bounded blue-violet glows. */
     --backdrop-base:        var(--aurora-navy-900);
     --backdrop-aurora-1:    var(--aurora-blue-glow);
     --backdrop-aurora-2:    var(--aurora-violet-glow);
     --backdrop-grid:        var(--aurora-grid-line);
+    --backdrop-star:        var(--aurora-star);
+    --backdrop-ribbon-1:    var(--aurora-ribbon-blue);
+    --backdrop-ribbon-2:    var(--aurora-ribbon-violet);
   }
 }

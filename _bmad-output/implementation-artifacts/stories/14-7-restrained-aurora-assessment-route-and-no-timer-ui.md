@@ -6,6 +6,13 @@ status: done
 
 # Story 14.7: Restrained Aurora assessment route and no-timer UI
 
+> **Post-epic visual-alignment correction (2026-06-14):** the selected
+> `01-aurora-glass-observatory.png` layout keeps the Observatory backdrop and a
+> compact IQ-ME identity bar on the assessment screen. The working panel remains
+> restrained and static, and the no-timer policy remains unchanged. This
+> correction supersedes AC2's `background-image: none` requirement and the
+> previous test-route header-hide gate.
+
 ## Story
 
 As a **test-taker working through the assessment**,
