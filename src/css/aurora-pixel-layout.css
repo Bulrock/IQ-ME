@@ -156,10 +156,13 @@ body[data-route="#/saved"] .saved-results__list {
 
 /* The disclosure text sits DIRECTLY on the panel glass (no inner grey card),
    fills the panel height (buttons ride at the bottom), and only scrolls when
-   a locale's text genuinely outgrows the taller panel. */
+   a locale's text genuinely outgrows the taller panel. The tighter margin +
+   chrome-aware height cap keep the Continue row above the fold on every
+   viewport (the generic 10vh panel margin used to push it past 100dvh). */
 body[data-route="#/consent"] .consent-scene {
   height: auto;
-  min-height: min(46rem, calc(100dvh - 7rem));
+  min-height: min(46rem, calc(100dvh - 12rem));
+  margin-block: clamp(1.25rem, 3.5vh, 2.75rem) auto;
 }
 
 body[data-route="#/consent"] .consent-scene__envelope {
@@ -228,12 +231,19 @@ body[data-route="#/consent"] .consent-scene__envelope {
   position: absolute;
 }
 
+/* Reference bell curve: a crisp SVG-masked area (the mask carries the shape,
+   the background paints theme-aware token color) — replaces the old
+   conic-gradient/clip-path approximation that rendered as a smudge. */
 .score-panel__metric-viz--percentile::before {
-  inset: .8rem 8% .35rem;
+  inset: .2rem 6% .3rem;
   border-bottom: 1px solid var(--aurora-line);
-  background: radial-gradient(ellipse at 58% 100%, color-mix(in srgb, var(--color-focus-ring) 54%, transparent) 0 5%, transparent 6%),
-    conic-gradient(from 230deg at 52% 100%, transparent 0 17%, color-mix(in srgb, var(--color-focus-ring) 58%, transparent) 18% 29%, transparent 30%);
-  clip-path: polygon(0 100%, 12% 95%, 25% 78%, 40% 38%, 52% 8%, 64% 34%, 78% 74%, 100% 96%, 100% 100%);
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-focus-ring) 52%, transparent),
+    color-mix(in srgb, var(--color-focus-ring) 10%, transparent)
+  );
+  -webkit-mask: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 44' preserveAspectRatio='none'%3E%3Cpath d='M0 43C22 43 34 38 44 28C52 20 54 5 60 5C66 5 68 20 76 28C86 38 98 43 120 43L120 44L0 44Z'/%3E%3C/svg%3E") center bottom / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 44' preserveAspectRatio='none'%3E%3Cpath d='M0 43C22 43 34 38 44 28C52 20 54 5 60 5C66 5 68 20 76 28C86 38 98 43 120 43L120 44L0 44Z'/%3E%3C/svg%3E") center bottom / 100% 100% no-repeat;
 }
 
 .score-panel__metric-viz--percentile::after {
@@ -241,8 +251,8 @@ body[data-route="#/consent"] .consent-scene__envelope {
   height: .42rem;
   border-radius: 50%;
   background: var(--color-focus-ring);
-  left: 65%;
-  bottom: .15rem;
+  left: 62%;
+  bottom: 38%;
   box-shadow: 0 0 .8rem var(--color-focus-ring);
 }
 
@@ -642,7 +652,31 @@ body[data-route="#/test"] .chrome-header__controls {
   padding-top: .75rem;
   border-top: 1px solid var(--aurora-line);
 }
-.item-runner__bail-panel { grid-area: bailpanel; }
+/* The bail-out confirm is an OVERLAY over the runner, not a grid row — as a
+   row it inflated the panel past the viewport (matrix shoved off-screen, a
+   huge slab under the nav). Absolute positioning takes it out of the grid;
+   the dimmed, blurred veil keeps the paused puzzle visible underneath. */
+body[data-route="#/test"] .item-runner { position: relative; }
+body[data-route="#/test"] .item-runner[data-bail-state="open"] .item-runner__bail-panel {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  margin: 0;
+  display: grid;
+  place-content: center;
+  padding: clamp(1rem, 5vw, 4rem);
+  text-align: center;
+  background: color-mix(in srgb, var(--color-surface-base) 62%, transparent);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border: 0;
+  border-radius: var(--radius-surface);
+  box-shadow: none;
+}
+body[data-route="#/test"] .item-runner__bail-explanation {
+  max-width: 34rem;
+  font-size: 1.05rem;
+}
 
 [data-theme="dark"] .item-runner__image,
 [data-theme="dark"] .item-runner__option-image {

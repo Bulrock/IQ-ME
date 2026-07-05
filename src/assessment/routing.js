@@ -30,7 +30,7 @@ let hashChangeHandler = null;
 const NS = {
   landing: ["headline", "subtitle", "intro", "startTestButton", "methodologyLink"],
   selection: ["heading", "intro", "methodologyLegend", "variantLegend", "geometricLabel", "geometricLabelHelp", "letterNumberLabel", "letterNumberLabelHelp", "shortLabel", "shortLabelHelp", "fullLabel", "fullLabelHelp", "continueButton", "backLink"],
-  consent: ["headline", "measuresWhat", "validityEnvelope", "visuospatialDisclosure", "continueButton", "notToday", "dwellHint"],
+  consent: ["headline", "measuresWhat", "validityEnvelope", "visuospatialDisclosure", "continueButton", "notToday"],
   chrome: ["titleAppDefault", "appName", "errorFallbackMessage", "languageSwitcherPlaceholderEn", "languageSwitcherLegend", "footerMethodologyLink", "footerDiscussionsLink", "footerCitationLink", "themeToggleLegend", "themeSystemLabel", "themeLightLabel", "themeDarkLabel"],
   itemRunner: ["headingTemplate", "progressTemplate", "optionsLegend", "optionLabelTemplate", "previousButton", "nextButton", "submitButton", "fetchErrorMessage", "bailButton", "bailPanelHeading", "bailExplanation", "bailDiscardButton", "bailContinueButton"],
   result: ["scoreHeading", "prerevealHeading", "prerevealSubcopy", "showMeButton", "notYetButton", "caveat", "percentileAriaTemplate", "anchorAriaTemplate", "bandAriaTemplate", "bandTemplate", "difficultySentenceTemplate", "difficultySentenceAria", "fetchErrorMessage", "saveButton", "saveButtonSaved", "retestNote", "retestNoteLinkLabel", "percentileLabel", "anchorLabel", "bandLabel", "resultExplainer", "printButton", "printTitle", "crisisShowMore", "methodologyVariantLine", "method_geometric", "method_letter-number", "variant_short", "variant_full"],
