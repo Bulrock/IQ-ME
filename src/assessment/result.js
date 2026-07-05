@@ -134,7 +134,7 @@ function panel(s, sc, c, variant, tailScenes, crisis, mv) {
 // so exactly one write occurs per session). On render it reflects an
 // already-saved session (returning user) via the read-only isSaved() — no write
 // at render time (NFR9).
-function bindSave(root, sc, s) {
+function bindSave(root, sc, s, counts) {
   const btn = root.querySelector(".score-panel__save-button");
   if (!btn) return;
   const seed = state.getState().seed;
@@ -146,8 +146,8 @@ function bindSave(root, sc, s) {
   if (saved) reflect();
   on(btn, "click", () => {
     if (saved) return;
-    // Story 12-3 context travels with the artifact so the saved-results detail
-    // can name the test that produced the estimate (additive fields only).
+    // Additive context fields: methodology/variant name the test in the saved
+    // detail; the FR22 counts let it print the same document as this page.
     const st = state.getState();
     saveResult(seed, {
       percentile: Math.round(sc.percentile),
@@ -155,6 +155,7 @@ function bindSave(root, sc, s) {
       displayedBand: sc.displayedBand,
       methodology: st.methodology,
       variant: st.variant,
+      difficulty: counts,
     });
     saved = true;
     reflect();
@@ -250,7 +251,7 @@ export async function render(rootEl, strings) {
     detach(); m.ls = [];
     rootEl.innerHTML = panel(strings.result, score, counts, variant, tailScenes, crisis, mv);
     bindTriplet(rootEl);
-    bindSave(rootEl, score, strings.result);
+    bindSave(rootEl, score, strings.result, counts);
     bindPrint(rootEl);
     rs.dispatchStage("band");
     rs.dispatchStage("interval");

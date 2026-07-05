@@ -21,9 +21,7 @@ export function render(rootEl, strings) {
   const intro = escapeText(s.intro ?? "");
   const startLabel = escapeText(s.startTestButton ?? "");
   const methodLabel = escapeText(s.methodologyLink ?? "");
-  // PR-14 originally hid this entry point until there was local data. The
-  // Aurora reference keeps it visible as part of the hero composition; the
-  // saved-results route already has an empty state when nothing is stored.
+  // Always visible (Aurora hero); the saved route has its own empty state.
   const savedLabel = escapeText(sr.viewSavedResults ?? "View saved results");
   const savedEntry = '<button type="button" id="view-saved-btn" class="landing__saved-btn" data-saved-results-entry>' + savedLabel + '</button>';
   // Story 13-3: the landing scene is wrapped in a decorative glass stage with

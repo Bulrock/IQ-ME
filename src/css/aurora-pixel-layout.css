@@ -5,15 +5,15 @@
   --aurora-line: color-mix(in srgb, var(--surface-glass-edge) 76%, transparent);
 }
 
-/* Fixed observatory foreground — part of the BACKDROP composition. It must sit
-   BELOW #app (z-index 10): scene panels and their controls always paint above
-   the landscape, and the glass panels' backdrop-filter blurs it through the
-   frosted surface (the reference look). Above body's painted background, below
-   all content. */
-body::after {
+/* Fixed observatory foreground — the LANDING hero composition only (the other
+   scenes keep just the painted sky/mountains backdrop). It layers ABOVE the
+   hero card (#app is z-index 10) and below the chrome (z 40): the glass card
+   sits BEHIND the observatory hill, exactly as in the reference; it is
+   pointer-transparent so nothing under it loses clicks. */
+body[data-route="#/"]::after {
   content: "";
   position: fixed;
-  z-index: 6;
+  z-index: 18;
   right: 0;
   bottom: 0;
   width: min(110rem, 105vw);
@@ -25,18 +25,14 @@ body::after {
 /* Night foreground: explicit dark opt-in AND system-dark (no explicit light
    choice) — mirrors the base.css backdrop theme legs so the foreground never
    disagrees with the sky behind it. */
-[data-theme="dark"] body::after {
+[data-theme="dark"] body[data-route="#/"]::after {
   background-image: url("/src/assets/aurora-observatory-foreground.png");
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) body::after {
+  :root:not([data-theme="light"]) body[data-route="#/"]::after {
     background-image: url("/src/assets/aurora-observatory-foreground.png");
   }
-}
-
-body[data-route="#/test"]::after {
-  display: none;
 }
 
 body > .chrome-header,
@@ -397,6 +393,18 @@ body[data-route="#/saved"] .saved-result-detail {
   text-align: left;
 }
 
+
+/* The live result composes caveat|buttons as one grid row; the saved detail
+   is a flex column, so its caveat reads as a full-width note chip. */
+.saved-result-detail .score-panel > .score-panel__caveat {
+  border: 1px solid var(--aurora-line);
+  border-radius: var(--radius-control);
+  margin-block-end: 1rem;
+}
+
+.saved-result-detail .score-panel__support {
+  align-self: stretch;
+}
 
 .saved-result-detail__actions {
   display: flex;

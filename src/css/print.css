@@ -151,12 +151,13 @@
   }
 
   /* The saved-result view centres its panel on screen; the printed document
-     reads top-down from the masthead. */
+     reads top-down, start-aligned — byte-for-byte the live result document. */
   .saved-result-detail,
   .saved-result-detail .score-panel {
     justify-content: flex-start !important;
     align-items: stretch !important;
     min-height: auto !important;
+    text-align: start;
   }
 
   /* Print masthead — the document header row (reference: brand/title at the

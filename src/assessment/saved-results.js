@@ -218,29 +218,50 @@ function renderDetail(rootEl, strings, item) {
     cell("percentile", p, r.percentileLabel ?? "Percentile") +
     cell("anchor", a, r.anchorLabel ?? "IQ-scale") +
     cell("band", h != null ? F(r.bandTemplate || "±{N}", { N: h }) : null, r.bandLabel ?? "Range");
-  // Context line under the heading: which test produced this estimate (newer
-  // artifacts carry methodology/variant — see result.js bindSave), plus the
-  // save date. Older artifacts degrade to just the date.
+  // Heading context = save date; the methodology line renders in support.
   const method = d.methodology ? (r["method_" + d.methodology] || d.methodology) : null;
   const variantName = d.variant ? (r["variant_" + d.variant] || d.variant) : null;
-  const context = [method && variantName ? method + " · " + variantName : method, date ? (s.dateLabel ?? "Date") + " " + date : null]
-    .filter(Boolean).join(" — ");
-  // Print/download parity with the live result (reference "IQ-ME Result"
-  // viewer): the saved detail carries the same print-only masthead + footer,
-  // and a visible print button that opens the browser's print-to-PDF dialog.
+  const context = date ? (s.dateLabel ?? "Date") + " " + date : "";
+  // Print parity: same printable blocks as the live result → identical PDFs.
   const printHead =
     '<div class="result-print-only"><p class="result-print-only__title">' + escT(r.printTitle ?? "") + '</p>' +
     (date ? '<p class="result-print-only__date">' + escT(date) + '</p>' : '') + '</div>';
   const printFooter = '<p class="result-print-footer" aria-hidden="true">IQ-ME · /methodology/v0.1.0/</p>';
+  const caveat = r.caveat ? '<p class="score-panel__caveat" role="note">' + escT(r.caveat) + '</p>' : '';
+  const methodLine = method && r.methodologyVariantLine
+    ? '<p class="score-panel__method-variant">' + escT(F(r.methodologyVariantLine, { methodology: method, variant: variantName ?? "" })) + '</p>'
+    : '';
+  // Collapsed disclaimer, same shape as the live result (opens in print).
+  let disclaimer = '';
+  if (r.resultExplainer) {
+    const parts = String(r.resultExplainer).split(/(?<=[.!?])\s+/);
+    const summary = parts[0] || String(r.resultExplainer);
+    const rest = parts.slice(1).join(" ");
+    disclaimer = '<details class="disclaimer score-panel__explainer"><summary class="disclaimer__summary">' + escT(summary) + '</summary>'
+      + (rest ? '<p class="disclaimer__body">' + escT(rest) + '</p>' : '') + '</details>';
+  }
+  const c = d.difficulty;
+  const difficulty = c && c.totals && c.correct && r.difficultySentenceTemplate
+    ? '<p class="score-panel__difficulty-sentence" aria-label="' + escA(r.difficultySentenceAria ?? "") + '">'
+      + escT(F(r.difficultySentenceTemplate, {
+          hardN: c.totals.hard, medN: c.totals.medium, easyN: c.totals.easy,
+          hardCorrect: c.correct.hard, medCorrect: c.correct.medium, easyCorrect: c.correct.easy,
+        })) + '</p>'
+    : '';
+  const support = (methodLine || disclaimer || difficulty)
+    ? '<div class="score-panel__support">' + methodLine + disclaimer + difficulty + '</div>'
+    : '';
   rootEl.innerHTML =
     '<section class="result-scene saved-result-detail" data-reveal-stage="methodology-handoff" data-saved-result-view aria-labelledby="saved-result-detail-heading">' +
       '<section class="score-panel">' +
         printHead +
+        caveat +
         '<header class="score-panel__header">' +
           '<h1 id="saved-result-detail-heading">' + escT(s.detailHeading ?? "Saved result") + '</h1>' +
           (context ? '<p class="saved-result-detail__date">' + escT(context) + '</p>' : '') +
         '</header>' +
         '<div class="score-panel__triplet">' + triplet + '</div>' +
+        support +
         '<div class="saved-result-detail__actions">' +
           '<button type="button" class="saved-results__back" data-saved-back>' + escT(s.backToList ?? "Back to list") + '</button>' +
           (r.printButton ? '<button type="button" class="result-print-btn" data-saved-print>' + escT(r.printButton) + '</button>' : '') +

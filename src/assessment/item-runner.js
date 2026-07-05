@@ -65,10 +65,8 @@ function itemAssetSrc(filename) {
   return "/src/" + (isDarkTheme() ? "items-dark" : "items") + "/" + filename;
 }
 
-// Reference progress track: expose the session fraction as the --p custom
-// property consumed by the CSS fill bar. Position only (never a duration) per
-// the Story 14-7 no-timer policy. CSSOM write, guarded so the unit-test fake
-// DOM (attrs-only elements) is untouched.
+// Progress fill fraction → the --p custom property (CSS track bar). Position
+// only, never a duration (14-7). CSSOM write, guarded for the fake-DOM tests.
 function syncProgressFill(rootEl, currentItem, sessionSize) {
   const el = rootEl.querySelector(".item-runner__progress");
   if (!el || !el.style || typeof el.style.setProperty !== "function") return;
@@ -76,11 +74,8 @@ function syncProgressFill(rootEl, currentItem, sessionSize) {
   el.style.setProperty("--p", String(Math.min(1, Math.max(0, frac))));
 }
 
-// The matrix + option SVGs ship in light/dark mirrors (src/items vs
-// src/items-dark). When the resolved theme changes mid-item (OS scheme flip —
-// the in-test chrome hides the manual toggle), re-point every rendered item
-// image at the matching mirror so the stimulus never sits on the wrong
-// palette.
+// Item SVGs ship in light/dark mirrors (src/items vs src/items-dark). On a
+// mid-item theme change, re-point every rendered image at the right mirror.
 function syncAssetTheme(rootEl) {
   for (const img of rootEl.querySelectorAll(".item-runner__image, .item-runner__option-image")) {
     const src = typeof img.getAttribute === "function" ? img.getAttribute("src") : null;
@@ -245,10 +240,8 @@ function attachListeners(rootEl, cache, strings) {
     if (ev && ev.key === "Escape") { ev.preventDefault?.(); close(); }
   });
 
-  // Theme flips mid-test → swap the rendered SVGs to the matching light/dark
-  // mirror (see syncAssetTheme): OS scheme changes via matchMedia, manual
-  // toggle clicks via the data-theme attribute observer. Guarded: neither API
-  // exists in the unit-test fake DOM.
+  // Theme flips mid-test (OS scheme OR the header toggle's data-theme write)
+  // → re-sync the rendered SVG mirrors. Guarded for the fake-DOM tests.
   try {
     if (typeof window !== "undefined" && typeof window.matchMedia === "function") {
       const mq = window.matchMedia("(prefers-color-scheme: dark)");
