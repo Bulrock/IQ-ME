@@ -57,6 +57,13 @@ const THEME_BOOT =
 // theme script so a redirect aborts early. External src = CSP-clean.
 const LOCALE_BOOT =
   `<script src="/src/assessment/methodology-locale.js"></script>\n`;
+// Maintainer request (2026-07-05): every corpus page carries the app brand
+// (logo + wordmark) as a home link back to the SPA landing page. Static
+// markup, same-origin asset (NFR6); styled by /src/css/methodology-chrome.css.
+const BRAND_HOME_LINK =
+  `<a class="methodology-brand" href="/" aria-label="IQ-ME — home">` +
+  `<img class="methodology-brand__logo" src="/src/assets/favicon_io/favicon-32x32.png" alt="" width="28" height="28">` +
+  `<span class="methodology-brand__name">IQ-ME</span></a>\n`;
 // Retained for callers that historically referenced LANG; canonical EN path.
 const LANG = "en";
 const SEMVER_RE = /^v\d+\.\d+\.\d+$/;
@@ -322,9 +329,11 @@ function renderPage(srcPath, lang, fm, bodySrc, corpusVersion) {
     `<link rel="stylesheet" href="/src/css/components/masthead.css">\n` +
     `<link rel="stylesheet" href="/src/css/components/cite-this-page-widget.css">\n` +
     `<link rel="stylesheet" href="/src/css/components/stale-translation-hatnote.css">\n` +
+    `<link rel="stylesheet" href="/src/css/methodology-chrome.css">\n` +
     `<script type="module" src="/src/assessment/cite-this-page.js" defer></script>\n` +
     `</head>\n` +
     `<body ${bodyAttrs}>\n` +
+    BRAND_HOME_LINK +
     `<header class="methodology-masthead">\n` +
     `<h1 class="methodology-masthead__title">${title}</h1>\n` +
     `<p class="methodology-masthead__version">${version}</p>\n` +
@@ -451,7 +460,9 @@ function buildIndexHtml(lang, versionSegment, displayVersion, pages) {
     `<link rel="stylesheet" href="/src/css/semantic.css">\n` +
     `<link rel="stylesheet" href="/src/css/base.css">\n` +
     `<link rel="stylesheet" href="/src/css/components/masthead.css">\n` +
+    `<link rel="stylesheet" href="/src/css/methodology-chrome.css">\n` +
     `</head>\n<body data-lang="${lang}" class="methodology-index-page">\n` +
+    BRAND_HOME_LINK +
     `<header class="methodology-masthead">\n` +
     `<h1 class="methodology-masthead__title">${esc(i18n.mastheadTitle)}</h1>\n` +
     `<p class="methodology-masthead__version">${esc(displayVersion)}</p>\n` +
