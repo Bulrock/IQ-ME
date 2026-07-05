@@ -35,7 +35,6 @@ const THEME_SEG_LIGHT = ".chrome-header .theme-switcher__segment[data-theme-valu
 const THEME_SEG_DARK = ".chrome-header .theme-switcher__segment[data-theme-value='dark']";
 const METHODOLOGY_LINK = ".chrome-footer__methodology-link";
 const DISCUSSIONS_LINK = ".chrome-footer__discussions-link";
-const CITATION_LINK = ".chrome-footer__citation-link";
 
 let server;
 
@@ -246,7 +245,7 @@ test.describe("AC-9: prefers-color-scheme honored — light counterpart", () => 
 // Test 5 — chrome-footer link affordances present + canonical URLs
 // ────────────────────────────────────────────────────────────────────────
 
-test("AC-2: chrome-footer renders methodology + Discussions + citation links with canonical hrefs", async ({ page }) => {
+test("AC-2: chrome-footer renders methodology + Discussions links with canonical hrefs", async ({ page }) => {
   const origin = `http://127.0.0.1:${server.port}`;
   await gotoLanding(page, origin);
 
@@ -260,9 +259,9 @@ test("AC-2: chrome-footer renders methodology + Discussions + citation links wit
   const discussionsRel = await page.locator(DISCUSSIONS_LINK).getAttribute("rel");
   expect(discussionsRel, "Discussions link carries rel='noopener' for security").toMatch(/noopener/);
 
-  await expect(page.locator(CITATION_LINK), "citation link present in chrome-footer").toHaveCount(1);
-  const citationHref = await page.locator(CITATION_LINK).getAttribute("href");
-  expect(citationHref, "citation link points to /methodology/v0.1.0/en/reference/citation/").toBe("/methodology/v0.1.0/en/reference/citation/");
+  // The citation page + its footer link were removed per maintainer decision
+  // (2026-07-05): no ".chrome-footer__citation-link" renders anymore.
+  await expect(page.locator(".chrome-footer__citation-link"), "citation link stays removed").toHaveCount(0);
 });
 
 // ────────────────────────────────────────────────────────────────────────

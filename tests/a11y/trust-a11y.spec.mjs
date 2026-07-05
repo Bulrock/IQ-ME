@@ -70,7 +70,6 @@ const METHODOLOGY_PAGES = [
   "/methodology/v0.1.0/en/limitations/cultural-variance/",
   "/methodology/v0.1.0/en/limitations/anti-leakage/",
   "/methodology/v0.1.0/en/limitations/retest-effects/",
-  "/methodology/v0.1.0/en/reference/citation/",
   "/methodology/v0.1.0/en/reference/bibliography/",
   "/methodology/v0.1.0/en/reference/changelog/",
   "/methodology/v0.1.0/en/reference/glossary/",

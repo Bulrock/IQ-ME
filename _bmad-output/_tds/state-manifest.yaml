@@ -912,11 +912,11 @@ entries:
     notes: "bridge-7-8-3 migration: add lint-exempt-carry-forward frontmatter flag to former central-list specs"
   - artefact_class: A
     file: tests/scaffold/anchor-pages.test.mjs
-    sha256: bc0e86647e23d7037f4e256d3e37537170454612b5f50474af46d90b2b105a11
+    sha256: eba13accd8071559ecb863ad13756b096628f74ed8661b7118d7cd212b1f6006
     canonical_form: raw-bytes
-    recorded_at: 2026-06-06T14:35:14.289Z
-    recorded_by: frontend
-    story_id: 11-1-post-release-bug-ux-fix-pass
+    recorded_at: 2026-07-05T20:50:50.608Z
+    recorded_by: engineer
+    notes: "maintainer decision 2026-07-05: reference/citation page + footer Cite link removed — specs updated to assert the removal"
   - artefact_class: A
     file: tests/unit/tools/lint-fr36-protection.test.mjs
     sha256: 356e1a40093fbefddecd4d1121f6bacd4dac8204822070408bb650769a414182
@@ -1118,11 +1118,11 @@ entries:
     story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: tests/playwright/chrome-components.spec.mjs
-    sha256: 6dd47b6d1802ecc380f7a1d3c1031308a450425494eb3c8577219b87a660f482
+    sha256: fea16b2a34c945bf22080d74ba41650ea2b98c30d8cc0daab9cf6923cbfb2bd9
     canonical_form: raw-bytes
-    recorded_at: 2026-07-05T16:45:19.227Z
+    recorded_at: 2026-07-05T20:50:50.608Z
     recorded_by: engineer
-    notes: "post-ee3da3e Aurora sweep: re-record frozen guards/specs deliberately updated by the observatory-layout commit and this reference-parity pass (chrome visible-on-test contract, saved-results always-visible entry, glass value retunes)"
+    notes: "maintainer decision 2026-07-05: reference/citation page + footer Cite link removed — specs updated to assert the removal"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list.md
     sha256: 9e9cb4c7801e14c4fad44068f9de19e6c7d13e85475e011164ecd75593a7121d
@@ -1477,11 +1477,11 @@ entries:
     notes: "story-8-5: consolidated trust-verification Playwright spec + a11y spec + lighthouserc budgets"
   - artefact_class: A
     file: tests/a11y/trust-a11y.spec.mjs
-    sha256: 2fadd22cb15dfddb5017b6f6f5ca685480e9dab2c9e6c9b67c0a89061f612e77
+    sha256: 7dfae1817eda4250c792d16517fd98f3de4b6605a95369e3dafad50c72ccc9d7
     canonical_form: raw-bytes
-    recorded_at: 2026-06-06T07:08:25.345Z
+    recorded_at: 2026-07-05T20:50:50.609Z
     recorded_by: engineer
-    notes: scope a11y audit to AA — disable AAA color-contrast-enhanced rule (landing now 0 violations)
+    notes: "maintainer decision 2026-07-05: reference/citation page + footer Cite link removed — specs updated to assert the removal"
   - artefact_class: A
     file: tests/perf/lighthouserc.json
     sha256: 5f4f0002838615f58634afb54e46685f73f474f7d29bebe1735ed5912c1d01eb

@@ -35,7 +35,6 @@ function applyChromeStrings() {
   set(".chrome-header__name", "chrome.appName");
   set(".chrome-footer__methodology-link", "chrome.footerMethodologyLink");
   set(".chrome-footer__discussions-link", "chrome.footerDiscussionsLink");
-  set(".chrome-footer__citation-link", "chrome.footerCitationLink");
 }
 
 let inFlight = null;

@@ -11,25 +11,15 @@
   display: none;
 }
 
-/* Screen — Download/Print button: a quiet outlined affordance like Save. */
+/* Screen — the Download/Print button is styled by the shared Aurora quiet
+   control group (unified-controls.css), exactly like its Save / Back-to-list
+   neighbours; print.css carries no screen-mode styling for it. */
 .result-print-btn {
-  display: inline-block;
-  margin-block-start: var(--space-3);
   font-size: var(--font-size-200);
   font-family: var(--font-family-sans);
   padding-block: var(--space-2);
   padding-inline: var(--space-5);
-  border-radius: var(--radius-control);
-  border: var(--border-width-hairline) solid var(--color-rule-strong);
-  background-color: var(--color-surface-base);
-  color: var(--color-text-body);
   cursor: pointer;
-  transition: border-color 120ms ease, box-shadow 120ms ease;
-}
-
-.result-print-btn:hover {
-  border-color: var(--color-focus-ring);
-  box-shadow: var(--shadow-elevated);
 }
 
 .result-print-btn:focus-visible {

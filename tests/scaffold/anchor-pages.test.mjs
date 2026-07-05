@@ -15,9 +15,10 @@ const METH_ROOT = join(REPO_ROOT, "src", "content", "methodology", "en");
 
 // Story 11-1 — methodology cut to core sections (maintainer decision): Norming,
 // Ethics, and the Reference/Provenance admin pages (glossary, bibliography,
-// changelog, iq-me-license, methodology-claims) were removed. The 19 retained
+// changelog, iq-me-license, methodology-claims) were removed. The retained
 // pages are the result-linked + construct/scoring/limitation core + tails +
-// icar-license + citation.
+// icar-license. (reference/citation + the footer "Cite" link were removed per
+// maintainer decision 2026-07-05.)
 const ANCHOR_PAGES = [
   // Constructs (5)
   "constructs/fluid-reasoning/index.md",
@@ -37,9 +38,8 @@ const ANCHOR_PAGES = [
   "limitations/cultural-variance/index.md",
   "limitations/anti-leakage/index.md",
   "limitations/retest-effects/index.md",
-  // Provenance (1) + Reference (1)
+  // Provenance (1)
   "provenance/icar-license.md",
-  "reference/citation/index.md",
   // Tails (2)
   "tails/bottom-decile/index.md",
   "tails/top-decile/index.md",
