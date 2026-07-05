@@ -84,11 +84,22 @@
     display: none !important;
   }
 
-  /* The decorative metric visualisations are colour/glow constructs; on the
-     ink-only document they degrade to grey slabs. The numbers + labels carry
-     the information — drop the decoration (type/rule/spacing identity only). */
-  .score-panel__metric-viz {
-    display: none !important;
+  /* Maintainer amendment (2026-07-05) to the Story 14-9 / PR-26 ink-only
+     decision: the metric visualisations (bell curve / scale dot / range bar)
+     DO print, exactly as the reference mockup's document page shows them.
+     Their colors come from theme TOKENS (never literal hexes in this block —
+     the ink-ramp guard still holds); print-color-adjust forces the gradient
+     fills onto paper even when the browser's "background graphics" is off. */
+  .score-panel__metric-viz,
+  .score-panel__metric-viz::before,
+  .score-panel__metric-viz::after,
+  .score-panel__metric-viz > span::before,
+  .score-panel__metric-viz > span::after {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    /* Screen glows rasterize as square slabs in PDF output — markers print
+       as clean shapes without them. */
+    box-shadow: none !important;
   }
 
   /* Drop interactive chrome + anything that isn't the summary document. */
@@ -281,8 +292,14 @@
     text-align: center;
   }
 
+  /* Zero page margin suppresses the browser's own header/footer lines (date,
+     page title, URL, page number); the document margins move to body padding. */
   @page {
-    margin: 0.6in;
+    margin: 0;
+  }
+
+  body {
+    padding: 0.6in 0.55in !important;
   }
 
   /* Avoid orphaning the triplet/disclaimer across a page break. */
