@@ -126,37 +126,62 @@ body > .chrome-footer {
   border-color: var(--aurora-line);
 }
 
-body[data-route="#/consent"] .consent-scene {
-  height: auto;
-  min-height: min(33.5rem, calc(100dvh - 8rem));
+/* The saved LIST scrolls inside its section (fixed panel height); the page
+   itself never scrolls. Header + actions stay pinned; the unfinished-tests
+   block and the results list each scroll their own overflow. */
+body[data-route="#/saved"] .saved-results {
+  height: min(46rem, calc(100dvh - 7rem));
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-body[data-route="#/consent"] .consent-scene__envelope {
+body[data-route="#/saved"] .saved-results__in-progress {
   flex: 0 1 auto;
-  max-height: min(24rem, 48vh);
-  backdrop-filter: blur(var(--surface-glass-blur));
-  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
-  /* Scroll affordance: a thin, always-styled scrollbar… */
+  min-height: 0;
+  max-height: 38%;
+  overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: color-mix(in srgb, var(--color-text-muted) 65%, transparent) transparent;
 }
 
-/* …plus a sticky bottom fade that signals "more text below" and melts away
-   once the reader reaches the end of the envelope. */
-body[data-route="#/consent"] .consent-scene__envelope::after {
-  content: "";
-  position: sticky;
-  bottom: 0;
-  display: block;
-  height: 2.2rem;
-  margin-block-start: -2.2rem;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    color-mix(in srgb, var(--color-surface-base) 72%, transparent)
-  );
-  pointer-events: none;
+body[data-route="#/saved"] .saved-results__list {
+  flex: 1 1 auto;
+  min-height: 0;
+  align-content: start;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-text-muted) 65%, transparent) transparent;
 }
+
+/* The disclosure text sits DIRECTLY on the panel glass (no inner grey card),
+   fills the panel height (buttons ride at the bottom), and only scrolls when
+   a locale's text genuinely outgrows the taller panel. */
+body[data-route="#/consent"] .consent-scene {
+  height: auto;
+  min-height: min(46rem, calc(100dvh - 7rem));
+}
+
+body[data-route="#/consent"] .consent-scene__envelope {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-text-muted) 65%, transparent) transparent;
+}
+
+/* Continue is rectangular from the first paint — the dwell-gated (disabled)
+   state used to keep the legacy pill radius until unlock flipped it. */
+.consent-scene__continue-btn {
+  border-radius: var(--radius-control);
+}
+
 
 .score-panel__header {
   margin-block-end: 1.4rem;
@@ -669,6 +694,7 @@ body[data-route="#/test"] .chrome-header__controls {
     margin: 0;
     padding: .75rem;
   }
+  body[data-route="#/saved"] .saved-results { height: calc(100dvh - 3.6rem); }
   .selection-scene__form { grid-template-columns: 1fr; gap: .55rem; }
 
   body[data-route="#/result"] .result-scene[data-reveal-stage="methodology-handoff"],

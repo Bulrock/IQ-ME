@@ -69,3 +69,33 @@
     margin-block-start: var(--space-2);
   }
 }
+
+/* Index app-shell hardening: the layout's implicit grid row sized to CONTENT
+   (max-content), so the scrollable column poked 40px past the viewport-pinned
+   body — html grew scrollable, and clicking a sidebar anchor scrolled the
+   whole page (masthead slid away, a bare strip appeared at the bottom).
+   Pinning the single row to the container height keeps every anchor jump
+   inside the column's own scroller. */
+@media (min-width: 48rem) {
+  /* Flex, not grid: the auto grid row kept sizing the scroll column to its
+     content (752px in a 712px shell), so html grew 40px of scrollable
+     overflow and sidebar anchor clicks scrolled the whole page. A row flexbox
+     stretches the column to the shell height unconditionally. */
+  .methodology-index-page .methodology-index__layout {
+    display: flex;
+    align-items: stretch;
+  }
+  .methodology-index-page .methodology-sidebar {
+    flex: 0 0 14rem;
+    align-self: flex-start;
+  }
+  .methodology-index-page .methodology-index {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+  }
+  /* Belt-and-braces: the viewport itself must never scroll on this page. */
+  html:has(body.methodology-index-page) {
+    overflow: clip;
+  }
+}

@@ -196,7 +196,7 @@ main:not(.methodology-index) {
   /* Viewport-pinned app-shell: only the content column scrolls. The flex column lives HERE — base.css's shell is SPA-scoped (body[data-route]). */
   .methodology-index-page {
     height: 100dvh;
-    overflow: hidden;
+    overflow: clip;
     display: flex;
     flex-direction: column;
   }
