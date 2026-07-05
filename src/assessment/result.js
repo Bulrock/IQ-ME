@@ -146,7 +146,16 @@ function bindSave(root, sc, s) {
   if (saved) reflect();
   on(btn, "click", () => {
     if (saved) return;
-    saveResult(seed, { percentile: Math.round(sc.percentile), iqScale: sc.iqScale, displayedBand: sc.displayedBand });
+    // Story 12-3 context travels with the artifact so the saved-results detail
+    // can name the test that produced the estimate (additive fields only).
+    const st = state.getState();
+    saveResult(seed, {
+      percentile: Math.round(sc.percentile),
+      iqScale: sc.iqScale,
+      displayedBand: sc.displayedBand,
+      methodology: st.methodology,
+      variant: st.variant,
+    });
     saved = true;
     reflect();
   });

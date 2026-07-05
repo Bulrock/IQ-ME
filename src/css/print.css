@@ -80,12 +80,26 @@
     color: #111111 !important;
   }
 
+  body::after {
+    display: none !important;
+  }
+
+  /* The decorative metric visualisations are colour/glow constructs; on the
+     ink-only document they degrade to grey slabs. The numbers + labels carry
+     the information — drop the decoration (type/rule/spacing identity only). */
+  .score-panel__metric-viz {
+    display: none !important;
+  }
+
   /* Drop interactive chrome + anything that isn't the summary document. */
   .chrome-header,
   .chrome-footer,
   .result-print-btn,
   .score-panel__save-button,
+  .score-panel__action-buttons,
   .score-panel__retest-note,
+  .score-panel__header,
+  .saved-result-detail__actions,
   .rs-show,
   .rs-not,
   .tail-scene {
@@ -118,12 +132,39 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-5);
+    width: 100% !important;
+    min-height: auto !important;
   }
 
-  /* Print masthead — the document header. Title is the dominant type
-     (display-size hierarchy); the date sits quiet beneath a hairline rule. */
+  /* The Aurora screen layout puts the result panel on a CSS grid
+     (aurora-pixel-layout.css, route-scoped) — restate the print document
+     column at the same route specificity so the flex column above wins. */
+  body[data-route="#/result"] .score-panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    width: 100% !important;
+    min-height: auto !important;
+    max-width: 42rem !important;
+    background: #ffffff !important;
+    background-image: none !important;
+  }
+
+  /* The saved-result view centres its panel on screen; the printed document
+     reads top-down from the masthead. */
+  .saved-result-detail,
+  .saved-result-detail .score-panel {
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+    min-height: auto !important;
+  }
+
+  /* Print masthead — the document header row (reference: brand/title at the
+     left, completion date quiet at the right, one hairline rule under both). */
   .result-print-only {
     display: block !important;
+    position: relative;
+    text-align: start;
     margin-block-end: var(--space-6);
     padding-block-end: var(--space-3);
     border-block-end: 1px solid #cccccc !important;
@@ -134,11 +175,15 @@
     font-weight: var(--font-weight-semibold);
     line-height: var(--line-height-tight);
     text-wrap: balance;
-    margin: 0 0 var(--space-2) 0;
+    max-width: 75%;
+    margin: 0;
     color: #111111 !important;
   }
 
   .result-print-only__date {
+    position: absolute;
+    inset-inline-end: 0;
+    inset-block-end: var(--space-3);
     font-size: var(--font-size-100);
     font-variant-numeric: tabular-nums;
     color: #555555 !important;
@@ -148,15 +193,19 @@
   /* Co-equal triplet — uniform dark ink, equal weight; the screen flex layout
      is preserved so the percentile / IQ-scale / range stay visually co-equal. */
   .score-panel__triplet {
-    gap: var(--space-6);
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
     margin-block: var(--space-4);
   }
 
   .score-panel__anchor,
   .score-panel__percentile,
   .score-panel__band {
+    background: #ffffff !important;
+    background-image: none !important;
     color: #111111 !important;
-    min-height: 9rem;
+    min-height: 8.5rem;
     padding: var(--space-4);
     border: 1px solid #cccccc !important;
     border-radius: var(--radius-surface);
@@ -172,6 +221,27 @@
   .score-panel__difficulty-sentence {
     color: #333333 !important;
     line-height: var(--line-height-base);
+  }
+
+  .score-panel > .score-panel__caveat {
+    width: 100% !important;
+    padding: var(--space-3) !important;
+    border: 1px solid #cccccc !important;
+    border-radius: var(--radius-control) !important;
+    background: #ffffff !important;
+    font-size: var(--font-size-100) !important;
+  }
+
+  .score-panel__support {
+    display: grid !important;
+    grid-template-columns: 1fr 1.3fr !important;
+    gap: var(--space-5) !important;
+    margin: 0 !important;
+  }
+
+  .score-panel__support > * {
+    font-size: var(--font-size-100) !important;
+    text-align: left !important;
   }
 
   /* The difficulty sentence is reveal-gated on screen; always show in print. */
@@ -208,6 +278,10 @@
     font-variant-numeric: tabular-nums;
     color: #777777 !important;
     text-align: center;
+  }
+
+  @page {
+    margin: 0.6in;
   }
 
   /* Avoid orphaning the triplet/disclaimer across a page break. */

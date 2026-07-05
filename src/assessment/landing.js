@@ -6,9 +6,7 @@
 // "Read the methodology" link to /methodology/v0.1.0/en/.
 
 import * as routing from "./routing.js";
-import * as savedResults from "./saved-results.js";
-import * as persistence from "./session-persistence.js";
-import { escapeText, escapeAttr } from "./html-util.js";
+import { escapeText } from "./html-util.js";
 
 let startBtn = null;
 let startClickHandler = null;
@@ -23,14 +21,11 @@ export function render(rootEl, strings) {
   const intro = escapeText(s.intro ?? "");
   const startLabel = escapeText(s.startTestButton ?? "");
   const methodLabel = escapeText(s.methodologyLink ?? "");
-  // PR-14 (AC17): a "View saved results" entry point appears to the right of
-  // "Start the test" only when ≥1 result is saved (hidden otherwise).
+  // PR-14 originally hid this entry point until there was local data. The
+  // Aurora reference keeps it visible as part of the hero composition; the
+  // saved-results route already has an empty state when nothing is stored.
   const savedLabel = escapeText(sr.viewSavedResults ?? "View saved results");
-  // Show the entry point when there is something to view — a saved result OR an
-  // in-progress (resumable) test (Story 11-1 resume feature).
-  const savedEntry = (savedResults.hasSaved() || persistence.hasProgress())
-    ? '<button type="button" id="view-saved-btn" class="landing__saved-btn" data-saved-results-entry>' + savedLabel + '</button>'
-    : '';
+  const savedEntry = '<button type="button" id="view-saved-btn" class="landing__saved-btn" data-saved-results-entry>' + savedLabel + '</button>';
   // Story 13-3: the landing scene is wrapped in a decorative glass stage with
   // an aria-hidden aurora glow behind the hero. The frozen Story-3.3 contract
   // (section.landing › h1#landing-heading + p.landing__paragraph +

@@ -92,10 +92,15 @@ test("AC-9: chrome-header + chrome-footer visible on landing/consent/result; hid
   await expect(page.locator(CHROME_HEADER), "chrome-header visible on consent").toBeVisible();
   await expect(page.locator(CHROME_FOOTER), "chrome-footer visible on consent").toBeVisible();
 
-  // Item-runner (#/test) — chrome must be hidden (UX-DR8).
+  // Item-runner (#/test) — the Aurora composition (design §3.1 / ee3da3e)
+  // keeps a MINIMAL header (brand mark + theme toggle, per the reference);
+  // the language switcher stays locked mid-session (FR8) and the footer stays
+  // hidden so nothing competes with the puzzle (UX-DR8 intent).
   await page.evaluate(() => window.__IQME_TEST__.navigate("test"));
   await expect(page.locator(".item-runner")).toBeVisible();
-  await expect(page.locator(CHROME_HEADER), "chrome-header HIDDEN on item-runner (UX-DR8)").toBeHidden();
+  await expect(page.locator(CHROME_HEADER), "chrome-header stays as the minimal brand strip on item-runner").toBeVisible();
+  await expect(page.locator(".chrome-header__theme-switcher .theme-switcher"), "theme toggle stays available on item-runner (reference)").toBeVisible();
+  await expect(page.locator(".chrome-header__language-switcher"), "language switcher LOCKED on item-runner (FR8)").toBeHidden();
   await expect(page.locator(CHROME_FOOTER), "chrome-footer HIDDEN on item-runner (UX-DR8)").toBeHidden();
 
   // Result (#/result) — chrome visible again.

@@ -48,9 +48,9 @@ test.afterAll(async () => {
   if (server) await server.close();
 });
 
-// ─── AC17: entry point hidden when no results ────────────────────────────────
+// ─── AC17: entry point visible even when no results ─────────────────────────
 
-test("AC17: 'View saved results' entry point is HIDDEN when no saved results exist", async ({ page }) => {
+test("AC17: 'View saved results' entry point is visible and opens empty state when no saved results exist", async ({ page }) => {
   const origin = `http://127.0.0.1:${server.port}`;
   await page.setViewportSize({ width: 1280, height: 800 });
   // No addInitScript — clean localStorage.
@@ -58,11 +58,15 @@ test("AC17: 'View saved results' entry point is HIDDEN when no saved results exi
   await page.waitForFunction(() => window.__IQME_TEST__ !== undefined);
   await expect(page.locator(".landing")).toBeVisible();
 
-  // PR-14: entry point appears only when ≥1 result saved; before impl → RED.
+  // Aurora reference: the entry point is part of the hero composition. The
+  // saved-results route owns the empty state when no local result exists.
   const entryPoint = page.locator(
     "button:has-text('View saved results'), a:has-text('View saved results'), [data-saved-results-entry]",
   );
-  await expect(entryPoint, "AC17: 'View saved results' must be hidden with 0 results").toHaveCount(0);
+  await expect(entryPoint, "AC17: 'View saved results' must remain visible with 0 results").toHaveCount(1);
+  await entryPoint.click();
+  await expect(page.locator(".saved-results")).toBeVisible();
+  await expect(page.locator("text=No saved results yet.")).toBeVisible();
 });
 
 // ─── AC17: entry point visible when ≥1 result ────────────────────────────────
@@ -200,7 +204,8 @@ test("AC17: 'delete all' removes all saved results and hides the entry point", a
   });
   expect(remainingKeys.length, `AC17: all saved-result keys must be deleted; remaining: ${JSON.stringify(remainingKeys)}`).toBe(0);
 
-  // Navigate back to landing — entry point must be hidden. (navigate() returns
+  // Navigate back to landing — entry point remains visible and opens the empty
+  // saved-results state. (navigate() returns
   // undefined, so a `|| history.back()` fallback would erroneously also fire and
   // pop back to #/saved — call navigate("") directly; the hook is always present.)
   await page.evaluate(() => window.__IQME_TEST__.navigate(""));
@@ -208,7 +213,10 @@ test("AC17: 'delete all' removes all saved results and hides the entry point", a
   const entryPointAfter = page.locator(
     "button:has-text('View saved results'), a:has-text('View saved results'), [data-saved-results-entry]",
   );
-  await expect(entryPointAfter, "AC17: 'View saved results' must be hidden after deleting all").toHaveCount(0);
+  await expect(entryPointAfter, "AC17: 'View saved results' remains visible after deleting all").toHaveCount(1);
+  await entryPointAfter.click();
+  await expect(page.locator(".saved-results")).toBeVisible();
+  await expect(page.locator("text=No saved results yet.")).toBeVisible();
 });
 
 // ─── AC17: per-result checkbox delete ────────────────────────────────────────

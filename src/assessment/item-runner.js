@@ -47,6 +47,50 @@ function responseSelection(currentItem) {
   };
 }
 
+function isDarkTheme() {
+  if (typeof document === "undefined") return false;
+  const explicit = document.documentElement?.getAttribute?.("data-theme");
+  if (explicit === "dark") return true;
+  if (explicit === "light") return false;
+  try {
+    return typeof window !== "undefined" &&
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches;
+  } catch (_err) {
+    return false;
+  }
+}
+
+function itemAssetSrc(filename) {
+  return "/src/" + (isDarkTheme() ? "items-dark" : "items") + "/" + filename;
+}
+
+// Reference progress track: expose the session fraction as the --p custom
+// property consumed by the CSS fill bar. Position only (never a duration) per
+// the Story 14-7 no-timer policy. CSSOM write, guarded so the unit-test fake
+// DOM (attrs-only elements) is untouched.
+function syncProgressFill(rootEl, currentItem, sessionSize) {
+  const el = rootEl.querySelector(".item-runner__progress");
+  if (!el || !el.style || typeof el.style.setProperty !== "function") return;
+  const frac = sessionSize > 0 ? (currentItem + 1) / sessionSize : 0;
+  el.style.setProperty("--p", String(Math.min(1, Math.max(0, frac))));
+}
+
+// The matrix + option SVGs ship in light/dark mirrors (src/items vs
+// src/items-dark). When the resolved theme changes mid-item (OS scheme flip —
+// the in-test chrome hides the manual toggle), re-point every rendered item
+// image at the matching mirror so the stimulus never sits on the wrong
+// palette.
+function syncAssetTheme(rootEl) {
+  for (const img of rootEl.querySelectorAll(".item-runner__image, .item-runner__option-image")) {
+    const src = typeof img.getAttribute === "function" ? img.getAttribute("src") : null;
+    if (!src) continue;
+    const filename = src.split("/").pop();
+    const next = itemAssetSrc(filename);
+    if (next !== src) img.setAttribute("src", next);
+  }
+}
+
 async function ensureSession(rootEl, strings) {
   if (state.getState().seed !== INITIAL_SEED && sessionCache) return sessionCache;
   // Story 11-1 resume: when the seed is already set (mid-session or a resumed
@@ -103,7 +147,7 @@ function buildMarkup(cache, currentItem, strings) {
       // .svg value → image-tile option; plain string → text (back-compatible).
       const isAsset = /\.svg$/.test(opt);
       const visible = isAsset
-        ? '<figure class="item-runner__option-figure"><img class="item-runner__option-image" src="/src/items/' + esc(opt) + '" alt="" /></figure>'
+        ? '<figure class="item-runner__option-figure"><img class="item-runner__option-image" src="' + esc(itemAssetSrc(opt)) + '" alt="" /></figure>'
           + '<span class="visually-hidden">' + esc(fmt(optionLabel, { N: i + 1 })) + '</span>'
         : '<span>' + esc(opt) + '</span>';
       return '<label class="item-runner__option"><input type="radio" name="item-' + N
@@ -117,8 +161,10 @@ function buildMarkup(cache, currentItem, strings) {
     + '<button type="button" class="item-runner__bail-affordance">' + esc(strings.itemRunner.bailButton) + '</button>'
     + '<div class="item-runner__progress" role="status" aria-live="polite" aria-current="step" data-testid="progress-indicator">'
     + esc(progress) + '</div>'
-    + '<img class="item-runner__image" src="/src/items/' + esc(item.asset)
+    + '<div class="item-runner__matrix-frame">'
+    + '<img class="item-runner__image" src="' + esc(itemAssetSrc(item.asset))
     + '" alt="" data-augmentation="' + esc(aug) + '" />'
+    + '</div>'
     + '<fieldset class="item-runner__options"><legend class="visually-hidden">'
     + esc(strings.itemRunner.optionsLegend) + '</legend>' + optionsHtml + '</fieldset>'
     + '<div class="item-runner__nav">'
@@ -199,6 +245,24 @@ function attachListeners(rootEl, cache, strings) {
     if (ev && ev.key === "Escape") { ev.preventDefault?.(); close(); }
   });
 
+  // Theme flips mid-test → swap the rendered SVGs to the matching light/dark
+  // mirror (see syncAssetTheme): OS scheme changes via matchMedia, manual
+  // toggle clicks via the data-theme attribute observer. Guarded: neither API
+  // exists in the unit-test fake DOM.
+  try {
+    if (typeof window !== "undefined" && typeof window.matchMedia === "function") {
+      const mq = window.matchMedia("(prefers-color-scheme: dark)");
+      add(mq, "change", () => syncAssetTheme(rootEl));
+    }
+  } catch (_err) { /* no OS scheme tracking available */ }
+  try {
+    if (typeof MutationObserver === "function" && typeof document !== "undefined" && document.documentElement) {
+      const mo = new MutationObserver(() => syncAssetTheme(rootEl));
+      mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+      listeners.push({ el: { removeEventListener: () => mo.disconnect() }, type: "disconnect", handler: null });
+    }
+  } catch (_err) { /* no attribute observation available */ }
+
   return listeners;
 }
 
@@ -230,10 +294,10 @@ function preloadNext(cache, currentItem) {
   if (!nextItem) return;
   // Warm the next item's matrix image AND its option images so the in-place
   // src swap on Next paints from cache with no flash.
-  if (nextItem.asset) warmImage("/src/items/" + nextItem.asset);
+  if (nextItem.asset) warmImage(itemAssetSrc(nextItem.asset));
   if (Array.isArray(nextItem.options)) {
     for (const opt of nextItem.options) {
-      if (/\.svg$/.test(opt)) warmImage("/src/items/" + opt);
+      if (/\.svg$/.test(opt)) warmImage(itemAssetSrc(opt));
     }
   }
 }
@@ -262,7 +326,7 @@ function updateItemInPlace(rootEl, cache, strings) {
   if (progress) progress.textContent = fmt(strings.itemRunner.progressTemplate, { N, total: sessionSize });
   const img = rootEl.querySelector(".item-runner__image");
   if (img) {
-    img.setAttribute("src", "/src/items/" + item.asset);
+    img.setAttribute("src", itemAssetSrc(item.asset));
     img.setAttribute("data-augmentation", aug);
   }
 
@@ -281,7 +345,7 @@ function updateItemInPlace(rootEl, cache, strings) {
       radio.removeAttribute("checked");
     }
     const optImg = labelEl.querySelector(".item-runner__option-image");
-    if (optImg && /\.svg$/.test(opt)) optImg.setAttribute("src", "/src/items/" + opt);
+    if (optImg && /\.svg$/.test(opt)) optImg.setAttribute("src", itemAssetSrc(opt));
   });
   if (want != null) {
     const idx = item.options.indexOf(want);
@@ -316,6 +380,7 @@ function rerender(rootEl, strings) {
     rootEl.innerHTML = buildMarkup(sessionCache, currentItem, strings);
     mounted = { rootEl, listeners: attachListeners(rootEl, sessionCache, strings) };
   }
+  syncProgressFill(rootEl, currentItem, sessionCache.sessionSize);
   preloadNext(sessionCache, currentItem);
 }
 
@@ -328,6 +393,7 @@ export async function render(rootEl, strings) {
   selectedOptions = ip && ip.selectedOptions ? { ...ip.selectedOptions } : {};
   rootEl.innerHTML = buildMarkup(cache, state.getState().currentItem, strings);
   mounted = { rootEl, listeners: attachListeners(rootEl, cache, strings) };
+  syncProgressFill(rootEl, state.getState().currentItem, cache.sessionSize);
   // Story 11-1 resume: the session is now under way — persist it so an
   // interrupted test can be resumed from the saved-results page.
   persistence.saveProgress(state.getState(), selectedOptions);

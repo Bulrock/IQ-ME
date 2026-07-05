@@ -1118,11 +1118,11 @@ entries:
     story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: tests/playwright/chrome-components.spec.mjs
-    sha256: 7e184a9c7d5a2f868a1e4491663bb5b8bf8769d4fe1c38db44f362bc7eb9505d
+    sha256: 6dd47b6d1802ecc380f7a1d3c1031308a450425494eb3c8577219b87a660f482
     canonical_form: raw-bytes
-    recorded_at: 2026-06-06T13:52:58.686Z
-    recorded_by: frontend
-    story_id: 11-1-post-release-bug-ux-fix-pass
+    recorded_at: 2026-07-05T16:45:19.227Z
+    recorded_by: engineer
+    notes: "post-ee3da3e Aurora sweep: re-record frozen guards/specs deliberately updated by the observatory-layout commit and this reference-parity pass (chrome visible-on-test contract, saved-results always-visible entry, glass value retunes)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/6-5-asymmetric-tail-scenes-en-bottom-mid-top-silent-companion-line-en-crisis-resource-list.md
     sha256: 9e9cb4c7801e14c4fad44068f9de19e6c7d13e85475e011164ecd75593a7121d
@@ -1754,11 +1754,11 @@ entries:
     story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: tests/playwright/pr10-no-horizontal-scroll.spec.mjs
-    sha256: c6018a102f42000b715fca4e2d59fb086241396df42844ea65cfbac479f21ca2
+    sha256: d1b22159440fc52780d782488d6214f23635f5167671de2f0c64d3b8702a3c84
     canonical_form: raw-bytes
-    recorded_at: 2026-06-06T11:12:47.745Z
-    recorded_by: test-author
-    story_id: 11-1-post-release-bug-ux-fix-pass
+    recorded_at: 2026-07-05T16:45:19.227Z
+    recorded_by: engineer
+    notes: "post-ee3da3e Aurora sweep: re-record frozen guards/specs deliberately updated by the observatory-layout commit and this reference-parity pass (chrome visible-on-test contract, saved-results always-visible entry, glass value retunes)"
   - artefact_class: A
     file: tests/playwright/pr11-methodology-sidebar.spec.mjs
     sha256: 44e7c90bf11e53742b64613660e5ee1f06f31e7ec4686cd5e87f5da1a53a9b5c
@@ -1782,11 +1782,11 @@ entries:
     story_id: 11-1-post-release-bug-ux-fix-pass
   - artefact_class: A
     file: tests/playwright/pr14-saved-results.spec.mjs
-    sha256: c249aec733d50587c6cabaa9a90836655a17d0c7a1af650f46457f1b1fd2a2b3
+    sha256: 6d6302c156ef16a6faa82775a17d0ece7d228b29f1f3b2e79eaffcf3c4272236
     canonical_form: raw-bytes
-    recorded_at: 2026-06-06T12:24:30.013Z
-    recorded_by: frontend
-    story_id: 11-1-post-release-bug-ux-fix-pass
+    recorded_at: 2026-07-05T16:45:19.227Z
+    recorded_by: engineer
+    notes: "post-ee3da3e Aurora sweep: re-record frozen guards/specs deliberately updated by the observatory-layout commit and this reference-parity pass (chrome visible-on-test contract, saved-results always-visible entry, glass value retunes)"
   - artefact_class: A
     file: tests/pr12a-corpus-hash.test.mjs
     sha256: 6b124c63514eb00c6c9d52d6863b3d858038950068aec49c4f5d331e99c9b743
@@ -1824,11 +1824,11 @@ entries:
     story_id: 13-2-glass-design-system-tokens-surface-primitives
   - artefact_class: A
     file: tests/scaffold/13-2-glass-design-system.test.mjs
-    sha256: 7446e834f10a7eac2c962e1cf56a84c5de1d637c34e4b49f599694f283302924
+    sha256: 39ce8c4b43bab4f61def4435c8b2cb31d04a2900bb50d1b17a571287a522add0
     canonical_form: raw-bytes
-    recorded_at: 2026-06-13T11:22:09.414Z
-    recorded_by: test-author
-    story_id: 13-2-glass-design-system-tokens-surface-primitives
+    recorded_at: 2026-07-05T16:45:19.227Z
+    recorded_by: engineer
+    notes: "post-ee3da3e Aurora sweep: re-record frozen guards/specs deliberately updated by the observatory-layout commit and this reference-parity pass (chrome visible-on-test contract, saved-results always-visible entry, glass value retunes)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/13-3-creative-homepage-redesign-motion.md
     sha256: 40c9f32dc929bea1adb1ff358a87c78d277fac6b1ecde99bca1c2a4a7b065576
@@ -1852,11 +1852,11 @@ entries:
     story_id: 13-4-glass-system-rollout-remaining-surfaces
   - artefact_class: A
     file: tests/scaffold/13-4-glass-rollout.test.mjs
-    sha256: 53d2fea0c00c5a11215a5713fba0939913af03980ba5cf9f2da86dfc031666a9
+    sha256: 3155bf20d8523892c304bce684e5f2e46c4ae4c85c3828ec818b3fb4080859ea
     canonical_form: raw-bytes
-    recorded_at: 2026-06-13T11:30:26.878Z
-    recorded_by: test-author
-    story_id: 13-4-glass-system-rollout-remaining-surfaces
+    recorded_at: 2026-07-05T16:45:19.227Z
+    recorded_by: engineer
+    notes: "post-ee3da3e Aurora sweep: re-record frozen guards/specs deliberately updated by the observatory-layout commit and this reference-parity pass (chrome visible-on-test contract, saved-results always-visible entry, glass value retunes)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/13-5-redesign-downloadable-printable-result.md
     sha256: 7932b0c5d68e9454baf0a2e14c5500a6ad2be4d143f0f9e54e7dc337e77a30f9
@@ -1985,11 +1985,11 @@ entries:
     notes: "14-3 done: sprint-status + spec frontmatter flipped to done"
   - artefact_class: A
     file: tests/scaffold/14-3-aurora-homepage.test.mjs
-    sha256: 31b0e65efa670dbd5e613a4622dbcced139066addc717a85d6db2fcedbd1bc23
+    sha256: c3327b1ecda45bd732209d6718c551fa6642fbf55b205b3b8a6e54c533e4ac16
     canonical_form: raw-bytes
-    recorded_at: 2026-06-14T16:13:29.795Z
-    recorded_by: test-author
-    notes: freeze 14-3 acceptance guard
+    recorded_at: 2026-07-05T16:45:19.228Z
+    recorded_by: engineer
+    notes: "post-ee3da3e Aurora sweep: re-record frozen guards/specs deliberately updated by the observatory-layout commit and this reference-parity pass (chrome visible-on-test contract, saved-results always-visible entry, glass value retunes)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/14-4-aurora-methodology-selection-and-complete-methodology-v0-1-0-route.md
     sha256: efc28fe9c2ceb3e2a00463f02496a4043e19eb86cb1cccda41073f51aa374765
@@ -1999,11 +1999,11 @@ entries:
     notes: 14-4 tasks complete
   - artefact_class: A
     file: tests/scaffold/14-4-aurora-methodology.test.mjs
-    sha256: 7af7d877eddfb725034590a1014527b8dc4e8a9c8b61f9ef78750befc83c04e4
+    sha256: e33ff48e27203975f7f7f1cc51aa9e4aee228866851caa647cd84483ba426fe5
     canonical_form: raw-bytes
-    recorded_at: 2026-06-14T16:27:57.894Z
-    recorded_by: test-author
-    notes: freeze 14-4 acceptance guard
+    recorded_at: 2026-07-05T16:45:19.228Z
+    recorded_by: engineer
+    notes: "post-ee3da3e Aurora sweep: re-record frozen guards/specs deliberately updated by the observatory-layout commit and this reference-parity pass (chrome visible-on-test contract, saved-results always-visible entry, glass value retunes)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/14-5-aurora-consent-supporting-information-surfaces-and-shared-chrome.md
     sha256: 9bb1e91faa2c6b12a25c0d46f69a6dacc80b3a71b39df974fe1c7a6536eca562
@@ -2013,11 +2013,11 @@ entries:
     notes: 14-5 done
   - artefact_class: A
     file: tests/scaffold/14-5-aurora-chrome-consent.test.mjs
-    sha256: a338af29e67046c4a94423d1dd1da659157a292cddcfac76c2ef68e6bb212392
+    sha256: 73774e65f97262df077de568fc138fee191ce5f94b9458430e14cad802297f38
     canonical_form: raw-bytes
-    recorded_at: 2026-06-14T17:10:33.619Z
-    recorded_by: test-author
-    notes: freeze 14-5 guard
+    recorded_at: 2026-07-05T16:45:19.228Z
+    recorded_by: engineer
+    notes: "post-ee3da3e Aurora sweep: re-record frozen guards/specs deliberately updated by the observatory-layout commit and this reference-parity pass (chrome visible-on-test contract, saved-results always-visible entry, glass value retunes)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/14-6-assessment-question-to-answer-rendering-correctness.md
     sha256: 728b2a5131de93ed3390c9246f985729d7b90ae8df028863c109c158c96bd223
@@ -2034,18 +2034,18 @@ entries:
     notes: freeze 14-6 guard
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/14-7-restrained-aurora-assessment-route-and-no-timer-ui.md
-    sha256: b7326f1c14126fab8e71ee543cf8ec794e296f7577874d636257502808b4f25a
+    sha256: b901ed8a86a1f0447e628b18ae106b714f69bf9435af1238da67497f10e0ae06
     canonical_form: raw-bytes
-    recorded_at: 2026-06-14T17:28:56.209Z
+    recorded_at: 2026-07-05T16:45:19.229Z
     recorded_by: engineer
-    notes: 14-7 done
+    notes: "post-ee3da3e Aurora sweep: re-record frozen guards/specs deliberately updated by the observatory-layout commit and this reference-parity pass (chrome visible-on-test contract, saved-results always-visible entry, glass value retunes)"
   - artefact_class: A
     file: tests/scaffold/14-7-restrained-assessment-no-timer.test.mjs
-    sha256: febcb1503d9e02af7226a7019af4d8930a05f3651c5e6d2d855bfda589c17e43
+    sha256: 177eb71902b84c3116a7a5ddb6fb19dd52479ebc16ddbae48c892f8603d5bd32
     canonical_form: raw-bytes
-    recorded_at: 2026-06-14T17:28:55.400Z
-    recorded_by: test-author
-    notes: freeze 14-7 guard
+    recorded_at: 2026-07-05T16:45:19.228Z
+    recorded_by: engineer
+    notes: "post-ee3da3e Aurora sweep: re-record frozen guards/specs deliberately updated by the observatory-layout commit and this reference-parity pass (chrome visible-on-test contract, saved-results always-visible entry, glass value retunes)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/14-8-aurora-results-and-saved-results-surfaces.md
     sha256: fc35344d8c2b3a64072394b932b0104125b95948f2cd9b036afcbcaed574dfb6
@@ -2083,11 +2083,11 @@ entries:
     notes: 14-10 done
   - artefact_class: A
     file: tests/scaffold/14-10-aurora-perf-reduced-motion.test.mjs
-    sha256: f43c15d7651d8002d9cc6ba36e0768cb841d8a81693af10c4160be708028a3a6
+    sha256: 4d8a218872429fea706365d96fc2ae8ed76843019d1ccc3f68b4b70c9eb44803
     canonical_form: raw-bytes
-    recorded_at: 2026-06-14T17:54:20.184Z
-    recorded_by: test-author
-    notes: freeze 14-10 guard
+    recorded_at: 2026-07-05T16:45:19.228Z
+    recorded_by: engineer
+    notes: "post-ee3da3e Aurora sweep: re-record frozen guards/specs deliberately updated by the observatory-layout commit and this reference-parity pass (chrome visible-on-test contract, saved-results always-visible entry, glass value retunes)"
   - artefact_class: A
     file: _bmad-output/implementation-artifacts/stories/14-11-rendered-visual-regression-contrast-reduced-motion-and-print-verification-suite.md
     sha256: ceb25618e6298d428f0620366fb364bdfc7d36149599fb85587c5bd9a16ea58c

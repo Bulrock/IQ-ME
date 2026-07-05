@@ -19,10 +19,10 @@
   /* Epic 13 (Story 13-4): glass methodology masthead. Theme-aware glass roles
      keep the page theme-correct in Light/Dark (PR-9). Strong fill behind the
      long-form trust signals (title/DOI/reviewer) for AA. */
-  background-color: var(--surface-glass-strong);
+  background-color: color-mix(in srgb, var(--surface-glass-strong) 56%, transparent);
   backdrop-filter: blur(var(--surface-glass-blur));
   -webkit-backdrop-filter: blur(var(--surface-glass-blur));
-  border-block-end: var(--border-width-hairline) solid var(--surface-glass-edge);
+  border-block-end: var(--border-width-hairline) solid color-mix(in srgb, var(--surface-glass-edge) 76%, transparent);
   /* Epic 14 (Story 14-4): float depth + lit-from-within inset edge (cf.
      .aurora-surface) so the masthead reads as a deliberately raised panel over
      the navy backdrop, not a flat afterthought. Token-only (no literal px). */
@@ -35,7 +35,7 @@
   position: sticky;
   inset-block-start: 0;
   z-index: 10;
-  border: var(--border-width-hairline) solid var(--surface-glass-edge);
+  border: var(--border-width-hairline) solid color-mix(in srgb, var(--surface-glass-edge) 76%, transparent);
   border-radius: var(--radius-surface);
 }
 
@@ -72,7 +72,7 @@
 .methodology-masthead {
   width: min(76rem, calc(100% - (2 * var(--space-5))));
   max-width: 76rem;
-  margin-block-start: var(--space-5);
+  margin-block-start: var(--space-3);
   margin-inline: auto;
 }
 
@@ -84,6 +84,17 @@ main {
 main {
   padding-block: var(--space-6);
   padding-inline: var(--space-5);
+}
+
+/* 14-4 follow-up: article prose gets the raised Aurora glass (the index <main> stays transparent — its sections are the panels). */
+main:not(.methodology-index) {
+  margin-block: var(--space-5) var(--space-6);
+  background-color: color-mix(in srgb, var(--surface-glass-strong) 56%, transparent);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  border: var(--border-width-hairline) solid color-mix(in srgb, var(--surface-glass-edge) 76%, transparent);
+  border-radius: var(--radius-surface);
+  box-shadow: var(--surface-glass-shadow);
 }
 
 /* Auto-generated corpus table-of-contents (the methodology index page). */
@@ -101,10 +112,10 @@ main {
   margin-block-end: var(--space-6);
   padding-block: var(--space-4);
   padding-inline: var(--space-5);
-  background-color: var(--surface-glass-strong);
+  background-color: color-mix(in srgb, var(--surface-glass-strong) 56%, transparent);
   backdrop-filter: blur(var(--surface-glass-blur));
   -webkit-backdrop-filter: blur(var(--surface-glass-blur));
-  border: var(--border-width-hairline) solid var(--surface-glass-edge);
+  border: var(--border-width-hairline) solid color-mix(in srgb, var(--surface-glass-edge) 76%, transparent);
   border-radius: var(--radius-surface);
   box-shadow: var(--surface-glass-shadow);
 }
@@ -147,10 +158,10 @@ main {
 .methodology-sidebar {
   padding-block: var(--space-4);
   padding-inline: var(--space-4);
-  background-color: var(--surface-glass);
+  background-color: color-mix(in srgb, var(--surface-glass-strong) 56%, transparent);
   backdrop-filter: blur(var(--surface-glass-blur));
   -webkit-backdrop-filter: blur(var(--surface-glass-blur));
-  border: var(--border-width-hairline) solid var(--surface-glass-edge);
+  border: var(--border-width-hairline) solid color-mix(in srgb, var(--surface-glass-edge) 76%, transparent);
   border-radius: var(--radius-surface);
   box-shadow: var(--surface-glass-shadow);
 }
@@ -182,11 +193,12 @@ main {
 }
 
 @media (min-width: 48rem) {
-  /* Fix the page to the viewport so only the content column scrolls. */
+  /* Viewport-pinned app-shell: only the content column scrolls. The flex column lives HERE — base.css's shell is SPA-scoped (body[data-route]). */
   .methodology-index-page {
-    height: 100vh;
     height: 100dvh;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
   .methodology-index-page .methodology-masthead {
@@ -255,7 +267,8 @@ main {
 @supports not (backdrop-filter: blur(1px)) {
   .methodology-masthead,
   .methodology-sidebar,
-  .methodology-index__section {
+  .methodology-index__section,
+  main:not(.methodology-index) {
     background-color: var(--surface-glass-strong);
   }
 }

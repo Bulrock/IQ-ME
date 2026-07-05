@@ -1,8 +1,94 @@
 /* Reference-first Aurora Observatory composition. Loaded after components. */
 :root {
-  --aurora-shell: color-mix(in srgb, var(--surface-glass-strong) 72%, transparent);
-  --aurora-card: color-mix(in srgb, var(--surface-glass-strong) 84%, transparent);
+  --aurora-shell: color-mix(in srgb, var(--surface-glass-strong) 56%, transparent);
+  --aurora-card: color-mix(in srgb, var(--surface-glass-strong) 68%, transparent);
   --aurora-line: color-mix(in srgb, var(--surface-glass-edge) 76%, transparent);
+}
+
+/* Fixed observatory foreground — part of the BACKDROP composition. It must sit
+   BELOW #app (z-index 10): scene panels and their controls always paint above
+   the landscape, and the glass panels' backdrop-filter blurs it through the
+   frosted surface (the reference look). Above body's painted background, below
+   all content. */
+body::after {
+  content: "";
+  position: fixed;
+  z-index: 6;
+  right: 0;
+  bottom: 0;
+  width: min(110rem, 105vw);
+  aspect-ratio: 1440 / 705;
+  background: url("/src/assets/aurora-observatory-foreground-day.png") right bottom / contain no-repeat;
+  pointer-events: none;
+}
+
+/* Night foreground: explicit dark opt-in AND system-dark (no explicit light
+   choice) — mirrors the base.css backdrop theme legs so the foreground never
+   disagrees with the sky behind it. */
+[data-theme="dark"] body::after {
+  background-image: url("/src/assets/aurora-observatory-foreground.png");
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) body::after {
+    background-image: url("/src/assets/aurora-observatory-foreground.png");
+  }
+}
+
+body[data-route="#/test"]::after {
+  display: none;
+}
+
+body > .chrome-header,
+body > .chrome-footer {
+  position: relative;
+  z-index: 40;
+}
+
+/* Footer sits directly over the photographic landscape on most routes. A soft
+   surface-tinted scrim (background-IMAGE only — the transparent
+   background-color chrome contract is untouched) keeps the links legible over
+   both the day and night foregrounds, in both themes. */
+body > .chrome-footer {
+  background-image: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-surface-base) 82%, transparent),
+    color-mix(in srgb, var(--color-surface-base) 40%, transparent) 70%,
+    transparent
+  );
+}
+
+#app {
+  position: relative;
+  z-index: 10;
+}
+
+/* The brand mark is a home link (hash route — works without JS). It reproduces
+   the header's logo+wordmark row and stays chrome-neutral: body ink, no
+   underline, focus ring only. */
+.chrome-header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-body);
+  text-decoration: none;
+}
+.chrome-header__brand:hover,
+.chrome-header__brand:active {
+  color: var(--color-text-body);
+}
+.chrome-header__brand:hover .chrome-header__name {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.chrome-header__brand:focus-visible {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+  border-radius: var(--radius-control);
+}
+
+.landing__observatory-foreground {
+  display: none !important;
 }
 
 .score-panel,
@@ -10,8 +96,70 @@
 .selection-scene,
 .consent-scene,
 .saved-results {
-  backdrop-filter: blur(var(--glass-blur-md));
-  -webkit-backdrop-filter: blur(var(--glass-blur-md));
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+}
+
+.selection-scene,
+.consent-scene,
+.saved-results {
+  width: min(74rem, 58vw);
+  max-width: none;
+  min-height: min(33.5rem, calc(100dvh - 8rem));
+  margin-block: clamp(2.5rem, 10vh, 7rem) auto;
+  margin-inline: auto;
+  padding: clamp(2rem, 4vw, 3.25rem);
+  background: var(--aurora-shell);
+  border: 1px solid var(--aurora-line);
+  border-radius: var(--radius-surface);
+  box-shadow: var(--surface-glass-shadow), inset 0 1px 0 var(--surface-glass-edge);
+}
+
+.selection-scene__form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(.8rem, 1.4vw, 1.2rem);
+}
+
+.selection-scene__group,
+.consent-scene__envelope,
+.saved-results__item,
+.saved-results__in-progress,
+.saved-results__ip-item {
+  background: var(--aurora-card);
+  border-color: var(--aurora-line);
+}
+
+body[data-route="#/consent"] .consent-scene {
+  height: auto;
+  min-height: min(33.5rem, calc(100dvh - 8rem));
+}
+
+body[data-route="#/consent"] .consent-scene__envelope {
+  flex: 0 1 auto;
+  max-height: min(24rem, 48vh);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
+  /* Scroll affordance: a thin, always-styled scrollbar… */
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-text-muted) 65%, transparent) transparent;
+}
+
+/* …plus a sticky bottom fade that signals "more text below" and melts away
+   once the reader reaches the end of the envelope. */
+body[data-route="#/consent"] .consent-scene__envelope::after {
+  content: "";
+  position: sticky;
+  bottom: 0;
+  display: block;
+  height: 2.2rem;
+  margin-block-start: -2.2rem;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in srgb, var(--color-surface-base) 72%, transparent)
+  );
+  pointer-events: none;
 }
 
 .score-panel__header {
@@ -33,6 +181,14 @@
   display: block;
   font-size: clamp(2.3rem, 4vw, 3.8rem);
   line-height: 1;
+}
+
+/* Reference card anatomy: quiet label ABOVE the number, visualization below.
+   The DOM order (value → label → viz, frozen contract) is unchanged — the
+   flex column just reorders the label to the top. */
+.score-panel__triplet > span > .score-panel__metric-label {
+  order: -1;
+  margin-block-end: .55rem;
 }
 
 .score-panel__metric-viz {
@@ -116,7 +272,7 @@ body[data-route="#/result"] .result-scene[data-reveal-stage="methodology-handoff
 }
 
 body[data-route="#/result"] .score-panel {
-  width: min(74rem, 100%);
+  width: min(68rem, 100%);
   padding: clamp(1.1rem, 2.5vw, 2rem);
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -127,6 +283,8 @@ body[data-route="#/result"] .score-panel {
     "caveat buttons"
     "retest retest";
   background: var(--aurora-shell);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
 }
 
 body[data-route="#/result"] .score-panel__header { grid-area: header; }
@@ -136,7 +294,7 @@ body[data-route="#/result"] .score-panel__triplet {
 }
 
 body[data-route="#/result"] .score-panel__triplet > span {
-  min-height: clamp(12rem, 28vh, 17rem);
+  min-height: clamp(10rem, 24vh, 14rem);
   background: var(--aurora-card);
   border-color: var(--aurora-line);
 }
@@ -155,6 +313,12 @@ body[data-route="#/result"] .score-panel__triplet > span {
   max-width: none;
   text-align: left;
   font-size: .82rem;
+}
+
+/* FR22/AC-8 contract: the difficulty sentence keeps the --font-size-200 body
+   size (the support-grid compaction above must not shrink it). */
+.score-panel__support > .score-panel__difficulty-sentence {
+  font-size: var(--font-size-200);
 }
 
 .score-panel > .score-panel__caveat {
@@ -188,7 +352,7 @@ body[data-route="#/result"] .score-panel__triplet > span {
 .score-panel__retest-note { grid-area: retest; }
 
 body[data-route="#/result"] .tail-scene {
-  width: min(74rem, calc(100% - 1.5rem));
+  width: min(68rem, calc(100% - 1.5rem));
   margin: .6rem auto 0;
   padding: .65rem 1rem;
   border: 1px solid var(--aurora-line);
@@ -203,13 +367,15 @@ body[data-route="#/saved"] .saved-result-detail {
 }
 
 .saved-result-detail .score-panel {
-  width: min(108rem, 100%);
-  min-height: min(38rem, 70vh);
+  width: min(68rem, 100%);
+  min-height: min(30rem, 62vh);
   padding: clamp(1.5rem, 3vw, 3.2rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: color-mix(in srgb, var(--surface-glass-strong) 64%, transparent);
+  background: var(--aurora-shell);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
 }
 
 .saved-result-detail .score-panel__triplet {
@@ -218,16 +384,34 @@ body[data-route="#/saved"] .saved-result-detail {
 }
 
 .saved-result-detail .score-panel__triplet > span {
-  min-height: clamp(13rem, 28vh, 20rem);
+  min-height: clamp(10rem, 24vh, 14rem);
   background: var(--aurora-card);
 }
 
 .saved-result-detail__date {
-  margin: 1.5rem 0 1rem;
+  margin: 0;
+}
+
+.saved-result-detail .score-panel__header {
+  align-self: stretch;
+  text-align: left;
+}
+
+
+.saved-result-detail__actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .6rem;
+  margin-block-start: 1.25rem;
 }
 
 .saved-result-detail .saved-results__back {
-  align-self: center;
+  align-self: auto;
+  margin: 0;
+}
+
+.saved-result-detail .result-print-btn {
   margin: 0;
 }
 
@@ -251,22 +435,115 @@ body[data-route="#/test"] .item-runner {
     "bailpanel bailpanel";
   gap: clamp(.7rem, 1.5vw, 1.2rem);
   background: var(--aurora-shell);
+  backdrop-filter: blur(var(--surface-glass-blur));
+  -webkit-backdrop-filter: blur(var(--surface-glass-blur));
 }
 
 body:not([data-route="#/test"]) .chrome-header__language-switcher {
   display: inline-flex;
 }
 
-.item-runner__progress { grid-area: progress; align-self: center; }
-.item-runner__bail-affordance { grid-area: bail; justify-self: end; align-self: center; }
-.item-runner__image {
-  grid-area: matrix;
-  width: min(100%, 31rem);
-  max-width: none;
-  max-height: min(58vh, 31rem);
+/* Reference progress row: position text at the left, a slim track with an
+   accent fill underneath. The fill fraction arrives as the --p custom property
+   (set via CSSOM by item-runner.js — position only, never a duration). */
+.item-runner__progress {
+  grid-area: progress;
   align-self: center;
+  position: relative;
+  text-align: left;
+  padding: .45rem .95rem 1rem;
+}
+.item-runner__progress::before,
+.item-runner__progress::after {
+  content: "";
+  position: absolute;
+  left: .95rem;
+  right: .95rem;
+  bottom: .45rem;
+  height: .22rem;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--surface-glass-edge) 45%, transparent);
+}
+.item-runner__progress::after {
+  right: auto;
+  width: calc((100% - 1.9rem) * var(--p, 0));
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-focus-ring) 75%, transparent),
+    var(--color-focus-ring)
+  );
+  box-shadow: 0 0 .55rem color-mix(in srgb, var(--color-focus-ring) 55%, transparent);
+}
+
+/* The bail affordance reads as a quiet glass button (reference "End test"),
+   not a bare text link floating on the panel. */
+.item-runner__bail-affordance {
+  grid-area: bail;
+  justify-self: end;
+  align-self: center;
+  padding: .5rem .95rem;
+  color: var(--color-text-body);
+  background: var(--aurora-card);
+  border: var(--border-width-hairline) solid var(--aurora-line);
+  border-radius: var(--radius-control);
+  text-decoration: none;
+  font-size: .82rem;
+}
+.item-runner__bail-affordance:hover {
+  border-color: var(--color-focus-ring);
+}
+
+/* The task prompt ("Select the option that best completes the pattern") is
+   visible above the options, as in the reference. The string already ships in
+   every locale as the fieldset legend — this only un-clips it (markup and the
+   screen-reader contract are untouched). */
+.item-runner__options > legend.visually-hidden {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0 0 .35rem;
+  padding: 0;
+  clip: auto;
+  clip-path: none;
+  overflow: visible;
+  white-space: normal;
+  grid-column: 1 / -1;
+  font-size: .95rem;
+  color: var(--color-text-body);
+}
+
+/* The frame gets a DEFINITE height (not max-height): the square matrix image
+   resolves height:100% inside it and CONTAINS itself, so the puzzle is never
+   clipped at 100%+ browser zoom or on short laptop viewports (max-height +
+   width-driven image height used to overflow the frame). */
+.item-runner__matrix-frame {
+  grid-area: matrix;
+  width: auto;
+  max-width: min(100%, 31rem);
+  height: min(58vh, 31rem);
+  align-self: center;
+  justify-self: center;
+  overflow: hidden;
   padding: .8rem;
   background: var(--aurora-card);
+  border: var(--border-width-hairline) solid var(--aurora-line);
+  border-radius: var(--radius-surface);
+  box-shadow: inset 0 var(--border-width-hairline) 0 var(--surface-glass-edge);
+}
+.item-runner__image {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  max-height: none;
+  padding: 0;
+  margin-inline: auto;
+  object-fit: contain;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+.item-runner__matrix-frame .item-runner__image {
+  display: block;
 }
 .item-runner__options {
   grid-area: options;
@@ -277,10 +554,56 @@ body:not([data-route="#/test"]) .chrome-header__language-switcher {
 }
 .item-runner__option {
   min-height: 7.4rem;
-  padding: .45rem;
+  padding: .45rem .45rem 1.35rem;
   background: var(--aurora-card);
+  position: relative;
 }
-.item-runner__option-figure { width: clamp(3.8rem, 9vh, 5.8rem); }
+/* Reference tiles carry no visible radio dot: the input stays in the DOM
+   (focusable, clickable, checked-state driver) but paints nothing; selection
+   reads through the tile's accent border/edge, keyboard focus through the
+   tile-level ring below. */
+.item-runner__option input[type="radio"] {
+  position: absolute;
+  inset-block-start: .45rem;
+  inset-inline-start: .45rem;
+  margin: 0;
+  opacity: 0;
+}
+.item-runner__option:has(input:focus-visible) {
+  outline: var(--space-1) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+}
+
+/* The reference keeps the theme switcher available during the test (the
+   language switcher stays locked mid-session — that block is separate). */
+body[data-route="#/test"] .chrome-header__controls {
+  display: flex;
+}
+
+/* Reference option lettering (A–F) — pure CSS counters under each tile; the
+   radio + hidden "Option N" label keep carrying the a11y contract. */
+.item-runner__options { counter-reset: iqme-option; }
+.item-runner__option { counter-increment: iqme-option; }
+.item-runner__option::after {
+  content: counter(iqme-option, upper-alpha);
+  position: absolute;
+  inset-inline: 0;
+  bottom: .3rem;
+  text-align: center;
+  font-size: .72rem;
+  letter-spacing: .04em;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+.item-runner__option:has(input:checked)::after {
+  color: var(--color-focus-ring);
+}
+/* PR-24 parity: one option figure ≈ one matrix cell (image edge ÷ 3). The
+   image edge follows the frame height above (square, minus 1.6rem padding);
+   the 13.4vw term tracks the narrower column-bound case on mid desktops. */
+.item-runner__option-figure {
+  width: min(calc((min(58vh, 31rem) - 1.6rem) / 3), 13.4vw, 9.8rem);
+}
 .item-runner__nav {
   grid-area: nav;
   padding-top: .75rem;
@@ -290,11 +613,37 @@ body:not([data-route="#/test"]) .chrome-header__language-switcher {
 
 [data-theme="dark"] .item-runner__image,
 [data-theme="dark"] .item-runner__option-image {
-  filter: invert(1) hue-rotate(180deg) brightness(1.35);
+  filter: none;
 }
 
 [data-theme="dark"] .item-runner__image {
   background: transparent;
+}
+
+[data-theme="dark"] .item-runner__matrix-frame {
+  background: color-mix(in srgb, var(--color-surface-base) 82%, var(--surface-glass-strong));
+  border-color: color-mix(in srgb, var(--surface-glass-edge) 55%, transparent);
+  box-shadow: none;
+}
+
+[data-theme="dark"] .item-runner__option {
+  background: color-mix(in srgb, var(--surface-glass-strong) 62%, transparent);
+}
+
+[data-theme="dark"] .item-runner__nav {
+  border-top-color: color-mix(in srgb, var(--surface-glass-edge) 50%, transparent);
+}
+
+/* Tablet band: 58vw hero/panel widths read cramped between the phone and
+   desktop compositions — let the glass panels breathe. */
+@media (max-width: 68rem) and (min-width: 48.01rem) {
+  .landing-stage { padding-inline: clamp(1.25rem, 6vw, 4rem); }
+  .landing,
+  .selection-scene,
+  .consent-scene,
+  .saved-results {
+    width: min(74rem, calc(100vw - 5rem));
+  }
 }
 
 @media (max-width: 48rem) {
@@ -302,6 +651,17 @@ body:not([data-route="#/test"]) .chrome-header__language-switcher {
   body > .chrome-header,
   body > .chrome-footer { padding: .4rem .55rem; }
   #app { padding: .35rem; }
+  .landing-stage { padding: .5rem; }
+  .landing { width: 100%; min-height: min(100%, 33.5rem); }
+  .selection-scene,
+  .consent-scene,
+  .saved-results {
+    width: calc(100vw - .7rem);
+    min-height: calc(100dvh - 3.6rem);
+    margin: 0;
+    padding: .75rem;
+  }
+  .selection-scene__form { grid-template-columns: 1fr; gap: .55rem; }
 
   body[data-route="#/result"] .result-scene[data-reveal-stage="methodology-handoff"],
   body[data-route="#/saved"] .saved-result-detail {
@@ -320,7 +680,10 @@ body:not([data-route="#/test"]) .chrome-header__language-switcher {
   .score-panel__header { margin-block-end: .65rem; }
   .score-panel__header h1 { font-size: 1.35rem; }
   .score-panel__header p { font-size: .72rem; }
-  .score-panel__triplet { gap: .35rem; }
+  /* FR18 co-equal contract: the three metrics stay on ONE row at every width
+     (overrides the legacy PR-2 column stack at ≤30rem — the co-equal spec
+     asserts baseline parity at 320px). */
+  .score-panel__triplet { gap: .35rem; flex-direction: row; }
   body[data-route="#/result"] .score-panel__triplet > span,
   .saved-result-detail .score-panel__triplet > span {
     min-height: 7.8rem;
@@ -358,22 +721,46 @@ body:not([data-route="#/test"]) .chrome-header__language-switcher {
       "options options"
       "nav nav"
       "bailpanel bailpanel";
-    gap: .4rem;
+    gap: .45rem;
     border-radius: .8rem;
   }
-  .item-runner__image {
+  /* The frame gets a DEFINITE height (not max-height) so the matrix image can
+     resolve height:100% and contain itself — with max-height alone the img
+     kept its intrinsic width-driven height and bled under the option tiles. */
+  .item-runner__matrix-frame {
     width: auto;
-    max-width: min(100%, 19rem);
-    max-height: 36vh;
+    max-width: min(100%, 18rem);
+    height: min(32vh, 18rem);
+    justify-self: center;
     padding: .35rem;
+  }
+  .item-runner__matrix-frame .item-runner__image {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+    object-fit: contain;
   }
   .item-runner__options {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: .35rem;
     overflow-y: auto;
+    /* Fill the grid track exactly (min-height:0 + overflow-y:auto make the
+       track shrinkable): centring here let the options keep their full content
+       height and bleed under the matrix and nav on short viewports. */
+    align-self: stretch;
+    max-height: 100%;
   }
-  .item-runner__option { min-height: 3.7rem; padding: .15rem; }
-  .item-runner__option-figure { width: clamp(2.7rem, 7vh, 4rem); }
+  .item-runner__options > legend.visually-hidden { font-size: .78rem; margin-block-end: .15rem; }
+  .item-runner__option { min-height: 3.4rem; padding: .15rem .15rem 1.05rem; }
+  .item-runner__option::after { font-size: .6rem; bottom: .18rem; }
+  /* PR-24 parity: one option figure ≈ one matrix cell. The matrix image is a
+     square of (frame height − frame padding), so a cell edge is that ÷ 3 —
+     derive the figure from the SAME expression the frame height uses, keeping
+     the rendered widths within the ±5% contract at every mobile width. */
+  .item-runner__option-figure {
+    width: calc((min(32vh, 18rem) - .7rem) / 3);
+  }
   .item-runner__nav { padding-top: .4rem; }
   .item-runner__prev,
   .item-runner__next { padding: .55rem 1rem; }

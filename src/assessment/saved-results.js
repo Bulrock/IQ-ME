@@ -206,25 +206,52 @@ function renderDetail(rootEl, strings, item) {
     ? Math.round((d.displayedBand.upper - d.displayedBand.lower) / 2 * 15) : null;
   const date = d.date || (d.savedAt ? new Date(d.savedAt).toISOString().slice(0, 10) : null);
   // PR-14 (Story 11-1): render the saved result with the SAME score-panel
-  // co-equal triplet + result-scene centering as the live result page.
+  // co-equal triplet + result-scene centering as the live result page. The
+  // metric-viz spans mirror the live result cards (Aurora reference) — pure
+  // decoration, aria-hidden.
   const cell = (n, value, label) =>
     value == null ? "" :
     '<span class="score-panel__' + n + '" tabindex="0"><span class="score-panel__metric-value">' + escT(String(value)) + '</span>' +
-    '<span class="score-panel__metric-label">' + escT(label) + '</span></span>';
+    '<span class="score-panel__metric-label">' + escT(label) + '</span>' +
+    '<span class="score-panel__metric-viz score-panel__metric-viz--' + n + '" aria-hidden="true"><span></span></span></span>';
   const triplet =
     cell("percentile", p, r.percentileLabel ?? "Percentile") +
     cell("anchor", a, r.anchorLabel ?? "IQ-scale") +
     cell("band", h != null ? F(r.bandTemplate || "±{N}", { N: h }) : null, r.bandLabel ?? "Range");
+  // Context line under the heading: which test produced this estimate (newer
+  // artifacts carry methodology/variant — see result.js bindSave), plus the
+  // save date. Older artifacts degrade to just the date.
+  const method = d.methodology ? (r["method_" + d.methodology] || d.methodology) : null;
+  const variantName = d.variant ? (r["variant_" + d.variant] || d.variant) : null;
+  const context = [method && variantName ? method + " · " + variantName : method, date ? (s.dateLabel ?? "Date") + " " + date : null]
+    .filter(Boolean).join(" — ");
+  // Print/download parity with the live result (reference "IQ-ME Result"
+  // viewer): the saved detail carries the same print-only masthead + footer,
+  // and a visible print button that opens the browser's print-to-PDF dialog.
+  const printHead =
+    '<div class="result-print-only"><p class="result-print-only__title">' + escT(r.printTitle ?? "") + '</p>' +
+    (date ? '<p class="result-print-only__date">' + escT(date) + '</p>' : '') + '</div>';
+  const printFooter = '<p class="result-print-footer" aria-hidden="true">IQ-ME · /methodology/v0.1.0/</p>';
   rootEl.innerHTML =
     '<section class="result-scene saved-result-detail" data-reveal-stage="methodology-handoff" data-saved-result-view aria-labelledby="saved-result-detail-heading">' +
       '<section class="score-panel">' +
-        '<h1 id="saved-result-detail-heading" class="visually-hidden">' + escT(s.detailHeading ?? "Saved result") + '</h1>' +
+        printHead +
+        '<header class="score-panel__header">' +
+          '<h1 id="saved-result-detail-heading">' + escT(s.detailHeading ?? "Saved result") + '</h1>' +
+          (context ? '<p class="saved-result-detail__date">' + escT(context) + '</p>' : '') +
+        '</header>' +
         '<div class="score-panel__triplet">' + triplet + '</div>' +
-        (date ? '<p class="saved-result-detail__date">' + escT((s.dateLabel ?? "Date") + " " + date) + '</p>' : '') +
-        '<button type="button" class="saved-results__back" data-saved-back>' + escT(s.backToList ?? "Back to list") + '</button>' +
+        '<div class="saved-result-detail__actions">' +
+          '<button type="button" class="saved-results__back" data-saved-back>' + escT(s.backToList ?? "Back to list") + '</button>' +
+          (r.printButton ? '<button type="button" class="result-print-btn" data-saved-print>' + escT(r.printButton) + '</button>' : '') +
+        '</div>' +
+        printFooter +
       '</section>' +
     '</section>';
   on(rootEl.querySelector("[data-saved-back]"), "click", () => renderList(rootEl, strings));
+  on(rootEl.querySelector("[data-saved-print]"), "click", () => {
+    if (typeof window !== "undefined" && typeof window.print === "function") window.print();
+  });
 }
 
 export function render(rootEl, strings) {
